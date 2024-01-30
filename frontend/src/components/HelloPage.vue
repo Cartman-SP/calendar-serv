@@ -1,6 +1,5 @@
 <template>
     <header>
-        <img class="background" src="../../static/img/photo_2024-01-30_18-47-43.jpg" alt="">
         <div class="buttons">
             <a href="#/login">
                 <button class="enter">Вход</button>
@@ -17,6 +16,11 @@ export default {
 </script>
 
 <style>
+body{
+    background: url('../../static/img/photo_2024-01-30_18-47-43.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
 .buttons {
     position: absolute;
     top: 50%;
@@ -25,6 +29,15 @@ export default {
     display: flex;
     flex-direction: row;
   }
+
+.buttons a{
+    text-decoration: none;
+    transition: .2s ease;
+}
+
+.buttons a:hover{
+    filter: brightness(90%);
+}
   
   .enter{
     width: 233px;
