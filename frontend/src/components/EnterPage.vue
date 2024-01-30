@@ -59,6 +59,7 @@
           </div>
         </div>
       </div>
+      <InputMaskComponent id="basic" v-model="value" mask="99-999999" placeholder="99-999999" />
     </div>
   </template>
   
@@ -181,8 +182,6 @@
       border-radius: 6px;
       outline-color: transparent;
   }
-
-
 
   input {
     width: 100%;
