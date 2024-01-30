@@ -1,10 +1,6 @@
 <template>
   <div class="login">
     <div class="container">
-      <div class="header">
-        <div class="subheader">SKED</div>
-        <div class="subtext">Онлайн запись — легко!</div>
-      </div>
       <div class="Forma">
         <div class="login-prompt">
           Нет аккаунта? <span class="login-link">Зарегистрироваться</span>
@@ -118,31 +114,6 @@ export default {
     justify-content: space-between;
     align-items: center;
   }
-  
-  .header{
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-  }
-  
-  .subheader {
-    text-align: left;
-    color: #FFF;
-    font-family: "TT Norms Bold";
-    font-size: 64px;
-    font-style: normal;
-    line-height: normal;
-  }
-  
-  .subtext {
-    color: #FFF;
-    font-family: "TT Norms";
-    font-size: 28px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-  }
-  
   
   .Forma {
     display: flex;
