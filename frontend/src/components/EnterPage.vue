@@ -60,9 +60,6 @@
   </script>
   
   <style>
-  :root{
-    --el-font-size-base: 13px;
-  }
   
   .login{
     background-color: #fff;
