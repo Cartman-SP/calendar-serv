@@ -16,8 +16,25 @@
                     <label for="username">Почта<span class="required-field">*</span></label>
                     <input type="email" id="username" name="username" placeholder="Usermail@gmail.com" required>
                 </div>
-                <div class="form-group">
-                    <label for="phone">Телефон<span class="required-field">*</span></label>
+                <label for="phone">Телефон<span class="required-field">*</span></label>
+                <div class="form-group" style="display: flex;">      
+                    <div class="card flex justify-content-center">
+                        <DropdownComponent v-model="selectedCountry" :options="countries" optionLabel="name" placeholder="🇷🇺" class="w-full md:w-14rem">
+                            <template #value="slotProps">
+                                <div v-if="slotProps.value" class="flex align-items-center">
+                                    <div>{{ slotProps.value.name }}</div>
+                                </div>
+                                <span v-else>
+                                    {{ slotProps.placeholder }}
+                                </span>
+                            </template>
+                            <template #option="slotProps">
+                                <div class="flex align-items-center">
+                                    <div>{{ slotProps.option.name }}</div>
+                                </div>
+                            </template>
+                        </DropdownComponent>
+                    </div>
                     <input type="tel" id="phone" name="phone" required>
                 </div>
                 <div class="form-group">
@@ -46,33 +63,31 @@
   </template>
   
   <script>
-  export default {
-    data() {
-      return {
-        input: ''
-      }
-    }
-  }
-  import { ref } from 'vue'
-  const input = ref('')
-  console.log(input)
-
+    export default {
+        data() {
+            return {
+                selectedCountry: null,
+                countries: [
+                    { name: '🇷🇺', code: '' },
+                    { name: '🇧🇾', code: '' },
+                    { name: '🇰🇿', code: '' },
+                    { name: '🇺🇦', code: '' },
+                ]
+            };
+        }
+    };
   </script>
   
   <style>
-  
-  .login{
-    background-color: #fff;
-  }
-  
   .container {
+    height: 100vh;
+    padding: 0 30vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
   
   .header{
-    position: absolute;
     display: flex;
     flex-direction: column;
     text-align: left;
@@ -81,10 +96,9 @@
   .subheader {
     text-align: left;
     color: #FFF;
-    font-family: "TT Norms";
+    font-family: "TT Norms Bold";
     font-size: 64px;
     font-style: normal;
-    font-weight: 500;
     line-height: normal;
   }
   
@@ -99,16 +113,15 @@
   
   
   .Forma {
-    position: absolute;
     display: flex;
     flex-direction: column;
-    top: 50%;
-    left: 70%; 
-    transform: translate(-50%, -50%);
+    align-items: center;
   }
   
   .login-prompt {
-    width: 150px;
+    padding: 0 80px 0 0;
+    text-align: left;
+    width: 340px;
     color: var(--cold-text-ghost-500, #DDE1E5);
     font-family: "TT Norms";
     font-size: 13px;
@@ -161,8 +174,18 @@
     text-align: left;
   }
   
+  .p-dropdown{
+      background: #f3f5f6;
+      border: none;
+      transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, outline-color 0.2s;
+      border-radius: 6px;
+      outline-color: transparent;
+  }
+
+
+
   input {
-    width: 260px;
+    width: 100%;
     padding: 10px;
     box-sizing: border-box;
     margin-bottom: 10px;

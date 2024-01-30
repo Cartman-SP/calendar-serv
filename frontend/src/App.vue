@@ -11,6 +11,18 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'TT Norms Bold';
+    src: url('../static/fonts/TT\ Norms/TTNorms-Bold.eot'), url('../static/fonts/TT\ Norms/TTNorms-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
