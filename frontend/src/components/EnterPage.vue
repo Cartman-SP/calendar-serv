@@ -1,83 +1,114 @@
 <template>
-    <div class="login">
-      <div class="container">
-        <div class="header">
-          <div class="subheader">SKED</div>
-          <div class="subtext">Онлайн запись — легко!</div>
+  <div class="login">
+    <div class="container">
+      <div class="header">
+        <div class="subheader">SKED</div>
+        <div class="subtext">Онлайн запись — легко!</div>
+      </div>
+      <div class="Forma">
+        <div class="login-prompt">
+          Уже есть аккаунт? <span class="login-link">Войти</span>
         </div>
-        <div class="Forma">
-          <div class="login-prompt">
-            Уже есть аккаунт? <span class="login-link">Войти</span>
-          </div>
-          <div class="registration-form">
-            <h2>Регистрация</h2>
-            <form>
-                <div class="form-group">
-                    <label for="username">Почта<span class="required-field">*</span></label>
-                    <input type="email" id="username" name="username" placeholder="Usermail@gmail.com" required>
-                </div>
-                <label for="phone">Телефон<span class="required-field">*</span></label>
-                <div class="form-group" style="display: flex;">      
-                    <div class="card flex justify-content-center">
-                        <DropdownComponent v-model="selectedCountry" :options="countries" optionLabel="name" placeholder="🇷🇺" class="w-full md:w-14rem">
-                            <template #value="slotProps">
-                                <div v-if="slotProps.value" class="flex align-items-center">
-                                    <div>{{ slotProps.value.name }}</div>
-                                </div>
-                                <span v-else>
-                                    {{ slotProps.placeholder }}
-                                </span>
-                            </template>
-                            <template #option="slotProps">
-                                <div class="flex align-items-center">
-                                    <div>{{ slotProps.option.name }}</div>
-                                </div>
-                            </template>
-                        </DropdownComponent>
+        <div class="registration-form">
+          <h2>Регистрация</h2>
+          <form>
+            <div class="form-group">
+              <label for="username">Почта<span class="required-field">*</span></label>
+              <input type="email" id="username" name="username" placeholder="Usermail@gmail.com" required>
+            </div>
+            <label for="phone">Телефон<span class="required-field">*</span></label>
+            <div class="form-group" style="display: flex;">      
+              <div class="card flex justify-content-center">
+                <DropdownComponent v-model="selectedCountry" :options="countries" optionLabel="name" placeholder="🇷🇺" class="w-full md:w-14rem">
+                  <template #value="slotProps">
+                    <div v-if="slotProps.value" class="flex align-items-center">
+                      <div>{{ slotProps.value.name }}</div>
                     </div>
-                    <input type="tel" id="phone" name="phone" required>
-                </div>
-                <div class="form-group">
-                  <label for="password">Пароль</label>
-                  <el-input
-                  v-model="input"
-                  type="password"
-                  placeholder="Please input password"
-                  show-password
-                />
-                </div>
-                <button type="submit">Создать аккаунт</button>
-                <p class="disclaimer">
-                  Используя SKED, я соглашаюсь с обработкой <br> <span class="underlined">персональных данных</span> и <span class="underlined">договором публичной оферты</span>
-                </p>
-                <div class="social-icons">
-                  <img class="logo" src="../../static/img/photo_2024-01-30_18-49-14.jpg" alt="Google">
-                  <img class="logo" src="../../static/img/photo_2024-01-30_18-49-14.jpg" alt="Twitter">
-                  <img class="logo" src="../../static/img/photo_2024-01-30_18-49-14.jpg" alt="Mail.ru">
-                </div>
-            </form>
-          </div>
+                    <span v-else>
+                      {{ slotProps.placeholder }}
+                    </span>
+                  </template>
+                  <template #option="slotProps">
+                    <div class="flex align-items-center">
+                      <div>{{ slotProps.option.name }}</div>
+                    </div>
+                  </template>
+                </DropdownComponent>
+              </div>
+              <InputMaskComponent @input="handleInput" id="basic" v-model="value" :mask="computedMask" :placeholder="computedPlaceholder" />
+            </div>
+            <div class="form-group">
+              <label for="password">Пароль</label>
+              <div class="card flex justify-content-center">
+                <PasswordComponent v-model="passwordValue" toggleMask />
+              </div>
+            </div>
+            <button type="submit">Создать аккаунт</button>
+            <p class="disclaimer">
+              Используя SKED, я соглашаюсь с обработкой <br> <span class="underlined">персональных данных</span> и <span class="underlined">договором публичной оферты</span>
+            </p>
+            <div class="social-icons">
+              <img class="logo" src="../../static/img/photo_2024-01-30_18-49-14.jpg" alt="Google">
+              <img class="logo" src="../../static/img/photo_2024-01-30_18-49-14.jpg" alt="Twitter">
+              <img class="logo" src="../../static/img/photo_2024-01-30_18-49-14.jpg" alt="Mail.ru">
+            </div>
+          </form>
         </div>
       </div>
-      <InputMaskComponent id="basic" v-model="value" mask="99-999999" placeholder="99-999999" />
     </div>
-  </template>
-  
-  <script>
-    export default {
-        data() {
-            return {
-                selectedCountry: null,
-                countries: [
-                    { name: '🇷🇺', code: '' },
-                    { name: '🇧🇾', code: '' },
-                    { name: '🇰🇿', code: '' },
-                    { name: '🇺🇦', code: '' },
-                ]
-            };
-        }
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      selectedCountry: null,
+      value: '7 ', // Начальное значение для InputMaskComponent
+      passwordValue: '', // Поле пароля
+      countries: [
+        { name: '🇷🇺', code: '+7' },
+        { name: '🇧🇾', code: '+375' },
+        { name: '🇰🇿', code: '+7' },
+        { name: '🇺🇦', code: '+380' },
+      ],
     };
-  </script>
+  },
+  computed: {
+    computedMask() {
+      if (this.selectedCountry) {
+        const countryCode = this.selectedCountry.code;
+        if (countryCode === '+375' || countryCode === '+380') {
+          return `${countryCode} (99) 999-99-99`;
+        } else {
+          return `${countryCode} (999) 999-99-99`;
+        }
+      } else {
+        return '+7 (999) 999-99-99'; // Default mask
+      }
+    },
+    computedPlaceholder() {
+      return this.selectedCountry ? this.selectedCountry.code + ' |' : '+7 |';
+    },
+  },
+  watch: {
+    selectedCountry(newCountry) {
+      if (newCountry) {
+        this.value = newCountry.code + ' ' + this.value.replace(/^\s*\+\d\s*\|\s*/, '');
+      }
+    },
+  },
+  methods: {
+    handleInput() {
+      const countryCode = this.selectedCountry ? this.selectedCountry.code : '';
+      this.value = countryCode + ' ' + this.value.replace(/^\s*\+\d\s*\|\s*/, '');
+    },
+  },
+};
+</script>
+
+
+
   
   <style>
   .container {
