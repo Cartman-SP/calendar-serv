@@ -20,7 +20,7 @@
                     <label for="phone">Телефон<span class="required-field">*</span></label>
                     <input type="tel" id="phone" name="phone" required>
                 </div>
-                <div class="form-group input-container">
+                <div class="form-group">
                   <label for="password">Пароль</label>
                   <el-input
                   v-model="input"
@@ -60,9 +60,12 @@
   </script>
   
   <style>
+  :root{
+    --el-font-size-base: 13px;
+  }
   
   .login{
-    background-color: #000;
+    background-color: #fff;
   }
   
   .container {
@@ -136,7 +139,7 @@
   }
   
   .registration-form {
-    background: #000;
+    background: #fff;
     width: 340px;
     height: 475px;
     margin: 0 auto;
