@@ -22,8 +22,12 @@
                 </div>
                 <div class="form-group input-container">
                   <label for="password">Пароль</label>
-                  <input type="password" id="password" name="password" placeholder="****" required>
-                  <span class="toggle-password" @click="togglePasswordVisibility">&#128065;</span>
+                  <el-input
+                  v-model="input"
+                  type="password"
+                  placeholder="Please input password"
+                  show-password
+                />
                 </div>
                 <button type="submit">Создать аккаунт</button>
                 <p class="disclaimer">
@@ -43,23 +47,22 @@
   
   <script>
   export default {
-    methods: {
-      togglePasswordVisibility() {
-        const passwordInput = document.getElementById('password');
-        if (passwordInput.type === 'password') {
-          passwordInput.type = 'text';
-        } else {
-          passwordInput.type = 'password';
-        }
+    data() {
+      return {
+        input: ''
       }
     }
   }
+  import { ref } from 'vue'
+  const input = ref('')
+  console.log(input)
+
   </script>
   
   <style>
   
   .login{
-    background-image: url(../../static/img/photo_2024-01-30_18-47-43.jpg) center (center / cover) no-repeat;
+    background-color: #000;
   }
   
   .container {
@@ -133,7 +136,7 @@
   }
   
   .registration-form {
-    background: #fff;
+    background: #000;
     width: 340px;
     height: 475px;
     margin: 0 auto;
