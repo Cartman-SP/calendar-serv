@@ -2,8 +2,10 @@
     <header>
         <img class="background" src="../../img/Back.png" alt="">
         <div class="buttons">
-          <button class="enter">Вход</button>
-          <button class="register">Регистрация</button>
+            <a href="#/login">
+                <button class="enter">Вход</button>
+            </a>
+            <a href="#/register"><button class="register">Регистрация</button></a>
         </div>
     </header>
 </template>
