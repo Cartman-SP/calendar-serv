@@ -48,6 +48,7 @@
               Используя SKED, я соглашаюсь с обработкой <br> <span class="underlined">персональных данных</span> и <span class="underlined">договором публичной оферты</span>
             </p>
             <div class="social-icons">
+              <div id="buttonContainerId"></div>
               <img class="logo" src="../../static/img/photo_2024-01-30_18-49-14.jpg" alt="Google">
               <img class="logo" src="../../static/img/photo_2024-01-30_18-49-14.jpg" alt="Twitter">
               <img class="logo" src="../../static/img/photo_2024-01-30_18-49-14.jpg" alt="Mail.ru">
@@ -73,6 +74,20 @@ export default {
         { name: '🇺🇦', code: '+380' },
       ],
     };
+  },
+  mounted() {
+    // Создайте элемент <script> и установите его атрибуты
+    let recaptchaScript = document.createElement('script');
+    recaptchaScript.src = 'https://yastatic.net/s3/passport-sdk/autofill/v1/sdk-suggest-with-polyfills-latest.js';
+    recaptchaScript.async = true;
+
+    // Добавьте обработчик события load
+    recaptchaScript.onload = () => {
+      this.initializeYaAuthSuggest();
+    };
+
+    // Добавьте элемент <script> в <head>
+    document.head.appendChild(recaptchaScript);
   },
   computed: {
     computedMask() {
@@ -102,6 +117,46 @@ export default {
     handleInput() {
       const countryCode = this.selectedCountry ? this.selectedCountry.code : '';
       this.value = countryCode + ' ' + this.value.replace(/^\s*\+\d\s*\|\s*/, '');
+    },
+    initializeYaAuthSuggest() {
+      // Проверка наличия YaAuthSuggest после загрузки скрипта
+      if (window.YaAuthSuggest) {
+        window.YaAuthSuggest.init(
+          {
+            client_id: '446fa0ffce124cddbe64dcbc0265c478',
+            response_type: 'token',
+            redirect_uri: 'http://localhost:8080/#/yaverify'
+          },
+          'http://localhost:8080/#/register',
+        {
+          view: "button",
+          parentId: "buttonContainerId",
+          buttonSize: 'm',
+          buttonView: 'iconBg',
+          buttonTheme: 'light',
+          buttonBorderRadius: "10",
+          buttonIcon: 'ya',
+          customBgColor: 'rgba(180, 184, 204, 0.14)',
+          customBgHoveredColor: 'rgba(180, 184, 204, 0.2)',
+          customBorderColor: 'rgba(180, 184, 204, 0.28)',
+          customBorderHoveredColor: 'rgba(180, 184, 204, 0.28)',
+          customBorderWidth: '0',
+        }
+      )
+        .then(({ handler }) => handler())
+        .then(data => {
+          console.log('Сообщение с токеном:', data);
+          // Вместо вывода в консоль, обновите данные в вашем компоненте
+          // Например, this.$data.tokenData = data;
+        })
+        .catch(error => {
+          console.error('Обработка ошибки:', error);
+          // Вместо вывода в консоль, обновите данные об ошибке в вашем компоненте
+          // Например, this.$data.errorData = error;
+        });
+      } else {
+        console.error('Ошибка: YaAuthSuggest не определен после загрузки скрипта.');
+      }
     },
   },
 };
