@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div class="reg">
     <div class="container">
       <div class="header">
         <div class="subheader">SKED</div>
@@ -7,7 +7,7 @@
       </div>
       <div class="Forma">
         <div class="login-prompt">
-          Уже есть аккаунт? <span class="login-link">Войти</span>
+          Уже есть аккаунт? <a class="login-link" href="#/login" style="text-decoration:none">Войти</a>
         </div>
         <div class="registration-form">
           <h2>Регистрация</h2>
@@ -252,7 +252,7 @@ export default {
   label {
     display: block;
     margin-bottom: 5px;
-    color: var(--cold-text-title-200, #535C69);
+    color: #535C69;
     font-family: "TT Norms";
     font-size: 13px;
     font-style: normal;
@@ -274,7 +274,7 @@ export default {
     padding: 10px;
     box-sizing: border-box;
     margin-bottom: 10px;
-    color: var(--cold-text-title-200, #535C69);
+    color: #535C69;
     font-family: "TT Norms";
     font-size: 13px;
     font-style: normal;
@@ -318,7 +318,7 @@ export default {
     padding: 10px;
     box-sizing: border-box;
     margin-bottom: 10px;
-    color: var(--cold-text-title-200, #535C69);
+    color:#AFB6C1;
     font-family: "TT Norms";
     font-size: 13px;
     font-style: normal;
