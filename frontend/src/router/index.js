@@ -5,6 +5,7 @@ import EnterPage from '../components/EnterPage.vue'
 import ResetPage from '../components/ResetPage.vue'
 import ResetPasswordPage from '../components/ResetPasswordPage.vue'
 import RecoveryPage from '../components/RecoveryPage.vue'
+import MainPage from '../components/MainPage.vue'
 const routes = [
   {
     path: '/',
@@ -35,6 +36,11 @@ const routes = [
     path: '/recovery',
     name: 'recovery',
     component: RecoveryPage,
+  },
+  {
+    path: '/main',
+    name: 'main',
+    component: MainPage,
   },
 ]
 

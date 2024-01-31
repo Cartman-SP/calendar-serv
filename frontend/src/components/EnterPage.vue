@@ -19,7 +19,7 @@
               </div>
             </div>
             <div class="reset">
-              <button type="submit">Войти</button>
+              <a href="#/main" style="text-decoration:none"><button type="submit">Войти</button></a>
               <a class="ResetPassword" href="#/reset"> Восстановить пароль </a>
             </div>
             <div class="social-icons">
