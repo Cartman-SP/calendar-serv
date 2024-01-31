@@ -3,35 +3,14 @@
     <div class="container">
       <div class="Forma">
         <div class="login-prompt">
-          Нет аккаунта? <span class="login-link">Зарегистрироваться</span>
+          Нет аккаунта? <a href="#/register" class="login-link" style="text-decoration:none">Зарегистрироваться</a>
         </div>
         <div class="registration-form">
           <h2>Вход</h2>
           <form>
             <div class="form-group">
-              <label for="username">Почта<span class="required-field">*</span></label>
+              <label for="username">Почта или телефон</label>
               <input type="email" id="username" name="username" placeholder="Usermail@gmail.com" required>
-            </div>
-            <label for="phone">Телефон<span class="required-field">*</span></label>
-            <div class="form-group" style="display: flex;">      
-              <div class="card flex justify-content-center">
-                <DropdownComponent v-model="selectedCountry" :options="countries" optionLabel="name" placeholder="🇷🇺" class="w-full md:w-14rem">
-                  <template #value="slotProps">
-                    <div v-if="slotProps.value" class="flex align-items-center">
-                      <div>{{ slotProps.value.name }}</div>
-                    </div>
-                    <span v-else>
-                      {{ slotProps.placeholder }}
-                    </span>
-                  </template>
-                  <template #option="slotProps">
-                    <div class="flex align-items-center">
-                      <div>{{ slotProps.option.name }}</div>
-                    </div>
-                  </template>
-                </DropdownComponent>
-              </div>
-              <InputMaskComponent @input="handleInput" id="basic" v-model="value" :mask="computedMask" :placeholder="computedPlaceholder" />
             </div>
             <div class="form-group">
               <label for="password">Пароль</label>
@@ -39,16 +18,28 @@
                 <PasswordComponent v-model="passwordValue" toggleMask />
               </div>
             </div>
-            <button type="submit">Создать аккаунт</button>
-            <p class="disclaimer">
-              Используя SKED, я соглашаюсь с обработкой <br> <span class="underlined">персональных данных</span> и <span class="underlined">договором публичной оферты</span>
-            </p>
+            <div class="reset">
+              <button type="submit">Войти</button>
+              <a class="ResetPassword" href="#/reset"> Восстановить пароль </a>
+            </div>
             <div class="social-icons">
               <img class="logo" src="../../static/img/photo_2024-01-30_18-49-14.jpg" alt="Google">
               <img class="logo" src="../../static/img/photo_2024-01-30_18-49-14.jpg" alt="Twitter">
               <img class="logo" src="../../static/img/photo_2024-01-30_18-49-14.jpg" alt="Mail.ru">
             </div>
           </form>
+        </div>
+      </div>
+      <div class="man">
+        <img src="../../static/img/Man.png" alt="">
+        <div class="man_head">
+          <div class="man_header">Здравствуйте!</div>
+          <div class="man_subheader">Зарегистрируйтесь или войдите, чтобы <br>получить полный доступ к безграничному <br> функционалу Calendar</div>
+          <div class="man_button-container">
+            <a href="#/register" style="text-decoration:none">
+              <button class="man_button">Регистрация</button>
+          </a>
+          </div>
         </div>
       </div>
     </div>
@@ -59,68 +50,12 @@
 export default {
   data() {
     return {
-      selectedCountry: null,
-      value: '7 ', // Начальное значение для InputMaskComponent
-      passwordValue: '', // Поле пароля
-      countries: [
-        { name: '🇷🇺', code: '+7' },
-        { name: '🇧🇾', code: '+375' },
-        { name: '🇰🇿', code: '+7' },
-        { name: '🇺🇦', code: '+380' },
-      ],
     };
-  },
-  computed: {
-    computedMask() {
-      if (this.selectedCountry) {
-        const countryCode = this.selectedCountry.code;
-        if (countryCode === '+375' || countryCode === '+380') {
-          return `${countryCode} (99) 999-99-99`;
-        } else {
-          return `${countryCode} (999) 999-99-99`;
-        }
-      } else {
-        return '+7 (999) 999-99-99'; // Default mask
-      }
-    },
-    computedPlaceholder() {
-      return this.selectedCountry ? this.selectedCountry.code + ' |' : '+7 |';
-    },
-  },
-  watch: {
-    selectedCountry(newCountry) {
-      if (newCountry) {
-        this.value = newCountry.code + ' ' + this.value.replace(/^\s*\+\d\s*\|\s*/, '');
-      }
-    },
-  },
-  methods: {
-    handleInput() {
-      const countryCode = this.selectedCountry ? this.selectedCountry.code : '';
-      this.value = countryCode + ' ' + this.value.replace(/^\s*\+\d\s*\|\s*/, '');
-    },
   },
 };
 </script>
-
-
-
   
   <style>
-  .container {
-    height: 100vh;
-    padding: 0 30vw;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .Forma {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
   .login-prompt {
     padding: 0 80px 0 0;
     text-align: left;
@@ -165,18 +100,6 @@ export default {
     margin-bottom: 20px;
   }
   
-  label {
-    display: block;
-    margin-bottom: 5px;
-    color: var(--cold-text-title-200, #535C69);
-    font-family: "TT Norms";
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    text-align: left;
-  }
-  
   .p-dropdown{
       background: #f3f5f6;
       border: none;
@@ -184,29 +107,6 @@ export default {
       border-radius: 6px;
       outline-color: transparent;
   }
-
-  input {
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-    color: var(--cold-text-title-200, #535C69);
-    font-family: "TT Norms";
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    display: flex;
-    height: 36px;
-    padding: 8px 10px;
-    justify-content: space-between;
-    align-items: center;
-    align-self: stretch;
-    border-radius: 3px;
-    background:#F3F5F6;
-    border: none;
-  }
-  
   .required-field {
     color: var(--required-field-color, #F97F7F);
     font-family: Montserrat;
@@ -249,7 +149,7 @@ export default {
     background: var(--cold-text-soft-600, #F3F5F6);
   }
   
-  .input-container .toggle-password {
+  .input-containe{
     color: #535C69;
     position: absolute;
     right: 10px;
@@ -271,22 +171,32 @@ export default {
     align-items: center;
     gap: 5px;
     border-radius: 3px;
-  
+    transition: background-color 0.3s, color 0.3s
   }
-  
-  .disclaimer {
-    color: var(--cold-text-muted-400, #AFB6C1);
-    font-family: "TT Norms";
-    font-size: 10px;
+
+  button:hover {
+    background-color: #464AD9;
+    color: #FFF;
+  }
+
+  .reset {
+    display: flex;
+    align-items: center;
+  }
+
+  .ResetPassword{
+    color: var(--cold-text-subtitle-300, #7D838C);
+    font-size: 13px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    margin-top: 10px;
-    text-align: left;
+    margin-left: 15px;
+    text-decoration: none;
+    transition: color 0.3s;
   }
-  
-  .disclaimer span {
-    text-decoration-line: underline;
+
+  .ResetPassword:hover {
+    color: #464AD9;
   }
   
   .social-icons {
@@ -300,5 +210,50 @@ export default {
     justify-content: center;
     padding: 10px;
   }
-  
+
+  .man{
+    background:#6266EA;
+    height: 100%;
+  }
+
+  .man_head {
+    text-align: center;
+    color: #FAFAFA;
+  }
+
+  .man_header{
+    color:#FAFAFA;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+  .man_subheader{
+    color:#FFF;
+    width: 300px;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    margin: 0 auto;
+  }
+  .man_button {
+    border: 1px solid #FAFAFA;
+    padding: 20px 55px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .man_button:hover {
+    background-color: #FFF;
+    color: #535C69;
+  }
+
+  .man_button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; 
+  }
   </style>
