@@ -13,8 +13,10 @@ import 'primevue/resources/themes/aura-light-green/theme.css'
 import 'primeicons/primeicons.css'
 import store from './store'
 
+
 store.commit('restoreRegistrationData');
 const app = createApp(App).use(store);
+app.config.globalProperties.window = window
 app.config.globalProperties.$axios = axios
 app.use(router).use(PrimeVue).mount('#app');
 app.component('DropdownComponent', Dropdown);

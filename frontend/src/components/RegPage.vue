@@ -82,6 +82,18 @@ export default {
   },
   mounted() {
 
+    let recaptchaScript = document.createElement('script');
+    recaptchaScript.src = 'https://yastatic.net/s3/passport-sdk/autofill/v1/sdk-suggest-with-polyfills-latest.js';
+    recaptchaScript.async = true;
+
+    // Добавьте обработчик события load
+    recaptchaScript.onload = () => {
+      this.initializeYaAuthSuggest();
+    };
+
+    // Добавьте элемент <script> в <head>
+    document.head.appendChild(recaptchaScript);
+
   },
   computed: {
     computedMask() {
@@ -108,6 +120,46 @@ export default {
     },
   },
   methods: {
+    initializeYaAuthSuggest() {
+      if (window.YaAuthSuggest) {
+        window.YaAuthSuggest.init(
+          {
+            client_id: '446fa0ffce124cddbe64dcbc0265c478',
+            response_type: 'token',
+            redirect_uri: 'http://127.0.0.1:8000/yaauth/token/'
+          },
+          'http://localhost:8080/#/register',
+        {
+          view: "button",
+          parentId: "buttonContainerId",
+          buttonSize: 'm',
+          buttonView: 'iconBg',
+          buttonTheme: 'light',
+          buttonBorderRadius: "10",
+          buttonIcon: 'ya',
+          customBgColor: 'rgba(180, 184, 204, 0.14)',
+          customBgHoveredColor: 'rgba(180, 184, 204, 0.2)',
+          customBorderColor: 'rgba(180, 184, 204, 0.28)',
+          customBorderHoveredColor: 'rgba(180, 184, 204, 0.28)',
+          customBorderWidth: '0',
+        }
+      )
+        .then(({ handler }) => handler())
+        .then(data => {
+          console.log('Сообщение с токеном:', data);
+          // Вместо вывода в консоль, обновите данные в вашем компоненте
+          // Например, this.$data.tokenData = data;
+        })
+        .catch(error => {
+          console.error('Обработка ошибки:', error);
+          // Вместо вывода в консоль, обновите данные об ошибке в вашем компоненте
+          // Например, this.$data.errorData = error;
+        });
+      } else {
+        console.error('Ошибка: YaAuthSuggest не определен после загрузки скрипта.');
+      }
+    },
+
     handleInput() {
       const countryCode = this.selectedCountry ? this.selectedCountry.code : '';
       this.value = countryCode + ' ' + this.value.replace(/^\s*\+\d\s*\|\s*/, '');

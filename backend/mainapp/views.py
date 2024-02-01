@@ -181,3 +181,9 @@ def reset_password_confirm(request, uidb64, token):
 
     except Exception as e:
         return JsonResponse({'error': f'An error occurred: {str(e)}'}, status=500)
+    
+def yaauth(request):
+    context = {}
+    print('123')
+    context['token'] = 'token'
+    return(request,'yareturn.html')
