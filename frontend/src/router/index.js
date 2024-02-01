@@ -41,7 +41,7 @@ const routes = [
     path: '/main',
     name: 'main',
     component: MainPage,
-  },
+  },  
 ]
 
 const router = createRouter({
