@@ -144,6 +144,10 @@ export default {
 
   
   <style>
+  .p-password{
+    display: block;
+  }
+
   .container {
     height: 100vh;
     padding: 0 30vw;

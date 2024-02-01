@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <div class="container">
+    <div class="container1">
       <div class="Forma">
         <div class="login-prompt">
           Нет аккаунта? <router-link to="/register" class="login-link">Зарегистрироваться</router-link>
@@ -14,9 +14,7 @@
             </div>
             <div class="form-group">
               <label for="password">Пароль</label>
-              <div class="card flex justify-content-center">
-                <PasswordComponent v-model="passwordValue" toggleMask />
-              </div>
+              <PasswordComponent v-model="passwordValue" toggleMask />
             </div>
             <div class="reset">
               <button type="submit">Войти</button>
@@ -88,6 +86,14 @@ export default {
 
   
   <style>
+  .container1{
+    height: 100vh;
+    padding: 0 0 0 30vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   .login-prompt {
     padding: 0 80px 0 0;
     text-align: left;
@@ -181,7 +187,7 @@ export default {
     background: var(--cold-text-soft-600, #F3F5F6);
   }
   
-  .input-containe{
+  .input-container{
     color: #535C69;
     position: absolute;
     right: 10px;
@@ -244,8 +250,18 @@ export default {
   }
 
   .man{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background:#6266EA;
-    height: 100%;
+    height: 100vh;
+    width: 40%;
+  }
+
+  .man img{
+    width: 15vw;
+    margin: 2vw;
   }
 
   .man_head {
@@ -275,6 +291,8 @@ export default {
     padding: 20px 55px;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
+    text-decoration: none;
+    color: white;
   }
 
   .man_button:hover {

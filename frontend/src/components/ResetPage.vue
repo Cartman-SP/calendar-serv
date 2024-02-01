@@ -61,6 +61,7 @@ export default {
       height: 100vh;
       padding: 0 30vw;
       display: flex;
+      width: 100vw;
       justify-content: space-between;
       align-items: center;
     }
