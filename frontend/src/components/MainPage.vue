@@ -1,7 +1,10 @@
 <template>
   <div class="main">
-    <NavbarPage/>
-    <SidebarPage/>
+    <div class="navigation">
+      <SidebarPage/>
+      <NavbarPage/>
+    </div>
+    
     <div>
       <!-- Кнопка, вызывающая модальное окно -->
       <button @click="showModal = true" style="padding-left: 355px">Открыть модальное окно</button>
@@ -55,8 +58,13 @@ export default {
 };
 </script>
 
-<style>
-/* Ваши стили здесь */
+<style scoped>
+
+.navigation{
+  display: flex;
+  background-color: white;
+}
+
 .modal-container {
   position: fixed;
   top: 50%;

@@ -46,9 +46,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .main_side {
-    position: fixed;
+    margin: 30px;
     background-color: #F0F0FD;
     height: 100vh;
     width: 260px;
