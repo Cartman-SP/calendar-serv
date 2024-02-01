@@ -1,44 +1,61 @@
 <template>
-    <div class="reset">
-      <div class="container">
-        <div class="header">
-          <div class="subheader">SKED</div>
-          <div class="subtext">Онлайн запись — легко!</div>
+  <div class="reset">
+    <div class="container">
+      <div class="header">
+        <div class="subheader">SKED</div>
+        <div class="subtext">Онлайн запись — легко!</div>
+      </div>
+      <div class="Forma">
+        <div class="reset-prompt">
+          Нет аккаунта? <router-link to="/register" class="login-link" style="text-decoration: none;">Зарегистрироваться</router-link>
         </div>
-        <div class="Forma">
-          <div class="reset-prompt">
-            Нет аккаунта? <a href="#/register" class="login-link" style="text-decoration: none;">Зарегистрироваться</a>
-          </div>
-          <div class="reset-form">
-            <h2>Восстановление<br>пароля</h2>
-            <form>
-              <div class="form-group">
-                <p class="mail">Мы отправим код подтверждения<br>на указанную почту или номер</p>
-                <label for="username">Почта</label>
-                <input type="email" id="username" name="username" placeholder="Usermail@gmail.com" required>
-              </div>
-              <div class="reset">
-                <button type="submit">Восстановить пароль</button>
-              </div>
-            </form>
-          </div>
+        <div class="reset-form">
+          <h2>Восстановление<br>пароля</h2>
+          <form @submit.prevent="resetPassword">
+            <div class="form-group">
+              <p class="mail">Мы отправим код подтверждения<br>на указанную почту или номер</p>
+              <label for="username">Почта</label>
+              <input v-model="email" type="email" id="username" name="username" placeholder="Usermail@gmail.com" required>
+            </div>
+            <div class="reset">
+              <button type="submit">Восстановить пароль</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-      };
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      email: '',
+    };
+  },
+  methods: {
+    async resetPassword() {
+      try {
+        const response = await axios.post('http://127.0.0.1:8000/api/password_reset/', {
+          email: this.email,
+        });
+
+        // Обработка успешного ответа
+        console.log(response.data);
+
+        // Возможно, вы захотите обновить интерфейс или перенаправить пользователя после успешного сброса пароля
+      } catch (error) {
+        // Обработка ошибок
+        console.error('Error:', error.response.data);
+      }
     },
-  };
-  </script>
-  
-  
-  
-    
+  },
+};
+</script>
+
     <style>
     .container {
       height: 100vh;

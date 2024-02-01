@@ -6,14 +6,26 @@ from django.contrib.auth.models import User
 from mainapp.models import *
 import json
 from django.db.models import Q
-# views.py
-
+from django.urls import reverse
+from django.core.mail import send_mail
+from django.contrib.auth.views import PasswordResetView
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 import json
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.views import PasswordResetView
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import SetPasswordForm
+from django.contrib.auth import get_user_model
+from django.http import HttpResponseBadRequest
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+import base64
 
 @csrf_exempt
 @require_POST
@@ -106,3 +118,66 @@ def login_user(request):
             return JsonResponse({'error': 'Неверный логин или пароль'}, status=400)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=400)
+    
+@csrf_exempt
+@require_POST
+def custom_password_reset(request):
+    try:
+        data = json.loads(request.body)
+        email = data.get('email')
+
+        # Check if a user with the specified email exists
+        user = get_user_model().objects.get(email=email)
+
+        # Generate a password reset token
+        token = default_token_generator.make_token(user)
+
+        # Create URL for resetting the password
+        uidb64 = urlsafe_base64_encode(force_bytes(user.pk)).decode()
+        reset_url = f'http://127.0.0.1:8000/reset-password/{uidb64}/{urlsafe_base64_encode(force_bytes(token)).decode()}/'
+
+        # Send email
+        send_mail(
+            'Password Reset',
+            f'To reset your password, follow this link:\n\n{reset_url}',
+            'Daniil.shirkin005@yandex.ru',
+            [user.email],
+            fail_silently=False,
+        )
+
+        return JsonResponse({'message': 'Password reset email sent successfully'})
+
+    except get_user_model().DoesNotExist:
+        return JsonResponse({'error': 'No user found with this email'}, status=400)
+
+    except Exception as e:
+        return JsonResponse({'error': f'An error occurred: {str(e)}'}, status=500)
+
+def reset_password_confirm(request, uidb64, token):
+    try:
+        # Decode UID and get the user
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user_model = get_user_model()
+        user = user_model._default_manager.get(pk=uid)
+
+        # Check the token
+        if not default_token_generator.check_token(user, token):
+            return HttpResponseBadRequest('Invalid reset link')
+
+        if request.method == 'POST':
+            # Process the form for setting a new password
+            form = SetPasswordForm(user, request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('password_reset_complete')  # Replace with your target page after a successful password reset
+        else:
+            # Display the form for setting a new password
+            form = SetPasswordForm(user)
+
+        return render(request, 'reset_password_confirm.html', {'form': form, 'uidb64': uidb64, 'token': token})
+
+    except (ValueError, OverflowError, user_model.DoesNotExist) as e:
+        return HttpResponseBadRequest(f'Invalid reset link: {str(e)}')
+
+    except Exception as e:
+        return JsonResponse({'error': f'An error occurred: {str(e)}'}, status=500)
