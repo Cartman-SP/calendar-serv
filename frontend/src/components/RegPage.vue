@@ -11,10 +11,10 @@
         </div>
         <div class="registration-form">
           <h2>Регистрация</h2>
-          <form>
+          <form @submit.prevent="registerUser">
             <div class="form-group">
               <label for="username">Почта<span class="required-field">*</span></label>
-              <input type="email" id="username" name="username" placeholder="Usermail@gmail.com" required>
+              <input v-model="email" type="email" id="username" name="username" placeholder="Usermail@gmail.com" required>
             </div>
             <label for="phone">Телефон<span class="required-field">*</span></label>
             <div class="form-group" style="display: flex;">      
@@ -44,6 +44,7 @@
               </div>
             </div>
             <button type="submit">Создать аккаунт</button>
+            <div id="error"> {{ error }} </div>
             <p class="disclaimer">
               Используя SKED, я соглашаюсь с обработкой <br> <span class="underlined">персональных данных</span> и <span class="underlined">договором публичной оферты</span>
             </p>
@@ -61,6 +62,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -73,21 +76,12 @@ export default {
         { name: '🇰🇿', code: '+7' },
         { name: '🇺🇦', code: '+380' },
       ],
+      email: '',
+      error: '',
     };
   },
   mounted() {
-    // Создайте элемент <script> и установите его атрибуты
-    let recaptchaScript = document.createElement('script');
-    recaptchaScript.src = 'https://yastatic.net/s3/passport-sdk/autofill/v1/sdk-suggest-with-polyfills-latest.js';
-    recaptchaScript.async = true;
 
-    // Добавьте обработчик события load
-    recaptchaScript.onload = () => {
-      this.initializeYaAuthSuggest();
-    };
-
-    // Добавьте элемент <script> в <head>
-    document.head.appendChild(recaptchaScript);
   },
   computed: {
     computedMask() {
@@ -118,44 +112,28 @@ export default {
       const countryCode = this.selectedCountry ? this.selectedCountry.code : '';
       this.value = countryCode + ' ' + this.value.replace(/^\s*\+\d\s*\|\s*/, '');
     },
-    initializeYaAuthSuggest() {
-      // Проверка наличия YaAuthSuggest после загрузки скрипта
-      if (window.YaAuthSuggest) {
-        window.YaAuthSuggest.init(
-          {
-            client_id: '446fa0ffce124cddbe64dcbc0265c478',
-            response_type: 'token',
-            redirect_uri: 'http://localhost:8080/#/yaverify'
-          },
-          'http://localhost:8080/#/register',
-        {
-          view: "button",
-          parentId: "buttonContainerId",
-          buttonSize: 'm',
-          buttonView: 'iconBg',
-          buttonTheme: 'light',
-          buttonBorderRadius: "10",
-          buttonIcon: 'ya',
-          customBgColor: 'rgba(180, 184, 204, 0.14)',
-          customBgHoveredColor: 'rgba(180, 184, 204, 0.2)',
-          customBorderColor: 'rgba(180, 184, 204, 0.28)',
-          customBorderHoveredColor: 'rgba(180, 184, 204, 0.28)',
-          customBorderWidth: '0',
-        }
-      )
-        .then(({ handler }) => handler())
-        .then(data => {
-          console.log('Сообщение с токеном:', data);
-          // Вместо вывода в консоль, обновите данные в вашем компоненте
-          // Например, this.$data.tokenData = data;
-        })
-        .catch(error => {
-          console.error('Обработка ошибки:', error);
-          // Вместо вывода в консоль, обновите данные об ошибке в вашем компоненте
-          // Например, this.$data.errorData = error;
+
+    async registerUser() {
+      try {
+        const response = await axios.post('http://127.0.0.1:8000/api/reg/', {
+          password: this.passwordValue,
+          phone: this.value,
+          email: this.email
         });
-      } else {
-        console.error('Ошибка: YaAuthSuggest не определен после загрузки скрипта.');
+        this.$store.dispatch('saveRegistrationData', response.data);
+        this.$router.push('/profile');
+      } catch (error) {
+        console.error('Ошибка регистрации', error.response);
+
+        if (error.response.data && typeof error.response.data === 'object') {
+          console.error('Детали ошибки:', JSON.stringify(error.response.data, null, 2));
+          // Устанавливаем значение свойства error для отображения в div
+          this.error = error.response.data.error;
+        } else {
+          console.error('Детали ошибки:', error.response.data);
+          // Устанавливаем значение свойства error для отображения в div
+          this.error = error.response.data;
+        }
       }
     },
   },

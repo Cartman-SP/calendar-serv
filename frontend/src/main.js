@@ -8,15 +8,15 @@ import Password from 'primevue/password';
 import InputText from 'primevue/inputtext';
 import Menubar from 'primevue/menubar';
 import Badge from 'primevue/badge';
-
-
+import axios from 'axios'
 import 'primevue/resources/themes/aura-light-green/theme.css'
 import 'primeicons/primeicons.css'
+import store from './store'
 
-
-const app = createApp(App);
+store.commit('restoreRegistrationData');
+const app = createApp(App).use(store);
+app.config.globalProperties.$axios = axios
 app.use(router).use(PrimeVue).mount('#app');
-
 app.component('DropdownComponent', Dropdown);
 app.component('InputMaskComponent', InputMask);
 app.component('PasswordComponent', Password);

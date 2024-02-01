@@ -6,6 +6,7 @@ import ResetPage from '../components/ResetPage.vue'
 import ResetPasswordPage from '../components/ResetPasswordPage.vue'
 import RecoveryPage from '../components/RecoveryPage.vue'
 import MainPage from '../components/MainPage.vue'
+import DataTestPage from '../components/DataTestPage.vue'
 const routes = [
   {
     path: '/',
@@ -41,7 +42,12 @@ const routes = [
     path: '/main',
     name: 'main',
     component: MainPage,
-  },  
+  },
+  {
+    path:'/profile',
+    name: 'profile',
+    component: DataTestPage
+  }
 ]
 
 const router = createRouter({

@@ -3,14 +3,14 @@
     <div class="container">
       <div class="Forma">
         <div class="login-prompt">
-          Нет аккаунта? <a href="#/register" class="login-link" style="text-decoration:none">Зарегистрироваться</a>
+          Нет аккаунта? <router-link to="/register" class="login-link">Зарегистрироваться</router-link>
         </div>
         <div class="registration-form">
           <h2>Вход</h2>
-          <form>
+          <form @submit.prevent="loginUser">
             <div class="form-group">
               <label for="username">Почта или телефон</label>
-              <input type="email" id="username" name="username" placeholder="Usermail@gmail.com" required>
+              <input v-model="usernameOrEmail" id="username" name="username" placeholder="Usermail@gmail.com" required>
             </div>
             <div class="form-group">
               <label for="password">Пароль</label>
@@ -19,15 +19,14 @@
               </div>
             </div>
             <div class="reset">
-              <a href="#/main" style="text-decoration:none"><button type="submit">Войти</button></a>
-              <a class="ResetPassword" href="#/reset"> Восстановить пароль </a>
+              <button type="submit">Войти</button>
+              <router-link to="/reset" class="ResetPassword">Восстановить пароль</router-link>
             </div>
             <div class="social-icons">
-              <img class="logo" src="../../static/img/photo_2024-01-30_18-49-14.jpg" alt="Google">
-              <img class="logo" src="../../static/img/photo_2024-01-30_18-49-14.jpg" alt="Twitter">
-              <img class="logo" src="../../static/img/photo_2024-01-30_18-49-14.jpg" alt="Mail.ru">
+              <!-- ... (ваш текущий код) ... -->
             </div>
           </form>
+          <div id="error">{{ errorMessage }}</div>
         </div>
       </div>
       <div class="man">
@@ -36,9 +35,7 @@
           <div class="man_header">Здравствуйте!</div>
           <div class="man_subheader">Зарегистрируйтесь или войдите, чтобы <br>получить полный доступ к безграничному <br> функционалу Calendar</div>
           <div class="man_button-container">
-            <a href="#/register" style="text-decoration:none">
-              <button class="man_button">Регистрация</button>
-          </a>
+            <router-link to="/register" class="man_button">Регистрация</router-link>
           </div>
         </div>
       </div>
@@ -47,13 +44,48 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
+      usernameOrEmail: '',
+      passwordValue: '',
+      errorMessage: '', // Обновленное имя переменной для ошибки
     };
+  },
+  methods: {
+    async loginUser() {
+      try {
+        const response = await axios.post('http://127.0.0.1:8000/api/login/', {
+          username_or_email: this.usernameOrEmail,
+          password: this.passwordValue,
+        });
+
+        // Сохраняем данные пользователя в хранилище Vuex
+        this.$store.dispatch('saveRegistrationData', response.data);
+
+        // Очищаем ошибку в случае успешной авторизации
+        this.errorMessage = '';
+
+        // Переход на другую страницу (например, после успешной авторизации)
+        this.$router.push('/profile');
+      } catch (error) {
+        console.error('Ошибка входа', error);
+
+        if (error.response && error.response.data && error.response.data.error) {
+          // Если есть информация об ошибке в ответе сервера, устанавливаем её
+          this.errorMessage = 'Ошибка входа: ' + error.response.data.error;
+        } else {
+          // Если нет информации об ошибке, устанавливаем общее сообщение
+          this.errorMessage = 'Ошибка входа: произошла непредвиденная ошибка';
+        }
+      }
+    },
   },
 };
 </script>
+
   
   <style>
   .login-prompt {
