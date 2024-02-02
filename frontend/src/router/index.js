@@ -7,6 +7,8 @@ import ResetPasswordPage from '../components/ResetPasswordPage.vue'
 import RecoveryPage from '../components/RecoveryPage.vue'
 import MainPage from '../components/MainPage.vue'
 import DataTestPage from '../components/DataTestPage.vue'
+import ServicePage from '../components/ServicePage.vue'
+import CreatePage from '../components/CreatePage.vue'
 const routes = [
   {
     path: '/',
@@ -47,6 +49,16 @@ const routes = [
     path:'/profile',
     name: 'profile',
     component: DataTestPage
+  },
+  {
+    path:'/main/service',
+    name: 'service',
+    component: ServicePage
+  },
+  {
+    path:'/main/service/create',
+    name: 'create',
+    component: CreatePage
   }
 ]
 
