@@ -1,6 +1,5 @@
 <template>
   <div class="main">
-
     <div class="create_service">
       <div class="transition">
         <a href="#/main/service" class="services-link">Услуги</a>
@@ -9,20 +8,21 @@
         </div>
         <p class="creation_text">Создание услуг</p>
       </div>
+
       <!-- 1. Название услуги -->
       <label for="serviceName">Название услуги</label>
-      <input type="text" id="serviceName" placeholder="Новая услуга">
+      <input type="text" id="serviceName" v-model="serviceName" placeholder="Новая услуга">
 
       <!-- 2. Стоимость, Длительность -->
       <div class="cost-duration-container">
         <div class="input-group">
           <label for="serviceCost">Стоимость</label>
-          <input type="number" id="serviceCost" placeholder="Введите стоимость">
+          <input type="number" id="serviceCost" v-model="serviceCost" placeholder="Введите стоимость">
         </div>
 
         <div class="input-group">
           <label for="serviceDuration">Длительность</label>
-          <select id="serviceDuration" placeholder="Выберите время">
+          <select id="serviceDuration" v-model="serviceDuration" placeholder="Выберите время">
             <option value="15m">15м</option>
             <option value="30m">30м</option>
             <option value="45m">45м</option>
@@ -68,8 +68,6 @@
       <!-- 5. Групповые параметры -->
       <div v-if="selectedRecordType === 'group'" class="group-parameters">
         <label for="groupCapacity">Количество мест</label>
-
-        <!-- Объект для кнопок "+" и "-" -->
         <div class="group-buttons">
           <div class="group-counter">
             <button @click="decreaseGroupCapacity">-</button>
@@ -77,8 +75,6 @@
             <input type="text" v-else placeholder="" :value="groupCapacity">
             <button @click="increaseGroupCapacity">+</button>
           </div>
-
-          <!-- Объект для кнопок "+" и "-" -->
           <div class="group-counter">
             <button @click="decreaseMaxGroupCapacity">-</button>
             <input type="text" v-if="maxGroupCapacity === 0" placeholder="До" :value="''">
@@ -88,11 +84,9 @@
         </div>
       </div>
 
-      <!-- 6. Групповые параметры -->
+      <!-- 6. Групповые параметры для аренды -->
       <div v-if="selectedRecordType === 'rental'" class="group-parameters">
         <label for="groupCapacity">Количество единиц для аренды</label>
-
-        <!-- Объект для кнопок "+" и "-" -->
         <div class="group-buttons">
           <div class="group-counter">
             <button @click="decreaseGroupCapacity">-</button>
@@ -100,8 +94,6 @@
             <input type="text" v-else placeholder="" :value="groupCapacity">
             <button @click="increaseGroupCapacity">+</button>
           </div>
-
-          <!-- Объект для кнопок "+" и "-" -->
           <div class="group-counter">
             <button @click="decreaseMaxGroupCapacity">-</button>
             <input type="text" v-if="maxGroupCapacity === 0" placeholder="До" :value="''">
@@ -109,14 +101,13 @@
             <button @click="increaseMaxGroupCapacity">+</button>
           </div>
         </div>
-      </div>      
+      </div>
 
       <!-- 7. Формат оплаты -->
       <label for="paymentFormat">Формат оплаты</label>
       <div class="record-type-container">
         <!-- Добавлены условия для индивидуальной записи -->
         <button
-          v-if="selectedRecordType === 'individual'"
           :class="{ 'active': selectedPaymentFormat === 'sessionPayment' }"
           @click="selectPaymentFormat('sessionPayment')"
           class="record-button"
@@ -124,39 +115,13 @@
           Оплата за сеанс
         </button>
         <button
-          v-if="selectedRecordType === 'individual'"
-          :class="{ 'active': selectedPaymentFormat === 'spotPayment' }"
-          @click="selectPaymentFormat('spotPayment')"
-          class="record-button"
-        >
-          Оплата за место
-        </button>
-        <button
-          v-if="selectedRecordType === 'individual'"
-          :class="{ 'active': selectedPaymentFormat === 'freePayment' }"
-          @click="selectPaymentFormat('freePayment')"
-          class="record-button"
-        >
-          Без стоимости
-        </button>
-
-        <!-- Добавлены условия для групповой и аренды -->
-        <button
-          v-if="selectedRecordType === 'group' || selectedRecordType === 'rental'"
           :class="{ 'active': selectedPaymentFormat === 'equipmentPayment' }"
           @click="selectPaymentFormat('equipmentPayment')"
           class="record-button"
         >
-          Оплата за время и единицу оборудования
+          Оплата за оборудование
         </button>
-        <button
-          v-if="selectedRecordType === 'group' || selectedRecordType === 'rental'"
-          :class="{ 'active': selectedPaymentFormat === 'freePayment' }"
-          @click="selectPaymentFormat('freePayment')"
-          class="record-button"
-        >
-          Без стоимости
-        </button>
+        <!-- ... (другие кнопки) -->
       </div>
 
       <!-- 7. Кнопки -->
@@ -173,8 +138,8 @@
     </div>
   </div>
 </template>
-
 <script>
+import axios from 'axios';
 import NavbarPage from './NavbarPage.vue';
 import SidebarPage from './SidebarPage.vue';
 
@@ -182,6 +147,9 @@ export default {
   components: { NavbarPage, SidebarPage },
   data() {
     return {
+      serviceName: '',
+      serviceCost: 0,
+      serviceDuration: '',
       selectedRecordType: 'individual',
       selectedPaymentFormat: 'sessionPayment',
       uploadedFile: null,
@@ -197,18 +165,44 @@ export default {
       this.selectedPaymentFormat = format;
     },
     saveAndExit() {
-      // Логика сохранения и выхода
+      const formData = new FormData();
+
+      // Добавляем поля данных
+      formData.append('user_id', this.$store.getters.getRegistrationData.user_id);
+      formData.append('name', this.serviceName);
+      formData.append('cost', parseFloat(this.serviceCost));
+      formData.append('duration', this.serviceDuration);
+      formData.append('record_type', this.selectedRecordType);
+      formData.append('payment_type', this.selectedPaymentFormat);
+
+      // Добавляем изображение, если оно было загружено
+      if (this.uploadedFile) {
+        const blob = this.dataURItoBlob(this.uploadedFile);
+        formData.append('cover', blob, 'cover.png');
+      }
+
+      // Отправляем запрос
+      axios.post('http://127.0.0.1:8000/api/create_service/', formData)
+        .then(response => {
+          console.log(response.data);
+          // Обработка успешного ответа, например, переход на другую страницу
+        })
+        .catch(error => {
+          console.error('Ошибка при отправке данных:', error);
+        });
     },
+
     cancel() {
-      // Переход на предыдущую страницу
       this.$router.go(-1);
     },
     handleFileChange(event) {
       const file = event.target.files[0];
       if (file) {
-        // Ваш код для загрузки файла, например, отправка на сервер
-        // В данном примере используется заглушка, вы должны заменить ее на свою логику
-        this.uploadedFile = 'URL к загруженному файлу';
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.uploadedFile = e.target.result;
+        };
+        reader.readAsDataURL(file);
       }
     },
     decreaseGroupCapacity() {
@@ -227,9 +221,21 @@ export default {
     increaseMaxGroupCapacity() {
       this.maxGroupCapacity++;
     },
+    dataURItoBlob(dataURI) {
+      const [type, data] = dataURI.split(',');
+      const byteString = atob(data);
+      const buffer = new ArrayBuffer(byteString.length);
+      const array = new Uint8Array(buffer);
+      for (let i = 0; i < byteString.length; i++) {
+        array[i] = byteString.charCodeAt(i);
+      }
+      return new Blob([buffer], { type: type });
+    },
   },
 };
 </script>
+
+
 
 <style scoped>
 

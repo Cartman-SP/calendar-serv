@@ -5,4 +5,5 @@ urlpatterns = [
     path('login/', login_user, name='endpoint1'),
     path('password_reset/', custom_password_reset, name = 'create_link'),
     path('checkprofile/<int:user_id>', check_profile, name="have_profile"),
+    path('create_service/', create_service)
 ]

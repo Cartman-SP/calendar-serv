@@ -25,7 +25,7 @@ from django.http import HttpResponseBadRequest
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-import base64
+from datetime import timedelta
 
 @csrf_exempt
 @require_POST
@@ -203,3 +203,35 @@ def check_profile(request, user_id):
         return JsonResponse({'error': 'Пользователь не найден'}, status=404)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=400)
+
+@csrf_exempt
+@require_POST
+def create_service(request):
+    # Получение данных из запроса
+    user_id = request.POST.get('user_id', '')  # Если user_id приходит через FormData
+    name = request.POST.get('name', '')
+    cost = request.POST.get('cost', 0)
+    duration = request.POST.get('duration', '')
+    record_type = request.POST.get('record_type', '')
+    payment_type = request.POST.get('payment_type', '')
+    
+    # Получение файла (изображения)
+    cover = request.FILES.get('cover')
+
+    # Создание объекта Service
+    service = Service(
+        user_id=user_id,
+        name=name,
+        cost=cost,
+        duration=duration,
+        record_type=record_type,
+        payment_type=payment_type,
+        cover=cover,
+    )
+
+    # Ваша логика сохранения объекта в базу данных
+    service.save()
+
+    # Отправка ответа в формате JSON
+    response_data = {'success': True, 'message': 'Услуга успешно создана.'}
+    return JsonResponse(response_data)
