@@ -1,10 +1,5 @@
 <template>
     <div>
-        <!-- Кнопка, вызывающая модальное окно -->
-        <button @click="showModal = true" style="padding-left: 355px">Открыть модальное окно</button>
-    
-        <!-- Модальное окно -->
-        <div v-if="showModal" class="modal-container">
           <!-- Первый div с картинкой -->
           <div class="image-container">
             <img src="../../static/img/woman.png" alt="" class="woman">
@@ -23,19 +18,11 @@
             <p class="small-text">Для ввода доступно — {{ remainingCharacters }}/25</p>
             <button class="continue-button">Продолжить</button>
           </div>
-    
-          <!-- Кнопка закрытия модального окна -->
-          <button @click="showModal = false">Закрыть</button>
-        </div>
       </div>
 </template>
 
 <script>
-import NavbarPage from './NavbarPage.vue';
-import SidebarPage from './SidebarPage.vue';
-
 export default {
-  components: { NavbarPage, SidebarPage },
   data() {
     return {
       showModal: false,

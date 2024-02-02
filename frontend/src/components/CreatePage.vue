@@ -11,13 +11,13 @@
       </div>
       <!-- 1. Название услуги -->
       <label for="serviceName">Название услуги</label>
-      <input type="text" id="serviceName" placeholder="Новая услуга">
+      <input v-model="name" type="text" id="serviceName" placeholder="Новая услуга">
 
       <!-- 2. Стоимость, Длительность -->
       <div class="cost-duration-container">
         <div class="input-group">
           <label for="serviceCost">Стоимость</label>
-          <input type="number" id="serviceCost" placeholder="Введите стоимость">
+          <input v-model="cost" type="number" id="serviceCost" placeholder="Введите стоимость">
         </div>
 
         <div class="input-group">
@@ -116,6 +116,8 @@ export default {
     return {
       selectedRecordType: 'individual',
       selectedPaymentFormat: 'sessionPayment',
+      name: '',
+      cost: '',
     };
   },
   methods: {
@@ -132,14 +134,6 @@ export default {
       // Переход на предыдущую страницу
       this.$router.go(-1);
     },
-  },
-  handleFileChange(event) {
-      const file = event.target.files[0];
-      if (file) {
-        // Ваш код для загрузки файла, например, отправка на сервер
-        // В данном примере используется заглушка, вы должны заменить ее на свою логику
-        // this.uploadedFile = 'URL к загруженному файлу';
-    }
   },
 };
 </script>

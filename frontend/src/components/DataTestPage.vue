@@ -1,6 +1,5 @@
 <template>
-    <div>
-      <h2>Профиль пользователя</h2>
+    <div style="bottom: 0%; position: absolute;">
       <div v-if="userData">
         <p><strong>Телефон:</strong> {{ userData.phone }}</p>
         <p><strong>Email:</strong> {{ userData.email }}</p>

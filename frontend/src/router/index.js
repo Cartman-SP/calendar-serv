@@ -6,9 +6,10 @@ import ResetPage from '../components/ResetPage.vue'
 import ResetPasswordPage from '../components/ResetPasswordPage.vue'
 import RecoveryPage from '../components/RecoveryPage.vue'
 import MainPage from '../components/MainPage.vue'
-import DataTestPage from '../components/DataTestPage.vue'
 import ServicePage from '../components/ServicePage.vue'
 import CreatePage from '../components/CreatePage.vue'
+import store from '../store';
+
 const routes = [
   {
     path: '/',
@@ -44,27 +45,72 @@ const routes = [
     path: '/main',
     name: 'main',
     component: MainPage,
-  },
-  {
-    path:'/profile',
-    name: 'profile',
-    component: DataTestPage
+    meta: { requiresAuth: true }
   },
   {
     path:'/main/service',
     name: 'service',
-    component: ServicePage
+    component: ServicePage,
+    meta: { requiresAuth: true }
   },
   {
     path:'/main/service/create',
     name: 'create',
-    component: CreatePage
-  }
+    component: CreatePage,
+    meta: { requiresAuth: true }
+  },
+  {
+    // Новый маршрут для перенаправления, если пользователь уже авторизован
+    path: '/redirect-if-authenticated',
+    redirect: to => {
+      // Проверяем, авторизован ли пользователь
+      if (store.getters.getRegistrationData.user_id) {
+        // Если авторизован, перенаправляем на страницу /main
+        return '/main';
+      } else {
+        // В противном случае, возвращаем изначальный путь
+        return to.path;
+      }
+    },
+  },
 ]
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes
 })
+
+router.beforeEach(async (to, from, next) => {
+  await store.commit('restoreRegistrationData'); // Добавляем await, чтобы убедиться, что данные восстановлены
+
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // Если маршрут требует авторизации
+    if (!store.getters.getRegistrationData.user_id) {
+      // Если пользователь не авторизован, перенаправляем на страницу входа
+      next('/');
+    } else {
+      // Если пользователь авторизован, разрешаем доступ
+      next();
+    }
+  } else if (['hello', 'login', 'register', 'reset', 'resetpassword', 'recovery'].includes(to.name)) {
+    // Если маршрут - страница hello, login, register, reset, resetpassword, recovery,
+    // и пользователь авторизован, перенаправляем на /main
+    if (store.getters.getRegistrationData.user_id) {
+      next('/main');
+    } else {
+      // Если пользователь не авторизован, разрешаем доступ
+      next();
+    }
+  } else {
+    // Если маршрут не требует авторизации и не является страницей hello, login, register, reset, resetpassword, recovery,
+    // разрешаем доступ
+    next();
+  }
+});
+
+
+
+
+
 
 export default router

@@ -181,3 +181,25 @@ def reset_password_confirm(request, uidb64, token):
 
     except Exception as e:
         return JsonResponse({'error': f'An error occurred: {str(e)}'}, status=500)
+    
+    from django.http import JsonResponse
+
+@csrf_exempt
+@require_POST
+def check_profile(request, user_id):
+    try:
+        # Проверка существования пользователя
+        user = User.objects.get(id=user_id)
+
+        # Проверка наличия профиля
+        try:
+            profile = Profile.objects.get(user=user)
+            print(123)
+            return JsonResponse({'result': 1}, status=200)
+        except Profile.DoesNotExist:
+            # Если профиль не существует, возвращаем 0
+            return JsonResponse({'result': 0}, status=200)
+    except User.DoesNotExist:
+        return JsonResponse({'error': 'Пользователь не найден'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=400)

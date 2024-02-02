@@ -5,7 +5,7 @@
             <div class="main_first_application">
                 <div class="main_menu" style="margin-top: 45px;">
                     <img src="../../static/img/list.png" alt="" class="main_logo">
-                    <a href="#" class="main_text">Услуги</a>
+                    <a href="#/main/service/" class="main_text">Услуги</a>
                 </div>
                 <div class="main_menu" style="margin-top: 25px;">
                     <img src="../../static/img/group.png" alt="" class="main_logo">
@@ -37,12 +37,15 @@
               </div>
             </div>
         </div>
+        <DataTestPage/>
       </div>
 </template>
 
 <script>
-export default {
+import DataTestPage from './DataTestPage.vue'
 
+export default {
+  components: { DataTestPage },
 }
 </script>
 

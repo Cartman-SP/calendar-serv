@@ -121,7 +121,7 @@ export default {
           email: this.email
         });
         this.$store.dispatch('saveRegistrationData', response.data);
-        this.$router.push('/profile');
+        this.$router.push('/main');
       } catch (error) {
         console.error('Ошибка регистрации', error.response);
 
