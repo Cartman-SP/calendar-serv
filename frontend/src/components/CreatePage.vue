@@ -65,10 +65,58 @@
         </button>
       </div>
 
-      <!-- 5. Формат оплаты -->
+      <!-- 5. Групповые параметры -->
+      <div v-if="selectedRecordType === 'group'" class="group-parameters">
+        <label for="groupCapacity">Количество мест</label>
+
+        <!-- Объект для кнопок "+" и "-" -->
+        <div class="group-buttons">
+          <div class="group-counter">
+            <button @click="decreaseGroupCapacity">-</button>
+            <input type="text" v-if="groupCapacity === 0" placeholder="От" :value="''">
+            <input type="text" v-else placeholder="" :value="groupCapacity">
+            <button @click="increaseGroupCapacity">+</button>
+          </div>
+
+          <!-- Объект для кнопок "+" и "-" -->
+          <div class="group-counter">
+            <button @click="decreaseMaxGroupCapacity">-</button>
+            <input type="text" v-if="maxGroupCapacity === 0" placeholder="До" :value="''">
+            <input type="text" v-else placeholder="" :value="maxGroupCapacity">
+            <button @click="increaseMaxGroupCapacity">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Групповые параметры -->
+      <div v-if="selectedRecordType === 'rental'" class="group-parameters">
+        <label for="groupCapacity">Количество единиц для аренды</label>
+
+        <!-- Объект для кнопок "+" и "-" -->
+        <div class="group-buttons">
+          <div class="group-counter">
+            <button @click="decreaseGroupCapacity">-</button>
+            <input type="text" v-if="groupCapacity === 0" placeholder="От" :value="''">
+            <input type="text" v-else placeholder="" :value="groupCapacity">
+            <button @click="increaseGroupCapacity">+</button>
+          </div>
+
+          <!-- Объект для кнопок "+" и "-" -->
+          <div class="group-counter">
+            <button @click="decreaseMaxGroupCapacity">-</button>
+            <input type="text" v-if="maxGroupCapacity === 0" placeholder="До" :value="''">
+            <input type="text" v-else placeholder="" :value="maxGroupCapacity">
+            <button @click="increaseMaxGroupCapacity">+</button>
+          </div>
+        </div>
+      </div>      
+
+      <!-- 7. Формат оплаты -->
       <label for="paymentFormat">Формат оплаты</label>
       <div class="record-type-container">
+        <!-- Добавлены условия для индивидуальной записи -->
         <button
+          v-if="selectedRecordType === 'individual'"
           :class="{ 'active': selectedPaymentFormat === 'sessionPayment' }"
           @click="selectPaymentFormat('sessionPayment')"
           class="record-button"
@@ -76,6 +124,7 @@
           Оплата за сеанс
         </button>
         <button
+          v-if="selectedRecordType === 'individual'"
           :class="{ 'active': selectedPaymentFormat === 'spotPayment' }"
           @click="selectPaymentFormat('spotPayment')"
           class="record-button"
@@ -83,6 +132,25 @@
           Оплата за место
         </button>
         <button
+          v-if="selectedRecordType === 'individual'"
+          :class="{ 'active': selectedPaymentFormat === 'freePayment' }"
+          @click="selectPaymentFormat('freePayment')"
+          class="record-button"
+        >
+          Без стоимости
+        </button>
+
+        <!-- Добавлены условия для групповой и аренды -->
+        <button
+          v-if="selectedRecordType === 'group' || selectedRecordType === 'rental'"
+          :class="{ 'active': selectedPaymentFormat === 'equipmentPayment' }"
+          @click="selectPaymentFormat('equipmentPayment')"
+          class="record-button"
+        >
+          Оплата за время и единицу оборудования
+        </button>
+        <button
+          v-if="selectedRecordType === 'group' || selectedRecordType === 'rental'"
           :class="{ 'active': selectedPaymentFormat === 'freePayment' }"
           @click="selectPaymentFormat('freePayment')"
           class="record-button"
@@ -91,7 +159,7 @@
         </button>
       </div>
 
-      <!-- 6. Кнопки -->
+      <!-- 7. Кнопки -->
       <div class="button-container">
         <button @click="saveAndExit" class="save-and-exit-button">Сохранить и выйти</button>
         <button @click="cancel" class="cancel-button">Отмена</button>
@@ -116,6 +184,9 @@ export default {
     return {
       selectedRecordType: 'individual',
       selectedPaymentFormat: 'sessionPayment',
+      uploadedFile: null,
+      groupCapacity: 0,
+      maxGroupCapacity: 0,
     };
   },
   methods: {
@@ -132,20 +203,65 @@ export default {
       // Переход на предыдущую страницу
       this.$router.go(-1);
     },
-  },
-  handleFileChange(event) {
+    handleFileChange(event) {
       const file = event.target.files[0];
       if (file) {
         // Ваш код для загрузки файла, например, отправка на сервер
         // В данном примере используется заглушка, вы должны заменить ее на свою логику
-        // this.uploadedFile = 'URL к загруженному файлу';
-    }
+        this.uploadedFile = 'URL к загруженному файлу';
+      }
+    },
+    decreaseGroupCapacity() {
+      if (this.groupCapacity > 0) {
+        this.groupCapacity--;
+      }
+    },
+    increaseGroupCapacity() {
+      this.groupCapacity++;
+    },
+    decreaseMaxGroupCapacity() {
+      if (this.maxGroupCapacity > 0) {
+        this.maxGroupCapacity--;
+      }
+    },
+    increaseMaxGroupCapacity() {
+      this.maxGroupCapacity++;
+    },
   },
 };
 </script>
 
 <style scoped>
 
+.group-buttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  gap: 10px;
+}
+.group-buttons button {
+  height: 36px;
+  background-color: #FFFFFF;
+  color: #6266EA;
+  border: none;
+  cursor: pointer;
+}
+.group-counter{
+  display: flex;
+  color: #535C69;
+  align-items: center;
+  border-radius: 3px;
+  border: 1px solid #C6CBD2;
+}
+.group-counter p{
+  padding: 0 20px;
+}
+.group-counter input {
+  background-color: #FFFFFF;
+  text-align: center;
+  width: 55px;
+  margin: 0;
+}
 .transition{
   display: flex;
   flex-direction: row;
@@ -182,7 +298,7 @@ export default {
 }
 .navigation {
   display: flex;
-  background-color: #FAFAFA;
+  background-color: white;
 }
 
 .create_service {
