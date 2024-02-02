@@ -13,6 +13,7 @@ import PersonalPage from '../components/PersonalPage.vue'
 import BranchPage from '../components/BranchPage.vue'
 import WidgetsPage from '../components/WidgetsPage.vue'
 import EmployeesPage from '../components/EmployeesPage.vue'
+import SettingsPage from '../components/SettingsPage.vue'
 
 const routes = [
   {
@@ -85,6 +86,12 @@ const routes = [
     path: '/main/personal/employees',
     name: 'employees',
     component: EmployeesPage,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/main/settings',
+    name: 'settings',
+    component: SettingsPage,
     meta: { requiresAuth: true }
   },
   {
