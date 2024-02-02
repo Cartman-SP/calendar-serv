@@ -9,17 +9,17 @@
                 </div>
                 <div class="main_menu" style="margin-top: 25px;">
                     <img src="../../static/img/group.png" alt="" class="main_logo">
-                    <a href="#" class="main_text">Сотрудники</a>
+                    <a href="#/main/personal" class="main_text">Сотрудники</a>
                 </div>
                 <div class="main_menu" style="margin-top: 25px;">
                     <img src="../../static/img/briefcase.png" alt="" class="main_logo">
-                    <a href="#" class="main_text">Филиалы</a>
+                    <a href="#/main/branch" class="main_text">Филиалы</a>
                 </div>
             </div>
             <div class="main_second_application">
               <div class="main_menu" style="margin-top: 45px;">
                 <img src="../../static/img/plug.png" alt="" class="main_logo">
-                <a href="#" class="main_text">Виджеты</a>
+                <a href="#/main/widgets" class="main_text">Виджеты</a>
               </div>
               <div class="main_menu" style="margin-top: 25px;">
                 <img src="../../static/img/calendar.png" alt="" class="main_logo">

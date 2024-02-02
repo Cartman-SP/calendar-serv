@@ -9,6 +9,10 @@ import MainPage from '../components/MainPage.vue'
 import ServicePage from '../components/ServicePage.vue'
 import CreatePage from '../components/CreatePage.vue'
 import store from '../store';
+import PersonalPage from '../components/PersonalPage.vue'
+import BranchPage from '../components/BranchPage.vue'
+import WidgetsPage from '../components/WidgetsPage.vue'
+import EmployeesPage from '../components/EmployeesPage.vue'
 
 const routes = [
   {
@@ -57,6 +61,30 @@ const routes = [
     path:'/main/service/create',
     name: 'create',
     component: CreatePage,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/main/personal',
+    name: 'personal',
+    component: PersonalPage,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/main/branch',
+    name: 'branch',
+    component: BranchPage,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/main/widgets',
+    name: 'widgets',
+    component: WidgetsPage,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/main/personal/employees',
+    name: 'employees',
+    component: EmployeesPage,
     meta: { requiresAuth: true }
   },
   {
