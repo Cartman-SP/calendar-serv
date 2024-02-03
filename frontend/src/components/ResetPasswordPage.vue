@@ -21,14 +21,14 @@
     </div>
 </template>
 
-  <script>
+<script>
   export default {
     data() {
       return {
       };
     },
   };
-  </script>
+</script>
   
   
   

@@ -4,7 +4,7 @@
         <img src="../../static/img/branch.png" alt="" class="img_branch">
         <p class="header">Здесь будет ваш филиал. Будет же?</p>
         <p class="subheader">Осталось только создать виджет, выбрать его оформление и разместить его на сайте или в социальных сетях. После чего ваши клиенты смогут записываться к вам онлайн.</p>
-        <a href="#/main/branch/create" style="text-decoration:none"><button class="branch_btn"> + Добавить филиал</button></a>
+        <a href="#/main/branch/createbranch" style="text-decoration:none"><button class="branch_btn"> + Добавить филиал</button></a>
   
       </div>
       <div class="navigation">
