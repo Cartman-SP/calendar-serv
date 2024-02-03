@@ -54,7 +54,7 @@
         <div class="change">
           <label>Пароль</label>
           <p>Был установлен 3 месяца назад</p>
-          <button @click="openModal" class="button-change">Изменить пароль</button>
+          <button @click="showModals" class="button-change">Изменить пароль</button>
         </div>
       </div>
     </div>
@@ -75,6 +75,11 @@ export default {
     return {
     };
   },
+  methods: {
+    showModals() {
+      
+    }
+  }
 };
 </script>
 
@@ -155,14 +160,14 @@ p{
 }
 
 .button-save {
-  background-color: #F5F5F5;
-  color: #AFB6C1;
+  background-color: #EFEFFF;
+  color: #6266EA;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
 }
 .button-save:hover {
-  background-color: #6266EA;
-  color: #FFFFFF;
+  background-color: #DBDDFF;
+  color: #6266EA;
 }
 .button-change {
   background-color: #EFEFFF;
@@ -172,8 +177,8 @@ p{
 }
 
 .button-change:hover {
-  background-color: #6266EA;
-  color: #EFEFFF;
+  background-color: #DBDDFF;
+  color: #6266EA;
 }
 .divider {
   border-bottom: 1px solid rgba(50, 56, 74, 0.1); 

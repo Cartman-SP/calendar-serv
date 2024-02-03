@@ -94,6 +94,6 @@ img{
 
 .rate h4{
     margin: 0;
-    color: #464AD9;
+    color: #52565F;
 }
 </style>

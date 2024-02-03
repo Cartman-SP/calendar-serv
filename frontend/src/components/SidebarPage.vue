@@ -36,6 +36,25 @@
                 <a href="#" class="main_text">Статистика</a>
               </div>
             </div>
+            <div class="bottom_application">
+              <div class="bottom_menu">
+                <img src="../../static/img/send.png" alt="" class="main_logo">
+                <a href="#" class="main_text">Заявки</a>
+              </div>
+            </div>
+            <div class="bottom_application">  
+              <div class="bottom_menu">
+                <img src="" alt="" class="main_logo">
+                <div class="bottom_contrainer">
+                  <p class="bottom_header"> Никита </p>
+                  <p class="bottom_subheader"> Владелец </p>
+                </div>  
+                <div class="bottom_container">
+                  <img src="../../static/img/Union.png" alt="">
+                  <p class="bottom_sub_text">Барбершоп на</p>
+                </div>
+              </div>
+            </div>
         </div>
       </div>
 </template>
@@ -65,6 +84,7 @@ export default {
   letter-spacing: 0em;
   text-align: center;
   text-decoration: none;
+  color: #535C69;
 
 }
 
@@ -79,6 +99,42 @@ export default {
 
 .logotype{
     margin-top: 25px;
+
+}
+.bottom_menu{
+  padding-left: 60px;
+  text-align: left;
+  background-color: #FFFFFF;
+}
+.bottom_header{
+  font-family: TT Norms;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 14px;
+  letter-spacing: 0em;
+  color: #535C69;
+}
+.bottom_subheader{
+  font-family: TT Norms;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 12px;
+  letter-spacing: 0em;
+  color: #535C69;
+
+}
+.bottom_container{
+  display: flex;
+  flex-direction: row;
+}
+.bottom_sub_text{
+  font-family: TT Norms;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 10px;
+  letter-spacing: 0em;
+  text-align: center;
+  color:#AFB6C1;
 
 }
 </style>
