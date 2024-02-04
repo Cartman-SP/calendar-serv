@@ -8,13 +8,13 @@
                 <a href="">
                     <img src="../../static/img/icon-file.png" alt="1">
                 </a>
-                <a href="">
+                <a @click="showPlusNotifications" style="cursor: pointer;">
                     <img src="../../static/img/icon-plus.png" alt="2">
                 </a>
                 <a href="">
                     <img src="../../static/img/icon-ring.png" alt="3">
                 </a>
-                <a href="">
+                <a @click="showNotifications" style="cursor: pointer;">
                     <img src="../../static/img/icon-bell.png" alt="4">
                 </a>
             </div>
@@ -26,11 +26,58 @@
                 </div>
             </div>
         </div>
+        <!-- Дополнительный блок для уведомлений -->
+        <div v-if="showPlusNotificationPanel" class="plus-panel">
+          <p class="header">Быстрое создание</p>
+          <router-link to="/main/" style="text-decoration:none">
+            <div class="create">
+              <img src="../../static/img/plus/send.svg" alt="">
+              <p class="subheader">Заявки</p>
+            </div>
+          </router-link>
+          <router-link to="/main/service/create" style="text-decoration:none">
+            <div class="create">
+              <img src="../../static/img/plus/list.svg" alt="">
+              <p class="subheader">Услуги</p>
+            </div>
+          </router-link>
+          <router-link to="/main/personal/employees" style="text-decoration:none">
+            <div class="create">
+              <img src="../../static/img/plus/default.svg" alt="">
+              <p class="subheader">Сотрудника</p>
+            </div>
+          </router-link>
+          <router-link to="/main/branch/createbranch" style="text-decoration:none">
+            <div class="create">
+              <img src="../../static/img/plus/case.svg" alt="">
+              <p class="subheader">Филиала</p>
+            </div>
+          </router-link>
+      </div>
+        <div v-if="showNotificationPanel" class="notification-panel">
+            <p class="header">Уведомления</p>
+            <p class="subheader">У вас нет новых уведомлений</p>
+        </div>
     </div>
 </template>
 
 <script>
-
+export default {
+    data() {
+        return {
+            showNotificationPanel: false,
+            showPlusNotificationPanel: false,
+        };
+    },
+    methods: {
+        showNotifications() {
+            this.showNotificationPanel = !this.showNotificationPanel;
+        },
+        showPlusNotifications() {
+            this.showPlusNotificationPanel = !this.showPlusNotificationPanel;
+        },
+    },
+};
 </script>
 
 <style scoped>
@@ -62,6 +109,9 @@ img{
 .actions, .buttons-menu, .rate{
     display: flex;
     align-items: center;
+}
+.buttons-menu{
+  margin-right: 20px;
 }
 
 .buttons-menu a{
@@ -95,5 +145,57 @@ img{
 .rate h4{
     margin: 0;
     color: #52565F;
+}
+.notification-panel {
+    width: 260px;
+    height: 84px;
+    background-color: #ffffff;
+    position: absolute;
+    top: 60px; /* Позиционируйте в соответствии с вашим макетом */
+    left: 10px; /* Позиционируйте в соответствии с вашим макетом */
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+}
+
+.header{
+  font-family: TT Norms;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 15px;
+  letter-spacing: 0em;
+  text-align: left;
+  color:#535C69;
+}
+.subheader{
+  font-family: TT Norms;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 14px;
+  letter-spacing: 0em;
+  text-align: left;
+  color:#AFB6C1;
+}
+.plus-panel {
+  width: 260px;
+  height: 230px;
+  background-color: #ffffff;
+  position: absolute;
+  top: 60px; /* Позиционируйте в соответствии с вашим макетом */
+  left: 10px; /* Позиционируйте в соответствии с вашим макетом */
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+}
+.create{
+  display: flex;
+}
+.create:hover {
+  background-color: #FAFAFA;
+  cursor: pointer;
+}
+.create:hover p {
+  color: #535C69;
+  font-weight: bold;
 }
 </style>

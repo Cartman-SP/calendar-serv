@@ -361,17 +361,6 @@ export default {
 .file-label {
   cursor: pointer;
 }
-
-.placeholder-text {
-  font-family: TT Norms;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 17px;
-  letter-spacing: 0em;
-  text-align: left;
-  color: #AFB6C1;
-}
-
 .text {
   font-family: TT Norms;
   font-size: 14px;

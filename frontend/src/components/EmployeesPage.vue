@@ -8,7 +8,6 @@
         </div>
         <p class="creation_text">Создание сотрудника</p>
       </div>
-
       <!-- Form Elements -->
       <div class="form-container">
         <div class="form-row">
@@ -29,7 +28,9 @@
           </div>
           <div class="form-column">
             <label for="photo">Фото</label>
-            <input type="file" id="photo" accept="image/*">
+            <label class="custom-file-upload">
+              <input type="file" accept="image/*"/>Нажмите, чтобы добавить
+            </label>
           </div>
         </div>
 
@@ -238,6 +239,29 @@
     color: #535C69;
     border-radius: 3px;
     border: 1px solid #DDE1E5;
+  }
+  .custom-file-upload {
+    width: 260px;
+    height: 36px;
+    display: flex;
+    padding: 8px 10px;
+    cursor: pointer;
+    background-color: #F3F5F6;
+    color: #D2D8DE;
+    align-items: center;
+    margin-bottom: 0;
+  }
+  
+  .custom-file-upload input[type="file"] {
+    display: none;
+  }
+  input::placeholder {
+    font-family: "TT Norms";
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+    letter-spacing: 0em;
+    color: #D2D8DE;
   }
 
 </style>

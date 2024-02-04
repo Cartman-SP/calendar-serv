@@ -1,50 +1,64 @@
 <template>
   <div class="sidebar">
     <div class="main_side">
-        <img src="../../static/img/SkedOnline.png" alt="" class="logotype">
-        <div class="content">
-          <div class="top-group">
-            <div class="cards-group">
-                <div class="main_menu">
-                    <img src="../../static/img/list.png" alt="" class="main_logo">
-                    <a href="#/main/service" class="main_text">Услуги</a>
-                </div>
-                <div class="main_menu">
-                    <img src="../../static/img/group.png" alt="" class="main_logo">
-                    <a href="#/main/personal" class="main_text">Сотрудники</a>
-                </div>
-                <div class="main_menu">
-                    <img src="../../static/img/briefcase.png" alt="" class="main_logo">
-                    <a href="#/main/branch" class="main_text">Филиалы</a>
-                </div>
-            </div>
-            <div class="line"></div>
-            <div class="cards-group">
+      <img src="../../static/img/SkedOnline.png" alt="" class="logotype">
+      <div class="content">
+        <div class="top-group">
+          <div class="cards-group">
+            <router-link to="/main/service" class="main_text" :class="{ active: $route.path === '/main/service' }">
               <div class="main_menu">
-                <img src="../../static/img/plug.png" alt="" class="main_logo">
-                <a href="#/main/widgets" class="main_text">Виджеты</a>
+                <img src="../../static/img/list.png" alt="" class="main_logo">
+                <p class="main_text">Услуги</p>
               </div>
-              <div class="main_menu">
-                <img src="../../static/img/calendar.png" alt="" class="main_logo">
-                <a href="#" class="main_text">Календарь</a>
-              </div>
+            </router-link>
+            <router-link to="/main/personal" class="main_text" :class="{ active: $route.path === '/main/personal' }">
               <div class="main_menu">
                 <img src="../../static/img/group.png" alt="" class="main_logo">
-                <a href="#" class="main_text">Клиенты</a>
+                <p class="main_text">Сотрудники</p>
               </div>
+            </router-link>
+            <router-link to="/main/branch" class="main_text" :class="{ active: $route.path === '/main/branch' }">
+              <div class="main_menu">
+                <img src="../../static/img/briefcase.png" alt="" class="main_logo">
+                <p class="main_text">Филиалы</p>
+              </div>
+            </router-link>
+          </div>
+          <div class="line"></div>
+          <div class="cards-group">
+            <router-link to="/main/widgets" class="main_text" :class="{ active: $route.path === '/main/widgets' }">
+              <div class="main_menu">
+                <img src="../../static/img/plug.png" alt="" class="main_logo">
+                <p class="main_text">Виджеты</p>
+              </div>
+            </router-link>
+            <router-link to="/main/calendar" class="main_text" :class="{ active: $route.path === '/main/calendar' }">
+              <div class="main_menu">
+                <img src="../../static/img/calendar.png" alt="" class="main_logo">
+                <p class="main_text">Календарь</p>
+              </div>
+            </router-link>
+            <router-link to="/main/clients" class="main_text" :class="{ active: $route.path === '/main/clients' }">
+              <div class="main_menu">
+                <img src="../../static/img/group.png" alt="" class="main_logo">
+                <p class="main_text">Клиенты</p>
+              </div>
+            </router-link>
+            <router-link to="/main/statistics" class="main_text" :class="{ active: $route.path === '/main/statistics' }">
               <div class="main_menu">
                 <img src="../../static/img/arrow.png" alt="" class="main_logo">
-                <a href="#" class="main_text">Статистика</a>
+                <p class="main_text">Статистика</p>
               </div>
-            </div>
+            </router-link>
           </div>
+        </div>
             <div class="cards-group">
               <div class="bottom_menu">
                 <div class="left">
                   <img src="../../static/img/send.png" alt="" class="main_logo">
                   <a href="#" class="main_text">Заявки</a>
                 </div>
-                <p>12</p>
+                <p>0</p>
               </div>
               <div class="bottom_menu" style="display: block; padding: 20px;">
                 <div class="avatar-top">
@@ -55,14 +69,29 @@
                       <p id="bottom_subheader"> Владелец </p>
                     </div>
                   </div>  
-                  <button>...</button>
+                  <button @click="toggleDropdown" class="dropdown">...</button>
+
                 </div>
                 <div class="avatar-bottom">
                   <img src="../../static/img/Union.png" alt="">
-                  <p id="bottom_sub_text">Барбершоп на</p>
+                  <p id="bottom_sub_text">Барбершоп на..........</p>
                 </div>
               </div>
             </div>
+        </div>
+        <div v-if="showDropdown" class="dropdown-menu">
+          <router-link to="/main/settings" style="text-decoration:none">
+            <div class="dropdown-item">
+              <div class="dropdown-header">Настройка профиля</div>
+            </div>
+          </router-link>
+          <div class="line"></div>
+          <div class="dropdown-item">
+            <div class="dropdown-header">Тарифный план</div>
+          </div>
+          <div class="dropdown-item">
+            <div class="dropdown-subheader">Выйти из аккаунта</div>
+          </div>
         </div>
       </div>
   </div>
@@ -70,8 +99,17 @@
 
 <script>
 export default {
-
-}
+  data() {
+    return {
+      showDropdown: false,
+    };
+  },
+  methods: {
+    toggleDropdown() {
+      this.showDropdown = !this.showDropdown;
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -139,7 +177,7 @@ export default {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding: 15px 20px;
+    padding: 0px 20px;
     transition: all .2s ease;
     background-color: transparent;
     border-radius: 5px;
@@ -207,6 +245,60 @@ export default {
   letter-spacing: 0em;
   text-align: center;
   color:#AFB6C1;
+}
 
+.active .main_menu {
+  background-color: white;
+}
+.dropdown{
+  background-color: white;
+  color: #535C69;
+  font-size: 15px;
+  font-weight: bold;
+}
+.dropdown-menu {
+  width: 171px;
+  height: 105px;
+  background-color: white;
+  position: absolute;
+  top: 40px;
+  right: 0;
+  border: 1px solid #E4EAEF;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.dropdown-item {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-header{
+  font-family: TT Norms;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 13px;
+  letter-spacing: 0em;
+  color: #AFB6C1;
+}
+.dropdown-header:hover {
+  font-weight: bold;
+  color: #535C69;
+}
+.dropdown-subheader{
+  font-family: TT Norms;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 13px;
+  letter-spacing: 0em;
+  color: #F97F7F;
+}
+.dropdown-subheader:hover {
+  font-weight: bold;
+  color: #F97F7F;
 }
 </style>

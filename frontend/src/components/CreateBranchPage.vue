@@ -44,7 +44,9 @@
 
         <div class="form-group">
           <label for="branchPhoto">Фото филиала</label>
-          <input type="file" id="branchPhoto" accept=".png, .jpeg, .jpg" multiple>
+          <label class="custom-file-upload">
+            <input type="file" accept="image/*"/>Нажмите, чтобы добавить
+          </label>
           <p class="photo-info">до 5 МБ, PNG, JPG, JPEG. Для замены удалите миниатюру и загрузите заново</p>
         </div>
 
@@ -226,5 +228,28 @@ export default {
   .btn:hover {
     background-color: #6266EA;
     color: #EFEFFF;
+  }
+
+  input::placeholder {
+    font-family: "TT Norms";
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+    letter-spacing: 0em;
+    color: #D2D8DE;
+  }
+  .custom-file-upload {
+    width: 100%;
+    height: 36px;
+    display: flex;
+    padding: 8px 10px;
+    cursor: pointer;
+    background-color: #F3F5F6;
+    color: #D2D8DE;
+    align-items: center;
+  }
+  
+  .custom-file-upload input[type="file"] {
+    display: none;
   }
 </style>
