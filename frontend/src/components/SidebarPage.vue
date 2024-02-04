@@ -212,10 +212,10 @@ export default {
   border-radius: 20px;
   color: #535C69;
   font-size: 12px;
-  font-weight: bold;
   padding: 5px;
 }
-.bottom_header{
+
+#bottom_header{
   font-family: TT Norms;
   font-size: 14px;
   font-weight: bold;
@@ -223,20 +223,15 @@ export default {
   letter-spacing: 0em;
   color: #535C69;
 }
-.bottom_subheader{
+#bottom_subheader{
   font-family: TT Norms;
   font-size: 12px;
   font-weight: 300;
   line-height: 12px;
   letter-spacing: 0em;
   color: #535C69;
-
 }
-.bottom_container{
-  display: flex;
-  flex-direction: row;
-}
-.bottom_sub_text{
+#bottom_sub_text{
   font-family: TT Norms;
   font-size: 10px;
   font-weight: 500;
