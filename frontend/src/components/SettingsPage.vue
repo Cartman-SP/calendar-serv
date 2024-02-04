@@ -55,7 +55,7 @@
         <div class="divider"></div>
         <div class="change">
           <label>Пароль</label>
-          <p>Был установлен 3 месяца назад</p>
+          <p class="password">Был установлен 3 месяца назад</p>
           <button @click="showModals" class="button-change">Изменить пароль</button>
         </div>
       </div>
@@ -95,10 +95,11 @@ export default {
   text-align: center;
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 45%;
   transform: translate(-50%, -50%);
   width: 800px;
   height: 635px;
+  background-color: #FFFFFF;
 }
 
 .name-container {
@@ -115,6 +116,11 @@ export default {
 label {
   margin-right: 10px;
   margin-bottom: 20px;
+  font-family: TT Norms;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 15px;
+  letter-spacing: 0em;
 }
 
 .input-container {
@@ -197,9 +203,18 @@ p{
   color: #D2D8DE;
   align-items: center;
   margin-bottom: 0;
+  font-weight: 500;
 }
 
 .custom-file-upload input[type="file"] {
   display: none;
+}
+.password{
+  color: #7D838C;
+  font-family: TT Norms;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+  letter-spacing: 0em;
 }
 </style>

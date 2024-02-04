@@ -69,7 +69,12 @@
                       <p id="bottom_subheader"> Владелец </p>
                     </div>
                   </div>  
-                  <button @click="toggleDropdown" class="dropdown">...</button>
+                  <div class="dropdown_btn">
+                    <button @click="toggleDropdown" class="dropdown" :style="{ 'background-color': showDropdown ? '#F3F6F8' : 'transparent' }">
+                      <img v-if="!showDropdown" src="../../static/img/kebab.svg" alt="Open">
+                      <img v-if="showDropdown" src="../../static/img/x.svg" alt="Close">
+                    </button>
+                  </div>
                 </div>
                 <div class="avatar-bottom">
                   <img src="../../static/img/Union.png" alt="">
@@ -162,7 +167,7 @@ export default {
 .main_text{
   font-family: TT Norms;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: bold;
   line-height: 21px;
   letter-spacing: 0em;
   text-align: center;
@@ -222,6 +227,7 @@ export default {
   line-height: 14px;
   letter-spacing: 0em;
   color: #535C69;
+  margin-bottom: 5px;
 }
 #bottom_subheader{
   font-family: TT Norms;
@@ -245,10 +251,17 @@ export default {
   background-color: white;
 }
 .dropdown{
-  background-color: white;
   color: #535C69;
   font-size: 15px;
   font-weight: bold;
+  background-color: white;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
 }
 .dropdown-menu {
   width: 171px;

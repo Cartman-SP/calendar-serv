@@ -179,7 +179,7 @@ img{
 .plus-panel {
   width: 260px;
   height: 230px;
-  background-color: #fafafa;
+  background-color: #ffffff;
   position: absolute;
   top: 110px;
   right: 240px;
