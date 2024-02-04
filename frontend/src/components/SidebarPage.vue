@@ -70,28 +70,27 @@
                     </div>
                   </div>  
                   <button @click="toggleDropdown" class="dropdown">...</button>
-
                 </div>
                 <div class="avatar-bottom">
                   <img src="../../static/img/Union.png" alt="">
                   <p id="bottom_sub_text">Барбершоп на..........</p>
                 </div>
+                <div v-if="showDropdown" class="dropdown-menu">
+                  <router-link to="/main/settings" style="text-decoration:none">
+                    <div class="dropdown-item">
+                      <div class="dropdown-header">Настройка профиля</div>
+                    </div>
+                  </router-link>
+                  <div class="line"></div>
+                  <div class="dropdown-item">
+                    <div class="dropdown-header">Тарифный план</div>
+                  </div>
+                  <div class="dropdown-item">
+                    <div class="dropdown-subheader">Выйти из аккаунта</div>
+                  </div>
+                </div>
               </div>
             </div>
-        </div>
-        <div v-if="showDropdown" class="dropdown-menu">
-          <router-link to="/main/settings" style="text-decoration:none">
-            <div class="dropdown-item">
-              <div class="dropdown-header">Настройка профиля</div>
-            </div>
-          </router-link>
-          <div class="line"></div>
-          <div class="dropdown-item">
-            <div class="dropdown-header">Тарифный план</div>
-          </div>
-          <div class="dropdown-item">
-            <div class="dropdown-subheader">Выйти из аккаунта</div>
-          </div>
         </div>
       </div>
   </div>
@@ -261,8 +260,9 @@ export default {
   height: 105px;
   background-color: white;
   position: absolute;
-  top: 40px;
-  right: 0;
+  bottom: 0;
+  left: 280px;
+  bottom: 50px;
   border: 1px solid #E4EAEF;
   border-radius: 5px;
   display: flex;

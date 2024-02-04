@@ -31,7 +31,7 @@
           <p class="header">Быстрое создание</p>
           <router-link to="/main/" style="text-decoration:none">
             <div class="create">
-              <img src="../../static/img/plus/send.svg" alt="">
+              <img src="../../static/img/plus/send.svg" alt="" style="fill: green;">
               <p class="subheader">Заявки</p>
             </div>
           </router-link>
@@ -151,8 +151,8 @@ img{
     height: 84px;
     background-color: #ffffff;
     position: absolute;
-    top: 60px; /* Позиционируйте в соответствии с вашим макетом */
-    left: 10px; /* Позиционируйте в соответствии с вашим макетом */
+    top: 110px;
+    right: 120px;
     border-radius: 5px;
     padding: 10px;
     text-align: center;
@@ -181,8 +181,8 @@ img{
   height: 230px;
   background-color: #ffffff;
   position: absolute;
-  top: 60px; /* Позиционируйте в соответствии с вашим макетом */
-  left: 10px; /* Позиционируйте в соответствии с вашим макетом */
+  top: 110px;
+  right: 240px;
   border-radius: 5px;
   padding: 10px;
   text-align: center;
