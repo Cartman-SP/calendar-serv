@@ -31,7 +31,7 @@
           <p class="header">Быстрое создание</p>
           <router-link to="/main/" style="text-decoration:none">
             <div class="create">
-              <img src="../../static/img/plus/send.svg" alt="" style="fill: green;">
+              <img src="../../static/img/plus/send.svg" alt="">
               <p class="subheader">Заявки</p>
             </div>
           </router-link>
@@ -179,7 +179,7 @@ img{
 .plus-panel {
   width: 260px;
   height: 230px;
-  background-color: #ffffff;
+  background-color: #fafafa;
   position: absolute;
   top: 110px;
   right: 240px;
@@ -189,6 +189,7 @@ img{
 }
 .create{
   display: flex;
+  gap: 10px;
 }
 .create:hover {
   background-color: #FAFAFA;

@@ -6,11 +6,7 @@
       <p class="subheader">Предлагаем вам перейти к созданию услуги, после чего<br>у вас появится возможность прикрепить созданные услуги<br>к вашим специалистам и добавить филиал.</p>
       <a href="#/main/service/create" style="text-decoration:none"><button class="service_btn"> + Добавить услуги</button></a>
     </div>
-<!--     <div class="service_card">
-      <img src="" alt="" class="service_img">
-      <div class="service_head">
-      </div>
-    </div> -->
+
     <div class="navigation">
       <SidebarPage/>
       <NavbarPage/>
@@ -34,7 +30,7 @@ export default {
 <style scoped>
 .navigation{
   display: flex;
-  background-color: white;
+  background-color: #FAFAFA;
 }
 .service {
   text-align: center;
@@ -43,10 +39,6 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 450px;
-}
-
-.img_service {
-  margin-bottom: 10px;
 }
 
 .header {
@@ -73,4 +65,5 @@ export default {
 .service_btn{
   margin: 0 auto;
 }
+
 </style>

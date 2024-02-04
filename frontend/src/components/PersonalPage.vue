@@ -45,7 +45,7 @@
   }
   .navigation{
     display: flex;
-    background-color: white;
+    background-color:#FAFAFA;
   }
   .personal {
     text-align: center;

@@ -30,7 +30,7 @@
   <style scoped>
   .navigation{
     display: flex;
-    background-color: white;
+    background-color:#FAFAFA;
   }
   .branch {
     text-align: center;

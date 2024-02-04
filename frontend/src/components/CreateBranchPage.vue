@@ -138,7 +138,7 @@ export default {
 
   .navigation {
     display: flex;
-    background-color: white;
+    background-color:#FAFAFA;
   }
 
   .create_branch {

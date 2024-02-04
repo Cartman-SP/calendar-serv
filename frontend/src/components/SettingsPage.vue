@@ -88,7 +88,7 @@ export default {
 <style scoped>
 .navigation {
   display: flex;
-  background-color: white;
+  background-color:#FAFAFA;
 }
 
 .settings {
