@@ -33,10 +33,9 @@
 
       <!-- 3. Обложка услуги -->
       <label for="serviceCover" class="file-label">Обложка услуги</label>
-      <div class="file-input-container" :style="{ background: uploadedFile ? `url(${uploadedFile}) center/cover no-repeat` : '#F3F5F6' }">
-        <input type="file" id="serviceCover" accept=".png, .jpg, .jpeg" capture="environment" @change="handleFileChange">
-        <label for="serviceCover" class="placeholder-text subtext">Нажмите, чтобы добавить</label>
-      </div>
+      <label class="custom-file-upload">
+        <input type="file" accept="image/*"/>Нажмите, чтобы добавить
+      </label>
       <p class="text">до 5 МБ, PNG, JPG, JPEG</p>
 
       <!-- 4. Тип индивидуальности -->
@@ -430,8 +429,26 @@ export default {
   border-radius: 3px;
   border: 1px solid #DDE1E5
 }
+input::placeholder {
+  font-family: "TT Norms";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+  letter-spacing: 0em;
+  color: #D2D8DE;
+}
+.custom-file-upload {
+  width: 100%;
+  height: 36px;
+  display: flex;
+  padding: 8px 10px;
+  cursor: pointer;
+  background-color: #F3F5F6;
+  color: #D2D8DE;
+  align-items: center;
+}
 
-.subtext{
-  margin: 0;
+.custom-file-upload input[type="file"] {
+  display: none;
 }
 </style>

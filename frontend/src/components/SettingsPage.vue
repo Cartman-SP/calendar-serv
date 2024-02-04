@@ -17,7 +17,9 @@
           <div class="photo-container">
             <label for="userPhoto">Фотография</label>
             <div class="input-container">
-              <input type="file" id="userPhoto" accept=".png, .jpeg, .jpg">
+              <label class="custom-file-upload">
+                <input type="file" accept="image/*"/>Нажмите, чтобы добавить
+              </label>
               <button @click="saveName" class="button-save">Сохранить изменения</button>
             </div>
           </div>
@@ -185,5 +187,19 @@ p{
   width: 590px;
   margin: 10px 0;
 }
+.custom-file-upload {
+  width: 260px;
+  height: 36px;
+  display: flex;
+  padding: 8px 10px;
+  cursor: pointer;
+  background-color: #F3F5F6;
+  color: #D2D8DE;
+  align-items: center;
+  margin-bottom: 0;
+}
 
+.custom-file-upload input[type="file"] {
+  display: none;
+}
 </style>
