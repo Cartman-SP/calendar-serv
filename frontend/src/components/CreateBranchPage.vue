@@ -15,6 +15,7 @@
           <div class="form-group">
             <label for="country">Страна</label>
             <select id="country">
+              <option value="" disabled selected style="display:none;">Выберите страну</option>
               <option value="Russia">Россия</option>
               <option value="Kazakhstan">Казахстан</option>
               <option value="Belarus">Беларусь</option>
@@ -25,6 +26,7 @@
           <div class="form-group">
             <label for="city">Город</label>
             <select id="city">
+              <option value="" disabled selected style="display:none;">Выберите город</option>
               <option value="SaintPetersburg">Санкт-Петербург</option>
               <option value="Moscow">Москва</option>
             </select>
@@ -45,7 +47,7 @@
         <div class="form-group">
           <label for="branchPhoto">Фото филиала</label>
           <label class="custom-file-upload">
-            <input type="file" accept="image/*"/>Нажмите, чтобы добавить
+            <input type="file" accept="image/*" multiple/>Загрузите несколько фотографий
           </label>
           <p class="photo-info">до 5 МБ, PNG, JPG, JPEG. Для замены удалите миниатюру и загрузите заново</p>
         </div>
@@ -162,10 +164,23 @@ export default {
     padding: 10px;
     font-family: TT Norms;
     font-size: 16px;
-    font-weight: 500;
     line-height: 20px;
-    color: #AFB6C1;
-    border-radius: 5px;
+    color: #D2D8DE;
+    border: none;
+    background-color: #F3F5F6;
+    margin-bottom: 10px;
+  }
+
+  select{
+    border-radius: 3px;
+  }
+  
+  select option {
+    font-family: TT Norms;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 20px;
+    color: #535C69;
   }
 
   p {
@@ -212,7 +227,7 @@ export default {
   .form-btn {
     display: flex;
     justify-content: flex-end;
-    margin-top: 20px; /* Устанавливаем отступ от верхней границы формы */
+    margin-top: 20px;
   }
 
   .btn {
@@ -247,9 +262,20 @@ export default {
     background-color: #F3F5F6;
     color: #D2D8DE;
     align-items: center;
+    font-weight: 500;
   }
   
   .custom-file-upload input[type="file"] {
     display: none;
+  }
+  label{
+    font-weight: bold;
+  }
+  .photo-info{
+    color: #AFB6C1;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 10px;
+    letter-spacing: 0em;
   }
 </style>

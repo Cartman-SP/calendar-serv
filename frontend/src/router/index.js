@@ -15,6 +15,7 @@ import WidgetsPage from '../components/WidgetsPage.vue'
 import EmployeesPage from '../components/EmployeesPage.vue'
 import SettingsPage from '../components/SettingsPage.vue'
 import CreateBranchPage from '../components/CreateBranchPage.vue'
+import WidgetsSettingsPage from '../components/WidgetsSettingsPage.vue'
 
 const routes = [
   {
@@ -99,6 +100,12 @@ const routes = [
     path: '/main/branch/createbranch',
     name: 'createbranch',
     component: CreateBranchPage,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/main/widgets/settings',
+    name: 'widget',
+    component: WidgetsSettingsPage,
     meta: { requiresAuth: true }
   },
   {

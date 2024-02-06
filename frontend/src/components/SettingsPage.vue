@@ -100,6 +100,7 @@ export default {
   width: 800px;
   height: 635px;
   background-color: #FFFFFF;
+  padding: 30px;
 }
 
 .name-container {

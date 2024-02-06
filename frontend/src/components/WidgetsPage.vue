@@ -4,7 +4,7 @@
         <img src="../../static/img/big_flag.png" alt="" class="img_widgets">
         <p class="header">Поздравляем с регистрацией!</p>
         <p class="subheader">Предлагаем вам перейти к созданию услуги, после чего<br>у вас появится возможность прикрепить созданные услуги<br>к вашим специалистам и добавить филиал.</p>
-        <a href="#/main/widgets/create" style="text-decoration:none"><button class="widgets_btn"> + Добавить услуги</button></a>
+        <a href="#/main/widgets/settings" style="text-decoration:none"><button class="widgets_btn"> + Добавить услуги</button></a>
   
       </div>
       <div class="navigation">

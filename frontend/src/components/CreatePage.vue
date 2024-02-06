@@ -1,6 +1,5 @@
 <template>
   <div class="main">
-
     <div class="create_service">
       <div class="transition">
         <a href="#/main/service" class="services-link">Услуги</a>
@@ -23,6 +22,7 @@
         <div class="input-group">
           <label for="serviceDuration">Длительность</label>
           <select id="serviceDuration" placeholder="Выберите время">
+            <option value="" disabled selected style="display:none;">Выберите время</option>
             <option value="15m">15м</option>
             <option value="30m">30м</option>
             <option value="45m">45м</option>
@@ -308,46 +308,18 @@ export default {
   width: 488px;
   height: 439px;
   color: #FFFFFF;
+
 }
 
 .cost-duration-container {
   display: flex;
-  gap: 20px; /* Расстояние между элементами */
-  align-items: center; /* Выравнивание по центру по вертикали */
+  gap: 20px;
+  align-items: center;
 }
 
 .input-group {
   display: flex;
   flex-direction: column;
-}
-
-.file-input-container {
-  position: relative;
-  width: 100%;
-  height: 36px;
-  padding-left: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: left;
-  text-align: left;
-  background-color: #F3F5F6;
-}
-
-.file-input-container label {
-  cursor: pointer;
-  z-index: 2;
-  font-size: 16px;
-  color: #AFB6C1;
-}
-
-.file-input-container p {
-  font-family: TT Norms;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 17px;
-  letter-spacing: 0em;
-  text-align: left;
-  color: #AFB6C1;
 }
 
 #serviceCover {
@@ -372,8 +344,8 @@ export default {
 }
 .record-type-container {
   display: flex;
-  gap: 20px; /* Расстояние между элементами */
-  align-items: center; /* Выравнивание по центру по вертикали */
+  gap: 20px;
+  align-items: center;
 }
 
 .record-button {
@@ -435,9 +407,32 @@ input::placeholder {
   background-color: #F3F5F6;
   color: #D2D8DE;
   align-items: center;
+  font-weight: 500;
 }
 
 .custom-file-upload input[type="file"] {
   display: none;
+}
+select {
+  padding: 10px;
+  font-family: TT Norms;
+  font-size: 16px;
+  line-height: 20px;
+  color: #D2D8DE;
+  border: none;
+  background-color: #F3F5F6;
+  margin-bottom: 10px;
+  border-radius: 3px;
+}
+
+select option {
+  font-family: TT Norms;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 20px;
+  color: #535C69;
+}
+label{
+  font-weight: bold;
 }
 </style>

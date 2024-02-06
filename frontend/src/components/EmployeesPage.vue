@@ -29,36 +29,35 @@
           <div class="form-column">
             <label for="photo">Фото</label>
             <label class="custom-file-upload">
-              <input type="file" accept="image/*"/>Нажмите, чтобы добавить
+              <input type="file" accept="image/*"/>Прикрепите фото
             </label>
           </div>
         </div>
-
-        <div class="form-row">
-          <div class="dropdown-container">
-            <label for="service">Услуга</label>
-            <select id="service">
-              <option>Стрижка</option>
-              <option>Стрижка + борода</option>
-              <option>Укладка волос</option>
-              <option>Чистка лица</option>
-              <option>Окантовка</option>
-              <option>Отец + сын</option>
-            </select>
-          </div>
+        
+        <div class="dropdown-container">
+          <label for="service">Услуга</label>
+          <select id="service">
+            <option value="" disabled selected style="display:none;">Выберете услугу</option>
+            <option>Стрижка</option>
+            <option>Стрижка + борода</option>
+            <option>Укладка волос</option>
+            <option>Чистка лица</option>
+            <option>Окантовка</option>
+            <option>Отец + сын</option>
+          </select>
         </div>
 
         <div class="form-row">
           <div class="form-container">
             <label>График работы</label>
             <div class="days-buttons">
-              <button class="form-btn">Пн</button>
-              <button class="form-btn">Вт</button>
-              <button class="form-btn">Ср</button>
-              <button class="form-btn">Чт</button>
-              <button class="form-btn">Пт</button>
-              <button class="form-btn">Сб</button>
-              <button class="form-btn">Вс</button>
+              <button :class="{ 'form-btn-active': isDaySelected('Пн'), 'form-btn': !isDaySelected('Пн') }" @click="toggleDay('Пн')">Пн</button>
+              <button :class="{ 'form-btn-active': isDaySelected('Вт'), 'form-btn': !isDaySelected('Вт') }" @click="toggleDay('Вт')">Вт</button>
+              <button :class="{ 'form-btn-active': isDaySelected('Ср'), 'form-btn': !isDaySelected('Ср') }" @click="toggleDay('Ср')">Ср</button>
+              <button :class="{ 'form-btn-active': isDaySelected('Чт'), 'form-btn': !isDaySelected('Чт') }" @click="toggleDay('Чт')">Чт</button>
+              <button :class="{ 'form-btn-active': isDaySelected('Пт'), 'form-btn': !isDaySelected('Пт') }" @click="toggleDay('Пт')">Пт</button>
+              <button :class="{ 'form-btn-active': isDaySelected('Сб'), 'form-btn': !isDaySelected('Сб') }" @click="toggleDay('Сб')">Сб</button>
+              <button :class="{ 'form-btn-active': isDaySelected('Вс'), 'form-btn': !isDaySelected('Вс') }" @click="toggleDay('Вс')">Вс</button>
             </div>
           </div>
         </div>
@@ -68,6 +67,7 @@
             <label for="workingHours">Рабочие часы</label>
             <div class="dropdown-container">
               <select id="workingHours">
+                <option value="" disabled selected style="display:none;">Время работы</option>
                 <option>9:00 - 19:00</option>
                 <option>9:00 - 20:00</option>
                 <option>9:00 - 21:00</option>
@@ -82,6 +82,7 @@
             <label for="break">Перерыв</label>
             <div class="dropdown-container">
               <select id="break">
+                <option value="" disabled selected style="display:none;">Время перерыва</option>
                 <option>13:00-14:00</option>
                 <option>14:00-15:00</option>
               </select>
@@ -107,38 +108,47 @@
 
 
   
-  <script>
-  import NavbarPage from './NavbarPage.vue';
-  import SidebarPage from './SidebarPage.vue';
-  
-  export default {
-    components: { NavbarPage, SidebarPage },
-    data() {
-      return {
-        selectedRecordType: 'individual',
-        selectedPaymentFormat: 'sessionPayment',
-        uploadedFile: null,
-        groupCapacity: 0,
-        maxGroupCapacity: 0,
-      };
+<script>
+import NavbarPage from './NavbarPage.vue';
+import SidebarPage from './SidebarPage.vue';
+
+export default {
+  components: { NavbarPage, SidebarPage },
+  data() {
+    return {
+      // Добавлено новое свойство для хранения выбранных дней
+      selectedDays: [],
+      selectedRecordType: 'individual',
+      selectedPaymentFormat: 'sessionPayment',
+      uploadedFile: null,
+      groupCapacity: 0,
+      maxGroupCapacity: 0,
+    };
+  },
+  methods: {
+    // Добавлен новый метод для проверки выбран ли день
+    isDaySelected(day) {
+      return this.selectedDays.includes(day);
     },
-    methods: {
-      selectRecordType(type) {
-        this.selectedRecordType = type;
-      },
-      selectPaymentFormat(format) {
-        this.selectedPaymentFormat = format;
-      },
-      saveAndExit() {
-        // Логика сохранения и выхода
-      },
-      cancel() {
-        // Переход на предыдущую страницу
-        this.$router.go(-1);
-      },
-    }
-}   
-  </script>
+    // Добавлен новый метод для изменения состояния выбранного дня
+    toggleDay(day) {
+      if (this.isDaySelected(day)) {
+        this.selectedDays = this.selectedDays.filter(selectedDay => selectedDay !== day);
+      } else {
+        this.selectedDays.push(day);
+      }
+    },
+    // Ваша текущая логика сохранения и выхода
+    saveAndExit() {
+      // ...
+    },
+    // Ваша текущая логика отмены
+    cancel() {
+      // ...
+    },
+  }
+}
+</script>
   
   <style scoped>
   .form-row {
@@ -149,19 +159,6 @@
   .days-buttons {
     display: flex;
     gap: 10px;
-  }
-
-  .form-btn {
-    background-color: #FFFFFF;
-    color: #535C69;
-    border-radius: 3px;
-    border: 1px solid #DDE1E5;
-  }
-
-  .form-btn:focus {
-    outline: none; /* Remove default focus outline */
-    border-color: #6266EA; /* Border color when the button is focused */
-    box-shadow: 0 0 5px rgba(98, 102, 234, 0.5); /* Optional: Add a subtle box shadow */
   }
 
   .transition {
@@ -226,7 +223,7 @@
   .save-and-exit-button {
     background-color: #EFEFFF;
     color: #6266EA;
-    transition: background-color 0.3s, color 0.3s; /* Плавный переход при ховере */
+    transition: background-color 0.3s, color 0.3s;
   }
 
   .save-and-exit-button:hover {
@@ -241,7 +238,7 @@
     border: 1px solid #DDE1E5;
   }
   .custom-file-upload {
-    width: 260px;
+    width: 240px;
     height: 36px;
     display: flex;
     padding: 8px 10px;
@@ -250,6 +247,7 @@
     color: #D2D8DE;
     align-items: center;
     margin-bottom: 0;
+    font-weight: 500;
   }
   
   .custom-file-upload input[type="file"] {
@@ -263,6 +261,53 @@
     letter-spacing: 0em;
     color: #D2D8DE;
   }
-
+  .form-btn-active {
+    background-color: #FFFFFF;
+    color: #535C69;
+    border-radius: 3px;
+    border: 1px solid #6266EA;
+  }
+  .form-btn {
+    background-color: #FFFFFF;
+    color: #535C69;
+    border-radius: 3px;
+    border: 1px solid #DDE1E5;
+  }
+  select {
+    padding: 10px;
+    font-family: TT Norms;
+    font-size: 16px;
+    line-height: 20px;
+    color: #D2D8DE;
+    border: none;
+    background-color: #F3F5F6;
+    margin-bottom: 10px;
+    border-radius: 3px;
+  }
+  
+  select option {
+    font-family: TT Norms;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 20px;
+    color: #535C69;
+  }
+  select#service {
+    width: 100%;
+    padding: 10px;
+    font-family: TT Norms;
+    font-size: 16px;
+    line-height: 20px;
+    color: #D2D8DE;
+    border: none;
+    background-color: #F3F5F6;
+    margin-bottom: 10px;
+  }
+  input{
+    width: 240px;
+  }
+  label{
+    font-weight: 700;
+  }
 </style>
   

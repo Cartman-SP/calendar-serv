@@ -12,6 +12,7 @@ import axios from 'axios'
 import 'primevue/resources/themes/aura-light-green/theme.css'
 import 'primeicons/primeicons.css'
 import store from './store'
+import InputSwitch from 'primevue/inputswitch';
 
 store.commit('restoreRegistrationData');
 const app = createApp(App).use(store);
@@ -23,3 +24,4 @@ app.component('PasswordComponent', Password);
 app.component('InputTextComponent', InputText);
 app.component('MenubarComponent', Menubar);
 app.component('BadgeComponent', Badge);
+app.component('InputSwitchComponent', InputSwitch);
