@@ -1,13 +1,6 @@
 <template>
   <div class="main">
     <div class="create_branch">
-      <div class="transition">
-        <a href="#/main/branch  " class="branchs-link">Филиалы</a>
-        <div class="arrow-container">
-          <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
-        </div>
-        <p class="creation_text">Создание филиала</p>
-      </div>
 
       <!-- Форма создания филиала -->
       <form class="branch-form">
@@ -150,7 +143,9 @@ export default {
     transform: translate(-50%, -50%);
     width: 488px;
     height: 439px;
-    color: #FFFFFF;
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 5px;
   }
 
   .form-group {

@@ -121,10 +121,11 @@
     top: 50%;
     left: 45%;
     transform: translate(-50%, -50%);
-    width: 800px;
-    height: 635px;
+    width: 615px;
+    height: 515px;
     background-color: #FFFFFF;
-    padding: 30px;
+    padding: 20px;
+    border-radius: 5px;
   }
   
   .name-container {

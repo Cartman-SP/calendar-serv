@@ -208,9 +208,11 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 488px;
-    height: 439px;
-    color: #FFFFFF;
+    width: 530px;
+    height: 549px;
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 5px;
   }
 
   .button-container {

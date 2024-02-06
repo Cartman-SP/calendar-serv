@@ -1,13 +1,13 @@
 <template>
   <div class="main">
     <div class="create_service">
-      <div class="transition">
+<!--       <div class="transition">
         <a href="#/main/service" class="services-link">Услуги</a>
         <div class="arrow-container">
           <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
         </div>
         <p class="creation_text">Создание услуг</p>
-      </div>
+      </div> -->
       <!-- 1. Название услуги -->
       <label for="serviceName">Название услуги</label>
       <input type="text" id="serviceName" placeholder="Новая услуга">
@@ -307,8 +307,9 @@ export default {
   transform: translate(-50%, -50%);
   width: 488px;
   height: 439px;
-  color: #FFFFFF;
-
+  background-color: #FFFFFF;
+  padding: 20px;
+  border-radius: 5px;
 }
 
 .cost-duration-container {

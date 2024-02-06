@@ -1,7 +1,9 @@
 <template>
   <div class="sidebar">
     <div class="main_side">
-      <img src="../../static/img/SkedOnline.png" alt="" class="logotype">
+      <router-link to="/main/">
+        <img src="../../static/img/SkedOnline.png" alt="" class="logotype">
+      </router-link>
       <div class="content">
         <div class="top-group">
           <div class="cards-group">
