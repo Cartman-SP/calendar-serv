@@ -261,6 +261,8 @@ export default {
       display: flex;
     }
     .dropdown-item{
+      display: flex;
+      flex-direction: column;
       margin-bottom: 20px;
     }
     input:focus {
@@ -270,4 +272,23 @@ export default {
     .custom-file-upload input[type="file"]:focus {
       outline: none;
     }
+    select {
+      padding: 10px;
+      font-family: TT Norms;
+      font-size: 16px;
+      line-height: 20px;
+      color: #D2D8DE;
+      border: none;
+      background-color: #F3F5F6;
+      border-radius: 3px;
+    }
+    
+    select option {
+      font-family: TT Norms;
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 20px;
+      color: #535C69;
+    }
+    
   </style>
