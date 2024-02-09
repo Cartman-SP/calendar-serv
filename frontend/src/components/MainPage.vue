@@ -1,6 +1,5 @@
 <template>
   <div class="main">
-    <router-view></router-view>
     <ModalPage v-if="showModal" :result="modalResult" @closeModal="closeModal" />
   </div>
 </template>

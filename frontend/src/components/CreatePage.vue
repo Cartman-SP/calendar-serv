@@ -164,6 +164,26 @@
         <button @click="cancel" class="cancel-button">Отмена</button>
       </div>
     </div>
+    <div class="adaptive_window">
+      <img src="../../static/img/service.png" alt="" style="width:365px;height:200px;border-radius:2px">
+      <p class="header">Стрижка</p>
+      <p class="descr">Название услуги</p>
+      <div class="first">
+        <div class="stripe" style="width: 143px;"></div>
+        <div class="stripe" style="width: 97px;"></div>
+      </div>
+      <div class="second">
+        <div class="stripe" style="width: 143px;"></div>
+        <div class="stripe" style="width: 97px;"></div>
+      </div>
+      <div class="third-container">
+        <div class="third">
+          <div class="stripe" style="width: 109px;"></div>
+          <div class="stripe" style="width: 63px;"></div>
+        </div>
+        <p class="cost">Цена</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -221,7 +241,84 @@ export default {
 </script>
 
 <style scoped>
-
+.main{
+  display: flex;
+  flex-direction: row;
+}
+.adaptive_window{
+  background-color: #FFFFFF;
+  width: 405px;
+  height: auto;
+  margin-left: 25px;
+  padding: 20px;
+}
+.header{
+  font-family: TT Norms;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 22px;
+  text-align: left;
+  color: #535C69;
+  margin: 20px 0 0 0;
+}
+.first{
+  width: 220px;
+  height: 50px;
+  border-radius: 2px;
+  margin-top: 20px;
+  background: linear-gradient(90deg, #F6F6F6 0%, #F1F4F9 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+}
+.stripe {
+  height: 10px;
+  background: linear-gradient(90deg, #EBEBEB 0%, #DAE2EE 100%);
+  border-radius: 2px;
+}
+.second{
+  width: 220px;
+  height: 50px;
+  border-radius: 2px;
+  margin-top: 20px;
+  background: linear-gradient(90deg, #F6F6F6 0%, #F1F4F9 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+}
+.third{
+  width: 155px;
+  height: 50px;
+  border-radius: 2px;
+  margin-top: 20px;
+  background: linear-gradient(90deg, #F6F6F6 0%, #F1F4F9 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+}
+.third-container {
+  display: flex;
+  justify-content: space-between; /* Равномерное распределение пространства между элементами */
+}
+.cost{
+  text-align: right;
+  margin: 0;
+}
+.descr{
+  color: #AFB6C1;
+  font-family: TT Norms;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+  text-align: left;
+  margin: 5px 0 0 0;
+}
 .group-buttons{
   display: flex;
   flex-direction: row;
@@ -253,7 +350,6 @@ export default {
 }
 
 .create_service {
-  position: absolute;
   width: 488px;
   height: 439px;
   background-color: #FFFFFF;

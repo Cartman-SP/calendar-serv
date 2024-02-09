@@ -123,8 +123,8 @@ const routes = [
     redirect: to => {
       // Проверяем, авторизован ли пользователь
       if (store.getters.getRegistrationData.user_id) {
-        // Если авторизован, перенаправляем на страницу /main
-        return '/main';
+        // Если авторизован, перенаправляем на страницу /lk
+        return '/lk';
       } else {
         // В противном случае, возвращаем изначальный путь
         return to.path;
