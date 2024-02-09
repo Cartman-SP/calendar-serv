@@ -5,22 +5,15 @@
         <p class="header">Вот это скорость!</p>
         <p class="subheader">Мы видим, что вы завершили создание услуг. В этом разделе,<br>предлагаем добавить ваших сотрудников и назначить им ранее созданные<br>услуги. Если, у вас нет сотрудников, вы можете пропустить этот шаг<br>и перейти к созданию своего филиала/компании.</p>
         <div class="pernosal_btns">
-          <a href="#/main" style="text-decoration:none"><button class="personal_btn skip-btn"> Пропустить</button></a>
-          <a href="#/main/personal/employees" style="text-decoration:none"><button class="personal_btn"> + Добавить сотрудника</button></a>
+          <a href="#/lk" style="text-decoration:none"><button class="personal_btn skip-btn"> Пропустить</button></a>
+          <a href="#/lk/personal/employees" style="text-decoration:none"><button class="personal_btn"> + Добавить сотрудника</button></a>
         </div>
-      </div>
-      <div class="navigation">
-        <SidebarPage/>
-        <NavbarPage/>
       </div>
     </div>
   </template>
   
   <script>
-  import NavbarPage from './NavbarPage.vue';
-  import SidebarPage from './SidebarPage.vue';
   export default {
-    components: { NavbarPage, SidebarPage },
     data() {
       return{
   

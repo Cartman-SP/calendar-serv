@@ -1,7 +1,7 @@
 <template>
   <div class="main">
+    <h2>Настройка профиля</h2>
     <div class="settings">
-      <h2>Настройка профиля</h2>
       <div class="forms">
         <div class="name">
           <div class="name-container">
@@ -60,19 +60,11 @@
         </div>
       </div>
     </div>
-    <div class="navigation">
-      <SidebarPage/>
-      <NavbarPage/>
-    </div>
   </div>
 </template>
 
 <script>
-import NavbarPage from './NavbarPage.vue';
-import SidebarPage from './SidebarPage.vue';
-
 export default {
-  components: { NavbarPage, SidebarPage},
   data() {
     return {
     };
@@ -94,11 +86,8 @@ export default {
 .settings {
   text-align: center;
   position: absolute;
-  top: 50%;
-  left: 45%;
-  transform: translate(-50%, -50%);
-  width: 800px;
-  height: 635px;
+  width: auto;
+  height: auto;
   background-color: #FFFFFF;
   padding: 20px;
   border-radius: 5px;
@@ -108,11 +97,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-}
-
-.label-container {
-  display: flex;
-  align-items: center;
 }
 
 label {
@@ -218,5 +202,9 @@ p{
   font-weight: 500;
   line-height: 17px;
   letter-spacing: 0em;
+}
+h2{
+  margin: 0;
+  padding-bottom: 20px;
 }
 </style>

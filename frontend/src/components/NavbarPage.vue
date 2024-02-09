@@ -29,25 +29,25 @@
         <!-- Дополнительный блок для уведомлений -->
         <div v-if="showPlusNotificationPanel" class="plus-panel">
           <p class="header">Быстрое создание</p>
-          <router-link to="/main/" style="text-decoration:none">
+          <router-link to="/lk/" style="text-decoration:none">
             <div class="create">
               <img src="../../static/img/plus/send.svg" alt="">
               <p class="subheader">Заявки</p>
             </div>
           </router-link>
-          <router-link to="/main/service/create" style="text-decoration:none">
+          <router-link to="/lk/service/create" style="text-decoration:none">
             <div class="create">
               <img src="../../static/img/plus/list.svg" alt="">
               <p class="subheader">Услуги</p>
             </div>
           </router-link>
-          <router-link to="/main/personal/employees" style="text-decoration:none">
+          <router-link to="/lk/personal/employees" style="text-decoration:none">
             <div class="create">
               <img src="../../static/img/plus/default.svg" alt="">
               <p class="subheader">Сотрудника</p>
             </div>
           </router-link>
-          <router-link to="/main/branch/createbranch" style="text-decoration:none">
+          <router-link to="/lk/branch/createbranch" style="text-decoration:none">
             <div class="create">
               <img src="../../static/img/plus/case.svg" alt="">
               <p class="subheader">Филиала</p>

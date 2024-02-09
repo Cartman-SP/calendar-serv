@@ -4,21 +4,13 @@
       <img src="../../static/img/flag.png" alt="" class="img_service">
       <p class="header">Поздравляем с регистрацией!</p>
       <p class="subheader">Предлагаем вам перейти к созданию услуги, после чего<br>у вас появится возможность прикрепить созданные услуги<br>к вашим специалистам и добавить филиал.</p>
-      <a href="#/main/service/create" style="text-decoration:none"><button class="service_btn"> + Добавить услуги</button></a>
-    </div>
-
-    <div class="navigation">
-      <SidebarPage/>
-      <NavbarPage/>
+      <a href="#/lk/service/create" style="text-decoration:none"><button class="service_btn"> + Добавить услуги</button></a>
     </div>
   </div>
 </template>
 
 <script>
-import NavbarPage from './NavbarPage.vue';
-import SidebarPage from './SidebarPage.vue';
 export default {
-  components: { NavbarPage, SidebarPage },
   data() {
     return{
 
@@ -28,10 +20,6 @@ export default {
 </script>
 
 <style scoped>
-.navigation{
-  display: flex;
-  background-color: #FAFAFA;
-}
 .service {
   text-align: center;
   position: absolute;

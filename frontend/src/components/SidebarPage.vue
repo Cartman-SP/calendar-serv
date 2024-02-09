@@ -1,25 +1,25 @@
 <template>
   <div class="sidebar">
     <div class="main_side">
-      <router-link to="/main/">
+      <router-link to="/lk/">
         <img src="../../static/img/SkedOnline.png" alt="" class="logotype">
       </router-link>
       <div class="content">
         <div class="top-group">
           <div class="cards-group">
-            <router-link to="/main/service" class="main_text" :class="{ active: $route.path === '/main/service' }">
+            <router-link to="/lk/service" class="main_text" :class="{ active: $route.path === '/main/service' }">
               <div class="main_menu">
                 <img src="../../static/img/list.png" alt="" class="main_logo">
                 <p class="main_text">Услуги</p>
               </div>
             </router-link>
-            <router-link to="/main/personal" class="main_text" :class="{ active: $route.path === '/main/personal' }">
+            <router-link to="/lk/personal" class="main_text" :class="{ active: $route.path === '/main/personal' }">
               <div class="main_menu">
                 <img src="../../static/img/group.png" alt="" class="main_logo">
                 <p class="main_text">Сотрудники</p>
               </div>
             </router-link>
-            <router-link to="/main/branch" class="main_text" :class="{ active: $route.path === '/main/branch' }">
+            <router-link to="/lk/branch" class="main_text" :class="{ active: $route.path === '/main/branch' }">
               <div class="main_menu">
                 <img src="../../static/img/briefcase.png" alt="" class="main_logo">
                 <p class="main_text">Филиалы</p>
@@ -34,19 +34,19 @@
                 <p class="main_text">Виджеты</p>
               </div>
             </router-link>
-            <router-link to="/main/calendar" class="main_text" :class="{ active: $route.path === '/main/calendar' }">
+            <router-link to="/lk/calendar" class="main_text" :class="{ active: $route.path === '/main/calendar' }">
               <div class="main_menu">
                 <img src="../../static/img/calendar.png" alt="" class="main_logo">
                 <p class="main_text">Календарь</p>
               </div>
             </router-link>
-            <router-link to="/main/clients" class="main_text" :class="{ active: $route.path === '/main/clients' }">
+            <router-link to="/lk/clients" class="main_text" :class="{ active: $route.path === '/main/clients' }">
               <div class="main_menu">
                 <img src="../../static/img/group.png" alt="" class="main_logo">
                 <p class="main_text">Клиенты</p>
               </div>
             </router-link>
-            <router-link to="/main/statistics" class="main_text" :class="{ active: $route.path === '/main/statistics' }">
+            <router-link to="/lk/statistics" class="main_text" :class="{ active: $route.path === '/main/statistics' }">
               <div class="main_menu">
                 <img src="../../static/img/arrow.png" alt="" class="main_logo">
                 <p class="main_text">Статистика</p>
@@ -83,7 +83,7 @@
                   <p id="bottom_sub_text">Барбершоп на..........</p>
                 </div>
                 <div v-if="showDropdown" class="dropdown-menu">
-                  <router-link to="/main/settings" style="text-decoration:none">
+                  <router-link to="/lk/settings" style="text-decoration:none">
                     <div class="dropdown-item">
                       <div class="dropdown-header">Настройка профиля</div>
                     </div>

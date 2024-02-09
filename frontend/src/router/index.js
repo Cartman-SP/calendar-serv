@@ -1,102 +1,54 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-// import HelloPage from '../components/HelloPage.vue'
-// import RegPage from '../components/RegPage.vue'
-// import EnterPage from '../components/EnterPage.vue'
-// import ResetPage from '../components/ResetPage.vue'
-// import ResetPasswordPage from '../components/ResetPasswordPage.vue'
-// import RecoveryPage from '../components/RecoveryPage.vue'
-// import MainPage from '../components/MainPage.vue'
-// import ServicePage from '../components/ServicePage.vue'
-// import CreatePage from '../components/CreatePage.vue'
-// import PersonalPage from '../components/PersonalPage.vue'
-// import BranchPage from '../components/BranchPage.vue'
+import HelloPage from '../components/HelloPage.vue'
+import RegPage from '../components/RegPage.vue'
+import EnterPage from '../components/EnterPage.vue'
+import ResetPage from '../components/ResetPage.vue'
+import ResetPasswordPage from '../components/ResetPasswordPage.vue'
+import RecoveryPage from '../components/RecoveryPage.vue'
+import MainPage from '../components/MainPage.vue'
+import ServicePage from '../components/ServicePage.vue'
+import CreatePage from '../components/CreatePage.vue'
+import PersonalPage from '../components/PersonalPage.vue'
+import BranchPage from '../components/BranchPage.vue'
 import WidgetsPage from '../components/WidgetsPage.vue'
-// import EmployeesPage from '../components/EmployeesPage.vue'
-// import SettingsPage from '../components/SettingsPage.vue'
-// import CreateBranchPage from '../components/CreateBranchPage.vue'
+import EmployeesPage from '../components/EmployeesPage.vue'
+import SettingsPage from '../components/SettingsPage.vue'
+import CreateBranchPage from '../components/CreateBranchPage.vue'
 import WidgetsSettingsPage from '../components/WidgetsSettingsPage.vue'
 import LichniyCabinet from '../components/LichniyCabinet.vue'
 import store from '../store';
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'hello',
-  //   component: HelloPage
-  // },
-  // {
-  //   path: '/login',
-  //   name: 'login',  
-  //   component: EnterPage,
-  // },
-  // {
-  //   path: '/register',
-  //   name: 'register',
-  //   component: RegPage,
-  // },
-  // {
-  //   path: '/reset',
-  //   name: 'reset',
-  //   component: ResetPage,
-  // },
-  // {
-  //   path: '/resetpassword',
-  //   name: 'resetpassword',
-  //   component: ResetPasswordPage,
-  // },
-  // {
-  //   path: '/recovery',
-  //   name: 'recovery',
-  //   component: RecoveryPage,
-  // },
-  // {
-  //   path: '/main',
-  //   name: 'main',
-  //   component: MainPage,
-  //   meta: { requiresAuth: true }
-  // },
-  // {
-  //   path:'/main/service',
-  //   name: 'service',
-  //   component: ServicePage,
-  //   meta: { requiresAuth: true }
-  // },
-  // {
-  //   path:'/main/service/create',
-  //   name: 'create',
-  //   component: CreatePage,
-  //   meta: { requiresAuth: true }
-  // },
-  // {
-  //   path: '/main/personal',
-  //   name: 'personal',
-  //   component: PersonalPage,
-  //   meta: { requiresAuth: true }
-  // },
-  // {
-  //   path: '/main/branch',
-  //   name: 'branch',
-  //   component: BranchPage,
-  //   meta: { requiresAuth: true }
-  // },
-  // {
-  //   path: '/main/personal/employees',
-  //   name: 'employees',
-  //   component: EmployeesPage,
-  //   meta: { requiresAuth: true }
-  // },
-  // {
-  //   path: '/main/settings',
-  //   name: 'settings',
-  //   component: SettingsPage,
-  //   meta: { requiresAuth: true }
-  // },
-  // {
-  //   path: '/main/branch/createbranch',
-  //   name: 'createbranch',
-  //   component: CreateBranchPage,
-  //   meta: { requiresAuth: true }
-  // },
+ {
+   path: '/',
+   name: 'hello',
+   component: HelloPage
+ },
+ {
+   path: '/login',
+   name: 'login',  
+   component: EnterPage,
+ },
+ {
+   path: '/register',
+   name: 'register',
+   component: RegPage,
+ },
+ {
+   path: '/reset',
+   name: 'reset',
+   component: ResetPage,
+ },
+ {
+   path: '/resetpassword',
+   name: 'resetpassword',
+   component: ResetPasswordPage,
+ },
+ {
+   path: '/recovery',
+   name: 'recovery',
+   component: RecoveryPage,
+ },
   {
     path: '/lk',
     name: 'lk',
@@ -114,6 +66,54 @@ const routes = [
         name: 'widgetsSettings',
         component: WidgetsSettingsPage,
         meta: { requiresAuth: true },
+      },
+      {
+        path: '/lk/main',
+        name: 'main',
+        component: MainPage,
+        meta: { requiresAuth: true }
+      },
+      {
+        path:'/lk/service',
+        name: 'service',
+        component: ServicePage,
+        meta: { requiresAuth: true }
+      },
+      {
+        path:'/lk/service/create',
+        name: 'create',
+        component: CreatePage,
+        meta: { requiresAuth: true }
+      },
+      {
+        path: '/lk/personal',
+        name: 'personal',
+        component: PersonalPage,
+        meta: { requiresAuth: true }
+      },
+      {
+        path: '/lk/branch',
+        name: 'branch',
+        component: BranchPage,
+        meta: { requiresAuth: true }
+      },
+      {
+        path: '/lk/personal/employees',
+        name: 'employees',
+        component: EmployeesPage,
+        meta: { requiresAuth: true }
+      },
+      {
+        path: '/lk/settings',
+        name: 'settings',
+        component: SettingsPage,
+        meta: { requiresAuth: true }
+      },
+      {
+        path: '/lk/branch/createbranch',
+        name: 'createbranch',
+        component: CreateBranchPage,
+        meta: { requiresAuth: true }
       },
     ]
   },

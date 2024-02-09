@@ -1,13 +1,13 @@
 <template>
   <div class="main">
-    <div class="create_employess">
-      <div class="transition">
-        <a href="#/main/personal" class="employesss-link">Сотрудники</a>
-        <div class="arrow-container">
-          <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
-        </div>
-        <p class="creation_text">Создание сотрудника</p>
+    <div class="transition">
+      <a href="#/lk/personal" class="employesss-link">Сотрудники</a>
+      <div class="arrow-container">
+        <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
       </div>
+      <p class="creation_text">Создание сотрудника</p>
+    </div>
+    <div class="create_employess">
       <!-- Form Elements -->
       <div class="form-container">
         <div class="form-row">
@@ -97,23 +97,13 @@
         <button @click="cancel" class="cancel-button">Отмена</button>
       </div>
     </div>
-
-    <div class="navigation">
-      <!-- Подключение других компонентов -->
-      <SidebarPage/>
-      <NavbarPage/>
-    </div>
   </div>
 </template>
 
 
   
 <script>
-import NavbarPage from './NavbarPage.vue';
-import SidebarPage from './SidebarPage.vue';
-
 export default {
-  components: { NavbarPage, SidebarPage },
   data() {
     return {
       // Добавлено новое свойство для хранения выбранных дней
@@ -165,13 +155,13 @@ export default {
     display: flex;
     flex-direction: row;
     gap: 10px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
   }
 
   .employesss-link {
     font-family: TT Norms;
     font-size: 20px;
-    font-weight: 500;
+    font-weight: bold;
     line-height: 24px;
     text-align: left;
     text-decoration: none;
@@ -182,7 +172,7 @@ export default {
     color: #535C69;
     font-family: TT Norms;
     font-size: 20px;
-    font-weight: 500;
+    font-weight: bold;
     line-height: 24px;
     letter-spacing: 0em;
     text-align: left;
@@ -205,9 +195,6 @@ export default {
 
   .create_employess {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     width: 530px;
     height: 549px;
     background-color: #FFFFFF;

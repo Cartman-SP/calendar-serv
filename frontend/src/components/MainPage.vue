@@ -1,22 +1,16 @@
 <template>
   <div class="main">
     <router-view></router-view>
-    <div class="navigation">
-      <SidebarPage />
-      <NavbarPage />
-    </div>
     <ModalPage v-if="showModal" :result="modalResult" @closeModal="closeModal" />
   </div>
 </template>
 
 <script>
-import NavbarPage from './NavbarPage.vue';
-import SidebarPage from './SidebarPage.vue';
 import ModalPage from './ModalPage.vue';
 import axios from 'axios';
 
 export default {
-  components: { NavbarPage, SidebarPage, ModalPage },
+  components: { ModalPage },
   data() {
     return {
       showModal: false,

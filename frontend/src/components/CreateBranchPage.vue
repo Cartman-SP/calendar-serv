@@ -1,7 +1,10 @@
 <template>
+  
   <div class="main">
+    <div class="card flex justify-content-center">
+      <BreadcrumbComponent :home="home" :model="items" style="padding: 0 0 20px 0; background-color: #FAFAFA"/>
+    </div>
     <div class="create_branch">
-
       <!-- Форма создания филиала -->
       <form class="branch-form">
         <div class="one-group">
@@ -57,90 +60,27 @@
         </div>
       </form>
     </div>
-
-    <div class="navigation">
-      <!-- Подключение других компонентов -->
-      <SidebarPage/>
-      <NavbarPage/>
-    </div>
   </div>
 </template>
 
 <script>
-import NavbarPage from './NavbarPage.vue';
-import SidebarPage from './SidebarPage.vue';
-
 export default {
-  components: { NavbarPage, SidebarPage },
-  methods: {
-    weeklySchedule() {
-      this.isWeeklyActive = true;
-      this.isShiftActive = false;
-      // Логика для недельного графика
-    },
-    shiftSchedule() {
-      this.isWeeklyActive = false;
-      this.isShiftActive = true;
-      // Логика для сменного графика
-    },
-  },
-  data() {
-    return {
-      isWeeklyActive: true,  // Измененная строка
-      isShiftActive: false,
-    };
-  },
-};
+    data() {
+        return {
+            home: {
+                label: 'Филиалы'
+            },
+            items: [
+                { label: 'Создание филиала' }, 
+            ]
+        }
+    }
+}
 </script>
 
 <style scoped>
-  .transition {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    margin-bottom: 50px;
-  }
-
-  .branchs-link {
-    font-family: TT Norms;
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 24px;
-    text-align: left;
-    text-decoration: none;
-    color: #AFB6C1;
-  }
-
-  .creation_text {
-    color: #535C69;
-    font-family: TT Norms;
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 24px;
-    letter-spacing: 0em;
-    text-align: left;
-    margin: 0;
-  }
-
-  .arrow-container {
-    display: flex;
-    align-items: center;
-  }
-
-  .arrow-icon {
-    height: 50%;
-  }
-
-  .navigation {
-    display: flex;
-    background-color:#FAFAFA;
-  }
-
   .create_branch {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     width: 488px;
     height: auto;
     background-color: #FFFFFF;
