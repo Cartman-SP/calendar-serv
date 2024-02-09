@@ -28,7 +28,7 @@
           </div>
           <div class="line"></div>
           <div class="cards-group">
-            <router-link to="/main/widgets" class="main_text" :class="{ active: $route.path === '/main/widgets' }">
+            <router-link to="/lk/widgets" class="main_text" :class="{ active: $route.path === '/lk/widgets' }">
               <div class="main_menu">
                 <img src="../../static/img/plug.png" alt="" class="main_logo">
                 <p class="main_text">Виджеты</p>

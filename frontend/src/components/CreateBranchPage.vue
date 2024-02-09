@@ -142,7 +142,7 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 488px;
-    height: 439px;
+    height: auto;
     background-color: #FFFFFF;
     padding: 20px;
     border-radius: 5px;
@@ -151,7 +151,6 @@ export default {
   .form-group {
     display: flex;
     flex-direction: column;
-    gap: 10px;
   }
 
   input,
@@ -186,6 +185,7 @@ export default {
     letter-spacing: 0em;
     text-align: left;
     color: #D2D8DE;
+    margin: 0;
   }
 
   .schedule-buttons {
