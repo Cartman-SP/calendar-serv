@@ -20,10 +20,6 @@
   </script>
   
   <style scoped>
-  .navigation{
-    display: flex;
-    background-color: white;
-  }
   .widgets {
     text-align: center;
     position: absolute;
