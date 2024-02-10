@@ -1,13 +1,6 @@
 <template>
   <div class="main">
     <div class="create_service">
-<!--       <div class="transition">
-        <a href="#/main/service" class="services-link">Услуги</a>
-        <div class="arrow-container">
-          <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
-        </div>
-        <p class="creation_text">Создание услуг</p>
-      </div> -->
       <!-- 1. Название услуги -->
       <label for="serviceName">Название услуги</label>
       <input type="text" id="serviceName" placeholder="Новая услуга">
@@ -67,8 +60,6 @@
       <!-- 5. Групповые параметры -->
       <div v-if="selectedRecordType === 'group'" class="group-parameters">
         <label for="groupCapacity">Количество мест</label>
-
-        <!-- Объект для кнопок "+" и "-" -->
         <div class="group-buttons">
           <div class="group-counter">
             <button @click="decreaseGroupCapacity">-</button>
@@ -76,8 +67,6 @@
             <input type="text" v-else placeholder="" :value="groupCapacity">
             <button @click="increaseGroupCapacity">+</button>
           </div>
-
-          <!-- Объект для кнопок "+" и "-" -->
           <div class="group-counter">
             <button @click="decreaseMaxGroupCapacity">-</button>
             <input type="text" v-if="maxGroupCapacity === 0" placeholder="До" :value="''">
@@ -87,11 +76,9 @@
         </div>
       </div>
 
-      <!-- 6. Групповые параметры -->
+      <!-- 6. Групповые параметры для аренды -->
       <div v-if="selectedRecordType === 'rental'" class="group-parameters">
         <label for="groupCapacity">Количество единиц для аренды</label>
-
-        <!-- Объект для кнопок "+" и "-" -->
         <div class="group-buttons">
           <div class="group-counter">
             <button @click="decreaseGroupCapacity">-</button>
@@ -99,8 +86,6 @@
             <input type="text" v-else placeholder="" :value="groupCapacity">
             <button @click="increaseGroupCapacity">+</button>
           </div>
-
-          <!-- Объект для кнопок "+" и "-" -->
           <div class="group-counter">
             <button @click="decreaseMaxGroupCapacity">-</button>
             <input type="text" v-if="maxGroupCapacity === 0" placeholder="До" :value="''">
@@ -111,9 +96,9 @@
       </div>      
 
       <!-- 7. Формат оплаты -->
-      <label for="paymentFormat">Формат оплаты</label>
-      <div class="record-type-container">
-        <!-- Добавлены условия для индивидуальной записи -->
+      <label for="paymentFormat" v-if="selectedRecordType !== ''">Формат оплаты</label>
+      <div class="record-type-container" v-if="selectedRecordType !== ''">
+        <!-- Добавлены условия для всех типов записи -->
         <button
           v-if="selectedRecordType === 'individual'"
           :class="{ 'active': selectedPaymentFormat === 'sessionPayment' }"
@@ -138,7 +123,6 @@
         >
           Без стоимости
         </button>
-
         <!-- Добавлены условия для групповой и аренды -->
         <button
           v-if="selectedRecordType === 'group' || selectedRecordType === 'rental'"
@@ -158,7 +142,7 @@
         </button>
       </div>
 
-      <!-- 7. Кнопки -->
+      <!-- 8. Кнопки -->
       <div class="button-container">
         <button @click="saveAndExit" class="save-and-exit-button">Сохранить и выйти</button>
         <button @click="cancel" class="cancel-button">Отмена</button>
@@ -191,9 +175,8 @@
 export default {
   data() {
     return {
-      selectedRecordType: 'individual',
-      selectedPaymentFormat: 'sessionPayment',
-      uploadedFile: null,
+      selectedRecordType: '',
+      selectedPaymentFormat: '',
       groupCapacity: 0,
       maxGroupCapacity: 0,
     };
@@ -201,24 +184,17 @@ export default {
   methods: {
     selectRecordType(type) {
       this.selectedRecordType = type;
+      this.selectedPaymentFormat = ''; // Reset selected payment format when changing record type
     },
     selectPaymentFormat(format) {
       this.selectedPaymentFormat = format;
     },
     saveAndExit() {
-      // Логика сохранения и выхода
+      // Save and exit logic
     },
     cancel() {
-      // Переход на предыдущую страницу
+      // Go back to the previous page
       this.$router.go(-1);
-    },
-    handleFileChange(event) {
-      const file = event.target.files[0];
-      if (file) {
-        // Ваш код для загрузки файла, например, отправка на сервер
-        // В данном примере используется заглушка, вы должны заменить ее на свою логику
-        this.uploadedFile = 'URL к загруженному файлу';
-      }
     },
     decreaseGroupCapacity() {
       if (this.groupCapacity > 0) {
