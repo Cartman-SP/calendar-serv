@@ -1,8 +1,12 @@
 <template>
   
   <div class="main">
-    <div class="card flex justify-content-center">
-      <BreadcrumbComponent :home="home" :model="items" style="padding: 0 0 20px 0; background-color: #FAFAFA"/>
+    <div class="transition">
+      <router-link to="/lk/branch" class="employesss-link">Филиалы</router-link>
+      <div class="arrow-container">
+        <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
+      </div>
+      <p class="creation_text">Создание филиала</p>
     </div>
     <div class="create_branch">
       <!-- Форма создания филиала -->
@@ -65,16 +69,22 @@
 
 <script>
 export default {
-    data() {
-        return {
-            home: {
-                label: 'Филиалы'
-            },
-            items: [
-                { label: 'Создание филиала' }, 
-            ]
-        }
+  data() {
+    return {
+      isWeeklyActive: false,
+      isShiftActive: false
     }
+  },
+  methods: {
+    weeklySchedule() {
+      this.isWeeklyActive = true;
+      this.isShiftActive = false;
+    },
+    shiftSchedule() {
+      this.isShiftActive = true;
+      this.isWeeklyActive = false;
+    }
+  }
 }
 </script>
 
@@ -95,7 +105,7 @@ export default {
 
   input,
   select {
-    padding: 10px;
+    padding: 8px 10px;
     font-family: TT Norms;
     font-size: 16px;
     line-height: 20px;
@@ -103,6 +113,7 @@ export default {
     border: none;
     background-color: #F3F5F6;
     margin-bottom: 10px;
+    height: 36px;
   }
 
   select{
@@ -111,7 +122,7 @@ export default {
   
   select option {
     font-family: TT Norms;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     line-height: 20px;
     color: #535C69;
@@ -131,6 +142,7 @@ export default {
   .schedule-buttons {
     display: flex;
     gap: 10px;
+    
   }
 
   .schedule-buttons button {
@@ -212,5 +224,41 @@ export default {
     font-weight: 500;
     line-height: 10px;
     letter-spacing: 0em;
+  }
+  .transition {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .employesss-link {
+    font-family: TT Norms;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 24px;
+    text-align: left;
+    text-decoration: none;
+    color: #AFB6C1;
+  }
+  
+  .creation_text {
+    color: #535C69;
+    font-family: TT Norms;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin: 0;
+  }
+  
+  .arrow-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .arrow-icon {
+    height: 50%;
   }
 </style>

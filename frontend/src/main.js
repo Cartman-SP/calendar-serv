@@ -14,6 +14,9 @@ import 'primeicons/primeicons.css'
 import store from './store'
 import InputSwitch from 'primevue/inputswitch';
 import Breadcrumb from 'primevue/breadcrumb';
+import TabView from 'primevue/tabview';
+import TabPanel from 'primevue/tabpanel';
+
 
 
 store.commit('restoreRegistrationData');
@@ -28,3 +31,5 @@ app.component('MenubarComponent', Menubar);
 app.component('BadgeComponent', Badge);
 app.component('InputSwitchComponent', InputSwitch);
 app.component('BreadcrumbComponent', Breadcrumb);
+app.component('TabViewComponent', TabView);
+app.component('TabPanelComponent', TabPanel);

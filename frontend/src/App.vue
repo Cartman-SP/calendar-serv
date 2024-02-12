@@ -47,11 +47,10 @@ nav a.router-link-exact-active {
 button {
     color: var(--ffffff, #FFF);
     background:#6266EA;
-    padding: 10px 20px;
     border: none;
     cursor: pointer;
     display: flex;
-    height: 34px;
+    height: 36px;
     padding: 10px 14px;
     justify-content: center;
     align-items: center;

@@ -18,7 +18,7 @@
             <label for="userPhoto">Фотография</label>
             <div class="input-container">
               <label class="custom-file-upload">
-                <input type="file" accept="image/*"/>Нажмите, чтобы добавить
+                <input type="file" accept="image/*"/>Нажмите, чтобы загрузить
               </label>
               <button @click="saveName" class="button-save">Сохранить изменения</button>
             </div>

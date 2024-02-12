@@ -1,171 +1,178 @@
 <template>
   <div class="main">
-    <div class="create_service">
-      <!-- 1. Название услуги -->
-      <label for="serviceName">Название услуги</label>
-      <input type="text" id="serviceName" placeholder="Новая услуга">
-
-      <!-- 2. Стоимость, Длительность -->
-      <div class="cost-duration-container">
-        <div class="input-group">
-          <label for="serviceCost">Стоимость</label>
-          <input type="number" id="serviceCost" placeholder="Введите стоимость">
-        </div>
-
-        <div class="input-group">
-          <label for="serviceDuration">Длительность</label>
-          <select id="serviceDuration" placeholder="Выберите время">
-            <option value="" disabled selected style="display:none;">Выберите время</option>
-            <option value="15m">15м</option>
-            <option value="30m">30м</option>
-            <option value="45m">45м</option>
-            <option value="60m">60м</option>
-          </select>
-        </div>
+    <div class="transition">
+      <router-link to="/lk/service" class="employesss-link">Услуги</router-link>
+      <div class="arrow-container">
+        <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
       </div>
-
-      <!-- 3. Обложка услуги -->
-      <label for="serviceCover" class="file-label">Обложка услуги</label>
-      <label class="custom-file-upload">
-        <input type="file" accept="image/*"/>Нажмите, чтобы добавить
-      </label>
-      <p class="text">до 5 МБ, PNG, JPG, JPEG</p>
-
-      <!-- 4. Тип индивидуальности -->
-      <label for="recordType">Тип записи</label>
-      <div class="record-type-container">
-        <button
-          :class="{ 'active': selectedRecordType === 'individual' }"
-          @click="selectRecordType('individual')"
-          class="record-button"
-        >
-          Индивидуальная
-        </button>
-        <button
-          :class="{ 'active': selectedRecordType === 'group' }"
-          @click="selectRecordType('group')"
-          class="record-button"
-        >
-          Групповая
-        </button>
-        <button
-          :class="{ 'active': selectedRecordType === 'rental' }"
-          @click="selectRecordType('rental')"
-          class="record-button"
-        >
-          Аренда
-        </button>
-      </div>
-
-      <!-- 5. Групповые параметры -->
-      <div v-if="selectedRecordType === 'group'" class="group-parameters">
-        <label for="groupCapacity">Количество мест</label>
-        <div class="group-buttons">
-          <div class="group-counter">
-            <button @click="decreaseGroupCapacity">-</button>
-            <input type="text" v-if="groupCapacity === 0" placeholder="От" :value="''">
-            <input type="text" v-else placeholder="" :value="groupCapacity">
-            <button @click="increaseGroupCapacity">+</button>
-          </div>
-          <div class="group-counter">
-            <button @click="decreaseMaxGroupCapacity">-</button>
-            <input type="text" v-if="maxGroupCapacity === 0" placeholder="До" :value="''">
-            <input type="text" v-else placeholder="" :value="maxGroupCapacity">
-            <button @click="increaseMaxGroupCapacity">+</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- 6. Групповые параметры для аренды -->
-      <div v-if="selectedRecordType === 'rental'" class="group-parameters">
-        <label for="groupCapacity">Количество единиц для аренды</label>
-        <div class="group-buttons">
-          <div class="group-counter">
-            <button @click="decreaseGroupCapacity">-</button>
-            <input type="text" v-if="groupCapacity === 0" placeholder="От" :value="''">
-            <input type="text" v-else placeholder="" :value="groupCapacity">
-            <button @click="increaseGroupCapacity">+</button>
-          </div>
-          <div class="group-counter">
-            <button @click="decreaseMaxGroupCapacity">-</button>
-            <input type="text" v-if="maxGroupCapacity === 0" placeholder="До" :value="''">
-            <input type="text" v-else placeholder="" :value="maxGroupCapacity">
-            <button @click="increaseMaxGroupCapacity">+</button>
-          </div>
-        </div>
-      </div>      
-
-      <!-- 7. Формат оплаты -->
-      <label for="paymentFormat" v-if="selectedRecordType !== ''">Формат оплаты</label>
-      <div class="record-type-container" v-if="selectedRecordType !== ''">
-        <!-- Добавлены условия для всех типов записи -->
-        <button
-          v-if="selectedRecordType === 'individual'"
-          :class="{ 'active': selectedPaymentFormat === 'sessionPayment' }"
-          @click="selectPaymentFormat('sessionPayment')"
-          class="record-button"
-        >
-          Оплата за сеанс
-        </button>
-        <button
-          v-if="selectedRecordType === 'individual'"
-          :class="{ 'active': selectedPaymentFormat === 'spotPayment' }"
-          @click="selectPaymentFormat('spotPayment')"
-          class="record-button"
-        >
-          Оплата за место
-        </button>
-        <button
-          v-if="selectedRecordType === 'individual'"
-          :class="{ 'active': selectedPaymentFormat === 'freePayment' }"
-          @click="selectPaymentFormat('freePayment')"
-          class="record-button"
-        >
-          Без стоимости
-        </button>
-        <!-- Добавлены условия для групповой и аренды -->
-        <button
-          v-if="selectedRecordType === 'group' || selectedRecordType === 'rental'"
-          :class="{ 'active': selectedPaymentFormat === 'equipmentPayment' }"
-          @click="selectPaymentFormat('equipmentPayment')"
-          class="record-button"
-        >
-          Оплата за время и единицу оборудования
-        </button>
-        <button
-          v-if="selectedRecordType === 'group' || selectedRecordType === 'rental'"
-          :class="{ 'active': selectedPaymentFormat === 'freePayment' }"
-          @click="selectPaymentFormat('freePayment')"
-          class="record-button"
-        >
-          Без стоимости
-        </button>
-      </div>
-
-      <!-- 8. Кнопки -->
-      <div class="button-container">
-        <button @click="saveAndExit" class="save-and-exit-button">Сохранить и выйти</button>
-        <button @click="cancel" class="cancel-button">Отмена</button>
-      </div>
+      <p class="creation_text">Создание услуги</p>
     </div>
-    <div class="adaptive_window">
-      <img src="../../static/img/service.png" alt="" style="width:365px;height:200px;border-radius:2px">
-      <p class="header">Стрижка</p>
-      <p class="descr">Название услуги</p>
-      <div class="first">
-        <div class="stripe" style="width: 143px;"></div>
-        <div class="stripe" style="width: 97px;"></div>
+    <div class="main_group">
+
+      <div class="create_service">
+        <!-- 1. Название услуги -->
+        <label for="serviceName">Название услуги</label>
+        <input type="text" id="serviceName" placeholder="Новая услуга">
+  
+        <!-- 2. Стоимость, Длительность -->
+        <div class="cost-duration-container">
+          <div class="input-group">
+            <label for="serviceCost">Стоимость</label>
+            <input type="number" id="serviceCost" placeholder="Введите стоимость">
+          </div>
+  
+          <div class="input-group">
+            <label for="serviceDuration">Длительность</label>
+            <select id="serviceDuration" placeholder="Выберите время">
+              <option value="" disabled selected style="display:none;">Выберите время</option>
+              <option value="15m">15м</option>
+              <option value="30m">30м</option>
+              <option value="45m">45м</option>
+              <option value="60m">60м</option>
+            </select>
+          </div>
+        </div>
+  
+        <!-- 3. Обложка услуги -->
+        <label for="serviceCover" class="file-label">Обложка услуги</label>
+        <label class="custom-file-upload">
+          <input type="file" accept="image/*"/>Нажмите, чтобы добавить
+        </label>
+        <p class="text">до 5 МБ, PNG, JPG, JPEG</p>
+  
+        <!-- 4. Тип индивидуальности -->
+        <label for="recordType">Тип записи</label>
+        <div class="record-type-container">
+          <button
+            :class="{ 'active': selectedRecordType === 'individual' }"
+            @click="selectRecordType('individual')"
+            class="record-button"
+          >
+            Индивидуальная
+          </button>
+          <button
+            :class="{ 'active': selectedRecordType === 'group' }"
+            @click="selectRecordType('group')"
+            class="record-button"
+          >
+            Групповая
+          </button>
+          <button
+            :class="{ 'active': selectedRecordType === 'rental' }"
+            @click="selectRecordType('rental')"
+            class="record-button"
+          >
+            Аренда
+          </button>
+        </div>
+  
+        <!-- 5. Групповые параметры -->
+        <div v-if="selectedRecordType === 'group'" class="group-parameters">
+          <label for="groupCapacity">Количество мест</label>
+          <div class="group-buttons">
+            <div class="group-counter">
+              <button @click="decreaseGroupCapacity">-</button>
+              <input type="text" v-if="groupCapacity === 0" placeholder="От" :value="''">
+              <input type="text" v-else placeholder="" :value="groupCapacity">
+              <button @click="increaseGroupCapacity">+</button>
+            </div>
+            <div class="group-counter">
+              <button @click="decreaseMaxGroupCapacity">-</button>
+              <input type="text" v-if="maxGroupCapacity === 0" placeholder="До" :value="''">
+              <input type="text" v-else placeholder="" :value="maxGroupCapacity">
+              <button @click="increaseMaxGroupCapacity">+</button>
+            </div>
+          </div>
+        </div>
+  
+        <!-- 6. Групповые параметры для аренды -->
+        <div v-if="selectedRecordType === 'rental'" class="group-parameters">
+          <label for="groupCapacity">Количество единиц для аренды</label>
+          <div class="group-buttons">
+            <div class="group-counter">
+              <button @click="decreaseGroupCapacity">-</button>
+              <input type="text" v-if="groupCapacity === 0" placeholder="От" :value="''">
+              <input type="text" v-else placeholder="" :value="groupCapacity">
+              <button @click="increaseGroupCapacity">+</button>
+            </div>
+            <div class="group-counter">
+              <button @click="decreaseMaxGroupCapacity">-</button>
+              <input type="text" v-if="maxGroupCapacity === 0" placeholder="До" :value="''">
+              <input type="text" v-else placeholder="" :value="maxGroupCapacity">
+              <button @click="increaseMaxGroupCapacity">+</button>
+            </div>
+          </div>
+        </div>      
+  
+        <!-- 7. Формат оплаты -->
+        <label for="paymentFormat" v-if="selectedRecordType !== ''">Формат оплаты</label>
+        <div class="record-type-container" v-if="selectedRecordType !== ''">
+          <!-- Добавлены условия для всех типов записи -->
+          <button
+            v-if="selectedRecordType === 'individual'"
+            :class="{ 'active': selectedPaymentFormat === 'sessionPayment' }"
+            @click="selectPaymentFormat('sessionPayment')"
+            class="record-button"
+          >
+            Оплата за сеанс
+          </button>
+          <button
+            v-if="selectedRecordType === 'individual'"
+            :class="{ 'active': selectedPaymentFormat === 'spotPayment' }"
+            @click="selectPaymentFormat('spotPayment')"
+            class="record-button"
+          >
+            Оплата за место
+          </button>
+          <button
+            v-if="selectedRecordType === 'individual'"
+            :class="{ 'active': selectedPaymentFormat === 'freePayment' }"
+            @click="selectPaymentFormat('freePayment')"
+            class="record-button"
+          >
+            Без стоимости
+          </button>
+          <!-- Добавлены условия для групповой и аренды -->
+          <button
+            v-if="selectedRecordType === 'group' || selectedRecordType === 'rental'"
+            :class="{ 'active': selectedPaymentFormat === 'equipmentPayment' }"
+            @click="selectPaymentFormat('equipmentPayment')"
+            class="record-button"
+          >
+            Оплата за время и единицу оборудования
+          </button>
+          <button
+            v-if="selectedRecordType === 'group' || selectedRecordType === 'rental'"
+            :class="{ 'active': selectedPaymentFormat === 'freePayment' }"
+            @click="selectPaymentFormat('freePayment')"
+            class="record-button"
+          >
+            Без стоимости
+          </button>
+        </div>
+  
+        <!-- 8. Кнопки -->
+        <div class="button-container">
+          <button @click="saveAndExit" class="save-and-exit-button">Сохранить и выйти</button>
+          <button @click="cancel" class="cancel-button">Отмена</button>
+        </div>
       </div>
-      <div class="second">
-        <div class="stripe" style="width: 143px;"></div>
-        <div class="stripe" style="width: 97px;"></div>
-      </div>
-      <div class="third-container">
-        <div class="third">
+      <div class="adaptive_window">
+        <img src="../../static/img/service.png" alt="" style="width:365px;height:200px;border-radius:2px">
+        <p class="header">Стрижка</p>
+        <p class="descr">Название услуги</p>
+        <div class="first">
+          <div class="stripe" style="width: 143px;"></div>
+          <div class="stripe" style="width: 97px;"></div>
+        </div>
+        <div class="first">
+          <div class="stripe" style="width: 143px;"></div>
+          <div class="stripe" style="width: 97px;"></div>
+        </div>
+        <div class="second">
           <div class="stripe" style="width: 109px;"></div>
           <div class="stripe" style="width: 63px;"></div>
         </div>
-        <p class="cost">Цена</p>
       </div>
     </div>
   </div>
@@ -217,15 +224,14 @@ export default {
 </script>
 
 <style scoped>
-.main{
+.main_group{
   display: flex;
-  flex-direction: row;
+  gap: 40px;
 }
 .adaptive_window{
   background-color: #FFFFFF;
   width: 405px;
   height: auto;
-  margin-left: 25px;
   padding: 20px;
 }
 .header{
@@ -255,18 +261,6 @@ export default {
   border-radius: 2px;
 }
 .second{
-  width: 220px;
-  height: 50px;
-  border-radius: 2px;
-  margin-top: 20px;
-  background: linear-gradient(90deg, #F6F6F6 0%, #F1F4F9 100%);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 10px;
-  padding: 10px;
-}
-.third{
   width: 155px;
   height: 50px;
   border-radius: 2px;
@@ -277,14 +271,6 @@ export default {
   justify-content: center;
   gap: 10px;
   padding: 10px;
-}
-.third-container {
-  display: flex;
-  justify-content: space-between; /* Равномерное распределение пространства между элементами */
-}
-.cost{
-  text-align: right;
-  margin: 0;
 }
 .descr{
   color: #AFB6C1;
@@ -300,6 +286,7 @@ export default {
   flex-direction: row;
   justify-content: left;
   gap: 10px;
+  margin-bottom: 10px;
 }
 .group-buttons button {
   height: 36px;
@@ -327,7 +314,7 @@ export default {
 
 .create_service {
   width: 488px;
-  height: 439px;
+  height: auto;
   background-color: #FFFFFF;
   padding: 20px;
   border-radius: 5px;
@@ -335,13 +322,14 @@ export default {
 
 .cost-duration-container {
   display: flex;
-  gap: 20px;
+  justify-content: space-between;
   align-items: center;
 }
 
 .input-group {
   display: flex;
   flex-direction: column;
+  width: 48%;
 }
 
 #serviceCover {
@@ -368,6 +356,7 @@ export default {
   display: flex;
   gap: 20px;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 .record-button {
@@ -398,7 +387,7 @@ export default {
 .save-and-exit-button {
   background-color: #EFEFFF;
   color: #6266EA;
-  transition: background-color 0.3s, color 0.3s; /* Плавный переход при ховере */
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .save-and-exit-button:hover {
@@ -436,25 +425,62 @@ input::placeholder {
   display: none;
 }
 select {
-  padding: 10px;
+  padding: 8px 10px;
   font-family: TT Norms;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 20px;
   color: #D2D8DE;
   border: none;
   background-color: #F3F5F6;
   margin-bottom: 10px;
   border-radius: 3px;
+  height: 36px;
 }
 
 select option {
   font-family: TT Norms;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   line-height: 20px;
   color: #535C69;
 }
 label{
   font-weight: bold;
+}
+.transition {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.employesss-link {
+  font-family: TT Norms;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 24px;
+  text-align: left;
+  text-decoration: none;
+  color: #AFB6C1;
+}
+
+.creation_text {
+  color: #535C69;
+  font-family: TT Norms;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin: 0;
+}
+
+.arrow-container {
+  display: flex;
+  align-items: center;
+}
+
+.arrow-icon {
+  height: 50%;
 }
 </style>

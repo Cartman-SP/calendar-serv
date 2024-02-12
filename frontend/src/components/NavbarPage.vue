@@ -87,7 +87,7 @@ img{
 .nav{
     margin: 30px 30px 30px 0px;
     height: 4vw;
-    width: 100%;
+    width: 97%;
     display: flex;
     background-color: #F3F6F8;
     align-items: center;

@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="transition">
-      <a href="#/lk/personal" class="employesss-link">Сотрудники</a>
+      <router-link to="/lk/personal" class="employesss-link">Сотрудники</router-link>
       <div class="arrow-container">
         <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
       </div>
@@ -187,12 +187,6 @@ export default {
   .arrow-icon {
     height: 50%;
   }
-
-  .navigation {
-    display: flex;
-    background-color:#FAFAFA;
-  }
-
   .create_employess {
     position: absolute;
     width: 530px;

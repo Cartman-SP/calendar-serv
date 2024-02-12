@@ -331,13 +331,12 @@ export default {
     border: none;
     cursor: pointer;
     display: flex;
-    height: 34px;
+    height: 36px;
     padding: 10px 14px;
     justify-content: center;
     align-items: center;
     gap: 5px;
     border-radius: 3px;
-
   }
   
   .disclaimer {

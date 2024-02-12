@@ -1,91 +1,230 @@
 <template>
   <div class="main">
-    <div class="navigation">
-      <div class="settings">
-        <div class="forms">
-          <div class="name-container">
-            <div class="input-content">
-              <label for="widgetName">Название виджета</label>
-              <input type="text" id="widgetName" placeholder="Мой виджет">
-            </div>
-
-            <div class="input-content">
-              <label for="widgetLanguage">Язык виджета</label>
-              <select id="widgetLanguage">
-                <option value="" disabled selected style="display:none;">Выберите язык</option>
-                <option value="russian">Русский</option>
-                <option value="belarusian">Белорусский</option>
-              </select>
-            </div>
-          </div>
-          <div class="apps-container">
-            <div class="apps">
-              <div class="app-group">
-                <p>Telegram</p>
-                <InputSwitchComponent v-model="switches.telegram" style="margin-top: 5px;"/>
-              </div>
-              <div class="app-group">
-                <p>Instagram</p>
-                <InputSwitchComponent v-model="switches.instagram" style="margin-top: 5px;"/>
-              </div>
-            </div>
-            <div class="apps">
-              <div class="app-group">
-                <p>WhatsApp</p>
-                <InputSwitchComponent v-model="switches.whatsapp" style="margin-top: 5px;"/>
-              </div>
-              <div class="app-group">
-                <p>Вконтакте</p>
-                <InputSwitchComponent v-model="switches.vkontakte" style="margin-top: 5px;"/>
-              </div>
-            </div>
-          </div>
-          <label for="widgetbranch">Филиалы</label>
-              <select id="widgetbranch" style="width: 100%;">
-                <option value="" disabled selected style="display:none;">Выберите филиалы</option>
-              </select>
-          <div class="footer">
-            <div class="footer-apps">
-              <p class="header">Отзывы</p>
-              <p class="subheader">Клиенты смогут увидеть рейтинг<br>и отзывы о вашем филиале</p>
-              <InputSwitchComponent v-model="switches.feedback" />
-            </div>
-            <div class="footer-apps">
-              <p class="header">О компании</p>
-              <p class="subheader">Клиенты смогут увидеть рейтинг<br>и отзывы о вашем филиале</p>
-              <InputSwitchComponent v-model="switches.company" />
-            </div>
-            <div class="footer-apps">
-              <p class="header">Любой сотрудник</p>
-              <p class="subheader">Клиенты смогут записываться,<br> пропустив выбор сотрудника</p>
-              <InputSwitchComponent v-model="switches.employee" />
-            </div>
-            <div class="footer-apps">
-              <p class="header">Отмена записи</p>
-              <p class="subheader">Позволяет клиентам в режиме<br> онлайн отменять записи</p>
-              <InputSwitchComponent v-model="switches.cancellation" />
-            </div>
-            <div class="footer-apps">
-              <p class="header">Интервал записи</p>
-              <p class="subheader">Задержка времени между<br> сеансами</p>
-              <select id="widget-time">
-                <option value="" disabled selected style="display:none;">Время</option>
-                <option value="30m">30 Минут</option>
-                <option value="1h">1 Час</option>
-              </select>
-            </div>
-            <div class="footer-apps">
-              <p class="header">Ограничение на отмену</p>
-              <p class="subheader">Время, за которое клиент не<br> сможет отменять записи</p>
-              <select id="widget-time" style="width: auto">
-                <option value="" disabled selected style="display:none;">Время</option>
-                <option value="30m">30 Минут</option>
-                <option value="1h">1 Час</option>
-              </select>
-            </div>
-          </div>
-        </div>
+    <div class="transition">
+      <router-link to="/lk/widgets" class="employesss-link">Виджеты</router-link>
+      <div class="arrow-container">
+        <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
       </div>
+      <p class="creation_text">Создание виджета</p>
+    </div>
+    <div class="card">
+      <TabViewComponent>
+          <TabPanelComponent :header="'Общие настройки'">
+            <div class="navigation">
+              <div class="settings">
+                <div class="forms">
+                  <div class="name-container">
+                    <div class="input-content">
+                      <label for="widgetName">Название виджета</label>
+                      <input type="text" id="widgetName" placeholder="Мой виджет">
+                    </div>
+        
+                    <div class="input-content">
+                      <label for="widgetLanguage">Язык виджета</label>
+                      <select id="widgetLanguage">
+                        <option value="" disabled selected style="display:none;">Выберите язык</option>
+                        <option value="russian">Русский</option>
+                        <option value="belarusian">Белорусский</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="apps-container">
+                    <div class="apps">
+                      <div class="app-group">
+                        <p>Telegram</p>
+                        <InputSwitchComponent v-model="switches.telegram" style="margin-top: 5px;"/>
+                      </div>
+                      <input type="text">
+                      <div class="app-group">
+                        <p>Instagram</p>
+                        <InputSwitchComponent v-model="switches.instagram" style="margin-top: 5px;"/>
+                      </div>
+                      <input type="text" class="">
+                    </div>
+                    <div class="apps">
+                      <div class="app-group">
+                        <p>WhatsApp</p>
+                        <InputSwitchComponent v-model="switches.whatsapp" style="margin-top: 5px;"/>
+                      </div>
+                      <input type="text">
+                      <div class="app-group">
+                        <p>Вконтакте</p>
+                        <InputSwitchComponent v-model="switches.vkontakte" style="margin-top: 5px;"/>
+                      </div>
+                      <input type="text">
+                    </div>
+                  </div>
+                  <label for="widgetbranch">Филиалы</label>
+                      <select id="widgetbranch" style="width: 100%;">
+                        <option value="" disabled selected style="display:none;">Выберите филиалы</option>
+                      </select>
+                  <div class="footer">
+                    <div class="footer-apps">
+                      <p class="header">Отзывы</p>
+                      <p class="subheader">Клиенты смогут увидеть рейтинг<br>и отзывы о вашем филиале</p>
+                      <InputSwitchComponent v-model="switches.feedback" />
+                    </div>
+                    <div class="footer-apps">
+                      <p class="header">О компании</p>
+                      <p class="subheader">Клиенты смогут увидеть рейтинг<br>и отзывы о вашем филиале</p>
+                      <InputSwitchComponent v-model="switches.company" />
+                    </div>
+                    <div class="footer-apps">
+                      <p class="header">Любой сотрудник</p>
+                      <p class="subheader">Клиенты смогут записываться,<br> пропустив выбор сотрудника</p>
+                      <InputSwitchComponent v-model="switches.employee" />
+                    </div>
+                    <div class="footer-apps">
+                      <p class="header">Отмена записи</p>
+                      <p class="subheader">Позволяет клиентам в режиме<br> онлайн отменять записи</p>
+                      <InputSwitchComponent v-model="switches.cancellation" />
+                    </div>
+                    <div class="footer-apps">
+                      <p class="header">Интервал записи</p>
+                      <p class="subheader">Задержка времени между<br> сеансами</p>
+                      <select id="widget-time" style="width: 70%">
+                        <option value="" disabled selected style="display:none;">Время</option>
+                        <option value="30m">30 Минут</option>
+                        <option value="1h">1 Час</option>
+                      </select>
+                    </div>
+                    <div class="footer-apps">
+                      <p class="header">Ограничение на отмену</p>
+                      <p class="subheader">Время, за которое клиент не<br> сможет отменять записи</p>
+                      <select id="widget-time" style="width: 70%">
+                        <option value="" disabled selected style="display:none;">Время</option>
+                        <option value="30m">30 Минут</option>
+                        <option value="1h">1 Час</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="button-container">
+                    <button @click="save" class="save-button">Сохранить</button>
+                    <button @click="cancel" class="cancel-button">Отмена</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </TabPanelComponent>
+          <TabPanelComponent :header="'Дизайн'">
+            <div class="navigation">
+              <div class="settings">
+                <p class="header">Обложка виджета</p>
+                <p class="descr">Выберите фотографию для обложки из ранее загруженных или добавьте новую</p>
+                <div class="plus_container">
+                  <div class="img_plus" @click="uploadImage">
+                    <input type="file" style="display: none;" @change="handleImageUpload">
+                    <img src="../../static/img/plus.svg" alt="">
+                  </div>
+                  <div class="img_plus" @click="uploadImage">
+                    <input type="file" style="display: none;" @change="handleImageUpload">
+                    <img src="../../static/img/plus.svg" alt="">
+                  </div>
+                  <div class="img_plus" @click="uploadImage">
+                    <input type="file" style="display: none;" @change="handleImageUpload">
+                    <img src="../../static/img/plus.svg" alt="">
+                  </div>
+                  <div class="img_plus" @click="uploadImage">
+                    <input type="file" style="display: none;" @change="handleImageUpload">
+                    <img src="../../static/img/plus.svg" alt="">
+                  </div>
+                  <div class="img_plus" @click="uploadImage">
+                    <input type="file" style="display: none;" @change="handleImageUpload">
+                    <img src="../../static/img/plus.svg" alt="">
+                  </div>
+                </div>
+                <div class="color_container">
+                  <div class="color">
+                    <p class="header">Цветовой схема</p>
+                    <div class="switch_container">
+                      <p class="light">Светлая</p>
+                      <InputSwitchComponent v-model="switches.theme" style="margin-top: 5px;"/>
+                      <p class="dark">Тёмная</p>
+                    </div>
+                  </div>
+                  <div class="color">
+                    <p class="header">Основной</p>
+                    <div class="rgb"></div>
+                  </div>
+                  <div class="color">
+                    <p class="header">Фон виджета</p>
+                    <div class="rgb"></div>
+                  </div>
+                  <div class="color">
+                    <p class="header">Фон плашка</p>
+                    <div class="rgb"></div>
+                  </div>
+                  <div class="color">
+                    <p class="header">Цвет текста</p>
+                    <div class="rgb"></div>
+                  </div>
+                </div>
+                <p class="">Выберите дизайн виджета</p>
+                <div class="wrapper">
+                  <div class="window_container">
+                    <div class="window">
+                      <div class="square"></div>
+                      <div class="stripe"></div>
+                      <div class="stripe"></div>
+                      <div class="stripe"></div>
+                      <div class="rectangle" style="height: 31px;"></div>
+                    </div>
+                    <p>Виджет в виде сайта</p>
+                  </div>
+                  <div class="window_container">
+                    <div class="window">
+                      <div class="stripe" style="width:100%"></div>
+                      <div class="stripe" style="width:80%"></div>
+                      <div class="stripe" style="width:60%"></div>
+                      <div class="rectangle" style="height: 49px;"></div>
+                    </div>
+                    <p>Встроенный виджет<br>для вашего сайта</p>
+                  </div>
+                  <div class="window_container">
+                    <div class="window">
+                      <div class="lane_container">
+                        <div class="lane" style="width:32%"></div>
+                        <div class="lane" style="width:62%"></div>
+                      </div>
+                      <div class="stripe" style="width:80%"></div>
+                      <div class="stripe" style="width:60%"></div>
+                      <div class="stripe" style="width:40%"></div>
+                      <div class="lane_container">
+                        <div class="lane" style="width:55%"></div>
+                        <div class="circle"></div>
+                      </div>
+                    </div>
+                    <p>Плавающая кнопка<br> на вашем сайте</p>
+                  </div>
+                </div>
+                <p>Прямая ссылка на виджет</p>
+                <input type="text">
+                <div class="button-container">
+                  <button @click="save" class="save-button">Сохранить</button>
+                  <button @click="cancel" class="cancel-button">Отмена</button>
+                </div>
+              </div>
+              <div class="compo">
+
+              </div>
+            </div>
+          </TabPanelComponent>
+          <TabPanelComponent :header="'Уведомления'">
+            <p class="m-0">ffff</p>
+          </TabPanelComponent>
+          <TabPanelComponent :header="'Telegram-бот'">
+            <p class="m-0">ffff</p>
+          </TabPanelComponent>
+          <TabPanelComponent :header="'Интеграции и оплаты'">
+            <p class="m-0">ffff</p>
+          </TabPanelComponent>
+          <TabPanelComponent :header="'Скидки и промокоды'">
+            <p class="m-0">ffff</p>
+          </TabPanelComponent>
+          <TabPanelComponent :header="'Свой код'">
+            <p class="m-0">ffff</p>
+          </TabPanelComponent>
+      </TabViewComponent>
     </div>
   </div>
 </template>
@@ -103,13 +242,51 @@
           company: false,
           employee: false,
           cancellation: false,
+          theme: false,
         }
       };
     },
+    methods: {
+    uploadImage(event) {
+      // Находим связанный элемент ввода файла и эмулируем клик
+      const fileInput = event.target.querySelector('input[type="file"]');
+      if (fileInput) {
+        fileInput.click();
+      }
+    },
+    handleImageUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          // Обновляем src у img_plus с загруженным изображением
+          event.target.closest('.img_plus').querySelector('img').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  }
   }
   </script>
   
   <style scoped>
+  .descr{
+    font-family: TT Norms;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 14px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #AFB6C1;
+    width: 100%;
+    margin: 0 0 10px 0;
+  }
+  .header{
+    margin: 10px 0 10px 0;
+  }
+  .subheader{
+    margin-top: 0;
+  }
   .header, .subheader{
     width: 100%;
   }
@@ -126,10 +303,12 @@
     display: flex;
     justify-content: start;
     align-items: center;
+    gap: 10px;
   }
   .navigation {
     display: flex;
     background-color:#FAFAFA;
+    gap: 40px;
   }
   
   .settings {
@@ -158,7 +337,6 @@
   
   p{
     text-align: left;
-    width: 80px;
     font-family: TT Norms;
     font-size: 14px;
     font-weight: bold;
@@ -176,27 +354,31 @@
   }
   
   select {
-    padding: 10px;
+    width: 100%;
+    padding: 8px 10px;
     font-family: TT Norms;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 20px;
     color: #D2D8DE;
     border: none;
     background-color: #F3F5F6;
+    margin-bottom: 10px;
     border-radius: 3px;
-    width: 100%;
+    height: 36px;
   }
   
   select option {
     font-family: TT Norms;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     line-height: 20px;
     color: #535C69;
   }
   .apps-container{
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 5fr 4fr;
+    grid-column-gap: 20px;
+    grid-row-gap: 0px;
   }
   .subheader{
     font-family: TT Norms;
@@ -217,5 +399,171 @@
   .footer-apps{
     display: flex;
     flex-direction: column;
+  }
+  .transition {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .employesss-link {
+    font-family: TT Norms;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 24px;
+    text-align: left;
+    text-decoration: none;
+    color: #AFB6C1;
+  }
+  
+  .creation_text {
+    color: #535C69;
+    font-family: TT Norms;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin: 0;
+    width: 100%;
+  }
+  
+  .arrow-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .arrow-icon {
+    height: 50%;
+  }
+  .plus_container{
+    display: flex;
+    gap: 10px;
+  }
+  .img_plus {
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+    border: 1px solid #D2D8DE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .img_plus img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  .color_container{
+    display: flex;
+    gap: 10px;
+  }
+  .rgb{
+    width: 85px;
+    height: 22px;
+    border-radius: 3px;
+    padding: 5px 10px;
+    border: 1px solid #D2D8DE;
+  }
+  .switch_container{
+    display: flex;
+    gap: 10px;
+  }
+  .light{
+    font-family: TT Norms;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 10px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #535C69;
+  }
+  .dark{
+    font-family: TT Norms;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 10px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #AFB6C1;    
+  }
+  .window{
+    width: 150px;
+    height: 100px;
+    border-radius: 2px;
+    padding: 15px;
+    background: #F6F6F6;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .stripe {
+    background: linear-gradient(90deg, #EBEBEB 0%, #DAE2EE 100%);
+    border-radius: 2px;
+    width: 120px;
+    height: 5px;
+  }
+  .square{
+    width: 15px;
+    height: 15px;
+    background: linear-gradient(90deg, #EBEBEB 0%, #DAE2EE 100%);
+    border-radius: 2px;
+  }
+  .rectangle{
+    width: 120px;
+    background: linear-gradient(90deg, #9497FF 0%, #8B8FFF 100%);
+    border-radius: 2px;
+  }
+  .wrapper{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 20px;
+  }
+  .button-container {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  .save-button {
+    background-color: #EFEFFF;
+    color: #6266EA;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .save-button:hover {
+    background-color: #464AD9;
+    color: #EFEFFF;
+  }
+  .cancel-button {
+    background-color: #FFFFFF;
+    color: #535C69;
+    border-radius: 3px;
+    border: 1px solid #DDE1E5
+  }
+  .lane_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .lane{
+    height: 15px;
+    background: linear-gradient(90deg, #EBEBEB 0%, #DAE2EE 100%);
+    border-radius: 2px;
+  }
+  .circle{
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(90deg, #9497FF 0%, #8B8FFF 100%);
+    border-radius: 100px;
+  }
+  .compo{
+    width: 315px;
+    height: auto;
+    background: #FFFFFF;
+    border-radius: 25px;
   }
   </style>
