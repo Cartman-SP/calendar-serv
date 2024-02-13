@@ -115,6 +115,7 @@ const routes = [
         component: CreateBranchPage,
         meta: { requiresAuth: true }
       },
+      
     ]
   },
   {

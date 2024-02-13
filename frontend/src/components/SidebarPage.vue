@@ -93,7 +93,7 @@
                     <div class="dropdown-header">Тарифный план</div>
                   </div>
                   <div class="dropdown-item">
-                    <div class="dropdown-subheader">Выйти из аккаунта</div>
+                    <div class="dropdown-subheader" @click="logout">Выйти из аккаунта</div>
                   </div>
                 </div>
               </div>
@@ -110,10 +110,21 @@ export default {
       showDropdown: false,
     };
   },
+  computed: {
+      userData() {
+        return this.$store.getters.getRegistrationData;
+      },
+    },
+
   methods: {
     toggleDropdown() {
       this.showDropdown = !this.showDropdown;
     },
+    logout() {
+        // Вызываем действие clearRegistrationData для очистки данных из Vuex
+        this.$store.dispatch('clearRegistrationData');
+        this.$router.push('/');
+      },
   },
 };
 </script>

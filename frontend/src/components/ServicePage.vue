@@ -1,22 +1,42 @@
 <template>
   <div class="main">
-    <div class="service">
-      <img src="../../static/img/flag.png" alt="" class="img_service">
-      <p class="header">Поздравляем с регистрацией!</p>
-      <p class="subheader">Предлагаем вам перейти к созданию услуги, после чего<br>у вас появится возможность прикрепить созданные услуги<br>к вашим специалистам и добавить филиал.</p>
+    <div v-if="uslugi.length > 0">
+      <Card v-for="(usluga, index) in uslugi" :key="index" :usluga="usluga" />
       <a href="#/lk/service/create" style="text-decoration:none"><button class="service_btn"> + Добавить услуги</button></a>
+    </div>
+    <div v-else>
+      <div class="service">
+        <img src="../../static/img/flag.png" alt="" class="img_service">
+        <p class="header">Поздравляем с регистрацией!</p>
+        <p class="subheader">Предлагаем вам перейти к созданию услуги, после чего<br>у вас появится возможность прикрепить созданные услуги<br>к вашим специалистам и добавить филиал.</p>
+        <a href="#/lk/service/create" style="text-decoration:none"><button class="service_btn"> + Добавить услуги</button></a>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  data() {
-    return{
+import axios from 'axios';
+import Card from '../components/CardPage.vue';
 
+export default {
+  components: { Card },
+  data() {
+    return {
+      uslugi: [] // Создаем массив для хранения объектов Usluga
     };
+  },
+  mounted() {
+    // Выполняем запрос при монтировании страницы
+    axios.get('http://127.0.0.1:8000/api/uslugi/')
+      .then(response => {
+        this.uslugi = response.data; // Присваиваем полученные данные массиву uslugi
+      })
+      .catch(error => {
+        console.error('Error fetching uslugi:', error);
+      });
   }
-}
+};
 </script>
 
 <style scoped>

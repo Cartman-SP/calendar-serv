@@ -1,56 +1,38 @@
 <template>
-    <div class="service_card">
-        <div class="card-container">
-          <div class="card-header">
-            <img src="../../static/img/test.png" alt="" class="service_img">
-            <div class="text-container">
-              <p class="text-header">
-                Стрижка
-              </p>
-              <p class="text-subheader">
-                Название услуги
-              </p>
-              <p class="text-header">
-                1 час 30 минут
-              </p>
-              <p class="text-subheader">
-                Длительность
-              </p>
-            </div>
-          </div>
-          <div class="line"></div>
-          <div class="card-bottom">
-            <div class="text-container">
-              <p class="text-header">
-                Индивидуальная
-              </p>
-              <p class="text-subheader">
-                Тип записи
-              </p>
-            </div>
-            <div class="bottom">
-              <div class="text-container">
-                <p class="text-header">
-                  Оплата за сеанс
-                </p>
-                <p class="text-subheader">
-                  Формат оплаты
-                </p>
-              </div>
-              <p class="bottom-text">5000 Р</p>
-            </div>
-          </div>
+  <div class="service_card">
+    <div class="card-container">
+      <div class="card-header">
+        <img :src="'http://127.0.0.1:8000/' + usluga.serviceCover" alt="Service Cover">
+        <div class="text-container">
+          <p class="text-header">{{ usluga.name }}</p> <!-- Отображаем название услуги -->
         </div>
       </div>
+      <div class="line"></div>
+      <div class="card-bottom">
+        <div class="text-container">
+          <p class="text-header">Тип записи</p>
+          <p class="text-subheader">{{ usluga.type.replace('individual','Индивидуальный').replace('group','Групповой').replace('rental','Аренда') }}</p>
+        </div>
+        <div class="bottom">
+          <div class="text-container">
+            <p class="text-header">Формат оплаты</p>
+            <p class="text-subheader">{{ usluga.pay_type }}</p>
+          </div>
+          <p class="bottom-text">{{ usluga.cost }} Р</p> <!-- Отображаем стоимость услуги -->
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-
-}
+  props: ['usluga'] // Принимаем объект Usluga через пропс
+};
 </script>
 
-<style>
+
+<style scoped>
 .text-header{
     font-family: TT Norms;
     font-size: 14px;
@@ -82,7 +64,6 @@ export default {
     width: 310px;
     height: 230px;
     background-color: #FFF;
-    position: absolute;
     top: 25%;
     left: 25%;
     transform: translate(-50%, -50%);

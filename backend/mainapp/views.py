@@ -25,7 +25,20 @@ from django.http import HttpResponseBadRequest
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-import base64
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .models import Usluga
+from .serializers import UslugaSerializer
+import json
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.decorators import api_view, parser_classes
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.parsers import MultiPartParser, FormParser
+from .models import Usluga
+from .serializers import UslugaSerializer
 
 @csrf_exempt
 @require_POST
@@ -203,3 +216,20 @@ def check_profile(request, user_id):
         return JsonResponse({'error': 'Пользователь не найден'}, status=404)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=400)
+
+
+
+class UslugaList(APIView):
+    parser_classes = [MultiPartParser, FormParser]
+
+    def get(self, request):
+        uslugi = Usluga.objects.all()
+        serializer = UslugaSerializer(uslugi, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = UslugaSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)

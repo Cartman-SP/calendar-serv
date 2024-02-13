@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -136,3 +138,9 @@ EMAIL_USE_SSL = True
 EMAIL_HOST_USER = 'Daniil.shirkin005@yandex.ru'
 EMAIL_HOST_PASSWORD = 'gbgdqjhfgpgzhwip'
 DEFAULT_FROM_EMAIL = 'Daniil.shirkin005@yandex.ru'
+
+# Путь к директории медиа-файлов
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# URL-префикс для медиа-файлов
+MEDIA_URL = '/media/'

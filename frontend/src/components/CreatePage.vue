@@ -12,18 +12,18 @@
       <div class="create_service">
         <!-- 1. Название услуги -->
         <label for="serviceName">Название услуги</label>
-        <input type="text" id="serviceName" placeholder="Новая услуга">
+        <input type="text" id="serviceName" placeholder="Новая услуга" v-model="serviceName">
   
         <!-- 2. Стоимость, Длительность -->
         <div class="cost-duration-container">
           <div class="input-group">
             <label for="serviceCost">Стоимость</label>
-            <input type="number" id="serviceCost" placeholder="Введите стоимость">
+            <input type="number" id="serviceCost" placeholder="Введите стоимость" v-model="serviceCost">
           </div>
   
           <div class="input-group">
             <label for="serviceDuration">Длительность</label>
-            <select id="serviceDuration" placeholder="Выберите время">
+            <select id="serviceDuration" placeholder="Выберите время" v-model="serviceDuration">
               <option value="" disabled selected style="display:none;">Выберите время</option>
               <option value="15m">15м</option>
               <option value="30m">30м</option>
@@ -36,7 +36,7 @@
         <!-- 3. Обложка услуги -->
         <label for="serviceCover" class="file-label">Обложка услуги</label>
         <label class="custom-file-upload">
-          <input type="file" accept="image/*"/>Нажмите, чтобы добавить
+          <input type="file" accept="image/*" @change="handleFileUpload($event)"/>Нажмите, чтобы добавить
         </label>
         <p class="text">до 5 МБ, PNG, JPG, JPEG</p>
   
@@ -179,6 +179,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -186,6 +188,11 @@ export default {
       selectedPaymentFormat: '',
       groupCapacity: 0,
       maxGroupCapacity: 0,
+      serviceName: '',
+      serviceCost: '',
+      serviceDuration: '',
+      serviceCover: null,
+      paymentFormat: ''
     };
   },
   methods: {
@@ -196,9 +203,29 @@ export default {
     selectPaymentFormat(format) {
       this.selectedPaymentFormat = format;
     },
-    saveAndExit() {
-      // Save and exit logic
-    },
+    handleFileUpload(event) {
+    const file = event.target.files[0];
+    this.serviceCover = file;
+  },
+  saveAndExit() {
+    const formData = new FormData();
+    formData.append('name', this.serviceName);
+    formData.append('cost', this.serviceCost);
+    formData.append('time', this.serviceDuration);
+    formData.append('type', this.selectedRecordType);
+    formData.append('place_ammount', this.groupCapacity);
+    formData.append('rent_ammount', this.maxGroupCapacity);
+    formData.append('pay_type', this.selectedPaymentFormat);
+    formData.append('user', this.$store.state.registrationData.user_id);
+    formData.append('serviceCover', this.serviceCover); // добавляем изображение в FormData
+    axios.post('http://127.0.0.1:8000/api/uslugi/', formData)
+      .then(response => {
+        console.log('Service created:', response.data);
+      })
+      .catch(error => {
+        console.error('Error creating service:', error);
+      });
+  },
     cancel() {
       // Go back to the previous page
       this.$router.go(-1);
@@ -222,6 +249,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped>
 .main_group{
