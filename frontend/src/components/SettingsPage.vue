@@ -64,24 +64,23 @@
 </template>
 
 <script>
+
 export default {
+  components: {  },
   data() {
     return {
+      showModal: false,
     };
   },
   methods: {
     showModals() {
-      
+      this.showModal = true;
     }
   }
 };
 </script>
 
 <style scoped>
-.navigation {
-  display: flex;
-  background-color:#FAFAFA;
-}
 
 .settings {
   text-align: center;

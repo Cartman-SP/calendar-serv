@@ -245,7 +245,6 @@ export default {
     .btn-container{
       display: flex;
       gap: 10px;
-      margin-left: auto;
     }
     .continue-button-container {
       display: flex;
@@ -253,12 +252,13 @@ export default {
     }
     .steps-container{
       display: flex;
-    }
-    .continue-button{
-      margin-left: auto;
+      justify-content: space-between;
+      align-items: center;
     }
     .steps{
       display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
     .dropdown-item{
       display: flex;

@@ -259,7 +259,7 @@ export default {
   select {
     padding: 10px;
     font-family: TT Norms;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 20px;
     color: #D2D8DE;
     border: none;
@@ -270,7 +270,7 @@ export default {
   
   select option {
     font-family: TT Norms;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     line-height: 20px;
     color: #535C69;
@@ -279,7 +279,7 @@ export default {
     width: 100%;
     padding: 10px;
     font-family: TT Norms;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 20px;
     color: #D2D8DE;
     border: none;

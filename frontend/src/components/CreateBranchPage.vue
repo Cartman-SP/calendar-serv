@@ -10,7 +10,7 @@
     </div>
     <div class="create_branch">
       <!-- Форма создания филиала -->
-      <form class="branch-form">
+      <form class="branch-form" v-if="!showContinueButtonClicked">
         <div class="one-group">
           <div class="form-group">
             <label for="country">Страна</label>
@@ -60,9 +60,74 @@
           </div>
         </div>
         <div class="form-btn">
-          <button class="btn">Продолжить</button>
+          <div class="continue-button-container">
+            <div class="steps-progress">
+              <div class="divider"></div>
+              <div class="divider-two"></div>
+            </div>
+            <p class="steps-text">Шаг 1 из 2</p>
+          </div>
+          <button class="btn" @click="onContinueButtonClick" :disabled="isContinueDisabled">Продолжить</button>
         </div>
       </form>
+      <div v-else>
+        <div class="form-container">
+          <div class="one-group">
+            <div class="form-group">
+              <label for="country">Рабочие часы</label>
+              <select id="country">
+                <option value="" disabled selected style="display:none;">Выберите время</option>
+                <option value="Russia">Россия</option>
+                <option value="Kazakhstan">Казахстан</option>
+                <option value="Belarus">Беларусь</option>
+                <option value="Ukraine">Украина</option>
+              </select>
+            </div>
+  
+            <div class="form-group">
+              <label for="city">Перерыв</label>
+              <select id="city">
+                <option value="" disabled selected style="display:none;">Выберите время</option>
+                <option value="SaintPetersburg">Санкт-Петербург</option>
+                <option value="Moscow">Москва</option>
+              </select>
+            </div>
+          </div>
+          <label>Выберите тип бизнеса</label>
+          <div class="dropdown-container">
+            <label for="service">Сфера бизнеса</label>
+            <select id="service">
+              <option value="" disabled selected style="display:none;">Выберете сферу бизнеса</option>
+              <option>Салон красоты</option>
+              <option>Барбершоп</option>
+              <option>Маникюрный салон</option>
+              <option>Парикмахерская</option>
+              <option>Брови и ресницы</option>
+              <option>Тату салон</option>
+              <option>Другое</option>
+            </select>
+          </div>
+          <div class="dropdown-container">
+            <label for="service">Выберете сотрудников для этого филиала</label>
+            <select id="service">
+              <option value="" disabled selected style="display:none;">Выберете сотрудников</option>
+            </select>
+          </div>
+          <div class="steps">
+            <div class="second-steps-container">
+              <div class="steps-progress">
+                <div class="second-divider"></div>
+                <div class="second-divider-two"></div>
+              </div>
+              <p class="steps-text">Шаг 2 из 2</p>
+            </div>
+            <div class="btn-container">
+              <button class="back" @click="onBackClick">Назад</button>
+              <button class="next-button">Продолжить</button>
+            </div>
+          </div>
+        </div>  
+      </div>
     </div>
   </div>
 </template>
@@ -83,7 +148,15 @@ export default {
     shiftSchedule() {
       this.isShiftActive = true;
       this.isWeeklyActive = false;
-    }
+    },
+    onContinueButtonClick() {
+      if (!this.isContinueDisabled) {
+        this.showContinueButtonClicked = true;
+      }
+    },
+    onBackClick() {
+      this.showContinueButtonClicked = false;
+    },
   }
 }
 </script>
@@ -101,13 +174,13 @@ export default {
   .form-group {
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 
-  input,
-  select {
+  input {
     padding: 8px 10px;
     font-family: TT Norms;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 20px;
     color: #D2D8DE;
     border: none;
@@ -118,14 +191,6 @@ export default {
 
   select{
     border-radius: 3px;
-  }
-  
-  select option {
-    font-family: TT Norms;
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 20px;
-    color: #535C69;
   }
 
   p {
@@ -260,5 +325,102 @@ export default {
   
   .arrow-icon {
     height: 50%;
+  }
+  .divider {
+    border-bottom: 3px solid #6266EA; 
+    width: 80px;
+    border-radius: 100px;
+  }
+  .divider-two {
+    border-bottom: 3px solid #D8DDE3;
+    width: 50px;
+    border-radius: 100px;
+  }
+  .steps-progress{
+    display: flex;
+    gap: 10px;
+  }
+  .steps-text{
+    text-align: left;
+    font-family: TT Norms;
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 10px;
+    letter-spacing: 0em;
+    color: #535C69;
+    margin-bottom: 0;
+    margin-top: 10px;
+  }
+  .continue-button-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .form-btn{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .second-divider {
+    border-bottom: 3px solid #6266EA; 
+    width: 122px;
+    border-radius: 100px;
+  }
+  .second-divider-two {
+    border-bottom: 3px solid #D8DDE3;
+    width: 10px;
+    border-radius: 100px;
+  }
+  .back{
+    padding: 10px, 14px, 10px, 14px;
+    border-radius: 3px;
+    border: 1px solid #DDE1E5;
+    gap: 5px;
+    color: #535C69;
+    background-color: #FFFFFF;
+  }
+  .btn-container{
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+  }
+  .steps{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .form-container {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  select {
+    padding: 10px;
+    font-family: TT Norms;
+    font-size: 14px;
+    line-height: 20px;
+    color: #D2D8DE;
+    border: none;
+    background-color: #F3F5F6;
+    margin-bottom: 10px;
+    border-radius: 3px;
+  }
+  
+  select option {
+    font-family: TT Norms;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 20px;
+    color: #535C69;
+  }
+  select#service {
+    width: 100%;
+    padding: 10px;
+    font-family: TT Norms;
+    font-size: 14px;
+    line-height: 20px;
+    color: #D2D8DE;
+    border: none;
+    background-color: #F3F5F6;
+    margin-bottom: 10px;
   }
 </style>
