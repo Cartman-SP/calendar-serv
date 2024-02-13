@@ -343,8 +343,8 @@ export default {
 }
 
 .create_service {
-  width: 488px;
-  height: auto;
+  width: 70vh;
+  height: 60vh;
   background-color: #FFFFFF;
   padding: 20px;
   border-radius: 5px;

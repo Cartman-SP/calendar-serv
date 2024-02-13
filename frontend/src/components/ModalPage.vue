@@ -34,7 +34,8 @@
         <div class="dropdown-container">
           <div class="dropdown-item">
             <p class="normal-text">Часовой пояс</p>
-            <select v-model="timeZone" class="dropdown">
+            <select class="dropdown" v-model="selectedTimeZone" @change="onSelectChange('timeZone')" :class="{ 'selected': selectedTimeZone !== '' }">
+              <option value="" disabled selected style="display:none;">Выберите часовой пояс</option>
               <option value="GPT+3">GPT +3</option>
               <option value="GPT+4">GPT +4</option>
             </select>
@@ -42,11 +43,13 @@
   
           <div class="dropdown-item">
             <p class="normal-text">Валюта</p>
-            <select v-model="currency" class="dropdown">
+            <select class="dropdown" v-model="selectedCurrency" @change="onSelectChange('currency')" :class="{ 'selected': selectedCurrency !== '' }">
+              <option value="" disabled selected style="display:none;">Выберите валюту</option>
               <option value="tenge">Тенге</option>
               <option value="rubles">Рубли</option>
             </select>
           </div>
+
         </div>
         <div class="steps">
           <div class="second-steps-container">
@@ -67,15 +70,15 @@
 </template>
 
 <script>
-export default {
+export default { 
   data() {
     return {
       showModal: false,
       companyName: '',
       showContinueButtonClicked: false,
-      timeZone: 'GPT+3',
-      currency: 'tenge',
       name: '',
+      selectedTimeZone: '',
+      selectedCurrency: '',
     };
   },
   computed: {
@@ -95,6 +98,17 @@ export default {
     },
     onBackClick() {
       this.showContinueButtonClicked = false;
+    },
+    onSelectChange(type) {
+      // Обрабатываем изменения в выбранных опциях
+      // И применяем стиль к тексту в зависимости от типа элемента select
+      if (type === 'timeZone') {
+        // Для часового пояса
+        // Можно выполнить другие действия, если необходимо
+      } else if (type === 'currency') {
+        // Для валюты
+        // Можно выполнить другие действия, если необходимо
+      }
     },
   },
 };
@@ -273,22 +287,37 @@ export default {
       outline: none;
     }
     select {
-      padding: 10px;
+      padding: 8px 10px;
       font-family: TT Norms;
-      font-size: 16px;
+      font-size: 14px;
       line-height: 20px;
       color: #D2D8DE;
       border: none;
       background-color: #F3F5F6;
+      margin-bottom: 10px;
       border-radius: 3px;
+      height: 36px;
     }
     
     select option {
       font-family: TT Norms;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: bold;
       line-height: 20px;
       color: #535C69;
+
+    } 
+    .selected {
+      color: #535C69;
+      font-family: TT Norms;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 17px;
+      letter-spacing: 0em;
+      text-align: left;
+    }
+    select:active, select:focus{
+      outline:none
     }
     
   </style>
