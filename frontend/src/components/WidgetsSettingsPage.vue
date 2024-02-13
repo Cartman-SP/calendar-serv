@@ -228,12 +228,47 @@
                   </div>
                   <div class="compo-wrapper-tariff">
                     <div class="tariff">
-                      <p>3000 тнг</p>
-                      <p>1 час</p>
+                      <div class="tariff-item">
+                        <p>3000 тнг</p>
+                      </div>
+                      <div class="dot">
+                        <span>.</span>
+                      </div>
+                      <div class="tariff-item">
+                        <p>1 час</p>
+                      </div>
                     </div>
                     <button @click="toggleSelection" v-if="!isCircleShown" class="btn-wrapper">Выбрать</button>
                     <div v-else class="delete">
-                      <button @click="resetSelection" class="delete-btn"></button>
+                      <button @click="resetSelection" class="delete-btn">
+                        <img src="../../static/img/trash_2.svg" alt="Иконка Удаления">
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <div class="compo-wrapper">
+                    <img src="../../static/img/barber.svg" alt="">
+                    <p class="">Комплексная мужская<br>стрижка</p>
+                  </div>
+                  <div class="compo-wrapper-tariff">
+                    <div class="tariff">
+                      <div class="tariff-item">
+                        <p>3000 тнг</p>
+                      </div>
+                      <div class="dot">
+                        <span>.</span>
+                      </div>
+                      <div class="tariff-item">
+                        <p>1 час</p>
+                      </div>
+                    </div>
+                    <button @click="toggleSelection" v-if="!isCircleShown" class="btn-wrapper">Выбрать</button>
+                    <div v-else class="delete">
+                      <button @click="resetSelection" class="delete-btn">
+                        <img src="../../static/img/trash_2.svg" alt="Иконка Удаления">
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -615,7 +650,6 @@ export default {
   }
   .compo-top{
     display: flex;
-    padding: 10px;
     gap: 10px;
   }
   .compo-text{
@@ -628,11 +662,12 @@ export default {
     text-align: left;
   }
   .search{
-    margin: 10px 0;
+    margin-top:  10px;
   }
   .card{
     background: #FAFAFA;
     padding: 10px;
+    margin: 10px 0;
   }
   .compo-wrapper{
     display: flex;
@@ -640,7 +675,7 @@ export default {
   }
   .tariff{
     display: flex;
-    gap: 10px;
+    gap: 5px;
   }
   .compo-wrapper-tariff{
     display: flex;
@@ -654,13 +689,20 @@ export default {
     font-weight: bold;
     padding: 5px 20px;
   }
-  .delete{
-
-  }
   .delete-btn{
     width: 30px;
     height: 30px;
     background-color: rgba(249, 144, 144, 0.1);
     border-radius: 50%;
+  }
+  .dot {
+    display: flex;
+    align-items: center;
+    margin-bottom: 7px; /* Уточнение для выравнивания точки */
+  }
+  
+  .dot span {
+    color: #6266EA; /* Цвет фиолетовый */
+    font-weight: bold;
   }
   </style>
