@@ -111,7 +111,7 @@
           <button
             v-if="selectedRecordType === 'individual'"
             :class="{ 'active': selectedPaymentFormat === 'sessionPayment' }"
-            @click="selectPaymentFormat('sessionPayment')"
+            @click="selectPaymentFormat('sessionPayment','Оплата за сеанс')"
             class="record-button"
           >
             Оплата за сеанс
@@ -119,7 +119,7 @@
           <button
             v-if="selectedRecordType === 'individual'"
             :class="{ 'active': selectedPaymentFormat === 'spotPayment' }"
-            @click="selectPaymentFormat('spotPayment')"
+            @click="selectPaymentFormat('spotPayment','Оплата за место')"
             class="record-button"
           >
             Оплата за место
@@ -127,7 +127,7 @@
           <button
             v-if="selectedRecordType === 'individual'"
             :class="{ 'active': selectedPaymentFormat === 'freePayment' }"
-            @click="selectPaymentFormat('freePayment')"
+            @click="selectPaymentFormat('freePayment','Без стоимости')"
             class="record-button"
           >
             Без стоимости
@@ -136,7 +136,7 @@
           <button
             v-if="selectedRecordType === 'group' || selectedRecordType === 'rental'"
             :class="{ 'active': selectedPaymentFormat === 'equipmentPayment' }"
-            @click="selectPaymentFormat('equipmentPayment')"
+            @click="selectPaymentFormat('equipmentPayment','Оплата за время и единицу оборудования')"
             class="record-button"
           >
             Оплата за время и единицу оборудования
@@ -144,7 +144,7 @@
           <button
             v-if="selectedRecordType === 'group' || selectedRecordType === 'rental'"
             :class="{ 'active': selectedPaymentFormat === 'freePayment' }"
-            @click="selectPaymentFormat('freePayment')"
+            @click="selectPaymentFormat('freePayment','Без стоимости')"
             class="record-button"
           >
             Без стоимости
@@ -192,7 +192,8 @@ export default {
       serviceCost: '',
       serviceDuration: '',
       serviceCover: null,
-      paymentFormat: ''
+      paymentFormat: '',
+      selectedPaymentText:'',
     };
   },
   methods: {
@@ -200,8 +201,9 @@ export default {
       this.selectedRecordType = type;
       this.selectedPaymentFormat = ''; // Reset selected payment format when changing record type
     },
-    selectPaymentFormat(format) {
+    selectPaymentFormat(format,text) {
       this.selectedPaymentFormat = format;
+      this.selectedPaymentText = text
     },
     handleFileUpload(event) {
     const file = event.target.files[0];
@@ -215,7 +217,7 @@ export default {
     formData.append('type', this.selectedRecordType);
     formData.append('place_ammount', this.groupCapacity);
     formData.append('rent_ammount', this.maxGroupCapacity);
-    formData.append('pay_type', this.selectedPaymentFormat);
+    formData.append('pay_type', this.selectedPaymentText);
     formData.append('user', this.$store.state.registrationData.user_id);
     formData.append('serviceCover', this.serviceCover); // добавляем изображение в FormData
     axios.post('http://127.0.0.1:8000/api/uslugi/', formData)
