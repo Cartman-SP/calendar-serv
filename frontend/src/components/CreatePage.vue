@@ -12,13 +12,13 @@
       <div class="create_service">
         <!-- 1. Название услуги -->
         <label for="serviceName">Название услуги</label>
-        <input type="text" id="serviceName" placeholder="Новая услуга" v-model="serviceName">
+        <input type="text" id="serviceName" placeholder="Новая услуга" v-model="serviceName" :class="{ 'input-error': serviceNameError }">
   
         <!-- 2. Стоимость, Длительность -->
         <div class="cost-duration-container">
           <div class="input-group">
             <label for="serviceCost">Стоимость</label>
-            <input type="number" id="serviceCost" placeholder="Введите стоимость" v-model="serviceCost">
+            <input type="number" id="serviceCost" placeholder="Введите стоимость" v-model="serviceCost" :class="{ 'input-error': serviceCostError }">
           </div>
   
           <div class="input-group">
@@ -189,47 +189,61 @@ export default {
       groupCapacity: 0,
       maxGroupCapacity: 0,
       serviceName: '',
+      serviceNameError: false,
       serviceCost: '',
+      serviceCostError: false,
       serviceDuration: '',
       serviceCover: null,
       paymentFormat: '',
-      selectedPaymentText:'',
+      selectedPaymentText: '',
     };
   },
   methods: {
     selectRecordType(type) {
       this.selectedRecordType = type;
-      this.selectedPaymentFormat = ''; // Reset selected payment format when changing record type
+      this.selectedPaymentFormat = '';
     },
-    selectPaymentFormat(format,text) {
+    selectPaymentFormat(format, text) {
       this.selectedPaymentFormat = format;
-      this.selectedPaymentText = text
+      this.selectedPaymentText = text;
     },
     handleFileUpload(event) {
-    const file = event.target.files[0];
-    this.serviceCover = file;
-  },
-  saveAndExit() {
-    const formData = new FormData();
-    formData.append('name', this.serviceName);
-    formData.append('cost', this.serviceCost);
-    formData.append('time', this.serviceDuration);
-    formData.append('type', this.selectedRecordType);
-    formData.append('place_ammount', this.groupCapacity);
-    formData.append('rent_ammount', this.maxGroupCapacity);
-    formData.append('pay_type', this.selectedPaymentText);
-    formData.append('user', this.$store.state.registrationData.user_id);
-    formData.append('serviceCover', this.serviceCover); // добавляем изображение в FormData
-    axios.post('http://127.0.0.1:8000/api/uslugi/', formData)
-      .then(response => {
-        console.log('Service created:', response.data);
-      })
-      .catch(error => {
-        console.error('Error creating service:', error);
-      });
-  },
+      const file = event.target.files[0];
+      this.serviceCover = file;
+    },
+    saveAndExit() {
+      if (!this.serviceName.trim()) {
+        this.serviceNameError = true;
+        return;
+      }
+      this.serviceNameError = false;
+
+      if (typeof this.serviceCost === 'string' && this.serviceCost.trim() === '') {
+          this.serviceCostError = true;
+          return;
+      }
+      this.serviceCostError = false;
+
+      const formData = new FormData();
+      formData.append('name', this.serviceName);
+      formData.append('cost', this.serviceCost);
+      formData.append('time', this.serviceDuration);
+      formData.append('type', this.selectedRecordType);
+      formData.append('place_ammount', this.groupCapacity);
+      formData.append('rent_ammount', this.maxGroupCapacity);
+      formData.append('pay_type', this.selectedPaymentText);
+      formData.append('user', this.$store.state.registrationData.user_id);
+      formData.append('serviceCover', this.serviceCover);
+
+      axios.post('http://127.0.0.1:8000/api/uslugi/', formData)
+        .then(response => {
+          console.log('Service created:', response.data);
+        })
+        .catch(error => {
+          console.error('Error creating service:', error);
+        });
+    },
     cancel() {
-      // Go back to the previous page
       this.$router.go(-1);
     },
     decreaseGroupCapacity() {
@@ -393,7 +407,7 @@ export default {
   padding: 8px 12px;
   font-size: 14px;
   background-color: #F3F5F6;
-  color: #D2D8DE;
+  color: #AFB6C1;
   border: none;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s; /* Добавлено плавное переходное свойство */
@@ -512,5 +526,8 @@ label{
 
 .arrow-icon {
   height: 50%;
+}
+.input-error {
+  border: 1px solid #F97F7F !important;
 }
 </style>
