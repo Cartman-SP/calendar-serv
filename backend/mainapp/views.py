@@ -39,7 +39,7 @@ from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
 from .models import Usluga
 from .serializers import UslugaSerializer
-
+import random
 @csrf_exempt
 @require_POST
 def register_user(request):
@@ -131,71 +131,6 @@ def login_user(request):
             return JsonResponse({'error': 'Неверный логин или пароль'}, status=400)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=400)
-    
-@csrf_exempt
-@require_POST
-def custom_password_reset(request):
-    try:
-        data = json.loads(request.body)
-        email = data.get('email')
-
-        # Check if a user with the specified email exists
-        user = get_user_model().objects.get(email=email)
-
-        # Generate a password reset token
-        token = default_token_generator.make_token(user)
-
-        # Create URL for resetting the password
-        uidb64 = urlsafe_base64_encode(force_bytes(user.pk)).decode()
-        reset_url = f'http://127.0.0.1:8000/reset-password/{uidb64}/{urlsafe_base64_encode(force_bytes(token)).decode()}/'
-
-        # Send email
-        send_mail(
-            'Password Reset',
-            f'To reset your password, follow this link:\n\n{reset_url}',
-            'Daniil.shirkin005@yandex.ru',
-            [user.email],
-            fail_silently=False,
-        )
-
-        return JsonResponse({'message': 'Password reset email sent successfully'})
-
-    except get_user_model().DoesNotExist:
-        return JsonResponse({'error': 'No user found with this email'}, status=400)
-
-    except Exception as e:
-        return JsonResponse({'error': f'An error occurred: {str(e)}'}, status=500)
-
-def reset_password_confirm(request, uidb64, token):
-    try:
-        # Decode UID and get the user
-        uid = force_str(urlsafe_base64_decode(uidb64))
-        user_model = get_user_model()
-        user = user_model._default_manager.get(pk=uid)
-
-        # Check the token
-        if not default_token_generator.check_token(user, token):
-            return HttpResponseBadRequest('Invalid reset link')
-
-        if request.method == 'POST':
-            # Process the form for setting a new password
-            form = SetPasswordForm(user, request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('password_reset_complete')  # Replace with your target page after a successful password reset
-        else:
-            # Display the form for setting a new password
-            form = SetPasswordForm(user)
-
-        return render(request, 'reset_password_confirm.html', {'form': form, 'uidb64': uidb64, 'token': token})
-
-    except (ValueError, OverflowError, user_model.DoesNotExist) as e:
-        return HttpResponseBadRequest(f'Invalid reset link: {str(e)}')
-
-    except Exception as e:
-        return JsonResponse({'error': f'An error occurred: {str(e)}'}, status=500)
-    
-    from django.http import JsonResponse
 
 @csrf_exempt
 @require_POST
@@ -233,3 +168,45 @@ class UslugaList(APIView):
             serializer.save()
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
+    
+@csrf_exempt    
+def path_reset(request):
+    data = json.loads(request.body.decode('utf-8'))
+    email = data['email']
+    print(111111111111111111111111111111111111111)
+    user = User.objects.get(email=email)
+    code = random.randint(1000,10000)
+    a = Reset_passwrod(user = user,token=code)
+    a.save()
+    send_mail(
+        'Востановление пароля',
+        f'Ваш код востановления {code} \nНа сайте https://j0bar.ru/',
+        'Daniil.shirkin005@yandex.ru',
+        [email],
+        fail_silently=False
+    )
+    return JsonResponse({'successes': "Письмо отправленно"})
+
+@csrf_exempt
+def change_pass(request):
+    data = json.loads(request.body.decode('utf-8'))
+    email = data['email']
+    code = data['code']
+    new_pass = data['password']
+    print(email,code)
+    user = User.objects.get(email=email)
+
+    codes = Reset_passwrod.objects.filter(user=user).last()
+    print(code)
+    if codes.token == code:
+        user.set_password(new_pass)
+        user.save()
+        print(new_pass)
+        response_data = {'is_valid': True}
+        return JsonResponse(response_data, status=200)
+    else:
+        # If codes.token doesn't match the provided code or codes is not found, return a negative response
+        response_data = {'is_valid': False}
+        return JsonResponse(response_data, status=400)
+
+

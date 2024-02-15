@@ -1,6 +1,4 @@
 from django.db import models
-
-# models.py
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -21,3 +19,8 @@ class Usluga(models.Model):
     rent_ammount = models.CharField(max_length=50)
     pay_type = models.CharField(max_length=50)
     serviceCover = models.ImageField(upload_to='service_covers/')
+
+class Reset_passwrod(models.Model):
+    token = models.CharField(max_length=20)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='related_objects')
+ 

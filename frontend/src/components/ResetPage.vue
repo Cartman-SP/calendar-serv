@@ -1,6 +1,6 @@
 <template>
   <div class="reset">
-    <div class="container">
+    <div v-if="reset_page" class="container">
       <div class="header">
         <div class="subheader">SKED</div>
         <div class="subtext">Онлайн запись — легко!</div>
@@ -18,40 +18,49 @@
               <input v-model="email" type="email" id="username" name="username" placeholder="Usermail@gmail.com" required>
             </div>
             <div class="reset">
-              <button type="submit">Восстановить пароль</button>
+              <button type="submit" @click="send_email">Восстановить пароль</button>
+                  <p v-if="error">{{ error }}</p>
             </div>
           </form>
         </div>
       </div>
+
     </div>
+    <RecoveryPage v-else :email="email"/>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-
+import RecoveryPage from './RecoveryPage.vue';
 export default {
+  components: { RecoveryPage },
   data() {
     return {
       email: '',
+      reset_page: true,
+      error: '',
     };
   },
   methods: {
-    async resetPassword() {
-      try {
-        const response = await axios.post('http://127.0.0.1:8000/api/password_reset/', {
-          email: this.email,
-        });
+    send_email(){
+            const apiUrl = 'http://127.0.0.1:8000/api/pass_reset/';
 
-        // Обработка успешного ответа
-        console.log(response.data);
+            const data = {
+            email: this.email,
+            };
 
-        // Возможно, вы захотите обновить интерфейс или перенаправить пользователя после успешного сброса пароля
-      } catch (error) {
-        // Обработка ошибок
-        console.error('Error:', error.response.data);
-      }
-    },
+            axios.post(apiUrl, data)
+            .then(response => {
+                // Обработка успешного ответа от сервера
+                console.log('Ответ от сервера:', response.data);
+                this.reset_page = false
+            })
+            .catch(error => {
+                this.error = 'Аккаунта с такой почтой не существует'
+                console.error('Произошла ошибка при отправке запроса:', error);
+            });
+        },
   },
 };
 </script>
