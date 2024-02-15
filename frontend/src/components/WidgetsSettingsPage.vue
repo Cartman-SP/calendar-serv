@@ -384,7 +384,7 @@ export default {
     grid-row-gap: 0px; 
   }
   .apps{
-    width: 50%;
+    width: 100%;
   }
   .app-group{
     display: flex;
@@ -718,11 +718,16 @@ export default {
     font-weight: bold;
   }
   .tab{
+    position: relative;
+    border-bottom: 1px solid rgba(50, 56, 74, 0.1); 
+    width: 70%;
     display: flex;
     gap: 15px;
-    padding: 10px;
+    margin-top: 30px;
+    padding: 0;
   }
   .tab-link {
+    position: relative;
     font-family: TT Norms;
     font-size: 14px;
     font-weight: 500;
@@ -731,8 +736,23 @@ export default {
     text-align: left;
     color: #AFB6C1;
     cursor: pointer;
+    padding-bottom: 10px;
   }
   .tab-link:hover {
     color: #6266EA;
+  }
+  .tab-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: transparent;
+    transition: background-color 0.3s;
+  }
+  
+  .tab-link:hover::after {
+    background-color: #6266EA;
   }
   </style>

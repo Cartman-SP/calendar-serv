@@ -1,5 +1,6 @@
 <template>
   <div class="service_card">
+    <div class="overlay" v-if="showModal"></div>
     <div class="card-container">
       <div class="card-header">
         <div class="main">
@@ -246,9 +247,9 @@ export default {
     position: absolute;
     padding: 40px;
     border-radius: 10px;
-    gap: 10px;
-    left: 500px;
-    top: 500px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     background: white;
   }
   .delete{
@@ -290,5 +291,13 @@ export default {
     color: #AFB6C1;
     margin: 0;
     margin-top: 10px;
+  }
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Задний фон с прозрачностью 60% */
   }
 </style>
