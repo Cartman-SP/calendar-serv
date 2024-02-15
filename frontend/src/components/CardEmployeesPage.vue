@@ -46,15 +46,20 @@
       <div class="line"></div>
       <div class="card-bottom">
         <div class="text-container">
-          <p class="text-header">{{ usluga.type.replace('individual','Индивидуальный').replace('group','Групповой').replace('rental','Аренда') }}</p>
-          <p class="text-subheader">Тип записи</p>
+          <p class="text-header">Барбер</p>
+          <p class="text-subheader">Должность</p>
         </div>
-        <div class="bottom">
+        <div class="card-bottom">
           <div class="text-container">
-            <p class="text-header">{{ usluga.pay_type }}</p>
-            <p class="text-subheader">Формат оплаты</p>
+            <p class="text-header">9:00 — 20:00</p>
+            <p class="text-subheader">Рабочие часы</p>
           </div>
-          <p class="bottom-text">{{ usluga.cost }} Р</p> <!-- Отображаем стоимость услуги -->
+        </div>
+        <div class="card-bottom">
+          <div class="text-container">
+            <p class="text-header">2/2</p>
+            <p class="text-subheader">График работы</p>
+          </div>
         </div>
       </div>
     </div>

@@ -84,7 +84,7 @@ export default {
 .content{
   display: grid;
   gap: 20px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   margin-right: 50px;
 }
 .add {

@@ -31,6 +31,7 @@
         <img src="../../static/img/Man.png" alt="">
         <div class="man_head">
           <div class="man_header">Здравствуйте!</div>
+          <div class="divider"></div>
           <div class="man_subheader">Зарегистрируйтесь или войдите, чтобы <br>получить полный доступ к безграничному <br> функционалу Calendar</div>
           <div class="man_button-container">
             <router-link to="/register" class="man_button">Регистрация</router-link>
@@ -259,13 +260,16 @@ export default {
   }
 
   .man img{
-    width: 15vw;
     margin: 2vw;
+    width: 8vw;
   }
 
   .man_head {
     text-align: center;
     color: #FAFAFA;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .man_header{
@@ -287,7 +291,7 @@ export default {
   }
   .man_button {
     border: 1px solid #FAFAFA;
-    padding: 20px 55px;
+    padding: 15px 50px;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
     text-decoration: none;
@@ -304,5 +308,10 @@ export default {
     justify-content: center;
     align-items: center;
     margin-top: 20px; 
+  }
+  .divider {
+    border-bottom: 1px solid rgba(255, 255, 255, 1); 
+    width: 30%;
+    margin: 10px auto;
   }
   </style>

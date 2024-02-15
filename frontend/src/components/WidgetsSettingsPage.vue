@@ -7,291 +7,298 @@
       </div>
       <p class="creation_text">Создание виджета</p>
     </div>
+    <div class="tab">
+      <div class="tab-link" @click="selectTab('general')">Общие настройки</div>
+      <div class="tab-link" @click="selectTab('design')">Дизайн</div>
+      <div class="tab-link" @click="selectTab('notifications')">Уведомления</div>
+      <div class="tab-link" @click="selectTab('telegram')">Telegram-бот</div>
+      <div class="tab-link" @click="selectTab('integrations')">Интеграции и оплаты</div>
+      <div class="tab-link" @click="selectTab('discounts')">Скидки и промокоды</div>
+      <div class="tab-link" @click="selectTab('custom')">Свой код</div>
+    </div>
     <div class="card">
-      <TabViewComponent>
-          <TabPanelComponent :header="'Общие настройки'">
-            <div class="navigation">
-              <div class="settings">
-                <div class="forms">
-                  <div class="name-container">
-                    <div class="input-content">
-                      <label for="widgetName">Название виджета</label>
-                      <input type="text" id="widgetName" placeholder="Мой виджет">
-                    </div>
-        
-                    <div class="input-content">
-                      <label for="widgetLanguage">Язык виджета</label>
-                      <select id="widgetLanguage">
-                        <option value="" disabled selected style="display:none;">Выберите язык</option>
-                        <option value="russian">Русский</option>
-                        <option value="belarusian">Белорусский</option>
-                      </select>
-                    </div>
+      <div v-if="selectedTab === 'general'">
+        <div class="navigation">
+          <div class="settings">
+            <div class="forms">
+              <div class="name-container">
+                <div class="input-content">
+                  <label for="widgetName">Название виджета</label>
+                  <input type="text" id="widgetName" placeholder="Мой виджет">
+                </div>
+    
+                <div class="input-content">
+                  <label for="widgetLanguage">Язык виджета</label>
+                  <select id="widgetLanguage">
+                    <option value="" disabled selected style="display:none;">Выберите язык</option>
+                    <option value="russian">Русский</option>
+                    <option value="belarusian">Белорусский</option>
+                  </select>
+                </div>
+              </div>
+              <div class="apps-container">
+                <div class="apps">
+                  <div class="app-group">
+                    <p>Telegram</p>
+                    <InputSwitchComponent v-model="switches.telegram" style="margin-top: 5px;"/>
                   </div>
-                  <div class="apps-container">
-                    <div class="apps">
-                      <div class="app-group">
-                        <p>Telegram</p>
-                        <InputSwitchComponent v-model="switches.telegram" style="margin-top: 5px;"/>
-                      </div>
-                      <input type="text">
-                      <div class="app-group">
-                        <p>Instagram</p>
-                        <InputSwitchComponent v-model="switches.instagram" style="margin-top: 5px;"/>
-                      </div>
-                      <input type="text" class="">
-                    </div>
-                    <div class="apps">
-                      <div class="app-group">
-                        <p>WhatsApp</p>
-                        <InputSwitchComponent v-model="switches.whatsapp" style="margin-top: 5px;"/>
-                      </div>
-                      <input type="text">
-                      <div class="app-group">
-                        <p>Вконтакте</p>
-                        <InputSwitchComponent v-model="switches.vkontakte" style="margin-top: 5px;"/>
-                      </div>
-                      <input type="text">
-                    </div>
+                  <input type="text">
+                  <div class="app-group">
+                    <p>Instagram</p>
+                    <InputSwitchComponent v-model="switches.instagram" style="margin-top: 5px;"/>
                   </div>
-                  <label for="widgetbranch">Филиалы</label>
-                      <select id="widgetbranch" style="width: 100%;">
-                        <option value="" disabled selected style="display:none;">Выберите филиалы</option>
-                      </select>
-                  <div class="footer">
-                    <div class="footer-apps">
-                      <p class="header">Отзывы</p>
-                      <p class="subheader">Клиенты смогут увидеть рейтинг<br>и отзывы о вашем филиале</p>
-                      <InputSwitchComponent v-model="switches.feedback" />
-                    </div>
-                    <div class="footer-apps">
-                      <p class="header">О компании</p>
-                      <p class="subheader">Клиенты смогут увидеть рейтинг<br>и отзывы о вашем филиале</p>
-                      <InputSwitchComponent v-model="switches.company" />
-                    </div>
-                    <div class="footer-apps">
-                      <p class="header">Любой сотрудник</p>
-                      <p class="subheader">Клиенты смогут записываться,<br> пропустив выбор сотрудника</p>
-                      <InputSwitchComponent v-model="switches.employee" />
-                    </div>
-                    <div class="footer-apps">
-                      <p class="header">Отмена записи</p>
-                      <p class="subheader">Позволяет клиентам в режиме<br> онлайн отменять записи</p>
-                      <InputSwitchComponent v-model="switches.cancellation" />
-                    </div>
-                    <div class="footer-apps">
-                      <p class="header">Интервал записи</p>
-                      <p class="subheader">Задержка времени между<br> сеансами</p>
-                      <select id="widget-time" style="width: 70%">
-                        <option value="" disabled selected style="display:none;">Время</option>
-                        <option value="30m">30 Минут</option>
-                        <option value="1h">1 Час</option>
-                      </select>
-                    </div>
-                    <div class="footer-apps">
-                      <p class="header">Ограничение на отмену</p>
-                      <p class="subheader">Время, за которое клиент не<br> сможет отменять записи</p>
-                      <select id="widget-time" style="width: 70%">
-                        <option value="" disabled selected style="display:none;">Время</option>
-                        <option value="30m">30 Минут</option>
-                        <option value="1h">1 Час</option>
-                      </select>
-                    </div>
+                  <input type="text" class="">
+                </div>
+                <div class="apps">
+                  <div class="app-group">
+                    <p>WhatsApp</p>
+                    <InputSwitchComponent v-model="switches.whatsapp" style="margin-top: 5px;"/>
                   </div>
-                  <div class="button-container">
-                    <button @click="save" class="save-button">Сохранить</button>
-                    <button @click="cancel" class="cancel-button">Отмена</button>
+                  <input type="text">
+                  <div class="app-group">
+                    <p>Вконтакте</p>
+                    <InputSwitchComponent v-model="switches.vkontakte" style="margin-top: 5px;"/>
                   </div>
+                  <input type="text">
+                </div>
+              </div>
+              <label for="widgetbranch">Филиалы</label>
+                  <select id="widgetbranch" style="width: 100%;">
+                    <option value="" disabled selected style="display:none;">Выберите филиалы</option>
+                  </select>
+              <div class="footer">
+                <div class="footer-apps">
+                  <p class="header">Отзывы</p>
+                  <p class="subheader">Клиенты смогут увидеть рейтинг<br>и отзывы о вашем филиале</p>
+                  <InputSwitchComponent v-model="switches.feedback" />
+                </div>
+                <div class="footer-apps">
+                  <p class="header">О компании</p>
+                  <p class="subheader">Клиенты смогут увидеть рейтинг<br>и отзывы о вашем филиале</p>
+                  <InputSwitchComponent v-model="switches.company" />
+                </div>
+                <div class="footer-apps">
+                  <p class="header">Любой сотрудник</p>
+                  <p class="subheader">Клиенты смогут записываться,<br> пропустив выбор сотрудника</p>
+                  <InputSwitchComponent v-model="switches.employee" />
+                </div>
+                <div class="footer-apps">
+                  <p class="header">Отмена записи</p>
+                  <p class="subheader">Позволяет клиентам в режиме<br> онлайн отменять записи</p>
+                  <InputSwitchComponent v-model="switches.cancellation" />
+                </div>
+                <div class="footer-apps">
+                  <p class="header">Интервал записи</p>
+                  <p class="subheader">Задержка времени между<br> сеансами</p>
+                  <select id="widget-time" style="width: 70%">
+                    <option value="" disabled selected style="display:none;">Время</option>
+                    <option value="30m">30 Минут</option>
+                    <option value="1h">1 Час</option>
+                  </select>
+                </div>
+                <div class="footer-apps">
+                  <p class="header">Ограничение на отмену</p>
+                  <p class="subheader">Время, за которое клиент не<br> сможет отменять записи</p>
+                  <select id="widget-time" style="width: 70%">
+                    <option value="" disabled selected style="display:none;">Время</option>
+                    <option value="30m">30 Минут</option>
+                    <option value="1h">1 Час</option>
+                  </select>
+                </div>
+              </div>
+              <div class="button-container">
+                <button @click="save" class="save-button">Сохранить</button>
+                <button @click="cancel" class="cancel-button">Отмена</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-if="selectedTab === 'design'">
+        <div class="navigation">
+          <div class="settings">
+            <p class="header">Обложка виджета</p>
+            <p class="descr">Выберите фотографию для обложки из ранее загруженных или добавьте новую</p>
+            <div class="plus_container">
+              <div class="img_plus" @click="uploadImage">
+                <input type="file" style="display: none;" @change="handleImageUpload">
+                <img src="../../static/img/plus.svg" alt="">
+              </div>
+              <div class="img_plus" @click="uploadImage">
+                <input type="file" style="display: none;" @change="handleImageUpload">
+                <img src="../../static/img/plus.svg" alt="">
+              </div>
+              <div class="img_plus" @click="uploadImage">
+                <input type="file" style="display: none;" @change="handleImageUpload">
+                <img src="../../static/img/plus.svg" alt="">
+              </div>
+              <div class="img_plus" @click="uploadImage">
+                <input type="file" style="display: none;" @change="handleImageUpload">
+                <img src="../../static/img/plus.svg" alt="">
+              </div>
+              <div class="img_plus" @click="uploadImage">
+                <input type="file" style="display: none;" @change="handleImageUpload">
+                <img src="../../static/img/plus.svg" alt="">
+              </div>
+            </div>
+            <div class="color_container">
+              <div class="color">
+                <p class="header">Цветовой схема</p>
+                <div class="switch_container">
+                  <p class="light">Светлая</p>
+                  <InputSwitchComponent v-model="switches.theme" style="margin-top: 5px;"/>
+                  <p class="dark">Тёмная</p>
+                </div>
+              </div>
+              <div class="color">
+                <p class="header">Основной</p>
+                <div class="rgb"></div>
+              </div>
+              <div class="color">
+                <p class="header">Фон виджета</p>
+                <div class="rgb"></div>
+              </div>
+              <div class="color">
+                <p class="header">Фон плашка</p>
+                <div class="rgb"></div>
+              </div>
+              <div class="color">
+                <p class="header">Цвет текста</p>
+                <div class="rgb"></div>
+              </div>
+            </div>
+            <p class="">Выберите дизайн виджета</p>
+            <div class="wrapper">
+              <div class="window_container">
+                <div class="window">
+                  <div class="square"></div>
+                  <div class="stripe"></div>
+                  <div class="stripe"></div>
+                  <div class="stripe"></div>
+                  <div class="rectangle" style="height: 31px;"></div>
+                </div>
+                <p>Виджет в виде сайта</p>
+              </div>
+              <div class="window_container">
+                <div class="window">
+                  <div class="stripe" style="width:100%"></div>
+                  <div class="stripe" style="width:80%"></div>
+                  <div class="stripe" style="width:60%"></div>
+                  <div class="rectangle" style="height: 49px;"></div>
+                </div>
+                <p>Встроенный виджет<br>для вашего сайта</p>
+              </div>
+              <div class="window_container">
+                <div class="window">
+                  <div class="lane_container">
+                    <div class="lane" style="width:32%"></div>
+                    <div class="lane" style="width:62%"></div>
+                  </div>
+                  <div class="stripe" style="width:80%"></div>
+                  <div class="stripe" style="width:60%"></div>
+                  <div class="stripe" style="width:40%"></div>
+                  <div class="lane_container">
+                    <div class="lane" style="width:55%"></div>
+                    <div class="circle"></div>
+                  </div>
+                </div>
+                <p>Плавающая кнопка<br> на вашем сайте</p>
+              </div>
+            </div>
+            <p>Прямая ссылка на виджет</p>
+            <input type="text">
+            <div class="button-container">
+              <button @click="save" class="save-button">Сохранить</button>
+              <button @click="cancel" class="cancel-button">Отмена</button>
+            </div>
+          </div>
+          <div class="compo">
+
+            <div class="compo-container">
+              <div class="compo-top">
+                <img src="../../static/img/case.svg" alt="">
+                <p class="compo-text">Твоя краля</p>
+              </div>
+              <div class="compo-top">
+                <img src="../../static/img/geo.svg" alt="">
+                <p class="compo-text">г. Павлодар, ул. Членододблина 153/1</p>
+              </div>
+            </div>
+
+            <div class="search">
+              <input class="" type="search" name="" id="" placeholder="Найти услугу">
+            </div>
+
+            <div class="card">
+              <div class="compo-wrapper">
+                <img src="../../static/img/barber.svg" alt="">
+                <p class="">Комплексная мужская<br>стрижка</p>
+              </div>
+              <div class="compo-wrapper-tariff">
+                <div class="tariff">
+                  <div class="tariff-item">
+                    <p>3000 тнг</p>
+                  </div>
+                  <div class="dot">
+                    <span>.</span>
+                  </div>
+                  <div class="tariff-item">
+                    <p>1 час</p>
+                  </div>
+                </div>
+                <button @click="toggleSelection" v-if="!isCircleShown" class="btn-wrapper">Выбрать</button>
+                <div v-else class="delete">
+                  <button @click="resetSelection" class="delete-btn">
+                    <img src="../../static/img/trash_2.svg" alt="Иконка Удаления">
+                  </button>
                 </div>
               </div>
             </div>
-          </TabPanelComponent>
-          <TabPanelComponent :header="'Дизайн'">
-            <div class="navigation">
-              <div class="settings">
-                <p class="header">Обложка виджета</p>
-                <p class="descr">Выберите фотографию для обложки из ранее загруженных или добавьте новую</p>
-                <div class="plus_container">
-                  <div class="img_plus" @click="uploadImage">
-                    <input type="file" style="display: none;" @change="handleImageUpload">
-                    <img src="../../static/img/plus.svg" alt="">
-                  </div>
-                  <div class="img_plus" @click="uploadImage">
-                    <input type="file" style="display: none;" @change="handleImageUpload">
-                    <img src="../../static/img/plus.svg" alt="">
-                  </div>
-                  <div class="img_plus" @click="uploadImage">
-                    <input type="file" style="display: none;" @change="handleImageUpload">
-                    <img src="../../static/img/plus.svg" alt="">
-                  </div>
-                  <div class="img_plus" @click="uploadImage">
-                    <input type="file" style="display: none;" @change="handleImageUpload">
-                    <img src="../../static/img/plus.svg" alt="">
-                  </div>
-                  <div class="img_plus" @click="uploadImage">
-                    <input type="file" style="display: none;" @change="handleImageUpload">
-                    <img src="../../static/img/plus.svg" alt="">
-                  </div>
-                </div>
-                <div class="color_container">
-                  <div class="color">
-                    <p class="header">Цветовой схема</p>
-                    <div class="switch_container">
-                      <p class="light">Светлая</p>
-                      <InputSwitchComponent v-model="switches.theme" style="margin-top: 5px;"/>
-                      <p class="dark">Тёмная</p>
-                    </div>
-                  </div>
-                  <div class="color">
-                    <p class="header">Основной</p>
-                    <div class="rgb"></div>
-                  </div>
-                  <div class="color">
-                    <p class="header">Фон виджета</p>
-                    <div class="rgb"></div>
-                  </div>
-                  <div class="color">
-                    <p class="header">Фон плашка</p>
-                    <div class="rgb"></div>
-                  </div>
-                  <div class="color">
-                    <p class="header">Цвет текста</p>
-                    <div class="rgb"></div>
-                  </div>
-                </div>
-                <p class="">Выберите дизайн виджета</p>
-                <div class="wrapper">
-                  <div class="window_container">
-                    <div class="window">
-                      <div class="square"></div>
-                      <div class="stripe"></div>
-                      <div class="stripe"></div>
-                      <div class="stripe"></div>
-                      <div class="rectangle" style="height: 31px;"></div>
-                    </div>
-                    <p>Виджет в виде сайта</p>
-                  </div>
-                  <div class="window_container">
-                    <div class="window">
-                      <div class="stripe" style="width:100%"></div>
-                      <div class="stripe" style="width:80%"></div>
-                      <div class="stripe" style="width:60%"></div>
-                      <div class="rectangle" style="height: 49px;"></div>
-                    </div>
-                    <p>Встроенный виджет<br>для вашего сайта</p>
-                  </div>
-                  <div class="window_container">
-                    <div class="window">
-                      <div class="lane_container">
-                        <div class="lane" style="width:32%"></div>
-                        <div class="lane" style="width:62%"></div>
-                      </div>
-                      <div class="stripe" style="width:80%"></div>
-                      <div class="stripe" style="width:60%"></div>
-                      <div class="stripe" style="width:40%"></div>
-                      <div class="lane_container">
-                        <div class="lane" style="width:55%"></div>
-                        <div class="circle"></div>
-                      </div>
-                    </div>
-                    <p>Плавающая кнопка<br> на вашем сайте</p>
-                  </div>
-                </div>
-                <p>Прямая ссылка на виджет</p>
-                <input type="text">
-                <div class="button-container">
-                  <button @click="save" class="save-button">Сохранить</button>
-                  <button @click="cancel" class="cancel-button">Отмена</button>
-                </div>
+
+            <div class="card">
+              <div class="compo-wrapper">
+                <img src="../../static/img/barber.svg" alt="">
+                <p class="">Комплексная мужская<br>стрижка</p>
               </div>
-              <div class="compo">
-
-                <div class="compo-container">
-                  <div class="compo-top">
-                    <img src="../../static/img/case.svg" alt="">
-                    <p class="compo-text">Твоя краля</p>
+              <div class="compo-wrapper-tariff">
+                <div class="tariff">
+                  <div class="tariff-item">
+                    <p>3000 тнг</p>
                   </div>
-                  <div class="compo-top">
-                    <img src="../../static/img/geo.svg" alt="">
-                    <p class="compo-text">г. Павлодар, ул. Членододблина 153/1</p>
+                  <div class="dot">
+                    <span>.</span>
                   </div>
-                </div>
-
-                <div class="search">
-                  <input class="" type="search" name="" id="" placeholder="Найти услугу">
-                </div>
-
-                <div class="card">
-                  <div class="compo-wrapper">
-                    <img src="../../static/img/barber.svg" alt="">
-                    <p class="">Комплексная мужская<br>стрижка</p>
-                  </div>
-                  <div class="compo-wrapper-tariff">
-                    <div class="tariff">
-                      <div class="tariff-item">
-                        <p>3000 тнг</p>
-                      </div>
-                      <div class="dot">
-                        <span>.</span>
-                      </div>
-                      <div class="tariff-item">
-                        <p>1 час</p>
-                      </div>
-                    </div>
-                    <button @click="toggleSelection" v-if="!isCircleShown" class="btn-wrapper">Выбрать</button>
-                    <div v-else class="delete">
-                      <button @click="resetSelection" class="delete-btn">
-                        <img src="../../static/img/trash_2.svg" alt="Иконка Удаления">
-                      </button>
-                    </div>
+                  <div class="tariff-item">
+                    <p>1 час</p>
                   </div>
                 </div>
-
-                <div class="card">
-                  <div class="compo-wrapper">
-                    <img src="../../static/img/barber.svg" alt="">
-                    <p class="">Комплексная мужская<br>стрижка</p>
-                  </div>
-                  <div class="compo-wrapper-tariff">
-                    <div class="tariff">
-                      <div class="tariff-item">
-                        <p>3000 тнг</p>
-                      </div>
-                      <div class="dot">
-                        <span>.</span>
-                      </div>
-                      <div class="tariff-item">
-                        <p>1 час</p>
-                      </div>
-                    </div>
-                    <button @click="toggleSelection" v-if="!isCircleShown" class="btn-wrapper">Выбрать</button>
-                    <div v-else class="delete">
-                      <button @click="resetSelection" class="delete-btn">
-                        <img src="../../static/img/trash_2.svg" alt="Иконка Удаления">
-                      </button>
-                    </div>
-                  </div>
+                <button @click="toggleSelection" v-if="!isCircleShown" class="btn-wrapper">Выбрать</button>
+                <div v-else class="delete">
+                  <button @click="resetSelection" class="delete-btn">
+                    <img src="../../static/img/trash_2.svg" alt="Иконка Удаления">
+                  </button>
                 </div>
-
               </div>
             </div>
-          </TabPanelComponent>
-          <TabPanelComponent :header="'Уведомления'">
-            <p class="m-0">ffff</p>
-          </TabPanelComponent>
-          <TabPanelComponent :header="'Telegram-бот'">
-            <p class="m-0">ffff</p>
-          </TabPanelComponent>
-          <TabPanelComponent :header="'Интеграции и оплаты'">
-            <p class="m-0">ffff</p>
-          </TabPanelComponent>
-          <TabPanelComponent :header="'Скидки и промокоды'">
-            <p class="m-0">ffff</p>
-          </TabPanelComponent>
-          <TabPanelComponent :header="'Свой код'">
-            <p class="m-0">ffff</p>
-          </TabPanelComponent>
-      </TabViewComponent>
+
+          </div>
+        </div>
+      </div>
+      <div v-if="selectedTab === 'notifications'">
+        <!-- Содержимое для уведомлений -->
+      </div>
+      <div v-if="selectedTab === 'telegram'">
+        <!-- Содержимое для Telegram-бота -->
+      </div>
+      <div v-if="selectedTab === 'integrations'">
+        <!-- Содержимое для интеграций и оплат -->
+      </div>
+      <div v-if="selectedTab === 'discounts'">
+        <!-- Содержимое для скидок и промокодов -->
+      </div>
+      <div v-if="selectedTab === 'custom'">
+        <!-- Содержимое для своего кода -->
+      </div>
     </div>
   </div>
 </template>
@@ -300,6 +307,7 @@
 export default {
   data() {
     return {
+      selectedTab: 'general',
       switches: {
         telegram: false,
         instagram: false,
@@ -340,6 +348,9 @@ export default {
     resetSelection() {
       // Reset to the original state (hide the circle)
       this.isCircleShown = false;
+    },
+    selectTab(tab) {
+      this.selectedTab = tab; // Функция для изменения выбранной вкладки
     }
   },
 };
@@ -705,5 +716,23 @@ export default {
   .dot span {
     color: #6266EA; /* Цвет фиолетовый */
     font-weight: bold;
+  }
+  .tab{
+    display: flex;
+    gap: 15px;
+    padding: 10px;
+  }
+  .tab-link {
+    font-family: TT Norms;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #AFB6C1;
+    cursor: pointer;
+  }
+  .tab-link:hover {
+    color: #6266EA;
   }
   </style>

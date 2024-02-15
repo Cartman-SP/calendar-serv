@@ -61,10 +61,10 @@
             </div>
             <div class="grafic">
               <p class="grafic_text">Сменный график:</p>
-              <button :class="{ 'grafic-btn-active': isDaySelected('1x1'), 'grafic-btn': !isDaySelected('1x1') }" @click="toggleDay('1x1')">1x1</button>
-              <button :class="{ 'grafic-btn-active': isDaySelected('2x2'), 'grafic-btn': !isDaySelected('2x2') }" @click="toggleDay('2x2')">2x2</button>
-              <button :class="{ 'grafic-btn-active': isDaySelected('3x3'), 'grafic-btn': !isDaySelected('3x3') }" @click="toggleDay('3x3')">3x3</button>
-              <button :class="{ 'grafic-btn-active': isDaySelected('5x2'), 'grafic-btn': !isDaySelected('5x2') }" @click="toggleDay('5x2')">5x2</button>
+              <button :class="{ 'grafic-btn-active': selectedSchedule === '1x1', 'grafic-btn': selectedSchedule !== '1x1' }" @click="selectedSchedule = '1x1'; toggleAllDays()">1x1</button>
+              <button :class="{ 'grafic-btn-active': selectedSchedule === '2x2', 'grafic-btn': selectedSchedule !== '2x2' }" @click="selectedSchedule = '2x2'; toggleAllDays()">2x2</button>
+              <button :class="{ 'grafic-btn-active': selectedSchedule === '3x3', 'grafic-btn': selectedSchedule !== '3x3' }" @click="selectedSchedule = '3x3'; toggleAllDays()">3x3</button>
+              <button :class="{ 'grafic-btn-active': selectedSchedule === '5x2', 'grafic-btn': selectedSchedule !== '5x2' }" @click="selectedSchedule = '5x2'; toggleAllDays()">5x2</button>
             </div>
           </div>
         </div>
@@ -113,35 +113,48 @@
 export default {
   data() {
     return {
-      // Добавлено новое свойство для хранения выбранных дней
       selectedDays: [],
       selectedRecordType: 'individual',
       selectedPaymentFormat: 'sessionPayment',
       uploadedFile: null,
       groupCapacity: 0,
       maxGroupCapacity: 0,
+      selectedSchedule: null, // Новое свойство для хранения выбранного графика работы
     };
   },
   methods: {
-    // Добавлен новый метод для проверки выбран ли день
     isDaySelected(day) {
       return this.selectedDays.includes(day);
     },
-    // Добавлен новый метод для изменения состояния выбранного дня
     toggleDay(day) {
-      if (this.isDaySelected(day)) {
-        this.selectedDays = this.selectedDays.filter(selectedDay => selectedDay !== day);
-      } else {
+      if (this.selectedSchedule && this.selectedDays.length > 0) {
+        // Сбрасываем выбранные дни и график, если график был выбран
+        this.selectedDays = [];
+        this.selectedSchedule = null;
+      }
+
+      if (!this.selectedDays.includes(day)) {
         this.selectedDays.push(day);
+      } else {
+        this.selectedDays = this.selectedDays.filter(selectedDay => selectedDay !== day);
       }
     },
-    // Ваша текущая логика сохранения и выхода
-    saveAndExit() {
-      // ...
+    toggleAllDays() {
+      if (this.selectedSchedule === '1x1') {
+        this.selectedDays = ['Пн', 'Ср', 'Пт', 'Вс'];
+      } else if (this.selectedSchedule === '2x2') {
+        this.selectedDays = ['Пн', 'Вт', 'Пт', 'Сб'];
+      } else if (this.selectedSchedule === '3x3') {
+        this.selectedDays = ['Пн', 'Вт', 'Ср', 'Вс'];
+      } else if (this.selectedSchedule === '5x2') {
+        this.selectedDays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт'];
+      }
     },
-    // Ваша текущая логика отмены
+    saveAndExit() {
+      // Ваша текущая логика сохранения и выхода
+    },
     cancel() {
-      // ...
+      // Ваша текущая логика отмены
     },
   }
 }
