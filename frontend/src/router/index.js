@@ -155,7 +155,7 @@ router.beforeEach(async (to, from, next) => {
     // Если маршрут - страница hello, login, register, reset, resetpassword, recovery,
     // и пользователь авторизован, перенаправляем на /main
     if (store.getters.getRegistrationData.user_id) {
-      next('/main');
+      next('/lk');
     } else {
       // Если пользователь не авторизован, разрешаем доступ
       next();

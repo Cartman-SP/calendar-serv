@@ -185,7 +185,6 @@ export default {
     width: 15vh;
     height: auto;
     background-color: white;
-    position: absolute;
     left: 485px;
     top: 190px;
     border: 1px solid #E4EAEF;

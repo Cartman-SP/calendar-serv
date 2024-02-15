@@ -19,9 +19,9 @@
         <a href="#/lk/service/create" style="text-decoration:none"><button class="service_btn"> + Добавить услуги</button></a>
       </div>
     </div>
-    <div v-else>
+    <div v-else style="padding: 20%;">
       <!-- Показываем значок загрузки -->
-      <i class="pi pi-spin pi-spinner"></i>
+      <i class="pi pi-spin pi-spinner" style="font-size: 3rem;  color: #6266EA"></i>
     </div>
   </div>
 </template>
