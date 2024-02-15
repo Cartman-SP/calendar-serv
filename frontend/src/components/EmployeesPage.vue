@@ -61,10 +61,10 @@
             </div>
             <div class="grafic">
               <p class="grafic_text">Сменный график:</p>
-              <button :class="{ 'form-btn-active': isDaySelected('1x1'), 'form-btn': !isDaySelected('1x1') }" @click="toggleDay('1x1')">1x1</button>
-              <button :class="{ 'form-btn-active': isDaySelected('2x2'), 'form-btn': !isDaySelected('2x2') }" @click="toggleDay('2x2')">2x2</button>
-              <button :class="{ 'form-btn-active': isDaySelected('3x3'), 'form-btn': !isDaySelected('3x3') }" @click="toggleDay('3x3')">3x3</button>
-              <button :class="{ 'form-btn-active': isDaySelected('5x2'), 'form-btn': !isDaySelected('5x2') }" @click="toggleDay('5x2')">5x2</button>
+              <button :class="{ 'grafic-btn-active': isDaySelected('1x1'), 'grafic-btn': !isDaySelected('1x1') }" @click="toggleDay('1x1')">1x1</button>
+              <button :class="{ 'grafic-btn-active': isDaySelected('2x2'), 'grafic-btn': !isDaySelected('2x2') }" @click="toggleDay('2x2')">2x2</button>
+              <button :class="{ 'grafic-btn-active': isDaySelected('3x3'), 'grafic-btn': !isDaySelected('3x3') }" @click="toggleDay('3x3')">3x3</button>
+              <button :class="{ 'grafic-btn-active': isDaySelected('5x2'), 'grafic-btn': !isDaySelected('5x2') }" @click="toggleDay('5x2')">5x2</button>
             </div>
           </div>
         </div>
@@ -318,6 +318,15 @@ export default {
   }
   .grafic{
     display: flex;
+  }
+  .grafic-btn{
+    background: #FFFFFF;
+    color: #D2D8DE;
+  }
+  .grafic-btn-active {
+    background-color: #FFFFFF;
+    color: #6266EA;
+    border-radius: 3px;
   }
 </style>
   
