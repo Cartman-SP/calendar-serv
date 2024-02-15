@@ -276,7 +276,7 @@ export default {
 }
 .adaptive_window{
   background-color: #FFFFFF;
-  width: 49vh;
+  width: 25%;
   height: auto;
   padding: 20px;
   border-radius: 5px;
@@ -361,7 +361,7 @@ export default {
 }
 
 .create_service {
-  width: 110vh;
+  width: 70%;
   height: 60vh;
   background-color: #FFFFFF;
   padding: 20px;

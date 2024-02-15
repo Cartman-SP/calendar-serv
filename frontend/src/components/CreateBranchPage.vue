@@ -163,8 +163,7 @@ export default {
 
 <style scoped>
   .create_branch {
-    position: absolute;
-    width: 488px;
+    width: 80%;
     height: auto;
     background-color: #FFFFFF;
     padding: 20px;

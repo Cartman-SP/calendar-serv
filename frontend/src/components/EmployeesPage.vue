@@ -59,6 +59,13 @@
               <button :class="{ 'form-btn-active': isDaySelected('Сб'), 'form-btn': !isDaySelected('Сб') }" @click="toggleDay('Сб')">Сб</button>
               <button :class="{ 'form-btn-active': isDaySelected('Вс'), 'form-btn': !isDaySelected('Вс') }" @click="toggleDay('Вс')">Вс</button>
             </div>
+            <div class="grafic">
+              <p class="grafic_text">Сменный график:</p>
+              <button :class="{ 'form-btn-active': isDaySelected('1x1'), 'form-btn': !isDaySelected('1x1') }" @click="toggleDay('1x1')">1x1</button>
+              <button :class="{ 'form-btn-active': isDaySelected('2x2'), 'form-btn': !isDaySelected('2x2') }" @click="toggleDay('2x2')">2x2</button>
+              <button :class="{ 'form-btn-active': isDaySelected('3x3'), 'form-btn': !isDaySelected('3x3') }" @click="toggleDay('3x3')">3x3</button>
+              <button :class="{ 'form-btn-active': isDaySelected('5x2'), 'form-btn': !isDaySelected('5x2') }" @click="toggleDay('5x2')">5x2</button>
+            </div>
           </div>
         </div>
 
@@ -192,7 +199,7 @@ export default {
     height: 50%;
   }
   .create_employess {
-    width: 100vh;
+    width: 80%;
     height: auto;
     background-color: #FFFFFF;
     padding: 20px;
@@ -300,6 +307,17 @@ export default {
   label{
     font-weight: 700;
     margin: 0;
+  }
+  .grafic_text{
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 12px;
+    letter-spacing: 0em;
+    text-align: left;
+    color:#535C69;
+  }
+  .grafic{
+    display: flex;
   }
 </style>
   

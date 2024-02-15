@@ -80,7 +80,7 @@
                 </div>
                 <div class="avatar-bottom">
                   <img src="../../static/img/Union.png" alt="">
-                  <p id="bottom_sub_text">Барбершоп на..........</p>
+                  <p id="bottom_sub_text">Название компании</p>
                 </div>
                 <div v-if="showDropdown" class="dropdown-menu">
                   <router-link to="/lk/settings" style="text-decoration:none">
@@ -134,6 +134,9 @@ export default {
   margin-top: 10px;
   background-color: #fafafa;
   padding: 2px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 #bottom_header{
   color: #535C69;
@@ -144,7 +147,7 @@ export default {
   margin: 0;
   padding: 0;
 }
-.avatar-top, .avatar-bottom{
+.avatar-top{
   display: flex;
   align-items: center;
   justify-content: space-between;

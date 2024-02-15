@@ -1,23 +1,23 @@
 <template>
-  <div class="modal" v-if="showModal">
+  <div class="modal">
     <div class="modal-content">
+      <p>Изменение пароля</p>
       <div class="change-password-modal">
-        <h3>Изменение пароля</h3>
         <div class="input-container">
           <label for="currentPassword">Текущий пароль</label>
-          <input type="password" id="currentPassword" placeholder="Введите текущий пароль">
+          <input type="password" id="currentPassword">
         </div>
         <div class="input-container">
           <label for="newPassword">Новый пароль</label>
-          <input type="password" id="newPassword" placeholder="Введите новый пароль">
+          <input type="password" id="newPassword">
         </div>
         <div class="input-container">
           <label for="confirmPassword">Повторите новый пароль</label>
-          <input type="password" id="confirmPassword" placeholder="Повторите новый пароль">
+          <input type="password" id="confirmPassword">
         </div>
         <div class="button-container">
           <button @click="changePassword" class="button-change">Сменить пароль</button>
-          <button @click="cancelChange" class="button-change">Отмена</button>
+          <button @click="cancelChange" class="button-exit">Отмена</button>
         </div>
       </div>
     </div>
@@ -28,15 +28,11 @@
 export default {
   data() {
     return {
-      showModal: false,
     };
   },
   methods: {
     saveName() {
       // Логика сохранения имени
-    },
-    openModal() {
-      this.showModal = true;
     },
     changePassword() {
       // Логика изменения пароля
@@ -50,7 +46,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .modal {
   display: flex;
   align-items: center;
@@ -64,10 +60,41 @@ export default {
 }
 
 .modal-content {
-  width: 360px;
-  height: 386px;
+  width: auto;
+  height: auto;
   background-color: #FFFFFF;
-  padding: 20px;
+  padding: 40px;
   border-radius: 8px;
+}
+.button-container{
+  display: flex;
+  gap: 10px;
+}
+label{
+  color: #535C69;
+  font-family: TT Norms;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 15px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+p{
+  font-family: TT Norms;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #535C69;
+}
+.button-change{
+  background: #4C5D6E33;
+}
+.button-exit{
+  border: 1px solid #4C5D6E33;
+  background: #FFFFFF;
+  color: #7D838C;
+  
 }
 </style>
