@@ -389,7 +389,7 @@ export default {
   
   .settings {
     text-align: center;
-    width: 615px;
+    width: 70%;
     height: auto;
     background-color: #FFFFFF;
     padding: 20px;
@@ -455,6 +455,7 @@ export default {
     grid-template-columns: 5fr 4fr;
     grid-column-gap: 20px;
     grid-row-gap: 0px;
+    margin-bottom: 10px;
   }
   .subheader{
     font-family: TT Norms;
@@ -637,7 +638,7 @@ export default {
     border-radius: 100px;
   }
   .compo{
-    width: 315px;
+    width: 30%;
     height: auto;
     background: #FFFFFF;
     border-radius: 25px;

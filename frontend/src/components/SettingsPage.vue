@@ -56,7 +56,8 @@
         <div class="change">
           <label>Пароль</label>
           <p class="password">Был установлен 3 месяца назад</p>
-          <button @click="showModals" class="button-change">Изменить пароль</button>
+          <button @click="showModals" type="button" class="button-change">Изменить пароль</button>
+          <ChangePasswordPage v-if="showModal"/>
         </div>
       </div>
     </div>
@@ -64,9 +65,10 @@
 </template>
 
 <script>
+import ChangePasswordPage from './ChangePasswordPage.vue';
 
 export default {
-  components: {  },
+  components: { ChangePasswordPage },
   data() {
     return {
       showModal: false,
@@ -84,8 +86,7 @@ export default {
 
 .settings {
   text-align: center;
-  position: absolute;
-  width: auto;
+  width: 35vw;
   height: auto;
   background-color: #FFFFFF;
   padding: 20px;
