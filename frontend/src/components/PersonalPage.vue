@@ -61,7 +61,7 @@
     line-height: 15px;
     letter-spacing: 0em;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
   
   .subheader {
@@ -72,7 +72,7 @@
     font-weight: 500;
     letter-spacing: 0em;
     text-align: center;
-  
+    margin-bottom: 20px;
   }
   .personal_btn{
     margin: 0 auto;

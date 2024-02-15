@@ -46,7 +46,8 @@
     line-height: 15px;
     letter-spacing: 0em;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    margin-top: 20px;
   }
   
   .subheader {
@@ -57,6 +58,8 @@
     font-weight: 500;
     letter-spacing: 0em;
     text-align: center;
+    margin: 0;
+    margin-bottom: 20px;
   
   }
   .branch_btn{

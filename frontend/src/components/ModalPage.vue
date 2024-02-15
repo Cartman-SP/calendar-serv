@@ -186,6 +186,7 @@ export default {
       border-bottom: 3px solid #D8DDE3;
       width: 50px;
       border-radius: 100px;
+      margin: 10px 0;
     }
     .steps-progress{
       display: flex;

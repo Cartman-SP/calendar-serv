@@ -63,7 +63,11 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 450px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .header {
@@ -74,7 +78,7 @@ export default {
   line-height: 15px;
   letter-spacing: 0em;
   text-align: center;
-  margin-bottom: 10px;
+  margin-top: 20px;
 }
 
 .subheader {
@@ -85,7 +89,6 @@ export default {
   font-weight: 500;
   letter-spacing: 0em;
   text-align: center;
-
 }
 .service_btn{
   margin: 0 auto;
