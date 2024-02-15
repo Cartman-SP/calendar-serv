@@ -89,7 +89,7 @@ export default {
     axios.post('http://127.0.0.1:8000/api/delete/', formData)
         .then(response => {
             console.log('Service deleted:', response.data);
-            window.location.reload();
+            this.$parent.get_uslugi();
         })
         .catch(error => {
             console.error('Error deleting service:', error);

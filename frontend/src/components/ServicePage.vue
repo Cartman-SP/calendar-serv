@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <div class="content" v-if="uslugi.length > 0">
+    <div class="content" v-if="uslugiLoaded && uslugi.length > 0">
       <Card v-for="(usluga, index) in uslugi" :key="index" :usluga="usluga" />
       <router-link to="/lk/service/create" class="add">
         <div class="svg-plus">
@@ -11,13 +11,17 @@
         <p>Добавить услугу</p>
       </router-link>
     </div>
-    <div v-else>
+    <div v-else-if="uslugiLoaded && uslugi.length === 0">
       <div class="service">
         <img src="../../static/img/flag.png" alt="" class="img_service">
         <p class="header">Поздравляем с регистрацией!</p>
         <p class="subheader">Предлагаем вам перейти к созданию услуги, после чего<br>у вас появится возможность прикрепить созданные услуги<br>к вашим специалистам и добавить филиал.</p>
         <a href="#/lk/service/create" style="text-decoration:none"><button class="service_btn"> + Добавить услуги</button></a>
       </div>
+    </div>
+    <div v-else>
+      <!-- Показываем значок загрузки -->
+      <i class="pi pi-spin pi-spinner"></i>
     </div>
   </div>
 </template>
@@ -30,18 +34,24 @@ export default {
   components: { Card },
   data() {
     return {
-      uslugi: [] // Создаем массив для хранения объектов Usluga
+      uslugi: [], // Создаем массив для хранения объектов Usluga
+      uslugiLoaded: false // Переменная состояния для отслеживания загрузки
     };
   },
-  mounted() {
-    // Выполняем запрос при монтировании страницы
-    axios.get('http://127.0.0.1:8000/api/uslugi/')
-      .then(response => {
+  methods: {
+    async get_uslugi(){
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/api/uslugi/');
         this.uslugi = response.data; // Присваиваем полученные данные массиву uslugi
-      })
-      .catch(error => {
+        this.uslugiLoaded = true; // Устанавливаем флаг загрузки в true
+      } catch (error) {
         console.error('Error fetching uslugi:', error);
-      });
+      }
+    }
+  },
+  async mounted() {
+    // Выполняем запрос при монтировании страницы
+    await this.get_uslugi();
   }
 };
 </script>

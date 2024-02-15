@@ -240,6 +240,7 @@ export default {
       axios.post('http://127.0.0.1:8000/api/uslugi/', formData)
         .then(response => {
           console.log('Service created:', response.data);
+          this.$router.go(-1);
         })
         .catch(error => {
           console.error('Error creating service:', error);
