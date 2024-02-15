@@ -82,10 +82,10 @@ export default {
 
 <style scoped>
 img{
-    width: 20px;
+    width: 16px;
 }
 .nav{
-    margin: 30px 30px 30px 0px;
+    margin: 20px 20px 20px 0px;
     height: 4vw;
     width: 97%;
     display: flex;
@@ -140,11 +140,13 @@ img{
 .rate p{
     margin: 0;
     color: #D2D8DE;
+    font-size: 10px;
 }
 
 .rate h4{
     margin: 0;
     color: #52565F;
+    font-size: 14px;
 }
 .notification-panel {
     width: 260px;

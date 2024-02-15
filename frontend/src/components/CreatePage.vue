@@ -158,9 +158,11 @@
         </div>
       </div>
       <div class="adaptive_window">
-        <img src="../../static/img/service.png" alt="" style="width:365px;height:200px;border-radius:2px">
-        <p class="header">Стрижка</p>
-        <p class="descr">Название услуги</p>
+        <img src="../../static/img/service.png" alt="" style="width:auto;height:200px;border-radius:2px;  ">
+        <div>
+          <p class="header">Стрижка</p>
+          <p class="descr">Название услуги</p>
+        </div>
         <div class="first">
           <div class="stripe" style="width: 143px;"></div>
           <div class="stripe" style="width: 97px;"></div>
@@ -274,9 +276,13 @@ export default {
 }
 .adaptive_window{
   background-color: #FFFFFF;
-  width: 405px;
+  width: 49vh;
   height: auto;
   padding: 20px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 .header{
   font-family: TT Norms;
@@ -291,7 +297,6 @@ export default {
   width: 220px;
   height: 50px;
   border-radius: 2px;
-  margin-top: 20px;
   background: linear-gradient(90deg, #F6F6F6 0%, #F1F4F9 100%);
   display: flex;
   flex-direction: column;
@@ -308,7 +313,6 @@ export default {
   width: 155px;
   height: 50px;
   border-radius: 2px;
-  margin-top: 20px;
   background: linear-gradient(90deg, #F6F6F6 0%, #F1F4F9 100%);
   display: flex;
   flex-direction: column;
@@ -357,7 +361,7 @@ export default {
 }
 
 .create_service {
-  width: 70vh;
+  width: 110vh;
   height: 60vh;
   background-color: #FFFFFF;
   padding: 20px;

@@ -246,7 +246,7 @@ export default {
   .p-dropdown{
       background: #f3f5f6;
       border: none;
-      transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, outline-color 0.2s;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s, outline-color 0.3s;
       border-radius: 6px;
       outline-color: transparent;
   }

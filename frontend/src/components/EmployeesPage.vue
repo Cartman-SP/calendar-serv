@@ -48,7 +48,7 @@
         </div>
 
         <div class="form-row">
-          <div class="form-container">
+          <div class="dropdown-container">
             <label>График работы</label>
             <div class="days-buttons">
               <button :class="{ 'form-btn-active': isDaySelected('Пн'), 'form-btn': !isDaySelected('Пн') }" @click="toggleDay('Пн')">Пн</button>
@@ -78,7 +78,7 @@
               </select>
             </div>
           </div>
-          <div class="flex-row">
+          <div class="dropdown-container">
             <label for="break">Перерыв</label>
             <div class="dropdown-container">
               <select id="break">
@@ -167,7 +167,11 @@ export default {
     text-decoration: none;
     color: #AFB6C1;
   }
-
+  .form-container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
   .creation_text {
     color: #535C69;
     font-family: TT Norms;
@@ -188,14 +192,24 @@ export default {
     height: 50%;
   }
   .create_employess {
-    position: absolute;
-    width: 530px;
-    height: 549px;
+    width: 100vh;
+    height: auto;
     background-color: #FFFFFF;
     padding: 20px;
     border-radius: 5px;
   }
+  .form-column{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+  }
 
+  .dropdown-container{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
   .button-container {
     display: flex;
     gap: 10px;
@@ -221,7 +235,6 @@ export default {
     border: 1px solid #DDE1E5;
   }
   .custom-file-upload {
-    width: 240px;
     height: 36px;
     display: flex;
     padding: 8px 10px;
@@ -264,7 +277,6 @@ export default {
     color: #D2D8DE;
     border: none;
     background-color: #F3F5F6;
-    margin-bottom: 10px;
     border-radius: 3px;
   }
   
@@ -284,13 +296,10 @@ export default {
     color: #D2D8DE;
     border: none;
     background-color: #F3F5F6;
-    margin-bottom: 10px;
-  }
-  input{
-    width: 240px;
   }
   label{
     font-weight: 700;
+    margin: 0;
   }
 </style>
   

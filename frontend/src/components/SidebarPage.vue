@@ -7,19 +7,19 @@
       <div class="content">
         <div class="top-group">
           <div class="cards-group">
-            <router-link to="/lk/service" class="main_text" :class="{ active: $route.path === '/main/service' }">
+            <router-link to="/lk/service" class="main_text" :class="{ active: $route.path === '/lk/service' }">
               <div class="main_menu">
                 <img src="../../static/img/list.png" alt="" class="main_logo">
                 <p class="main_text">Услуги</p>
               </div>
             </router-link>
-            <router-link to="/lk/personal" class="main_text" :class="{ active: $route.path === '/main/personal' }">
+            <router-link to="/lk/personal" class="main_text" :class="{ active: $route.path === '/lk/personal' }">
               <div class="main_menu">
                 <img src="../../static/img/group.png" alt="" class="main_logo">
                 <p class="main_text">Сотрудники</p>
               </div>
             </router-link>
-            <router-link to="/lk/branch" class="main_text" :class="{ active: $route.path === '/main/branch' }">
+            <router-link to="/lk/branch" class="main_text" :class="{ active: $route.path === '/lk/branch' }">
               <div class="main_menu">
                 <img src="../../static/img/briefcase.png" alt="" class="main_logo">
                 <p class="main_text">Филиалы</p>
@@ -150,7 +150,7 @@ export default {
   justify-content: space-between;
 }
 .sidebar{
-  padding: 30px;
+  padding: 20px;
   height: 100vh;
 }
 .content{
@@ -176,7 +176,6 @@ export default {
     top: 0;
     left: 0;  
   }
-
 .main_text{
   font-family: TT Norms;
   font-size: 14px;
@@ -198,6 +197,7 @@ export default {
     transition: all .2s ease;
     background-color: transparent;
     border-radius: 5px;
+    margin-bottom: 10px;
 }
 
 .main_menu:hover{
@@ -264,17 +264,20 @@ export default {
   background-color: white;
 }
 .dropdown{
-  color: #535C69;
+  color: #AFB6C1;
   font-size: 15px;
   font-weight: bold;
   background-color: white;
-  width: 24px;
-  height: 24px;
+  width: 1em;
+  height: 2em;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 3px;
   transition: background-color 0.3s ease;
+}
+.dropdown:hover{
+  border: 1px solid #535C69;
 }
 .dropdown-menu {
   width: 171px;

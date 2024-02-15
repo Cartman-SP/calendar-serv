@@ -2,15 +2,17 @@
   <div class="service_card">
     <div class="card-container">
       <div class="card-header">
-        <img :src="'http://127.0.0.1:8000/' + usluga.serviceCover" alt="Service Cover" class="img_head">
-        <div class="head">
-          <div class="text-container">
-            <p class="text-header">{{ usluga.name }}</p> <!-- Отображаем название услуги -->
-            <p class="text-subheader">Название услуги</p>
-          </div>
-          <div class="text-container">
-            <p class="text-header">Время</p>
-            <p class="text-subheader">Длительность</p>
+        <div class="main">
+          <img :src="'http://127.0.0.1:8000/' + usluga.serviceCover" alt="Service Cover" class="img_head">
+          <div class="head">
+            <div class="text-container">
+              <p class="text-header">{{ usluga.name }}</p> <!-- Отображаем название услуги -->
+              <p class="text-subheader">Название услуги</p>
+            </div>
+            <div class="text-container">
+              <p class="text-header">{{ usluga.time }}</p>
+              <p class="text-subheader">Длительность</p>
+            </div>
           </div>
         </div>
         <div class="dropdown_btn">
@@ -96,7 +98,7 @@ export default {
   .text-subheader{
     font-family: TT Norms;
     font-size: 10px;
-    font-weight: 500;
+    font-weight: bold;
     line-height: 12px;
     letter-spacing: 0em;
     color: #AFB6C1;
@@ -111,18 +113,20 @@ export default {
     margin: 20px 0;
   }
   .service_card{
-    width: 33vh;
     height: auto;
     background-color: #FFF;
+    border-radius: 5px;
   }
   .card-container{
     padding: 20px;
   }
   .card-header{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 1fr;
-    grid-column-gap: 20px;  
+    display: flex;
+  }
+  .main{
+    display: flex;
+    gap: 20px;
+    width: 100%;
   }
   .bottom{
     display: flex;
@@ -145,17 +149,20 @@ export default {
     border-radius: 3px;
   }
   .dropdown{
-    color: #535C69;
+    color: #AFB6C1;
     font-size: 15px;
     font-weight: bold;
     background-color: white;
-    width: 24px;
-    height: 24px;
+    width: 1em;
+    height: 2em;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 3px;
     transition: background-color 0.3s ease;
+  }
+  .dropdown:hover{
+    border: 1px solid #535C69;
   }
   .dropdown-menu {
     width: 15vh;
@@ -205,6 +212,8 @@ export default {
   .img_head{
     width: 80px;
     height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
   }
   .lines{
     width: 100%;
