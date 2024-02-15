@@ -61,5 +61,14 @@ button {
 input:focus {
   outline: none;
   border: 1px solid #6266EA;
-  }
+}
+
+input::placeholder {
+  font-family: "TT Norms";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+  letter-spacing: 0em;
+  color: #D2D8DE;
+}
 </style>

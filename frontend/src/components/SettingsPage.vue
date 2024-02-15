@@ -176,7 +176,7 @@ p{
 }
 .divider {
   border-bottom: 1px solid rgba(50, 56, 74, 0.1); 
-  width: 590px;
+  width: auto;
   margin: 10px 0;
 }
 .custom-file-upload {

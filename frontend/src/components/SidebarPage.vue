@@ -58,7 +58,7 @@
               <div class="bottom_menu">
                 <div class="left">
                   <img src="../../static/img/send.png" alt="" class="main_logo">
-                  <a href="#" class="main_text">Заявки</a>
+                  <a href="" class="main_text">Заявки</a>
                 </div>
                 <p>0</p>
               </div>
@@ -220,12 +220,16 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 20px;
+  padding: 0px 20px;
   margin: 10px 0;
   transition: all .2s ease;
   text-align: left;
-  background-color: #FFFFFF;
+  background-color: rgba(255, 255, 255, 0.7);
   border-radius: 5px;
+  cursor: pointer;
+}
+.bottom_menu:hover{
+  background-color: rgba(255, 255, 255, 1);
 }
 
 .bottom_menu p{
