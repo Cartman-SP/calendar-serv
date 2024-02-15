@@ -7,5 +7,5 @@ urlpatterns = [
     path('uslugi/', UslugaList.as_view(), name="create_usluga"),
     path('pass_reset/', path_reset, name='path_reset'),
     path('change_pass/',change_pass, name="check_code"),
-
+    path('delete/', usluga_delete, name='usluga_delete'),
 ]

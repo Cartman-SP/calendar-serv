@@ -62,6 +62,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -79,6 +81,20 @@ export default {
     toggleModal() { // добавлено
       this.showModal = !this.showModal;
     },
+    deleteService() {
+    const serviceId = this.usluga.id; // Получаем идентификатор услуги
+    console.log(this.usluga)
+    const formData = new FormData();
+    formData.append('id', serviceId);
+    axios.post('http://127.0.0.1:8000/api/delete/', formData)
+        .then(response => {
+            console.log('Service deleted:', response.data);
+            window.location.reload();
+        })
+        .catch(error => {
+            console.error('Error deleting service:', error);
+        });
+},
   }
 };
 </script>

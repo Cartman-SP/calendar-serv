@@ -40,6 +40,8 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from .models import Usluga
 from .serializers import UslugaSerializer
 import random
+from rest_framework import status
+
 @csrf_exempt
 @require_POST
 def register_user(request):
@@ -210,3 +212,18 @@ def change_pass(request):
         return JsonResponse(response_data, status=400)
 
 
+@csrf_exempt
+def usluga_delete(request):
+    if request.method == 'POST':
+        usluga_id = request.POST.get('id')  # Получаем идентификатор услуги из тела запроса
+        print(usluga_id)
+        try:
+            usluga = Usluga.objects.get(id=usluga_id)  # Получаем объект услуги по идентификатору
+            usluga.delete()  # Удаляем услугу
+            return JsonResponse({'message': 'Услуга успешно удалена'})
+        except Usluga.DoesNotExist:
+            return JsonResponse({'error': 'Услуга с указанным идентификатором не найдена'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': f'Произошла ошибка при удалении услуги: {str(e)}'}, status=500)
+    else:
+        return JsonResponse({'error': 'Метод не разрешен'}, status=405)
