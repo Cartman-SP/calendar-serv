@@ -8,4 +8,6 @@ urlpatterns = [
     path('pass_reset/', path_reset, name='path_reset'),
     path('change_pass/',change_pass, name="check_code"),
     path('delete/', usluga_delete, name='usluga_delete'),
+    path('profile/', update_profile, name='create_profile'),
+    path('getprofile/',get_profile,name='get_profile')
 ]

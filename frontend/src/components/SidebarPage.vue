@@ -65,9 +65,9 @@
               <div class="bottom_menu" style="display: block; padding: 20px;">
                 <div class="avatar-top">
                   <div class="left-container" style="display: flex; align-items: center;">
-                    <img src="https://images.stopgame.ru/blogs/2021/09/22/c1808x1008/S_DK0TEoWfxyvD6WKtWv8Q/qXH-FKmm.jpg" alt="" class="avatar" style="width: 40px; height: 40px; object-fit: cover; border-radius: 100px;">
+                    <img :src="avatar">
                     <div style="margin-left: 10px;">
-                      <p id="bottom_header"> Никита </p>
+                      <p id="bottom_header"> {{ name }} </p>
                       <p id="bottom_subheader"> Владелец </p>
                     </div>
                   </div>  
@@ -80,7 +80,7 @@
                 </div>
                 <div class="avatar-bottom">
                   <img src="../../static/img/Union.png" alt="">
-                  <p id="bottom_sub_text">Название компании</p>
+                  <p id="bottom_sub_text">{{ company }}</p>
                 </div>
                 <div v-if="showDropdown" class="dropdown-menu">
                   <router-link to="/lk/settings" style="text-decoration:none">
@@ -104,10 +104,16 @@
 </template>
 
 <script>
+import axios from 'axios';
+
+
 export default {
   data() {
     return {
       showDropdown: false,
+      name: "",
+      avatar: "",
+      company:"",
     };
   },
   computed: {
@@ -117,6 +123,21 @@ export default {
     },
 
   methods: {
+    get_profile(){
+      axios.post('http://127.0.0.1:8000/api/getprofile/', { user_id:  this.$store.state.registrationData.user_id})
+      .then(response => {
+        this.avatar = "http://127.0.0.1:8000" + response.data.profile.avatar
+        console.log(this.avatar)
+        this.name = response.data.profile.name
+        this.company = response.data.profile.company_name
+        console.log('Данные о пользователе:', response.data.profile);
+      })
+      .catch(error => {
+        // Ошибка при получении данных
+        console.error('Ошибка при получении данных о пользователе:', error);
+      });
+    },
+                                              
     toggleDropdown() {
       this.showDropdown = !this.showDropdown;
     },
@@ -126,6 +147,9 @@ export default {
         this.$router.push('/');
       },
   },
+  mounted(){
+    this.get_profile();
+  }
 };
 </script>
 

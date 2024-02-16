@@ -35,12 +35,12 @@ export default {
         
         // Проверяем результат и показываем модальное окно при необходимости
         if (response.data.result === 0) {
-          this.showModal = false;
+          this.showModal = true;
           this.modalResult = 0;
           console.log('окно показанно')
         } else {
           this.modalResult = 1;
-          this.$router.push('/main/service');
+          this.$router.push('/lk/service');
         }
       } catch (error) {
         console.error('Ошибка при выполнении запроса:', error);

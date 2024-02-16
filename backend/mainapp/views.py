@@ -12,7 +12,7 @@ from django.contrib.auth.views import PasswordResetView
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST , require_GET
 import json
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordResetForm
@@ -81,31 +81,63 @@ def register_user(request):
     
 @csrf_exempt
 @require_POST
-def update_profile(request, user_id):
+def update_profile(request):
+    name = request.POST.get('name', '')
+    company_name = request.POST.get('company', '')
+    timezone = request.POST.get('timezone', '')
+    currency = request.POST.get('currency', '')
+    print(request.POST)
+    user_id = request.POST.get('id', '')
+
+    avatar = request.FILES.get('avatar', None)
+
     try:
-        data = json.loads(request.body)
-        name = data['name']
-        company_name = data['company_name']
-        timezone = data['timezone']
-        currency = data['currency']
-
-        # Проверка существования пользователя
         user = User.objects.get(id=user_id)
-
-        # Проверка наличия профиля
         profile, created = Profile.objects.get_or_create(user=user)
-
-        # Обновление данных профиля
         profile.name = name
         profile.company_name = company_name
         profile.timezone = timezone
         profile.currency = currency
+
+        if avatar:
+            profile.avatar = avatar
+
         profile.save()
 
         return JsonResponse({'message': 'Профиль успешно обновлен'}, status=200)
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=400)
+    except User.DoesNotExist:
+        return JsonResponse({'error': 'Пользователь не найден'}, status=400)
 
+
+@csrf_exempt
+@require_POST
+def get_profile(request):
+    try:
+        user_id = json.loads(request.body)['user_id']
+        print(user_id)
+        # Получаем пользователя и его профиль по ID
+        user = User.objects.get(id=user_id)
+        profile = Profile.objects.get(user=user)
+
+        # Формируем данные о пользователе
+        user_data = {
+            'id': user.id,
+            'username': user.username,
+            'email': user.email,
+            'profile': {
+                'name': profile.name,
+                'company_name': profile.company_name,
+                'timezone': profile.timezone,
+                'currency': profile.currency,
+                'avatar': profile.avatar.url  # URL изображения, если есть
+            }
+        }
+
+        return JsonResponse(user_data, status=200)
+    except User.DoesNotExist:
+        return JsonResponse({'error': 'Пользователь не найден'}, status=404)
+    except Profile.DoesNotExist:
+        return JsonResponse({'error': 'Профиль пользователя не найден'}, status=404)
 
 @csrf_exempt
 @require_POST

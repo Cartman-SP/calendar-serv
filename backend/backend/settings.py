@@ -130,14 +130,14 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_HOST = '194.67.116.162'
 EMAIL_PORT = 465
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 
-EMAIL_HOST_USER = 'Daniil.shirkin005@yandex.ru'
-EMAIL_HOST_PASSWORD = 'gbgdqjhfgpgzhwip'
-DEFAULT_FROM_EMAIL = 'Daniil.shirkin005@yandex.ru'
+EMAIL_HOST_USER = 'support@sked.online'
+EMAIL_HOST_PASSWORD = 'gak49E4qK@UK'
+DEFAULT_FROM_EMAIL = 'support@sked.online'
 
 # Путь к директории медиа-файлов
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

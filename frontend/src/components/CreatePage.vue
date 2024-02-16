@@ -45,21 +45,21 @@
         <div class="record-type-container">
           <button
             :class="{ 'active': selectedRecordType === 'individual' }"
-            @click="selectRecordType('individual')"
+            @click="selectRecordType('individual','Индивидуальная')"
             class="record-button"
           >
             Индивидуальная
           </button>
           <button
             :class="{ 'active': selectedRecordType === 'group' }"
-            @click="selectRecordType('group')"
+            @click="selectRecordType('group','Групповая')"
             class="record-button"
           >
             Групповая
           </button>
           <button
             :class="{ 'active': selectedRecordType === 'rental' }"
-            @click="selectRecordType('rental')"
+            @click="selectRecordType('rental','Аренда')"
             class="record-button"
           >
             Аренда
@@ -158,20 +158,44 @@
         </div>
       </div>
       <div class="adaptive_window">
-        <img src="../../static/img/service.png" alt="" style="width:auto;height:200px;border-radius:2px;  ">
-        <div>
-          <p class="header">Стрижка</p>
+        <img v-if="serviceCover" :src="coverDataUrl" alt="" style="width:auto;height:200px;border-radius:2px;">
+        <img v-else src="../../static/img/service.png" alt="" style="width:auto;height:200px;border-radius:2px;  ">
+        <div v-if="serviceName">
+          <p class="header">{{serviceName}}</p>
           <p class="descr">Название услуги</p>
         </div>
-        <div class="first">
+        <div v-else class="first">
           <div class="stripe" style="width: 143px;"></div>
           <div class="stripe" style="width: 97px;"></div>
         </div>
-        <div class="first">
+        <div v-if="serviceDuration" >
+          <p class="header">{{serviceDuration}}</p>
+          <p class="descr">Длительность</p>
+        </div>
+        <div v-else class="first">
           <div class="stripe" style="width: 143px;"></div>
           <div class="stripe" style="width: 97px;"></div>
         </div>
-        <div class="second">
+        <div v-if="selectedRecordText">
+          <p class="header">{{selectedRecordText}}</p>
+          <p class="descr">Тип записи</p>
+        </div>
+        <div v-else class="first">
+          <div class="stripe" style="width: 143px;"></div>
+          <div class="stripe" style="width: 97px;"></div>
+        </div>
+        <div v-if="selectedPaymentText">
+          <p class="header">{{selectedPaymentText}}</p>
+          <p class="descr">Формат оплаты</p>
+        </div>
+        <div v-else class="first">
+          <div class="stripe" style="width: 143px;"></div>
+          <div class="stripe" style="width: 97px;"></div>
+        </div>
+        <div v-if="serviceCost">
+          <p class="header">{{serviceCost}} $</p>
+        </div>
+        <div v-else class="second">
           <div class="stripe" style="width: 109px;"></div>
           <div class="stripe" style="width: 63px;"></div>
         </div>
@@ -198,12 +222,16 @@ export default {
       serviceCover: null,
       paymentFormat: '',
       selectedPaymentText: '',
+      coverDataUrl: null,
+      selectedRecordText: '',
     };
   },
   methods: {
-    selectRecordType(type) {
+    selectRecordType(type,text) {
       this.selectedRecordType = type;
+      this.selectedRecordText = text;
       this.selectedPaymentFormat = '';
+      this.selectedPaymentText = '';
     },
     selectPaymentFormat(format, text) {
       this.selectedPaymentFormat = format;
@@ -212,6 +240,15 @@ export default {
     handleFileUpload(event) {
       const file = event.target.files[0];
       this.serviceCover = file;
+      this.readCoverDataUrl();
+    },
+    readCoverDataUrl() {
+      if (!this.serviceCover) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.coverDataUrl = e.target.result;
+      };
+      reader.readAsDataURL(this.serviceCover);
     },
     saveAndExit() {
       if (!this.serviceName.trim()) {
@@ -267,6 +304,7 @@ export default {
     },
   },
 };
+
 </script>
 
 

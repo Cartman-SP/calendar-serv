@@ -10,7 +10,7 @@
       <input type="text" placeholder="Введите имя" v-model="name">
       <p class="normal-text">Фотография (необязательно)</p>
       <label class="custom-file-upload">
-        <input type="file" accept="image/*"/>Прикрепите фото
+        <input type="file" accept="image/*" @change="onFileChange"/>Прикрепите фото
       </label>
       <p class="small-text">до 5 МБ, PNG, JPG, JPEG. Для замены - загрузите заново</p>
       <p class="normal-text">Название компании</p>
@@ -61,7 +61,7 @@
           </div>
           <div class="btn-container">
             <button class="back" @click="onBackClick">Назад</button>
-            <button class="next-button">Продолжить</button>
+            <button class="next-button" @click="createProfile">Продолжить</button>
           </div>
         </div>
       </div>  
@@ -70,6 +70,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default { 
   data() {
     return {
@@ -79,6 +81,7 @@ export default {
       name: '',
       selectedTimeZone: '',
       selectedCurrency: '',
+      avatar: null,
     };
   },
   computed: {
@@ -91,6 +94,25 @@ export default {
     },
   },
   methods: {
+    createProfile(){
+      const formData = new FormData();
+      formData.append('name', this.name);
+      formData.append('company', this.companyName);
+      formData.append('timezone', this.selectedTimeZone)
+      formData.append('avatar', this.avatar);
+      formData.append('currency', this.selectedCurrency);
+      formData.append('id', this.$store.state.registrationData.user_id);
+      console.log(this.$store.state.registrationData.user_id)
+      axios.post('http://127.0.0.1:8000/api/profile/', formData)
+        .then(response => {
+          console.log('Service created:', response.data);
+          this.$parent.checkUserProfile()
+        })
+        .catch(error => {
+          console.error('Error creating service:', error);
+        });
+    },
+
     onContinueButtonClick() {
       if (!this.isContinueDisabled) {
         this.showContinueButtonClicked = true;
@@ -110,9 +132,13 @@ export default {
         // Можно выполнить другие действия, если необходимо
       }
     },
+    onFileChange(event) {
+      this.avatar = event.target.files[0];
+    }
   },
 };
 </script>
+
 
   <style scoped>
   .modal-container {

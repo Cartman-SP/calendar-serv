@@ -8,6 +8,13 @@ class Profile(models.Model):
     company_name = models.CharField(max_length=255)
     timezone = models.CharField(max_length=50)
     currency = models.CharField(max_length=10)
+    avatar = models.ImageField(upload_to='avatars/', default='avatars/default_avatar.svg')
+
+    def save(self, *args, **kwargs):
+        # Если изображение не было передано, используем изображение по умолчанию
+        if not self.avatar:
+            self.avatar = 'avatars/default_avatar.svg'
+        super(Profile, self).save(*args, **kwargs)
 
 class Usluga(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
