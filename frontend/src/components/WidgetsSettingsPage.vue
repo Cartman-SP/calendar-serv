@@ -152,7 +152,10 @@
               </div>
               <div class="color">
                 <p class="header">Основной</p>
-                <div class="rgb"></div>
+                <div class="rgb">
+                  <p>govno</p>
+                  <div></div>
+                </div>
               </div>
               <div class="color">
                 <p class="header">Фон виджета</p>
@@ -548,8 +551,11 @@ export default {
     display: flex;
     gap: 10px;
   }
+  .color{
+    width: 100%;
+  }
   .rgb{
-    width: 85px;
+    width: 65%;
     height: 22px;
     border-radius: 3px;
     padding: 5px 10px;
@@ -557,6 +563,7 @@ export default {
   }
   .switch_container{
     display: flex;
+    align-items: center;
     gap: 10px;
   }
   .light{
@@ -567,6 +574,7 @@ export default {
     letter-spacing: 0em;
     text-align: left;
     color: #535C69;
+    margin: 0;
   }
   .dark{
     font-family: TT Norms;
@@ -576,6 +584,7 @@ export default {
     letter-spacing: 0em;
     text-align: left;
     color: #AFB6C1;    
+    margin: 0;
   }
   .window{
     width: 150px;

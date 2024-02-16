@@ -55,7 +55,7 @@
           </div>
         </div>
             <div class="cards-group">
-              <div class="bottom_menu">
+              <div class="bottom_menu" style="cursor:pointer">
                 <div class="left">
                   <img src="../../static/img/send.png" alt="" class="main_logo">
                   <a href="" class="main_text">Заявки</a>
@@ -65,7 +65,7 @@
               <div class="bottom_menu" style="display: block; padding: 20px;">
                 <div class="avatar-top">
                   <div class="left-container" style="display: flex; align-items: center;">
-                    <img :src="avatar">
+                    <img class="img_profile" :src="avatar">
                     <div style="margin-left: 10px;">
                       <p id="bottom_header"> {{ name }} </p>
                       <p id="bottom_subheader"> Владелец </p>
@@ -250,7 +250,6 @@ export default {
   text-align: left;
   background-color: rgba(255, 255, 255, 0.7);
   border-radius: 5px;
-  cursor: pointer;
 }
 .bottom_menu:hover{
   background-color: rgba(255, 255, 255, 1);
@@ -355,5 +354,10 @@ export default {
 .dropdown-subheader:hover {
   font-weight: bold;
   color: #F97F7F;
+}
+.img_profile{
+  width: 45px;
+  height: 45px;
+  border-radius: 25px;
 }
 </style>

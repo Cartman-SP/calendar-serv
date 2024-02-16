@@ -159,7 +159,9 @@
       </div>
       <div class="adaptive_window">
         <img v-if="serviceCover" :src="coverDataUrl" alt="" style="width:auto;height:200px;border-radius:2px;">
-        <img v-else src="../../static/img/service.png" alt="" style="width:auto;height:200px;border-radius:2px;  ">
+        <div class="img_container" v-else>
+          <img class="img_window"  src="../../static/img/service.svg" alt="">
+        </div>
         <div v-if="serviceName">
           <p class="header">{{serviceName}}</p>
           <p class="descr">Название услуги</p>
@@ -184,20 +186,21 @@
           <div class="stripe" style="width: 143px;"></div>
           <div class="stripe" style="width: 97px;"></div>
         </div>
-        <div v-if="selectedPaymentText">
-          <p class="header">{{selectedPaymentText}}</p>
-          <p class="descr">Формат оплаты</p>
-        </div>
-        <div v-else class="first">
-          <div class="stripe" style="width: 143px;"></div>
-          <div class="stripe" style="width: 97px;"></div>
-        </div>
-        <div v-if="serviceCost">
-          <p class="header">{{serviceCost}} $</p>
-        </div>
-        <div v-else class="second">
-          <div class="stripe" style="width: 109px;"></div>
-          <div class="stripe" style="width: 63px;"></div>
+        <div style="display:flex; justify-content:space-between; align-items:center">
+          <div v-if="selectedPaymentText">
+            <p class="header">{{selectedPaymentText}}</p>
+            <p class="descr">Формат оплаты</p>
+          </div>
+          <div v-else class="second">
+            <div class="stripe" style="width: 109px;"></div>
+            <div class="stripe" style="width: 63px;"></div>
+          </div>
+          <div v-if="serviceCost">
+            <p class="header">{{serviceCost}} $</p>
+          </div>
+          <div v-else class="third">
+            <div class="circle"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -330,7 +333,7 @@ export default {
   line-height: 22px;
   text-align: left;
   color: #535C69;
-  margin: 20px 0 0 0;
+  margin: 0;
 }
 .first{
   width: 220px;
@@ -358,6 +361,22 @@ export default {
   justify-content: center;
   gap: 10px;
   padding: 10px;
+}
+.third{
+  width: 92px;
+  height: 36px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #F6F6F6 0%, #F1F4F9 100%);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 10px;
+}
+.circle{
+  width: 16px;
+  height: 16px;
+  background: #E7ECF6;
+  border-radius: 100px;
 }
 .descr{
   color: #AFB6C1;
@@ -572,5 +591,19 @@ label{
 }
 .input-error {
   border: 1px solid #F97F7F !important;
+}
+.img_window{
+  width:58px;
+  height:58px;
+  border-radius:2px;
+}
+.img_container{
+  align-items: center;
+  width: 365px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(90deg, #F6F6F6 0%, #F1F4F9 100%);
+  border-radius: 2px;
 }
 </style>
