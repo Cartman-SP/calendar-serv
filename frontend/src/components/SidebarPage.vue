@@ -82,7 +82,7 @@
                   <img src="../../static/img/Union.png" alt="">
                   <p id="bottom_sub_text">{{ company }}</p>
                 </div>
-                <div v-if="showDropdown" class="dropdown-menu">
+                <div v-if="showDropdown" class="dropdown-menu" @click="closeDropdown">
                   <router-link to="/lk/settings" style="text-decoration:none">
                     <div class="dropdown-item">
                       <div class="dropdown-header">Настройка профиля</div>
@@ -104,7 +104,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from 'axios';  
 
 
 export default {
@@ -137,6 +137,10 @@ export default {
         console.error('Ошибка при получении данных о пользователе:', error);
       });
     },
+ 
+    closeDropdown() {
+      this.showDropdown = false;
+    },
                                               
     toggleDropdown() {
       this.showDropdown = !this.showDropdown;
@@ -147,7 +151,7 @@ export default {
         this.$router.push('/');
       },
   },
-  mounted(){
+  mounted(){  
     this.get_profile();
   }
 };

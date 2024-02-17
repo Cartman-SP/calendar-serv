@@ -6,7 +6,7 @@
         <div class="name">
           <div class="name-container">
             <label for="userName">Имя</label>
-            <div class="input-container">
+            <div class="input_container">
               <input type="text" id="userName">
               <button @click="saveName" class="button-save">Сохранить изменения</button>
             </div>
@@ -16,12 +16,13 @@
         <div class="photo">
           <div class="photo-container">
             <label for="userPhoto">Фотография</label>
-            <div class="input-container">
+            <div class="input_container">
               <label class="custom-file-upload">
                 <input type="file" accept="image/*"/>Нажмите, чтобы загрузить
               </label>
               <button @click="saveName" class="button-save">Сохранить изменения</button>
             </div>
+            <p class="photo-info">до 5 МБ, PNG, JPG, JPEG. Для замены удалите миниатюру и загрузите заново</p>
           </div>
         </div>
         <div class="divider"></div>
@@ -29,7 +30,7 @@
           <div class="email-container"> 
             <label for="userMail">Email</label>
             <p><span class="email-header">Будьте внимательны!</span> Email является логином для входа в сервис, если вы измените Email, то при авторизации нужно использовать обновленный Email</p>
-            <div class="input-container">
+            <div class="input_container">
               <input type="mail" id="userMail">
               <div class="email-btn">
                 <button @click="acceptMail">Подтвердить Email</button>
@@ -43,7 +44,7 @@
           <div class="phone-container">
             <label for="userPhone">Телефон</label>
             <p>Получайте SMS-уведомления о новых заявках</p>
-            <div class="input-container">
+            <div class="input_container">
               <input type="number" id="userphone">
               <div class="phone-btn">
                 <button @click="acceptPhone">Подтвердить телефон</button>
@@ -58,6 +59,7 @@
           <p class="password">Был установлен 3 месяца назад</p>
           <button @click="showModals" type="button" class="button-change">Изменить пароль</button>
           <ChangePasswordPage v-if="showModal"/>
+          <ChangeMailPage v-if="showMail"/>
         </div>
       </div>
     </div>
@@ -66,17 +68,22 @@
 
 <script>
 import ChangePasswordPage from './ChangePasswordPage.vue';
+import ChangeMailPage from './ChangeMailPage.vue';
 
 export default {
-  components: { ChangePasswordPage },
+  components: { ChangePasswordPage, ChangeMailPage},
   data() {
     return {
       showModal: false,
+      showMail: false,
     };
   },
   methods: {
     showModals() {
       this.showModal = true;
+    },
+    changeMail() {
+      this.showMail = true;
     }
   }
 };
@@ -86,7 +93,7 @@ export default {
 
 .settings {
   text-align: center;
-  width: 35vw;
+  width: 40vw;
   height: auto;
   background-color: #FFFFFF;
   padding: 20px;
@@ -100,8 +107,7 @@ export default {
 }
 
 label {
-  margin-right: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   font-family: TT Norms;
   font-size: 13px;
   font-weight: bold;
@@ -109,14 +115,16 @@ label {
   letter-spacing: 0em;
 }
 
-.input-container {
+.input_container {
   display: flex;
   align-items: center;
+  gap: 10px;
+  width: 100%;
 }
 
 input {
   margin-bottom: 0;
-  margin-right: 10px;
+  width: 50%;
 }
 
 .email-btn{
@@ -127,7 +135,7 @@ input {
 
 p{
   text-align: left;
-  margin-bottom: 25px;
+  margin: 10px 0;
   width: 450px;
   font-family: TT Norms;
   font-family: TT Norms;
@@ -177,10 +185,10 @@ p{
 .divider {
   border-bottom: 1px solid rgba(50, 56, 74, 0.1); 
   width: auto;
-  margin: 10px 0;
+  margin: 20px 0;
 }
 .custom-file-upload {
-  width: 260px;
+  width: 50%;
   height: 36px;
   display: flex;
   padding: 8px 10px;
@@ -206,5 +214,13 @@ p{
 h2{
   margin: 0;
   padding-bottom: 20px;
+}
+.photo-info{
+  color: #AFB6C1;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 10px;
+  letter-spacing: 0em;
+  margin: 5px 0;
 }
 </style>

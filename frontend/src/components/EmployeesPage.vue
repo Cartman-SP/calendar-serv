@@ -62,8 +62,11 @@
             <div class="grafic">
               <p class="grafic_text">Сменный график:</p>
               <button :class="{ 'grafic-btn-active': selectedSchedule === '1x1', 'grafic-btn': selectedSchedule !== '1x1' }" @click="selectedSchedule = '1x1'; toggleAllDays()">1x1</button>
+              <div class="dot"></div>
               <button :class="{ 'grafic-btn-active': selectedSchedule === '2x2', 'grafic-btn': selectedSchedule !== '2x2' }" @click="selectedSchedule = '2x2'; toggleAllDays()">2x2</button>
+              <div class="dot"></div>
               <button :class="{ 'grafic-btn-active': selectedSchedule === '3x3', 'grafic-btn': selectedSchedule !== '3x3' }" @click="selectedSchedule = '3x3'; toggleAllDays()">3x3</button>
+              <div class="dot"></div>
               <button :class="{ 'grafic-btn-active': selectedSchedule === '5x2', 'grafic-btn': selectedSchedule !== '5x2' }" @click="selectedSchedule = '5x2'; toggleAllDays()">5x2</button>
             </div>
           </div>
@@ -226,6 +229,7 @@ export default {
   }
 
   .dropdown-container{
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -331,6 +335,7 @@ export default {
   }
   .grafic{
     display: flex;
+    align-items: center;
   }
   .grafic-btn{
     background: #FFFFFF;
@@ -340,6 +345,14 @@ export default {
     background-color: #FFFFFF;
     color: #6266EA;
     border-radius: 3px;
+  }
+  .dot {
+    display: flex;
+    align-items: center;
+    height: 2px;
+    width: 2px;
+    background: #C6CBD2;
+    border-radius: 5px;
   }
 </style>
   

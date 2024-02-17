@@ -112,6 +112,7 @@
               </div>
             </div>
           </div>
+          <WidgetApp></WidgetApp>
         </div>
       </div>
       <div v-if="selectedTab === 'design'">
@@ -152,9 +153,10 @@
               </div>
               <div class="color">
                 <p class="header">Основной</p>
-                <div class="rgb">
-                  <p>govno</p>
-                  <div></div>
+                <div class="rgb" v-click-outside="resetSelection">
+                  <p class="rgb_color">govno</p>
+                  <div class="rgb_choise" @click="toggleSelection"></div>
+                  <PalitraPage v-if="isCircleShown" class="show"></PalitraPage>
                 </div>
               </div>
               <div class="color">
@@ -170,7 +172,7 @@
                 <div class="rgb"></div>
               </div>
             </div>
-            <p class="">Выберите дизайн виджета</p>
+            <p>Выберите дизайн виджета</p>
             <div class="wrapper">
               <div class="window_container">
                 <div class="window">
@@ -215,76 +217,7 @@
               <button @click="cancel" class="cancel-button">Отмена</button>
             </div>
           </div>
-          <div class="compo">
-
-            <div class="compo-container">
-              <div class="compo-top">
-                <img src="../../static/img/case.svg" alt="">
-                <p class="compo-text">Твоя краля</p>
-              </div>
-              <div class="compo-top">
-                <img src="../../static/img/geo.svg" alt="">
-                <p class="compo-text">г. Павлодар, ул. Членододблина 153/1</p>
-              </div>
-            </div>
-
-            <div class="search">
-              <input class="" type="search" name="" id="" placeholder="Найти услугу">
-            </div>
-
-            <div class="card">
-              <div class="compo-wrapper">
-                <img src="../../static/img/barber.svg" alt="">
-                <p class="">Комплексная мужская<br>стрижка</p>
-              </div>
-              <div class="compo-wrapper-tariff">
-                <div class="tariff">
-                  <div class="tariff-item">
-                    <p>3000 тнг</p>
-                  </div>
-                  <div class="dot">
-                    <span>.</span>
-                  </div>
-                  <div class="tariff-item">
-                    <p>1 час</p>
-                  </div>
-                </div>
-                <button @click="toggleSelection" v-if="!isCircleShown" class="btn-wrapper">Выбрать</button>
-                <div v-else class="delete">
-                  <button @click="resetSelection" class="delete-btn">
-                    <img src="../../static/img/trash_2.svg" alt="Иконка Удаления">
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div class="card">
-              <div class="compo-wrapper">
-                <img src="../../static/img/barber.svg" alt="">
-                <p class="">Комплексная мужская<br>стрижка</p>
-              </div>
-              <div class="compo-wrapper-tariff">
-                <div class="tariff">
-                  <div class="tariff-item">
-                    <p>3000 тнг</p>
-                  </div>
-                  <div class="dot">
-                    <span>.</span>
-                  </div>
-                  <div class="tariff-item">
-                    <p>1 час</p>
-                  </div>
-                </div>
-                <button @click="toggleSelection" v-if="!isCircleShown" class="btn-wrapper">Выбрать</button>
-                <div v-else class="delete">
-                  <button @click="resetSelection" class="delete-btn">
-                    <img src="../../static/img/trash_2.svg" alt="Иконка Удаления">
-                  </button>
-                </div>
-              </div>
-            </div>
-
-          </div>
+          <WidgetApp></WidgetApp>
         </div>
       </div>
       <div v-if="selectedTab === 'notifications'">
@@ -307,7 +240,11 @@
 </template>
   
 <script>
+import WidgetApp from './WidgetApp.vue';
+import PalitraPage from './PalitraPage.vue';
+
 export default {
+  components: { WidgetApp , PalitraPage} ,
   data() {
     return {
       selectedTab: 'general',
@@ -345,8 +282,8 @@ export default {
       }
     },
     toggleSelection() {
-      // Toggle between showing the button and the circle
-      this.isCircleShown = !this.isCircleShown;
+    // Toggle between showing the button and the circle
+    this.isCircleShown = !this.isCircleShown;
     },
     resetSelection() {
       // Reset to the original state (hide the circle)
@@ -556,10 +493,24 @@ export default {
   }
   .rgb{
     width: 65%;
-    height: 22px;
+    height: auto;
     border-radius: 3px;
     padding: 5px 10px;
     border: 1px solid #D2D8DE;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+  .rgb_color{
+    margin: 0;
+  }
+  .rgb_choise{
+    width: 12px;
+    height: 12px;
+    border: 1px solid #D2D8DE;
+    border-radius: 25px;
+    margin: 0;
   }
   .switch_container{
     display: flex;
@@ -657,74 +608,10 @@ export default {
     background: linear-gradient(90deg, #9497FF 0%, #8B8FFF 100%);
     border-radius: 100px;
   }
-  .compo{
-    width: 30%;
-    height: auto;
-    background: #FFFFFF;
-    border-radius: 25px;
-    padding: 10px;
-  }
-  .compo-container{
-    height: 120px;
-    border-radius: 5px;
-    background: url(../../static/img/salon.png);
-  }
-  .compo-top{
-    display: flex;
-    gap: 10px;
-  }
-  .compo-text{
-    color: #FFFFFF;
-    font-family: TT Norms;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 14px;
-    letter-spacing: 0em;
-    text-align: left;
-  }
-  .search{
-    margin-top:  10px;
-  }
   .card{
     background: #FAFAFA;
     padding: 10px;
     margin: 10px 0;
-  }
-  .compo-wrapper{
-    display: flex;
-    gap: 10px;
-  }
-  .tariff{
-    display: flex;
-    gap: 5px;
-  }
-  .compo-wrapper-tariff{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .btn-wrapper{
-    border-radius: 100px;
-    background: #EBEDFF;
-    color: #6266EA;
-    font-weight: bold;
-    padding: 5px 20px;
-  }
-  .delete-btn{
-    width: 30px;
-    height: 30px;
-    background-color: rgba(249, 144, 144, 0.1);
-    border-radius: 50%;
-  }
-  .dot {
-    display: flex;
-    align-items: center;
-    margin-bottom: 7px; /* Уточнение для выравнивания точки */
-  }
-  
-  .dot span {
-    color: #6266EA; /* Цвет фиолетовый */
-    font-weight: bold;
   }
   .tab{
     position: relative;

@@ -16,21 +16,23 @@
             </div>
           </div>
         </div>
-        <div class="dropdown_btn">
-          <button @click="toggleDropdown" class="dropdown" :style="{ 'background-color': showDropdown ? '#F3F6F8' : 'transparent' }">
-            <img v-if="!showDropdown" src="../../static/img/kebab.svg" alt="Open">
-            <img v-if="showDropdown" src="../../static/img/x.svg" alt="Close">
-          </button>
-        </div>
-        <div v-if="showDropdown" class="dropdown-menu">
-          <router-link to="/#" style="text-decoration:none">
-            <div class="dropdown-item">
-              <div class="dropdown-header">Редактировать</div>
+        <div class="dropdown-container">
+          <div class="dropdown_btn">
+            <button @click="toggleDropdown" class="dropdown" :style="{ 'background-color': showDropdown ? '#F3F6F8' : 'transparent' }">
+              <img v-if="!showDropdown" src="../../static/img/kebab.svg" alt="Open">
+              <img v-if="showDropdown" src="../../static/img/x.svg" alt="Close">
+            </button>
+          </div>
+          <div v-if="showDropdown" class="dropdown-menu" @click="closeDropdown">
+            <router-link to="/#" style="text-decoration:none">
+              <div class="dropdown-item">
+                <div class="dropdown-header">Редактировать</div>
+              </div>
+            </router-link>
+            <div class="lines"></div>
+            <div class="dropdown-item" @click="toggleModal">
+              <div class="dropdown-subheader">Удалить</div>
             </div>
-          </router-link>
-          <div class="lines"></div>
-          <div class="dropdown-item" @click="toggleModal">
-            <div class="dropdown-subheader">Удалить</div>
           </div>
         </div>
         <div v-if="showModal" class="modal">
@@ -81,6 +83,9 @@ export default {
     },
     toggleModal() { // добавлено
       this.showModal = !this.showModal;
+    },
+    closeDropdown() {
+      this.showDropdown = false;
     },
     deleteService() {
     const serviceId = this.usluga.id; // Получаем идентификатор услуги
@@ -165,6 +170,12 @@ export default {
     justify-content: center;
     border-radius: 3px;
   }
+  
+  .dropdown-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
   .dropdown{
     color: #AFB6C1;
     font-size: 15px;
@@ -184,9 +195,7 @@ export default {
   .dropdown-menu {
     width: 15vh;
     height: auto;
-    background-color: white;
-    left: 485px;
-    top: 190px;
+    background-color: #FFFFFF;
     border: 1px solid #E4EAEF;
     border-radius: 5px;
     display: flex;

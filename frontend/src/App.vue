@@ -56,6 +56,7 @@ button {
     align-items: center;
     gap: 5px;
     border-radius: 3px;
+    outline: none;
   }
 
 input:focus {

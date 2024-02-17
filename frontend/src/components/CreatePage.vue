@@ -435,7 +435,7 @@ export default {
 .input-group {
   display: flex;
   flex-direction: column;
-  width: 48%;
+  width: 49%;
 }
 
 #serviceCover {

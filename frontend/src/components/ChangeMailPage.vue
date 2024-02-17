@@ -1,23 +1,23 @@
 <template>
   <div class="modal">
     <div class="modal-content">
-      <p>Изменение пароля</p>
+      <p>Изменение Email</p>
       <div class="change-password-modal">
         <div class="input_container">
-          <label for="currentPassword">Текущий пароль</label>
-          <input v-model="currentPassword" type="password" id="currentPassword">
+          <label for="currentMail">Новый Email</label>
+          <input v-model="currentMail" type="password" id="currentMail">
         </div>
         <div class="input_container">
-          <label for="newPassword">Новый пароль</label>
-          <input v-model="newPassword" type="password" id="newPassword">
+          <label for="newMail">Повторно введите Email</label>
+          <input v-model="newMail" type="password" id="newMail">
         </div>
         <div class="input_container">
-          <label for="confirmPassword">Повторите новый пароль</label>
-          <input v-model="confirmPassword" type="password" id="confirmPassword">
+          <label for="confirmMail">Текущий пароль</label>
+          <input v-model="confirmMail" type="password" id="confirmMail">
         </div>
         <div class="button-container">
-          <button v-if="showChangeButton" class="button-change_hover">Сменить пароль</button>
-          <button v-else class="button-change">Сменить пароль</button>
+          <button v-if="showChangeButton" class="button-change_hover">Сменить Email</button>
+          <button v-else class="button-change">Сменить Email</button>
           <button @click="cancelChange" class="button-exit">Отмена</button>
         </div>
       </div>
@@ -29,21 +29,21 @@
 export default {
   data() {
     return {
-      currentPassword: '',
-      newPassword: '',
-      confirmPassword: '',
+      currentMail: '',
+      newMail: '',
+      confirmMail: '',
       showChangeButton: false
     };
   },
   watch: {
-    currentPassword(value) {
-      this.showChangeButton = this.newPassword !== '' && this.confirmPassword !== '' && value !== '';
+    currentMail(value) {
+      this.showChangeButton = this.newMail !== '' && this.confirmMail !== '' && value !== '';
     },
-    newPassword(value) {
-      this.showChangeButton = this.currentPassword !== '' && this.confirmPassword !== '' && value !== '';
+    newMail(value) {
+      this.showChangeButton = this.currentMail !== '' && this.confirmMail !== '' && value !== '';
     },
-    confirmPassword(value) {
-      this.showChangeButton = this.currentPassword !== '' && this.newPassword !== '' && value !== '';
+    confirmMail(value) {
+      this.showChangeButton = this.currentMail !== '' && this.newMail !== '' && value !== '';
     },
   }
 };
@@ -95,7 +95,6 @@ p{
 }
 .button-change{
   background: #4C5D6E33;
-  color: #FFFFFF;
 }
 .button-exit{
   border: 1px solid #4C5D6E33;
