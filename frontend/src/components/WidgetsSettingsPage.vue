@@ -161,15 +161,27 @@
               </div>
               <div class="color">
                 <p class="header">Фон виджета</p>
-                <div class="rgb"></div>
+                <div class="rgb">
+                  <p class="rgb_color">govno</p>
+                  <div class="rgb_choise" @click="toggleSelection"></div>
+                  <PalitraPage v-if="isCircleShown" class="show"></PalitraPage>
+                </div>
               </div>
               <div class="color">
                 <p class="header">Фон плашка</p>
-                <div class="rgb"></div>
+                <div class="rgb">
+                  <p class="rgb_color">govno</p>
+                  <div class="rgb_choise" @click="toggleSelection"></div>
+                  <PalitraPage v-if="isCircleShown" class="show"></PalitraPage>
+                </div>
               </div>
               <div class="color">
                 <p class="header">Цвет текста</p>
-                <div class="rgb"></div>
+                <div class="rgb">
+                  <p class="rgb_color">govno</p>
+                  <div class="rgb_choise" @click="toggleSelection"></div>
+                  <PalitraPage v-if="isCircleShown" class="show"></PalitraPage>
+                </div>
               </div>
             </div>
             <p>Выберите дизайн виджета</p>
@@ -309,7 +321,7 @@ export default {
     margin: 0 0 10px 0;
   }
   .header{
-    margin: 10px 0 10px 0;
+    margin: 20px 0 5px 0;
   }
   .subheader{
     margin-top: 0;
@@ -490,6 +502,7 @@ export default {
   }
   .color{
     width: 100%;
+    margin-right: 20px;
   }
   .rgb{
     width: 65%;
@@ -616,7 +629,7 @@ export default {
   .tab{
     position: relative;
     border-bottom: 1px solid rgba(50, 56, 74, 0.1); 
-    width: 70%;
+    width: 68%;
     display: flex;
     gap: 15px;
     margin-top: 30px;
@@ -650,5 +663,11 @@ export default {
   
   .tab-link:hover::after {
     background-color: #6266EA;
+  }
+  .window_container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   </style>

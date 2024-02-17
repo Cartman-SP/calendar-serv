@@ -3,7 +3,7 @@
     <div class="card-container">
       <div class="card-header">
         <div class="main">
-          <img :src="'http://127.0.0.1:8000/' + usluga.serviceCover" alt="Service Cover" class="img_head">
+          <img src="../../static/img/test.png" alt="Service Cover" class="img_head">
           <div class="head">
             <div class="text-container">
               <p class="text-header">Андрей</p> <!-- Отображаем название услуги -->
@@ -15,30 +15,32 @@
             </div>
           </div>
         </div>
-        <div class="dropdown_btn">
-          <button @click="toggleDropdown" class="dropdown" :style="{ 'background-color': showDropdown ? '#F3F6F8' : 'transparent' }">
-            <img v-if="!showDropdown" src="../../static/img/kebab.svg" alt="Open">
-            <img v-if="showDropdown" src="../../static/img/x.svg" alt="Close">
-          </button>
-        </div>
-        <div v-if="showDropdown" class="dropdown-menu">
-          <router-link to="/#" style="text-decoration:none">
-            <div class="dropdown-item">
-              <div class="dropdown-header">Редактировать</div>
-            </div>
-          </router-link>
-          <div class="lines"></div>
-          <div class="dropdown-item" @click="toggleModal">
-            <div class="dropdown-subheader">Удалить</div>
+        <div class="dropdown-container">
+          <div class="dropdown_btn">
+            <button @click="toggleDropdown" class="dropdown" :style="{ 'background-color': showDropdown ? '#F3F6F8' : 'transparent' }">
+              <img v-if="!showDropdown" src="../../static/img/kebab.svg" alt="Open">
+              <img v-if="showDropdown" src="../../static/img/x.svg" alt="Close">
+            </button>
           </div>
-        </div>
-        <div v-if="showModal" class="modal">
-          <div class="modal-content">
-            <p class="text-header">Удаление услуги</p>
-            <p class="modal-subtext">Вы действительно хотите удалить услугу<br><span>Стрижка?</span></p>
-            <div class="btn_container">
-              <button class="delete" @click="deleteService">Удалить</button>
-              <button class="exit" @click="toggleModal">Отмена</button>
+          <div v-if="showDropdown" class="dropdown-menu">
+            <router-link to="/#" style="text-decoration:none">
+              <div class="dropdown-item">
+                <div class="dropdown-header">Редактировать</div>
+              </div>
+            </router-link>
+            <div class="lines"></div>
+            <div class="dropdown-item" @click="toggleModal">
+              <div class="dropdown-subheader">Удалить</div>
+            </div>
+          </div>
+          <div v-if="showModal" class="modal">
+            <div class="modal-content">
+              <p class="text-header">Удаление услуги</p>
+              <p class="modal-subtext">Вы действительно хотите удалить услугу<br><span>Стрижка?</span></p>
+              <div class="btn_container">
+                <button class="delete" @click="deleteService">Удалить</button>
+                <button class="exit" @click="toggleModal">Отмена</button>
+              </div>
             </div>
           </div>
         </div>
@@ -49,17 +51,40 @@
           <p class="text-header">Барбер</p>
           <p class="text-subheader">Должность</p>
         </div>
-        <div class="card-bottom">
+        <div class="cards">
           <div class="text-container">
             <p class="text-header">9:00 — 20:00</p>
             <p class="text-subheader">Рабочие часы</p>
           </div>
         </div>
-        <div class="card-bottom">
+        <div class="cards">
           <div class="text-container">
             <p class="text-header">2/2</p>
             <p class="text-subheader">График работы</p>
           </div>
+        </div>
+      </div>
+      <div class="service">
+        <div class="usluga">
+          <p>Стрижка</p>
+        </div>
+        <div class="usluga">
+          <p>Стрижка</p>
+        </div>
+        <div class="usluga">
+          <p>Стрижка</p>
+        </div>
+        <div class="usluga">
+          <p>Стрижка</p>
+        </div>
+        <div class="usluga">
+          <p>Стрижка</p>
+        </div>
+        <div class="usluga">
+          <p>Стрижка</p>
+        </div>
+        <div class="usluga">
+          <p>Стрижка</p>
         </div>
       </div>
     </div>
@@ -74,8 +99,6 @@ export default {
       showModal: false,
     };
   },
-
-  props: ['usluga'], // Принимаем объект Usluga через пропс
 
   methods: {
     toggleDropdown() {
@@ -118,6 +141,7 @@ export default {
     margin: 20px 0;
   }
   .service_card{
+    width: 25vw;
     height: auto;
     background-color: #FFF;
     border-radius: 5px;
@@ -133,25 +157,10 @@ export default {
     gap: 20px;
     width: 100%;
   }
-  .bottom{
+  .dropdown-container{
     display: flex;
-    justify-content: space-between;
-  }
-  .bottom-text{
-    margin: 0;
-    background-color:#EFEFFF;
-    width: 95px;
-    height: 34px;
-    font-family: TT Norms;
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 24px;
-    letter-spacing: 0em;
-    color: #535C69;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 3px;
+    flex-direction: column;
+    gap: 10px;
   }
   .dropdown{
     color: #AFB6C1;
@@ -172,10 +181,7 @@ export default {
   .dropdown-menu {
     width: 15vh;
     height: auto;
-    background-color: white;
-    position: absolute;
-    left: 485px;
-    top: 190px;
+    background-color: #FFFFFF;
     border: 1px solid #E4EAEF;
     border-radius: 5px;
     display: flex;
@@ -218,7 +224,7 @@ export default {
     width: 80px;
     height: 80px;
     object-fit: cover;
-    border-radius: 5px;
+    border-radius: 100px;
   }
   .lines{
     width: 100%;
@@ -230,7 +236,7 @@ export default {
     justify-content: right;
   }
   .modal{
-    width: 36vh;
+    width: 36vw;
     height: auto;
     position: absolute;
     padding: 40px;
@@ -279,5 +285,28 @@ export default {
     color: #AFB6C1;
     margin: 0;
     margin-top: 10px;
+  }
+  .card-bottom{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 30px;
+  }
+  .service{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .usluga{
+    width: auto;
+    color: #AFB6C1;
+    background: #FAFAFA;
+    padding: 5px 10px;
+    border-radius: 100px;
+    gap: 10px;
+    margin-top: 22px;
+  }
+  p{
+    margin: 0;
   }
 </style>
