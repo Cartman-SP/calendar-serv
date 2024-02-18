@@ -1,9 +1,7 @@
 <template>
     <header>
         <div class="buttons">
-            <a href="#/login">
-                <button class="enter">Вход</button>
-            </a>
+            <a href="#/login"><button class="enter">Вход</button></a>
             <a href="#/register"><button class="register">Регистрация</button></a>
         </div>
     </header>
@@ -58,6 +56,10 @@ body{
     border: 1px solid var(--cold-text-ghost-500, #DDE1E5);
     background: var(--Neutral-White, #FFF);
   }
+  .enter:hover{
+    color: #6266EA;
+    background: #FFFFFF;
+  }
   
   .register{
     width: 233px;
@@ -76,7 +78,10 @@ body{
     line-height: normal;
     border-radius: 3px;
     background: var(---, #464AD9);
-    border: 1px solid var(--cold-text-ghost-500, #464AD9);
     margin-left: 50px;
    }
+  .register:hover{
+    color: #6266EA;
+    background: #FFFFFF;
+  }
 </style>

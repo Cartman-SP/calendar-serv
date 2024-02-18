@@ -1,4 +1,6 @@
 <template>
+  <div class="main">
+    <CardWidget/>
     <div class="widgets">
         <img src="../../static/img/big_flag.png" alt="" class="img_widgets">
         <p class="header">Поздравляем с регистрацией!</p>
@@ -7,10 +9,14 @@
           <button class="widgets_btn"> + Добавить услуги</button>
         </router-link>
     </div>
+  </div>
   </template>
   
   <script>
-  export default {
+import CardWidget from '../components/CardWidget.vue';
+
+export default {
+  components: { CardWidget },
     data() {
       return{
   

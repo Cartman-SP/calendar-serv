@@ -128,7 +128,7 @@ export default {
   .registration-form {
     background: #fff;
     width: 340px;
-    height: 475px;
+    height: auto;
     margin: 0 auto;
     padding: 40px;
     border-radius: 5px;

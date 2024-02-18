@@ -123,23 +123,23 @@
             <div class="plus_container">
               <div class="img_plus" @click="uploadImage">
                 <input type="file" style="display: none;" @change="handleImageUpload">
-                <img src="../../static/img/plus.svg" alt="">
+                <img src="" alt="">
               </div>
               <div class="img_plus" @click="uploadImage">
                 <input type="file" style="display: none;" @change="handleImageUpload">
-                <img src="../../static/img/plus.svg" alt="">
+                <img src="" alt="">
               </div>
               <div class="img_plus" @click="uploadImage">
                 <input type="file" style="display: none;" @change="handleImageUpload">
-                <img src="../../static/img/plus.svg" alt="">
+                <img src="" alt="">
               </div>
               <div class="img_plus" @click="uploadImage">
                 <input type="file" style="display: none;" @change="handleImageUpload">
-                <img src="../../static/img/plus.svg" alt="">
+                <img src="" alt="">
               </div>
               <div class="img_plus" @click="uploadImage">
                 <input type="file" style="display: none;" @change="handleImageUpload">
-                <img src="../../static/img/plus.svg" alt="">
+                <img src="" alt="">
               </div>
             </div>
             <div class="color_container">
@@ -184,7 +184,7 @@
                 </div>
               </div>
             </div>
-            <p>Выберите дизайн виджета</p>
+            <p class="header" style="margin-bottom:10px">Выберите дизайн виджета</p>
             <div class="wrapper">
               <div class="window_container">
                 <div class="window">
@@ -194,7 +194,12 @@
                   <div class="stripe"></div>
                   <div class="rectangle" style="height: 31px;"></div>
                 </div>
-                <p>Виджет в виде сайта</p>
+                <div class="choice" @click="activateChoice" data-type="site">
+                  <div class="circle_bottom">
+                    <div class="second_circle"></div>
+                  </div>
+                  <p class="">Виджет в виде сайта</p>
+                </div>
               </div>
               <div class="window_container">
                 <div class="window">
@@ -203,7 +208,12 @@
                   <div class="stripe" style="width:60%"></div>
                   <div class="rectangle" style="height: 49px;"></div>
                 </div>
-                <p>Встроенный виджет<br>для вашего сайта</p>
+                <div class="choice" @click="activateChoice" data-type="embedded">
+                  <div class="circle_bottom">
+                    <div class="second_circle"></div>
+                  </div>
+                  <p>Встроенный виджет<br>для вашего сайта</p>
+                </div>
               </div>
               <div class="window_container">
                 <div class="window">
@@ -219,7 +229,12 @@
                     <div class="circle"></div>
                   </div>
                 </div>
-                <p>Плавающая кнопка<br> на вашем сайте</p>
+                <div class="choice" @click="activateChoice" data-type="floating">
+                  <div class="circle_bottom">
+                    <div class="second_circle"></div>
+                  </div>
+                  <p>Плавающая кнопка<br> на вашем сайте</p>
+                </div>
               </div>
             </div>
             <p>Прямая ссылка на виджет</p>
@@ -271,6 +286,7 @@ export default {
         cancellation: false,
         theme: false,
       },
+      selectedChoice: null, 
       isCircleShown: false, // Added property to track the display of the circle
     };
   },
@@ -307,7 +323,27 @@ export default {
     },
     selectTab(tab) {
       this.selectedTab = tab; // Функция для изменения выбранной вкладки
-    }
+    },
+    activateChoice(event) {
+      const choice = event.currentTarget;
+      const choiceType = choice.getAttribute('data-type');
+
+      if (this.selectedChoice === choiceType) {
+        this.selectedChoice = null;
+        choice.querySelector('.second_circle').style.display = 'none';
+        choice.querySelector('.circle_bottom').style.borderColor = '#C6CBD2';
+      } else {
+        this.selectedChoice = choiceType;
+        document.querySelectorAll('.choice').forEach(choice => {
+          choice.classList.remove('active');
+          choice.querySelector('.second_circle').style.display = 'none';
+          choice.querySelector('.circle_bottom').style.borderColor = '#C6CBD2';
+        });
+        choice.classList.add('active');
+        choice.querySelector('.second_circle').style.display = 'inline-block';
+        choice.querySelector('.circle_bottom').style.borderColor = '#6266EA';
+      }
+    },
   },
 };
 </script>
@@ -356,7 +392,7 @@ export default {
   
   .settings {
     text-align: center;
-    width: 70%;
+    width: 50%;
     height: auto;
     background-color: #FFFFFF;
     padding: 20px;
@@ -385,6 +421,7 @@ export default {
     font-weight: bold;
     line-height: 17px;
     color:#535C69;
+    margin: 10px 0;
   }
 
   input::placeholder {
@@ -494,11 +531,13 @@ export default {
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    background: url(../../static/img/plus.svg) center center/cover no-repeat;
+    background-size: 25%;
   }
   
   .img_plus img {
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 80px;
+    max-height: 80px;
   }
   .color_container{
     display: flex;
@@ -555,8 +594,8 @@ export default {
     margin: 0;
   }
   .window{
-    width: 150px;
-    height: 100px;
+    width: 10vw;
+    height: 120px;
     border-radius: 2px;
     padding: 15px;
     background: #F6F6F6;
@@ -687,5 +726,33 @@ export default {
     background-color: transparent;
     transition: background-color 0.3s;
     background:#6266EA;
+  }
+  .choice{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    cursor: pointer;
+    height: 55px;
+  }
+  .circle_bottom{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #C6CBD2;
+    background: #F3F5F6;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+  .second_circle{
+    background: #6266EA;
+    width: 10px;
+    height: 10px;
+    border-radius: 25px;
+    display: none;
+  }
+  .choice.active .circle_bottom {
+    border-color: #6266EA; /* добавили изменение цвета границы для активного choice */
   }
   </style>

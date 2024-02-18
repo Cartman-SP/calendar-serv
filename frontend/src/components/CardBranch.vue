@@ -110,7 +110,7 @@ export default {
     text-align: left;
   }
   .service_card{
-    width: 20vw;
+    width: 17vw;
     height: auto;
     background-color: #FFF;
     border-radius: 5px;
