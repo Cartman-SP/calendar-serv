@@ -7,7 +7,7 @@
           <path fill-rule="evenodd" clip-rule="evenodd" d="M0 11.6739C6.30924e-05 11.8455 0.0394801 12.0171 0.118251 12.1735C0.168734 12.2738 0.235381 12.3679 0.318191 12.4518L6.46364 18.6776C6.88789 19.1075 7.57575 19.1075 8 18.6776L15.6818 10.8953C16.1061 10.4655 16.1061 9.76863 15.6818 9.33882L6.46364 0L5.69546 0.665295L8 3L0.318191 10.8953C0.23538 10.9792 0.168733 11.0733 0.11825 11.1735C0.0394799 11.33 6.30922e-05 11.5024 0 11.6739ZM1.44866 12.1735L7.17533 17.9751C7.20803 18.0083 7.25561 18.0083 7.28831 17.9751L13.015 12.1735H1.44866ZM14.0021 11.1735H1.4427L8.71245 3.70175L14.9701 10.0413C14.9888 10.0602 15 10.0857 15 10.1171C15 10.1484 14.9888 10.1739 14.9701 10.1928L14.0021 11.1735Z" fill="white"/>
         </svg>  
       </div>
-      <p style="width: 60px;">Основной цвет</p>
+      <p style="width: auto;">Основной цвет</p>
       <div class="circle_container">
         <div class="palitra_circle">
           <svg width="12" height="12" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -175,7 +175,7 @@ export default {
 
 <style scoped>
 .palitra{
-  width: 200px;
+  width: auto;
   height: auto;
   background: #212326;
   border-radius: 5px;
@@ -207,7 +207,7 @@ export default {
 }
 p{
   font-family: TT Norms;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 500;
   line-height: 10px;
   letter-spacing: 0em;
@@ -224,11 +224,12 @@ p{
   background: #33373D;  
   border-radius: 5px;
   color: #FFFFFF;
-  width: 60px;
+  width: auto;
   height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 5px 10px;
 }
 .divider {
   border-bottom: 1px solid #33373D; 
@@ -237,6 +238,7 @@ p{
 }
 .current_container{
   display: flex;
+  justify-content: space-between;
   gap: 15px;
 }
 .current_color{
@@ -267,8 +269,9 @@ p{
   overflow: hidden;
 }
 .main_color{
-  width: 15px;
-  height: 15px;
+  width: auto;
+  height: 24px;
+  cursor: pointer;
 }
 .plus_svg{
   display: flex;

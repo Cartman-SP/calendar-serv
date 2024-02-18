@@ -93,7 +93,75 @@
               </select>
             </div>
           </div>
-          <label>Выберите тип бизнеса</label>
+          <label style="margin-bottom:10px">Выберите тип бизнеса</label>
+          <div class="types">
+            <div class="choice" @click="activateChoice">
+              <div class="circle">
+                <div class="second_circle"></div>
+              </div>
+              <p class="choice_text">Красота</p>
+            </div>
+            <div class="choice" @click="activateChoice">
+              <div class="circle">
+                <div class="second_circle"></div>
+              </div>
+              <p class="choice_text">Медицина</p>
+            </div>
+            <div class="choice" @click="activateChoice">
+              <div class="circle">
+                <div class="second_circle"></div>
+              </div>
+              <p class="choice_text">Спорт</p>
+            </div>
+            <div class="choice" @click="activateChoice">
+              <div class="circle">
+                <div class="second_circle"></div>
+              </div>
+              <p class="choice_text">Обучение</p>
+            </div>
+            <div class="choice" @click="activateChoice">
+              <div class="circle">
+                <div class="second_circle"></div>
+              </div>
+              <p class="choice_text">Авто</p>
+            </div>
+            <div class="choice" @click="activateChoice">
+              <div class="circle">
+                <div class="second_circle"></div>
+              </div>
+              <p class="choice_text">Досуг и отдых</p>
+            </div>
+            <div class="choice" @click="activateChoice">
+              <div class="circle">
+                <div class="second_circle"></div>
+              </div>
+              <p class="choice_text">Бытовые услуги</p>
+            </div>
+            <div class="choice" @click="activateChoice">
+              <div class="circle">
+                <div class="second_circle"></div>
+              </div>
+              <p class="choice_text">Уход</p>
+            </div>
+            <div class="choice" @click="activateChoice">
+              <div class="circle">
+                <div class="second_circle"></div>
+              </div>
+              <p class="choice_text">Аренда</p>
+            </div>
+            <div class="choice" @click="activateChoice">
+              <div class="circle">
+                <div class="second_circle"></div>
+              </div>
+              <p class="choice_text">Животные</p>
+            </div>
+            <div class="choice" @click="activateChoice">
+              <div class="circle">
+                <div class="second_circle"></div>
+              </div>
+              <p class="choice_text">Другое </p>
+            </div>
+          </div>
           <div class="dropdown-container">
             <label for="service">Сфера бизнеса</label>
             <select id="service">
@@ -122,8 +190,8 @@
               <p class="steps-text">Шаг 2 из 2</p>
             </div>
             <div class="btn-container">
-              <button class="back" @click="onBackClick">Назад</button>
-              <button class="next-button">Продолжить</button>
+              <button class="back" @click="onBackClick">Вернуться</button>
+              <button class="btn">Завершить</button>
             </div>
           </div>
         </div>  
@@ -157,13 +225,37 @@ export default {
     onBackClick() {
       this.showContinueButtonClicked = false;
     },
+    activateChoice(event) {
+      // Получите ссылку на текущий выбор
+      const choice = event.currentTarget;
+      // Проверьте, есть ли у выбранного выбора уже класс active
+      const isActive = choice.classList.contains('active');
+
+      // Удалите `active` класс из всех choice
+      document.querySelectorAll('.choice').forEach(choice => {
+        choice.classList.remove('active');
+      });
+
+      // Если у выбранного выбора уже есть класс active, удаляем его и возвращаемся к изначальному состоянию
+      if (isActive) {
+        choice.querySelector('.second_circle').style.display = 'none';
+        choice.querySelector('.choice_text').style.color = '#AFB6C1';
+        choice.querySelector('.circle').style.borderColor = '#C6CBD2'; // возвращаем цвет границы Circle
+      } else {
+        // Если класса нет, добавляем его и меняем стиль в соответствии с задачей
+        choice.classList.add('active');
+        choice.querySelector('.second_circle').style.display = 'inline-block';
+        choice.querySelector('.choice_text').style.color = '#6266EA';
+        choice.querySelector('.circle').style.borderColor = '#6266EA'; // меняем цвет границы Circle
+      }
+    },
   }
 }
 </script>
 
 <style scoped>
   .create_branch {
-    width: 80%;
+    width: 50%;
     height: auto;
     background-color: #FFFFFF;
     padding: 20px;
@@ -338,7 +430,7 @@ export default {
   }
   .steps-progress{
     display: flex;
-    gap: 10px;
+    gap: 5px;
   }
   .steps-text{
     text-align: left;
@@ -401,7 +493,6 @@ export default {
     color: #D2D8DE;
     border: none;
     background-color: #F3F5F6;
-    margin-bottom: 10px;
     border-radius: 3px;
   }
   
@@ -421,6 +512,52 @@ export default {
     color: #D2D8DE;
     border: none;
     background-color: #F3F5F6;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+  }
+  .types{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .choice{
+    display: flex;
+    gap: 5px;
+  }
+  .circle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #C6CBD2;
+    background: #F3F5F6;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+  .choice_text{
+    font-family: TT Norms;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 15px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #AFB6C1;
+    cursor: pointer;
+  }
+  .back{
+    color: #D2D8DE;
+    background: #FFFFFF;
+    border: 1px solid #DDE1E5;
+  }
+  .second_circle{
+    background: #6266EA;
+    width: 10px;
+    height: 10px;
+    border-radius: 25px;
+    display: none;
+  }
+  .choice.active .circle {
+    border-color: #6266EA; /* добавили изменение цвета границы для активного choice */
   }
 </style>

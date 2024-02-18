@@ -115,6 +115,7 @@ export default {
   transition: 0.3s ease;
   padding: 20px;
   border-radius: 5px;
+  height: 247px;
 }
 .svg-plus{
   display: flex;

@@ -1,6 +1,7 @@
 <template>
     <div class="main">
       <div class="branch">
+        <CardBranch/>
         <img src="../../static/img/branch.png" alt="" class="img_branch">
         <p class="header">Здесь будет ваш филиал. Будет же?</p>
         <p class="subheader">Осталось только создать виджет, выбрать его оформление и разместить его на сайте или в социальных сетях. После чего ваши клиенты смогут записываться к вам онлайн.</p>
@@ -11,7 +12,10 @@
   </template>
   
   <script>
-  export default {
+import CardBranch from '../components/CardBranch.vue';
+
+export default {
+  components: { CardBranch },
     data() {
       return{
   

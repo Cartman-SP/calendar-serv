@@ -66,9 +66,24 @@
 </template>
 
 <script>
-export default {
 
-}
+export default {
+  data() {
+    return {
+      isCircleShown: false, // Added property to track the display of the circle
+    };
+  },
+  methods: {
+    toggleSelection() {
+    // Toggle between showing the button and the circle
+    this.isCircleShown = !this.isCircleShown;
+    },
+    resetSelection() {
+      // Reset to the original state (hide the circle)
+      this.isCircleShown = false;
+    },
+  },  
+};
 </script>
 
 <style scoped>
