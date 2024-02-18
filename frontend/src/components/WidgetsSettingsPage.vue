@@ -7,14 +7,14 @@
       </div>
       <p class="creation_text">Создание виджета</p>
     </div>
-    <div class="tab">
-      <div class="tab-link" @click="selectTab('general')">Общие настройки</div>
-      <div class="tab-link" @click="selectTab('design')">Дизайн</div>
-      <div class="tab-link" @click="selectTab('notifications')">Уведомления</div>
-      <div class="tab-link" @click="selectTab('telegram')">Telegram-бот</div>
-      <div class="tab-link" @click="selectTab('integrations')">Интеграции и оплаты</div>
-      <div class="tab-link" @click="selectTab('discounts')">Скидки и промокоды</div>
-      <div class="tab-link" @click="selectTab('custom')">Свой код</div>
+    <div class="tab" ref="tabs">
+      <div :class="{'tab-link': true, 'active-tab': selectedTab === 'general'}" @click="selectTab('general')">Общие настройки</div>
+      <div :class="{'tab-link': true, 'active-tab': selectedTab === 'design'}" @click="selectTab('design')">Дизайн</div>
+      <div :class="{'tab-link': true, 'active-tab': selectedTab === 'notifications'}" @click="selectTab('notifications')">Уведомления</div>
+      <div :class="{'tab-link': true, 'active-tab': selectedTab === 'telegram'}" @click="selectTab('telegram')">Telegram-бот</div>
+      <div :class="{'tab-link': true, 'active-tab': selectedTab === 'integrations'}" @click="selectTab('integrations')">Интеграции и оплаты</div>
+      <div :class="{'tab-link': true, 'active-tab': selectedTab === 'discounts'}" @click="selectTab('discounts')">Скидки и промокоды</div>
+      <div :class="{'tab-link': true, 'active-tab': selectedTab === 'custom'}" @click="selectTab('custom')">Свой код</div>
     </div>
     <div class="card">
       <div v-if="selectedTab === 'general'">
@@ -273,6 +273,10 @@ export default {
       },
       isCircleShown: false, // Added property to track the display of the circle
     };
+  },
+  mounted() {
+    // После монтирования компонента выбираем первую вкладку по умолчанию
+    this.$refs.tabs.querySelectorAll('.tab-link')[0].click();
   },
   methods: {
     uploadImage(event) {
@@ -669,5 +673,19 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+  .active-tab {
+    color: #6266EA;
+  }
+  .active-tab::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: transparent;
+    transition: background-color 0.3s;
+    background:#6266EA;
   }
   </style>
