@@ -282,3 +282,13 @@ def get_employees_by_user(request):
         employees = Employee.objects.filter(user_id=user_id)  # Получаем объекты Employee по user_id
         serializer = EmployeeSerializer(employees, many=True)
         return Response(serializer.data)
+    
+def get_usluga_name(request):
+    if request.method == 'GET':
+        try:
+            usluga_id = request.GET.get('usluga_id')
+            usluga = Usluga.objects.get(id=usluga_id)
+            usluga_name = usluga.name
+            return JsonResponse({'usluga_name': usluga_name})
+        except Usluga.DoesNotExist:
+            return JsonResponse({'error': 'Usluga does not exist'}, status=404)

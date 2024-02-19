@@ -67,7 +67,7 @@
       </div>
       <div class="service">
         <div class="usluga">
-          <p class="usluga_text">Стрижка</p>
+          <p class="usluga_text">{{usluganame}}</p>
         </div>
       </div>
     </div>
@@ -75,6 +75,9 @@
 </template>
 
 <script>
+import axios from 'axios';
+
+
 export default {
   props: {
     employeeData: Object // Принимаем данные о сотруднике через props
@@ -83,6 +86,7 @@ export default {
     return {
       showDropdown: false,
       showModal: false,
+      usluganame: "",
     };
   },
 
@@ -95,8 +99,27 @@ export default {
     },
     get_img(){
       return "http://127.0.0.1:8000"+this.employeeData.avatar
+    },
+    get_usluga(){
+      console.log(this.employeeData.serviceid)
+      axios.get('http://127.0.0.1:8000/api/get_usluga_name/', {
+      params: {
+        usluga_id: this.employeeData.serviceid // ваш ID услуги, который вы хотите получить
+      }
+    })
+    .then(response => {
+      this.usluganame = response.data.usluga_name;
+    })
+    .catch(error => {
+      console.error('Error fetching usluga name:', error);
+    });
     }
-  }
+  },
+  mounted() {
+    this.get_usluga();
+  },
+
+  
 };
 </script>
 
