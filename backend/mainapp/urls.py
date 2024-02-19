@@ -9,5 +9,7 @@ urlpatterns = [
     path('change_pass/',change_pass, name="check_code"),
     path('delete/', usluga_delete, name='usluga_delete'),
     path('profile/', update_profile, name='create_profile'),
-    path('getprofile/',get_profile,name='get_profile')
+    path('getprofile/',get_profile,name='get_profile'),
+    path('employee/', create_employee, name='create_employee'),
+    path('get_employees/',get_employees_by_user,name='get_employees'),
 ]

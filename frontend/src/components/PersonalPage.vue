@@ -1,7 +1,13 @@
 <template>
     <div class="main">
-      <CardEmployeesPage/>
-      <div class="personal">
+      <div v-if="employees">
+      <div  v-for="employee in employees" :key="employee.id">
+        <CardEmployeesPage :employeeData="employee"/>
+      </div>
+      <a href="#/lk/personal/employees" style="text-decoration:none"><button class="personal_btn"> + Добавить сотрудника</button></a>
+
+      </div>
+      <div v-else class="personal">
         <img src="../../static/img/personal.png" alt="" class="img_personal">
         <p class="header">Вот это скорость!</p>
         <p class="subheader">Мы видим, что вы завершили создание услуг. В этом разделе,<br>предлагаем добавить ваших сотрудников и назначить им ранее созданные<br>услуги. Если, у вас нет сотрудников, вы можете пропустить этот шаг<br>и перейти к созданию своего филиала/компании.</p>
@@ -14,14 +20,29 @@
   </template>
   
   <script>
-import CardEmployeesPage from '../components/CardEmployeesPage.vue';
-
-export default {
-  components: { CardEmployeesPage },
-    data() {
-      return{
+  import axios from 'axios';
+  import CardEmployeesPage from '../components/CardEmployeesPage.vue';
   
+  export default {
+    components: { CardEmployeesPage },
+    data() {
+      return {
+        employees: [] // Сюда будем сохранять полученных сотрудников
       };
+    },
+    mounted() {
+      // Здесь нужно заменить 'STATIC_USER_ID' на актуальный user_id
+      const user_id =  this.$store.state.registrationData.user_id;// Замените на актуальный user_id
+  
+      // Выполняем запрос к API Django
+      axios.get(`http://127.0.0.1:8000/api/get_employees/?user_id=${user_id}`)
+        .then(response => {
+          this.employees = response.data; // Сохраняем полученные данные в переменной
+          console.log(this.employees)
+        })
+        .catch(error => {
+          console.error('Error fetching employees:', error);
+        });
     }
   }
   </script>

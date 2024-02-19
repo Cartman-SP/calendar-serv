@@ -3,14 +3,14 @@
     <div class="card-container">
       <div class="card-header">
         <div class="main">
-          <img src="../../static/img/test.png" alt="Service Cover" class="img_head">
+          <img :src="get_img()" alt="Service Cover" class="img_head">
           <div class="head">
             <div class="text-container">
-              <p class="text-header">Андрей</p> <!-- Отображаем название услуги -->
+              <p class="text-header">{{ employeeData.firstname }}</p> <!-- Отображаем название услуги -->
               <p class="text-subheader">Имя</p>
             </div>
             <div class="text-container">
-              <p class="text-header">Подстригалкин</p>
+              <p class="text-header">{{ employeeData.secondname }}</p>
               <p class="text-subheader">Фамилия</p>
             </div>
           </div>
@@ -48,44 +48,24 @@
       <div class="line"></div>
       <div class="card-bottom">
         <div class="text-container">
-          <p class="text-header">Барбер</p>
+          <p class="text-header">{{ employeeData.rank }}</p>
           <p class="text-subheader">Должность</p>
         </div>
         <div class="cards">
           <div class="text-container">
-            <p class="text-header">9:00 — 20:00</p>
+            <p class="text-header">{{ employeeData.worktime }}</p>
             <p class="text-subheader">Рабочие часы</p>
           </div>
         </div>
         <div class="cards">
           <div class="text-container">
-            <p class="text-header">2/2</p>
+            <p v-if="employeeData.timetable!='undefined'" class="text-header">{{employeeData.timetable.replace('x','/')}}</p>
+            <p v-else class="text-header">{{employeeData.days}}</p>
             <p class="text-subheader">График работы</p>
           </div>
         </div>
       </div>
       <div class="service">
-        <div class="usluga">
-          <p class="usluga_text">Стрижка</p>
-        </div>
-        <div class="usluga">
-          <p class="usluga_text">Стрижка</p>
-        </div>
-        <div class="usluga">
-          <p class="usluga_text">Стрижка</p>
-        </div>
-        <div class="usluga">
-          <p class="usluga_text">Стрижка</p>
-        </div>
-        <div class="usluga">
-          <p class="usluga_text">Стрижка</p>
-        </div>
-        <div class="usluga">
-          <p class="usluga_text">Стрижка</p>
-        </div>
-        <div class="usluga">
-          <p class="usluga_text">Стрижка</p>
-        </div>
         <div class="usluga">
           <p class="usluga_text">Стрижка</p>
         </div>
@@ -96,6 +76,9 @@
 
 <script>
 export default {
+  props: {
+    employeeData: Object // Принимаем данные о сотруднике через props
+  },
   data() {
     return {
       showDropdown: false,
@@ -110,6 +93,9 @@ export default {
     toggleModal() { // добавлено
       this.showModal = !this.showModal;
     },
+    get_img(){
+      return "http://127.0.0.1:8000"+this.employeeData.avatar
+    }
   }
 };
 </script>

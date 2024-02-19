@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Usluga
+from .models import *
 
 
 
@@ -13,3 +13,8 @@ class UslugaSerializer(serializers.ModelSerializer):
             'place_ammount': {'required': False},
             'rent_ammount': {'required': False},
         }
+
+class EmployeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employee
+        fields = ['id', 'firstname', 'secondname', 'rank', 'avatar', 'serviceid', 'worktime', 'timetable', 'chilltime', 'user','days']

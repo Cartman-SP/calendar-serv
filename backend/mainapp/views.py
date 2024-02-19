@@ -29,7 +29,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Usluga
-from .serializers import UslugaSerializer
+from .serializers import *
 import json
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.decorators import api_view, parser_classes
@@ -259,3 +259,26 @@ def usluga_delete(request):
             return JsonResponse({'error': f'Произошла ошибка при удалении услуги: {str(e)}'}, status=500)
     else:
         return JsonResponse({'error': 'Метод не разрешен'}, status=405)
+    
+@api_view(['POST'])
+def create_employee(request):
+    if request.method == 'POST':
+        user_id = request.data.get('user_id')  # Получаем id пользователя из запроса
+        try:
+            user = User.objects.get(id=user_id)  # Получаем объект пользователя по id
+            request.data['user'] = user.id  # Заменяем id пользователя на объект пользователя в данных запроса
+            serializer = EmployeeSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except User.DoesNotExist:
+            return Response({'message': 'User does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['GET'])
+def get_employees_by_user(request):
+    if request.method == 'GET':
+        user_id = request.GET.get('user_id')  # Получаем user_id из запроса
+        employees = Employee.objects.filter(user_id=user_id)  # Получаем объекты Employee по user_id
+        serializer = EmployeeSerializer(employees, many=True)
+        return Response(serializer.data)

@@ -31,3 +31,15 @@ class Reset_passwrod(models.Model):
     token = models.CharField(max_length=20)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='related_objects')
  
+
+class Employee(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Привязка к пользователю
+    firstname = models.CharField(max_length=100)
+    secondname = models.CharField(max_length=100)
+    rank = models.CharField(max_length=100)
+    avatar = models.ImageField(upload_to='employees/', null=True, blank=True)
+    serviceid = models.IntegerField()  # Предположим, что это внешний ключ к модели услуги
+    worktime = models.CharField(max_length=20)
+    timetable = models.CharField(max_length=10)
+    chilltime = models.CharField(max_length=20)
+    days = models.CharField(max_length = 100)

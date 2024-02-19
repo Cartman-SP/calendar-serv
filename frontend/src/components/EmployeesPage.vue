@@ -13,37 +13,32 @@
         <div class="form-row">
           <div class="form-column">
             <label for="firstName">Имя</label>
-            <input type="text" id="firstName" placeholder="Введите имя">
+            <input type="text" v-model="firstname" id="firstName" placeholder="Введите имя">
           </div>
           <div class="form-column">
             <label for="lastName">Фамилия</label>
-            <input type="text" id="lastName" placeholder="Введите фамилию">
+            <input type="text" v-model="secondname" id="lastName" placeholder="Введите фамилию">
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-column">
             <label for="position">Должность</label>
-            <input type="text" id="position" placeholder="Введите должность">
+            <input type="text" v-model="rank" id="position" placeholder="Введите должность">
           </div>
           <div class="form-column">
             <label for="photo">Фото</label>
             <label class="custom-file-upload">
-              <input type="file" accept="image/*"/>Прикрепите фото
+              <input type="file" @change="handleFileUpload" accept="image/*"/>Прикрепите фото
             </label>
           </div>
         </div>
         
         <div class="dropdown-container">
           <label for="service">Услуга</label>
-          <select id="service">
+          <select id="service" v-model="selectedServiceId">
             <option value="" disabled selected style="display:none;">Выберете услугу</option>
-            <option>Стрижка</option>
-            <option>Стрижка + борода</option>
-            <option>Укладка волос</option>
-            <option>Чистка лица</option>
-            <option>Окантовка</option>
-            <option>Отец + сын</option>
+            <option v-for="usluga in uslugi" :key="usluga.id" :value="usluga.id">{{ usluga.name }}</option>
           </select>
         </div>
 
@@ -76,7 +71,7 @@
           <div class="dropdown-container">
             <label for="workingHours">Рабочие часы</label>
             <div class="dropdown-container">
-              <select id="workingHours">
+              <select id="workingHours" v-model="work_time">
                 <option value="" disabled selected style="display:none;">Время работы</option>
                 <option>9:00 - 19:00</option>
                 <option>9:00 - 20:00</option>
@@ -91,7 +86,7 @@
           <div class="dropdown-container">
             <label for="break">Перерыв</label>
             <div class="dropdown-container">
-              <select id="break">
+              <select id="break" v-model="chill_time">
                 <option value="" disabled selected style="display:none;">Время перерыва</option>
                 <option>13:00-14:00</option>
                 <option>14:00-15:00</option>
@@ -113,6 +108,8 @@
 
   
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -121,11 +118,33 @@ export default {
       selectedPaymentFormat: 'sessionPayment',
       uploadedFile: null,
       groupCapacity: 0,
-      maxGroupCapacity: 0,
-      selectedSchedule: null, // Новое свойство для хранения выбранного графика работы
+      mxGroupCapacity: 0,
+      sealectedSchedule: null, // Новое свойство для хранения выбранного графика работы
+      uslugi: [],
+      firstname: "",
+      secondname: "",
+      rank: "",
+      avatar: null,
+      work_time: "",
+      chill_time: "",
+      selectedServiceId: null, // Добавленная переменная для хранения выбранного id услуги
     };
   },
   methods: {
+
+    handleFileUpload(event) {
+      const file = event.target.files[0];
+      this.avatar = file;
+    },
+    async get_uslugi(){
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/api/uslugi/');
+        this.uslugi = response.data;
+      } catch (error) {
+        console.error('Error fetching uslugi:', error);
+      }
+    },
+    
     isDaySelected(day) {
       return this.selectedDays.includes(day);
     },
@@ -154,12 +173,35 @@ export default {
       }
     },
     saveAndExit() {
-      // Ваша текущая логика сохранения и выхода
+      const formData = new FormData();
+      const selectedDaysString = this.selectedDays.join(',');
+      formData.append('firstname', this.firstname);
+      formData.append('secondname',this.secondname);
+      formData.append('rank',this.rank);
+      formData.append('avatar',this.avatar)
+      formData.append('serviceid', this.selectedServiceId)
+      formData.append('worktime',this.work_time);
+      formData.append('timetable',this.selectedSchedule)
+      formData.append('chilltime',this.chill_time);
+      formData.append('days',selectedDaysString)
+      formData.append('avatar', this.avatar);
+      formData.append('user_id', this.$store.state.registrationData.user_id)
+      axios.post('http://127.0.0.1:8000/api/employee/', formData)
+        .then(response => {
+          console.log('Service created:', response.data);
+          this.$router.go(-1);
+        })
+        .catch(error => {
+          console.error('Error creating service:', error);
+        });
     },
     cancel() {
       // Ваша текущая логика отмены
     },
-  }
+  },
+  mounted(){
+    this.get_uslugi()
+  },
 }
 </script>
   
