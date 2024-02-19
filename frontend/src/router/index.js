@@ -16,6 +16,9 @@ import SettingsPage from '../components/SettingsPage.vue'
 import CreateBranchPage from '../components/CreateBranchPage.vue'
 import WidgetsSettingsPage from '../components/WidgetsSettingsPage.vue'
 import LichniyCabinet from '../components/LichniyCabinet.vue'
+import ProjectPage from '../components/ProjectPage.vue';
+import ProjectEditPage from '../components/ProjectEditPage.vue';
+import ProjectGatesPage from '../components/ProjectGatesPage.vue';
 import store from '../store';
 
 const routes = [
@@ -115,7 +118,24 @@ const routes = [
         component: CreateBranchPage,
         meta: { requiresAuth: true }
       },
-      
+      {
+        path: '/lk/project',
+        name: 'project',
+        component: ProjectPage,
+        meta: { requiresAuth: true }
+      },
+      {
+        path: '/lk/project/edit',
+        name: 'edit',
+        component: ProjectEditPage,
+        meta: { requiresAuth: true }
+      },
+      {
+        path: '/lk/project/gates',
+        name: 'gate',
+        component: ProjectGatesPage,
+        meta: { requiresAuth: true }
+      },      
     ]
   },
   {

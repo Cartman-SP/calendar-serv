@@ -392,7 +392,7 @@ export default {
   
   .settings {
     text-align: center;
-    width: 50%;
+    width: 55%;
     height: auto;
     background-color: #FFFFFF;
     padding: 20px;
