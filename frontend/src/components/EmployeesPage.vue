@@ -396,5 +396,6 @@ export default {
     background: #C6CBD2;
     border-radius: 5px;
   }
+
 </style>
   

@@ -153,7 +153,7 @@ export default {
     margin: 20px 0;
   }
   .service_card{
-    width: 23vw;
+    width: 19vw;
     height: auto;
     background-color: #FFF;
     border-radius: 5px;

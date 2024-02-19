@@ -52,11 +52,77 @@
           <p class="photo-info">до 5 МБ, PNG, JPG, JPEG. Для замены удалите миниатюру и загрузите заново</p>
         </div>
 
-        <div class="form-group">
-          <label>График работы</label>
+        <div class="upload">
+          <div class="upload_img">
+            <img class="upl_img" src="../../static/img/salon.png" alt="">
+          </div>
+          <div class="upload_img">
+            <img class="upl_img" src="../../static/img/salon.png" alt="">
+          </div>
+          <div class="upload_img">
+            <img class="upl_img" src="../../static/img/salon.png" alt="">
+          </div>
+        </div>
+
+        <div class="form-group graffic">
+          <label class="graffic_label">График работы</label>
           <div class="schedule-buttons">
             <button :class="{ 'active': isWeeklyActive }" @click="weeklySchedule">Недельный график</button>
             <button :class="{ 'active': isShiftActive }" @click="shiftSchedule">Сменный график</button>
+          </div>
+        </div>
+        <div class="wrapper" v-show="isShiftActive && !showContinueButtonClicked">
+          <p class="wrapper_text">Сменный график (Рабочий день х Выходной день):</p>
+          <div class="days">
+            <button 
+            class="btn_day"
+            :class="{ 'active': isDaySelected('1х1') }"
+            @click="toggleSelected('1х1')"
+          >
+            1х1
+          </button>
+          <button 
+            class="btn_day"
+            :class="{ 'active': isDaySelected('2х2') }"
+            @click="toggleSelected('2х2')"
+          >
+            2х2
+          </button>
+          <button 
+            class="btn_day"
+            :class="{ 'active': isDaySelected('3х3') }"
+            @click="toggleSelected('3х3')"
+          >
+            3х3
+          </button>
+          <button 
+            class="btn_day"
+            :class="{ 'active': isDaySelected('7х7') }"
+            @click="toggleSelected('7х7')"
+          >
+            7х7
+          </button>
+          <button 
+            class="btn_day"
+            :class="{ 'active': isDaySelected('1х2') }"
+            @click="toggleSelected('1х2')"
+          >
+            1х2
+          </button>
+          <button 
+            class="btn_day"
+            :class="{ 'active': isDaySelected('2х1') }"
+            @click="toggleSelected('2х1')"
+          >
+            2х1
+          </button>
+          <button 
+            class="btn_day"
+            :class="{ 'active': isDaySelected('15х15') }"
+            @click="toggleSelected('15х15')"
+          >
+            15х15
+          </button>
           </div>
         </div>
         <div class="form-btn">
@@ -205,10 +271,21 @@ export default {
   data() {
     return {
       isWeeklyActive: false,
-      isShiftActive: false
+      isShiftActive: false,
+      selectedDays: []
     }
   },
   methods: {
+    toggleSelected(day) {
+      if (this.selectedDays.includes(day)) {
+        this.selectedDays = this.selectedDays.filter(item => item !== day);
+      } else {
+        this.selectedDays.push(day);
+      }
+    },
+    isDaySelected(day) {
+      return this.selectedDays.includes(day);
+    },
     weeklySchedule() {
       this.isWeeklyActive = true;
       this.isShiftActive = false;
@@ -266,6 +343,7 @@ export default {
     display: flex;
     flex-direction: column;
     width: 100%;
+    margin: 0;
   }
 
   input {
@@ -278,6 +356,7 @@ export default {
     background-color: #F3F5F6;
     margin-bottom: 10px;
     height: 36px;
+    margin-bottom: 5px;
   }
 
   select{
@@ -325,12 +404,6 @@ export default {
     display: flex;
     flex-direction: row;
     gap: 10px;
-  }
-
-  .form-btn {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
   }
 
   .btn {
@@ -447,6 +520,11 @@ export default {
     display: flex;
     flex-direction: column;
   }
+  .branch-form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
   .form-btn{
     display: flex;
     justify-content: space-between;
@@ -560,4 +638,67 @@ export default {
   .choice.active .circle {
     border-color: #6266EA; /* добавили изменение цвета границы для активного choice */
   }
+  .upload{
+    display: flex;
+    gap: 10px;
+  }
+  .upload_img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+  }
+  .upl_img {
+    width: 100%;
+    height: 100%;
+  }
+  .graffic_label{
+    margin: 0;
+  }
+  .graffic{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .wrapper_text{
+    font-family: TT Norms;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 15px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #AFB6C1;
+  }
+  .wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .btn_day{
+    font-family: TT Norms;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 15px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #535C69;
+    background: #FFFFFF;
+    border: 1px solid #D2D8DE;
+    padding: 12px 15px;
+    border-radius: 5px;
+  }
+  .days{
+    display: flex;
+    gap: 10px;
+  }
+  .btn_day.active {
+    background-color: #6266EA1A;
+    border-color: #6266EA;
+    color: #6266EA;
+  }
+  
 </style>
