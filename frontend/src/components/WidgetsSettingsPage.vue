@@ -155,32 +155,32 @@
                 <p class="header">Основной</p>
                 <div class="rgb" v-click-outside="resetSelection">
                   <p class="rgb_color">govno</p>
-                  <div class="rgb_choise" @click="toggleSelection"></div>
-                  <PalitraPage v-if="isCircleShown" class="show"></PalitraPage>
+                  <div class="rgb_choise" @click="toggleSelection(1)"></div>
+                  <PalitraPage v-if="isCircleShown1" class="show"></PalitraPage>
                 </div>
               </div>
               <div class="color">
                 <p class="header">Фон виджета</p>
                 <div class="rgb">
                   <p class="rgb_color">govno</p>
-                  <div class="rgb_choise" @click="toggleSelection"></div>
-                  <PalitraPage v-if="isCircleShown" class="show"></PalitraPage>
+                  <div class="rgb_choise" @click="toggleSelection(2)"></div>
+                  <PalitraPage v-if="isCircleShown2" class="show"></PalitraPage>
                 </div>
               </div>
               <div class="color">
                 <p class="header">Фон плашка</p>
                 <div class="rgb">
                   <p class="rgb_color">govno</p>
-                  <div class="rgb_choise" @click="toggleSelection"></div>
-                  <PalitraPage v-if="isCircleShown" class="show"></PalitraPage>
+                  <div class="rgb_choise" @click="toggleSelection(3)"></div>
+                  <PalitraPage v-if="isCircleShown3" class="show"></PalitraPage>
                 </div>
               </div>
               <div class="color">
                 <p class="header">Цвет текста</p>
                 <div class="rgb">
                   <p class="rgb_color">govno</p>
-                  <div class="rgb_choise" @click="toggleSelection"></div>
-                  <PalitraPage v-if="isCircleShown" class="show"></PalitraPage>
+                  <div class="rgb_choise" @click="toggleSelection(4)"></div>
+                  <PalitraPage v-if="isCircleShown4" class="show"></PalitraPage>
                 </div>
               </div>
             </div>
@@ -287,7 +287,10 @@ export default {
         theme: false,
       },
       selectedChoice: null, 
-      isCircleShown: false, // Added property to track the display of the circle
+      isCircleShown1: false,
+      isCircleShown2: false, 
+      isCircleShown3: false, 
+      isCircleShown4: false, 
     };
   },
   mounted() {
@@ -313,13 +316,20 @@ export default {
         reader.readAsDataURL(file);
       }
     },
-    toggleSelection() {
-    // Toggle between showing the button and the circle
-    this.isCircleShown = !this.isCircleShown;
+    toggleSelection(num) {
+    console.log(num)
+    switch(num){
+      case 1:{ this.isCircleShown1=!this.isCircleShown1;this.isCircleShown2=false;this.isCircleShown3=false;this.isCircleShown4=false;break}
+      case 2:{ this.isCircleShown2=!this.isCircleShown2;this.isCircleShown1=false;this.isCircleShown3=false;this.isCircleShown4=false;break}
+      case 3:{ this.isCircleShown3=!this.isCircleShown3;this.isCircleShown2=false;this.isCircleShown1=false;this.isCircleShown4=false;break}
+      case 4:{ this.isCircleShown4=!this.isCircleShown4;this.isCircleShown2=false;this.isCircleShown3=false;this.isCircleShown1=false;break}
+    }
     },
-    resetSelection() {
-      // Reset to the original state (hide the circle)
-      this.isCircleShown = false;
+    closeall(){
+      this.isCircleShown1=false;
+      this.isCircleShown2=false;
+      this.isCircleShown3=false;
+      this.isCircleShown4=false;
     },
     selectTab(tab) {
       this.selectedTab = tab; // Функция для изменения выбранной вкладки
@@ -557,6 +567,7 @@ export default {
     gap: 10px;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
   }
   .rgb_color{
     margin: 0;

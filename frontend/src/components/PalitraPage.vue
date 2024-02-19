@@ -9,7 +9,7 @@
       </div>
       <p style="width: auto;">Основной цвет</p>
       <div class="circle_container">
-        <div class="palitra_circle">
+        <div class="palitra_circle" @click="this.$parent.closeall">
           <svg width="12" height="12" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8.58578 10L4.29288 14.2929L5.70709 15.7071L10 11.4142L14.2929 15.7071L15.7071 14.2929L11.4142 10L15.7071 5.70712L14.2929 4.29291L10 8.58579L5.70712 4.29291L4.29291 5.70712L8.58578 10Z" fill="#AFB6C1"/>
           </svg>
@@ -204,6 +204,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 p{
   font-family: TT Norms;

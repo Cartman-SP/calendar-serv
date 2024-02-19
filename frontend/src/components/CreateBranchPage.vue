@@ -14,7 +14,7 @@
         <div class="one-group">
           <div class="form-group">
             <label for="country">Страна</label>
-            <select id="country">
+            <select id="country" v-model="selectedCountry">
               <option value="" disabled selected style="display:none;">Выберите страну</option>
               <option value="Russia">Россия</option>
               <option value="Kazakhstan">Казахстан</option>
@@ -25,7 +25,7 @@
 
           <div class="form-group">
             <label for="city">Город</label>
-            <select id="city">
+            <select id="city" v-model="selectedCity">
               <option value="" disabled selected style="display:none;">Выберите город</option>
               <option value="SaintPetersburg">Санкт-Петербург</option>
               <option value="Moscow">Москва</option>
@@ -35,12 +35,12 @@
 
         <div class="form-group">
           <label for="address">Адрес</label>
-          <input type="text" id="address" placeholder="Введите точный адрес">
+          <input type="text" id="address" v-model="selectedAdress" placeholder="Введите точный адрес">
         </div>
 
         <div class="form-group">
           <label for="branchName">Название филиала</label>
-          <input type="text" id="branchName" placeholder="Введите название" maxlength="25">
+          <input type="text" id="branchName" v-model="selectedName" placeholder="Введите название" maxlength="25">
           <p class="character-limit">Название должно содержать не более 25 знаков</p>
         </div>
 
