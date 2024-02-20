@@ -3,8 +3,8 @@
     <CardWidget/>
     <div class="widgets">
         <img src="../../static/img/big_flag.png" alt="" class="img_widgets">
-        <p class="header">Поздравляем с регистрацией!</p>
-        <p class="subheader">Предлагаем вам перейти к созданию услуги, после чего<br>у вас появится возможность прикрепить созданные услуги<br>к вашим специалистам и добавить филиал.</p>
+        <p class="header">Последний рывок</p>
+        <p class="subheader">Осталось только создать виджет, выбрать его оформление<br> и разместить его на сайте или в социальных сетях. После<br> чего ваши клиенты смогут записываться к вам онлайн.</p>
         <router-link to="/lk/widgets/settings" style="text-decoration:none">
           <button class="widgets_btn"> + Добавить услуги</button>
         </router-link>

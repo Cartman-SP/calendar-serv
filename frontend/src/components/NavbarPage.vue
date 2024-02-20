@@ -27,39 +27,47 @@
             </div>
         </div>
         <!-- Дополнительный блок для уведомлений -->
-        <div v-if="showGatesNotificationPanel" class="gates-panel">
-          <p class="teg_head">Быстрое проектов</p>
-          <div class="wrapper">
-            <div class="teg">
-              <div class="teg_svg">
-                <svg width="16" height="16" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M2 0C0.895431 0 0 0.895431 0 2V15C0 16.1046 0.89543 17 2 17H16C17.1046 17 18 16.1046 18 15V4C18 2.89543 17.1046 2 16 2H7C7 0.895431 6.10457 0 5 0H2Z" fill="white"/>
-                </svg>
-              </div>  
-              <div class="wrapper_name">
-                <p class="wrapper_head">Барбершоп на Сатпаева</p>
-                <p class="wrapper_subhead">ID 124568 (Владелец)</p>
-              </div>
-            </div>
-            <input type="search" placeholder="Найти проект">
-            <div class="teg">
-              <div class="avatar">
-                <p class="avatar_text">АР</p>
-              </div>
-              <div class="wrapper_name">
-                <p class="wrapper_descr">Аренда роликов</p>
-                <p class="wrapper_subhead">ID 254987 (Владелец)</p>
-              </div>
-            </div>
+        <div  v-if="showGatesNotificationPanel" class="gates">
+          <div class="gates_svg">
+            <svg width="32" height="32" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 12L10 7.24L14 12L6 12Z" fill="white"/>
+            </svg>
           </div>
-          <router-link to="/lk/project" style="text-decoration:none">
-            <div class="bottom">
-              <svg width="14" height="14" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2 0C0.895431 0 0 0.895431 0 2V15C0 16.1046 0.89543 17 2 17H16C17.1046 17 18 16.1046 18 15V4C18 2.89543 17.1046 2 16 2H7C7 0.895431 6.10457 0 5 0H2Z" fill="#AFB6C1"/>
-              </svg>
-              <p class="bottom_text">Всего проектов (0)</p>
+            
+          <div class="gates-panel">
+            <p class="teg_head">Быстрое проектов</p>
+            <div class="wrapper">
+              <div class="teg">
+                <div class="teg_svg">
+                  <svg width="16" height="16" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 0C0.895431 0 0 0.895431 0 2V15C0 16.1046 0.89543 17 2 17H16C17.1046 17 18 16.1046 18 15V4C18 2.89543 17.1046 2 16 2H7C7 0.895431 6.10457 0 5 0H2Z" fill="white"/>
+                  </svg>
+                </div>  
+                <div class="wrapper_name">
+                  <p class="wrapper_head">Барбершоп на Сатпаева</p>
+                  <p class="wrapper_subhead">ID 124568 (Владелец)</p>
+                </div>
+              </div>
+              <input type="search" placeholder="Найти проект">
+              <div class="teg">
+                <div class="avatar">
+                  <p class="avatar_text">АР</p>
+                </div>
+                <div class="wrapper_name">
+                  <p class="wrapper_descr">Аренда роликов</p>
+                  <p class="wrapper_subhead">ID 254987 (Владелец)</p>
+                </div>
+              </div>
             </div>
-          </router-link>
+            <router-link to="/lk/project" style="text-decoration:none">
+              <div class="bottom">
+                <svg width="14" height="14" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 0C0.895431 0 0 0.895431 0 2V15C0 16.1046 0.89543 17 2 17H16C17.1046 17 18 16.1046 18 15V4C18 2.89543 17.1046 2 16 2H7C7 0.895431 6.10457 0 5 0H2Z" fill="#AFB6C1"/>
+                </svg>
+                <p class="bottom_text">Всего проектов (0)</p>
+              </div>
+            </router-link>
+          </div>
         </div>
         <div v-if="showPlusNotificationPanel" class="plus-panel">
           <p class="header">Быстрое создание</p>
