@@ -112,7 +112,6 @@
               </div>
             </div>
           </div>
-          <WidgetApp></WidgetApp>
         </div>
       </div>
       <div v-if="selectedTab === 'design'">
@@ -153,7 +152,7 @@
               </div>
               <div class="color">
                 <p class="header">Основной</p>
-                <div class="rgb" v-click-outside="resetSelection">
+                <div class="rgb">
                   <p class="rgb_color">govno</p>
                   <div class="rgb_choise" @click="toggleSelection(1)"></div>
                   <PalitraPage v-if="isCircleShown1" class="show"></PalitraPage>
@@ -244,7 +243,6 @@
               <button @click="cancel" class="cancel-button">Отмена</button>
             </div>
           </div>
-          <WidgetApp></WidgetApp>
         </div>
       </div>
       <div v-if="selectedTab === 'notifications'">
@@ -262,7 +260,9 @@
       <div v-if="selectedTab === 'custom'">
         <!-- Содержимое для своего кода -->
       </div>
+      <WidgetApp v-bind:theme="switches.theme" :MainColor="''" :WidgetColor="'#6266EA'" :BakcgroundColor="''" :TextColor="''" @colorChanged="handleColorChanged"/>
     </div>
+   
   </div>
 </template>
   
@@ -290,7 +290,7 @@ export default {
       isCircleShown1: false,
       isCircleShown2: false, 
       isCircleShown3: false, 
-      isCircleShown4: false, 
+      isCircleShown4: false,
     };
   },
   mounted() {
