@@ -41,6 +41,8 @@ from .models import Usluga
 from .serializers import UslugaSerializer
 import random
 from rest_framework import status
+from django.contrib.auth.hashers import check_password, make_password
+
 
 @csrf_exempt
 @require_POST
@@ -243,6 +245,27 @@ def change_pass(request):
         response_data = {'is_valid': False}
         return JsonResponse(response_data, status=400)
 
+
+@csrf_exempt
+def change_pass_two(request):
+    data = json.loads(request.body.decode('utf-8'))
+    old_pass = data['old_pass']
+    new_pass = data['new_pass']
+    user_id = data['user_id']
+    print(old_pass,new_pass,user_id)
+    try:
+        user = User.objects.get(id=user_id)
+    except User.DoesNotExist:
+        return JsonResponse({'error': 'User not found'}, status=404)
+
+    if not check_password(old_pass, user.password):
+        return JsonResponse({'error': 'Incorrect old password'}, status=400)
+
+    # Change password
+    user.set_password(new_pass)
+    user.save()
+
+    return JsonResponse({'message': 'Password changed successfully'})
 
 @csrf_exempt
 def usluga_delete(request):

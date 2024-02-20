@@ -16,9 +16,10 @@
           <input v-model="confirmPassword" type="password" id="confirmPassword">
         </div>
         <div class="button-container">
-          <button v-if="showChangeButton" class="button-change_hover">Сменить пароль</button>
+          <button v-if="showChangeButton" class="button-change_hover" @click="changePassword">Сменить пароль</button>
           <button v-else class="button-change">Сменить пароль</button>
-          <button @click="cancelChange" class="button-exit">Отмена</button>
+          <button @click="this.$parent.showModal = false" class="button-exit">Отмена</button>
+          <div v-if="error">{{error}}</div>
         </div>
       </div>
     </div>
@@ -26,13 +27,17 @@
 </template>
 
 <script>
+import axios from 'axios';
+
+
 export default {
   data() {
     return {
       currentPassword: '',
       newPassword: '',
       confirmPassword: '',
-      showChangeButton: false
+      showChangeButton: false,
+      error: '',
     };
   },
   watch: {
@@ -45,7 +50,25 @@ export default {
     confirmPassword(value) {
       this.showChangeButton = this.currentPassword !== '' && this.newPassword !== '' && value !== '';
     },
+  },
+  methods: {
+    async changePassword() {
+    const data = {
+      old_pass: this.currentPassword,
+      new_pass: this.newPassword,
+      user_id: this.$store.state.registrationData.user_id
+    };
+
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/api/change_pass_two/', data);
+      console.log('Password changed:', response.data);
+      this.$parent.showModal = false
+    } catch (error) {
+      console.error('Error changing password:', error);
+      this.error = "Неверный пароль"
+    }
   }
+  },
 };
 </script>
 

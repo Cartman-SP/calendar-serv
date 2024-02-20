@@ -12,5 +12,6 @@ urlpatterns = [
     path('getprofile/',get_profile,name='get_profile'),
     path('employee/', create_employee, name='create_employee'),
     path('get_employees/',get_employees_by_user,name='get_employees'),
-    path('get_usluga_name/',get_usluga_name,name="get_usluga_name")
+    path('get_usluga_name/',get_usluga_name,name="get_usluga_name"),
+    path('change_pass_two/', change_pass_two,name ="change_pass_two"),
 ]
