@@ -192,7 +192,7 @@
                   <div class="stripe"></div>
                   <div class="stripe"></div>
                   <div class="stripe"></div>
-                  <div class="rectangle" style="height: 31px;"></div>
+                  <div class="rectangle"></div>
                 </div>
                 <div class="choice" @click="activateChoice" data-type="site">
                   <div class="circle_bottom">
@@ -203,10 +203,10 @@
               </div>
               <div class="window_container">
                 <div class="window">
-                  <div class="stripe" style="width:100%"></div>
+                  <div class="stripe"></div>
                   <div class="stripe" style="width:80%"></div>
                   <div class="stripe" style="width:60%"></div>
-                  <div class="rectangle" style="height: 49px;"></div>
+                  <div class="rectangle"></div>
                 </div>
                 <div class="choice" @click="activateChoice" data-type="embedded">
                   <div class="circle_bottom">
@@ -617,17 +617,18 @@ export default {
   .stripe {
     background: linear-gradient(90deg, #EBEBEB 0%, #DAE2EE 100%);
     border-radius: 2px;
-    width: 120px;
-    height: 5px;
+    width: 100%;
+    height: 20px;
   }
   .square{
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 45px;
     background: linear-gradient(90deg, #EBEBEB 0%, #DAE2EE 100%);
     border-radius: 2px;
   }
   .rectangle{
-    width: 120px;
+    width: 100%;
+    height: 100%;
     background: linear-gradient(90deg, #9497FF 0%, #8B8FFF 100%);
     border-radius: 2px;
   }
