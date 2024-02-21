@@ -41,25 +41,8 @@
             </svg> 
           </button>
           <button>Редактировать</button>
-          <div class="dropdown-container">
-            <div class="dropdown_btn">
-              <button @click="toggleDropdown" class="dropdown" :style="{ 'background-color': showDropdown ? '#F3F6F8' : 'transparent' }">
-                <img v-if="!showDropdown" src="../../static/img/kebab.svg" alt="Open">
-                <img v-if="showDropdown" src="../../static/img/x.svg" alt="Close">
-              </button>
-            </div>
-            <div v-if="showDropdown" class="dropdown-menu">
-              <router-link to="/#" style="text-decoration:none">
-                <div class="dropdown-item">
-                  <div class="dropdown-header">Редактировать</div>
-                </div>
-              </router-link>
-              <div class="lines"></div>
-              <div class="dropdown-item" @click="toggleModal">
-                <div class="dropdown-subheader">Удалить</div>
-              </div>
-            </div>
-            <div v-if="showModal" class="modal">
+          <Kebab :buttons="buttons" :HasDelete="true" :HasDeviders="true"/>
+          <div v-if="showModal" class="modal">
               <div class="modal-content">
                 <p class="text-header">Удаление услуги</p>
                 <p class="modal-subtext">Вы действительно хотите удалить услугу<br><span>Стрижка?</span></p>
@@ -69,7 +52,6 @@
                 </div>
               </div>
             </div>
-          </div>
         </div>
       </div>
     </div>
@@ -77,11 +59,17 @@
 </template>
 
 <script>
+import Kebab from '../components/DropdownKebab.vue';
 export default {
+  components: { Kebab },
   data() {
     return {
       showDropdown: false,
       showModal: false,
+      buttons:[
+        {btnname:'Дублировать', svg:'<svg width="12" fill="white" height="14" viewBox="0 0 12 14" xmlns="http://www.w3.org/2000/svg"><path d="M8.83533 2.91667H6.00033V0.00933333L8.83533 2.91667ZM4.83366 4.08333V0H1.91699C1.45286 0 1.00774 0.184374 0.679555 0.512563C0.351367 0.840752 0.166992 1.28587 0.166992 1.75V11.0833H8.91699V4.08333H4.83366ZM10.0837 4.08917V12.2722H3.08366V14H11.8337V5.83333L10.0837 4.08917Z"/></svg>'
+},
+      ],
     };
   },
 

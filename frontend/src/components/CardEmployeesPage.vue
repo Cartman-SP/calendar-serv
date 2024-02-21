@@ -15,23 +15,8 @@
             </div>
           </div>
         </div>
-        <div class="dropdown-container">
-          <div class="dropdown_btn">
-            <button @click="toggleDropdown" class="dropdown" :style="{ 'background-color': showDropdown ? '#F3F6F8' : 'transparent' }">
-              <img v-if="!showDropdown" src="../../static/img/kebab.svg" alt="Open">
-              <img v-if="showDropdown" src="../../static/img/x.svg" alt="Close">
-            </button>
-          </div>
-          <div v-if="showDropdown" class="dropdown-menu">
-            <div class="dropdown-item">
-                <div class="dropdown-header">Редактировать</div>
-            </div>
-            <div class="lines"></div>
-            <div class="dropdown-item" @click="toggleModal">
-              <div class="dropdown-subheader">Удалить</div>
-            </div>
-          </div>
-          <div v-if="showModal" class="modal">
+        <Kebab :buttons="buttons" :HasDelete="true" :HasDeviders="true"/>
+        <div v-if="showModal" class="modal">
             <div class="modal-content">
               <p class="text-header">Удаление услуги</p>
               <p class="modal-subtext">Вы действительно хотите удалить услугу<br><span>Стрижка?</span></p>
@@ -41,7 +26,6 @@
               </div>
             </div>
           </div>
-        </div>
       </div>
       <div class="line"></div>
       <div class="card-bottom">
@@ -74,17 +58,22 @@
 
 <script>
 import axios from 'axios';
-
+import Kebab from '../components/DropdownKebab.vue';
 
 export default {
+  
   props: {
     employeeData: Object // Принимаем данные о сотруднике через props
   },
+  components: { Kebab },
   data() {
     return {
       showDropdown: false,
       showModal: false,
       usluganame: "",
+      buttons:[
+        {btnname:'Редактировать', svg:'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256" width="100px" height="100px"><g fill="#535c69" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M18,2l-2.41406,2.41406l4,4l2.41406,-2.41406zM14.07617,5.92383l-11.07617,11.07617v4h4l11.07617,-11.07617z"></path></g></g></svg>'},
+      ],
     };
   },
 
@@ -217,6 +206,7 @@ export default {
     color: #535C69;
     cursor: pointer;
   }
+  
   .img_head{
     width: 80px;
     height: 80px;

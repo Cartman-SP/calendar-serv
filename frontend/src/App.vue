@@ -18,6 +18,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'TT Norms Medium';
+    src: url('../static/fonts/TT\ Norms/TTNorms-Medium.eot'), url('../static/fonts/TT\ Norms/TTNorms-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body{
   margin: 0;
   padding: 0;

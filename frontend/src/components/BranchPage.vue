@@ -6,7 +6,6 @@
         <p class="header">Здесь будет ваш филиал. Будет же?</p>
         <p class="subheader">Осталось только создать виджет, выбрать его оформление и разместить его на сайте или в социальных сетях. После чего ваши клиенты смогут записываться к вам онлайн.</p>
         <a href="#/lk/branch/createbranch" style="text-decoration:none"><button class="branch_btn"> + Добавить филиал</button></a>
-  
       </div>
     </div>
   </template>
@@ -44,7 +43,7 @@ export default {
   
   .header {
     color: #535C69;
-    font-family: "TT Norms";
+    font-family: 'TT Norms Medium';
     font-size: 20px;
     font-weight: 500;
     line-height: 15px;

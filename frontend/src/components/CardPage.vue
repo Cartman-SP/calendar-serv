@@ -1,10 +1,9 @@
 <template>
   <div class="service_card">
-    <div class="overlay" v-if="showModal"></div>
     <div class="card-container">
       <div class="card-header">
         <div class="main">
-          <img :src="'http://127.0.0.1:8000/' + usluga.serviceCover" alt="Service Cover" class="img_head">
+          <img :src="'http://127.0.0.1:8000/' + usluga.serviceCover" alt="No sevice cover" class="img_head">
           <div class="head">
             <div class="text-container">
               <p class="text-header">{{ usluga.name }}</p> <!-- Отображаем название услуги -->
@@ -16,35 +15,7 @@
             </div>
           </div>
         </div>
-        <div class="dropdown-container">
-          <div class="dropdown_btn">
-            <button @click="toggleDropdown" class="dropdown" :style="{ 'background-color': showDropdown ? '#F3F6F8' : 'transparent' }">
-              <img v-if="!showDropdown" src="../../static/img/kebab.svg" alt="Open">
-              <img v-if="showDropdown" src="../../static/img/x.svg" alt="Close">
-            </button>
-          </div>
-          <div v-if="showDropdown" class="dropdown-menu" @click="closeDropdown">
-            <router-link to="/#" style="text-decoration:none">
-              <div class="dropdown-item">
-                <div class="dropdown-header">Редактировать</div>
-              </div>
-            </router-link>
-            <div class="lines"></div>
-            <div class="dropdown-item" @click="toggleModal">
-              <div class="dropdown-subheader">Удалить</div>
-            </div>
-          </div>
-        </div>
-        <div v-if="showModal" class="modal">
-          <div class="modal-content">
-            <p class="text-header">Удаление услуги</p>
-            <p class="modal-subtext">Вы действительно хотите удалить услугу<br><span>Стрижка?</span></p>
-            <div class="btn_container">
-              <button class="delete" @click="deleteService">Удалить</button>
-              <button class="exit" @click="toggleModal">Отмена</button>
-            </div>
-          </div>
-        </div>
+        <Kebab :buttons="buttons" :HasDelete="true" :HasDeviders="true" :DeleteFunction="'toggleModal'"/>
       </div>
       <div class="line"></div>
       <div class="card-bottom">
@@ -61,31 +32,43 @@
         </div>
       </div>
     </div>
+    <div class="overlay" v-if="showModal"></div>
+    <div v-if="showModal" class="modal">
+          <div class="modal-content">
+            <p class="text-header">Удаление услуги</p>
+            <p class="modal-subtext">Вы действительно хотите удалить услугу<br><span>Стрижка?</span></p>
+            <div class="btn_container">
+              <button class="delete" @click="deleteService">Удалить</button>
+              <button class="exit" @click="toggleModal">Отмена</button>
+            </div>
+          </div>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Kebab from '../components/DropdownKebab.vue';
 
 export default {
+  components: { Kebab },
   data() {
     return {
       showDropdown: false,
       showModal: false,
+      buttons:[
+        {btnname:'Редактировать',
+        svg:'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256" width="100px" height="100px"><g fill="#535c69" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M18,2l-2.41406,2.41406l4,4l2.41406,-2.41406zM14.07617,5.92383l-11.07617,11.07617v4h4l11.07617,-11.07617z"></path></g></g></svg>',
+        action:'none',},
+      ],
     };
   },
 
   props: ['usluga'], // Принимаем объект Usluga через пропс
 
   methods: {
-    toggleDropdown() {
-      this.showDropdown = !this.showDropdown;
-    },
     toggleModal() { // добавлено
       this.showModal = !this.showModal;
-    },
-    closeDropdown() {
-      this.showDropdown = false;
     },
     deleteService() {
     const serviceId = this.usluga.id; // Получаем идентификатор услуги
@@ -138,6 +121,12 @@ export default {
     height: auto;
     background-color: #FFF;
     border-radius: 5px;
+    transition: all .2s ease;
+  }
+
+  .service_card:hover{
+    filter: drop-shadow(0 0 10px rgb(228, 228, 228));
+    cursor: pointer;
   }
   .card-container{
     padding: 20px;
@@ -224,6 +213,7 @@ export default {
     cursor: pointer;
   }
   .img_head{
+    background-color: #f8f8f8;
     width: 80px;
     height: 80px;
     object-fit: cover;

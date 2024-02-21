@@ -3,27 +3,10 @@
     <div class="card-container">
       <div class="card-header">
         <div class="main">
-          <p class="text-header">BarberShop NoMad Topайгыр</p> <!-- Отображаем название услуги -->
+          <p class="text-header">{{ Name || 'Название не указано' }}</p> <!-- Отображаем название услуги -->
         </div>
-        <div class="dropdown-container">
-          <div class="dropdown_btn">
-            <button @click="toggleDropdown" class="dropdown" :style="{ 'background-color': showDropdown ? '#F3F6F8' : 'transparent' }">
-              <img v-if="!showDropdown" src="../../static/img/kebab.svg" alt="Open">
-              <img v-if="showDropdown" src="../../static/img/x.svg" alt="Close">
-            </button>
-          </div>
-          <div v-if="showDropdown" class="dropdown-menu">
-            <router-link to="/#" style="text-decoration:none">
-              <div class="dropdown-item">
-                <div class="dropdown-header">Редактировать</div>
-              </div>
-            </router-link>
-            <div class="lines"></div>
-            <div class="dropdown-item" @click="toggleModal">
-              <div class="dropdown-subheader">Удалить</div>
-            </div>
-          </div>
-          <div v-if="showModal" class="modal">
+        <Kebab :buttons="buttons" :HasDelete="true" :HasDeviders="true"/>
+        <div v-if="showModal" class="modal">
             <div class="modal-content">
               <p class="text-header">Удаление услуги</p>
               <p class="modal-subtext">Вы действительно хотите удалить услугу<br><span>Стрижка?</span></p>
@@ -33,31 +16,30 @@
               </div>
             </div>
           </div>
-        </div>
       </div>
       <div class="card_img">
         <img src="../../static/img/Card.png" style="width:100%" alt="">
       </div>
       <div class="cards">
         <div class="text-container">
-          <p class="text-header">Академика Сатпаева 251/1</p>
+          <p class="text-header">{{ Address || 'Адрес не указан' }}</p>
           <p class="text-subheader">Адрес</p>
         </div>
         <div class="cards">
           <div class="text-container">
-            <p class="text-header">+7  707 877-35-78</p>
+            <p class="text-header">{{ Phone || 'Телефон не указан' }}</p>
             <p class="text-subheader">Телефон</p>
           </div>
         </div>
         <div class="cards">
           <div class="text-container">
-            <p class="text-header">с 10:00 до 22:00</p>
+            <p class="text-header">{{ WorkTime || 'Часы не указаны'}}</p>
             <p class="text-subheader">Рабочие часы</p>
           </div>
         </div>
         <div class="cards">
           <div class="text-container">
-            <p class="text-header">2x2</p>
+            <p class="text-header">{{ WorkDays || 'График не указан' }}</p>
             <p class="text-subheader">График работы</p>
           </div>
         </div>
@@ -67,31 +49,26 @@
 </template>
 
 <script>
+import Kebab from '../components/DropdownKebab.vue';
+
 export default {
+  props:['Name', 'Address', 'Phone', 'WorkTime', 'WorkDays'],
+  components: { Kebab },
   data() {
     return {
-      showDropdown: false,
-      showModal: false,
+      buttons:[
+        {btnname:'Редактировать', svg:'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256" width="100px" height="100px"><g fill="#535c69" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M18,2l-2.41406,2.41406l4,4l2.41406,-2.41406zM14.07617,5.92383l-11.07617,11.07617v4h4l11.07617,-11.07617z"></path></g></g></svg>'},
+      ],
     };
   },
-
-  methods: {
-    toggleDropdown() {
-      this.showDropdown = !this.showDropdown;
-    },
-    toggleModal() { // добавлено
-      this.showModal = !this.showModal;
-    },
-  }
 };
 </script>
 
 
 <style scoped>
   .text-header{
-    font-family: TT Norms;
+    font-family: 'TT Norms Medium';
     font-size: 16px;
-    font-weight: bold;
     line-height: 18px;
     letter-spacing: 0em;
     color: #535C69;
@@ -99,9 +76,8 @@ export default {
     text-align: left;
   }
   .text-subheader{
-    font-family: TT Norms;
+    font-family: 'TT Norms Medium';
     font-size: 10px;
-    font-weight: bold;
     line-height: 12px;
     letter-spacing: 0em;
     color: #AFB6C1;
@@ -130,85 +106,7 @@ export default {
     width: 100%;
     align-items: center;
   }
-  .dropdown-container{
-    position: relative;
-    display: inline-block;
-  }
-  .dropdown{
-    color: #AFB6C1;
-    font-size: 15px;
-    font-weight: bold;
-    background-color: white;
-    width: 1em;
-    height: 2em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 3px;
-    transition: all .2s ease;
-    border: 1px solid white;
-  }
-  .dropdown:hover{
-    border: 1px solid #535C69;
-  }
-  .dropdown-menu {
-    position: absolute;
-    right: 0;
-    width: 15vh;
-    height: auto;
-    background-color: #FFFFFF;
-    border: 1px solid #E4EAEF;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-    text-align: left;
-  }
   
-  .dropdown-item{
-    padding: 10px;
-    font-family: TT Norms;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 13px;
-    letter-spacing: 0em;
-    color: #AFB6C1;
-    transition: all .2s ease;
-  }
-
-  .dropdown-item:hover {
-    color: #535C69;
-    cursor: pointer;
-  }
-  .lines{
-    width: 100%;
-    height: 1px;
-    background-color: #E4EAEF;
-  }
-  .dropdown_btn{
-    display: flex;
-    justify-content: right;
-  }
-  .modal{
-    width: 36vw;
-    height: auto;
-    position: absolute;
-    padding: 40px;
-    border-radius: 10px;
-    gap: 10px;
-    left: 500px;
-    top: 500px;
-    background: white;
-  }
-  .delete{
-    color: #F97F7F;
-    background-color: rgba(249, 127, 127, 0.2);
-    font-weight: bold;
-  }
-  .delete:hover{
-    background: #F97F7F;
-    color: #FFFFFF;
-  }
   .exit{
     color: #535C69;
     border: 1px solid #DDE1E5;
