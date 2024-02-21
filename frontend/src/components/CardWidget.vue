@@ -109,7 +109,7 @@ export default {
     text-align: left;
   }
   .service_card{
-    width: 81.5vw;
+    width: 100%;
     height: auto;
     background-color: #FFF;
     border-radius: 5px;
@@ -129,10 +129,8 @@ export default {
     width: 100%;
   }
   .dropdown-container{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    justify-content: center;
+    position: relative;
+    display: inline-block;
   }
   .dropdown{
     color: #AFB6C1;
@@ -145,12 +143,15 @@ export default {
     align-items: center;
     justify-content: center;
     border-radius: 3px;
-    transition: background-color 0.3s ease;
+    transition: all .2s ease;
+    border: 1px solid white;
   }
   .dropdown:hover{
     border: 1px solid #535C69;
   }
   .dropdown-menu {
+    position: absolute;
+    right: 0;
     width: 15vh;
     height: auto;
     background-color: #FFFFFF;
@@ -162,35 +163,20 @@ export default {
     text-align: left;
   }
   
-  .dropdown-item {
+  .dropdown-item{
     padding: 10px;
+    font-family: TT Norms;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 13px;
+    letter-spacing: 0em;
+    color: #AFB6C1;
+    transition: all .2s ease;
+  }
+
+  .dropdown-item:hover {
+    color: #535C69;
     cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-  
-  .dropdown-header{
-    font-family: TT Norms;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 13px;
-    letter-spacing: 0em;
-    color: #AFB6C1;
-  }
-  .dropdown-header:hover {
-    font-weight: bold;
-    color: #535C69;
-  }
-  .dropdown-subheader{
-    font-family: TT Norms;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 13px;
-    letter-spacing: 0em;
-    color: #AFB6C1;
-  }
-  .dropdown-subheader:hover {
-    font-weight: bold;
-    color: #535C69;
   }
   .lines{
     width: 100%;

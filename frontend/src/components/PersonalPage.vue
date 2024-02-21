@@ -109,7 +109,6 @@
     display: grid;
     gap: 20px;
     grid-template-columns: repeat(4, 1fr);
-    margin-right: 50px;
   }
   .add {
     text-decoration-line: initial;
@@ -127,7 +126,6 @@
     transition: 0.3s ease;
     padding: 20px;
     border-radius: 5px;
-    height: 265px;
   }
   .svg-plus{
     display: flex;

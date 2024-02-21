@@ -23,11 +23,9 @@
             </button>
           </div>
           <div v-if="showDropdown" class="dropdown-menu">
-            <router-link to="/#" style="text-decoration:none">
-              <div class="dropdown-item">
+            <div class="dropdown-item">
                 <div class="dropdown-header">Редактировать</div>
-              </div>
-            </router-link>
+            </div>
             <div class="lines"></div>
             <div class="dropdown-item" @click="toggleModal">
               <div class="dropdown-subheader">Удалить</div>
@@ -160,7 +158,6 @@ export default {
   }
   .card-container{
     padding: 20px;
-    padding-bottom: 45px;
   }
   .card-header{
     display: flex;
@@ -171,9 +168,8 @@ export default {
     width: 100%;
   }
   .dropdown-container{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    position: relative;
+    display: inline-block;
   }
   .dropdown{
     color: #AFB6C1;
@@ -186,12 +182,15 @@ export default {
     align-items: center;
     justify-content: center;
     border-radius: 3px;
-    transition: background-color 0.3s ease;
+    transition: all .2s ease;
+    border: 1px solid white;
   }
   .dropdown:hover{
     border: 1px solid #535C69;
   }
   .dropdown-menu {
+    position: absolute;
+    right: 0;
     width: 15vh;
     height: auto;
     background-color: #FFFFFF;
@@ -203,35 +202,20 @@ export default {
     text-align: left;
   }
   
-  .dropdown-item {
+  .dropdown-item{
     padding: 10px;
+    font-family: TT Norms;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 13px;
+    letter-spacing: 0em;
+    color: #AFB6C1;
+    transition: all .2s ease;
+  }
+
+  .dropdown-item:hover {
+    color: #535C69;
     cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-  
-  .dropdown-header{
-    font-family: TT Norms;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 13px;
-    letter-spacing: 0em;
-    color: #AFB6C1;
-  }
-  .dropdown-header:hover {
-    font-weight: bold;
-    color: #535C69;
-  }
-  .dropdown-subheader{
-    font-family: TT Norms;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 13px;
-    letter-spacing: 0em;
-    color: #AFB6C1;
-  }
-  .dropdown-subheader:hover {
-    font-weight: bold;
-    color: #535C69;
   }
   .img_head{
     width: 80px;

@@ -66,6 +66,7 @@ export default {
 .lk{
     width: 100%;
     height: 80vh;
+    padding: 20px 20px 20px 0;
 }
 
   .overlay {

@@ -131,9 +131,9 @@ img{
     width: 16px;
 }
 .nav{
-    margin: 20px 20px 20px 0px;
+    margin-bottom: 20px;
     height: 4vw;
-    width: 97%;
+    width: 100%;
     display: flex;
     background-color: #F3F6F8;
     align-items: center;
@@ -147,6 +147,7 @@ img{
     color:#D2D8DE;
     margin: 0;
     width: 15vw;
+    font-weight: bold;
 }
 
 .search input:focus{
