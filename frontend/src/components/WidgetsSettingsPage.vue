@@ -17,8 +17,7 @@
       <div :class="{'tab-link': true, 'active-tab': selectedTab === 'custom'}" @click="selectTab('custom')">Свой код</div>
     </div>
     <div class="card">
-      <div v-if="selectedTab === 'general'">
-        <div class="navigation">
+        <div class="navigation" v-if="selectedTab === 'general'">
           <div class="settings">
             <div class="forms">
               <div class="name-container">
@@ -111,7 +110,6 @@
                 <button @click="cancel" class="cancel-button">Отмена</button>
               </div>
             </div>
-          </div>
         </div>
       </div>
       <div v-if="selectedTab === 'design'">
@@ -146,40 +144,40 @@
                 <p class="header">Цветовой схема</p>
                 <div class="switch_container">
                   <p class="light">Светлая</p>
-                  <InputSwitchComponent v-model="switches.theme" style="margin-top: 5px;"/>
+                  <InputSwitchComponent v-model="switches.theme" @change="themechange" style="margin-top: 5px;"/>
                   <p class="dark">Тёмная</p>
                 </div>
               </div>
               <div class="color">
                 <p class="header">Основной</p>
-                <div class="rgb">
-                  <p class="rgb_color">govno</p>
-                  <div class="rgb_choise" @click="toggleSelection(1)"></div>
-                  <PalitraPage v-if="isCircleShown1" class="show"></PalitraPage>
+                <div class="rgb" @click="toggleSelection(1)">
+                  <p class="rgb_color">{{ widget.Main }}</p>
+                  <div class="rgb_choise" :style="{ backgroundColor: widget.Main }"></div>
+                  <PalitraPage v-if="isCircleShown1" class="show" @updateColor="color => handleColorUpdate(color, 1)"></PalitraPage>
                 </div>
               </div>
               <div class="color">
                 <p class="header">Фон виджета</p>
-                <div class="rgb">
-                  <p class="rgb_color">govno</p>
-                  <div class="rgb_choise" @click="toggleSelection(2)"></div>
-                  <PalitraPage v-if="isCircleShown2" class="show"></PalitraPage>
+                <div class="rgb" @click="toggleSelection(2)">
+                  <p class="rgb_color">{{ widget.Back }}</p>
+                  <div class="rgb_choise" :style="{ backgroundColor: widget.Back }"></div>
+                  <PalitraPage v-if="isCircleShown2" class="show" @updateColor="color => handleColorUpdate(color, 2)"></PalitraPage>
                 </div>
               </div>
               <div class="color">
                 <p class="header">Фон плашка</p>
-                <div class="rgb">
-                  <p class="rgb_color">govno</p>
-                  <div class="rgb_choise" @click="toggleSelection(3)"></div>
-                  <PalitraPage v-if="isCircleShown3" class="show"></PalitraPage>
+                <div class="rgb" @click="toggleSelection(3)">
+                  <p class="rgb_color">{{ widget.Plashka }}</p>
+                  <div class="rgb_choise" :style="{ backgroundColor: widget.Plashka }"></div>
+                  <PalitraPage v-if="isCircleShown3" class="show" @updateColor="color => handleColorUpdate(color, 3)"></PalitraPage>
                 </div>
               </div>
               <div class="color">
                 <p class="header">Цвет текста</p>
-                <div class="rgb">
-                  <p class="rgb_color">govno</p>
-                  <div class="rgb_choise" @click="toggleSelection(4)"></div>
-                  <PalitraPage v-if="isCircleShown4" class="show"></PalitraPage>
+                <div class="rgb" @click="toggleSelection(4)">
+                  <p class="rgb_color">{{ widget.Text }}</p>
+                  <div class="rgb_choise" :style="{ backgroundColor: widget.Text }"></div>
+                  <PalitraPage v-if="isCircleShown4" class="show" @updateColor="color => handleColorUpdate(color, 4)"></PalitraPage>
                 </div>
               </div>
             </div>
@@ -260,9 +258,9 @@
       <div v-if="selectedTab === 'custom'">
         <!-- Содержимое для своего кода -->
       </div>
-      <WidgetApp v-bind:theme="switches.theme" :MainColor="''" :WidgetColor="'#6266EA'" :BakcgroundColor="''" :TextColor="''" @colorChanged="handleColorChanged"/>
+      <WidgetApp v-bind:theme="switches.theme" :MainColor="widget.Main" :WidgetColor="widget.Back" :BakcgroundColor="widget.Plashka" :TextColor="widget.Text"/>
     </div>
-   
+    
   </div>
 </template>
   
@@ -291,6 +289,13 @@ export default {
       isCircleShown2: false, 
       isCircleShown3: false, 
       isCircleShown4: false,
+
+      widget:{
+        Main: '#6266EA',
+        Back: '#FFFFFF',
+        Plashka: '#FAFAFA',
+        Text: '#535C69',
+      }
     };
   },
   mounted() {
@@ -298,6 +303,32 @@ export default {
     this.$refs.tabs.querySelectorAll('.tab-link')[0].click();
   },
   methods: {
+    async handleColorUpdate(color, additionalArgument) {
+      switch (additionalArgument) {
+        case 1: { this.widget.Main = color; break; }
+        case 2: { this.widget.Back = color; break; }
+        case 3: { this.widget.Plashka = color; break; }
+        case 4: { this.widget.Text = color; break; }
+      }
+      setTimeout(() => {
+        this.closeall();
+      }, 0);
+    },
+
+    themechange(){
+      if (this.switches.theme) {
+        this.widget.Main = '#FFC25A'
+        this.widget.Back = '#222433'
+        this.widget.Plashka = '#1A1B27'
+        this.widget.Text = '#F5F5F5'
+      }else{
+        this.widget.Main = '#6266EA'
+        this.widget.Back = '#FFFFFF'
+        this.widget.Plashka = '#FAFAFA'
+        this.widget.Text = '#535C69'
+      }
+    },
+
     uploadImage(event) {
       // Find the associated file input element and trigger a click event
       const fileInput = event.target.querySelector('input[type="file"]');
@@ -317,13 +348,12 @@ export default {
       }
     },
     toggleSelection(num) {
-    console.log(num)
-    switch(num){
-      case 1:{ this.isCircleShown1=!this.isCircleShown1;this.isCircleShown2=false;this.isCircleShown3=false;this.isCircleShown4=false;break}
-      case 2:{ this.isCircleShown2=!this.isCircleShown2;this.isCircleShown1=false;this.isCircleShown3=false;this.isCircleShown4=false;break}
-      case 3:{ this.isCircleShown3=!this.isCircleShown3;this.isCircleShown2=false;this.isCircleShown1=false;this.isCircleShown4=false;break}
-      case 4:{ this.isCircleShown4=!this.isCircleShown4;this.isCircleShown2=false;this.isCircleShown3=false;this.isCircleShown1=false;break}
-    }
+      switch(num){
+        case 1:{ this.isCircleShown1=true;this.isCircleShown2=false;this.isCircleShown3=false;this.isCircleShown4=false;break}
+        case 2:{ this.isCircleShown2=true;this.isCircleShown1=false;this.isCircleShown3=false;this.isCircleShown4=false;break}
+        case 3:{ this.isCircleShown3=true;this.isCircleShown2=false;this.isCircleShown1=false;this.isCircleShown4=false;break}
+        case 4:{ this.isCircleShown4=true;this.isCircleShown2=false;this.isCircleShown3=false;this.isCircleShown1=false;break}
+      }
     },
     closeall(){
       this.isCircleShown1=false;
@@ -354,7 +384,9 @@ export default {
         choice.querySelector('.circle_bottom').style.borderColor = '#6266EA';
       }
     },
+    
   },
+  
 };
 </script>
   
@@ -398,11 +430,12 @@ export default {
     display: flex;
     background-color:#FAFAFA;
     gap: 40px;
+    margin-right: 20px;
   }
   
   .settings {
+    width: 100%;
     text-align: center;
-    width: 55%;
     height: auto;
     background-color: #FFFFFF;
     padding: 20px;
@@ -544,6 +577,11 @@ export default {
     background: url(../../static/img/plus.svg) center center/cover no-repeat;
     background-size: 25%;
   }
+
+  .img_plus:hover{
+    cursor: pointer;
+    background-color: rgb(248, 248, 248);
+  }
   
   .img_plus img {
     max-width: 80px;
@@ -558,8 +596,8 @@ export default {
     margin-right: 20px;
   }
   .rgb{
-    width: 65%;
     height: auto;
+    width: 120px;
     border-radius: 3px;
     padding: 5px 10px;
     border: 1px solid #D2D8DE;
@@ -568,6 +606,12 @@ export default {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    position: relative;
+  }
+
+  .rgb:hover{
+    cursor: pointer;
+    background-color: rgb(248, 248, 248);
   }
   .rgb_color{
     margin: 0;
@@ -677,8 +721,9 @@ export default {
     border-radius: 100px;
   }
   .card{
+    display: flex;
+    justify-content: start;
     background: #FAFAFA;
-    padding: 10px;
     margin: 10px 0;
   }
   .tab{

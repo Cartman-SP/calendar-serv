@@ -209,23 +209,6 @@ export default {
       colortheme: 'lightmode',
     };
   },
-  mounted() {
-    if (this.MainColor) {
-      this.$el.style.setProperty('--cm', this.MainColor);
-      // Изменяем прозрачность и записываем в --cmlight
-      const transparentColor = this.changeTransparency(this.MainColor, 0.2); // Здесь 0.2 - это 20% прозрачности, вы можете изменить по вашему усмотрению
-      this.$el.style.setProperty('--cmlight', transparentColor);
-    }
-    if (this.WidgetColor) {
-      this.$el.style.setProperty('--cw', this.WidgetColor);
-    }
-    if (this.BakcgroundColor) {
-      this.$el.style.setProperty('--cb', this.BakcgroundColor);
-    }
-    if (this.TextColor) {
-      this.$el.style.setProperty('--ct', this.TextColor);
-    }
-  },
   methods: {
     toggleSelection() {
       this.isCircleShown = !this.isCircleShown;
@@ -238,6 +221,22 @@ export default {
         this.colortheme = 'darkmode';
       } else {
         this.colortheme = 'lightmode';
+      }
+
+      if (this.MainColor) {
+        this.$el.style.setProperty('--cm', this.MainColor);
+        // Изменяем прозрачность и записываем в --cmlight
+        const transparentColor = this.changeTransparency(this.MainColor, 0.2); // Здесь 0.2 - это 20% прозрачности, вы можете изменить по вашему усмотрению
+        this.$el.style.setProperty('--cmlight', transparentColor);
+      }
+      if (this.WidgetColor) {
+        this.$el.style.setProperty('--cw', this.WidgetColor);
+      }
+      if (this.BakcgroundColor) {
+        this.$el.style.setProperty('--cb', this.BakcgroundColor);
+      }
+      if (this.TextColor) {
+        this.$el.style.setProperty('--ct', this.TextColor);
       }
     },
     changeTransparency(hex, alpha) {
