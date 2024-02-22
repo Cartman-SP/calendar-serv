@@ -117,7 +117,7 @@
     justify-content: center;
     display: flex;
     height: 100%;
-    width: 20vw;
+    width: 100%;
     gap: 10px;
     color: #6266EA;
     border-style: dashed;

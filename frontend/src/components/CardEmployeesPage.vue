@@ -140,10 +140,16 @@ export default {
     margin: 20px 0;
   }
   .service_card{
-    width: 19vw;
+    width: 100%;
     height: auto;
     background-color: #FFF;
     border-radius: 5px;
+    transition: all .2s ease;
+  }
+
+  .service_card:hover{
+    filter: drop-shadow(0 0 10px rgb(228, 228, 228));
+    cursor: pointer;
   }
   .card-container{
     padding: 20px;
@@ -155,56 +161,6 @@ export default {
     display: flex;
     gap: 20px;
     width: 100%;
-  }
-  .dropdown-container{
-    position: relative;
-    display: inline-block;
-  }
-  .dropdown{
-    color: #AFB6C1;
-    font-size: 15px;
-    font-weight: bold;
-    background-color: white;
-    width: 1em;
-    height: 2em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 3px;
-    transition: all .2s ease;
-    border: 1px solid white;
-  }
-  .dropdown:hover{
-    border: 1px solid #535C69;
-  }
-  .dropdown-menu {
-    position: absolute;
-    right: 0;
-    width: 15vh;
-    height: auto;
-    background-color: #FFFFFF;
-    border: 1px solid #E4EAEF;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-    text-align: left;
-  }
-  
-  .dropdown-item{
-    padding: 10px;
-    font-family: TT Norms;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 13px;
-    letter-spacing: 0em;
-    color: #AFB6C1;
-    transition: all .2s ease;
-  }
-
-  .dropdown-item:hover {
-    color: #535C69;
-    cursor: pointer;
   }
   
   .img_head{
