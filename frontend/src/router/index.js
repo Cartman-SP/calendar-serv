@@ -21,6 +21,7 @@ import ProjectEditPage from '../components/ProjectEditPage.vue';
 import ProjectGatesPage from '../components/ProjectGatesPage.vue';
 import store from '../store';
 
+
 const routes = [
  {
    path: '/',

@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="content">
-      <CardProject/>
+      <CardProject v-for="p in allPProjects" :key="p" :Name="p.name" :Id="p.id" :Services="p.services" :Filials="p.filials" :Employees="p.employees" :Role="p.position" :Color="p.color" :EditDate="p.editDate" :EditTime="p.editTime" :CurrentProject="p.currentProject"/>
       <router-link to="/lk/project/edit" class="add">
         <div class="svg-plus">
           <svg width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="0" xmlns="http://www.w3.org/2000/svg">
@@ -19,7 +19,36 @@ import CardProject from '../components/CardProject.vue';
 
 export default {
   components: { CardProject },
-
+  data() {
+        return {
+            allPProjects:[ //подгружается в скролл со всеми проектами (массив словарей)
+              {
+                name: 'Аренда роликов',
+                id: '123345',
+                services: 3,
+                filials: 5,
+                employees: 34,
+                position: 'Владелец',
+                color: '#28CCF0',
+                editDate: '23.02.24',
+                editTime: '12:55',
+                currentProject: false,
+              },
+              {
+                name: 'Аренда Даниила для бекенда',
+                id: '56443345',
+                services: 12,
+                filials: 2,
+                employees: 164,
+                position: 'Администратор',
+                color: '#28CCF0',
+                editDate: '23.02.24',
+                editTime: '14:39',
+                currentProject: true,
+              },
+            ],
+        };
+  }
 }
 </script>
 

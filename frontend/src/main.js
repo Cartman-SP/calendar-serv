@@ -16,6 +16,7 @@ import InputSwitch from 'primevue/inputswitch';
 import Breadcrumb from 'primevue/breadcrumb';
 import TabView from 'primevue/tabview';
 import TabPanel from 'primevue/tabpanel';
+import Tooltip from 'primevue/tooltip';
 
 
 
@@ -33,3 +34,4 @@ app.component('InputSwitchComponent', InputSwitch);
 app.component('BreadcrumbComponent', Breadcrumb);
 app.component('TabViewComponent', TabView);
 app.component('TabPanelComponent', TabPanel);
+app.directive('tooltip', Tooltip);

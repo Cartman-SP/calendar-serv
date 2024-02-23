@@ -13,36 +13,60 @@
                   </a>
                   <div  v-if="showGatesNotificationPanel" class="gates-panel">
                     <div>
-                      <p class="teg_head">Быстрое проектов</p>
+                      <div class="header">
+                        <p>Список проектов</p>
+                        <Tip :Tip="'Название компании — это название проекта, \n в проекте собраны: услуги, сотрудники и филиал'"/>
+                      </div>
                       <div class="wrapper">
-                        <div class="teg">
-                          <div class="teg_svg">
+                        <div class="teg" style="justify-content: start;">
+                          <div class="teg_svg" :style="{ 'background-color': currentProject.color }">
                             <svg width="16" height="16" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path d="M2 0C0.895431 0 0 0.895431 0 2V15C0 16.1046 0.89543 17 2 17H16C17.1046 17 18 16.1046 18 15V4C18 2.89543 17.1046 2 16 2H7C7 0.895431 6.10457 0 5 0H2Z" fill="white"/>
                             </svg>
                           </div>  
                           <div class="wrapper_name">
-                            <p class="wrapper_head">Барбершоп на Сатпаева</p>
-                            <p class="wrapper_subhead">ID 124568 (Владелец)</p>
+                            <p class="wrapper_head">{{ currentProject.name }}</p>
+                            <p class="wrapper_subhead">ID {{ currentProject.id }} ({{ currentProject.position }})</p>
                           </div>
                         </div>
                         <input type="search" placeholder="Найти проект">
-                        <div class="teg">
-                          <div class="avatar">
-                            <p class="avatar_text">АР</p>
-                          </div>
-                          <div class="wrapper_name">
-                            <p class="wrapper_descr">Аренда роликов</p>
-                            <p class="wrapper_subhead">ID 254987 (Владелец)</p>
+                        <div class="projects-container">
+                          <div class="teg" v-for="p in allPProjects" :key="p">
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                              <div class="avatar" :style="{ 'background-color': p.color }">
+                                <p class="avatar_text">{{ formatText(p.name) }}</p>
+                              </div>
+                              <div class="wrapper_name">
+                                <p class="wrapper_descr">{{ p.name }}</p>
+                                <p class="wrapper_subhead">ID {{ p.id }} ({{ p.position }})</p>
+                              </div>
+                            </div>
+                            <div class="actions">
+                              <svg id="edit" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256" width="16" height="16"><g fill="#535c69" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M18,2l-2.41406,2.41406l4,4l2.41406,-2.41406zM14.07617,5.92383l-11.07617,11.07617v4h4l11.07617,-11.07617z"></path></g></g></svg>
+                              <svg v-if="p.favourites" id="favourites" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M10.6058 5.56582C10.2353 5.56582 9.90972 5.32907 9.80795 4.98568L9.79389 4.93825C9.79217 4.93245 9.79039 4.92666 9.78853 4.9209L8.58284 1.17581C8.58284 1.17581 8.58284 1.17581 8.58284 1.17581C8.42542 0.686829 7.71354 0.670883 7.53272 1.15228C7.53272 1.15228 7.53272 1.15228 7.53272 1.15228L6.12378 4.90355C6.11727 4.92088 6.11139 4.93841 6.10614 4.95612L6.09737 4.98569C5.9956 5.32907 5.67002 5.56582 5.29955 5.56582H5.26541H1.35465C1.35465 5.56582 1.35465 5.56582 1.35465 5.56582C0.823384 5.56582 0.596976 6.21705 1.02095 6.52567C1.02095 6.52567 1.02095 6.52567 1.02095 6.52567L4.30306 8.91475C4.31602 8.92419 4.32927 8.93326 4.34279 8.94194L4.38432 8.96863C4.68453 9.16158 4.82098 9.51945 4.72186 9.8539L4.7017 9.92191C4.70035 9.92647 4.69895 9.93103 4.69751 9.93557L3.50178 13.7138C3.34596 14.2061 3.93699 14.6015 4.3609 14.2885L7.42053 12.0294C7.42956 12.0227 7.43844 12.0158 7.44717 12.0088L7.46861 11.9916C7.77632 11.7444 8.22329 11.7444 8.531 11.9916L8.55244 12.0088C8.56118 12.0158 8.57006 12.0227 8.57908 12.0294L11.6387 14.2885C12.0626 14.6015 12.6536 14.2061 12.4978 13.7138L11.3021 9.93557C11.3007 9.93103 11.2993 9.92648 11.2979 9.92191L11.2778 9.85391C11.1786 9.51945 11.3151 9.16158 11.6153 8.96863L11.6568 8.94194C11.6703 8.93326 11.6836 8.92419 11.6966 8.91475L14.9787 6.52567C14.9787 6.52567 14.9787 6.52567 14.9787 6.52567C15.4026 6.21705 15.1762 5.56582 14.645 5.56582H10.6399H10.6058Z" fill="#F7D37D"/>
+                              </svg>
+                              <svg v-else id="favourites" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M10.6058 5.56582C10.2353 5.56582 9.90972 5.32907 9.80795 4.98568L9.79389 4.93825C9.79217 4.93245 9.79039 4.92666 9.78853 4.9209L8.58284 1.17581C8.58284 1.17581 8.58284 1.17581 8.58284 1.17581C8.42542 0.686829 7.71354 0.670883 7.53272 1.15228C7.53272 1.15228 7.53272 1.15228 7.53272 1.15228L6.12378 4.90355C6.11727 4.92088 6.11139 4.93841 6.10614 4.95612L6.09737 4.98569C5.9956 5.32907 5.67002 5.56582 5.29955 5.56582H5.26541H1.35465C1.35465 5.56582 1.35465 5.56582 1.35465 5.56582C0.823384 5.56582 0.596976 6.21705 1.02095 6.52567C1.02095 6.52567 1.02095 6.52567 1.02095 6.52567L4.30306 8.91475C4.31602 8.92419 4.32927 8.93326 4.34279 8.94194L4.38432 8.96863C4.68453 9.16158 4.82098 9.51945 4.72186 9.8539L4.7017 9.92191C4.70035 9.92647 4.69895 9.93103 4.69751 9.93557L3.50178 13.7138C3.34596 14.2061 3.93699 14.6015 4.3609 14.2885L7.42053 12.0294C7.42956 12.0227 7.43844 12.0158 7.44717 12.0088L7.46861 11.9916C7.77632 11.7444 8.22329 11.7444 8.531 11.9916L8.55244 12.0088C8.56118 12.0158 8.57006 12.0227 8.57908 12.0294L11.6387 14.2885C12.0626 14.6015 12.6536 14.2061 12.4978 13.7138L11.3021 9.93557C11.3007 9.93103 11.2993 9.92648 11.2979 9.92191L11.2778 9.85391C11.1786 9.51945 11.3151 9.16158 11.6153 8.96863L11.6568 8.94194C11.6703 8.93326 11.6836 8.92419 11.6966 8.91475L14.9787 6.52567C14.9787 6.52567 14.9787 6.52567 14.9787 6.52567C15.4026 6.21705 15.1762 5.56582 14.645 5.56582H10.6399H10.6058Z" fill="#AFB6C1"/>
+                              </svg>
+                            </div>
                           </div>
                         </div>
                       </div>
-                      <router-link to="/lk/project" style="text-decoration:none">
+                      <router-link to="/lk/project" style="text-decoration:none; width: fit-content; margin: 15px 0 0 0; height: fit-content;">
                         <div class="bottom">
-                          <svg width="14" height="14" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M2 0C0.895431 0 0 0.895431 0 2V15C0 16.1046 0.89543 17 2 17H16C17.1046 17 18 16.1046 18 15V4C18 2.89543 17.1046 2 16 2H7C7 0.895431 6.10457 0 5 0H2Z" fill="#AFB6C1"/>
+                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g opacity="0.6" clip-path="url(#clip0_4163_7512)">
+                            <path d="M13.8366 6.52116C13.6239 6.17809 13.2479 5.97301 12.8309 5.97301H3.54598C3.08573 5.97301 2.66713 6.23245 2.47925 6.63417L0.0234375 11.7832C0.11615 12.1603 0.468308 12.4419 0.887757 12.4419H10.7662C11.1886 12.4419 11.5746 12.2031 11.7632 11.8252L13.8859 7.57069C14.0535 7.23402 14.0349 6.84171 13.8366 6.52116Z" fill="#7D8790" fill-opacity="0.6"/>
+                            <path d="M1.97975 5.84217C2.16742 5.44056 2.58612 5.18101 3.04648 5.18101H11.7898V4.06269C11.7898 3.60169 11.4009 3.22657 10.9229 3.22657H5.82476C5.81728 3.22657 5.81215 3.22464 5.81023 3.22326L4.89774 1.94739C4.73613 1.72106 4.46921 1.58594 4.18402 1.58594H0.867096C0.388901 1.58594 0 1.96106 0 2.42206V9.99287L1.97975 5.84217Z" fill="#7D8790" fill-opacity="0.6"/>
+                            </g>
+                            <defs>
+                            <clipPath id="clip0_4163_7512">
+                            <rect width="14" height="14" fill="white"/>
+                            </clipPath>
+                            </defs>
                           </svg>
-                          <p class="bottom_text">Всего проектов (0)</p>
+                          <p class="bottom_text">Всего проектов ({{ allPProjects.length }})</p>
                         </div>
                       </router-link>
                     </div>
@@ -56,7 +80,10 @@
                     </svg>
                   </a>
                   <div v-if="showPlusNotificationPanel" class="plus-panel">
-                    <p class="header">Быстрое создание</p>
+                    <div class="header">
+                      <p>Быстрое создание</p>
+                      <Tip :Tip="'Удобно, если заказ был принят по телефону \n и нужно добавить клиента в общую базу'"/>
+                    </div>
                     <router-link to="/lk/" style="text-decoration:none" id="drop-menu-href">
                       <div class="create">
                         <svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -154,10 +181,6 @@
                 </div>
             </div>
         </div>
-        <!-- Дополнительный блок для уведомлений -->
-        
-        
-        
     </div>
 </template>
 
@@ -174,6 +197,37 @@ export default {
             
             rate: '', //подгружается в название тарифа
             notifications: ['Подтвердите адрес электронной почты', 'popa', 'У вас новая заявка', 'У вас новая заявка', 'popa', 'popa', 'Ваша первая заявка', 'popa', 'popa'], //подгружается в уведомления
+
+            currentProject:{ //подгружается в текущий проект (словарь)
+              name: 'Саня пидорас',
+              id: '123456',
+              position: 'хуево сверстал',
+              color: '#F97F7F',
+            },
+
+            allPProjects:[ //подгружается в скролл со всеми проектами (массив словарей)
+              {
+                name: 'Аренда роликов',
+                id: '123345',
+                position: 'Владелец',
+                favourites: false,
+                color: '#28CCF0',
+              },
+              {
+                name: 'Гефест центр',
+                id: '456723',
+                position: 'Администратор',
+                favourites: true,
+                color: '#F7D37D',
+              },
+              {
+                name: 'Барбер',
+                id: '154906',
+                position: 'Сотрудник',
+                favourites: false,
+                color: '#6266EA',
+              },
+            ],
         };
     },
     methods: {
@@ -186,11 +240,44 @@ export default {
         showGatesNotifications() {
             this.showGatesNotificationPanel = !this.showGatesNotificationPanel;
         },
+        formatText(text) {
+          return text
+            .split(' ')
+            .map(word => (word.length > 1 ? word.charAt(0).toUpperCase() : word.toUpperCase()))
+            .join('');
+        },
     },
 };
 </script>
 
 <style scoped>
+.actions{
+  display: flex;
+  gap: 10px;
+}
+
+#edit path{
+  fill: #AFB6C1;
+}
+
+#edit, #favourites:hover{
+  cursor: pointer;
+}
+
+#edit:hover path{
+  fill: #535C69;
+}
+
+#favourites:hover path{
+  fill: #F7D37D;
+}
+.projects-container{
+  display: flex;
+  flex-direction: column;
+  min-height: 150px;
+  max-height: 200px;
+  overflow-y: scroll;
+}
 .chip{
   height: 10px;
   width: 10px;
@@ -398,18 +485,16 @@ a{
   cursor: pointer;
 }
 .wrapper_head{
-  font-family: TT Norms;
+  font-family: 'TT Norms Medium';
   font-size: 13px;
-  font-weight: bold;
   line-height: 15px;
   letter-spacing: 0em;
   text-align: left;
   color: #6266EA;
 }
 .wrapper_subhead{
-  font-family: TT Norms;
+  font-family: 'TT Norms Medium';
   font-size: 12px;
-  font-weight: 500;
   line-height: 14px;
   letter-spacing: 0.03em;
   text-align: left;
@@ -420,8 +505,16 @@ p{
 }
 .teg{
   display: flex;
+  justify-content: space-between;
   gap: 10px;
   align-items: center;
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.teg:hover{
+  background-color: #FAFAFA;
 }
 .teg_svg{
   display: flex;
@@ -434,18 +527,16 @@ p{
   width: 36px;
 }
 .wrapper_descr{
-  font-family: TT Norms;
+  font-family: 'TT Norms Medium';
   font-size: 13px;
-  font-weight: bold;
   line-height: 15px;
   letter-spacing: 0em;
   text-align: left;
   color: #535C69;
 }
 .teg_head{
-  font-family: TT Norms;
+  font-family: 'TT Norms Medium';
   font-size: 15px;
-  font-weight: bold;
   line-height: 15px;
   letter-spacing: 0em;
   text-align: left;
@@ -460,26 +551,26 @@ input{
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #28CCF0;
   border-radius: 30px;
 }
 .avatar_text{
-  width: 16px;
-  height: 16px;
-  font-weight: bold;
+  margin: -10px;
+  font-family: 'TT Norms Medium';
+  width: auto;
+  height: auto;
   color: #FFFFFF;
-  font-size: 13px;
+  font-size: 14px;
 }
 .gates-panel {
   filter: drop-shadow(0 0 10px rgb(228, 228, 228));
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: 330px;
-  height: 480px;
+  width: 370px;
+  height: auto;
   background-color: #ffffff;
   position: absolute;
-  right: -135px;
+  right: -155px;
   top: 50px;
   z-index: 99;
   border-radius: 5px;
@@ -491,14 +582,15 @@ input{
   flex-direction: column;
   gap: 15px;
   height: 100%;
-  padding: 10px;
 }
 .bottom{
+  width: 100%;
   display: flex;
   gap: 5px;
-  padding: 10px;
+  justify-content: start;
 }
-.bottom_text:hover{
+
+.bottom:hover p{
   color: #535C69;
 }
 .bottom_text{
