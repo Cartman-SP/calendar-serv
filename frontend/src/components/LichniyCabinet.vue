@@ -16,7 +16,8 @@
 import ModalPage from './ModalPage.vue';
 import axios from 'axios';
 import NavbarPage from './NavbarPage.vue';
-import SidebarPage from './SidebarPage.vue';
+import SidebarPage from './SidebarPage.vue';  
+
 export default {
     components: { NavbarPage, SidebarPage, ModalPage},
     data() {

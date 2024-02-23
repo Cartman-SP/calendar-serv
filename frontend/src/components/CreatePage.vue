@@ -13,6 +13,7 @@
         <!-- 1. Название услуги -->
         <label for="serviceName">Название услуги</label>
         <input type="text" id="serviceName" placeholder="Новая услуга" v-model="serviceName" :class="{ 'input-error': serviceNameError }">
+
   
         <!-- 2. Стоимость, Длительность -->
         <div class="cost-duration-container">
@@ -35,9 +36,9 @@
   
         <!-- 3. Обложка услуги -->
         <label for="serviceCover" class="file-label">Обложка услуги</label>
-        <label class="custom-file-upload">
-          <input type="file" accept="image/*" @change="handleFileUpload($event)"/>Нажмите, чтобы добавить
-        </label>
+          <label class="custom-file-upload">
+            <input type="file" accept="image/*" @change="handleFileUpload($event)"/>Нажмите, чтобы добавить
+          </label>
         <p class="text">до 5 МБ, PNG, JPG, JPEG</p>
   
         <!-- 4. Тип индивидуальности -->
@@ -276,11 +277,17 @@ export default {
       }
       this.serviceNameError = false;
 
-      if (typeof this.serviceCost === 'string' && this.serviceCost.trim() === '') {
-          this.serviceCostError = true;
-          return;
+      if (!this.serviceCost.trim()) {
+        this.serviceCostError = true;
+        return;
       }
       this.serviceCostError = false;
+
+      if (!this.serviceCover) {
+        this.serviceCoverError = true;
+        return;
+      }
+      this.serviceCoverError = false;
 
       const formData = new FormData();
       formData.append('name', this.serviceName);

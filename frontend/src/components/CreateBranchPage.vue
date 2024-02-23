@@ -14,13 +14,13 @@
         <div class="one-group">
           <div class="form-group">
             <label for="country">Страна</label>
-            <select id="country" v-model="selectedCountry">
-              <option value="" disabled selected style="display:none;">Выберите страну</option>
-              <option value="Russia">Россия</option>
-              <option value="Kazakhstan">Казахстан</option>
-              <option value="Belarus">Беларусь</option>
-              <option value="Ukraine">Украина</option>
-            </select>
+              <select id="country" v-model="selectedCountry">
+                <option value="" disabled selected style="display:none;">Выберите страну</option>
+                <option value="Russia">Россия</option>
+                <option value="Kazakhstan">Казахстан</option>
+                <option value="Belarus">Беларусь</option>
+                <option value="Ukraine">Украина</option>
+              </select>
           </div>
 
           <div class="form-group">
@@ -66,66 +66,17 @@
 
         <div class="form-group graffic">
           <label class="graffic_label">График работы</label>
-          <div class="schedule-buttons">
-            <button :class="{ 'active': isWeeklyActive }" @click="weeklySchedule">Недельный график</button>
-            <button :class="{ 'active': isShiftActive }" @click="shiftSchedule">Сменный график</button>
-          </div>
-        </div>
-        <div class="wrapper" v-show="isShiftActive && !showContinueButtonClicked">
-          <p class="wrapper_text">Сменный график (Рабочий день х Выходной день):</p>
           <div class="days">
-            <button 
-            class="btn_day"
-            :class="{ 'active': isDaySelected('1х1') }"
-            @click="toggleSelected('1х1')"
-          >
-            1х1
-          </button>
-          <button 
-            class="btn_day"
-            :class="{ 'active': isDaySelected('2х2') }"
-            @click="toggleSelected('2х2')"
-          >
-            2х2
-          </button>
-          <button 
-            class="btn_day"
-            :class="{ 'active': isDaySelected('3х3') }"
-            @click="toggleSelected('3х3')"
-          >
-            3х3
-          </button>
-          <button 
-            class="btn_day"
-            :class="{ 'active': isDaySelected('7х7') }"
-            @click="toggleSelected('7х7')"
-          >
-            7х7
-          </button>
-          <button 
-            class="btn_day"
-            :class="{ 'active': isDaySelected('1х2') }"
-            @click="toggleSelected('1х2')"
-          >
-            1х2
-          </button>
-          <button 
-            class="btn_day"
-            :class="{ 'active': isDaySelected('2х1') }"
-            @click="toggleSelected('2х1')"
-          >
-            2х1
-          </button>
-          <button 
-            class="btn_day"
-            :class="{ 'active': isDaySelected('15х15') }"
-            @click="toggleSelected('15х15')"
-          >
-            15х15
-          </button>
+            <button class="btn_day" :class="{ 'active': isBtnActive('Пн') }" @click="toggleBtn('Пн')">Пн</button>
+            <button class="btn_day" :class="{ 'active': isBtnActive('Вт') }" @click="toggleBtn('Вт')">Вт</button>
+            <button class="btn_day" :class="{ 'active': isBtnActive('Ср') }" @click="toggleBtn('Ср')">Ср</button>
+            <button class="btn_day" :class="{ 'active': isBtnActive('Чт') }" @click="toggleBtn('Чт')">Чт</button>
+            <button class="btn_day" :class="{ 'active': isBtnActive('Пт') }" @click="toggleBtn('Пт')">Пт</button>
+            <button class="btn_day" :class="{ 'active': isBtnActive('Сб') }" @click="toggleBtn('Сб')">Сб</button>
+            <button class="btn_day" :class="{ 'active': isBtnActive('Вс') }" @click="toggleBtn('Вс')">Вс</button>
           </div>
         </div>
-        <div class="form-btn">
+        <div class="form-btn">  
           <div class="continue-button-container">
             <div class="steps-progress">
               <div class="divider"></div>
@@ -136,7 +87,7 @@
           <button class="btn" @click="onContinueButtonClick" :disabled="isContinueDisabled">Продолжить</button>
         </div>
       </form>
-      <div v-else>
+      <div class="next-page" v-else>
         <div class="form-container">
           <div class="one-group">
             <div class="form-group">
@@ -159,73 +110,75 @@
               </select>
             </div>
           </div>
-          <label style="margin-bottom:10px">Выберите тип бизнеса</label>
-          <div class="types">
-            <div class="choice" @click="activateChoice">
-              <div class="circle">
-                <div class="second_circle"></div>
+          <div class="types-container">
+            <label style="margin-bottom:10px">Выберите тип бизнеса</label>
+            <div class="types">
+              <div class="choice" @click="activateChoice">
+                <div class="circle">
+                  <div class="second_circle"></div>
+                </div>
+                <p class="choice_text">Красота</p>
               </div>
-              <p class="choice_text">Красота</p>
-            </div>
-            <div class="choice" @click="activateChoice">
-              <div class="circle">
-                <div class="second_circle"></div>
+              <div class="choice" @click="activateChoice">
+                <div class="circle">
+                  <div class="second_circle"></div>
+                </div>
+                <p class="choice_text">Медицина</p>
               </div>
-              <p class="choice_text">Медицина</p>
-            </div>
-            <div class="choice" @click="activateChoice">
-              <div class="circle">
-                <div class="second_circle"></div>
+              <div class="choice" @click="activateChoice">
+                <div class="circle">
+                  <div class="second_circle"></div>
+                </div>
+                <p class="choice_text">Спорт</p>
               </div>
-              <p class="choice_text">Спорт</p>
-            </div>
-            <div class="choice" @click="activateChoice">
-              <div class="circle">
-                <div class="second_circle"></div>
+              <div class="choice" @click="activateChoice">
+                <div class="circle">
+                  <div class="second_circle"></div>
+                </div>
+                <p class="choice_text">Обучение</p>
               </div>
-              <p class="choice_text">Обучение</p>
-            </div>
-            <div class="choice" @click="activateChoice">
-              <div class="circle">
-                <div class="second_circle"></div>
+              <div class="choice" @click="activateChoice">
+                <div class="circle">
+                  <div class="second_circle"></div>
+                </div>
+                <p class="choice_text">Авто</p>
               </div>
-              <p class="choice_text">Авто</p>
-            </div>
-            <div class="choice" @click="activateChoice">
-              <div class="circle">
-                <div class="second_circle"></div>
+              <div class="choice" @click="activateChoice">
+                <div class="circle">
+                  <div class="second_circle"></div>
+                </div>
+                <p class="choice_text">Досуг и отдых</p>
               </div>
-              <p class="choice_text">Досуг и отдых</p>
-            </div>
-            <div class="choice" @click="activateChoice">
-              <div class="circle">
-                <div class="second_circle"></div>
+              <div class="choice" @click="activateChoice">
+                <div class="circle">
+                  <div class="second_circle"></div>
+                </div>
+                <p class="choice_text">Бытовые услуги</p>
               </div>
-              <p class="choice_text">Бытовые услуги</p>
-            </div>
-            <div class="choice" @click="activateChoice">
-              <div class="circle">
-                <div class="second_circle"></div>
+              <div class="choice" @click="activateChoice">
+                <div class="circle">
+                  <div class="second_circle"></div>
+                </div>
+                <p class="choice_text">Уход</p>
               </div>
-              <p class="choice_text">Уход</p>
-            </div>
-            <div class="choice" @click="activateChoice">
-              <div class="circle">
-                <div class="second_circle"></div>
+              <div class="choice" @click="activateChoice">
+                <div class="circle">
+                  <div class="second_circle"></div>
+                </div>
+                <p class="choice_text">Аренда</p>
               </div>
-              <p class="choice_text">Аренда</p>
-            </div>
-            <div class="choice" @click="activateChoice">
-              <div class="circle">
-                <div class="second_circle"></div>
+              <div class="choice" @click="activateChoice">
+                <div class="circle">
+                  <div class="second_circle"></div>
+                </div>
+                <p class="choice_text">Животные</p>
               </div>
-              <p class="choice_text">Животные</p>
-            </div>
-            <div class="choice" @click="activateChoice">
-              <div class="circle">
-                <div class="second_circle"></div>
+              <div class="choice" @click="activateChoice">
+                <div class="circle">
+                  <div class="second_circle"></div>
+                </div>
+                <p class="choice_text">Другое </p>
               </div>
-              <p class="choice_text">Другое </p>
             </div>
           </div>
           <div class="dropdown-container">
@@ -270,29 +223,20 @@
 export default {
   data() {
     return {
-      isWeeklyActive: false,
-      isShiftActive: false,
-      selectedDays: []
+      activeDays: [],
     }
   },
   methods: {
-    toggleSelected(day) {
-      if (this.selectedDays.includes(day)) {
-        this.selectedDays = this.selectedDays.filter(item => item !== day);
+    toggleBtn(day) {
+      const index = this.activeDays.indexOf(day);
+      if (index === -1) {
+        this.activeDays.push(day);
       } else {
-        this.selectedDays.push(day);
+        this.activeDays.splice(index, 1);
       }
     },
-    isDaySelected(day) {
-      return this.selectedDays.includes(day);
-    },
-    weeklySchedule() {
-      this.isWeeklyActive = true;
-      this.isShiftActive = false;
-    },
-    shiftSchedule() {
-      this.isShiftActive = true;
-      this.isWeeklyActive = false;
+    isBtnActive(day) {
+      return this.activeDays.includes(day);
     },
     onContinueButtonClick() {
       if (!this.isContinueDisabled) {
@@ -560,6 +504,9 @@ export default {
     justify-content: space-between;
   }
   .form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     width: 100%;
     box-sizing: border-box;
   }
@@ -590,7 +537,6 @@ export default {
     color: #D2D8DE;
     border: none;
     background-color: #F3F5F6;
-    margin-bottom: 20px;
   }
   .types{
     display: flex;
@@ -700,5 +646,4 @@ export default {
     border-color: #6266EA;
     color: #6266EA;
   }
-  
 </style>
