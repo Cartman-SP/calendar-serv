@@ -141,7 +141,7 @@ export default {
   }
   .service_card{
     width: 100%;
-    height: auto;
+    height: 100%;
     background-color: #FFF;
     border-radius: 5px;
     transition: all .2s ease;

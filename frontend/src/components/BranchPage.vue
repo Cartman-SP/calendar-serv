@@ -1,7 +1,19 @@
 <template>
     <div class="main">
-      <CardBranch/>
-      <div class="branch">
+      <div v-if="filials.length > 0" class="filials">
+        <div v-for="filial in filials" :key="filial.id">
+          <CardBranch :FilialData="filial"/>
+        </div>
+        <router-link to="/lk/branch/createbranch" class="add">
+          <div class="svg-plus">
+            <svg width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="0" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9.00006 11V17H11.0001V11H17V9H11.0001V3H9.00006V9H3V11H9.00006Z"/>
+            </svg>            
+          </div>
+          <p>Добавить филиал</p>
+        </router-link>
+      </div>
+      <div v-else class="branch">
         <img src="../../static/img/branch.png" alt="" class="img_branch">
         <p class="header">Здесь будет ваш филиал. Будет же?</p>
         <p class="subheader">Осталось только создать виджет, выбрать его оформление и разместить его на сайте или в социальных сетях. После чего ваши клиенты смогут записываться к вам онлайн.</p>
@@ -17,13 +29,47 @@ export default {
   components: { CardBranch },
     data() {
       return{
-  
+        filials:[
+          {
+            name: 'хуй',
+            adress: 'пизда',
+            phone: 'жопа',
+            workTime: '123123',
+            workDays: '234',
+          }
+        ]
       };
     }
   }
   </script>
   
   <style scoped>
+  .filials{
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .add {
+  text-decoration-line: initial;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  display: flex;
+  height: 100%;
+  min-height: 250px;
+  gap: 10px;
+  color: #6266EA;
+  border-style: dashed;
+  border-width: 2px;
+  border-color: #D9D9D9;
+  transition: 0.3s ease;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.add:hover{
+  background: #EFEFFF;
+}
   .navigation{
     display: flex;
     background-color:#FAFAFA;
