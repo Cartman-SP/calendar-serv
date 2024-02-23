@@ -106,6 +106,7 @@ export default {
   justify-content: center;
   display: flex;
   height: 100%;
+  min-height: 250px;
   gap: 10px;
   color: #6266EA;
   border-style: dashed;

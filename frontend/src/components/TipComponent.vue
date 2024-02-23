@@ -7,7 +7,8 @@
         </svg>
   
         <div v-if="isTooltipVisible" class="tooltip show">
-      <div class="tooltip-content" v-html="formattedTip"></div>
+          <div class="tooltip-content" v-html="formattedTip" :style="{ minWidth: Width }">
+        </div>
       <div class="tooltip-arrow"></div>
     </div>
   </div>
@@ -15,7 +16,7 @@
 
 <script>
 export default {
-  props: ['Tip'],
+  props: ['Tip', 'Width'],
   data() {
     return {
       isTooltipVisible: false,
@@ -31,20 +32,32 @@ export default {
   },
   computed: {
     formattedTip() {
-      return this.Tip.replace(/\n/g, '<br>');
-    },
+      return this.Tip.replace(/\n/g, '<br>').replace(/<span>/g, '<span style="font-family: TT Norms Light;">');
+    }
   },
 };
 </script>
   
   <style scoped>
+  span {
+    color: red;
+  }
+  .tooltip-content{
+    font-family: 'TT Norms Medium';
+    font-size: 15px;
+  }
+
   svg{
     position: relative;
     display: inline-block;
   }
   .tooltip {
+    max-width: 700px;
+    width: auto;
+    text-align: left;
   transform: translateY(22px);
-  white-space: nowrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
   position: absolute;
   background-color: #212326;
   color: #fff;

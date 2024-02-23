@@ -15,7 +15,7 @@
                     <div>
                       <div class="header">
                         <p>Список проектов</p>
-                        <Tip :Tip="'Название компании — это название проекта, \n в проекте собраны: услуги, сотрудники и филиал'"/>
+                        <Tip :Width="'350px'" :Tip="'Название компании — это название проекта, \n в проекте собраны: услуги, сотрудники и филиал'"/>
                       </div>
                       <div class="wrapper">
                         <div class="teg" style="justify-content: start;">
@@ -82,7 +82,7 @@
                   <div v-if="showPlusNotificationPanel" class="plus-panel">
                     <div class="header">
                       <p>Быстрое создание</p>
-                      <Tip :Tip="'Удобно, если заказ был принят по телефону \n и нужно добавить клиента в общую базу'"/>
+                      <Tip :Width="'308px'" :Tip="'Удобно, если заказ был принят по телефону \n и нужно добавить клиента в общую базу'"/>
                     </div>
                     <router-link to="/lk/" style="text-decoration:none" id="drop-menu-href">
                       <div class="create">
@@ -152,7 +152,7 @@
                   </a>
                   <div v-if="showNotificationPanel" class="notification-panel">
                     <div class="header">
-                      <p>Уведомления</p>
+                      <p>Уведомления ({{ notifications.length }})</p>
                       <Tip :Tip="'Уведомления'"/>
                     </div>
                     <div v-if="notifications.length > 0" class="notifications">
@@ -195,7 +195,7 @@ export default {
             showPlusNotificationPanel: false,
             showGatesNotificationPanel: false,
             
-            rate: '', //подгружается в название тарифа
+            rate: 'Название', //подгружается в название тарифа
             notifications: ['Подтвердите адрес электронной почты', 'popa', 'У вас новая заявка', 'У вас новая заявка', 'popa', 'popa', 'Ваша первая заявка', 'popa', 'popa'], //подгружается в уведомления
 
             currentProject:{ //подгружается в текущий проект (словарь)
@@ -588,6 +588,7 @@ input{
   display: flex;
   gap: 5px;
   justify-content: start;
+  padding: 0 0 0 10px;
 }
 
 .bottom:hover p{

@@ -41,7 +41,10 @@
         <p class="text">до 5 МБ, PNG, JPG, JPEG</p>
   
         <!-- 4. Тип индивидуальности -->
-        <label for="recordType">Тип записи</label>
+        <div class="usluga-head">
+          <label for="recordType">Тип записи</label>
+          <Tip :Tip="'Индивидуальная запись <span> — сеанс бронируется одним клиентом или группой людей. Например, для записи к врачу или салон красоты, для бронирования квеста или других развлечений. </span> \n \n Групповая запись <span> — запись нескольких клиентов на один и тот же сеанс. Он остается доступным до тех пор, пока есть свободные места. Например, для записи на занятия фитнесом, йогой или для продажи билетов на мероприятия</span> \n \n Аренда <span> — клиент может выбрать любой доступный период почасовой илипоминутной аренды, а так же количество единиц оборудования, если требуется. Например для сдачи в аренду помещений, спортивного и развлекательного инвентаря, для записи в киберспортивные клубы. </span>'"/>
+        </div>
         <div class="record-type-container">
           <button
             :class="{ 'active': selectedRecordType === 'individual' }"
@@ -68,7 +71,10 @@
   
         <!-- 5. Групповые параметры -->
         <div v-if="selectedRecordType === 'group'" class="group-parameters">
-          <label for="groupCapacity">Количество мест</label>
+          <div class="usluga-head" v-if="selectedRecordType !== ''">
+            <label for="groupCapacity">Количество мест</label>
+            <Tip :Tip="'Выберите минимальное и максимальное количество мест, <br> которое соответствует вашей услуге'"/>
+          </div>
           <div class="group-buttons">
             <div class="group-counter">
               <button @click="decreaseGroupCapacity">-</button>
@@ -87,7 +93,10 @@
   
         <!-- 6. Групповые параметры для аренды -->
         <div v-if="selectedRecordType === 'rental'" class="group-parameters">
-          <label for="groupCapacity">Количество единиц для аренды</label>
+          <div class="usluga-head" v-if="selectedRecordType !== ''">
+            <label for="groupCapacity">Количество единиц для аренды</label>
+            <Tip :Tip="'Придумать описание, а вообще даня гей, верни 5к'"/>
+          </div>
           <div class="group-buttons">
             <div class="group-counter">
               <button @click="decreaseGroupCapacity">-</button>
@@ -105,7 +114,12 @@
         </div>      
   
         <!-- 7. Формат оплаты -->
-        <label for="paymentFormat" v-if="selectedRecordType !== ''">Формат оплаты</label>
+        <div class="usluga-head" v-if="selectedRecordType !== ''">
+          <label>Формат оплаты</label>
+          <Tip v-if="selectedRecordType === 'individual'" :Tip="'Оплата за сеанс <span> — стоимость услуги формируется за сеанс, независимо от количества выбранных мест. Доступна настройка оплаты за дополнительные места.</span> \n\n Оплата за место <span> — стоимость услуни формируется в зависимости от количества выбранных мест.</span> \n\n Аренда — <span> стоимость не отображается. Подойдет, если услуга бесплатная, или конечнаяили конечная стоимость формируется на месте.</span>'"/>
+          <Tip v-if="selectedRecordType === 'group'" :Tip="'Оплата за время и единицу оборудования <span> — стоимость аренды формирутеся от выбранного периода и количества едениц оборудования.</span> \n\n Без стоимости <span> — стоимость не отображается. Подойдет, если услуга бесплатная, или конечная стоимость формируется на места</span>'"/>
+          <Tip v-if="selectedRecordType === 'rental'" :Tip="'Оплата за время и единицу оборудования <span> — стоимость аренды формирутеся от выбранного периода и количества едениц оборудования.</span> \n\n Без стоимости <span> — стоимость не отображается. Подойдет, если услуга бесплатная, или конечная стоимость формируется на места</span>'"/>
+          </div>
         <div class="record-type-container" v-if="selectedRecordType !== ''">
           <!-- Добавлены условия для всех типов записи -->
           <button
@@ -209,8 +223,10 @@
 
 <script>
 import axios from 'axios';
+import Tip from '../components/TipComponent.vue';
 
 export default {
+  components: { Tip },
   data() {
     return {
       selectedRecordType: '',
@@ -312,6 +328,17 @@ export default {
 
 
 <style scoped>
+.usluga-head{
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.usluga-head label{
+  margin: 0;
+}
 .main_group{
   display: flex;
   gap: 40px;
@@ -327,9 +354,8 @@ export default {
   gap: 15px;
 }
 .header{
-  font-family: TT Norms;
+  font-family: 'TT Norms Medium';
   font-size: 22px;
-  font-weight: 500;
   line-height: 22px;
   text-align: left;
   color: #535C69;
@@ -380,9 +406,8 @@ export default {
 }
 .descr{
   color: #AFB6C1;
-  font-family: TT Norms;
+  font-family: 'TT Norms Medium';
   font-size: 16px;
-  font-weight: 500;
   line-height: 19px;
   text-align: left;
   margin: 5px 0 0 0;
@@ -450,9 +475,8 @@ export default {
   cursor: pointer;
 }
 .text {
-  font-family: TT Norms;
+  font-family: 'TT Norms Medium';
   font-size: 14px;
-  font-weight: 500;
   line-height: 17px;
   letter-spacing: 0em;
   text-align: left;
@@ -505,12 +529,16 @@ export default {
   background-color: #FFFFFF;
   color: #535C69;
   border-radius: 3px;
-  border: 1px solid #DDE1E5
+  border: 1px solid #DDE1E5;
+  transition: all .2s eases;
+}
+
+.cancel-button:hover{
+  color: #6266EA;
 }
 input::placeholder {
-  font-family: "TT Norms";
+  font-family: 'TT Norms Medium';
   font-size: 14px;
-  font-weight: 500;
   line-height: 17px;
   letter-spacing: 0em;
   color: #D2D8DE;
@@ -532,7 +560,7 @@ input::placeholder {
 }
 select {
   padding: 8px 10px;
-  font-family: TT Norms;
+  font-family: 'TT Norms Medium';
   font-size: 14px;
   line-height: 20px;
   color: #D2D8DE;
@@ -544,14 +572,13 @@ select {
 }
 
 select option {
-  font-family: TT Norms;
+  font-family: 'TT Norms Medium';
   font-size: 14px;
-  font-weight: bold;
   line-height: 20px;
   color: #535C69;
 }
 label{
-  font-weight: bold;
+  font-family: 'TT Norms Medium';
 }
 .transition {
   display: flex;
@@ -561,9 +588,8 @@ label{
 }
 
 .employesss-link {
-  font-family: TT Norms;
+  font-family: 'TT Norms Medium';
   font-size: 20px;
-  font-weight: bold;
   line-height: 24px;
   text-align: left;
   text-decoration: none;
@@ -572,9 +598,8 @@ label{
 
 .creation_text {
   color: #535C69;
-  font-family: TT Norms;
+  font-family: 'TT Norms Medium';
   font-size: 20px;
-  font-weight: bold;
   line-height: 24px;
   letter-spacing: 0em;
   text-align: left;

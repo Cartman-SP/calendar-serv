@@ -47,6 +47,13 @@ html *::-webkit-scrollbar-thumb {
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'TT Norms Light';
+    src: url('../static/fonts/TT\ Norms/TTNorms-Light.eot'), url('../static/fonts/TT\ Norms/TTNorms-Light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body{
   margin: 0;
   padding: 0;

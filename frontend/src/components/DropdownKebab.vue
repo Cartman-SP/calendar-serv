@@ -52,6 +52,10 @@ export default {
 </script>
 
 <style scoped>
+img{
+  width: 12px;
+  height: 12px;
+}
 .dropdown-container{
     position: relative;
     display: inline-block;
