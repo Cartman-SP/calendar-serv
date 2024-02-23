@@ -3,6 +3,28 @@
 </template>
 
 <style>
+*,
+html * /* override x.xhtml.ru style */ 
+{
+  scrollbar-width: thin;
+  scrollbar-color: #E5E8EB transparent;
+}
+
+*::-webkit-scrollbar,
+html *::-webkit-scrollbar {
+  height: 12px;
+  width: 12px;
+}
+*::-webkit-scrollbar-track,
+html *::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb,
+html *::-webkit-scrollbar-thumb {
+  background-color: #E5E8EB;
+  border-radius: 5px;
+  border: 3px solid transparent;
+}
 
 @font-face {
     font-family: 'TT Norms';

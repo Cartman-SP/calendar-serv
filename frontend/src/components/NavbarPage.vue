@@ -115,12 +115,36 @@
                     </defs>
                   </svg>
                 </a>
-                <a @click="showNotifications">
-                  <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M13.2998 6.9C13.2998 4.20278 12.1067 2.1508 9.98838 1.51001C9.75722 0.922564 9.18914 0.5 8.4998 0.5C7.81423 0.5 7.24859 0.917967 7.01504 1.50041C4.85022 2.1301 3.69981 4.18917 3.69981 6.9C3.69981 8.09303 3.69981 12.5 1.2998 12.5L1.29981 13.3H15.6998V12.5C13.2998 12.5 13.2998 8.1 13.2998 6.9Z" fill="#464AD9"/>
-                    <path d="M10.0998 14.9C10.0998 15.7837 9.38346 16.5 8.4998 16.5C7.61615 16.5 6.89981 15.7837 6.89981 14.9H10.0998Z" fill="#464AD9"/>
-                  </svg>
-                </a>
+                <div class="showNotifications">
+                  <a @click="showNotifications">
+                    <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M13.2998 6.9C13.2998 4.20278 12.1067 2.1508 9.98838 1.51001C9.75722 0.922564 9.18914 0.5 8.4998 0.5C7.81423 0.5 7.24859 0.917967 7.01504 1.50041C4.85022 2.1301 3.69981 4.18917 3.69981 6.9C3.69981 8.09303 3.69981 12.5 1.2998 12.5L1.29981 13.3H15.6998V12.5C13.2998 12.5 13.2998 8.1 13.2998 6.9Z" fill="#464AD9"/>
+                      <path d="M10.0998 14.9C10.0998 15.7837 9.38346 16.5 8.4998 16.5C7.61615 16.5 6.89981 15.7837 6.89981 14.9H10.0998Z" fill="#464AD9"/>
+                    </svg>
+                    <div v-if="notifications.length > 0" class="chip"></div>
+                  </a>
+                  <div v-if="showNotificationPanel" class="notification-panel">
+                    <div class="header">
+                      <p>Уведомления</p>
+                      <Tip :Tip="'Уведомления'"/>
+                    </div>
+                    <div v-if="notifications.length > 0" class="notifications">
+                      <div v-for="n in notifications" :key="n" class="create">
+                        <p class="subheader">{{ n }}</p>
+                      </div>
+                    </div>
+                    <div v-else>
+                      <p class="subheader">У вас нет новых уведомлений</p>
+                    </div>
+                    <div class="clear-notifications" v-if="notifications.length > 0">
+                      <svg width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8.79961 9.85V4.35H2.19961V9.85C2.19961 10.4575 2.6921 10.95 3.29961 10.95H7.69961C8.30712 10.95 8.79961 10.4575 8.79961 9.85Z" fill="#535C69"/>
+                        <path d="M4.09558 1.10807L3.57461 2.15H1.09961V3.25H9.89961V2.15H7.42461L6.90364 1.10806C6.71731 0.735402 6.33642 0.5 5.91977 0.5H5.07945C4.6628 0.5 4.28191 0.735403 4.09558 1.10807Z" fill="#535C69"/>
+                      </svg>
+                      <p>Очистить уведомления</p>
+                    </div>
+                  </div>
+                </div>
             </div>
             <div class="rate">
                 <img src="../../static/img/icon-wallet.png" alt="231">
@@ -133,21 +157,23 @@
         <!-- Дополнительный блок для уведомлений -->
         
         
-        <div v-if="showNotificationPanel" class="notification-panel">
-          <p class="header">Уведомления</p>
-          <p class="subheader">У вас нет новых уведомлений</p>
-        </div>
+        
     </div>
 </template>
 
 <script>
+import Tip from '../components/TipComponent.vue';
+
 export default {
+    components: { Tip },
     data() {
         return {
             showNotificationPanel: false,
             showPlusNotificationPanel: false,
             showGatesNotificationPanel: false,
+            
             rate: '', //подгружается в название тарифа
+            notifications: ['Подтвердите адрес электронной почты', 'popa', 'У вас новая заявка', 'У вас новая заявка', 'popa', 'popa', 'Ваша первая заявка', 'popa', 'popa'], //подгружается в уведомления
         };
     },
     methods: {
@@ -165,9 +191,57 @@ export default {
 </script>
 
 <style scoped>
+.chip{
+  height: 10px;
+  width: 10px;
+  position: absolute;
+  border-radius: 5px;
+  background-color: #FFC400;
+  right: 0;
+  bottom: 0;
+}
+.clear-notifications{
+  display: flex;
+  gap: 10px;
+  justify-content: start;
+  align-items: center;
+  font-family: 'TT Norms Medium';
+  font-size: 14px;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+  transition: all .2s ease;
+}
+
+.clear-notifications svg path, .clear-notifications p{
+  fill: #535C69;
+}
+
+.clear-notifications:hover{
+  background-color: rgba(249, 127, 127, 0.2);
+  cursor: pointer;
+}
+
+.clear-notifications:hover svg path{
+  fill: #F97F7F;
+}
+
+.clear-notifications:hover p{
+  color: #F97F7F;
+}
+.notifications{
+  overflow-y: scroll;
+  height: 120px;
+}
+
 #drop-menu-href{
   width: 100%;
   margin: 0;
+}
+
+.showNotifications{
+  position: relative; 
 }
 .showGatesNotifications{
   position: relative;
@@ -223,6 +297,10 @@ img{
     justify-content: center;
 }
 
+.buttons-menu a:hover svg path{
+  fill: #3f43c1;
+}
+
 .rate{
     text-align: left;
     background-color: white;
@@ -247,21 +325,26 @@ img{
     font-size: 14px;
 }
 .notification-panel {
+    z-index: 99;
     width: 260px;
-    height: 84px;
+    height: fit-content;
+    right: -100px;
+    top: 50px;
     background-color: #ffffff;
     position: absolute;
-    top: 110px;
-    right: 120px;
     border-radius: 5px;
     padding: 20px;
     text-align: center;
+    filter: drop-shadow(0 0 10px rgb(228, 228, 228));
 }
 
 .header{
-  font-family: TT Norms;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  font-family: 'TT Norms Medium';
   font-size: 15px;
-  font-weight: bold;
   line-height: 15px;
   letter-spacing: 0em;
   text-align: left;
@@ -271,7 +354,6 @@ img{
 .subheader{
   font-family: 'TT Norms Medium';
   font-size: 14px;
-  font-weight: 500;
   line-height: 14px;
   letter-spacing: 0em;
   text-align: left;
