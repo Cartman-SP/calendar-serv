@@ -59,25 +59,41 @@
                     <p class="header">Быстрое создание</p>
                     <router-link to="/lk/" style="text-decoration:none" id="drop-menu-href">
                       <div class="create">
-                        <img src="../../static/img/plus/send.svg" alt="">
+                        <svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0.600098 10.8626C0.600098 11.5859 1.34428 12.07 2.00548 11.7768L15.0001 6.01429L2.00699 0.226662C1.34562 -0.0679383 0.600098 0.416118 0.600098 1.14013V3.35045C0.600098 4.39447 1.40314 5.26285 2.44398 5.34435L11.0001 6.01429L2.44944 6.66026C1.40628 6.73907 0.600098 7.60846 0.600098 8.65458V10.8626Z" fill="#6266EA"/>
+                        </svg>
                         <p class="subheader">Заявки</p>
                       </div>
                     </router-link>
                     <router-link to="/lk/service/create" style="text-decoration:none" id="drop-menu-href">
                       <div class="create">
-                        <img src="../../static/img/plus/list.svg" alt="">
+                        <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M7.9998 9.10005H15.1998V10.7H7.9998V9.10005Z" fill="#464AD9"/>
+                          <path d="M7.9998 12.3H12.7998V13.9H7.9998V12.3Z" fill="#464AD9"/>
+                          <path d="M0.799805 9.90005C0.799805 9.45822 1.15798 9.10005 1.5998 9.10005H5.5998C6.04163 9.10005 6.3998 9.45822 6.3998 9.90005V13.9C6.3998 14.3419 6.04163 14.7 5.5998 14.7H1.5998C1.15798 14.7 0.799805 14.3419 0.799805 13.9V9.90005Z" fill="#464AD9"/>
+                          <path d="M7.9998 3.50005H12.7998V5.10005H7.9998V3.50005Z" fill="#464AD9"/>
+                          <path d="M7.9998 0.300049H15.1998V1.90005H7.9998V0.300049Z" fill="#464AD9"/>
+                          <path d="M0.799805 1.10005C0.799805 0.658221 1.15798 0.300049 1.5998 0.300049H5.5998C6.04163 0.300049 6.3998 0.658221 6.3998 1.10005V5.10005C6.3998 5.54188 6.04163 5.90005 5.5998 5.90005H1.5998C1.15798 5.90005 0.799805 5.54188 0.799805 5.10005V1.10005Z" fill="#464AD9"/>
+                          </svg>
                         <p class="subheader">Услуги</p>
                       </div>
                     </router-link>
                     <router-link to="/lk/personal/employees" style="text-decoration:none" id="drop-menu-href">
                       <div class="create">
-                        <img src="../../static/img/plus/default.svg" alt="">
+                        <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M12.8 3.69998C12.8 4.80454 11.9046 5.69998 10.8 5.69998C9.69543 5.69998 8.8 4.80454 8.8 3.69998C8.8 2.59541 9.69543 1.69998 10.8 1.69998C11.9046 1.69998 12.8 2.59541 12.8 3.69998Z" fill="#6266EA"/>
+                          <path d="M5.6 7.29998H1.6C0.716344 7.29998 0 8.01632 0 8.89997V12.9H10.4V12.1C10.4 9.44901 8.25097 7.29998 5.6 7.29998Z" fill="#6266EA"/>
+                          <path d="M16 11.3C16 9.09084 14.2091 7.29998 12 7.29998H8C10.4 7.29998 12.8 9.26465 12.8 12.3233V12.9H16V11.3Z" fill="#6266EA"/>
+                          <path d="M7.2 2.89998C7.2 4.44637 5.9464 5.69998 4.4 5.69998C2.8536 5.69998 1.6 4.44637 1.6 2.89998C1.6 1.35358 2.8536 0.0999756 4.4 0.0999756C5.9464 0.0999756 7.2 1.35358 7.2 2.89998Z" fill="#6266EA"/>
+                        </svg>
                         <p class="subheader">Сотрудника</p>
                       </div>
                     </router-link>
                     <router-link to="/lk/branch/createbranch" style="text-decoration:none" id="drop-menu-href">
                       <div class="create">
-                        <img src="../../static/img/plus/case.svg" alt="">
+                        <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M4 3.70002V3.30002C4 1.97454 5.07452 0.900024 6.4 0.900024H9.6C10.9255 0.900024 12 1.97454 12 3.30002V3.70002H14.4C15.2837 3.70002 16 4.41637 16 5.30002V13.3C16 14.1837 15.2837 14.9 14.4 14.9H1.6C0.716344 14.9 0 14.1837 0 13.3V5.30002C0 4.41637 0.716344 3.70002 1.6 3.70002H4ZM5.6 3.30002C5.6 2.8582 5.95817 2.50002 6.4 2.50002H9.6C10.0418 2.50002 10.4 2.8582 10.4 3.30002V3.70002H5.6V3.30002ZM8 8.50002C8.66274 8.50002 9.2 7.96277 9.2 7.30002C9.2 6.63728 8.66274 6.10002 8 6.10002C7.33726 6.10002 6.8 6.63728 6.8 7.30002C6.8 7.96277 7.33726 8.50002 8 8.50002Z" fill="#6266EA"/>
+                        </svg>
                         <p class="subheader">Филиала</p>
                       </div>
                     </router-link>
@@ -287,6 +303,14 @@ img{
 }
 .create:hover p {
   color: #535C69;
+}
+
+.create svg path{
+  fill: #AFB6C1;
+}
+
+.create:hover svg path {
+  fill: #6266EA;
 }
 a{
   cursor: pointer;
