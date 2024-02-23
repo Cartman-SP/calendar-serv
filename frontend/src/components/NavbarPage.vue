@@ -12,6 +12,7 @@
                     </svg>
                   </a>
                   <div  v-if="showGatesNotificationPanel" class="gates-panel">
+                    <div class="navbar-arrow"></div>
                     <div>
                       <div class="header">
                         <p>Список проектов</p>
@@ -80,6 +81,7 @@
                     </svg>
                   </a>
                   <div v-if="showPlusNotificationPanel" class="plus-panel">
+                    <div class="navbar-arrow"></div>
                     <div class="header">
                       <p>Быстрое создание</p>
                       <Tip :Width="'308px'" :Tip="'Удобно, если заказ был принят по телефону \n и нужно добавить клиента в общую базу'"/>
@@ -151,6 +153,7 @@
                     <div v-if="notifications.length > 0" class="chip"></div>
                   </a>
                   <div v-if="showNotificationPanel" class="notification-panel">
+                    <div class="navbar-arrow"></div>
                     <div class="header">
                       <p>Уведомления ({{ notifications.length }})</p>
                       <Tip :Tip="'Уведомления'"/>
@@ -251,6 +254,17 @@ export default {
 </script>
 
 <style scoped>
+.navbar-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #ffffff;
+    top: -9px;
+    left: 50%;
+    transform: translateX(-50%);
+}
 .actions{
   display: flex;
   gap: 10px;
