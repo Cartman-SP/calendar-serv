@@ -127,8 +127,8 @@
       text-align: left;
     }
     .service_card{
-      width: 20vw;
-      height: auto;
+      width: 100%;
+      height: 100%;
       background-color: #FFF;
       border-radius: 5px;
       transition: all .2s ease;

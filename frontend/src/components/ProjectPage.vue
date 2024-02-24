@@ -69,6 +69,7 @@ export default {
   display: flex;
   height: 100%;
   gap: 10px;
+  width: 100%;
   color: #6266EA;
   border-style: dashed;
   border-width: 2px;
