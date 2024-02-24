@@ -60,7 +60,7 @@
                   <img src="../../static/img/send.png" alt="" class="main_logo">
                   <a href="" class="main_text">Заявки</a>
                 </div>
-                <p>0</p>
+                <p>{{ zayavki }}</p>
               </div>
               <div class="bottom_menu" style="display: block; padding: 20px;">
                 <div class="avatar-top">
@@ -68,7 +68,7 @@
                     <img class="img_profile" :src="avatar">
                     <div style="margin-left: 10px;">
                       <p id="bottom_header"> {{ name }} </p>
-                      <p id="bottom_subheader"> Владелец </p>
+                      <p id="bottom_subheader"> {{ position }} </p>
                     </div>
                   </div>  
                   <div class="dropdown_btn">
@@ -112,8 +112,10 @@ export default {
     return {
       showDropdown: false,
       name: "",
+      position: '',
       avatar: "",
       company:"",
+      zayavki: '2', // сделать кол-во заявок
     };
   },
   computed: {
@@ -129,8 +131,8 @@ export default {
         this.avatar = "http://127.0.0.1:8000" + response.data.profile.avatar
         console.log(this.avatar)
         this.name = response.data.profile.name
+        this.position = response.data.profile.name // сделать должность
         this.company = response.data.profile.company_name
-        console.log('Данные о пользователе:', response.data.profile);
       })
       .catch(error => {
         // Ошибка при получении данных
@@ -261,10 +263,13 @@ export default {
 
 .bottom_menu p{
   background-color: #EFEFFF;
-  border-radius: 20px;
+  border-radius: 10px;
   color: #535C69;
+  width: 20px;
+  height: 20px;
   font-size: 12px;
-  padding: 5px;
+  text-align: center;
+  padding-top: 3px;
 }
 
 #bottom_header{

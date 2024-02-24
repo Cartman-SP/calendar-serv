@@ -123,6 +123,7 @@
 import axios from 'axios';
 import Tip from '../components/TipComponent.vue';
 
+
 export default {
   components: { Tip },
   data() {
@@ -349,7 +350,7 @@ export default {
   .save-and-exit-button {
     background-color: #EFEFFF;
     color: #6266EA;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.2s, color 0.2s;
   }
 
   .save-and-exit-button:hover {
