@@ -1,7 +1,7 @@
 <template>
   <div class="custom-select" :tabindex="tabindex" @blur="open = false">
-    <div class="selected" :class="{ open: open }" @click="open = !open">
-      {{ selected }}
+    <div class="selected" :class="{ open: open, placeholder: !selected }" @click="open = !open">
+      {{ selected ? selected : this.placeholderdata || 'Укажите плейсхолдер' }}
     </div>
     <div class="items" :class="{ selectHide: !open }">
       <div
@@ -36,13 +36,14 @@ export default {
       required: false,
       default: 0,
     },
+    placeholderdata: {
+      type: String,
+    },
   },
   data() {
     return {
       selected: this.default
         ? this.default
-        : this.options && this.options.length > 0
-        ? this.options[0]
         : null,
       open: false,
     };
@@ -67,9 +68,13 @@ export default {
   font-size: 12px;
 }
 
+.custom-select .selected.placeholder {
+  color: #D2D8DE; /* Красный цвет для placeholder */
+}
+
 .custom-select .selected {
   background-color: #F3F5F6;
-  border-radius: 3px;
+  border-radius: 5px;
   color: #535C69;
   padding-left: 1em;
   cursor: pointer;
@@ -77,7 +82,7 @@ export default {
 }
 
 .custom-select .selected.open {
-  border-radius: 6px 6px 0px 0px;
+  border-radius: 5px 5px 5px 5px;
 }
 
 .custom-select .selected:after {
@@ -92,14 +97,16 @@ export default {
 }
 
 .custom-select .items {
+  margin-top: 10px;
   color: #535C69;
-  border-radius: 0px 0px 6px 6px;
+  border-radius: 5px 5px 5px 5px;
   overflow: hidden;
   position: absolute;
   background-color: #FFFFFF;
   left: 0;
   right: 0;
   z-index: 1;
+  filter: drop-shadow(0 0 10px rgb(227, 227, 227));
 }
 
 .custom-select .items div {

@@ -37,15 +37,16 @@
         <div class="dropdown-container">
           <label for="service">Услуга</label>
           <SelectPage
-          :options="['Стрижка', 'Стрижка и борода', 'Укладка волос', 'Чистка лица','Оконтовка','Отец + сын']"
-          :default="'Выберите услугу'"
-          class="select"
+            :options="this.uslugi.map(item => item.name)"
+            class="select"
+            @input="handleSelectInput"
+            :placeholderdata="'Выберите услугу'"
           />
         </div>
 
         <div class="chips-block">
           <div class="chip" v-for="chip in chips" :key="chip">
-            <svg width="8" height="8" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg @click="deleteChip(chip)" width="8" height="8" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M2.29294 3.00003L0.146484 5.14648L0.853591 5.85359L3.00004 3.70714L5.1465 5.85359L5.85361 5.14648L3.70715 3.00003L5.85359 0.853591L5.14648 0.146484L3.00004 2.29292L0.853605 0.146484L0.146499 0.853591L2.29294 3.00003Z" fill="white"/>
             </svg>
             <p>{{ chip }}</p>
@@ -86,8 +87,9 @@
             <div class="dropdown-container">
               <SelectPage
               :options="['9:00 — 19:00', '9:00 — 20:00', '9:00 — 21:00', '10:00 — 18:00','10:00 — 19:00','10:00 — 20:00', '10:00 — 22:00']"
-              :default="'Выберите время'"
               class="select"
+              @input="option => work_time = option"
+              :placeholderdata="'Выберите время'"
               />    
             </div>
           </div>
@@ -96,8 +98,9 @@
             <div class="dropdown-container">
               <SelectPage
               :options="['13:00 — 14:00', '13:00 — 14:00', '13:00 — 14:00']"
-              :default="'Выберите время'"
               class="select"
+              @input="option => chill_time = option"
+              :placeholderdata="'Выберите время'"
               />
             </div>
           </div>
@@ -139,12 +142,23 @@ export default {
       avatar: null,
       work_time: "",
       chill_time: "",
-      selectedServiceId: null, // Добавленная переменная для хранения выбранного id услуги
-      
-      chips: ['говно', 'залупа', 'пенис', 'хер+давалка', 'хуй', 'блядина', 'головка', 'шлюха']
+      selectedServiceId: [], // Добавленная переменная для хранения выбранного id услуги
+      chips: [],
     };
   },
   methods: {
+    deleteChip(chip){
+      let indexToRemove = this.chips.indexOf(chip);
+      if (indexToRemove !== -1) {
+        this.chips.splice(indexToRemove, 1);
+      }
+    },
+
+    handleSelectInput(option) {
+      if (!(this.chips.includes(option))) {
+        this.chips.push(option)
+      }
+    },
 
     handleFileUpload(event) {
       const file = event.target.files[0];
@@ -154,6 +168,7 @@ export default {
       try {
         const response = await axios.get('http://127.0.0.1:8000/api/uslugi/');
         this.uslugi = response.data;
+        
       } catch (error) {
         console.error('Error fetching uslugi:', error);
       }
@@ -187,6 +202,8 @@ export default {
       }
     },
     saveAndExit() {
+      console.log(this.chips)
+
       const formData = new FormData();
       const selectedDaysString = this.selectedDays.join(',');
       formData.append('firstname', this.firstname);

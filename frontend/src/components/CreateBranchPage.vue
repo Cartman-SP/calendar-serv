@@ -16,8 +16,9 @@
             <label for="country">Страна</label>
             <SelectPage
             :options="['Россия', 'Казахстан','Украина','Таджикистан','Кыргызстан',]"
-            :default="'Выберите страну'"
             class="select"
+            @input="option => selectedCountry = option"
+            :placeholderdata="'Выберите страну'"
             />
           </div>
 
@@ -25,8 +26,9 @@
             <label for="city">Город</label>
             <SelectPage
             :options="['Москва', 'Санкт-Петербург','Тула','Тверь','Великий Новгород',]"
-            :default="'Выберите город'"
             class="select"
+            @input="option => selectedCity = option"
+            :placeholderdata="'Выберите город'"
             />
           </div>
         </div>
@@ -92,8 +94,9 @@
               <label for="country">Рабочие часы</label>
               <SelectPage
               :options="['9:00 — 19:00', '9:00 — 20:00', '9:00 — 21:00', '10:00 — 18:00','10:00 — 19:00','10:00 — 20:00', '10:00 — 22:00']"
-              :default="'Выберите время'"
               class="select"
+              @input="option => selectedWorkHours  = option"
+              :placeholderdata="'Выберите время'"
               />
             </div>
   
@@ -101,8 +104,9 @@
               <label for="city">Перерыв</label>
               <SelectPage
               :options="['9:00 — 19:00', '9:00 — 20:00', '9:00 — 21:00', '10:00 — 18:00','10:00 — 19:00','10:00 — 20:00', '10:00 — 22:00']"
-              :default="'Выберите время'"
               class="select"
+              @input="option => selectedTimeout  = option"
+              :placeholderdata="'Выберите время'"
               />
             </div>
           </div>
@@ -121,17 +125,27 @@
             <label for="service">Сфера бизнеса</label>
             <SelectPage
             :options="['Салон красоты', 'Барбершоп', 'Маникюрный салон', 'Брови и ресницы','Тату салон','Другое']"
-            :default="'Выберите сферу бизнеса'"
             class="select"
+            @input="option => selectedBusiness  = option"
+            :placeholderdata="'Выберите сферу бизнеса'"
             />
           </div>
           <div class="dropdown-container">
             <label for="service">Выберите сотрудников для этого филиала</label>
             <SelectPage
-            :options="[]"
-            :default="'Выберите сотрудников'"
+            :options="this.employees.map(item => item.name)"
             class="select"
+            @input="handleSelectInput"
+            :placeholderdata="'Выберите сотрудников'"
             />
+          </div>
+          <div class="chips-block">
+            <div class="chip" v-for="chip in chips" :key="chip">
+              <svg @click="deleteChip(chip)" width="8" height="8" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2.29294 3.00003L0.146484 5.14648L0.853591 5.85359L3.00004 3.70714L5.1465 5.85359L5.85361 5.14648L3.70715 3.00003L5.85359 0.853591L5.14648 0.146484L3.00004 2.29292L0.853605 0.146484L0.146499 0.853591L2.29294 3.00003Z" fill="white"/>
+              </svg>
+              <p>{{ chip }}</p>
+            </div>
           </div>
           <div class="steps">
             <div class="second-steps-container">
@@ -163,9 +177,36 @@ export default {
       selectedChoices: [],
       showContinueButtonClicked: false,
       businessTypes: ['qwdqwd', 'qwdqwdqdwqwd'],
+
+      employees:[
+        {
+          name: 'Криштиано Роналду'
+        },
+        {
+          name: 'Даниил Гашишкин'
+        },
+        {
+          name: 'Артём Диджейкин'
+        },
+      ],
+      selectedEmployeeId: [], 
+      chips: [],
     }
   },
   methods: {
+    deleteChip(chip){
+      let indexToRemove = this.chips.indexOf(chip);
+      if (indexToRemove !== -1) {
+        this.chips.splice(indexToRemove, 1);
+      }
+    },
+
+    handleSelectInput(option) {
+      if (!(this.chips.includes(option))) {
+        this.chips.push(option)
+      }
+    },
+
     isBtnActive(day) {
       return this.activeDays.includes(day);
     },
@@ -224,6 +265,40 @@ export default {
 </script>
 
 <style scoped>
+.chip svg:hover path{
+    fill: rgb(250, 148, 148);
+  }
+  .chips-block{
+    width: 100%;
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+
+  .chip{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: start;
+    background-color: #6266EA;
+    height: 20px;
+    padding: 0 15px;
+    border-radius: 10px;
+    transition: all .2s ease;
+  }
+
+  .chip:hover{
+    background-color: #5357c7;
+    cursor: pointer;
+  }
+
+  .chip p{
+    margin: 0;
+    color: white;
+    font-family: 'TT Norms';
+    font-size: 12px;
+    margin-top: -1.5px;
+  }
   .create_branch {
     width: 50%;
     height: auto;

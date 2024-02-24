@@ -118,7 +118,7 @@ export default {
     margin: 20px 0;
   }
   .service_card{
-    height: auto;
+    height: 100%;
     background-color: #FFF;
     border-radius: 5px;
     transition: all .2s ease;

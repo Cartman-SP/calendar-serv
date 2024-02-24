@@ -25,6 +25,8 @@
             :options="['GMT +4', 'GMT +3']"
             :default="'Выберите свой часовой пояс'"
             class="select"
+            :placeholderdata="'Выбрать часовой пояс'"
+            @input="option => SelectUpdate(option)"
             />
           </div>
           <div class="form_container">
@@ -33,6 +35,8 @@
             :options="['Р', 'Т']"
             :default="'Выберите основную валюту'"
             class="select"
+            :placeholderdata="'Выбрать валюту'"
+            @input="option => SelectUpdate(option)"
             />
           </div>
         </div>

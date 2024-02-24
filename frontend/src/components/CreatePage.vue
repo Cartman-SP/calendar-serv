@@ -29,8 +29,8 @@
             <label for="serviceDuration">Длительность</label>
             <SelectPage
             :options="['15 минут', '30 минут', '45 минут', '1 час','1 час 30 минут','2 часа','2 часа 30 минут']"
-            :default="'Выберите время'"
-            class="select"
+            class="select" @input="option => serviceDuration = option"
+            :placeholderdata="'Выберите время'"
           />
           </div>
         </div>
@@ -359,7 +359,7 @@ export default {
 }
 .adaptive_window{
   background-color: #FFFFFF;
-  width: 25%;
+  width: 400px;
   height: auto;
   padding: 20px;
   border-radius: 5px;
@@ -461,8 +461,8 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 70%;
-  height: 60vh;
+  width: 550px;
+  height: auto;
   background-color: #FFFFFF;
   padding: 20px;
   border-radius: 5px;

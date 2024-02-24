@@ -21,7 +21,7 @@
     </div>
     <div v-else style="padding: 20%;">
       <!-- Показываем значок загрузки -->
-      <i class="pi pi-spin pi-spinner" style="font-size: 3rem;  color: #6266EA"></i>
+      <i class="pi pi-spin pi-spinner" style="font-size: 2.5rem;  color: #6266EA"></i>
     </div>
   </div>
 </template>
@@ -57,6 +57,10 @@ export default {
 </script>
 
 <style scoped>
+.main{
+  overflow-y: scroll;
+  height: 87vh;
+}
 .service {
   text-align: center;
   position: absolute;
