@@ -67,13 +67,13 @@
         <div class="form-group graffic">
           <label class="graffic_label">График работы</label>
           <div class="days">
-            <button class="btn_day" :class="{ 'active': isBtnActive('Пн') }" @click="toggleBtn('Пн')">Пн</button>
-            <button class="btn_day" :class="{ 'active': isBtnActive('Вт') }" @click="toggleBtn('Вт')">Вт</button>
-            <button class="btn_day" :class="{ 'active': isBtnActive('Ср') }" @click="toggleBtn('Ср')">Ср</button>
-            <button class="btn_day" :class="{ 'active': isBtnActive('Чт') }" @click="toggleBtn('Чт')">Чт</button>
-            <button class="btn_day" :class="{ 'active': isBtnActive('Пт') }" @click="toggleBtn('Пт')">Пт</button>
-            <button class="btn_day" :class="{ 'active': isBtnActive('Сб') }" @click="toggleBtn('Сб')">Сб</button>
-            <button class="btn_day" :class="{ 'active': isBtnActive('Вс') }" @click="toggleBtn('Вс')">Вс</button>
+              <button class="btn_day" :class="{ 'active': isBtnActive('Пн') }" @click="toggleBtn('Пн')">Пн</button>
+              <button class="btn_day" :class="{ 'active': isBtnActive('Вт') }" @click="toggleBtn('Вт')">Вт</button>
+              <button class="btn_day" :class="{ 'active': isBtnActive('Ср') }" @click="toggleBtn('Ср')">Ср</button>
+              <button class="btn_day" :class="{ 'active': isBtnActive('Чт') }" @click="toggleBtn('Чт')">Чт</button>
+              <button class="btn_day" :class="{ 'active': isBtnActive('Пт') }" @click="toggleBtn('Пт')">Пт</button>
+              <button class="btn_day" :class="{ 'active': isBtnActive('Сб') }" @click="toggleBtn('Сб')">Сб</button>
+              <button class="btn_day" :class="{ 'active': isBtnActive('Вс') }" @click="toggleBtn('Вс')">Вс</button>
           </div>
         </div>
         <div class="form-btn">  
@@ -92,7 +92,7 @@
           <div class="one-group">
             <div class="form-group">
               <label for="country">Рабочие часы</label>
-              <select id="country">
+              <select id="country" v-model="selectedWorkHours">
                 <option value="" disabled selected style="display:none;">Выберите время</option>
                 <option value="Russia">Россия</option>
                 <option value="Kazakhstan">Казахстан</option>
@@ -103,7 +103,7 @@
   
             <div class="form-group">
               <label for="city">Перерыв</label>
-              <select id="city">
+              <select id="city" v-model="selectedTimeout">
                 <option value="" disabled selected style="display:none;">Выберите время</option>
                 <option value="SaintPetersburg">Санкт-Петербург</option>
                 <option value="Moscow">Москва</option>
@@ -113,77 +113,17 @@
           <div class="types-container">
             <label style="margin-bottom:10px">Выберите тип бизнеса</label>
             <div class="types">
-              <div class="choice" @click="activateChoice">
+              <div v-for="t in businessTypes" :key="t" class="choice" @click="activateChoice(t)">
                 <div class="circle">
                   <div class="second_circle"></div>
                 </div>
-                <p class="choice_text">Красота</p>
-              </div>
-              <div class="choice" @click="activateChoice">
-                <div class="circle">
-                  <div class="second_circle"></div>
-                </div>
-                <p class="choice_text">Медицина</p>
-              </div>
-              <div class="choice" @click="activateChoice">
-                <div class="circle">
-                  <div class="second_circle"></div>
-                </div>
-                <p class="choice_text">Спорт</p>
-              </div>
-              <div class="choice" @click="activateChoice">
-                <div class="circle">
-                  <div class="second_circle"></div>
-                </div>
-                <p class="choice_text">Обучение</p>
-              </div>
-              <div class="choice" @click="activateChoice">
-                <div class="circle">
-                  <div class="second_circle"></div>
-                </div>
-                <p class="choice_text">Авто</p>
-              </div>
-              <div class="choice" @click="activateChoice">
-                <div class="circle">
-                  <div class="second_circle"></div>
-                </div>
-                <p class="choice_text">Досуг и отдых</p>
-              </div>
-              <div class="choice" @click="activateChoice">
-                <div class="circle">
-                  <div class="second_circle"></div>
-                </div>
-                <p class="choice_text">Бытовые услуги</p>
-              </div>
-              <div class="choice" @click="activateChoice">
-                <div class="circle">
-                  <div class="second_circle"></div>
-                </div>
-                <p class="choice_text">Уход</p>
-              </div>
-              <div class="choice" @click="activateChoice">
-                <div class="circle">
-                  <div class="second_circle"></div>
-                </div>
-                <p class="choice_text">Аренда</p>
-              </div>
-              <div class="choice" @click="activateChoice">
-                <div class="circle">
-                  <div class="second_circle"></div>
-                </div>
-                <p class="choice_text">Животные</p>
-              </div>
-              <div class="choice" @click="activateChoice">
-                <div class="circle">
-                  <div class="second_circle"></div>
-                </div>
-                <p class="choice_text">Другое </p>
+                <p class="choice_text">{{ t }}</p>
               </div>
             </div>
           </div>
           <div class="dropdown-container">
             <label for="service">Сфера бизнеса</label>
-            <select id="service">
+            <select id="service" v-model="selectedBusiness">
               <option value="" disabled selected style="display:none;">Выберете сферу бизнеса</option>
               <option>Салон красоты</option>
               <option>Барбершоп</option>
@@ -196,7 +136,7 @@
           </div>
           <div class="dropdown-container">
             <label for="service">Выберете сотрудников для этого филиала</label>
-            <select id="service">
+            <select id="service" v-model="selectedEmployees">
               <option value="" disabled selected style="display:none;">Выберете сотрудников</option>
             </select>
           </div>
@@ -210,7 +150,7 @@
             </div>
             <div class="btn-container">
               <button class="back" @click="onBackClick">Вернуться</button>
-              <button class="btn">Завершить</button>
+              <button class="btn" @click="Finish">Завершить</button>
             </div>
           </div>
         </div>  
@@ -224,29 +164,39 @@ export default {
   data() {
     return {
       activeDays: [],
+      selectedChoices: [],
+      showContinueButtonClicked: false,
+      businessTypes: ['qwdqwd', 'qwdqwdqdwqwd'],
     }
   },
   methods: {
-    toggleBtn(day) {
-      const index = this.activeDays.indexOf(day);
-      if (index === -1) {
-        this.activeDays.push(day);
-      } else {
-        this.activeDays.splice(index, 1);
-      }
-    },
     isBtnActive(day) {
       return this.activeDays.includes(day);
     },
+    toggleBtn(day) {
+      if (this.isBtnActive(day)) {
+        this.activeDays = this.activeDays.filter(activeDay => activeDay !== day);
+      } else {
+        this.activeDays.push(day);
+      }
+    },
     onContinueButtonClick() {
       if (!this.isContinueDisabled) {
+
+        console.log(this.selectedCountry, this.selectedCity, this.selectedAdress, this.selectedName, this.activeDays);
+
         this.showContinueButtonClicked = true;
       }
     },
     onBackClick() {
       this.showContinueButtonClicked = false;
     },
-    activateChoice(event) {
+
+    Finish(){
+      console.log(this.selectedWorkHours, this.selectedTimeout, this.selectedChoices, this.selectedBusiness, this.selectedEmployees);
+    },
+
+    activateChoice(t) {
       // Получите ссылку на текущий выбор
       const choice = event.currentTarget;
       // Проверьте, есть ли у выбранного выбора уже класс active
@@ -268,6 +218,9 @@ export default {
         choice.querySelector('.second_circle').style.display = 'inline-block';
         choice.querySelector('.choice_text').style.color = '#6266EA';
         choice.querySelector('.circle').style.borderColor = '#6266EA'; // меняем цвет границы Circle
+
+        // Добавляем значение в массив выбранных элементов
+        this.selectedChoices.push(t);
       }
     },
   }
@@ -295,7 +248,7 @@ export default {
     font-family: TT Norms Medium;
     font-size: 14px;
     line-height: 20px;
-    color: #D2D8DE;
+    color: #535C69;
     border: none;
     background-color: #F3F5F6;
     margin-bottom: 10px;
@@ -504,7 +457,7 @@ export default {
     font-family: TT Norms Medium;
     font-size: 14px;
     line-height: 20px;
-    color: #D2D8DE;
+    color: #535C69;
     border: none;
     background-color: #F3F5F6;
     border-radius: 3px;
@@ -522,7 +475,7 @@ export default {
     font-family: TT Norms Medium;
     font-size: 14px;
     line-height: 20px;
-    color: #D2D8DE;
+    color: #535C69;
     border: none;
     background-color: #F3F5F6;
   }
