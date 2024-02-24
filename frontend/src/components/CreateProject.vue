@@ -183,7 +183,6 @@
     background-color: #F3F5F6;
   }
   label{
-    font-weight: 700;
     margin: 0;
   }
   .color_text{
@@ -203,6 +202,11 @@
     height: 24px;
     border-radius: 3px;
     cursor: pointer;
+    transition: all .2s ease;
+  }
+
+  .color:hover{
+    filter: brightness(90%);
   }
   .bottom_container{
     display: flex;
@@ -217,12 +221,18 @@
     background: #EFEFFF;
     color: #6266EA;
     width: 100%;
+    font-family: TT Norms Medium;
   }
   .back{
+    font-family: TT Norms Medium;
     color: #535C69;
     background: #FFFFFF;
     border: 1px solid #DDE1E5;
     width: 100%;
+  }
+
+  .back:hover{
+    color: #6266EA;
   }
   .save:hover{
     color: #FFFFFF;
