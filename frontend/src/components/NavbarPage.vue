@@ -236,12 +236,18 @@ export default {
     methods: {
         showNotifications() {
             this.showNotificationPanel = !this.showNotificationPanel;
+            this.showPlusNotificationPanel = false;
+            this.showGatesNotificationPanel = false;
         },
         showPlusNotifications() {
             this.showPlusNotificationPanel = !this.showPlusNotificationPanel;
+            this.showNotificationPanel = false;
+            this.showGatesNotificationPanel = false;
         },
         showGatesNotifications() {
             this.showGatesNotificationPanel = !this.showGatesNotificationPanel;
+            this.showNotificationPanel = false;
+            this.showPlusNotificationPanel = false;
         },
         formatText(text) {
           return text
