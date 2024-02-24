@@ -11,8 +11,11 @@
 
       <div class="create_service">
         <!-- 1. Название услуги -->
-        <label for="serviceName">Название услуги</label>
-        <input type="text" id="serviceName" placeholder="Новая услуга" v-model="serviceName" :class="{ 'input-error': serviceNameError }">
+        <div>
+          <label for="serviceName">Название услуги</label>
+          <input type="text" id="serviceName" placeholder="Новая услуга" v-model="serviceName" :class="{ 'input-error': serviceNameError }">
+        </div>
+
 
   
         <!-- 2. Стоимость, Длительность -->
@@ -33,141 +36,146 @@
         </div>
   
         <!-- 3. Обложка услуги -->
-        <label for="serviceCover" class="file-label">Обложка услуги</label>
-          <label class="custom-file-upload">
-            <input type="file" accept="image/*" @change="handleFileUpload($event)"/>Нажмите, чтобы добавить
-          </label>
-        <p class="text">до 5 МБ, PNG, JPG, JPEG</p>
+        <div>
+          <label for="serviceCover" class="file-label">Обложка услуги</label>
+            <label class="custom-file-upload">
+              <input type="file" accept="image/*" @change="handleFileUpload($event)"/>Нажмите, чтобы добавить
+            </label>
+          <p class="text">до 5 МБ, PNG, JPG, JPEG</p>
+        </div>
   
         <!-- 4. Тип индивидуальности -->
-        <div class="usluga-head">
-          <label for="recordType">Тип записи</label>
-          <Tip :Tip="'Индивидуальная запись <span> — сеанс бронируется одним клиентом или группой людей. Например, для записи к врачу или салон красоты, для бронирования квеста или других развлечений. </span> \n \n Групповая запись <span> — запись нескольких клиентов на один и тот же сеанс. Он остается доступным до тех пор, пока есть свободные места. Например, для записи на занятия фитнесом, йогой или для продажи билетов на мероприятия</span> \n \n Аренда <span> — клиент может выбрать любой доступный период почасовой илипоминутной аренды, а так же количество единиц оборудования, если требуется. Например для сдачи в аренду помещений, спортивного и развлекательного инвентаря, для записи в киберспортивные клубы. </span>'"/>
-        </div>
-        <div class="record-type-container">
-          <button
-            :class="{ 'active': selectedRecordType === 'individual' }"
-            @click="selectRecordType('individual','Индивидуальная')"
-            class="record-button"
-          >
-            Индивидуальная
-          </button>
-          <button
-            :class="{ 'active': selectedRecordType === 'group' }"
-            @click="selectRecordType('group','Групповая')"
-            class="record-button"
-          >
-            Групповая
-          </button>
-          <button
-            :class="{ 'active': selectedRecordType === 'rental' }"
-            @click="selectRecordType('rental','Аренда')"
-            class="record-button"
-          >
-            Аренда
-          </button>
-        </div>
-  
-        <!-- 5. Групповые параметры -->
-        <div v-if="selectedRecordType === 'group'" class="group-parameters">
+        <div>
+          
+          <div class="usluga-head">
+            <label for="recordType">Тип записи</label>
+            <Tip :Tip="'Индивидуальная запись <span> — сеанс бронируется одним клиентом или группой людей. Например, для записи к врачу или салон красоты, для бронирования квеста или других развлечений. </span> \n \n Групповая запись <span> — запись нескольких клиентов на один и тот же сеанс. Он остается доступным до тех пор, пока есть свободные места. Например, для записи на занятия фитнесом, йогой или для продажи билетов на мероприятия</span> \n \n Аренда <span> — клиент может выбрать любой доступный период почасовой илипоминутной аренды, а так же количество единиц оборудования, если требуется. Например для сдачи в аренду помещений, спортивного и развлекательного инвентаря, для записи в киберспортивные клубы. </span>'"/>
+          </div>
+          <div class="record-type-container">
+            <button
+              :class="{ 'active': selectedRecordType === 'individual' }"
+              @click="selectRecordType('individual','Индивидуальная')"
+              class="record-button"
+            >
+              Индивидуальная
+            </button>
+            <button
+              :class="{ 'active': selectedRecordType === 'group' }"
+              @click="selectRecordType('group','Групповая')"
+              class="record-button"
+            >
+              Групповая
+            </button>
+            <button
+              :class="{ 'active': selectedRecordType === 'rental' }"
+              @click="selectRecordType('rental','Аренда')"
+              class="record-button"
+            >
+              Аренда
+            </button>
+          </div>
+    
+          <!-- 5. Групповые параметры -->
+          <div v-if="selectedRecordType === 'group'" class="group-parameters">
+            <div class="usluga-head" v-if="selectedRecordType !== ''">
+              <label for="groupCapacity">Количество мест</label>
+              <Tip :Tip="'Выберите минимальное и максимальное количество мест, <br> которое соответствует вашей услуге'"/>
+            </div>
+            <div class="group-buttons">
+              <div class="group-counter">
+                <button @click="decreaseGroupCapacity">-</button>
+                <input type="text" v-if="groupCapacity === 0" placeholder="От" :value="''">
+                <input type="text" v-else placeholder="" :value="groupCapacity">
+                <button @click="increaseGroupCapacity">+</button>
+              </div>
+              <div class="group-counter">
+                <button @click="decreaseMaxGroupCapacity">-</button>
+                <input type="text" v-if="maxGroupCapacity === 0" placeholder="До" :value="''">
+                <input type="text" v-else placeholder="" :value="maxGroupCapacity">
+                <button @click="increaseMaxGroupCapacity">+</button>
+              </div>
+            </div>
+          </div>
+    
+          <!-- 6. Групповые параметры для аренды -->
+          <div v-if="selectedRecordType === 'rental'" class="group-parameters">
+            <div class="usluga-head" v-if="selectedRecordType !== ''">
+              <label for="groupCapacity">Количество единиц для аренды</label>
+              <Tip :Tip="'Придумать описание, а вообще даня гей, верни 5к'"/>
+            </div>
+            <div class="group-buttons">
+              <div class="group-counter">
+                <button @click="decreaseGroupCapacity">-</button>
+                <input type="text" v-if="groupCapacity === 0" placeholder="От" :value="''">
+                <input type="text" v-else placeholder="" :value="groupCapacity">
+                <button @click="increaseGroupCapacity">+</button>
+              </div>
+              <div class="group-counter">
+                <button @click="decreaseMaxGroupCapacity">-</button>
+                <input type="text" v-if="maxGroupCapacity === 0" placeholder="До" :value="''">
+                <input type="text" v-else placeholder="" :value="maxGroupCapacity">
+                <button @click="increaseMaxGroupCapacity">+</button>
+              </div>
+            </div>
+          </div>      
+    
+          <!-- 7. Формат оплаты -->
           <div class="usluga-head" v-if="selectedRecordType !== ''">
-            <label for="groupCapacity">Количество мест</label>
-            <Tip :Tip="'Выберите минимальное и максимальное количество мест, <br> которое соответствует вашей услуге'"/>
-          </div>
-          <div class="group-buttons">
-            <div class="group-counter">
-              <button @click="decreaseGroupCapacity">-</button>
-              <input type="text" v-if="groupCapacity === 0" placeholder="От" :value="''">
-              <input type="text" v-else placeholder="" :value="groupCapacity">
-              <button @click="increaseGroupCapacity">+</button>
+            <label>Формат оплаты</label>
+            <Tip v-if="selectedRecordType === 'individual'" :Tip="'Оплата за сеанс <span> — стоимость услуги формируется за сеанс, независимо от количества выбранных мест. Доступна настройка оплаты за дополнительные места.</span> \n\n Оплата за место <span> — стоимость услуни формируется в зависимости от количества выбранных мест.</span> \n\n Аренда — <span> стоимость не отображается. Подойдет, если услуга бесплатная, или конечнаяили конечная стоимость формируется на месте.</span>'"/>
+            <Tip v-if="selectedRecordType === 'group'" :Tip="'Оплата за время и единицу оборудования <span> — стоимость аренды формирутеся от выбранного периода и количества едениц оборудования.</span> \n\n Без стоимости <span> — стоимость не отображается. Подойдет, если услуга бесплатная, или конечная стоимость формируется на места</span>'"/>
+            <Tip v-if="selectedRecordType === 'rental'" :Tip="'Оплата за время и единицу оборудования <span> — стоимость аренды формирутеся от выбранного периода и количества едениц оборудования.</span> \n\n Без стоимости <span> — стоимость не отображается. Подойдет, если услуга бесплатная, или конечная стоимость формируется на места</span>'"/>
             </div>
-            <div class="group-counter">
-              <button @click="decreaseMaxGroupCapacity">-</button>
-              <input type="text" v-if="maxGroupCapacity === 0" placeholder="До" :value="''">
-              <input type="text" v-else placeholder="" :value="maxGroupCapacity">
-              <button @click="increaseMaxGroupCapacity">+</button>
-            </div>
+          <div class="record-type-container" v-if="selectedRecordType !== ''">
+            <!-- Добавлены условия для всех типов записи -->
+            <button
+              v-if="selectedRecordType === 'individual'"
+              :class="{ 'active': selectedPaymentFormat === 'sessionPayment' }"
+              @click="selectPaymentFormat('sessionPayment','Оплата за сеанс')"
+              class="record-button"
+            >
+              Оплата за сеанс
+            </button>
+            <button
+              v-if="selectedRecordType === 'individual'"
+              :class="{ 'active': selectedPaymentFormat === 'spotPayment' }"
+              @click="selectPaymentFormat('spotPayment','Оплата за место')"
+              class="record-button"
+            >
+              Оплата за место
+            </button>
+            <button
+              v-if="selectedRecordType === 'individual'"
+              :class="{ 'active': selectedPaymentFormat === 'freePayment' }"
+              @click="selectPaymentFormat('freePayment','Без стоимости')"
+              class="record-button"
+            >
+              Без стоимости
+            </button>
+            <!-- Добавлены условия для групповой и аренды -->
+            <button
+              v-if="selectedRecordType === 'group' || selectedRecordType === 'rental'"
+              :class="{ 'active': selectedPaymentFormat === 'equipmentPayment' }"
+              @click="selectPaymentFormat('equipmentPayment','Оплата за время и единицу оборудования')"
+              class="record-button"
+            >
+              Оплата за время и единицу оборудования
+            </button>
+            <button
+              v-if="selectedRecordType === 'group' || selectedRecordType === 'rental'"
+              :class="{ 'active': selectedPaymentFormat === 'freePayment' }"
+              @click="selectPaymentFormat('freePayment','Без стоимости')"
+              class="record-button"
+            >
+              Без стоимости
+            </button>
           </div>
-        </div>
-  
-        <!-- 6. Групповые параметры для аренды -->
-        <div v-if="selectedRecordType === 'rental'" class="group-parameters">
-          <div class="usluga-head" v-if="selectedRecordType !== ''">
-            <label for="groupCapacity">Количество единиц для аренды</label>
-            <Tip :Tip="'Придумать описание, а вообще даня гей, верни 5к'"/>
+    
+          <!-- 8. Кнопки -->
+          <div class="button-container">
+            <button @click="saveAndExit" class="save-and-exit-button">Сохранить и выйти</button>
+            <button @click="cancel" class="cancel-button">Отмена</button>
           </div>
-          <div class="group-buttons">
-            <div class="group-counter">
-              <button @click="decreaseGroupCapacity">-</button>
-              <input type="text" v-if="groupCapacity === 0" placeholder="От" :value="''">
-              <input type="text" v-else placeholder="" :value="groupCapacity">
-              <button @click="increaseGroupCapacity">+</button>
-            </div>
-            <div class="group-counter">
-              <button @click="decreaseMaxGroupCapacity">-</button>
-              <input type="text" v-if="maxGroupCapacity === 0" placeholder="До" :value="''">
-              <input type="text" v-else placeholder="" :value="maxGroupCapacity">
-              <button @click="increaseMaxGroupCapacity">+</button>
-            </div>
-          </div>
-        </div>      
-  
-        <!-- 7. Формат оплаты -->
-        <div class="usluga-head" v-if="selectedRecordType !== ''">
-          <label>Формат оплаты</label>
-          <Tip v-if="selectedRecordType === 'individual'" :Tip="'Оплата за сеанс <span> — стоимость услуги формируется за сеанс, независимо от количества выбранных мест. Доступна настройка оплаты за дополнительные места.</span> \n\n Оплата за место <span> — стоимость услуни формируется в зависимости от количества выбранных мест.</span> \n\n Аренда — <span> стоимость не отображается. Подойдет, если услуга бесплатная, или конечнаяили конечная стоимость формируется на месте.</span>'"/>
-          <Tip v-if="selectedRecordType === 'group'" :Tip="'Оплата за время и единицу оборудования <span> — стоимость аренды формирутеся от выбранного периода и количества едениц оборудования.</span> \n\n Без стоимости <span> — стоимость не отображается. Подойдет, если услуга бесплатная, или конечная стоимость формируется на места</span>'"/>
-          <Tip v-if="selectedRecordType === 'rental'" :Tip="'Оплата за время и единицу оборудования <span> — стоимость аренды формирутеся от выбранного периода и количества едениц оборудования.</span> \n\n Без стоимости <span> — стоимость не отображается. Подойдет, если услуга бесплатная, или конечная стоимость формируется на места</span>'"/>
-          </div>
-        <div class="record-type-container" v-if="selectedRecordType !== ''">
-          <!-- Добавлены условия для всех типов записи -->
-          <button
-            v-if="selectedRecordType === 'individual'"
-            :class="{ 'active': selectedPaymentFormat === 'sessionPayment' }"
-            @click="selectPaymentFormat('sessionPayment','Оплата за сеанс')"
-            class="record-button"
-          >
-            Оплата за сеанс
-          </button>
-          <button
-            v-if="selectedRecordType === 'individual'"
-            :class="{ 'active': selectedPaymentFormat === 'spotPayment' }"
-            @click="selectPaymentFormat('spotPayment','Оплата за место')"
-            class="record-button"
-          >
-            Оплата за место
-          </button>
-          <button
-            v-if="selectedRecordType === 'individual'"
-            :class="{ 'active': selectedPaymentFormat === 'freePayment' }"
-            @click="selectPaymentFormat('freePayment','Без стоимости')"
-            class="record-button"
-          >
-            Без стоимости
-          </button>
-          <!-- Добавлены условия для групповой и аренды -->
-          <button
-            v-if="selectedRecordType === 'group' || selectedRecordType === 'rental'"
-            :class="{ 'active': selectedPaymentFormat === 'equipmentPayment' }"
-            @click="selectPaymentFormat('equipmentPayment','Оплата за время и единицу оборудования')"
-            class="record-button"
-          >
-            Оплата за время и единицу оборудования
-          </button>
-          <button
-            v-if="selectedRecordType === 'group' || selectedRecordType === 'rental'"
-            :class="{ 'active': selectedPaymentFormat === 'freePayment' }"
-            @click="selectPaymentFormat('freePayment','Без стоимости')"
-            class="record-button"
-          >
-            Без стоимости
-          </button>
-        </div>
-  
-        <!-- 8. Кнопки -->
-        <div class="button-container">
-          <button @click="saveAndExit" class="save-and-exit-button">Сохранить и выйти</button>
-          <button @click="cancel" class="cancel-button">Отмена</button>
         </div>
       </div>
       <div class="adaptive_window">
@@ -450,6 +458,9 @@ export default {
 }
 
 .create_service {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   width: 70%;
   height: 60vh;
   background-color: #FFFFFF;
@@ -564,25 +575,6 @@ input::placeholder {
 .custom-file-upload input[type="file"] {
   display: none;
 }
-select {
-  padding: 8px 10px;
-  font-family: 'TT Norms Medium';
-  font-size: 14px;
-  line-height: 20px;
-  color: #D2D8DE;
-  border: none;
-  background-color: #F3F5F6;
-  margin-bottom: 10px;
-  border-radius: 3px;
-  height: 36px;
-}
-
-select option {
-  font-family: 'TT Norms Medium';
-  font-size: 14px;
-  line-height: 20px;
-  color: #535C69;
-}
 label{
   font-family: 'TT Norms Medium';
 }
@@ -630,11 +622,14 @@ label{
 }
 .img_container{
   align-items: center;
-  width: 365px;
+  max-width: 365px;
   height: 200px;
   display: flex;
   justify-content: center;
   background: linear-gradient(90deg, #F6F6F6 0%, #F1F4F9 100%);
   border-radius: 2px;
+}
+input{
+  margin: 0;
 }
 </style>

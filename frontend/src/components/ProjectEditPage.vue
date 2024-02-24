@@ -204,7 +204,6 @@ select#service {
   background-color: #F3F5F6;
 }
 label{
-  font-weight: 700;
   margin: 0;
 }
 .color_text{
@@ -280,6 +279,7 @@ label{
   top: 50%;
   transform: translate(-50%, -50%);
   background: white;
+  z-index: 99 ;
 }
 .delete_edit{
   color: #F97F7F;
@@ -334,5 +334,6 @@ label{
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.6); /* Задний фон с прозрачностью 60% */
+  z-index: 98;
 }
 </style>

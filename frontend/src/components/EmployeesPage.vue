@@ -38,7 +38,7 @@
           <label for="service">Услуга</label>
           <SelectPage
           :options="['Стрижка', 'Стрижка и борода', 'Укладка волос', 'Чистка лица','Оконтовка','Отец + сын']"
-          :default="'Выберете услугу'"
+          :default="'Выберите услугу'"
           class="select"
           />
         </div>
@@ -86,9 +86,9 @@
             <div class="dropdown-container">
               <SelectPage
               :options="['9:00 — 19:00', '9:00 — 20:00', '9:00 — 21:00', '10:00 — 18:00','10:00 — 19:00','10:00 — 20:00', '10:00 — 22:00']"
-              :default="'Выберете время'"
+              :default="'Выберите время'"
               class="select"
-              />
+              />    
             </div>
           </div>
           <div class="dropdown-container">

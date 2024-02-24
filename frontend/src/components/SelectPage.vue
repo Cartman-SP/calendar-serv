@@ -63,7 +63,6 @@ export default {
   outline: none;
   height: 36px;
   line-height: 36px;
-  margin-bottom: 10px;
   font-family: TT Norms Medium;
   font-size: 12px;
 }
