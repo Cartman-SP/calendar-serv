@@ -14,22 +14,20 @@
         <div class="one-group">
           <div class="form-group">
             <label for="country">Страна</label>
-              <select id="country" v-model="selectedCountry">
-                <option value="" disabled selected style="display:none;">Выберите страну</option>
-                <option value="Russia">Россия</option>
-                <option value="Kazakhstan">Казахстан</option>
-                <option value="Belarus">Беларусь</option>
-                <option value="Ukraine">Украина</option>
-              </select>
+            <SelectPage
+            :options="['Россия', 'Казахстан','Украина','Таджикистан','Кыргызстан',]"
+            :default="'Выберите страну'"
+            class="select"
+            />
           </div>
 
           <div class="form-group">
             <label for="city">Город</label>
-            <select id="city" v-model="selectedCity">
-              <option value="" disabled selected style="display:none;">Выберите город</option>
-              <option value="SaintPetersburg">Санкт-Петербург</option>
-              <option value="Moscow">Москва</option>
-            </select>
+            <SelectPage
+            :options="['Москва', 'Санкт-Петербург','Тула','Тверь','Великий Новгород',]"
+            :default="'Выберите город'"
+            class="select"
+            />
           </div>
         </div>
 
@@ -92,22 +90,20 @@
           <div class="one-group">
             <div class="form-group">
               <label for="country">Рабочие часы</label>
-              <select id="country" v-model="selectedWorkHours">
-                <option value="" disabled selected style="display:none;">Выберите время</option>
-                <option value="Russia">Россия</option>
-                <option value="Kazakhstan">Казахстан</option>
-                <option value="Belarus">Беларусь</option>
-                <option value="Ukraine">Украина</option>
-              </select>
+              <SelectPage
+              :options="['9:00 — 19:00', '9:00 — 20:00', '9:00 — 21:00', '10:00 — 18:00','10:00 — 19:00','10:00 — 20:00', '10:00 — 22:00']"
+              :default="'Выберите время'"
+              class="select"
+              />
             </div>
   
             <div class="form-group">
               <label for="city">Перерыв</label>
-              <select id="city" v-model="selectedTimeout">
-                <option value="" disabled selected style="display:none;">Выберите время</option>
-                <option value="SaintPetersburg">Санкт-Петербург</option>
-                <option value="Moscow">Москва</option>
-              </select>
+              <SelectPage
+              :options="['9:00 — 19:00', '9:00 — 20:00', '9:00 — 21:00', '10:00 — 18:00','10:00 — 19:00','10:00 — 20:00', '10:00 — 22:00']"
+              :default="'Выберите время'"
+              class="select"
+              />
             </div>
           </div>
           <div class="types-container">
@@ -123,22 +119,19 @@
           </div>
           <div class="dropdown-container">
             <label for="service">Сфера бизнеса</label>
-            <select id="service" v-model="selectedBusiness">
-              <option value="" disabled selected style="display:none;">Выберете сферу бизнеса</option>
-              <option>Салон красоты</option>
-              <option>Барбершоп</option>
-              <option>Маникюрный салон</option>
-              <option>Парикмахерская</option>
-              <option>Брови и ресницы</option>
-              <option>Тату салон</option>
-              <option>Другое</option>
-            </select>
+            <SelectPage
+            :options="['Салон красоты', 'Барбершоп', 'Маникюрный салон', 'Брови и ресницы','Тату салон','Другое']"
+            :default="'Выберите сферу бизнеса'"
+            class="select"
+            />
           </div>
           <div class="dropdown-container">
-            <label for="service">Выберете сотрудников для этого филиала</label>
-            <select id="service" v-model="selectedEmployees">
-              <option value="" disabled selected style="display:none;">Выберете сотрудников</option>
-            </select>
+            <label for="service">Выберите сотрудников для этого филиала</label>
+            <SelectPage
+            :options="[]"
+            :default="'Выберите сотрудников'"
+            class="select"
+            />
           </div>
           <div class="steps">
             <div class="second-steps-container">
@@ -160,7 +153,10 @@
 </template>
 
 <script>
+import SelectPage from '../components/SelectPage.vue';
+
 export default {
+  components: { SelectPage },
   data() {
     return {
       activeDays: [],

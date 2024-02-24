@@ -34,20 +34,32 @@
         <div class="dropdown-container">
           <div class="dropdown-item">
             <p class="normal-text">Часовой пояс</p>
-            <select class="dropdown" v-model="selectedTimeZone" @change="onSelectChange('timeZone')" :class="{ 'selected': selectedTimeZone !== '' }">
+<!--             <select class="dropdown" v-model="selectedTimeZone" @change="onSelectChange('timeZone')" :class="{ 'selected': selectedTimeZone !== '' }">
               <option value="" disabled selected style="display:none;">Выберите часовой пояс</option>
               <option value="GPT+3">GPT +3</option>
               <option value="GPT+4">GPT +4</option>
-            </select>
+            </select> -->
+            <SelectPage
+            v-model="selectedTimeZone"
+            :options="['GMT +4', 'GMT +3']"
+            :default="'Выберите свой часовой пояс'"
+            class="select"
+            />
           </div>
   
           <div class="dropdown-item">
             <p class="normal-text">Валюта</p>
-            <select class="dropdown" v-model="selectedCurrency" @change="onSelectChange('currency')" :class="{ 'selected': selectedCurrency !== '' }">
+<!--             <select class="dropdown" v-model="selectedCurrency" @change="onSelectChange('currency')" :class="{ 'selected': selectedCurrency !== '' }">
               <option value="" disabled selected style="display:none;">Выберите валюту</option>
               <option value="tenge">Тенге</option>
               <option value="rubles">Рубли</option>
-            </select>
+            </select> -->
+            <SelectPage
+            v-model="selectedCurrency"
+            :options="['Р', 'Т']"
+            :default="'Выберите основную валюту'"
+            class="select"
+            />
           </div>
 
         </div>

@@ -21,19 +21,19 @@
         </div>
         <div class="form_container">
           <label for="service">Часовой пояс</label>
-          <select id="service">
-            <option value="" disabled selected style="display:none;">Выберете часовой пояс</option>
-            <option>GMT +3</option>
-            <option>GMT +4</option>
-          </select>
+          <SelectPage
+          :options="['GMT +4', 'GMT +3']"
+          :default="'Выберите свой часовой пояс'"
+          class="select"
+          />
         </div>
         <div class="form_container">
           <label for="service">Валюта</label>
-          <select id="service">
-            <option value="" disabled selected style="display:none;">Выберете валюту</option>
-            <option>T</option>
-            <option>Р</option>
-          </select>
+          <SelectPage
+          :options="['Р', 'Т']"
+          :default="'Выберите основную валюту'"
+          class="select"
+          />
         </div>
       </div>
       <div class="picker">
@@ -71,7 +71,10 @@
 </template>
 
 <script>
+import SelectPage from '../components/SelectPage.vue';
+
 export default {
+  components: { SelectPage },
   data() {
     return {
       companyName: '',

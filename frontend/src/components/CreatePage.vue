@@ -24,13 +24,11 @@
   
           <div class="input-group">
             <label for="serviceDuration">Длительность</label>
-            <select id="serviceDuration" placeholder="Выберите время" v-model="serviceDuration">
-              <option value="" disabled selected style="display:none;">Выберите время</option>
-              <option value="15m">15м</option>
-              <option value="30m">30м</option>
-              <option value="45m">45м</option>
-              <option value="60m">60м</option>
-            </select>
+            <SelectPage
+            :options="['15 минут', '30 минут', '45 минут', '1 час','1 час 30 минут','2 часа','2 часа 30 минут']"
+            :default="'Выберите время'"
+            class="select"
+          />
           </div>
         </div>
   
@@ -225,9 +223,10 @@
 <script>
 import axios from 'axios';
 import Tip from '../components/TipComponent.vue';
+import SelectPage from '../components/SelectPage.vue';
 
 export default {
-  components: { Tip },
+  components: { Tip, SelectPage},
   data() {
     return {
       selectedRecordType: '',

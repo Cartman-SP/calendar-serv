@@ -28,11 +28,11 @@
     
                 <div class="input-content">
                   <label for="widgetLanguage">Язык виджета</label>
-                  <select id="widgetLanguage">
-                    <option value="" disabled selected style="display:none;">Выберите язык</option>
-                    <option value="russian">Русский</option>
-                    <option value="belarusian">Белорусский</option>
-                  </select>
+                  <SelectPage
+                  :options="['Русский', 'Белорусский']"
+                  :default="'Выберите язык'"
+                  class="select"
+                  />
                 </div>
               </div>
               <div class="apps-container">
@@ -89,20 +89,22 @@
                 <div class="footer-apps">
                   <p class="header">Интервал записи</p>
                   <p class="subheader">Задержка времени между<br> сеансами</p>
-                  <select id="widget-time" style="width: 70%">
-                    <option value="" disabled selected style="display:none;">Время</option>
-                    <option value="30m">30 Минут</option>
-                    <option value="1h">1 Час</option>
-                  </select>
+                  <SelectPage
+                  :options="['15 минут', '30 минут', '1 час', '2 часа','3 часа','4 часа']"
+                  :default="'15 минут'"
+                  class="select"
+                  style="width: 80%;"
+                  />
                 </div>
                 <div class="footer-apps">
                   <p class="header">Ограничение на отмену</p>
                   <p class="subheader">Время, за которое клиент не<br> сможет отменять записи</p>
-                  <select id="widget-time" style="width: 70%">
-                    <option value="" disabled selected style="display:none;">Время</option>
-                    <option value="30m">30 Минут</option>
-                    <option value="1h">1 Час</option>
-                  </select>
+                  <SelectPage
+                  :options="['30 минут', 'за 1 час', 'за 2 часа','за 3 часа','за 4 часа','за 5 часов']"
+                  :default="'за 30 минут'"
+                  class="select"
+                  style="width: 90%;"
+                  />
                 </div>
               </div>
               <div class="button-container">
@@ -267,9 +269,10 @@
 <script>
 import WidgetApp from './WidgetApp.vue';
 import PalitraPage from './PalitraPage.vue';
+import SelectPage from '../components/SelectPage.vue';
 
 export default {
-  components: { WidgetApp , PalitraPage} ,
+  components: { WidgetApp , PalitraPage, SelectPage} ,
   data() {
     return {
       selectedTab: 'general',
