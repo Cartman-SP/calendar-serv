@@ -313,7 +313,7 @@ export default {
   }
   .compo-text{
     color: #FFFFFF;
-    font-family: TT Norms;
+    font-family: TT Norms Medium;
     font-size: 14px;
     font-weight: 500;
     line-height: 14px;
@@ -361,7 +361,7 @@ export default {
   }
   p{
     text-align: left;
-    font-family: TT Norms;
+    font-family: TT Norms Medium;
     font-size: 14px;
     font-weight: 500;
     line-height: 17px;
@@ -384,7 +384,6 @@ export default {
   }
   .steps-text{
     font-size: 8px;
-    font-weight: bold;
     line-height: 8px;
     letter-spacing: 0em;
     text-align: left;
@@ -423,7 +422,6 @@ export default {
   .bottom_text{
     margin: 0;
     font-size: 12px;
-    font-weight: bold;
     line-height: 12px;
     letter-spacing: 0em;
     text-align: left;

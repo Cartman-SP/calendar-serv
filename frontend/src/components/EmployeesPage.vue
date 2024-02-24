@@ -224,9 +224,8 @@ export default {
   }
 
   .employesss-link {
-    font-family: TT Norms;
+    font-family: TT Norms Medium;
     font-size: 20px;
-    font-weight: bold;
     line-height: 24px;
     text-align: left;
     text-decoration: none;
@@ -239,9 +238,8 @@ export default {
   }
   .creation_text {
     color: #535C69;
-    font-family: TT Norms;
+    font-family: TT Norms Medium;
     font-size: 20px;
-    font-weight: bold;
     line-height: 24px;
     letter-spacing: 0em;
     text-align: left;
@@ -316,7 +314,7 @@ export default {
     display: none;
   }
   input::placeholder {
-    font-family: "TT Norms";
+    font-family: "TT Norms Medium";
     font-size: 14px;
     font-weight: 500;
     line-height: 17px;
@@ -337,7 +335,7 @@ export default {
   }
   select {
     padding: 10px;
-    font-family: TT Norms;
+    font-family: TT Norms Medium;
     font-size: 14px;
     line-height: 20px;
     color: #D2D8DE;
@@ -347,16 +345,15 @@ export default {
   }
   
   select option {
-    font-family: TT Norms;
+    font-family: TT Norms Medium;
     font-size: 14px;
-    font-weight: bold;
     line-height: 20px;
     color: #535C69;
   }
   select#service {
     width: 100%;
     padding: 10px;
-    font-family: TT Norms;
+    font-family: TT Norms Medium;
     font-size: 14px;
     line-height: 20px;
     color: #D2D8DE;
@@ -364,7 +361,6 @@ export default {
     background-color: #F3F5F6;
   }
   label{
-    font-weight: 700;
     margin: 0;
   }
   .grafic_text{

@@ -164,36 +164,33 @@ export default {
     
     .days-text {
       color: #535C69;
-      font-family: "TT Norms";
+      font-family: TT Norms Medium;
       font-size: 32px;
       font-style: normal;
-      font-weight: bold;
       line-height: 120%;
       text-align: left;
     }
     
     .days-highlight {
       color: #6266EA;
-      font-family: "TT Norms";
+      font-family: TT Norms Medium;
       font-size: 32px;
       font-style: normal;
-      font-weight: bold;
       line-height: 120%;
     }
     
     .normal-text {
       color:#535C69;
-      font-family: "TT Norms";
+      font-family: TT Norms Medium;
       font-size: 13px;
       font-style: normal;
-      font-weight: bold;
       line-height: normal;
       text-align: left;
     }
     
     .small-text {
       color:#D2D8DE;
-      font-family: "TT Norms";
+      font-family: TT Norms Medium;
       font-size: 14px;
       font-style: normal;
       font-weight: 500;
@@ -239,7 +236,7 @@ export default {
       border: none;
     }
     input::placeholder {
-      font-family: "TT Norms";
+      font-family: TT Norms Medium;
       font-size: 14px;
       font-weight: 500;
       line-height: 17px;
@@ -329,7 +326,6 @@ export default {
     select option {
       font-family: TT Norms;
       font-size: 14px;
-      font-weight: bold;
       line-height: 20px;
       color: #535C69;
 
@@ -338,7 +334,6 @@ export default {
       color: #535C69;
       font-family: TT Norms;
       font-size: 14px;
-      font-weight: bold;
       line-height: 17px;
       letter-spacing: 0em;
       text-align: left;

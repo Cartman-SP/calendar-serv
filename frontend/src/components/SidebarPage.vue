@@ -208,9 +208,8 @@ export default {
     left: 0;  
   }
 .main_text{
-  font-family: TT Norms;
+  font-family: TT Norms Medium;
   font-size: 14px;
-  font-weight: bold;
   line-height: 21px;
   letter-spacing: 0em;
   text-align: center;
@@ -268,16 +267,15 @@ export default {
 }
 
 #bottom_header{
-  font-family: TT Norms;
+  font-family: TT Norms Medium;
   font-size: 14px;
-  font-weight: bold;
   line-height: 14px;
   letter-spacing: 0em;
   color: #535C69;
   margin-bottom: 5px;
 }
 #bottom_subheader{
-  font-family: TT Norms;
+  font-family: TT Norms Medium;
   font-size: 12px;
   font-weight: 300;
   line-height: 12px;
@@ -285,7 +283,7 @@ export default {
   color: #535C69;
 }
 #bottom_sub_text{
-  font-family: TT Norms;
+  font-family: TT Norms Medium;
   font-size: 10px;
   font-weight: 500;
   line-height: 10px;
@@ -300,7 +298,6 @@ export default {
 .dropdown{
   color: #AFB6C1;
   font-size: 15px;
-  font-weight: bold;
   background-color: white;
   width: 1em;
   height: 2em;
@@ -336,7 +333,7 @@ export default {
 }
 
 .dropdown-header{
-  font-family: TT Norms;
+  font-family: TT Norms Medium;
   font-size: 13px;
   font-weight: 500;
   line-height: 13px;
@@ -344,11 +341,10 @@ export default {
   color: #AFB6C1;
 }
 .dropdown-header:hover {
-  font-weight: bold;
   color: #535C69;
 }
 .dropdown-subheader{
-  font-family: TT Norms;
+  font-family: TT Norms Medium;
   font-size: 13px;
   font-weight: 500;
   line-height: 13px;
@@ -356,7 +352,6 @@ export default {
   color: #F97F7F;
 }
 .dropdown-subheader:hover {
-  font-weight: bold;
   color: #F97F7F;
 }
 .img_profile{

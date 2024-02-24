@@ -277,7 +277,7 @@ export default {
       }
       this.serviceNameError = false;
 
-      if (!this.serviceCost.trim()) {
+      if (!this.serviceCost.toString().trim()) {
         this.serviceCostError = true;
         return;
       }
@@ -483,11 +483,11 @@ export default {
 }
 .text {
   font-family: 'TT Norms Medium';
-  font-size: 14px;
-  line-height: 17px;
+  font-size: 10px;
+  line-height: 12px;
   letter-spacing: 0em;
   text-align: left;
-  color: #AFB6C1;
+  color: #D2D8DE;
 }
 .record-type-container {
   display: flex;

@@ -108,9 +108,8 @@ export default {
 
 label {
   margin-bottom: 5px;
-  font-family: TT Norms;
+  font-family: TT Norms Medium;
   font-size: 13px;
-  font-weight: bold;
   line-height: 15px;
   letter-spacing: 0em;
 }
@@ -137,19 +136,16 @@ p{
   text-align: left;
   margin: 10px 0;
   width: 450px;
-  font-family: TT Norms;
-  font-family: TT Norms;
+  font-family: TT Norms Medium;
   font-size: 14px;
-  font-weight: 300;
   line-height: 17px;
   letter-spacing: 0em;
   color: rgba(83, 92, 105, 0.7);
 }
 
 .email-header{
-  font-family: TT Norms;
+  font-family: TT Norms Medium;
   font-size: 14px;
-  font-weight: 700;
   line-height: 17px;
   letter-spacing: 0em;
   text-align: left;
@@ -205,15 +201,17 @@ p{
 }
 .password{
   color: #7D838C;
-  font-family: TT Norms;
+  font-family: TT Norms Medium;
   font-size: 14px;
   font-weight: 500;
   line-height: 17px;
   letter-spacing: 0em;
 }
 h2{
+  font-family: TT Norms Medium;
   margin: 0;
   padding-bottom: 20px;
+  color: #535C69;
 }
 .photo-info{
   color: #AFB6C1;
@@ -222,5 +220,8 @@ h2{
   line-height: 10px;
   letter-spacing: 0em;
   margin: 5px 0;
+}
+span{
+  font-weight: bold;
 }
 </style>

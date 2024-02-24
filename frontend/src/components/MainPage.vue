@@ -45,8 +45,4 @@ export default {
 </script>
 
 <style scoped>
-.navigation {
-  display: flex;
-  background-color:#FAFAFA;
-}
 </style>

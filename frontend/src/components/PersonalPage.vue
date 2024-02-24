@@ -83,7 +83,7 @@
   
   .header {
     color: #535C69;
-    font-family: "TT Norms";
+    font-family: TT Norms Medium;
     font-size: 20px;
     font-weight: 500;
     line-height: 15px;
@@ -96,7 +96,7 @@
     font-size: 16px;
     line-height: 16px;
     color: #AFB6C1;
-    font-family: TT Norms;
+    font-family: TT Norms Medium;
     font-weight: 500;
     letter-spacing: 0em;
     text-align: center;

@@ -165,7 +165,7 @@ export default {
   .subheader {
     text-align: left;
     color: #FFF;
-    font-family: "TT Norms Bold";
+    font-family: TT Norms Medium;
     font-size: 64px;
     font-style: normal;
     line-height: normal;
@@ -173,7 +173,7 @@ export default {
   
   .subtext {
     color: #FFF;
-    font-family: "TT Norms";
+    font-family: TT Norms Medium;
     font-size: 28px;
     font-style: normal;
     font-weight: 500;
@@ -192,7 +192,7 @@ export default {
     text-align: left;
     width: 340px;
     color: var(--cold-text-ghost-500, #DDE1E5);
-    font-family: "TT Norms";
+    font-family: TT Norms Medium;
     font-size: 13px;
     font-style: normal;
     font-weight: 500;
@@ -208,7 +208,7 @@ export default {
   
   h2 {
     color: var(--cold-text-headline-100, #212326);
-    font-family: "TT Norms";
+    font-family: TT Norms Medium;
     font-size: 24px;
     font-style: normal;
     font-weight: 300;
@@ -235,7 +235,7 @@ export default {
     display: block;
     margin-bottom: 5px;
     color: #535C69;
-    font-family: "TT Norms";
+    font-family: TT Norms Medium;
     font-size: 13px;
     font-style: normal;
     font-weight: 500;
@@ -257,7 +257,7 @@ export default {
     box-sizing: border-box;
     margin-bottom: 10px;
     color: #535C69;
-    font-family: "TT Norms";
+    font-family: TT Norms Medium;
     font-size: 13px;
     font-style: normal;
     font-weight: 500;
@@ -284,7 +284,7 @@ export default {
   
   #username::placeholder {
     color: var(--cold-text-title-200, #535C69);
-    font-family: "TT Norms";
+    font-family: TT Norms Medium;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
@@ -301,7 +301,7 @@ export default {
     box-sizing: border-box;
     margin-bottom: 10px;
     color:#AFB6C1;
-    font-family: "TT Norms";
+    font-family: TT Norms Medium;
     font-size: 13px;
     font-style: normal;
     font-weight: 500;
@@ -341,7 +341,7 @@ export default {
   
   .disclaimer {
     color: var(--cold-text-muted-400, #AFB6C1);
-    font-family: "TT Norms";
+    font-family: TT Norms Medium;
     font-size: 10px;
     font-style: normal;
     font-weight: 500;

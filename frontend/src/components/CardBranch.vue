@@ -151,7 +151,6 @@ export default {
     color: #535C69;
     border: 1px solid #DDE1E5;
     background: #FFFFFF;  
-    font-weight: bold;
     transition: background-color 0.3s, border-color 0.3s, color 0.3s;
   }
   .exit:hover{
@@ -165,10 +164,9 @@ export default {
   }
   span{
     color: #7D838C;
-    font-weight: bold;
   }
   .modal-subtext{
-    font-family: TT Norms;
+    font-family: TT Norms Medium;
     font-size: 14px;
     font-weight: 500;
     line-height: 20px;

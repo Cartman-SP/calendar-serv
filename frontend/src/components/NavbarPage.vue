@@ -371,7 +371,6 @@ img{
     color:#D2D8DE;
     margin: 0;
     width: 15vw;
-    font-weight: bold;
 }
 
 .search input:focus{
@@ -548,14 +547,6 @@ p{
   text-align: left;
   color: #535C69;
 }
-.teg_head{
-  font-family: 'TT Norms Medium';
-  font-size: 15px;
-  line-height: 15px;
-  letter-spacing: 0em;
-  text-align: left;
-  color:#535C69;
-}
 input{
   margin: 0;
 }
@@ -609,12 +600,23 @@ input{
   color: #535C69;
 }
 .bottom_text{
-  font-family: TT Norms;
+  font-family: TT Norms Medium;
   font-size: 13px;
   font-weight: 500;
   line-height: 13px;
   letter-spacing: 0em;
   text-align: left;
   color: #AFB6C1;
+}
+.search input{
+  background-image: url(../../static/img/search.svg);
+  background-repeat: no-repeat;
+  padding-left: 35px;
+  background-position: 15px;
+}
+.wrapper input{
+  background-image: url(../../static/img/search.svg);
+  background-repeat: no-repeat;
+  background-position: calc(100% - 15px) center;
 }
 </style>

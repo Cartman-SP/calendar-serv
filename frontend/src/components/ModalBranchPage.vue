@@ -74,10 +74,9 @@
     
     .confirm-head {
       color: #535C69;
-      font-family: "TT Norms";
+      font-family: TT Norms Medium;
       font-size: 32px;
       font-style: normal;
-      font-weight: bold;
       line-height: 120%;
       text-align: left;
     }
@@ -106,7 +105,6 @@
     .add-head{
       font-family: TT Norms;
       font-size: 14px;
-      font-weight: bold;
       line-height: 18px;
       letter-spacing: 0em;
       text-align: left;
@@ -140,5 +138,6 @@
     }
     .sweety{
       position: absolute;
+      top: 10px;
     }
 </style>

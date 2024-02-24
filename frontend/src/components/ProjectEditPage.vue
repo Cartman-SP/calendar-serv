@@ -104,9 +104,8 @@ export default {
   margin-bottom: 20px;
 }
 .eidt-link {
-  font-family: TT Norms;
+  font-family: TT Norms Medium;
   font-size: 20px;
-  font-weight: bold;
   line-height: 24px;
   text-align: left;
   text-decoration: none;
@@ -114,9 +113,8 @@ export default {
 }
 .creation_text {
   color: #535C69;
-  font-family: TT Norms;
+  font-family: TT Norms Medium;
   font-size: 20px;
-  font-weight: bold;
   line-height: 24px;
   letter-spacing: 0em;
   text-align: left;
@@ -155,9 +153,8 @@ export default {
   gap: 5px;
 }
 .header_text{
-  font-family: TT Norms;
+  font-family: TT Norms Medium;
   font-size: 18px;
-  font-weight: bold;
   line-height: 21px;
   letter-spacing: 0em;
   text-align: left;
@@ -165,7 +162,7 @@ export default {
   margin: 0;
 }
 .subheader_text{
-  font-family: TT Norms;
+  font-family: TT Norms Medium;
   font-size: 14px;
   font-weight: 500;
   line-height: 17px;
@@ -176,7 +173,7 @@ export default {
 }
 select {
   padding: 10px;
-  font-family: TT Norms;
+  font-family: TT Norms Medium;
   font-size: 14px;
   line-height: 20px;
   color: #D2D8DE;
@@ -188,16 +185,15 @@ input{
   margin: 0;
 }
 select option {
-  font-family: TT Norms;
+  font-family: TT Norms Medium;
   font-size: 14px;
-  font-weight: bold;
   line-height: 20px;
   color: #535C69;
 }
 select#service {
   width: 100%;
   padding: 10px;
-  font-family: TT Norms;
+  font-family: TT Norms Medium;
   font-size: 14px;
   line-height: 20px;
   color: #D2D8DE;
@@ -209,9 +205,8 @@ label{
   margin: 0;
 }
 .color_text{
-  font-family: TT Norms;
+  font-family: TT Norms Medium;
   font-size: 12px;
-  font-weight: bold;
   line-height: 14px;
   letter-spacing: 0em;
   text-align: left;
@@ -261,7 +256,7 @@ label{
 }
 .small-text {
   color:#D2D8DE;
-  font-family: "TT Norms";
+  font-family: "TT Norms Medium";
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -286,7 +281,6 @@ label{
 .delete_edit{
   color: #F97F7F;
   background-color: rgba(249, 127, 127, 0.2);
-  font-weight: bold;
 }
 .delete:hover{
   background: #F97F7F;
@@ -296,7 +290,6 @@ label{
   color: #535C69;
   border: 1px solid #DDE1E5;
   background: #FFFFFF;  
-  font-weight: bold;
   transition: background-color 0.3s, border-color 0.3s, color 0.3s;
 }
 .exit:hover{
@@ -309,9 +302,8 @@ label{
   gap: 10px;
 }
 .text-header{
-  font-family: TT Norms;
+  font-family: TT Norms Medium;
   font-size: 14px;
-  font-weight: bold;
   line-height: 14px;
   letter-spacing: 0em;
   color: #535C69;
@@ -319,7 +311,7 @@ label{
   text-align: left;
 }
 .modal-subtext{
-  font-family: TT Norms;
+  font-family: TT Norms Medium;
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
@@ -331,7 +323,6 @@ label{
 }
 .modal_span{
   color: #7D838C;
-  font-weight: bold;
 }
 .overlay {
   position: fixed;

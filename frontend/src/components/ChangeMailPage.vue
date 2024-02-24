@@ -75,7 +75,7 @@ export default {
 }
 label{
   color: #535C69;
-  font-family: TT Norms;
+  font-family: TT Norms Medium;
   font-size: 13px;
   font-weight: 500;
   line-height: 15px;
@@ -83,7 +83,7 @@ label{
   text-align: left;
 }
 p{
-  font-family: TT Norms;
+  font-family: TT Norms Medium;
   font-size: 18px;
   font-weight: 500;
   line-height: 21px;

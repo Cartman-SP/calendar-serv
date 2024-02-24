@@ -111,9 +111,8 @@
     margin-bottom: 20px;
   }
   .eidt-link {
-    font-family: TT Norms;
+    font-family: TT Norms Medium;
     font-size: 20px;
-    font-weight: bold;
     line-height: 24px;
     text-align: left;
     text-decoration: none;
@@ -121,9 +120,8 @@
   }
   .creation_text {
     color: #535C69;
-    font-family: TT Norms;
+    font-family: TT Norms Medium;
     font-size: 20px;
-    font-weight: bold;
     line-height: 24px;
     letter-spacing: 0em;
     text-align: left;
@@ -160,18 +158,16 @@
     gap: 10px;
   }
   .main_header{
-    font-family: TT Norms;
+    font-family: TT Norms Medium;
     font-size: 14px;
-    font-weight: bold;
     line-height: 17px;
     letter-spacing: 0em;
     text-align: left;
     color: #535C69;
   }
   .main_subheader{
-    font-family: TT Norms;
+    font-family: TT Norms Medium;
     font-size: 12px;
-    font-weight: bold;
     line-height: 14px;
     letter-spacing: 0.03em;
     text-align: left;
@@ -181,9 +177,8 @@
     margin: 0;
   }
   .edit_header{
-    font-family: TT Norms;
+    font-family: TT Norms Medium;
     font-size: 18px;
-    font-weight: bold;
     line-height: 21px;
     letter-spacing: 0em;
     text-align: left;
@@ -199,9 +194,8 @@
     justify-content: space-between;
   }
   .choice_text{
-    font-family: TT Norms;
+    font-family: TT Norms Medium;
     font-size: 13px;
-    font-weight: bold;
     line-height: 15px;
     letter-spacing: 0em;
     text-align: left;
@@ -229,9 +223,8 @@
     cursor: pointer;
   }
   .pick_text{
-    font-family: TT Norms;
+    font-family: TT Norms Medium;
     font-size: 14px;
-    font-weight: bold;
     line-height: 17px;
     letter-spacing: 0em;
     text-align: center;
@@ -239,7 +232,7 @@
     cursor: pointer;
   }
   .small_text{
-    font-family: TT Norms;
+    font-family: TT Norms Medium;
     font-size: 12px;
     font-weight: 500;
     line-height: 14px;
@@ -270,7 +263,6 @@
     justify-content: end;
   }
   label{
-    font-weight: bold;
     margin: 0;
   }
   .form{

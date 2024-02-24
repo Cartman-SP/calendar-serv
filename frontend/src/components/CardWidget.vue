@@ -87,9 +87,8 @@ export default {
 
 <style scoped>
   .text-header{
-    font-family: TT Norms;
+    font-family: TT Norms Medium;
     font-size: 16px;
-    font-weight: bold;
     line-height: 18px;
     letter-spacing: 0em;
     color: #535C69;
@@ -116,65 +115,6 @@ export default {
     gap: 20px;
     width: 100%;
   }
-  .dropdown-container{
-    position: relative;
-    display: inline-block;
-  }
-  .dropdown{
-    color: #AFB6C1;
-    font-size: 15px;
-    font-weight: bold;
-    background-color: white;
-    width: 1em;
-    height: 2em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 3px;
-    transition: all .2s ease;
-    border: 1px solid white;
-  }
-  .dropdown:hover{
-    border: 1px solid #535C69;
-  }
-  .dropdown-menu {
-    position: absolute;
-    right: 0;
-    width: 15vh;
-    height: auto;
-    background-color: #FFFFFF;
-    border: 1px solid #E4EAEF;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-    text-align: left;
-  }
-  
-  .dropdown-item{
-    padding: 10px;
-    font-family: TT Norms;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 13px;
-    letter-spacing: 0em;
-    color: #AFB6C1;
-    transition: all .2s ease;
-  }
-
-  .dropdown-item:hover {
-    color: #535C69;
-    cursor: pointer;
-  }
-  .lines{
-    width: 100%;
-    height: 1px;
-    background-color: #E4EAEF;
-  }
-  .dropdown_btn{
-    display: flex;
-    justify-content: right;
-  }
   .modal{
     width: 36vw;
     height: auto;
@@ -189,7 +129,6 @@ export default {
   .delete{
     color: #F97F7F;
     background-color: rgba(249, 127, 127, 0.2);
-    font-weight: bold;
   }
   .delete:hover{
     background: #F97F7F;
@@ -199,7 +138,6 @@ export default {
     color: #535C69;
     border: 1px solid #DDE1E5;
     background: #FFFFFF;  
-    font-weight: bold;
     transition: background-color 0.3s, border-color 0.3s, color 0.3s;
   }
   .exit:hover{
@@ -213,10 +151,9 @@ export default {
   }
   span{
     color: #7D838C;
-    font-weight: bold;
   }
   .modal-subtext{
-    font-family: TT Norms;
+    font-family: TT Norms Medium;
     font-size: 14px;
     font-weight: 500;
     line-height: 20px;
@@ -257,7 +194,7 @@ export default {
   }
   .id{
     color: #D2D8DE;
-    font-family: TT Norms;
+    font-family: TT Norms Medium;
     font-size: 12px;
     font-weight: 700;
     line-height: 14px;

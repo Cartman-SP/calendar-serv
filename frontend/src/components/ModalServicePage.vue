@@ -74,15 +74,14 @@
     
     .confirm-head {
       color: #535C69;
-      font-family: "TT Norms";
+      font-family: TT Norms Medium;
       font-size: 32px;
       font-style: normal;
-      font-weight: bold;
       line-height: 120%;
       text-align: left;
     }
     .confirm-sub{
-      font-family: TT Norms;
+      font-family: TT Norms Medium;
       font-size: 18px;
       font-weight: 300;
       line-height: 23px;
@@ -104,16 +103,15 @@
       gap: 5px;
     }
     .add-head{
-      font-family: TT Norms;
+      font-family: TT Norms Medium;
       font-size: 14px;
-      font-weight: bold;
       line-height: 18px;
       letter-spacing: 0em;
       text-align: left;
       color: #535C69;
     }
     .add-sub{
-      font-family: TT Norms;
+      font-family: TT Norms Medium;
       font-size: 14px;
       font-weight: 500;
       line-height: 18px;
@@ -140,5 +138,6 @@
     }
     .sweety{
       position: absolute;
+      top: 10px;
     }
 </style>

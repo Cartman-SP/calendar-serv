@@ -78,7 +78,7 @@ export default {
     text-align: left;
     width: 340px;
     color: var(--cold-text-ghost-500, #DDE1E5);
-    font-family: "TT Norms";
+    font-family: TT Norms Medium;
     font-size: 13px;
     font-style: normal;
     font-weight: 500;

@@ -103,7 +103,7 @@ export default {
     font-size: 16px;
     line-height: 16px;
     color: #AFB6C1;
-    font-family: TT Norms;
+    font-family: TT Norms Medium;
     font-weight: 500;
     letter-spacing: 0em;
     text-align: center;

@@ -47,7 +47,7 @@ body{
     gap: 5px;
     color: var(--cold-text-title-200, #535C69);
     text-align: center;
-    font-family: "TT Norms";
+    font-family: TT Norms Medium;
     font-size: 22px;
     font-style: normal;
     font-weight: 500;
@@ -71,7 +71,7 @@ body{
     gap: 5px;
     color: #FFF;
     text-align: center;
-    font-family: "TT Norms";
+    font-family: TT Norms Medium;
     font-size: 22px;
     font-style: normal;
     font-weight: 500;
