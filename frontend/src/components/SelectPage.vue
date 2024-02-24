@@ -9,7 +9,7 @@
         :key="i"
         @click="
           selected = option;
-          open = false;
+          open = false; 
           $emit('input', option);
         "
       >
@@ -65,6 +65,7 @@ export default {
   line-height: 36px;
   margin-bottom: 10px;
   font-family: TT Norms Medium;
+  font-size: 12px;
 }
 
 .custom-select .selected {
