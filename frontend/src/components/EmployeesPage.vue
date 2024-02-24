@@ -223,6 +223,9 @@ export default {
 </script>
   
   <style scoped>
+  .chip svg:hover path{
+    fill: rgb(250, 148, 148);
+  }
   .chips-block{
     width: 100%;
     display: flex;
