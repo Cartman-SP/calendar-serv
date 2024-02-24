@@ -36,10 +36,11 @@
         
         <div class="dropdown-container">
           <label for="service">Услуга</label>
-          <select id="service" v-model="selectedServiceId">
-            <option value="" disabled selected style="display:none;">Выберете услугу</option>
-            <option v-for="usluga in uslugi" :key="usluga.id" :value="usluga.id">{{ usluga.name }}</option>
-          </select>
+          <SelectPage
+          :options="['Стрижка', 'Стрижка и борода', 'Укладка волос', 'Чистка лица','Оконтовка','Отец + сын']"
+          :default="'Выберете услугу'"
+          class="select"
+          />
         </div>
 
         <div class="chips-block">
@@ -83,26 +84,21 @@
           <div class="dropdown-container">
             <label for="workingHours">Рабочие часы</label>
             <div class="dropdown-container">
-              <select id="workingHours" v-model="work_time">
-                <option value="" disabled selected style="display:none;">Время работы</option>
-                <option>9:00 - 19:00</option>
-                <option>9:00 - 20:00</option>
-                <option>9:00 - 21:00</option>
-                <option>10:00 - 18:00</option>
-                <option>10:00 - 19:00</option>
-                <option>10:00 - 20:00</option>
-                <option>10:00 - 22:00</option>
-              </select>
+              <SelectPage
+              :options="['9:00 — 19:00', '9:00 — 20:00', '9:00 — 21:00', '10:00 — 18:00','10:00 — 19:00','10:00 — 20:00', '10:00 — 22:00']"
+              :default="'Выберете время'"
+              class="select"
+              />
             </div>
           </div>
           <div class="dropdown-container">
             <label for="break">Перерыв</label>
             <div class="dropdown-container">
-              <select id="break" v-model="chill_time">
-                <option value="" disabled selected style="display:none;">Время перерыва</option>
-                <option>13:00-14:00</option>
-                <option>14:00-15:00</option>
-              </select>
+              <SelectPage
+              :options="['13:00 — 14:00', '13:00 — 14:00', '13:00 — 14:00']"
+              :default="'Выберите время'"
+              class="select"
+              />
             </div>
           </div>
         </div>
@@ -122,10 +118,11 @@
 <script>
 import axios from 'axios';
 import Tip from '../components/TipComponent.vue';
+import SelectPage from '../components/SelectPage.vue';
 
 
 export default {
-  components: { Tip },
+  components: { Tip, SelectPage },
   data() {
     return {
       selectedDays: [],
