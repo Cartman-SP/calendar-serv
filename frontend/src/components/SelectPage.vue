@@ -61,14 +61,16 @@ export default {
   width: 100%;
   text-align: left;
   outline: none;
-  height: 47px;
-  line-height: 47px;
+  height: 36px;
+  line-height: 36px;
+  margin-bottom: 10px;
+  font-family: TT Norms Medium;
 }
 
 .custom-select .selected {
   background-color: #F3F5F6;
-  border-radius: 6px;
-  color: #D2D8DE;
+  border-radius: 3px;
+  color: #535C69;
   padding-left: 1em;
   cursor: pointer;
   user-select: none;
@@ -81,7 +83,7 @@ export default {
 .custom-select .selected:after {
   position: absolute;
   content: "";
-  top: 22px;
+  top: 16px;
   right: 1em;
   width: 0;
   height: 0;
