@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="content">
-      <router-link to="/lk/project/edit" class="add">
+      <router-link to="/lk/project/new" class="add">
         <div class="svg-plus">
           <svg width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="0" xmlns="http://www.w3.org/2000/svg">
             <path d="M9.00006 11V17H11.0001V11H17V9H11.0001V3H9.00006V9H3V11H9.00006Z"/>

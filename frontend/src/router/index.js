@@ -19,6 +19,7 @@ import LichniyCabinet from '../components/LichniyCabinet.vue'
 import ProjectPage from '../components/ProjectPage.vue';
 import ProjectEditPage from '../components/ProjectEditPage.vue';
 import ProjectGatesPage from '../components/ProjectGatesPage.vue';
+import CreateProject from '../components/CreateProject.vue';
 import store from '../store';
 
 
@@ -136,7 +137,13 @@ const routes = [
         name: 'gate',
         component: ProjectGatesPage,
         meta: { requiresAuth: true }
-      },      
+      },
+      {
+        path: '/lk/project/new',
+        name: 'new',
+        component: CreateProject,
+        meta: { requiresAuth: true }
+      },        
     ]
   },
   {
