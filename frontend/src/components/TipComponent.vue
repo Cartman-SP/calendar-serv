@@ -52,9 +52,9 @@ export default {
     display: inline-block;
   }
   .tooltip {
-    max-width: 700px;
-    width: auto;
-    text-align: left;
+  max-width: 700px;
+  width: auto;
+  text-align: left;
   transform: translateY(22px);
   word-wrap: break-word;
   overflow-wrap: break-word;

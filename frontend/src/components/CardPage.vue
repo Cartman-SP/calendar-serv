@@ -1,47 +1,49 @@
 <template>
-  <div class="service_card">
-    <div class="card-container">
-      <div class="card-header">
-        <div class="main">
-          <img :src="'http://127.0.0.1:8000/' + usluga.serviceCover" alt="No service cover" class="img_head">
-          <div class="head">
-            <div class="text-container">
-              <p class="text-header">{{ usluga.name }}</p> <!-- Отображаем название услуги -->
-              <p class="text-subheader">Название услуги</p>
-            </div>
-            <div class="text-container">
-              <p class="text-header">{{ usluga.time }}</p>
-              <p class="text-subheader">Длительность</p>
+  <div>
+    <div class="service_card">
+      <div class="card-container">
+        <div class="card-header">
+          <div class="main">
+            <img :src="'http://127.0.0.1:8000/' + usluga.serviceCover" alt="No service cover" class="img_head">
+            <div class="head">
+              <div class="text-container">
+                <p class="text-header">{{ usluga.name }}</p> <!-- Отображаем название услуги -->
+                <p class="text-subheader">Название услуги</p>
+              </div>
+              <div class="text-container">
+                <p class="text-header">{{ usluga.time }}</p>
+                <p class="text-subheader">Длительность</p>
+              </div>
             </div>
           </div>
+          <Kebab :buttons="buttons" :HasDelete="true" :HasDeviders="true" @Deleting="toggleModal"/>
         </div>
-        <Kebab :buttons="buttons" :HasDelete="true" :HasDeviders="true" :DeleteFunction="'toggleModal'"/>
-      </div>
-      <div class="line"></div>
-      <div class="card-bottom">
-        <div class="text-container">
-          <p class="text-header">{{ usluga.type.replace('individual','Индивидуальный').replace('group','Групповой').replace('rental','Аренда') }}</p>
-          <p class="text-subheader">Тип записи</p>
-        </div>
-        <div class="bottom">
+        <div class="line"></div>
+        <div class="card-bottom">
           <div class="text-container">
-            <p class="text-header">{{ usluga.pay_type }}</p>
-            <p class="text-subheader">Формат оплаты</p>
+            <p class="text-header">{{ usluga.type.replace('individual','Индивидуальный').replace('group','Групповой').replace('rental','Аренда') }}</p>
+            <p class="text-subheader">Тип записи</p>
           </div>
-          <p class="bottom-text">{{ usluga.cost }} Р</p> <!-- Отображаем стоимость услуги -->
+          <div class="bottom">
+            <div class="text-container">
+              <p class="text-header">{{ usluga.pay_type }}</p>
+              <p class="text-subheader">Формат оплаты</p>
+            </div>
+            <p class="bottom-text">{{ usluga.cost }} Р</p> <!-- Отображаем стоимость услуги -->
+          </div>
         </div>
       </div>
     </div>
     <div class="overlay" v-if="showModal"></div>
     <div v-if="showModal" class="modal">
-      <div class="modal-content">
-        <p class="text-header">Удаление услуги</p>
-        <p class="modal-subtext">Вы действительно хотите удалить услугу<br><span>Стрижка?</span></p>
-        <div class="btn_container">
-          <button class="delete" @click="deleteService">Удалить</button>
-          <button class="exit" @click="toggleModal">Отмена</button>
-        </div>
-      </div>
+          <div class="modal-content">
+            <p class="text-header">Удаление услуги</p>
+            <p class="modal-subtext">Вы действительно хотите удалить услугу<br> <span>{{ this.usluga.name }}</span>?</p>
+            <div class="btn_container">
+              <button class="delete" @click="deleteService">Удалить</button>
+              <button class="exit" @click="toggleModal">Отмена</button>
+            </div>
+          </div>
     </div>
   </div>
 </template>
@@ -167,7 +169,7 @@ export default {
     border-radius: 5px;
   }
   .modal{
-    width: 36vh;
+    width: auto;
     height: auto;
     position: absolute;
     padding: 40px;
@@ -176,6 +178,7 @@ export default {
     top: 50%;
     transform: translate(-50%, -50%);
     background: white;
+    z-index: 99;
   }
   .delete{
     color: #F97F7F;
@@ -221,5 +224,6 @@ export default {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6); /* Задний фон с прозрачностью 60% */
+    z-index: 98;
   }
 </style>
