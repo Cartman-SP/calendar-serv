@@ -42,9 +42,21 @@
           </select>
         </div>
 
+        <div class="chips-block">
+          <div class="chip" v-for="chip in chips" :key="chip">
+            <svg width="8" height="8" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2.29294 3.00003L0.146484 5.14648L0.853591 5.85359L3.00004 3.70714L5.1465 5.85359L5.85361 5.14648L3.70715 3.00003L5.85359 0.853591L5.14648 0.146484L3.00004 2.29292L0.853605 0.146484L0.146499 0.853591L2.29294 3.00003Z" fill="white"/>
+            </svg>
+            <p>{{ chip }}</p>
+          </div>
+        </div>
+
         <div class="form-row">
           <div class="dropdown-container">
-            <label>График работы</label>
+            <div class="usluga-head" v-if="selectedRecordType !== ''">
+              <label for="groupCapacity">График работы</label>
+              <Tip :Tip="'На основе выбранного графика, система автоматически \n сформирует график работы на месяц вперед'"/>
+            </div>
             <div class="days-buttons">
               <button :class="{ 'form-btn-active': isDaySelected('Пн'), 'form-btn': !isDaySelected('Пн') }" @click="toggleDay('Пн')">Пн</button>
               <button :class="{ 'form-btn-active': isDaySelected('Вт'), 'form-btn': !isDaySelected('Вт') }" @click="toggleDay('Вт')">Вт</button>
@@ -109,8 +121,10 @@
   
 <script>
 import axios from 'axios';
+import Tip from '../components/TipComponent.vue';
 
 export default {
+  components: { Tip },
   data() {
     return {
       selectedDays: [],
@@ -128,6 +142,8 @@ export default {
       work_time: "",
       chill_time: "",
       selectedServiceId: null, // Добавленная переменная для хранения выбранного id услуги
+      
+      chips: ['говно', 'залупа', 'пенис', 'хер+давалка', 'хуй', 'блядина', 'головка', 'шлюха']
     };
   },
   methods: {
@@ -206,6 +222,53 @@ export default {
 </script>
   
   <style scoped>
+  .chips-block{
+    width: 100%;
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+
+  .chip{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: start;
+    background-color: #6266EA;
+    height: 20px;
+    padding: 0 15px;
+    border-radius: 10px;
+    transition: all .2s ease;
+  }
+
+  .chip:hover{
+    background-color: #5357c7;
+    cursor: pointer;
+  }
+
+  .chip p{
+    margin: 0;
+    color: white;
+    font-family: 'TT Norms';
+    font-size: 12px;
+    margin-top: -1.5px;
+  }
+  .usluga-head{
+    display: flex;
+    justify-content: start;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+
+  .usluga-head label{
+    margin: 0;
+  }
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    width: 49%;
+  }
   .form-row {
     display: flex;
     gap: 10px;
@@ -257,7 +320,7 @@ export default {
     height: 50%;
   }
   .create_employess {
-    width: 80%;
+    width: 500px;
     height: auto;
     background-color: #FFFFFF;
     padding: 20px;
@@ -324,17 +387,26 @@ export default {
     color: #D2D8DE;
   }
   .form-btn-active {
+    box-sizing: border-box;
     background-color: #FFFFFF;
     color: #535C69;
     border-radius: 3px;
-    border: 1px solid #6266EA;
+    border: 1.5px solid #6266EA;
+    background-color: rgba(98, 102, 234, 0.1);
   }
   .form-btn {
+    box-sizing: border-box;
     background-color: #FFFFFF;
     color: #535C69;
     border-radius: 3px;
-    border: 1px solid #DDE1E5;
+    border: 1.5px solid #DDE1E5;
+    transition: all .2s ease;
   }
+
+  .form-btn:hover{  
+    border: 1.5px solid #535C69;
+  }
+
   select {
     padding: 10px;
     font-family: TT Norms;

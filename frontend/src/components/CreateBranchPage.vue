@@ -631,19 +631,27 @@ export default {
     line-height: 15px;
     letter-spacing: 0em;
     text-align: left;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
     color: #535C69;
-    background: #FFFFFF;
-    border: 1px solid #D2D8DE;
-    padding: 12px 15px;
-    border-radius: 5px;
+    border-radius: 3px;
+    border: 1.5px solid #DDE1E5;
+    transition: all .2s ease;
+  }
+
+  .btn_day:hover{
+    border: 1.5px solid #535C69;
   }
   .days{
     display: flex;
     gap: 10px;
   }
   .btn_day.active {
-    background-color: #6266EA1A;
-    border-color: #6266EA;
-    color: #6266EA;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+    color: #535C69;
+    border-radius: 3px;
+    border: 1.5px solid #6266EA;
+    background-color: rgba(98, 102, 234, 0.1);
   }
 </style>
