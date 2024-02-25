@@ -119,4 +119,8 @@ input::placeholder {
   letter-spacing: 0em;
   color: #D2D8DE;
 }
+
+.p-inputswitch-checked{
+  background: red;
+}
 </style>

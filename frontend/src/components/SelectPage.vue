@@ -1,7 +1,7 @@
 <template>
   <div class="custom-select" :tabindex="tabindex" @blur="open = false">
     <div class="selected" :class="{ open: open }" :style="{ color: (getOptionName(selected).length > 0) ? '#535C69' : '#D2D8DE' }" @click="open = !open">
-      {{ getOptionName(selected).length > 0 ? getOptionName(selected) : this.placeholderdata || 'Укажите плейсхолдер' }}
+      {{ getOptionName(selected).length > 0 ? getOptionName(selected) : this.placeholderdata || options[0] }}
     </div>
 
     <div class="items" :class="{ selectHide: !open }">

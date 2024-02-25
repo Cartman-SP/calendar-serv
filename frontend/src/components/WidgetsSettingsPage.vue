@@ -23,15 +23,15 @@
               <div class="name-container">
                 <div class="input-content">
                   <label for="widgetName">Название виджета</label>
-                  <input type="text" id="widgetName" placeholder="Мой виджет">
+                  <input type="text" id="widgetName" placeholder="Мой виджет" v-model="widgetName">
                 </div>
     
                 <div class="input-content">
                   <label for="widgetLanguage">Язык виджета</label>
                   <SelectPage
                   :options="['Русский', 'Белорусский']"
-                  :default="'Выберите язык'"
-                  class="select"
+                  class="select" @input="option => selectedLanguage = option"
+                  :placeholderdata="'Выберите язык'"
                   />
                 </div>
               </div>
@@ -41,30 +41,46 @@
                     <p>Telegram</p>
                     <InputSwitchComponent v-model="switches.telegram" style="margin-top: 5px;"/>
                   </div>
-                  <input type="text">
+                  <input v-if="switches.telegram" type="text" v-model="widgetLinkTelegram">
                   <div class="app-group">
                     <p>Instagram</p>
                     <InputSwitchComponent v-model="switches.instagram" style="margin-top: 5px;"/>
                   </div>
-                  <input type="text" class="">
+                  <input v-if="switches.instagram" type="text" v-model="widgetLinkInstagram" class="">
                 </div>
                 <div class="apps">
                   <div class="app-group">
                     <p>WhatsApp</p>
                     <InputSwitchComponent v-model="switches.whatsapp" style="margin-top: 5px;"/>
                   </div>
-                  <input type="text">
+                  <input v-if="switches.whatsapp" type="text" v-model="widgetLinkWhatsApp">
                   <div class="app-group">
                     <p>Вконтакте</p>
                     <InputSwitchComponent v-model="switches.vkontakte" style="margin-top: 5px;"/>
                   </div>
-                  <input type="text">
+                  <input v-if="switches.vkontakte" type="text" v-model="widgetLinkVk">
                 </div>
               </div>
               <label for="widgetbranch">Филиалы</label>
-                  <select id="widgetbranch" style="width: 100%;">
-                    <option value="" disabled selected style="display:none;">Выберите филиалы</option>
-                  </select>
+              <SelectPage
+                  :options="[{
+                    name: 'qwdqwd',
+                    id: '23'
+                  },{
+                    name: 'ddfbbbbbb',
+                    id: '3777'
+                  }]"
+                  class="select" @input="handleSelectInput"
+                  :placeholderdata="'Выберите филиалы'"
+                  />
+              <div class="chips-block">
+                <div class="chip" v-for="chip in filteredChips" :key="chip.id">
+                  <svg @click="deleteChip(chip)" width="8" height="8" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.29294 3.00003L0.146484 5.14648L0.853591 5.85359L3.00004 3.70714L5.1465 5.85359L5.85361 5.14648L3.70715 3.00003L5.85359 0.853591L5.14648 0.146484L3.00004 2.29292L0.853605 0.146484L0.146499 0.853591L2.29294 3.00003Z" fill="white"/>
+                  </svg>
+                  <p>{{ chip.name }}</p>
+                </div>
+              </div>
               <div class="footer">
                 <div class="footer-apps">
                   <p class="header">Отзывы</p>
@@ -91,9 +107,9 @@
                   <p class="subheader">Задержка времени между<br> сеансами</p>
                   <SelectPage
                   :options="['15 минут', '30 минут', '1 час', '2 часа','3 часа','4 часа']"
-                  :default="'15 минут'"
-                  class="select"
-                  style="width: 80%;"
+                  :placeholderdata="'Выберите время'"
+                  class="select" @input="option => selectedInterval = option"
+                  style="width: 90%;"
                   />
                 </div>
                 <div class="footer-apps">
@@ -101,8 +117,8 @@
                   <p class="subheader">Время, за которое клиент не<br> сможет отменять записи</p>
                   <SelectPage
                   :options="['30 минут', 'за 1 час', 'за 2 часа','за 3 часа','за 4 часа','за 5 часов']"
-                  :default="'за 30 минут'"
-                  class="select"
+                  class="select" @input="option => selectedOgranichenie = option"
+                  :placeholderdata="'Выберите время'"
                   style="width: 90%;"
                   />
                 </div>
@@ -298,14 +314,36 @@ export default {
         Back: '#FFFFFF',
         Plashka: '#FAFAFA',
         Text: '#535C69',
-      }
+      },
+
+      chips: [],
     };
   },
   mounted() {
     // После монтирования компонента выбираем первую вкладку по умолчанию
     this.$refs.tabs.querySelectorAll('.tab-link')[0].click();
   },
+  computed: {
+    filteredChips() {
+      // Начинаем с индекса 1 (второй элемент) и возвращаем оставшиеся элементы
+      return this.chips.slice(1);
+    }
+  },
   methods: {
+    deleteChip(chip){
+      let indexToRemove = this.chips.indexOf(chip);
+      if (indexToRemove !== -1) {
+        this.chips.splice(indexToRemove, 1);
+      }
+    },
+
+    handleSelectInput(selected) {
+      const existingChip = this.chips.find(chip => chip.name === selected.name && chip.id === selected.id);
+      if (!existingChip) {
+        this.chips.push({ name: selected.name, id: selected.id });
+      }
+    },
+
     async handleColorUpdate(color, additionalArgument) {
       switch (additionalArgument) {
         case 1: { this.widget.Main = color; break; }
@@ -316,6 +354,26 @@ export default {
       setTimeout(() => {
         this.closeall();
       }, 0);
+    },
+
+    save(){
+      console.log(this.widgetName,
+      this.selectedLanguage,
+      this.switches.telegram,
+      this.widgetLinkTelegram,
+      this.switches.instagram, 
+      this.widgetLinkInstagram,
+      this.switches.whatsapp, 
+      this.widgetLinkWhatsApp, 
+      this.switches.vkontakte,
+      this.widgetLinkVk,
+      this.chips, // chips это branch
+      this.switches.feedback, 
+      this.switches.company, 
+      this.switches.employee, 
+      this.switches.cancellation, 
+      this.selectedInterval,
+      this.selectedOgranichenie, )
     },
 
     themechange(){
@@ -387,13 +445,47 @@ export default {
         choice.querySelector('.circle_bottom').style.borderColor = '#6266EA';
       }
     },
-    
   },
   
 };
 </script>
   
   <style scoped>
+    .chip svg:hover path{
+    fill: rgb(250, 148, 148);
+  }
+  .chips-block{
+    width: 100%;
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  .chip{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: start;
+    background-color: #6266EA;
+    height: 20px;
+    padding: 0 15px;
+    border-radius: 10px;
+    transition: all .2s ease;
+  }
+
+  .chip:hover{
+    background-color: #5357c7;
+    cursor: pointer;
+  }
+
+  .chip p{
+    margin: 0;
+    color: white;
+    font-family: 'TT Norms';
+    font-size: 12px;
+    margin-top: -1.5px;
+  }
   .descr{
     font-family: TT Norms Medium;
     font-size: 12px;
