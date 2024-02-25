@@ -15,7 +15,7 @@
           <div class="form-group">
             <label for="country">Страна</label>
             <SelectPage
-            :options="['Россия', 'Казахстан','Украина','Таджикистан','Кыргызстан',]"
+            :options="['Россия', 'Казахстан','Украина','Таджикистан','Кыргызстан']"
             class="select"
             @input="option => selectedCountry = option"
             :placeholderdata="'Выберите страну'"
@@ -25,7 +25,7 @@
           <div class="form-group">
             <label for="city">Город</label>
             <SelectPage
-            :options="['Москва', 'Санкт-Петербург','Тула','Тверь','Великий Новгород',]"
+            :options="['Москва', 'Санкт-Петербург','Тула','Тверь','Великий Новгород']"
             class="select"
             @input="option => selectedCity = option"
             :placeholderdata="'Выберите город'"
@@ -126,15 +126,18 @@
             <SelectPage
             :options="this.spheres.map(item => item.name)"
             class="select"
-            @input="option => selectedBusiness  = option"
+            @input="option => selectedBusiness = option"
             :placeholderdata="'Выберите сферу бизнеса'"
             />
           </div>
           <div class="dropdown-container">
             <label for="service">Выберите сотрудников для этого филиала</label>
             <SelectPage
-            :options="this.employees.map(item => item.firstname + ' ' + item.secondname)"
-            
+            :options="this.employees.map(item => ({
+                        name: item.firstname + ' ' + item.secondname,
+                        id: item.id,
+                      }))"
+
             class="select"
             @input="handleSelectInput"
             :placeholderdata="'Выберите сотрудников'"
@@ -145,7 +148,7 @@
               <svg @click="deleteChip(chip)" width="8" height="8" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2.29294 3.00003L0.146484 5.14648L0.853591 5.85359L3.00004 3.70714L5.1465 5.85359L5.85361 5.14648L3.70715 3.00003L5.85359 0.853591L5.14648 0.146484L3.00004 2.29292L0.853605 0.146484L0.146499 0.853591L2.29294 3.00003Z" fill="white"/>
               </svg>
-              <p>{{ chip }}</p>
+              <p>{{ chip.name }}</p>
             </div>
           </div>
           <div class="steps">
@@ -208,6 +211,7 @@ export default {
         this.chips.splice(indexToRemove, 1);
       }
     },
+
     get_workers(){
       axios.post('http://127.0.0.1:8000/api/getworkers/', { user_id:  this.$store.state.registrationData.user_id})
       .then(response => {
@@ -243,11 +247,13 @@ export default {
       });
     },
 
-    handleSelectInput(option) {
-      if (!(this.chips.includes(option))) {
-        this.chips.push(option)
+    handleSelectInput(selected) {
+      const existingChip = this.chips.find(chip => chip.name === selected.name && chip.id === selected.id);
+      if (!existingChip) {
+        this.chips.push({ name: selected.name, id: selected.id });
       }
     },
+
 
     isBtnActive(day) {
       return this.activeDays.includes(day);
@@ -270,7 +276,7 @@ export default {
 
     Finish(){
       console.log(this.selectedCountry, this.selectedCity, this.selectedAdress, this.selectedName, this.activeDays);
-      console.log(this.selectedWorkHours, this.selectedTimeout, this.selectedChoices, this.selectedBusiness, this.selectedEmployees);
+      console.log(this.selectedWorkHours, this.selectedTimeout, this.selectedChoices, this.selectedBusiness, this.chips);
     },
 
     activateChoice(t) {

@@ -1,19 +1,16 @@
 <template>
   <div class="custom-select" :tabindex="tabindex" @blur="open = false">
-    <div class="selected" :class="{ open: open, placeholder: !selected }" @click="open = !open">
-      {{ selected ? selected : this.placeholderdata || 'Укажите плейсхолдер' }}
+    <div class="selected" :class="{ open: open }" :style="{ color: (getOptionName(selected).length > 0) ? '#535C69' : '#D2D8DE' }" @click="open = !open">
+      {{ getOptionName(selected).length > 0 ? getOptionName(selected) : this.placeholderdata || 'Укажите плейсхолдер' }}
     </div>
+
     <div class="items" :class="{ selectHide: !open }">
       <div
-        v-for="(option, i) of options"
-        :key="i"
-        @click="
-          selected = option;
-          open = false; 
-          $emit('input', option);
-        "
+        v-for="option in optionsList"
+        :key="getOptionKey(option)"
+        @click="handleOptionClick(option)"
       >
-        {{ option }}
+        {{ getOptionName(option) }}
       </div>
     </div>
   </div>
@@ -23,13 +20,7 @@
 export default {
   props: {
     options: {
-      type: Array,
       required: true,
-    },
-    default: {
-      type: String,
-      required: false,
-      default: null,
     },
     tabindex: {
       type: Number,
@@ -42,19 +33,44 @@ export default {
   },
   data() {
     return {
-      selected: this.default
-        ? this.default
-        : null,
+      selected: {},
       open: false,
     };
   },
+  computed: {
+    optionsList() {
+      if (Array.isArray(this.options)) {
+        return this.options;
+      } else if (typeof this.options === 'object') {
+        return Object.keys(this.options).map(key => ({
+          id: key,
+          name: this.options[key]
+        }));
+      }
+      return [];
+    },
+  },
+  methods: {
+    handleOptionClick(option) {
+      this.selected = option;
+      this.open = false;
+      this.$emit('input', option);
+    },
+    getOptionKey(option) {
+      return option.id || option;
+    },
+    getOptionName(option) {
+      return option && option.name !== undefined ? option.name : option;
+    },
+  },
   mounted() {
-    if (this.options && this.options.length > 0) {
+    if (this.optionsList.length > 0) {
       this.$emit("input", this.selected);
     }
   },
 };
 </script>
+
 
 <style scoped>
 .custom-select {
@@ -68,14 +84,9 @@ export default {
   font-size: 12px;
 }
 
-.custom-select .selected.placeholder {
-  color: #D2D8DE; /* Красный цвет для placeholder */
-}
-
-.custom-select .selected {
+.selected {
   background-color: #F3F5F6;
   border-radius: 5px;
-  color: #535C69;
   padding-left: 1em;
   cursor: pointer;
   user-select: none;
