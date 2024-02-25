@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <CardWidget/>
+    <CardWidget :widgetData="Widget"/>
     <div class="widgets">
         <img src="../../static/img/big_flag.png" alt="" class="img_widgets">
         <p class="header">Последний рывок</p>
@@ -19,7 +19,13 @@ export default {
   components: { CardWidget },
     data() {
       return{
-  
+        Widget:
+          {
+            name: 'qwdqwd',
+            link: 'qxcvdbtbqwd.com',
+            date: '12.02.24',
+            id: '237465',
+          }
       };
     }
   }
