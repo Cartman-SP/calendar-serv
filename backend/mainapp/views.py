@@ -315,3 +315,29 @@ def get_usluga_name(request):
             return JsonResponse({'usluga_name': usluga_name})
         except Usluga.DoesNotExist:
             return JsonResponse({'error': 'Usluga does not exist'}, status=404)
+
+
+@csrf_exempt
+@require_POST
+def get_workers(request):
+    user_id = json.loads(request.body)['user_id']
+    user = User.objects.get(id=user_id)
+    employees = Employee.objects.filter(user=user)
+
+    serializer = EmployeeSerializer(employees, many=True)
+    
+    return JsonResponse(serializer.data, safe=False, status=200)
+
+@api_view(['GET'])
+def get_buisnessTypes(request):
+    if request.method == 'GET':
+        types = Buisness_Type.objects.all()
+        serializer = Buisness_typeSerializer(types, many=True)
+        return Response(serializer.data)
+    
+@api_view(['GET'])
+def get_buisnessSphere(request):
+    if request.method == 'GET':
+        types = Buisness_sphere.objects.all()
+        serializer = Buisness_sphereSerializer(types, many=True)
+        return Response(serializer.data)

@@ -18,3 +18,15 @@ class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
         fields = ['id', 'firstname', 'secondname', 'rank', 'avatar', 'serviceid', 'worktime', 'timetable', 'chilltime', 'user','days']
+
+
+class Buisness_typeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Buisness_Type
+        fields = ['id', 'name']
+
+
+class Buisness_sphereSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Buisness_Type
+        fields = ['id', 'name']

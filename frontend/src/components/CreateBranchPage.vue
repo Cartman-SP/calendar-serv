@@ -113,18 +113,18 @@
           <div class="types-container">
             <label style="margin-bottom:10px">Выберите тип бизнеса</label>
             <div class="types">
-              <div v-for="t in businessTypes" :key="t" class="choice" @click="activateChoice(t)">
+              <div v-for="t in businessTypes" :key="t.name" class="choice" @click="activateChoice(t)">
                 <div class="circle">
                   <div class="second_circle"></div>
                 </div>
-                <p class="choice_text">{{ t }}</p>
+                <p class="choice_text">{{ t.name }}</p>
               </div>
             </div>
           </div>
           <div class="dropdown-container">
             <label for="service">Сфера бизнеса</label>
             <SelectPage
-            :options="['Салон красоты', 'Барбершоп', 'Маникюрный салон', 'Брови и ресницы','Тату салон','Другое']"
+            :options="this.spheres.map(item => item.name)"
             class="select"
             @input="option => selectedBusiness  = option"
             :placeholderdata="'Выберите сферу бизнеса'"
@@ -133,7 +133,8 @@
           <div class="dropdown-container">
             <label for="service">Выберите сотрудников для этого филиала</label>
             <SelectPage
-            :options="this.employees.map(item => item.name)"
+            :options="this.employees.map(item => item.firstname + ' ' + item.secondname)"
+            
             class="select"
             @input="handleSelectInput"
             :placeholderdata="'Выберите сотрудников'"
@@ -167,6 +168,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import SelectPage from '../components/SelectPage.vue';
 
 export default {
@@ -177,7 +179,7 @@ export default {
       selectedChoices: [],
       showContinueButtonClicked: false,
       businessTypes: ['qwdqwd', 'qwdqwdqdwqwd'],
-
+      spheres: [],
       employees:[
         {
           name: 'Криштиано Роналду'
@@ -186,12 +188,18 @@ export default {
           name: 'Даниил Гашишкин'
         },
         {
-          name: 'Артём Диджейкин'
+          name: 'Артём Диджейкин',
+          id: 11
         },
       ],
       selectedEmployeeId: [], 
       chips: [],
     }
+  },
+  mounted(){
+    this.get_workers()
+    this.get_buisnessTypes()
+    this.get_buisnesssphere()
   },
   methods: {
     deleteChip(chip){
@@ -199,6 +207,40 @@ export default {
       if (indexToRemove !== -1) {
         this.chips.splice(indexToRemove, 1);
       }
+    },
+    get_workers(){
+      axios.post('http://127.0.0.1:8000/api/getworkers/', { user_id:  this.$store.state.registrationData.user_id})
+      .then(response => {
+        console.log(response.data)
+        this.employees = response.data;
+      })
+      .catch(error => {
+        // Ошибка при получении данных
+        console.error('Ошибка при получении данных о пользователе:', error);
+      });
+    },
+    get_buisnessTypes(){
+      axios.get('http://127.0.0.1:8000/api/get_buisnessTypes/')
+      .then(response => {
+        console.log(response.data)
+        this.businessTypes = response.data
+      })
+      .catch(error => {
+        // Ошибка при получении данных
+        console.error('Ошибка при получении данных о пользователе:', error);
+      });
+    },
+
+    get_buisnesssphere(){
+      axios.get('http://127.0.0.1:8000/api/get_buisnessSphere/')
+      .then(response => {
+        console.log(response.data)
+        this.spheres = response.data
+      })
+      .catch(error => {
+        // Ошибка при получении данных
+        console.error('Ошибка при получении данных о пользователе:', error);
+      });
     },
 
     handleSelectInput(option) {
@@ -219,9 +261,6 @@ export default {
     },
     onContinueButtonClick() {
       if (!this.isContinueDisabled) {
-
-        console.log(this.selectedCountry, this.selectedCity, this.selectedAdress, this.selectedName, this.activeDays);
-
         this.showContinueButtonClicked = true;
       }
     },
@@ -230,6 +269,7 @@ export default {
     },
 
     Finish(){
+      console.log(this.selectedCountry, this.selectedCity, this.selectedAdress, this.selectedName, this.activeDays);
       console.log(this.selectedWorkHours, this.selectedTimeout, this.selectedChoices, this.selectedBusiness, this.selectedEmployees);
     },
 

@@ -1,6 +1,7 @@
 from django.db import models
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib import admin
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -43,3 +44,15 @@ class Employee(models.Model):
     timetable = models.CharField(max_length=10)
     chilltime = models.CharField(max_length=20)
     days = models.CharField(max_length = 100)
+
+class Buisness_Type(models.Model):
+    name = models.CharField(max_length = 20)
+
+class Branch(models.Model):
+    type = models.ForeignKey(Buisness_Type, on_delete = models.CASCADE)
+
+class Buisness_sphere(models.Model):
+    name = models.CharField(max_length = 20)
+
+admin.site.register(Buisness_Type)
+admin.site.register(Buisness_sphere)

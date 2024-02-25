@@ -14,4 +14,7 @@ urlpatterns = [
     path('get_employees/',get_employees_by_user,name='get_employees'),
     path('get_usluga_name/',get_usluga_name,name="get_usluga_name"),
     path('change_pass_two/', change_pass_two,name ="change_pass_two"),
+    path('getworkers/', get_workers, name = "getworkers"),
+    path('get_buisnessTypes/', get_buisnessTypes, name='gettypes'),
+    path('get_buisnessSphere/', get_buisnessSphere, name='gettypes'),
 ]
