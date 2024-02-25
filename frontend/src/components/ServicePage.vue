@@ -1,7 +1,6 @@
 <template>
   <div class="main">
     <div class="content" v-if="uslugiLoaded && uslugi.length > 0">
-      <Card v-for="(usluga, index) in uslugi" :key="index" :usluga="usluga" />
       <router-link to="/lk/service/create" class="add">
         <div class="svg-plus">
           <svg width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="0" xmlns="http://www.w3.org/2000/svg">
@@ -10,6 +9,7 @@
         </div>
         <p>Добавить услугу</p>
       </router-link>
+      <Card v-for="(usluga, index) in uslugi" :key="index" :usluga="usluga" />
     </div>
     <div v-else-if="uslugiLoaded && uslugi.length === 0">
       <div class="service">

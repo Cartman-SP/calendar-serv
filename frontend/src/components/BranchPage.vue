@@ -1,9 +1,6 @@
 <template>
     <div class="main">
       <div v-if="filials.length > 0" class="filials">
-        <div v-for="filial in filials" :key="filial.id">
-          <CardBranch :FilialData="filial"/>
-        </div>
         <router-link to="/lk/branch/createbranch" class="add">
           <div class="svg-plus">
             <svg width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="0" xmlns="http://www.w3.org/2000/svg">
@@ -12,6 +9,9 @@
           </div>
           <p>Добавить филиал</p>
         </router-link>
+        <div v-for="filial in filials" :key="filial.id">
+          <CardBranch :FilialData="filial"/>
+        </div>
       </div>
       <div v-else class="branch">
         <img src="../../static/img/branch.png" alt="" class="img_branch">
@@ -57,7 +57,6 @@ export default {
   display: flex;
   height: 100%;
   min-height: 250px;
-  gap: 10px;
   color: #6266EA;
   border-style: dashed;
   border-width: 2px;
@@ -113,5 +112,9 @@ export default {
   }
   .branch_btn{
     margin: 0 auto;
+  }
+  svg{
+    width: 40px;
+    height: 40px;
   }
   </style>
