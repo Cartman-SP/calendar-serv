@@ -10,6 +10,8 @@ import MessageAlert from "./components/MessageAlert.vue";
 
 export default {
   components: { MessageAlert },
+
+
 }
 </script>
 
