@@ -54,5 +54,18 @@ class Branch(models.Model):
 class Buisness_sphere(models.Model):
     name = models.CharField(max_length = 20)
 
+class Branch(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    country = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    address = models.CharField(max_length=255)
+    name = models.CharField(max_length=100)
+    active_days = models.CharField(max_length=100)
+    work_hours = models.CharField(max_length=100)
+    timeout = models.CharField(max_length=100)
+    choices = models.ManyToManyField(Employee)
+    business = models.CharField(max_length=100)
+    chips = models.CharField(max_length=255)
+
 admin.site.register(Buisness_Type)
 admin.site.register(Buisness_sphere)

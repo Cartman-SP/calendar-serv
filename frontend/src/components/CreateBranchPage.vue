@@ -272,8 +272,31 @@ export default {
     },
 
     Finish(){
-      console.log(this.selectedCountry, this.selectedCity, this.selectedAdress, this.selectedName, this.activeDays);
-      console.log(this.selectedWorkHours, this.selectedTimeout, this.selectedChoices, this.selectedBusiness, this.chips);
+      const chipsIds = this.chips
+  .filter(chip => chip.id) // Фильтруем массив, оставляя только элементы с существующим id
+  .map(chip => chip.id)
+  .join(', ');
+      const data = {
+    country: this.country,
+    city: this.city,
+    address: '',  
+    name: this.name,
+    active_days: this.active_days.join(', '),
+    work_hours: this.work_hours,
+    timeout: this.timeout,
+    choices: this.selectedChoicesIds,  // Массив с выбранными идентификаторами
+    business: this.business,
+    chips: chipsIds
+};
+
+// Отправка данных на сервер
+axios.post('http://127.0.0.1:8000/api/createbranch/', data)
+    .then(response => {
+        console.log(response.data);
+    })
+    .catch(error => {
+        console.error(error);
+    });
     },
 
     activateChoice(t) {

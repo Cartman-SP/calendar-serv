@@ -341,3 +341,13 @@ def get_buisnessSphere(request):
         types = Buisness_sphere.objects.all()
         serializer = Buisness_sphereSerializer(types, many=True)
         return Response(serializer.data)
+    
+
+@api_view(['POST'])
+def create_branch(request):
+    print(request.data)
+    serializer = BranchSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(user=request.user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

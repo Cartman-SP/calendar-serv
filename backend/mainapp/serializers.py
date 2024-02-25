@@ -30,3 +30,8 @@ class Buisness_sphereSerializer(serializers.ModelSerializer):
     class Meta:
         model = Buisness_Type
         fields = ['id', 'name']
+
+class BranchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Branch
+        fields = '__all__'
