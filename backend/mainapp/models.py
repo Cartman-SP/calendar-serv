@@ -33,6 +33,17 @@ class Reset_passwrod(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='related_objects')
  
 
+
+
+class Buisness_Type(models.Model):
+    name = models.CharField(max_length = 20)
+
+class Branch(models.Model):
+    type = models.ForeignKey(Buisness_Type, on_delete = models.CASCADE)
+
+class Buisness_sphere(models.Model):
+    name = models.CharField(max_length = 20)
+
 class Employee(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # Привязка к пользователю
     firstname = models.CharField(max_length=100)
@@ -45,27 +56,28 @@ class Employee(models.Model):
     chilltime = models.CharField(max_length=20)
     days = models.CharField(max_length = 100)
 
-class Buisness_Type(models.Model):
-    name = models.CharField(max_length = 20)
-
 class Branch(models.Model):
-    type = models.ForeignKey(Buisness_Type, on_delete = models.CASCADE)
-
-class Buisness_sphere(models.Model):
-    name = models.CharField(max_length = 20)
-
-class Branch(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     country = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     address = models.CharField(max_length=255)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=255)
     active_days = models.CharField(max_length=100)
     work_hours = models.CharField(max_length=100)
     timeout = models.CharField(max_length=100)
-    choices = models.ManyToManyField(Employee)
-    business = models.CharField(max_length=100)
-    chips = models.CharField(max_length=255)
+    business = models.CharField(max_length=255)
+
+class BranchEmployee(models.Model):
+    branch = models.ForeignKey(Branch, related_name='employees', on_delete=models.CASCADE)
+    employee = models.ForeignKey(Employee, related_name='branches', on_delete=models.CASCADE)
+
+class Image(models.Model):
+    branch = models.ForeignKey(Branch, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='branch_images/', blank=True, null=True)  # Поле для изображения
+
+class BranchType(models.Model):
+    branch = models.ForeignKey(Branch, related_name='branches2', on_delete=models.CASCADE)
+    type = models.ForeignKey(Buisness_Type, related_name='Buisness_Type', on_delete=models.CASCADE)
+
 
 admin.site.register(Buisness_Type)
 admin.site.register(Buisness_sphere)

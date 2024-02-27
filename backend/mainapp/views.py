@@ -343,11 +343,41 @@ def get_buisnessSphere(request):
         return Response(serializer.data)
     
 
-@api_view(['POST'])
+
+@csrf_exempt
 def create_branch(request):
-    print(request.data)
-    serializer = BranchSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save(user=request.user)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    if request.method == 'POST':
+        data = request.POST
+        # Создание филиала
+        branch = Branch.objects.create(
+            country=data.get('country'),
+            city=data.get('city'),
+            address=data.get('address'),
+            name=data.get('name'),
+            active_days=data.get('active_days'),
+            work_hours=data.get('work_hours'),
+            timeout=data.get('timeout'),
+            business=data.get('business'),
+        )
+        
+        # Обработка сотрудников
+        employees_ids = data.getlist('choices[]')
+        for employee_id in employees_ids:
+            employee = Employee.objects.get(id=employee_id)
+            BranchEmployee.objects.create(branch=branch, employee=employee)
+        
+        # Обработка выбранных типов бизнеса
+        choices_ids = data.getlist('chips[]')
+        for choice_id in choices_ids:
+            choice = Buisness_Type.objects.get(id=choice_id)
+            BranchType.objects.create(branch=branch, type=choice)
+        
+        # Обработка изображений
+        images = request.FILES.getlist('images[]')
+        print(images)
+        for img in images:
+            Image.objects.create(branch=branch, image=img)
+        
+        return JsonResponse({'message': 'Branch created successfully'}, status=201)
+    else:
+        return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)

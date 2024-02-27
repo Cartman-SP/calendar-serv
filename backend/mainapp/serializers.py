@@ -32,6 +32,17 @@ class Buisness_sphereSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 class BranchSerializer(serializers.ModelSerializer):
+    employees = EmployeeSerializer(many=True, read_only=True)  # Используйте EmployeeSerializer для вложенной сериализации сотрудников
+    avatar = serializers.ImageField(required=False)  # Добавляем поле изображения
+
     class Meta:
         model = Branch
         fields = '__all__'
+
+    def create(self, validated_data):
+        avatar = validated_data.pop('avatar', None)
+        instance = super().create(validated_data)
+        if avatar:
+            instance.avatar = avatar
+            instance.save()
+        return instance

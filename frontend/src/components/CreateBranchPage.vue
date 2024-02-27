@@ -10,7 +10,7 @@
     </div>
     <div class="create_branch">
       <!-- Форма создания филиала -->
-      <form class="branch-form" v-if="!showContinueButtonClicked">
+      <form class="branch-form" v-if="!showContinueButtonClicked" enctype="multipart/form-data">
         <div class="one-group">
           <div class="form-group">
             <label for="country">Страна</label>
@@ -46,23 +46,16 @@
 
         <div class="form-group">
           <label for="branchPhoto">Фото филиала</label>
-          <label class="custom-file-upload">
-            <input type="file" accept="image/*" multiple/>Загрузите несколько фотографий
-          </label>
+          <input type="file" accept="image/*" @change="handleImageUpload" multiple>
           <p class="photo-info">до 5 МБ, PNG, JPG, JPEG. Для замены удалите миниатюру и загрузите заново</p>
         </div>
 
         <div class="upload">
-          <div class="upload_img">
-            <img class="upl_img" src="../../static/img/salon.png" alt="">
-          </div>
-          <div class="upload_img">
-            <img class="upl_img" src="../../static/img/salon.png" alt="">
-          </div>
-          <div class="upload_img">
-            <img class="upl_img" src="../../static/img/salon.png" alt="">
+          <div class="upload_img" v-for="(image, index) in uploadedImages" :key="index">
+            <img class="upl_img" :src="image.url" :alt="image.name">
           </div>
         </div>
+    
 
         <div class="form-group graffic">
           <label class="graffic_label">График работы</label>
@@ -184,7 +177,7 @@ export default {
       showContinueButtonClicked: false,
       businessTypes: ['qwdqwd', 'qwdqwdqdwqwd'],
       spheres: [],
-
+      uploadedImages: [],
       selectedEmployeeId: [], 
       chips: [],
     }
@@ -208,6 +201,20 @@ export default {
         this.chips.splice(indexToRemove, 1);
       }
     },
+
+    handleImageUpload(event) {
+  const files = event.target.files;
+  for (let i = 0; i < files.length; i++) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const imageURL = e.target.result;
+      const fileName = files[i].name;
+      const fileFormat = fileName.split('.').pop(); // Получаем расширение файла
+      this.uploadedImages.push({ name: fileName, format: fileFormat, url: imageURL });
+    };
+    reader.readAsDataURL(files[i]);
+  }
+},
 
     get_workers(){
       axios.post('http://127.0.0.1:8000/api/getworkers/', { user_id:  this.$store.state.registrationData.user_id})
@@ -271,33 +278,61 @@ export default {
       this.showContinueButtonClicked = false;
     },
 
-    Finish(){
-      const chipsIds = this.chips
-  .filter(chip => chip.id) // Фильтруем массив, оставляя только элементы с существующим id
-  .map(chip => chip.id)
-  .join(', ');
-      const data = {
-    country: this.country,
-    city: this.city,
-    address: '',  
-    name: this.name,
-    active_days: this.active_days.join(', '),
-    work_hours: this.work_hours,
-    timeout: this.timeout,
-    choices: this.selectedChoicesIds,  // Массив с выбранными идентификаторами
-    business: this.business,
-    chips: chipsIds
-};
+    Finish() {
+  // Создаем объект FormData
+  const formData = new FormData();
 
-// Отправка данных на сервер
-axios.post('http://127.0.0.1:8000/api/createbranch/', data)
+  var ids = []
+  for(let i=0;i<this.chips.length;i++){
+    ids.push(this.chips[i].id);
+  }
+  var choices = []
+  for(let i=0;i<this.selectedChoices.length;i++){
+    choices.push(this.selectedChoices[i].id);
+  }
+  formData.append('country', this.selectedCountry);
+  formData.append('city', this.selectedCity);
+  formData.append('address', this.selectedAdress);
+  formData.append('name', this.selectedName);
+  formData.append('active_days', this.activeDays);
+  formData.append('work_hours', this.selectedWorkHours);
+  formData.append('timeout', this.selectedTimeout);
+  formData.append('choices', ids); // Преобразуем массив в строку JSON
+  formData.append('business', this.selectedBusiness);
+  formData.append('chips', choices);
+
+  // Добавляем каждое изображение в FormData
+  for (let i = 0; i < this.uploadedImages.length; i++) {
+    // Преобразовываем изображение в объект типа File
+    const file = this.dataURItoBlob(this.uploadedImages[i].url);
+    formData.append('images[]', file, this.uploadedImages[i].name); // Передаем файл, его имя и формат
+  }
+
+  console.log(formData);
+  // Отправка данных на сервер для создания филиала
+  axios.post('http://127.0.0.1:8000/api/createbranch/', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data' // Указываем тип содержимого как multipart/form-data
+    }
+  })
     .then(response => {
-        console.log(response.data);
+      console.log('Данные филиала успешно отправлены:', response.data);
     })
     .catch(error => {
-        console.error(error);
+      console.error('Ошибка при отправке данных филиала:', error);
     });
-    },
+},
+
+// Метод для преобразования Data URI в Blob объект
+dataURItoBlob(dataURI) {
+  const byteString = atob(dataURI.split(',')[1]);
+  const ab = new ArrayBuffer(byteString.length);
+  const ia = new Uint8Array(ab);
+  for (let i = 0; i < byteString.length; i++) {
+    ia[i] = byteString.charCodeAt(i);
+  }
+  return new Blob([ab], { type: 'image/jpeg' }); // Укажите нужный MIME тип, если изображения не JPEG
+},
 
     activateChoice(t) {
       // Получите ссылку на текущий выбор
