@@ -144,7 +144,7 @@ export default {
       avatar: null,
       work_time: "",
       chill_time: "",
-      selectedServiceId: [], // Добавленная переменная для хранения выбранного id услуги
+      selectedServiceId: '', // Добавленная переменная для хранения выбранного id услуги
       chips: [],
     };
   },
@@ -205,7 +205,8 @@ export default {
       }
     },
     saveAndExit() {
-      console.log(this.chips)
+      console.log(this.chips);
+      this.chips.map(item => (this.selectedServiceId += item.id));
 
       const formData = new FormData();
       const selectedDaysString = this.selectedDays.join(',');
@@ -213,7 +214,7 @@ export default {
       formData.append('secondname',this.secondname);
       formData.append('rank',this.rank);
       formData.append('avatar',this.avatar)
-      formData.append('serviceid', this.selectedServiceId)
+      formData.append('serviceid', this.chips.join(','))
       formData.append('worktime',this.work_time);
       formData.append('timetable',this.selectedSchedule)
       formData.append('chilltime',this.chill_time);

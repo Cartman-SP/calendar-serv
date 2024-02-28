@@ -34,30 +34,20 @@
         <div class="dropdown-container">
           <div class="dropdown-item">
             <p class="normal-text">Часовой пояс</p>
-<!--             <select class="dropdown" v-model="selectedTimeZone" @change="onSelectChange('timeZone')" :class="{ 'selected': selectedTimeZone !== '' }">
-              <option value="" disabled selected style="display:none;">Выберите часовой пояс</option>
-              <option value="GPT+3">GPT +3</option>
-              <option value="GPT+4">GPT +4</option>
-            </select> -->
             <SelectPage
-            v-model="selectedTimeZone"
             :options="['0 — Лондон, Дублин', '+1 — Париж, Рим', '+2 — Афины, Каир', '+3 — Москва, Стамбул', '+4 — Дубай, Новосибирск', '+5 — Астана, Ташкент', '+6 — Омск, Бишкек', '+7 — Бангкок, Джакарта', '+8 — Гонконг, Сингапур', '-8 — Лос-Анджелес, Ванкувер', '-7 — Денвер, Эдмонтон', '-6 — Чикаго, Мехико', '-5 — Нью-Йорк, Монреаль', '-4 — Галифакс, Каракас', '-3 — Рио-де-Жанейро, Буэнос-Айрес']"
-            :default="'Выберите свой часовой пояс'"
+            @input="option => selectedTimeZone = option"
+            :placeholderdata="'Выберите свой часовой пояс'"
             class="select"
             />
           </div>
   
           <div class="dropdown-item">
             <p class="normal-text">Валюта</p>
-<!--             <select class="dropdown" v-model="selectedCurrency" @change="onSelectChange('currency')" :class="{ 'selected': selectedCurrency !== '' }">
-              <option value="" disabled selected style="display:none;">Выберите валюту</option>
-              <option value="tenge">Тенге</option>
-              <option value="rubles">Рубли</option>
-            </select> -->
             <SelectPage
-            v-model="selectedCurrency"
             :options="['RUB — Российский рубль', 'BYN — Белорусский рубль', 'USD — Доллар США', 'EUR — Евро', 'KZT — Казахстанский тенге', 'UAH — Украинская гривна', 'AZN — Азербайджанский манат', 'AMD — Армянский драм', 'GEL — Грузинский лари', 'KGS — Киргизский сом', 'TJS — Таджикский сомони', 'UZS — Узбекский сум', 'ARS — Аргентинское песо', 'BRL — Бразильский реал', 'AED — Дирхам ОАЭ', 'INR — Индийская рупи', 'MDL — Молдавский лей', 'NGN — Нигерийская найра', 'ILS — Новый израильский шекель', 'THB — Тайский бат', 'TRY — Турецкая лира ', 'ZAR — Южноафриканский рэнд']"
-            :default="'Выберите основную валюту'"
+            :placeholderdata="'Выберите основную валюту'"
+            @input="option => selectedCurrency = option"
             class="select"
             />
           </div>

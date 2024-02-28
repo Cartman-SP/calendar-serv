@@ -215,7 +215,7 @@
             <div class="stripe" style="width: 63px;"></div>
           </div>
           <div v-if="serviceCost">
-            <p class="header">{{serviceCost}} $</p>
+            <p class="header">{{serviceCost}} {{ costsign }}</p>
           </div>
           <div v-else class="third">
             <div class="circle"></div>
@@ -249,6 +249,7 @@ export default {
       selectedPaymentText: '',
       coverDataUrl: null,
       selectedRecordText: '',
+      costsign: '₽',
     };
   },
   methods: {
