@@ -169,7 +169,7 @@ export default {
     },
     async get_uslugi(){
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/uslugi/');
+        const response = await axios.get(`http://127.0.0.1:8000/api/uslugi/?variable=${this.$store.state.registrationData.user_id}`);
         this.uslugi = response.data;
         
       } catch (error) {

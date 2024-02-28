@@ -119,8 +119,7 @@ export default {
       axios.post('http://127.0.0.1:8000/api/profile/', formData)
         .then(response => {
           console.log('Service created:', response.data);
-          this.$parent.checkUserProfile();
-          this.$parent.$emit('regdone');
+          window.location.reload();
         })
         .catch(error => {
           console.error('Error creating service:', error);

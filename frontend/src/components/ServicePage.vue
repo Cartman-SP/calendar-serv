@@ -41,7 +41,7 @@ export default {
   methods: {
     async get_uslugi(){
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/uslugi/');
+        const response = await axios.get(`http://127.0.0.1:8000/api/uslugi/?variable=${this.$store.state.registrationData.user_id}`);
         this.uslugi = response.data; // Присваиваем полученные данные массиву uslugi
         this.uslugiLoaded = true; // Устанавливаем флаг загрузки в true sd
       } catch (error) {

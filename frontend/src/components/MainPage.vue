@@ -23,15 +23,17 @@ export default {
     async checkUserProfile() {
       try {
         const response = await axios.post('http://127.0.0.1:8000/api/checkprofile/' + this.$store.getters.getRegistrationData.user_id);
-        
+        console.log(response.data)
         // Проверяем результат и показываем модальное окно при необходимости
-        if (response.data.result === 0) {
+        if (response.data == 0) {
           this.showModal = true;
           this.modalResult = 0;
           console.log('окно показанно')
         } else {
+          this.showModal = false;
           this.modalResult = 1;
-          this.$router.push('/main/service');
+          console.log('окно ')
+
         }
       } catch (error) {
         console.error('Ошибка при выполнении запроса:', error);

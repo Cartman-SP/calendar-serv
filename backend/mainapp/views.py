@@ -194,7 +194,8 @@ class UslugaList(APIView):
     parser_classes = [MultiPartParser, FormParser]
 
     def get(self, request):
-        uslugi = Usluga.objects.all()
+        user_id = request.GET.get('variable')
+        uslugi = Usluga.objects.filter(user = User.objects.get(id=user_id))
         serializer = UslugaSerializer(uslugi, many=True)
         return Response(serializer.data)
 
@@ -286,6 +287,7 @@ def usluga_delete(request):
 @api_view(['POST'])
 def create_employee(request):
     if request.method == 'POST':
+        print(request.data )
         user_id = request.data.get('user_id')  # Получаем id пользователя из запроса
         try:
             user = User.objects.get(id=user_id)  # Получаем объект пользователя по id

@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-      <div v-if="filials.length > 0" class="filials">
+      <div v-if=" branchLoaded && filials.length > 0" class="filials">
         <router-link to="/lk/branch/createbranch" class="add">
           <div class="svg-plus">
             <svg width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="0" xmlns="http://www.w3.org/2000/svg">
@@ -13,11 +13,14 @@
           <CardBranch :FilialData="filial"/>
         </div>
       </div>
-      <div v-else class="branch">
+      <div v-else-if="branchLoaded && filials.length==0" class="branch">
         <img src="../../static/img/branch.png" alt="" class="img_branch">
         <p class="header">Здесь будет ваш филиал. Будет же?</p>
         <p class="subheader">Осталось только создать виджет, выбрать его оформление и разместить его на сайте или в социальных сетях. После чего ваши клиенты смогут записываться к вам онлайн.</p>
         <a href="#/lk/branch/createbranch" style="text-decoration:none"><button class="branch_btn"> + Добавить филиал</button></a>
+      </div>
+      <div v-else>
+        <i class="pi pi-spin pi-spinner" style="font-size: 2.5rem;  color: #6266EA"></i>
       </div>
     </div>
   </template>
@@ -38,7 +41,8 @@ export default {
             workTime: '123123',
             workDays: '234',
           }
-        ]
+        ],
+        branchLoaded: false
       };
     },
     methods:{
@@ -47,6 +51,7 @@ export default {
     .then(response => {
         this.filials = response.data
         console.log(response)
+        this.branchLoaded = true
     })
     .catch(error => {
         console.error('Ошибка при получении данных о пользователе:', error);
