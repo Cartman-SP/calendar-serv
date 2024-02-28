@@ -221,14 +221,17 @@
         },
         saveAndExit() {
           console.log(this.chips)
-
+      let usl = ""
+      for(let i=0;i<this.chips.length;i++){
+        usl+=this.chips[i].id + ','
+      }
       const formData = new FormData();
       const selectedDaysString = this.selectedDays.join(',');
       formData.append('firstname', this.firstname);
       formData.append('secondname',this.secondname);
       formData.append('rank',this.rank);
       formData.append('avatar',this.avatar)
-      formData.append('serviceid', this.chips.join(','))
+      formData.append('serviceid', usl)
       formData.append('worktime',this.work_time);
       formData.append('timetable',this.selectedSchedule)
       formData.append('chilltime',this.chill_time);

@@ -320,6 +320,7 @@ export default {
   })
     .then(response => {
       console.log('Данные филиала успешно отправлены:', response.data);
+      this.$router.go(-1);
     })
     .catch(error => {
       console.error('Ошибка при отправке данных филиала:', error);
@@ -717,6 +718,7 @@ dataURItoBlob(dataURI) {
   .upl_img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
   }
   .graffic_label{
     margin: 0;

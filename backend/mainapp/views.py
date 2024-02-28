@@ -124,7 +124,7 @@ def get_profile(request):
         # Формируем данные о пользователе
         user_data = {
             'id': user.id,
-            'username': user.username,
+            'phone': user.username,
             'email': user.email,
             'profile': {
                 'name': profile.name,
@@ -306,14 +306,17 @@ def get_employees_by_user(request):
         user_id = request.GET.get('user_id')  # Получаем user_id из запроса
         employees = Employee.objects.filter(user_id=user_id)  # Получаем объекты Employee по user_id
         serializer = EmployeeSerializer(employees, many=True)
+        print(serializer.data)
         return Response(serializer.data)
     
 def get_usluga_name(request):
     if request.method == 'GET':
         try:
-            usluga_id = request.GET.get('usluga_id')
-            usluga = Usluga.objects.get(id=usluga_id)
-            usluga_name = usluga.name
+            usluga_id = request.GET.get('usluga_id').split(',')[:-1:]
+            usluga_name=[]
+            for i in usluga_id:
+                usluga = Usluga.objects.get(id=i)
+                usluga_name.append(usluga.name) 
             return JsonResponse({'usluga_name': usluga_name})
         except Usluga.DoesNotExist:
             return JsonResponse({'error': 'Usluga does not exist'}, status=404)

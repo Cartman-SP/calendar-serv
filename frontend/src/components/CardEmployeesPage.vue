@@ -48,8 +48,8 @@
         </div>
       </div>
       <div class="service">
-        <div class="usluga">
-          <p class="usluga_text">{{usluganame}}</p>
+        <div class="usluga" v-for="u in usluganame" :key="u">
+          <p class="usluga_text">{{u}}</p>
         </div>
       </div>
     </div>
