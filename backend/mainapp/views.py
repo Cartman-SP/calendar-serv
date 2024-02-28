@@ -358,6 +358,8 @@ def create_branch(request):
             work_hours=data.get('work_hours'),
             timeout=data.get('timeout'),
             business=data.get('business'),
+            user = User.objects.get(id = data.get('user_id')),
+            phone = data.get('phone'),
         )
         
         # Обработка сотрудников
@@ -381,3 +383,13 @@ def create_branch(request):
         return JsonResponse({'message': 'Branch created successfully'}, status=201)
     else:
         return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
+
+
+@api_view(['GET'])
+def get_Branch(request):
+    if request.method == 'GET':
+        user_id = request.GET.get('variable')
+        print(request.GET)
+        branches = Branch.objects.filter(user=user_id)
+        serializer = BranchSerializer(branches, many=True)
+        return Response(serializer.data)

@@ -24,6 +24,7 @@
   
   <script>
 import CardBranch from '../components/CardBranch.vue';
+import axios from 'axios';
 
 export default {
   components: { CardBranch },
@@ -39,7 +40,22 @@ export default {
           }
         ]
       };
-    }
+    },
+    methods:{
+      getfilials(){
+        axios.get(`http://127.0.0.1:8000/api/get_branch/?variable=${this.$store.state.registrationData.user_id}`)
+    .then(response => {
+        this.filials = response.data
+        console.log(response)
+    })
+    .catch(error => {
+        console.error('Ошибка при получении данных о пользователе:', error);
+    });
+      },
+    },
+    mounted() {
+      this.getfilials()
+    },
   }
   </script>
   

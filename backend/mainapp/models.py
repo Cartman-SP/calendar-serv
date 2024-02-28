@@ -65,6 +65,8 @@ class Branch(models.Model):
     work_hours = models.CharField(max_length=100)
     timeout = models.CharField(max_length=100)
     business = models.CharField(max_length=255)
+    phone = models.CharField(max_length = 20)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class BranchEmployee(models.Model):
     branch = models.ForeignKey(Branch, related_name='employees', on_delete=models.CASCADE)

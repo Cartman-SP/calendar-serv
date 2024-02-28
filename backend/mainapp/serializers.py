@@ -31,8 +31,14 @@ class Buisness_sphereSerializer(serializers.ModelSerializer):
         model = Buisness_Type
         fields = ['id', 'name']
 
+
+class BranchEmployeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BranchEmployee
+        fields = ['branch', 'employee']
+
 class BranchSerializer(serializers.ModelSerializer):
-    employees = EmployeeSerializer(many=True, read_only=True)  # Используйте EmployeeSerializer для вложенной сериализации сотрудников
+    employees = BranchEmployeeSerializer(many=True, read_only=True)  # Используйте EmployeeSerializer для вложенной сериализации сотрудников
     avatar = serializers.ImageField(required=False)  # Добавляем поле изображения
 
     class Meta:

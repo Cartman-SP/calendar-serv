@@ -181,6 +181,7 @@ export default {
       uploadedImages: [],
       selectedEmployeeId: [], 
       chips: [],
+      selectedPhone: '79672262425'
     }
   },
   mounted(){
@@ -301,7 +302,8 @@ export default {
   formData.append('choices', ids); // Преобразуем массив в строку JSON
   formData.append('business', this.selectedBusiness);
   formData.append('chips', choices);
-
+  formData.append('user_id', this.$store.state.registrationData.user_id)
+  formData.append('phone', this.selectedPhone)
   // Добавляем каждое изображение в FormData
   for (let i = 0; i < this.uploadedImages.length; i++) {
     // Преобразовываем изображение в объект типа File
