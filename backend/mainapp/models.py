@@ -50,7 +50,7 @@ class Employee(models.Model):
     secondname = models.CharField(max_length=100)
     rank = models.CharField(max_length=100)
     avatar = models.ImageField(upload_to='employees/', null=True, blank=True)
-    serviceid = models.IntegerField()  # Предположим, что это внешний ключ к модели услуги
+    serviceid = models.CharField(max_length=256)  # Предположим, что это внешний ключ к модели услуги
     worktime = models.CharField(max_length=20)
     timetable = models.CharField(max_length=10)
     chilltime = models.CharField(max_length=20)
