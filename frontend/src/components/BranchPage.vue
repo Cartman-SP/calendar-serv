@@ -69,10 +69,6 @@ export default {
 .add:hover{
   background: #EFEFFF;
 }
-  .navigation{
-    display: flex;
-    background-color:#FAFAFA;
-  }
   .branch {
     text-align: center;
     position: absolute;

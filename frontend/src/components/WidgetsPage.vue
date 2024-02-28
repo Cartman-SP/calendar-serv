@@ -1,6 +1,16 @@
 <template>
   <div class="main">
-    <CardWidget :widgetData="Widget"/>
+    <div class="content">
+      <router-link to="/lk/widgets/settings" class="add">
+        <div class="svg-plus">
+          <svg width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="0" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.00006 11V17H11.0001V11H17V9H11.0001V3H9.00006V9H3V11H9.00006Z"/>
+          </svg>            
+        </div>
+        <p>Добавить виджет</p>
+      </router-link>
+      <CardWidget :widgetData="Widget"/>
+    </div>
     <div class="widgets">
         <img src="../../static/img/big_flag.png" alt="" class="img_widgets">
         <p class="header">Последний рывок</p>
@@ -68,5 +78,36 @@ export default {
   }
   .widgets_btn{
     margin: 0 auto;
+  }
+  .content{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .add {
+    text-decoration-line: initial;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    display: flex;
+    height: 130px;
+    color: #6266EA;
+    border-style: dashed;
+    border-width: 2px;
+    border-color: #D9D9D9;
+    transition: 0.3s ease;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  .add:hover{
+    background: #EFEFFF;
+  }
+  svg{
+    height: 40px;
+    width: 40px;
+  }
+  p{
+    margin: 0;
   }
   </style>
