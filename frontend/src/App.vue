@@ -1,7 +1,7 @@
 <template>
   <div>
     <router-view/>
-    <MessageAlert :message="'йцвййцйцвйцввцв'" :color="'#0BB6A1'"/>
+    <MessageAlert :message="'Тестовое уведомление'" :color="'#0BB6A1'"/>
   </div>
 </template>
 

@@ -177,7 +177,7 @@
                 </div>
             </div>
             <div class="rate">
-                <img src="../../static/img/icon-wallet.png" alt="231">
+                <img src="../../static/img/wallet.svg" alt="231">
                 <div class="text">
                     <p>Тариф</p>
                     <h4>{{ rate }}</h4>

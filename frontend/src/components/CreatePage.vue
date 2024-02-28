@@ -15,8 +15,6 @@
           <label for="serviceName">Название услуги</label>
           <input type="text" id="serviceName" placeholder="Новая услуга" v-model="serviceName" :class="{ 'input-error': serviceNameError }">
         </div>
-
-
   
         <!-- 2. Стоимость, Длительность -->
         <div class="cost-duration-container">
@@ -191,7 +189,7 @@
           <div class="stripe" style="width: 143px;"></div>
           <div class="stripe" style="width: 97px;"></div>
         </div>
-        <div v-if="serviceDuration" >
+        <div v-if="serviceDuration.length > 0" >
           <p class="header">{{serviceDuration}}</p>
           <p class="descr">Длительность</p>
         </div>

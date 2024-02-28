@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-      <div class="content" v-if="employees">
+      <div class="content" v-if="employees.length>0">
         <router-link to="/lk/personal/employees" class="add">
           <div class="svg-plus">
             <svg width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="0" xmlns="http://www.w3.org/2000/svg">

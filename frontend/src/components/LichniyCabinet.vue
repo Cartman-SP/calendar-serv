@@ -5,7 +5,7 @@
             <SidebarPage/>
             <div class="lk">
                 <NavbarPage/>
-                <ModalPage v-if="showModal" :result="modalResult" @closeModal="closeModal" />
+                <ModalPage v-if="showModal" @regdone="showModal = !showModal" :result="modalResult" @closeModal="closeModal" />
                 <router-view v-else></router-view>
             </div>
         </div>

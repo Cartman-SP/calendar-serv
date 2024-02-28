@@ -2,7 +2,7 @@
   <div class="sidebar">
     <div class="main_side">
       <router-link to="/lk/">
-        <img src="../../static/img/SkedOnline.png" alt="" class="logotype">
+        <img src="../../static/img/logo.svg" alt="" class="logotype">
       </router-link>
       <div class="content">
         <div class="top-group">

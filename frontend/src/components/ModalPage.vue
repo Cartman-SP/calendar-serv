@@ -82,12 +82,13 @@
 </template>
 
 <script>
+import SelectPage from '../components/SelectPage.vue';
 import axios from 'axios';
 
 export default { 
+  components: { SelectPage },
   data() {
     return {
-      showModal: false,
       companyName: '',
       showContinueButtonClicked: false,
       name: '',
@@ -118,7 +119,8 @@ export default {
       axios.post('http://127.0.0.1:8000/api/profile/', formData)
         .then(response => {
           console.log('Service created:', response.data);
-          this.$parent.checkUserProfile()
+          this.$parent.checkUserProfile();
+          this.$parent.$emit('regdone');
         })
         .catch(error => {
           console.error('Error creating service:', error);

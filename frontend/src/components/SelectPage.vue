@@ -108,10 +108,11 @@ export default {
 }
 
 .custom-select .items {
+  max-height: 200px;
+  overflow-y: scroll;
   margin-top: 10px;
   color: #535C69;
   border-radius: 5px 5px 5px 5px;
-  overflow: hidden;
   position: absolute;
   background-color: #FFFFFF;
   left: 0;

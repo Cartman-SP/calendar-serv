@@ -45,13 +45,14 @@
         </div>
 
         <div class="form-group">
-          <label for="branchPhoto">Фото филиала</label>
-          <input type="file" accept="image/*" @change="handleImageUpload" multiple>
+          <label for="upload-image  ">Фото филиала</label>
+          <input type="file" accept="image/*" id="upload-image" @change="handleImageUpload" multiple>
           <p class="photo-info">до 5 МБ, PNG, JPG, JPEG. Для замены удалите миниатюру и загрузите заново</p>
         </div>
 
         <div class="upload">
           <div class="upload_img" v-for="(image, index) in uploadedImages" :key="index">
+            <label for="upload-image"></label>
             <img class="upl_img" :src="image.url" :alt="image.name">
           </div>
         </div>

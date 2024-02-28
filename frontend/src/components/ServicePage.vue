@@ -13,7 +13,7 @@
     </div>
     <div v-else-if="uslugiLoaded && uslugi.length === 0">
       <div class="service">
-        <img src="../../static/img/flag.png" alt="" class="img_service">
+        <img src="../../static/img/flag.svg" alt="" class="img_service">
         <p class="header">Поздравляем с регистрацией!</p>
         <p class="subheader">Предлагаем вам перейти к созданию услуги, после чего<br>у вас появится возможность прикрепить созданные услуги<br>к вашим специалистам и добавить филиал.</p>
         <a href="#/lk/service/create" style="text-decoration:none"><button class="service_btn"> + Добавить услуги</button></a>
@@ -76,7 +76,7 @@ export default {
 
 .header {
   color: #535C69;
-  font-family: TT Norms Medium Medium;
+  font-family: TT Norms Medium;
   font-size: 20px;
   font-weight: 500;
   line-height: 15px;
