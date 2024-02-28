@@ -115,6 +115,7 @@ export default {
 
     async registerUser() {
       try {
+        
         const response = await axios.post('http://127.0.0.1:8000/api/reg/', {
           password: this.passwordValue,
           phone: this.value,

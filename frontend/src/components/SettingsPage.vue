@@ -7,7 +7,7 @@
           <div class="name-container">
             <label for="userName">Имя</label>
             <div class="input_container">
-              <input type="text" id="userName">
+              <input type="text" id="userName" value="{{ User.name }}">
               <button @click="saveName" class="button-save">Сохранить изменения</button>
             </div>
           </div>
@@ -31,7 +31,7 @@
             <label for="userMail">Email</label>
             <p><span class="email-header">Будьте внимательны!</span> Email является логином для входа в сервис, если вы измените Email, то при авторизации нужно использовать обновленный Email</p>
             <div class="input_container">
-              <input type="mail" id="userMail">
+              <input type="mail" id="userMail" value="{{ User.email }}" disabled>
               <div class="email-btn">
                 <button @click="acceptMail">Подтвердить Email</button>
                 <button @click="changeMail" class="button-change">Изменить email</button>
@@ -45,7 +45,7 @@
             <label for="userPhone">Телефон</label>
             <p>Получайте SMS-уведомления о новых заявках</p>
             <div class="input_container">
-              <input type="number" id="userphone">
+              <input type="number" id="userphone" value="{{ User.phone }}" disabled>
               <div class="phone-btn">
                 <button @click="acceptPhone">Подтвердить телефон</button>
                 <button @click="changePhone" class="button-change">Изменить Телефон</button>
@@ -69,6 +69,8 @@
 <script>
 import ChangePasswordPage from './ChangePasswordPage.vue';
 import ChangeMailPage from './ChangeMailPage.vue';
+import axios from 'axios';  
+
 
 export default {
   components: { ChangePasswordPage, ChangeMailPage},
@@ -76,6 +78,13 @@ export default {
     return {
       showModal: false,
       showMail: false,
+
+      User: {
+        name: '',
+        avatar: '',
+        email: '',
+        phone: '',
+      }
     };
   },
   methods: {
@@ -84,7 +93,25 @@ export default {
     },
     changeMail() {
       this.showMail = true;
-    }
+    },
+
+    get_profile(){
+      axios.post('http://127.0.0.1:8000/api/getprofile/', { user_id:  this.$store.state.registrationData.user_id})
+      .then(response => {
+        this.avatar = "http://127.0.0.1:8000" + response.data.profile.avatar;
+        this.name = response.data.profile.name;
+        this.email = response.data.profile.email;
+        this.phone = response.data.profile.phone;
+        console.log(response.data.profile);
+      })
+      .catch(error => {
+        // Ошибка при получении данных
+        console.error('Ошибка при получении данных о пользователе:', error);
+      });
+    },
+  },
+  mounted(){  
+    this.get_profile();
   }
 };
 </script>
