@@ -702,6 +702,7 @@ dataURItoBlob(dataURI) {
   .upload{
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
   }
   .upload_img {
     display: flex;

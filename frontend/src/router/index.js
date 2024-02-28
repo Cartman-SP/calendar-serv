@@ -20,6 +20,7 @@ import ProjectPage from '../components/ProjectPage.vue';
 import ProjectEditPage from '../components/ProjectEditPage.vue';
 import ProjectGatesPage from '../components/ProjectGatesPage.vue';
 import CreateProject from '../components/CreateProject.vue';
+import AccessesPage from '../components/AccessesPage.vue';
 import store from '../store';
 
 
@@ -143,7 +144,14 @@ const routes = [
         name: 'new',
         component: CreateProject,
         meta: { requiresAuth: true }
-      },        
+      },
+      {
+        path: '/lk/project/accesses',
+        name: 'accesses',
+        component: AccessesPage,
+        meta: { requiresAuth: true }
+      },
+              
     ]
   },
   {
