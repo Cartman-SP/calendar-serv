@@ -86,14 +86,15 @@ export default {
 
 .selected {
   background-color: #F3F5F6;
-  border-radius: 5px;
+  border-radius: 3px;
   padding-left: 1em;
   cursor: pointer;
   user-select: none;
+  height: 36px;
 }
 
 .custom-select .selected.open {
-  border-radius: 5px 5px 5px 5px;
+  border-radius: 3px 3px 3px 3px;
 }
 
 .custom-select .selected:after {
@@ -103,7 +104,7 @@ export default {
   right: 1em;
   width: 0;
   height: 0;
-  border: 5px solid transparent;
+  border: 3px solid transparent;
   border-color: #535C69 transparent transparent transparent;
 }
 
@@ -112,7 +113,7 @@ export default {
   overflow-y: scroll;
   margin-top: 10px;
   color: #535C69;
-  border-radius: 5px 5px 5px 5px;
+  border-radius: 3px 3px 3px 3px;
   position: absolute;
   background-color: #FFFFFF;
   left: 0;

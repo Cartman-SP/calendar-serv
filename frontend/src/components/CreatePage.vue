@@ -29,6 +29,7 @@
             :options="['15 минут', '30 минут', '45 минут', '1 час','1 час 30 минут','2 часа','2 часа 30 минут']"
             class="select" @input="option => serviceDuration = option"
             :placeholderdata="'Выберите время'"
+            :class="{ 'select-error': serviceDurationError }"
           />
           </div>
         </div>
@@ -51,21 +52,21 @@
           </div>
           <div class="record-type-container">
             <button
-              :class="{ 'active': selectedRecordType === 'individual' }"
+              :class="{ 'active': selectedRecordType === 'individual', 'button-error': paymentFormatError }"
               @click="selectRecordType('individual','Индивидуальная')"
               class="record-button"
             >
               Индивидуальная
             </button>
             <button
-              :class="{ 'active': selectedRecordType === 'group' }"
+              :class="{ 'active': selectedRecordType === 'group', 'button-error': paymentFormatError  }"
               @click="selectRecordType('group','Групповая')"
               class="record-button"
             >
               Групповая
             </button>
             <button
-              :class="{ 'active': selectedRecordType === 'rental' }"
+              :class="{ 'active': selectedRecordType === 'rental', 'button-error': paymentFormatError  }"
               @click="selectRecordType('rental','Аренда')"
               class="record-button"
             >
@@ -99,7 +100,7 @@
           <div v-if="selectedRecordType === 'rental'" class="group-parameters">
             <div class="usluga-head" v-if="selectedRecordType !== ''">
               <label for="groupCapacity">Количество единиц для аренды</label>
-              <Tip :Tip="'Придумать описание, а вообще даня гей, верни 5к'"/>
+              <Tip :Tip="'Придумать описание, а, вообще, даня, верни 5к'"/>
             </div>
             <div class="group-buttons">
               <div class="group-counter">
@@ -128,7 +129,7 @@
             <!-- Добавлены условия для всех типов записи -->
             <button
               v-if="selectedRecordType === 'individual'"
-              :class="{ 'active': selectedPaymentFormat === 'sessionPayment' }"
+              :class="{ 'active': selectedPaymentFormat === 'sessionPayment', 'button-error': selectedPaymentFormatError }"
               @click="selectPaymentFormat('sessionPayment','Оплата за сеанс')"
               class="record-button"
             >
@@ -136,7 +137,7 @@
             </button>
             <button
               v-if="selectedRecordType === 'individual'"
-              :class="{ 'active': selectedPaymentFormat === 'spotPayment' }"
+              :class="{ 'active': selectedPaymentFormat === 'spotPayment', 'button-error': selectedPaymentFormatError }"
               @click="selectPaymentFormat('spotPayment','Оплата за место')"
               class="record-button"
             >
@@ -144,7 +145,7 @@
             </button>
             <button
               v-if="selectedRecordType === 'individual'"
-              :class="{ 'active': selectedPaymentFormat === 'freePayment' }"
+              :class="{ 'active': selectedPaymentFormat === 'freePayment', 'button-error': selectedPaymentFormatError }"
               @click="selectPaymentFormat('freePayment','Без стоимости')"
               class="record-button"
             >
@@ -223,6 +224,7 @@
         </div>
       </div>
     </div>
+    <MessageAlert :message="alertMessage" :color="alertColor"/>
   </div>
 </template>
 
@@ -230,23 +232,38 @@
 import axios from 'axios';
 import Tip from '../components/TipComponent.vue';
 import SelectPage from '../components/SelectPage.vue';
+import MessageAlert from "../components/MessageAlert.vue";
 
 export default {
-  components: { Tip, SelectPage},
+  components: { Tip, SelectPage, MessageAlert },
   data() {
     return {
+      alertMessage: '',
+      alertColor: '',
+
       selectedRecordType: '',
       selectedPaymentFormat: '',
+      selectedPaymentFormatError: false,
       groupCapacity: 0,
       maxGroupCapacity: 0,
+
       serviceName: '',
       serviceNameError: false,
+
       serviceCost: '',
       serviceCostError: false,
+
       serviceDuration: '',
+      serviceDurationError: false,
+
       serviceCover: null,
+
       paymentFormat: '',
+      paymentFormatError: false,
+
       selectedPaymentText: '',
+      selectedPaymentTextError: false,
+
       coverDataUrl: null,
       selectedRecordText: '',
       costsign: '₽',
@@ -277,17 +294,37 @@ export default {
       reader.readAsDataURL(this.serviceCover);
     },
     saveAndExit() {
-      if (!this.serviceName.trim()) {
-        this.serviceNameError = true;
-        return;
-      }
-      this.serviceNameError = false;
+      if (!this.serviceName || !this.serviceCost || !this.serviceDuration || !this.paymentFormat || !this.selectedRecordText) {
 
-      if (!this.serviceCost.toString().trim()) {
-        this.serviceCostError = true;
-        return;
+        this.alertMessage = 'Пожалуйста, заполните выделенные поля'
+        this.alertColor = '#F97F7F'
+
+        if (!this.serviceName.trim()) {
+          this.serviceNameError = true;
+        }else{
+          this.serviceNameError = false;
+        }
+        if (!this.serviceCost.toString().trim()) {
+          this.serviceCostError = true;
+        }else{
+          this.serviceCostError = false;
+        }
+        if (!this.serviceDuration.length) {
+          this.serviceDurationError = true;
+        }else{
+          this.serviceDurationError = false;
+        }
+        if (!this.selectedRecordType) {
+          this.paymentFormatError = true;
+        }else{
+          this.paymentFormatError = false;
+        }
+        if (!this.selectedPaymentFormat) {
+          this.selectedPaymentFormatError = true;
+        }else{
+          this.selectedPaymentFormatError = false;
+        }
       }
-      this.serviceCostError = false;
 
       if (!this.serviceCover) {
         this.serviceCoverError = true;
@@ -341,6 +378,13 @@ export default {
 
 
 <style scoped>
+.button-error{
+  border: solid 1px #F97F7F !important;
+}
+.select-error >>> .selected{
+  border: solid 1px #F97F7F !important;
+}
+
 .usluga-head{
   display: flex;
   justify-content: start;

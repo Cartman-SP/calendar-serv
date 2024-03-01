@@ -43,23 +43,23 @@ export default {
   },
   methods:{
     change_passd(){
-  const apiUrl = 'http://127.0.0.1:8000/api/change_pass/';
+      const apiUrl = 'http://127.0.0.1:8000/api/change_pass/';
 
-  const data = {
-      email: this.email,
-      code: this.code,
-      password: this.newpass,
-  };
+      const data = {
+          email: this.email,
+          code: this.code,
+          password: this.newpass,
+      };
 
-  axios.post(apiUrl, data)
-  .then(response => {
-      console.log(response);
-      this.$router.push('/login');
-  })
-  .catch(error => {
-      // Handle errors
-      console.error('An error occurred while sending the request:', error);
-  });
+      axios.post(apiUrl, data)
+      .then(response => {
+          console.log(response);
+          this.$router.push('/login');
+      })
+      .catch(error => {
+          // Handle errors
+          console.error('An error occurred while sending the request:', error);
+      });
     },
   }
 };

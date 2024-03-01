@@ -52,6 +52,7 @@ svg:hover path{
     border-radius: 5px;
     left: 50%;
     transform: translateX(-50%);
+    transition: all .2s ease;
 }
 
 .alert p{

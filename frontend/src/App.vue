@@ -1,17 +1,14 @@
 <template>
   <div>
     <router-view/>
-    <MessageAlert :message="'Тестовое уведомление'" :color="'#0BB6A1'"/>
+    <!-- <MessageAlert :message="'Тестовое уведомление'" :color="'#0BB6A1'"/> -->
   </div>
 </template>
 
 <script>
-import MessageAlert from "./components/MessageAlert.vue";
 
 export default {
-  components: { MessageAlert },
-
-
+  
 }
 </script>
 
