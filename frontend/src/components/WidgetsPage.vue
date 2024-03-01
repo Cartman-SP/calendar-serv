@@ -11,7 +11,7 @@
       </router-link>
       <CardWidget :widgetData="Widget"/>
     </div>
-    <div class="widgets">
+    <div class="widgets" v-if="!Widget">
         <img src="../../static/img/big_flag.png" alt="" class="img_widgets">
         <p class="header">Последний рывок</p>
         <p class="subheader">Осталось только создать виджет, выбрать его оформление<br> и разместить его на сайте или в социальных сетях. После<br> чего ваши клиенты смогут записываться к вам онлайн.</p>

@@ -6,6 +6,7 @@
         <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
       </div>
       <p class="creation_text">Создание виджета</p>
+
     </div>
     <div class="tab" ref="tabs">
       <div :class="{'tab-link': true, 'active-tab': selectedTab === 'general'}" @click="selectTab('general')">Общие настройки</div>
@@ -253,7 +254,7 @@
               </div>
             </div>
             <p>Прямая ссылка на виджет</p>
-            <input type="text">
+            <input type="text" v-model="widgetLink">
             <div class="button-container">
               <button @click="save" class="save-button">Сохранить</button>
               <button @click="cancel" class="cancel-button">Отмена</button>
@@ -316,6 +317,9 @@ export default {
         Text: '#535C69',
       },
 
+      widgetDesign: '',
+      widgetLink: 'https://calendar.com/' + 'user' + '/' + 'widgetname',
+
       chips: [],
     };
   },
@@ -373,7 +377,17 @@ export default {
       this.switches.employee, 
       this.switches.cancellation, 
       this.selectedInterval,
-      this.selectedOgranichenie, )
+      this.selectedOgranichenie,
+      
+      this.switches.theme,
+      this.widget.Main,
+      this.widget.Back,
+      this.widget.Plashka,
+      this.widget.Text,
+
+      this.widgetDesign,
+      this.widgetLink,
+      )
     },
 
     themechange(){
@@ -429,6 +443,7 @@ export default {
       const choice = event.currentTarget;
       const choiceType = choice.getAttribute('data-type');
 
+      this.widgetDesign = choiceType;
       if (this.selectedChoice === choiceType) {
         this.selectedChoice = null;
         choice.querySelector('.second_circle').style.display = 'none';

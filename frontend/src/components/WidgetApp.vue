@@ -290,7 +290,7 @@ export default {
   padding-bottom: 50px;
 }
 .compo{
-    width: 20%;
+    width: 300px;
     height: auto;
     background: var(--color-main);
     border-radius: 25px;
