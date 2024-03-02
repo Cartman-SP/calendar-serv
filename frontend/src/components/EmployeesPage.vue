@@ -94,7 +94,7 @@
                     <button :class="{ 'form-btn-active': isDaySelected('7х7'), 'form-btn': !isDaySelected('7х7'), 'button-days-error' : selectedDaysError }" @click="toggleDay('7х7')">7х7</button>
                     <button :class="{ 'form-btn-active': isDaySelected('1х2'), 'form-btn': !isDaySelected('1х2'), 'button-days-error' : selectedDaysError }" @click="toggleDay('1х2')">1х2</button>
                     <button :class="{ 'form-btn-active': isDaySelected('2х1'), 'form-btn': !isDaySelected('2х1'), 'button-days-error' : selectedDaysError }" @click="toggleDay('2х1')">2х1</button>
-                    <button :class="{ 'form-btn-active': isDaySelected('15х15'), 'form-btn': !isDaySelected('15х15') }" @click="toggleDay('15х15')">15х15</button>
+                    <button :class="{ 'form-btn-active': isDaySelected('15х15'), 'form-btn': !isDaySelected('15х15'), 'button-days-error' : selectedDaysError }" @click="toggleDay('15х15')">15х15</button>
                   </div>
                 </div>
               </div>
