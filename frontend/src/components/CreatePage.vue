@@ -215,8 +215,9 @@
             <div class="stripe" style="width: 109px;"></div>
             <div class="stripe" style="width: 63px;"></div>
           </div>
-          <div v-if="serviceCost">
-            <p class="header">{{serviceCost}} {{ costsign }}</p>
+          <div v-if="serviceCost" style="display: flex; align-items: center;">
+            <p class="header">{{serviceCost}}</p>
+            <p class="cost-sign">{{ costsign }}</p>
           </div>
           <div v-else class="third">
             <div class="circle"></div>
@@ -431,6 +432,13 @@ export default {
 
 
 <style scoped>
+.cost-sign{
+  font-family: 'TT Norms';
+  font-size: 16px;
+  line-height: 22px;
+  color: #535C69;
+  margin: 0 5px;
+}
 .main{
   overflow: hidden;
 }
