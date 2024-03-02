@@ -55,6 +55,10 @@
   </script>
   
   <style scoped>
+  .main{
+    overflow-y: scroll;
+    height: 87vh;
+  }
   .pernosal_btns{
     display: flex;
     flex-direction: row;

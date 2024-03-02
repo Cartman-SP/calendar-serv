@@ -379,7 +379,8 @@ img{
 }
 
 .search input:focus{
-    outline: solid 1px #6266EA;
+    outline: none;
+    border: 1px solid #6266EA;
 }
 
 .actions, .buttons-menu, .rate{

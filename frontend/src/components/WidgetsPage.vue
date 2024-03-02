@@ -42,6 +42,10 @@ export default {
   </script>
   
   <style scoped>
+  .main{
+    overflow-y: scroll;
+    height: 87vh;
+  }
   .widgets {
     text-align: center;
     position: absolute;

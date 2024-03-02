@@ -817,4 +817,8 @@ dataURItoBlob(dataURI) {
     border: 1.5px solid #6266EA;
     background-color: rgba(98, 102, 234, 0.1);
   }
+  input:focus {
+    outline: none;
+    border: 1px solid #6266EA;
+  }
 </style>

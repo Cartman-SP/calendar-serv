@@ -65,6 +65,10 @@ export default {
   </script>
   
   <style scoped>
+  .main{
+    overflow-y: scroll;
+    height: 87vh;
+  }
   .filials{
     display: grid;
     gap: 20px;
