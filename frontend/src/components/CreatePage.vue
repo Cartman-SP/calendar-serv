@@ -20,7 +20,7 @@
         <div class="cost-duration-container">
           <div class="input-group">
             <label for="serviceCost">Стоимость</label>
-            <input type="number" id="serviceCost" placeholder="Введите стоимость" v-model="serviceCost" :class="{ 'input-error': serviceCostError }">
+            <input type="number" appearance-none id="serviceCost" placeholder="Введите стоимость" v-model="serviceCost" :class="{ 'input-error': serviceCostError }">
           </div>
   
           <div class="input-group">
@@ -37,7 +37,7 @@
         <!-- 3. Обложка услуги -->
         <div>
           <label for="serviceCover" class="file-label">Обложка услуги</label>
-            <label class="custom-file-upload">
+            <label class="custom-file-upload" :class="{'custom-file-upload-error' : serviceCoverError}">
               <input type="file" accept="image/*" @change="handleFileUpload($event)"/>Нажмите, чтобы добавить
             </label>
           <p class="text">до 5 МБ, PNG, JPG, JPEG</p>
@@ -52,21 +52,21 @@
           </div>
           <div class="record-type-container">
             <button
-              :class="{ 'active': selectedRecordType === 'individual', 'button-error': paymentFormatError }"
+              :class="{ 'active': selectedRecordType === 'individual', 'button-error': selectedRecordTypeError }"
               @click="selectRecordType('individual','Индивидуальная')"
               class="record-button"
             >
               Индивидуальная
             </button>
             <button
-              :class="{ 'active': selectedRecordType === 'group', 'button-error': paymentFormatError  }"
+              :class="{ 'active': selectedRecordType === 'group', 'button-error': selectedRecordTypeError  }"
               @click="selectRecordType('group','Групповая')"
               class="record-button"
             >
               Групповая
             </button>
             <button
-              :class="{ 'active': selectedRecordType === 'rental', 'button-error': paymentFormatError  }"
+              :class="{ 'active': selectedRecordType === 'rental', 'button-error': selectedRecordTypeError  }"
               @click="selectRecordType('rental','Аренда')"
               class="record-button"
             >
@@ -81,17 +81,17 @@
               <Tip :Tip="'Выберите минимальное и максимальное количество мест, <br> которое соответствует вашей услуге'"/>
             </div>
             <div class="group-buttons">
-              <div class="group-counter">
-                <button @click="decreaseGroupCapacity">-</button>
+              <div class="group-counter" :class="{'group-counter-error': GroupCapacityError}">
+                <button @click="decreaseGroupCapacity" id="decrease">-</button>
                 <input type="text" v-if="groupCapacity === 0" placeholder="От" :value="''">
                 <input type="text" v-else placeholder="" :value="groupCapacity">
-                <button @click="increaseGroupCapacity">+</button>
+                <button @click="increaseGroupCapacity" id="increase">+</button>
               </div>
-              <div class="group-counter">
-                <button @click="decreaseMaxGroupCapacity">-</button>
+              <div class="group-counter" :class="{'group-counter-error': MaxGroupCapacityError}">
+                <button @click="decreaseMaxGroupCapacity" id="decrease">-</button>
                 <input type="text" v-if="maxGroupCapacity === 0" placeholder="До" :value="''">
                 <input type="text" v-else placeholder="" :value="maxGroupCapacity">
-                <button @click="increaseMaxGroupCapacity">+</button>
+                <button @click="increaseMaxGroupCapacity" id="increase">+</button>
               </div>
             </div>
           </div>
@@ -103,13 +103,13 @@
               <Tip :Tip="'Придумать описание, а, вообще, даня, верни 5к'"/>
             </div>
             <div class="group-buttons">
-              <div class="group-counter">
+              <div class="group-counter" :class="{'group-counter-error': GroupCapacityError}">
                 <button @click="decreaseGroupCapacity">-</button>
                 <input type="text" v-if="groupCapacity === 0" placeholder="От" :value="''">
                 <input type="text" v-else placeholder="" :value="groupCapacity">
                 <button @click="increaseGroupCapacity">+</button>
               </div>
-              <div class="group-counter">
+              <div class="group-counter" :class="{'group-counter-error': MaxGroupCapacityError}">
                 <button @click="decreaseMaxGroupCapacity">-</button>
                 <input type="text" v-if="maxGroupCapacity === 0" placeholder="До" :value="''">
                 <input type="text" v-else placeholder="" :value="maxGroupCapacity">
@@ -154,7 +154,7 @@
             <!-- Добавлены условия для групповой и аренды -->
             <button
               v-if="selectedRecordType === 'group' || selectedRecordType === 'rental'"
-              :class="{ 'active': selectedPaymentFormat === 'equipmentPayment' }"
+              :class="{ 'active': selectedPaymentFormat === 'equipmentPayment', 'button-error': selectedPaymentFormatError }"
               @click="selectPaymentFormat('equipmentPayment','Оплата за время и единицу оборудования')"
               class="record-button"
             >
@@ -162,7 +162,7 @@
             </button>
             <button
               v-if="selectedRecordType === 'group' || selectedRecordType === 'rental'"
-              :class="{ 'active': selectedPaymentFormat === 'freePayment' }"
+              :class="{ 'active': selectedPaymentFormat === 'freePayment', 'button-error': selectedPaymentFormatError }"
               @click="selectPaymentFormat('freePayment','Без стоимости')"
               class="record-button"
             >
@@ -238,12 +238,15 @@ export default {
   components: { Tip, SelectPage, MessageAlert },
   data() {
     return {
-      alertMessage: '',
+      alertMessage: null,
       alertColor: '',
 
       selectedRecordType: '',
+      selectedRecordTypeError: false,
+
       selectedPaymentFormat: '',
       selectedPaymentFormatError: false,
+
       groupCapacity: 0,
       maxGroupCapacity: 0,
 
@@ -257,9 +260,7 @@ export default {
       serviceDurationError: false,
 
       serviceCover: null,
-
-      paymentFormat: '',
-      paymentFormatError: false,
+      serviceCoverError: false,
 
       selectedPaymentText: '',
       selectedPaymentTextError: false,
@@ -267,7 +268,44 @@ export default {
       coverDataUrl: null,
       selectedRecordText: '',
       costsign: '₽',
+
+      GroupCapacityError: false,
+      MaxGroupCapacityError: false,
     };
+  },
+  watch: {
+    serviceName() {
+      this.alertMessage = null;
+      this.serviceNameError = false;
+    },
+    serviceCost() {
+      this.alertMessage = null;
+      this.serviceCostError = false;
+    },
+    serviceDuration() {
+      this.alertMessage = null;
+      this.serviceDurationError = false;
+    },
+    serviceCover(){
+      this.alertMessage = null;
+      this.serviceCoverError = false;
+    },
+    selectedPaymentFormat() {
+      this.alertMessage = null;
+      this.selectedPaymentFormatError = false;
+    },
+    selectedRecordType() {
+      this.alertMessage = null;
+      this.selectedRecordTypeError = false;
+    },
+    groupCapacity(){
+      this.alertMessage = null;
+      this.GroupCapacityError = false;
+    },
+    maxGroupCapacity(){
+      this.alertMessage = null;
+      this.MaxGroupCapacityError = false;
+    },
   },
   methods: {
     selectRecordType(type,text) {
@@ -294,17 +332,19 @@ export default {
       reader.readAsDataURL(this.serviceCover);
     },
     saveAndExit() {
-      if (!this.serviceName || !this.serviceCost || !this.serviceDuration || !this.paymentFormat || !this.selectedRecordText) {
+      if (!this.groupCapacity || !this.maxGroupCapacity || !this.serviceName || !this.serviceCost || !this.serviceDuration || !this.selectedPaymentFormat || !this.selectedRecordText || !this.serviceCover) {
+        this.alertMessage = null;
+        setTimeout(() => {
+          this.alertMessage = 'Пожалуйста, заполните выделенные поля';
+        this.alertColor = '#F97F7F';
+        }, 100);
 
-        this.alertMessage = 'Пожалуйста, заполните выделенные поля'
-        this.alertColor = '#F97F7F'
-
-        if (!this.serviceName.trim()) {
+        if (!this.serviceName) {
           this.serviceNameError = true;
         }else{
           this.serviceNameError = false;
         }
-        if (!this.serviceCost.toString().trim()) {
+        if (!this.serviceCost.toString()) {
           this.serviceCostError = true;
         }else{
           this.serviceCostError = false;
@@ -315,22 +355,31 @@ export default {
           this.serviceDurationError = false;
         }
         if (!this.selectedRecordType) {
-          this.paymentFormatError = true;
+          this.selectedRecordTypeError = true;
         }else{
-          this.paymentFormatError = false;
+          this.selectedRecordTypeError = false;
         }
         if (!this.selectedPaymentFormat) {
           this.selectedPaymentFormatError = true;
         }else{
           this.selectedPaymentFormatError = false;
         }
+        if (!this.serviceCover) {
+          this.serviceCoverError = true;
+        }else{
+          this.serviceCoverError = false;
+        }
+        if (!this.groupCapacity) {
+          this.GroupCapacityError = true;
+        }else{
+          this.GroupCapacityError = false;
+        }
+        if (!this.maxGroupCapacity) {
+          this.MaxGroupCapacityError = true;
+        }else{
+          this.MaxGroupCapacityError = false;
+        }
       }
-
-      if (!this.serviceCover) {
-        this.serviceCoverError = true;
-        return;
-      }
-      this.serviceCoverError = false;
 
       const formData = new FormData();
       formData.append('name', this.serviceName);
@@ -346,7 +395,11 @@ export default {
       axios.post('http://127.0.0.1:8000/api/uslugi/', formData)
         .then(response => {
           console.log('Service created:', response.data);
-          this.$router.go(-1);
+          this.alertMessage = 'Настройки успешно сохранены'
+          this.alertColor = '#0BB6A1'
+          setTimeout(() => {
+            this.$router.go(-1);
+          }, 2000)
         })
         .catch(error => {
           console.error('Error creating service:', error);
@@ -378,6 +431,9 @@ export default {
 
 
 <style scoped>
+.main{
+  overflow: hidden;
+}
 .button-error{
   border: solid 1px #F97F7F !important;
 }
@@ -405,7 +461,7 @@ export default {
   width: 400px;
   height: auto;
   padding: 20px;
-  border-radius: 5px;
+  border-radius: 15px;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -477,27 +533,68 @@ export default {
   margin-bottom: 10px;
 }
 .group-buttons button {
+  border-radius: 0;
+  width: 40px;
   height: 36px;
+  font-size: 25px;
+  font-family: 'TT Norms Light';
   background-color: #FFFFFF;
   color: #6266EA;
-  border: none;
   cursor: pointer;
+}
+
+#decrease{
+  border-radius: 3px 0 0 3px;
+  border: solid 1px #C6CBD2;
+  transition: all .2s ease;
+}
+
+#increase{
+  border-radius: 0 3px 3px 0;
+  border: solid 1px #C6CBD2;
+  transition: all .2s ease;
+}
+
+#increase:hover, #decrease:hover{
+  border: solid 1px #7D838C;
+}
+
+#increase:active, #decrease:active{
+  border: solid 1px #6266EA;
 }
 .group-counter{
   display: flex;
   color: #535C69;
   align-items: center;
   border-radius: 3px;
-  border: 1px solid #C6CBD2;
+}
+
+.group-counter-error{
+  display: flex;
+  color: #535C69;
+  align-items: center;
+  border-radius: 3px;
+  border: 1px solid #F97F7F !important;
 }
 .group-counter p{
   padding: 0 20px;
 }
 .group-counter input {
+  border-radius: 0;
+  border: solid 1px #C6CBD2;
   background-color: #FFFFFF;
   text-align: center;
   width: 55px;
   margin: 0;
+  transition: all .2s ease;
+}
+
+.group-counter input:hover{
+  border: solid 1px #7D838C;
+}
+
+.group-counter input:focus{
+  border: solid 1px #6266EA;
 }
 
 .create_service {
@@ -505,7 +602,7 @@ export default {
   flex-direction: column;
   gap: 20px;
   width: 550px;
-  height: auto;
+  height: fit-content;
   background-color: #FFFFFF;
   padding: 20px;
   border-radius: 5px;
@@ -550,13 +647,14 @@ export default {
 }
 
 .record-button {
+  font-family: 'TT Norms Medium';
   padding: 8px 12px;
-  font-size: 14px;
+  font-size: 13px;
   background-color: #F3F5F6;
-  color: #AFB6C1;
+  color: #D2D8DE;
   border: none;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s; /* Добавлено плавное переходное свойство */
+  transition: background-color 0.2s, color 0.2s; /* Добавлено плавное переходное свойство */
 }
 
 .record-button:hover {
@@ -613,6 +711,11 @@ input::placeholder {
   color: #D2D8DE;
   align-items: center;
   font-weight: 500;
+}
+
+.custom-file-upload-error{
+  border: 1px solid #F97F7F !important;
+  border-radius: 3px;
 }
 
 .custom-file-upload input[type="file"] {

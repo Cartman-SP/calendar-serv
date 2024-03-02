@@ -81,13 +81,13 @@ export default {
   height: 36px;
   line-height: 36px;
   font-family: TT Norms Medium;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .selected {
   background-color: #F3F5F6;
   border-radius: 3px;
-  padding-left: 1em;
+  padding-left: .8em;
   cursor: pointer;
   user-select: none;
   height: 36px;

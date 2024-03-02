@@ -13,6 +13,18 @@ export default {
 </script>
 
 <style>
+input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  /* Для Webkit (Chrome, Safari) */
+  input::-webkit-inner-spin-button,
+  input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+
 *,
 html * /* override x.xhtml.ru style */ 
 {
