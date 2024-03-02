@@ -20,7 +20,10 @@
         <div class="cost-duration-container">
           <div class="input-group">
             <label for="serviceCost">Стоимость</label>
-            <input type="number" appearance-none id="serviceCost" placeholder="Введите стоимость" v-model="serviceCost" :class="{ 'input-error': serviceCostError }">
+            <div class="cost-input-block">
+              <input type="number" appearance-none id="serviceCost" placeholder="Введите стоимость" v-model="serviceCost" :class="{ 'input-error': serviceCostError }">
+              <span>{{ costsign }}</span>
+            </div>
           </div>
   
           <div class="input-group">
@@ -432,6 +435,16 @@ export default {
 
 
 <style scoped>
+.cost-input-block{
+  position: relative;
+}
+
+.cost-input-block span{
+  position: absolute;
+  color: #D2D8DE;
+  top: 10px;
+  right: 10px;
+}
 .cost-sign{
   font-family: 'TT Norms';
   font-size: 16px;
