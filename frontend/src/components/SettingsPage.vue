@@ -6,7 +6,7 @@
         <div class="name">
           <div class="name-container">
             <label for="userName">Имя</label>
-            <div class="input_container">
+            <div class="input_container_top">
               <input type="text" id="userName" :value="User.name">
               <button @click="saveName" class="button-save">Сохранить изменения</button>
             </div>
@@ -35,6 +35,7 @@
               <div class="email-btn">
                 <button @click="acceptMail">Подтвердить Email</button>
                 <button @click="changeMail" class="button-change">Изменить email</button>
+                <ChangeMailPage v-if="showMail"/>
               </div>
             </div>
           </div>
@@ -49,6 +50,7 @@
               <div class="phone-btn">
                 <button @click="acceptPhone">Подтвердить телефон</button>
                 <button @click="changePhone" class="button-change">Изменить Телефон</button>
+                <ChangePhonePage v-if="showPhone"/>
               </div>
             </div>
           </div>
@@ -59,7 +61,6 @@
           <p class="password">Был установлен 3 месяца назад</p>
           <button @click="showModals" type="button" class="button-change">Изменить пароль</button>
           <ChangePasswordPage v-if="showModal"/>
-          <ChangeMailPage v-if="showMail"/>
         </div>
       </div>
     </div>
@@ -69,15 +70,17 @@
 <script>
 import ChangePasswordPage from './ChangePasswordPage.vue';
 import ChangeMailPage from './ChangeMailPage.vue';
+import ChangePhonePage from './ChangePhonePage.vue';
 import axios from 'axios';  
 
 
 export default {
-  components: { ChangePasswordPage, ChangeMailPage},
+  components: { ChangePasswordPage, ChangeMailPage, ChangePhonePage },
   data() {
     return {
       showModal: false,
       showMail: false,
+      showPhone: false,
 
       User: {
         name: '',
@@ -93,6 +96,9 @@ export default {
     },
     changeMail() {
       this.showMail = true;
+    },
+    changePhone() {
+      this.showPhone = true;
     },
 
     get_profile(){
@@ -143,6 +149,12 @@ label {
 }
 
 .input_container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+.input_container_top {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -251,5 +263,10 @@ h2{
 }
 span{
   font-weight: bold;
+}
+.input_container input{
+  background-image: url(../../static/img/warning.svg);
+  background-repeat: no-repeat;
+  background-position: calc(100% - 15px) center;
 }
 </style>
