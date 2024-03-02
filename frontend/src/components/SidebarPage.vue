@@ -98,7 +98,7 @@
                     <img class="img_profile" :src="avatar">
                     <div style="margin-left: 10px;">
                       <p id="bottom_header"> {{ name }} </p>
-                      <p id="bottom_subheader"> {{ position }} </p>
+                      <p id="bottom_subheader"> {{ position || 'Владелец' }}</p>
                     </div>
                   </div>  
                   <div class="dropdown_btn">
@@ -179,7 +179,7 @@ export default {
         this.avatar = "http://127.0.0.1:8000" + response.data.profile.avatar
         console.log(this.avatar)
         this.name = response.data.profile.name
-        this.position = response.data.profile.name // сделать должность
+        // this.position = response.data.profile.name // сделать должность
         this.company = response.data.profile.company_name
       })
       .catch(error => {
@@ -221,6 +221,7 @@ export default {
 }
 
 #bottom_header, #bottom_subheader, #bottom_sub_text{
+  
   background-color: transparent;
   margin: 0;
   padding: 0;
@@ -319,7 +320,7 @@ export default {
   margin-bottom: 5px;
 }
 #bottom_subheader{
-  font-family: TT Norms Medium;
+  font-family: TT Norms Light;
   font-size: 12px;
   font-weight: 300;
   line-height: 12px;

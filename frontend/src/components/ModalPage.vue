@@ -1,90 +1,110 @@
 <template>
-  <div class="modal-container">
-    <div class="image-container">
-      <img src="../../static/img/woman.png" alt="" class="woman">
-    </div>
-
-    <div class="text-container" v-if="!showContinueButtonClicked">
-      <p class="days-text">Завершив регистрацию<br>мы подарим вам <span class="days-highlight">365 дней</span><br>бесплатного пользования</p>
-      <p class="normal-text">Имя</p>
-      <input type="text" placeholder="Введите имя" v-model="name">
-      <p class="normal-text">Фотография (необязательно)</p>
-      <label class="custom-file-upload">
-        <input type="file" accept="image/*" @change="onFileChange"/>Прикрепите фото
-      </label>
-      <p class="small-text">до 5 МБ, PNG, JPG, JPEG. Для замены - загрузите заново</p>
-      <p class="normal-text">Название компании</p>
-      <input maxlength="25" type="text" v-model="companyName" placeholder="Введите название">
-      <p class="small-text">Для ввода доступно — <span class="remaining-characters">{{ remainingCharacters }}</span>/25</p>
-      <div class="steps-container">
-        <div class="continue-button-container">
-          <div class="steps-progress">
-            <div class="divider"></div>
-            <div class="divider-two"></div>
-          </div>
-          <p class="steps-text">Шаг 1 из 2</p>
-        </div>
-        <button class="continue-button" @click="onContinueButtonClick" :disabled="isContinueDisabled">Продолжить</button>
+  <div>
+    <div class="overlay"></div>
+    <div class="modal-container">
+      <div class="image-container">
+        <img src="../../static/img/woman.png" alt="" class="woman">
       </div>
-    </div>
 
-    <div v-else>
-      <div class="form-container">
+      <div class="text-container" v-if="!showContinueButtonClicked">
         <p class="days-text">Завершив регистрацию<br>мы подарим вам <span class="days-highlight">365 дней</span><br>бесплатного пользования</p>
-        <div class="dropdown-container">
-          <div class="dropdown-item">
-            <p class="normal-text">Часовой пояс</p>
-            <SelectPage
-            :options="['0 — Лондон, Дублин', '+1 — Париж, Рим', '+2 — Афины, Каир', '+3 — Москва, Стамбул', '+4 — Дубай, Новосибирск', '+5 — Астана, Ташкент', '+6 — Омск, Бишкек', '+7 — Бангкок, Джакарта', '+8 — Гонконг, Сингапур', '-8 — Лос-Анджелес, Ванкувер', '-7 — Денвер, Эдмонтон', '-6 — Чикаго, Мехико', '-5 — Нью-Йорк, Монреаль', '-4 — Галифакс, Каракас', '-3 — Рио-де-Жанейро, Буэнос-Айрес']"
-            @input="option => selectedTimeZone = option"
-            :placeholderdata="'Выберите свой часовой пояс'"
-            class="select"
-            />
-          </div>
-  
-          <div class="dropdown-item">
-            <p class="normal-text">Валюта</p>
-            <SelectPage
-            :options="['RUB — Российский рубль', 'BYN — Белорусский рубль', 'USD — Доллар США', 'EUR — Евро', 'KZT — Казахстанский тенге', 'UAH — Украинская гривна', 'AZN — Азербайджанский манат', 'AMD — Армянский драм', 'GEL — Грузинский лари', 'KGS — Киргизский сом', 'TJS — Таджикский сомони', 'UZS — Узбекский сум', 'ARS — Аргентинское песо', 'BRL — Бразильский реал', 'AED — Дирхам ОАЭ', 'INR — Индийская рупи', 'MDL — Молдавский лей', 'NGN — Нигерийская найра', 'ILS — Новый израильский шекель', 'THB — Тайский бат', 'TRY — Турецкая лира ', 'ZAR — Южноафриканский рэнд']"
-            :placeholderdata="'Выберите основную валюту'"
-            @input="option => selectedCurrency = option"
-            class="select"
-            />
-          </div>
-
-        </div>
-        <div class="steps">
-          <div class="second-steps-container">
+        <p class="normal-text">Имя</p>
+        <input type="text" placeholder="Введите имя" v-model="name" :class="{ 'input-error': nameError }">
+        <p class="normal-text">Фотография (необязательно)</p>
+        <label class="custom-file-upload" :class="{'custom-file-upload-error' : serviceCoverError}" v-if="!fileNameVariable">
+          <input type="file" accept="image/*" @change="handleFileUpload($event)"/>Прикрепите фото 
+        </label>
+        <label style="color: #535C69;" class="custom-file-upload" :class="{'custom-file-upload-error' : serviceCoverError}" v-else>
+          <input type="file" accept="image/*" @change="handleFileUpload($event)"/>{{ fileNameVariable }}
+        </label>
+        <p class="small-text">до 5 МБ, PNG, JPG, JPEG. Для замены - загрузите заново</p>
+        <p class="normal-text">Название компании</p>
+        <input maxlength="25" type="text" v-model="companyName" placeholder="Введите название" :class="{ 'input-error': companyNameError }">
+        <p class="small-text">Для ввода доступно — <span class="remaining-characters">{{ remainingCharacters }}</span>/25</p>
+        <div class="steps-container">
+          <div class="continue-button-container">
             <div class="steps-progress">
-              <div class="second-divider"></div>
-              <div class="second-divider-two"></div>
+              <div class="divider"></div>
+              <div class="divider-two"></div>
             </div>
-            <p class="steps-text">Шаг 2 из 2</p>
+            <p class="steps-text">Шаг 1 из 2</p>
           </div>
-          <div class="btn-container">
-            <button class="back" @click="onBackClick">Назад</button>
-            <button class="next-button" @click="createProfile">Продолжить</button>
-          </div>
+          <button class="continue-button" @click="onContinueButtonClick">Продолжить</button>
         </div>
-      </div>  
+      </div>
+
+      <div v-else>
+        <div class="form-container">
+          <p class="days-text">Завершив регистрацию<br>мы подарим вам <span class="days-highlight">365 дней</span><br>бесплатного пользования</p>
+          <div class="dropdown-container">
+            <div class="dropdown-item">
+              <p class="normal-text">Часовой пояс</p>
+              <SelectPage
+              :options="['0 — Лондон, Дублин', '+1 — Париж, Рим', '+2 — Афины, Каир', '+3 — Москва, Стамбул', '+4 — Дубай, Новосибирск', '+5 — Астана, Ташкент', '+6 — Омск, Бишкек', '+7 — Бангкок, Джакарта', '+8 — Гонконг, Сингапур', '-8 — Лос-Анджелес, Ванкувер', '-7 — Денвер, Эдмонтон', '-6 — Чикаго, Мехико', '-5 — Нью-Йорк, Монреаль', '-4 — Галифакс, Каракас', '-3 — Рио-де-Жанейро, Буэнос-Айрес']"
+              @input="option => selectedTimeZone = option"
+              :placeholderdata="'Выберите свой часовой пояс'"
+              :class="{ 'select-error': selectedTimeZoneError }"
+              />
+            </div>
+    
+            <div class="dropdown-item">
+              <p class="normal-text">Валюта</p>
+              <SelectPage
+              :options="['RUB — Российский рубль', 'BYN — Белорусский рубль', 'USD — Доллар США', 'EUR — Евро', 'KZT — Казахстанский тенге', 'UAH — Украинская гривна', 'AZN — Азербайджанский манат', 'AMD — Армянский драм', 'GEL — Грузинский лари', 'KGS — Киргизский сом', 'TJS — Таджикский сомони', 'UZS — Узбекский сум', 'ARS — Аргентинское песо', 'BRL — Бразильский реал', 'AED — Дирхам ОАЭ', 'INR — Индийская рупи', 'MDL — Молдавский лей', 'NGN — Нигерийская найра', 'ILS — Новый израильский шекель', 'THB — Тайский бат', 'TRY — Турецкая лира ', 'ZAR — Южноафриканский рэнд']"
+              :placeholderdata="'Выберите основную валюту'"
+              @input="option => selectedCurrency = option"
+              :class="{ 'select-error': selectedCurrencyError }"
+              />
+            </div>
+
+          </div>
+          <div class="steps">
+            <div class="second-steps-container">
+              <div class="steps-progress">
+                <div class="second-divider"></div>
+                <div class="second-divider-two"></div>
+              </div>
+              <p class="steps-text">Шаг 2 из 2</p>
+            </div>
+            <div class="btn-container">
+              <button class="back" @click="onBackClick">Назад</button>
+              <button class="next-button" @click="createProfile">Продолжить</button>
+            </div>
+          </div>
+        </div>  
+      </div>
+      
     </div>
+    <MessageAlert :message="alertMessage" :color="alertColor"/>
   </div>
+  
 </template>
 
 <script>
 import SelectPage from '../components/SelectPage.vue';
 import axios from 'axios';
+import MessageAlert from "../components/MessageAlert.vue";
 
 export default { 
-  components: { SelectPage },
+  components: { SelectPage, MessageAlert },
   data() {
     return {
+      alertMessage: null,
+      alertColor: '',
+
+      fileNameVariable: '',
+
       companyName: '',
       showContinueButtonClicked: false,
       name: '',
       selectedTimeZone: '',
       selectedCurrency: '',
       avatar: null,
+
+      nameError: false,
+      companyNameError: false,
+      selectedTimeZoneError: false,
+      selectedCurrencyError: false,
     };
   },
   computed: {
@@ -92,60 +112,125 @@ export default {
       const maxLength = 25;
       return maxLength - this.companyName.length;
     },
-    isContinueDisabled() {
-      return !this.companyName.trim() || !this.name.trim();
+  },
+  watch: {
+    name() {
+      this.alertMessage = null;
+      this.nameError = false;
     },
+    companyName() {
+      this.alertMessage = null;
+      this.companyNameError = false;
+    },
+    selectedTimeZone(){
+      this.alertMessage = null;
+      this.selectedTimeZoneError = false;
+    },
+    selectedCurrency(){
+      this.alertMessage = null;
+      this.selectedCurrencyError = false;
+    }
   },
   methods: {
+    handleFileUpload(event) {
+      this.avatar = event.target.files[0];
+      const file = event.target.files[0];
+      this.serviceCover = file; // сохраняем весь объект файла
+      const fileName = file.name; // извлекаем название файла
+      this.fileNameVariable = fileName; // сохраняем название файла в переменной
+    },
+
     createProfile(){
-      const formData = new FormData();
-      formData.append('name', this.name);
-      formData.append('company', this.companyName);
-      formData.append('timezone', this.selectedTimeZone)
-      formData.append('avatar', this.avatar);
-      formData.append('currency', this.selectedCurrency);
-      formData.append('id', this.$store.state.registrationData.user_id);
-      console.log(this.$store.state.registrationData.user_id)
-      axios.post('http://127.0.0.1:8000/api/profile/', formData)
-        .then(response => {
-          console.log('Service created:', response.data);
-          window.location.reload();
-        })
-        .catch(error => {
-          console.error('Error creating service:', error);
-        });
+      console.log(this.selectedTimeZone, this.selectedCurrency)
+      if (!this.selectedTimeZone.length || !this.selectedCurrency.length) {
+        this.alertMessage = null;
+        setTimeout(() => {
+          this.alertMessage = 'Пожалуйста, заполните выделенные поля';
+          this.alertColor = '#F97F7F';
+        }, 100);
+
+        if (!this.selectedTimeZone.length) {
+          this.selectedTimeZoneError = true;
+        }else{
+          this.selectedTimeZoneError = false;
+        }
+        if (!this.selectedCurrency.length) {
+          this.selectedCurrencyError = true;
+        }else{
+          this.selectedCurrencyError = false;
+        }
+      } else{
+          const formData = new FormData();
+          formData.append('name', this.name);
+          formData.append('company', this.companyName);
+          formData.append('timezone', this.selectedTimeZone)
+          formData.append('avatar', this.avatar);
+          formData.append('currency', this.selectedCurrency);
+          formData.append('id', this.$store.state.registrationData.user_id);
+          console.log(this.$store.state.registrationData.user_id)
+          axios.post('http://127.0.0.1:8000/api/profile/', formData) // http://127.0.0.1:8000/api/profile/
+            .then(response => {
+              console.log('Service created:', response.data);
+              window.location.reload();
+            })
+            .catch(error => {
+              console.error('Error creating service:', error);
+            });
+        }
     },
 
     onContinueButtonClick() {
-      if (!this.isContinueDisabled) {
-        this.showContinueButtonClicked = true;
+      if (!this.name || !this.companyName) {
+        this.alertMessage = null;
+        setTimeout(() => {
+          this.alertMessage = 'Пожалуйста, заполните выделенные поля';
+          this.alertColor = '#F97F7F';
+        }, 100);
+
+        if (!this.name) {
+          this.nameError = true;
+        }else{
+          this.nameError = false;
+        }
+        if (!this.companyName) {
+          this.companyNameError = true;
+        }else{
+          this.companyNameError = false;
+        }
+      } else{
+        if (!this.isContinueDisabled) {
+          this.showContinueButtonClicked = true;
+        }
       }
     },
     onBackClick() {
       this.showContinueButtonClicked = false;
     },
-    onSelectChange(type) {
-      // Обрабатываем изменения в выбранных опциях
-      // И применяем стиль к тексту в зависимости от типа элемента select
-      if (type === 'timeZone') {
-        // Для часового пояса
-        // Можно выполнить другие действия, если необходимо
-      } else if (type === 'currency') {
-        // Для валюты
-        // Можно выполнить другие действия, если необходимо
-      }
-    },
-    onFileChange(event) {
-      this.avatar = event.target.files[0];
-    }
   },
 };
 </script>
 
 
   <style scoped>
+  .select-error >>> .selected{
+    border: solid 1px #F97F7F !important;
+  }
+  .overlay {
+    z-index: 98;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Задний фон с прозрачностью 60% */
+  }
+  
+  .input-error {
+    border: 1px solid #F97F7F !important;
+  }
   .modal-container {
       position: absolute;
+      z-index: 99;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);

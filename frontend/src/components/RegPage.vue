@@ -80,9 +80,6 @@ export default {
       error: '',
     };
   },
-  mounted() {
-
-  },
   computed: {
     computedMask() {
       if (this.selectedCountry) {

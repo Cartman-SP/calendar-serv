@@ -33,10 +33,38 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="address">Адрес</label>
-          <input type="text" id="address" v-model="selectedAdress" placeholder="Введите точный адрес">
+        <div class="one-group">
+          <div class="form-group">
+            <label for="address">Адрес</label>
+            <input type="text" id="address" v-model="selectedAdress" placeholder="Введите точный адрес">
+          </div>
+          <div class="form-group" style="flex-direction: row; gap: 5px;">      
+                <div class="card flex justify-content-center">
+                  <label>Регион</label>
+                  <DropdownComponent v-model="selectedCountryPhone" :options="countries" optionLabel="name" placeholder="🇷🇺" class="w-full md:w-14rem">
+                    <template #value="slotProps">
+                      <div v-if="slotProps.value" class="flex align-items-center">
+                        <div>{{ slotProps.value.name }}</div>
+                      </div>
+                      <span v-else>
+                        {{ slotProps.placeholder }}
+                      </span>
+                    </template>
+                    <template #option="slotProps">
+                      <div class="flex align-items-center">
+                        <div>{{ slotProps.option.name }}</div>
+                      </div>
+                    </template>
+                  </DropdownComponent>
+                </div>
+                <div class="form-group">
+                  <label>Телефон</label>
+                  <InputMaskComponent @input="handleInput" id="basic" v-model="value" :mask="computedMask" :placeholder="computedPlaceholder" />
+                </div>
+                
+          </div>
         </div>
+        
 
         <div class="form-group">
           <label for="branchName">Название филиала</label>
@@ -181,7 +209,17 @@ export default {
       uploadedImages: [],
       selectedEmployeeId: [], 
       chips: [],
-      selectedPhone: '79672262425'
+      selectedPhone: '79672262425',
+
+      selectedCountry: '',
+      selectedCountryPhone: null,
+      value: '7 ', // Начальное значение для InputMaskComponent
+      countries: [
+        { name: '🇷🇺', code: '+7' },
+        { name: '🇧🇾', code: '+375' },
+        { name: '🇰🇿', code: '+7' },
+        { name: '🇺🇦', code: '+380' },
+      ],
     }
   },
   mounted(){
@@ -190,12 +228,34 @@ export default {
     this.get_buisnesssphere()
   },
   computed: {
+    computedMask() {
+      if (this.selectedCountryPhone) {
+        const countryCode = this.selectedCountryPhone.code;
+        if (countryCode === '+375' || countryCode === '+380') {
+          return `${countryCode} (99) 999-99-99`;
+        } else {
+          return `${countryCode} (999) 999-99-99`;
+        }
+      } else {
+        return '+7 (999) 999-99-99'; // Default mask
+      }
+    },
+    computedPlaceholder() {
+      return this.selectedCountryPhone ? this.selectedCountryPhone.code + ' |' : '+7 |';
+    },
+
     filteredChips() {
       // Начинаем с индекса 1 (второй элемент) и возвращаем оставшиеся элементы
       return this.chips.slice(1);
     }
   },
-
+  watch: {
+    selectedCountryPhone(newCountry) {
+      if (newCountry) {
+        this.value = newCountry.code + ' ' + this.value.replace(/^\s*\+\d\s*\|\s*/, '');
+      }
+    },
+  },
   methods: {
     deleteChip(chip){
       let indexToRemove = this.chips.indexOf(chip);
@@ -205,18 +265,18 @@ export default {
     },
 
     handleImageUpload(event) {
-  const files = event.target.files;
-  for (let i = 0; i < files.length; i++) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const imageURL = e.target.result;
-      const fileName = files[i].name;
-      const fileFormat = fileName.split('.').pop(); // Получаем расширение файла
-      this.uploadedImages.push({ name: fileName, format: fileFormat, url: imageURL });
-    };
-    reader.readAsDataURL(files[i]);
-  }
-},
+      const files = event.target.files;
+      for (let i = 0; i < files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const imageURL = e.target.result;
+          const fileName = files[i].name;
+          const fileFormat = fileName.split('.').pop(); // Получаем расширение файла
+          this.uploadedImages.push({ name: fileName, format: fileFormat, url: imageURL });
+        };
+        reader.readAsDataURL(files[i]);
+      }
+    },
 
     get_workers(){
       axios.post('http://127.0.0.1:8000/api/getworkers/', { user_id:  this.$store.state.registrationData.user_id})
@@ -405,7 +465,7 @@ dataURItoBlob(dataURI) {
     margin-top: -1.5px;
   }
   .create_branch {
-    width: 50%;
+    width: 600px;
     height: auto;
     background-color: #FFFFFF;
     padding: 20px;

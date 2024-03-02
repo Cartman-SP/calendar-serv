@@ -1,6 +1,5 @@
 <template>
     <div class="cabinet">
-        <div class="overlay" v-if="showModal"></div>
         <div class="navigation">
             <SidebarPage/>
             <div class="lk">
@@ -69,13 +68,4 @@ export default {
     height: 100vh;
     padding: 20px 20px 20px 0;
 }
-
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Задний фон с прозрачностью 60% */
-  }
 </style>

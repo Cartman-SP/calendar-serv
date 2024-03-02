@@ -61,6 +61,7 @@ svg:hover path{
     cursor: pointer;
 }
 .alert{
+  z-index: 100;
     /* background-color: #0BB6A1; */
     padding: 10px 15px;
     position: absolute;

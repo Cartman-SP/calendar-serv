@@ -348,7 +348,7 @@ export default {
         this.alertMessage = null;
         setTimeout(() => {
           this.alertMessage = 'Пожалуйста, заполните выделенные поля';
-        this.alertColor = '#F97F7F';
+          this.alertColor = '#F97F7F';
         }, 100);
 
         if (!this.serviceName) {

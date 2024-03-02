@@ -128,7 +128,6 @@
                     </router-link>
                   </div>
                 </div>
-                
                 <a href="">
                   <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_4153_4007)">
