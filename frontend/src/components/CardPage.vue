@@ -81,6 +81,7 @@ export default {
         .then(response => {
             console.log('Service deleted:', response.data);
             this.$parent.get_uslugi();
+            this.showModal = !this.showModal;
         })
         .catch(error => {
             console.error('Error deleting service:', error);

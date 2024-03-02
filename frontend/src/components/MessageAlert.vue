@@ -1,6 +1,6 @@
 <template>
-  <div :class="{ 'alert': true, 'show': isVisible, 'hide': !isVisible, 'extraHide': isExtraVisible}" :style="{ backgroundColor: color }">
-    <p>{{ message }}</p>
+  <div :class="{ 'alert': true, 'show': isVisible, 'hide': !isVisible}" :style="{ backgroundColor: color }">
+    <p>{{ m }}</p>
     <svg @click="hideNotification" width="8" height="8" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M2.29294 3.00003L0.146484 5.14648L0.853591 5.85359L3.00004 3.70714L5.1465 5.85359L5.85361 5.14648L3.70715 3.00003L5.85359 0.853591L5.14648 0.146484L3.00004 2.29292L0.853605 0.146484L0.146499 0.853591L2.29294 3.00003Z" fill="white"/>
     </svg>
@@ -13,21 +13,21 @@ export default {
   data() {
     return {
       isVisible: false,
-      isExtraVisible: false,
+      m: '',
     };
   },
   watch: {
     message() {
-      this.isExtraVisible = false;
       if (this.message !== null) {
         this.showNotification();
       } else {
-        this.isExtraVisible = true;
+        this.hideNotification();
       }
     },
   },
   methods: {
     showNotification() {
+      this.m = this.message;
       this.isVisible = true;
       setTimeout(() => {
         this.hideNotification();
@@ -54,12 +54,6 @@ export default {
   opacity: 0;
   bottom: 0px;
   transition: all .2s ease;
-}
-
-.extraHide{
-  transition: all 0s ease;
-  opacity: 0;
-  bottom: 0px;
 }
 
 svg:hover path{
