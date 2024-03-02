@@ -23,15 +23,18 @@
       <!-- Показываем значок загрузки -->
       <i class="pi pi-spin pi-spinner" style="font-size: 2.5rem;  color: #6266EA"></i>
     </div>
+    <div class="overlay" v-show="false"></div>
+    <FirstService v-show="false"/>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import Card from '../components/CardPage.vue';
+import FirstService from '../components/ModalServicePage.vue';
 
 export default {
-  components: { Card },
+  components: { Card, FirstService },
   data() {
     return {
       uslugi: [], // Создаем массив для хранения объектов Usluga
@@ -58,6 +61,14 @@ export default {
 </script>
 
 <style scoped>
+.overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
 .main{
   overflow-y: scroll;
   height: 87vh;

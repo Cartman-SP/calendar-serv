@@ -13,23 +13,26 @@
             <div class="form-row">
               <div class="form-column">
                 <label for="firstName">Имя</label>
-                <input type="text" v-model="firstname" id="firstName" placeholder="Введите имя">
+                <input type="text" v-model="firstname" id="firstName" placeholder="Введите имя" :class="{ 'input-error': firstnameError }">
               </div>
               <div class="form-column">
                 <label for="lastName">Фамилия</label>
-                <input type="text" v-model="secondname" id="lastName" placeholder="Введите фамилию">
+                <input type="text" v-model="secondname" id="lastName" placeholder="Введите фамилию" :class="{ 'input-error': secondnameError }">
               </div>
             </div>
 
             <div class="form-row">
               <div class="form-column">
                 <label for="position">Должность</label>
-                <input type="text" v-model="rank" id="position" placeholder="Введите должность">
+                <input type="text" v-model="rank" id="position" placeholder="Введите должность" :class="{ 'input-error': rankError }">
               </div>
               <div class="form-column">
                 <label for="photo">Фото</label>
-                <label class="custom-file-upload">
-                  <input type="file" @change="handleFileUpload" accept="image/*"/>Прикрепите фото
+                <label class="custom-file-upload" :class="{'custom-file-upload-error' : avatarError}" v-if="!fileNameVariable">
+                  <input type="file" accept="image/*" @change="handleFileUpload($event)"/>Нажмите, чтобы добавить 
+                </label>
+                <label style="color: #535C69;" class="custom-file-upload" :class="{'custom-file-upload-error' : avatarError}" v-else>
+                  <input type="file" accept="image/*" @change="handleFileUpload($event)"/>{{ fileNameVariable }}
                 </label>
               </div>
             </div>
@@ -43,6 +46,7 @@
                 class="select"
                 @input="handleSelectInput"
                 :placeholderdata="'Выберите услугу'"
+                :class="{ 'select-error': chipsError }"
               />
             </div>
 
@@ -62,21 +66,21 @@
                   <Tip :Tip="'На основе выбранного графика, система автоматически \n сформирует график работы на месяц вперед'"/>
                 </div>
                 <div class="graffic_container">
-                  <button class="graffic_btn" @click="toggleGraffic('weekly')" :class="{ 'graffic_btn-active': selectedRecordType === 'weekly' }">Недельный график</button>
-                  <button class="graffic_btn" @click="toggleGraffic('replaceable')" :class="{ 'graffic_btn-active': selectedRecordType === 'replaceable' }">Сменный график</button>
+                  <button class="graffic_btn" @click="toggleGraffic('weekly')" :class="{ 'graffic_btn-active': selectedRecordType === 'weekly', 'button-error' : selectedRecordTypeError }">Недельный график</button>
+                  <button class="graffic_btn" @click="toggleGraffic('replaceable')" :class="{ 'graffic_btn-active': selectedRecordType === 'replaceable', 'button-error' : selectedRecordTypeError  }">Сменный график</button>
                 </div>
                 <div class="weekly" v-show="isGrafficActive('weekly')">
                   <p class="graffic_text">
                     Недельный график:
                   </p>
                   <div class="days-buttons">
-                    <button :class="{ 'form-btn-active': isDaySelected('Пн'), 'form-btn': !isDaySelected('Пн') }" @click="toggleDay('Пн')">Пн</button>
-                    <button :class="{ 'form-btn-active': isDaySelected('Вт'), 'form-btn': !isDaySelected('Вт') }" @click="toggleDay('Вт')">Вт</button>
-                    <button :class="{ 'form-btn-active': isDaySelected('Ср'), 'form-btn': !isDaySelected('Ср') }" @click="toggleDay('Ср')">Ср</button>
-                    <button :class="{ 'form-btn-active': isDaySelected('Чт'), 'form-btn': !isDaySelected('Чт') }" @click="toggleDay('Чт')">Чт</button>
-                    <button :class="{ 'form-btn-active': isDaySelected('Пт'), 'form-btn': !isDaySelected('Пт') }" @click="toggleDay('Пт')">Пт</button>
-                    <button :class="{ 'form-btn-active': isDaySelected('Сб'), 'form-btn': !isDaySelected('Сб') }" @click="toggleDay('Сб')">Сб</button>
-                    <button :class="{ 'form-btn-active': isDaySelected('Вс'), 'form-btn': !isDaySelected('Вс') }" @click="toggleDay('Вс')">Вс</button>
+                    <button :class="{ 'form-btn-active': isDaySelected('Пн'), 'form-btn': !isDaySelected('Пн'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Пн')">Пн</button>
+                    <button :class="{ 'form-btn-active': isDaySelected('Вт'), 'form-btn': !isDaySelected('Вт'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Вт')">Вт</button>
+                    <button :class="{ 'form-btn-active': isDaySelected('Ср'), 'form-btn': !isDaySelected('Ср'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Ср')">Ср</button>
+                    <button :class="{ 'form-btn-active': isDaySelected('Чт'), 'form-btn': !isDaySelected('Чт'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Чт')">Чт</button>
+                    <button :class="{ 'form-btn-active': isDaySelected('Пт'), 'form-btn': !isDaySelected('Пт'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Пт')">Пт</button>
+                    <button :class="{ 'form-btn-active': isDaySelected('Сб'), 'form-btn': !isDaySelected('Сб'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Сб')">Сб</button>
+                    <button :class="{ 'form-btn-active': isDaySelected('Вс'), 'form-btn': !isDaySelected('Вс'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Вс')">Вс</button>
                   </div>
                 </div>
                 <div class="replaceable" v-show="isGrafficActive('replaceable')">
@@ -84,12 +88,12 @@
                     Сменный график (Рабочий день х Выходной день):
                   </p>
                   <div class="days-buttons">
-                    <button :class="{ 'form-btn-active': isDaySelected('1x1'), 'form-btn': !isDaySelected('1x1') }" @click="toggleDay('1x1')">1x1</button>
-                    <button :class="{ 'form-btn-active': isDaySelected('2х2'), 'form-btn': !isDaySelected('2х2') }" @click="toggleDay('2х2')">2х2</button>
-                    <button :class="{ 'form-btn-active': isDaySelected('3х3'), 'form-btn': !isDaySelected('3х3') }" @click="toggleDay('3х3')">3х3</button>
-                    <button :class="{ 'form-btn-active': isDaySelected('7х7'), 'form-btn': !isDaySelected('7х7') }" @click="toggleDay('7х7')">7х7</button>
-                    <button :class="{ 'form-btn-active': isDaySelected('1х2'), 'form-btn': !isDaySelected('1х2') }" @click="toggleDay('1х2')">1х2</button>
-                    <button :class="{ 'form-btn-active': isDaySelected('2х1'), 'form-btn': !isDaySelected('2х1') }" @click="toggleDay('2х1')">2х1</button>
+                    <button :class="{ 'form-btn-active': isDaySelected('1x1'), 'form-btn': !isDaySelected('1x1'), 'button-days-error' : selectedDaysError }" @click="toggleDay('1x1')">1x1</button>
+                    <button :class="{ 'form-btn-active': isDaySelected('2х2'), 'form-btn': !isDaySelected('2х2'), 'button-days-error' : selectedDaysError }" @click="toggleDay('2х2')">2х2</button>
+                    <button :class="{ 'form-btn-active': isDaySelected('3х3'), 'form-btn': !isDaySelected('3х3'), 'button-days-error' : selectedDaysError }" @click="toggleDay('3х3')">3х3</button>
+                    <button :class="{ 'form-btn-active': isDaySelected('7х7'), 'form-btn': !isDaySelected('7х7'), 'button-days-error' : selectedDaysError }" @click="toggleDay('7х7')">7х7</button>
+                    <button :class="{ 'form-btn-active': isDaySelected('1х2'), 'form-btn': !isDaySelected('1х2'), 'button-days-error' : selectedDaysError }" @click="toggleDay('1х2')">1х2</button>
+                    <button :class="{ 'form-btn-active': isDaySelected('2х1'), 'form-btn': !isDaySelected('2х1'), 'button-days-error' : selectedDaysError }" @click="toggleDay('2х1')">2х1</button>
                     <button :class="{ 'form-btn-active': isDaySelected('15х15'), 'form-btn': !isDaySelected('15х15') }" @click="toggleDay('15х15')">15х15</button>
                   </div>
                 </div>
@@ -102,9 +106,9 @@
                 <div class="dropdown-container">
                   <SelectPage
                   :options="['9:00 — 19:00', '9:00 — 20:00', '9:00 — 21:00', '10:00 — 18:00','10:00 — 19:00','10:00 — 20:00', '10:00 — 22:00']"
-                  class="select"
                   @input="option => work_time = option"
                   :placeholderdata="'Выберите время'"
+                  :class="{ 'select-error': work_timeError }"
                   />    
                 </div>
               </div>
@@ -113,9 +117,9 @@
                 <div class="dropdown-container">
                   <SelectPage
                   :options="['13:00 — 14:00', '13:00 — 14:00', '13:00 — 14:00']"
-                  class="select"
                   @input="option => chill_time = option"
                   :placeholderdata="'Выберите время'"
+                  :class="{ 'select-error': chill_timeError }"
                   />
                 </div>
               </div>
@@ -128,19 +132,18 @@
             <button @click="cancel" class="cancel-button">Отмена</button>
           </div>
         </div>
+        <MessageAlert :message="alertMessage" :color="alertColor"/>
       </div>
     </template>
 
-
-      
-    <script>
+<script>
     import axios from 'axios';
     import Tip from '../components/TipComponent.vue';
     import SelectPage from '../components/SelectPage.vue';
-
+    import MessageAlert from "../components/MessageAlert.vue";
 
     export default {
-      components: { Tip, SelectPage },
+      components: { Tip, SelectPage, MessageAlert },
       data() {
         return {
           selectedDays: [],
@@ -154,15 +157,35 @@
           secondname: "",
           rank: "",
           avatar: null,
-          work_time: "",
-          chill_time: "",
+          work_time: '',
+          chill_time: '',
           selectedServiceId: [],
           chips: [],
           selectedRecordType: 'weekly',
+          alertMessage: null,
+
+          firstnameError: false,
+          secondnameError: false,
+          rankError: false,
+          avatarError: false,
+          chipsError: false,
+          selectedRecordTypeError: false,
+          selectedDaysError: false,
+          work_timeError: false,
+          chill_timeError: false,
+
+          fileNameVariable: '',
         };
       },
     
       methods: {
+        handleFileUpload(event) {
+          const file = event.target.files[0];
+          this.avatar = file; // сохраняем весь объект файла
+          const fileName = file.name; // извлекаем название файла
+          this.fileNameVariable = fileName; // сохраняем название файла в переменной
+        },
+
         deleteChip(chip){
           let indexToRemove = this.chips.indexOf(chip);
           if (indexToRemove !== -1) {
@@ -176,11 +199,6 @@
             this.chips.push({ name: selected.name, id: selected.id });
           }
         },
-
-    handleFileUpload(event) {
-      const file = event.target.files[0];
-      this.avatar = file;
-    },
     async get_uslugi(){
       try {
         const response = await axios.get(`http://127.0.0.1:8000/api/uslugi/?variable=${this.$store.state.registrationData.user_id}`);
@@ -212,41 +230,94 @@
         },
         toggleGraffic(type) {
           this.selectedRecordType = type;
-          // Дополнительные действия, если нужно, в зависимости от выбранного графика.
-          if (type === 'weekly') {
-            // Дополнительные действия для недельного графика.
-          } else if (type === 'replaceable') {
-            // Дополнительные действия для сменного графика.
-          }
         },
         saveAndExit() {
-          console.log(this.chips)
-      let usl = ""
-      for(let i=0;i<this.chips.length;i++){
-        usl+=this.chips[i].id + ','
-      }
-      const formData = new FormData();
-      const selectedDaysString = this.selectedDays.join(',');
-      formData.append('firstname', this.firstname);
-      formData.append('secondname',this.secondname);
-      formData.append('rank',this.rank);
-      formData.append('avatar',this.avatar)
-      formData.append('serviceid', usl)
-      formData.append('worktime',this.work_time);
-      formData.append('timetable',this.selectedSchedule)
-      formData.append('chilltime',this.chill_time);
-      formData.append('days',selectedDaysString)
-      formData.append('avatar', this.avatar);
-      formData.append('user_id', this.$store.state.registrationData.user_id)
-      axios.post('http://127.0.0.1:8000/api/employee/', formData)
-        .then(response => {
-          console.log('Service created:', response.data);
-          this.$router.go(-1);
-        })
-        .catch(error => {
-          console.error('Error creating service:', error);
-        });
-    },
+          if (!this.firstname || !this.secondname || !this.rank || !this.avatar || !this.chips.length || !this.selectedRecordType || !this.selectedDays.length || !this.work_time || this.chill_time) {
+            this.alertMessage = null;
+            console.log(this.selectedDays.length, this.work_time, this.chill_time)
+            setTimeout(() => {
+              this.alertMessage = 'Пожалуйста, заполните выделенные поля';
+            this.alertColor = '#F97F7F';
+            }, 100);
+
+            if (!this.firstname) {
+              this.firstnameError = true;
+            }else{
+              this.firstnameError = false;
+            }
+            if (!this.secondname) {
+              this.secondnameError = true;
+            }else{
+              this.secondnameError = false;
+            }
+            if (!this.rank) {
+              this.rankError = true;
+            }else{
+              this.rankError = false;
+            }
+            if (!this.avatar) {
+              this.avatarError = true;
+            }else{
+              this.avatarError = false;
+            }
+            if (!this.chips.length > 0) {
+              this.chipsError = true;
+            }else{
+              this.chipsError = false;
+            }
+            if (!this.selectedRecordType) {
+              this.selectedRecordTypeError = true;
+            }else{
+              this.selectedRecordTypeError = false;
+            }
+            if (this.selectedDays.length === 0) {
+              this.selectedDaysError = true;
+            }else{
+              this.selectedDaysError = false;
+            }
+            if (!this.work_time.length > 0) {
+              this.work_timeError = true;
+            }else{
+              this.work_timeError = false;
+            }
+            if (!this.chill_time.length > 0) {
+              this.chill_timeError = true;
+            }else{
+              this.chill_timeError = false;
+            }
+          }
+
+
+          let usl = ""
+          for(let i=0;i<this.chips.length;i++){
+            usl+=this.chips[i].id + ','
+          }
+          const formData = new FormData();
+          const selectedDaysString = this.selectedDays.join(',');
+          formData.append('firstname', this.firstname);
+          formData.append('secondname',this.secondname);
+          formData.append('rank',this.rank);
+          formData.append('avatar',this.avatar)
+          formData.append('serviceid', usl)
+          formData.append('worktime',this.work_time);
+          formData.append('timetable',this.selectedSchedule)
+          formData.append('chilltime',this.chill_time);
+          formData.append('days',selectedDaysString)
+          formData.append('avatar', this.avatar);
+          formData.append('user_id', this.$store.state.registrationData.user_id)
+          axios.post('http://127.0.0.1:8000/api/employee/', formData)
+            .then(response => {
+              console.log('Employee created:', response.data);
+              this.alertMessage = 'Настройки успешно сохранены'
+              this.alertColor = '#0BB6A1'
+              setTimeout(() => {
+                this.$router.go(-1);
+              }, 2000)
+            })
+            .catch(error => {
+              console.error('Error creating service:', error);
+            });
+        },
     cancel() {
       // Ваша текущая логика отмены
     },
@@ -254,10 +325,65 @@
   mounted(){
     this.get_uslugi()
   },
+  watch: {
+    firstname() {
+      this.alertMessage = null;
+      this.firstnameError = false;
+    },
+    secondname() {
+      this.alertMessage = null;
+      this.secondnameError = false;
+    },
+    rank() {
+      this.alertMessage = null;
+      this.rankError = false;
+    },
+    avatar(){
+      this.alertMessage = null;
+      this.avatarError = false;
+    },
+    chips() {
+      this.alertMessage = null;
+      this.chipsError = false;
+    },
+    selectedRecordType() {
+      this.alertMessage = null;
+      this.selectedRecordTypeError = false;
+    },
+    selectedDays(){
+      this.alertMessage = null;
+      this.selectedDaysError = false;
+    },
+    work_time(){
+      this.alertMessage = null;
+      this.work_timeError = false;
+    },
+    chill_time(){
+      this.alertMessage = null;
+      this.chill_timeError = false;
+    },
+  },
 }
 </script>
   
   <style scoped>
+  .button-days-error{
+    border: 1px solid #F97F7F !important;
+    border-radius: 3px;
+  }
+  .custom-file-upload-error{
+    border: 1px solid #F97F7F !important;
+    border-radius: 3px;
+  }
+  .input-error {
+    border: 1px solid #F97F7F !important;
+  }
+  .button-error{
+    border: solid 1px #F97F7F !important;
+  }
+  .select-error >>> .selected{
+    border: solid 1px #F97F7F !important;
+  }
   .chip svg:hover path{
     fill: rgb(250, 148, 148);
   }

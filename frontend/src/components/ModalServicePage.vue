@@ -1,6 +1,5 @@
 <template>
     <div class="modal-container">
-      
       <div class="image-container">
         <img src="../../static/img/sweety.png" alt="" class="sweety">
         <img src="../../static/img/service_confirm.png" alt="" class="man_service">

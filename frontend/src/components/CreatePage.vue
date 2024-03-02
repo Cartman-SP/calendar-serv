@@ -40,8 +40,11 @@
         <!-- 3. Обложка услуги -->
         <div>
           <label for="serviceCover" class="file-label">Обложка услуги</label>
-            <label class="custom-file-upload" :class="{'custom-file-upload-error' : serviceCoverError}">
-              <input type="file" accept="image/*" @change="handleFileUpload($event)"/>Нажмите, чтобы добавить
+          <label class="custom-file-upload" :class="{'custom-file-upload-error' : serviceCoverError}" v-if="!fileNameVariable">
+              <input type="file" accept="image/*" @change="handleFileUpload($event)"/>Нажмите, чтобы добавить 
+            </label>
+            <label style="color: #535C69;" class="custom-file-upload" :class="{'custom-file-upload-error' : serviceCoverError}" v-else>
+              <input type="file" accept="image/*" @change="handleFileUpload($event)"/>{{ fileNameVariable }}
             </label>
           <p class="text">до 5 МБ, PNG, JPG, JPEG</p>
         </div>
@@ -242,6 +245,8 @@ export default {
   components: { Tip, SelectPage, MessageAlert },
   data() {
     return {
+      fileNameVariable: '',
+
       alertMessage: null,
       alertColor: '',
 
@@ -324,9 +329,12 @@ export default {
     },
     handleFileUpload(event) {
       const file = event.target.files[0];
-      this.serviceCover = file;
+      this.serviceCover = file; // сохраняем весь объект файла
+      const fileName = file.name; // извлекаем название файла
+      this.fileNameVariable = fileName; // сохраняем название файла в переменной
       this.readCoverDataUrl();
     },
+
     readCoverDataUrl() {
       if (!this.serviceCover) return;
       const reader = new FileReader();
@@ -435,6 +443,7 @@ export default {
 
 
 <style scoped>
+
 .cost-input-block{
   position: relative;
 }

@@ -1,58 +1,62 @@
 <template>
-  <div class="service_card">
-    <div class="card-container">
-      <div class="card-header">
-        <div class="main">
-          <img :src="get_img()" alt="Service Cover" class="img_head">
-          <div class="head">
-            <div class="text-container">
-              <p class="text-header">{{ employeeData.firstname }}</p> <!-- Отображаем название услуги -->
-              <p class="text-subheader">Имя</p>
-            </div>
-            <div class="text-container">
-              <p class="text-header">{{ employeeData.secondname }}</p>
-              <p class="text-subheader">Фамилия</p>
-            </div>
-          </div>
-        </div>
-        <Kebab :buttons="buttons" :HasDelete="true" :HasDeviders="true"/>
-        <div v-if="showModal" class="modal">
-            <div class="modal-content">
-              <p class="text-header">Удаление услуги</p>
-              <p class="modal-subtext">Вы действительно хотите удалить услугу<br><span>Стрижка?</span></p>
-              <div class="btn_container">
-                <button class="delete" @click="deleteService">Удалить</button>
-                <button class="exit" @click="toggleModal">Отмена</button>
+  <div>
+    <div class="service_card">
+      <div class="card-container">
+        <div class="card-header">
+          <div class="main">
+            <img :src="get_img()" alt="Service Cover" class="img_head">
+            <div class="head">
+              <div class="text-container">
+                <p class="text-header">{{ employeeData.firstname }}</p> <!-- Отображаем название услуги -->
+                <p class="text-subheader">Имя</p>
+              </div>
+              <div class="text-container">
+                <p class="text-header">{{ employeeData.secondname }}</p>
+                <p class="text-subheader">Фамилия</p>
               </div>
             </div>
           </div>
-      </div>
-      <div class="line"></div>
-      <div class="card-bottom">
-        <div class="text-container">
-          <p class="text-header">{{ employeeData.rank }}</p>
-          <p class="text-subheader">Должность</p>
+          <Kebab :buttons="buttons" :HasDelete="true" :HasDeviders="true" @Deleting="toggleModal"/>
         </div>
-        <div class="cards">
+        <div class="line"></div>
+        <div class="card-bottom">
           <div class="text-container">
-            <p class="text-header">{{ employeeData.worktime }}</p>
-            <p class="text-subheader">Рабочие часы</p>
+            <p class="text-header">{{ employeeData.rank }}</p>
+            <p class="text-subheader">Должность</p>
+          </div>
+          <div class="cards">
+            <div class="text-container">
+              <p class="text-header">{{ employeeData.worktime }}</p>
+              <p class="text-subheader">Рабочие часы</p>
+            </div>
+          </div>
+          <div class="cards">
+            <div class="text-container">
+              <p v-if="employeeData.timetable!='undefined'" class="text-header">{{employeeData.timetable.replace('x','/')}}</p>
+              <p v-else class="text-header">{{employeeData.days}}</p>
+              <p class="text-subheader">График работы</p>
+            </div>
           </div>
         </div>
-        <div class="cards">
-          <div class="text-container">
-            <p v-if="employeeData.timetable!='undefined'" class="text-header">{{employeeData.timetable.replace('x','/')}}</p>
-            <p v-else class="text-header">{{employeeData.days}}</p>
-            <p class="text-subheader">График работы</p>
+        <div class="service">
+          <div class="usluga" v-for="u in usluganame" :key="u">
+            <p class="usluga_text">{{u}}</p>
           </div>
-        </div>
-      </div>
-      <div class="service">
-        <div class="usluga" v-for="u in usluganame" :key="u">
-          <p class="usluga_text">{{u}}</p>
         </div>
       </div>
     </div>
+    <div class="overlay" v-if="showModal"></div>
+    <div v-if="showModal" class="modal">
+            <div class="modal-content">
+              <p class="text-header">Удаление услуги</p>
+              <p class="modal-subtext">Вы действительно хотите удалить сотрудника<br><span>{{ this.employeeData.firstname + ' ' + this.employeeData.secondname }}</span>?</p>
+              <div class="btn_container">
+                <button class="delete" @click="deleteEmployee">Удалить</button>
+                <button class="exit" @click="toggleModal">Отмена</button>
+              </div>
+            </div>
+    </div>
+    
   </div>
 </template>
 
@@ -78,6 +82,10 @@ export default {
   },
 
   methods: {
+    deleteEmployee(){
+      console.log('kek')
+    },
+
     toggleDropdown() {
       this.showDropdown = !this.showDropdown;
     },
@@ -112,6 +120,15 @@ export default {
 
 
 <style scoped>
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Задний фон с прозрачностью 60% */
+    z-index: 98;
+  }
 .text-header{
     font-family: TT Norms Medium;
     font-size: 14px;
@@ -138,7 +155,6 @@ export default {
     margin: 20px 0;
   }
   .service_card{
-    width: 100%;
     height: 100%;
     background-color: #FFF;
     border-radius: 5px;
@@ -177,15 +193,16 @@ export default {
     justify-content: right;
   }
   .modal{
-    width: 36vw;
+    width: auto;
     height: auto;
     position: absolute;
     padding: 40px;
     border-radius: 10px;
-    gap: 10px;
-    left: 500px;
-    top: 500px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     background: white;
+    z-index: 99;
   }
   .delete{
     color: #F97F7F;
