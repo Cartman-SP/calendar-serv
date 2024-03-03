@@ -62,8 +62,7 @@
                 </div>
                 <div class="form-group">
                   <label>Телефон</label>
-                  <InputMaskComponent @input="handleInput" id="basic" v-model="value" :mask="computedMask" :placeholder="computedPlaceholder"
-                  />
+                  <InputMaskComponent :class="{'PhoneError' : PhoneError}" id="basic" v-model="value" :mask="computedMask" :placeholder="computedPlaceholder"/>
                 </div>
                 
           </div>
@@ -78,7 +77,10 @@
         </div>
 
         <div class="form-group">
-          <label for="upload-image ">Фото филиала</label>
+          <div class="usluga-head">
+            <label for="upload-image ">Фото филиала</label>
+            <Tip :Tip="'Мы рекомендуем загрузить наиболее удачные фотографии. \n Первая фотография будет размещена в шапке виджета, остальные \n фотографии будут видны в виджете вашим клиентам'"/>
+          </div>
           <label class="custom-file-upload">
             <input type="file" accept="image/*" id="upload-image" @change="handleImageUpload" multiple> Нажмите, чтобы добавить
           </label>
@@ -87,14 +89,15 @@
 
         <div class="upload">
           <div class="upload_img" v-for="(image, index) in uploadedImages" :key="index">
-            <label for="upload-image"></label>
             <img class="upl_img" :src="image.url" :alt="image.name">
           </div>
         </div>
-    
 
         <div class="form-group graffic">
-          <label class="graffic_label">График работы</label>
+          <div class="usluga-head">
+            <label>График работы</label>
+            <Tip :Tip="'График работы это график работы, логично \n (нет описания на фигме)'"/>
+          </div>
           <div class="days">
               <button class="btn_day" :class="{ 'active': isBtnActive('Пн'),'button-days-error' : selectedDaysError}" @click="toggleBtn('Пн')">Пн</button>
               <button class="btn_day" :class="{ 'active': isBtnActive('Вт'),'button-days-error' : selectedDaysError}" @click="toggleBtn('Вт')">Вт</button>
@@ -156,7 +159,7 @@
             <label for="service">Сфера бизнеса</label>
             <SelectPage
             :options="this.spheres.map(item => item.name)"
-            class="select"
+            :class="{'select-error' : selectedBusinessError}"
             @input="option => selectedBusiness = option"
             :placeholderdata="'Выберите сферу бизнеса'"
             />
@@ -207,9 +210,10 @@
 import axios from 'axios';
 import SelectPage from '../components/SelectPage.vue';
 import MessageAlert from "../components/MessageAlert.vue";
+import Tip from '../components/TipComponent.vue';
 
 export default {
-  components: { SelectPage, MessageAlert},
+  components: { SelectPage, MessageAlert, Tip},
   data() {
     return {
       alertMessage: null,
@@ -249,6 +253,8 @@ export default {
       selectedDaysError: false,
       selectedWorkHoursError: false,
       selectedTimeoutError: false, 
+      selectedBusinessError: false,
+      PhoneError: false,
     }
   },
   mounted(){
@@ -315,6 +321,14 @@ export default {
     chips(){
       this.alertMessage = null;
       this.chipsError = false;
+    },
+    value(){
+      this.alertMessage = null;
+      this.PhoneError = false;
+    },
+    selectedBusiness(){
+      this.alertMessage = null;
+      this.selectedBusinessError = false;
     },
   },
   methods: {
@@ -393,8 +407,8 @@ export default {
       }
     },
     onContinueButtonClick() {
-      console.log(this.selectedCountry, this.selectedCity, this.selectedAdress , this.selectedName)
-      if (!this.selectedCountry.length || !this.selectedCity.length || !this.selectedAdress || !this.selectedName|| !this.selectedDays.length) {
+      console.log(this.value, this.selectedCountry, this.selectedCity, this.selectedAdress , this.selectedName)
+      if (this.value.length < 3 || !this.selectedCountry.length || !this.selectedCity.length || !this.selectedAdress || !this.selectedName|| !this.selectedDays.length) {
         this.alertMessage = null;
         setTimeout(() => {
           this.alertMessage = 'Пожалуйста, заполните выделенные поля';
@@ -431,6 +445,12 @@ export default {
               this.selectedDaysError = false;
         }
 
+        if (this.value.length < 3) {
+          this.PhoneError = true;
+        }else{
+          this.PhoneError = false;
+        }
+
       } else {
         if (!this.isContinueDisabled) {
           this.showContinueButtonClicked = true;
@@ -454,8 +474,7 @@ export default {
       for(let i=0;i<this.selectedChoices.length;i++){
         choices.push(this.selectedChoices[i].id);
       }
-
-      if (!this.selectedWorkHours.length || !this.selectedTimeout.length || !this.chips.length) {
+      if (!this.selectedWorkHours.length || !this.selectedTimeout.length || this.chips.length === 1 || !this.selectedBusiness.length) {
         this.alertMessage = null;
         setTimeout(() => {
           this.alertMessage = 'Пожалуйста, заполните выделенные поля';
@@ -472,10 +491,16 @@ export default {
         }else{
           this.selectedTimeoutError = false;
         }
-        if (!this.chips.length > 0) {
+        if (this.chips.length === 1) {
           this.chipsError = true;
         }else{
           this.chipsError = false;
+        }
+
+        if (!this.selectedBusiness.length) {
+          this.selectedBusinessError = true;
+        }else{
+          this.selectedBusinessError = false;
         }
       } else{
         formData.append('country', this.selectedCountry);
@@ -558,6 +583,21 @@ dataURItoBlob(dataURI) {
 </script>
 
 <style scoped>
+.usluga-head{
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.usluga-head label{
+  margin: 0;
+}
+.PhoneError{
+  border: 1px solid #F97F7F !important;
+  border-radius: 3px;
+}
 .button-days-error{
   border: 1px solid #F97F7F !important;
   border-radius: 3px;
@@ -927,7 +967,7 @@ dataURItoBlob(dataURI) {
   .graffic{
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 5px;
   }
   .btn_day{
     font-family: TT Norms Medium;

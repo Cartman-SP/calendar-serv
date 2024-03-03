@@ -33,25 +33,18 @@ export default {
   components: { CardBranch },
     data() {
       return{
-        filials:[
-          {
-            name: 'хуй',
-            adress: 'пизда',
-            phone: 'жопа',
-            workTime: '123123',
-            workDays: '234',
-          }
-        ],
-        branchLoaded: false
+        branchLoaded: false,
+        filials: [],
       };
     },
     methods:{
       getfilials(){
         axios.get(`http://127.0.0.1:8000/api/get_branch/?variable=${this.$store.state.registrationData.user_id}`)
     .then(response => {
-        this.filials = response.data
-        console.log(response)
-        this.branchLoaded = true
+        this.filials = response.data;
+        this.filials.reverse();
+        console.log(response);
+        this.branchLoaded = true;
     })
     .catch(error => {
         console.error('Ошибка при получении данных о пользователе:', error);
