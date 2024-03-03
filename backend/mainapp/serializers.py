@@ -52,3 +52,9 @@ class BranchSerializer(serializers.ModelSerializer):
             instance.avatar = avatar
             instance.save()
         return instance
+    
+
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Image
+        fields = '__all__'

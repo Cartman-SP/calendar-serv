@@ -380,7 +380,7 @@ export default {
   })
     .then(response => {
       console.log('Данные филиала успешно отправлены:', response.data);
-      this.$router.go(-1);
+      this.$router.push('/lk/branch');
     })
     .catch(error => {
       console.error('Ошибка при отправке данных филиала:', error);

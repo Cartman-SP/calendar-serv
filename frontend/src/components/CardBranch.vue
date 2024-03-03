@@ -5,7 +5,7 @@
         <div class="main">
           <p class="text-header">{{ FilialData.name || 'Название не указано' }}</p> <!-- Отображаем название услуги -->
         </div>
-        <Kebab :buttons="buttons" :HasDelete="true" :HasDeviders="true"/>
+        <Kebab :buttons="buttons" :HasDelete="true" :HasDeviders="true" @Deleting="toggleModal"/>
         <div v-if="showModal" class="modal">
             <div class="modal-content">
               <p class="text-header">Удаление услуги</p>
@@ -18,7 +18,7 @@
           </div>
       </div>
       <div class="card_img">
-        <img src="../../static/img/Card.png" style="width:100%" alt="">
+        <img :src="image" style="width:100%" alt="">
       </div>
       <div class="cards">
         <div class="text-container">
@@ -46,13 +46,13 @@
         </div>
         <div class="cards">
           <div class="text-container">
-            <p class="text-header">{{ FilialData.workTime || 'Часы не указаны'}}</p>
+            <p class="text-header">{{ FilialData.work_hours || 'Часы не указаны'}}</p>
             <p class="text-subheader">Рабочие часы</p>
           </div>
         </div>
         <div class="cards">
           <div class="text-container">
-            <p class="text-header">{{ FilialData.workDays || 'График не указан' }}</p>
+            <p class="text-header">{{ FilialData.active_days || 'График не указан' }}</p>
             <p class="text-subheader">График работы</p>
           </div>
         </div>
@@ -63,6 +63,7 @@
 
 <script>
 import Kebab from '../components/DropdownKebab.vue';
+import axios from 'axios';
 
 export default {
   props:['FilialData'],
@@ -72,6 +73,7 @@ export default {
       buttons:[
         {btnname:'Редактировать', svg:'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256" width="100px" height="100px"><g fill="#535c69" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M18,2l-2.41406,2.41406l4,4l2.41406,-2.41406zM14.07617,5.92383l-11.07617,11.07617v4h4l11.07617,-11.07617z"></path></g></g></svg>'},
       ],
+      image: '',
     };
   },
   methods: {
@@ -85,6 +87,33 @@ export default {
       document.body.removeChild(tempInput);
       alert("Номер телефона скопирован в буфер обмена: " + this.FilialData.phone);
     },
+    deleteService() {
+    const formData = new FormData();
+    formData.append('id', this.FilialData.id);
+    axios.post('http://127.0.0.1:8000/api/delete_branch/', formData)
+        .then(response => {
+            console.log('Service deleted:', response.data);
+            this.$parent.getfilials();
+            this.showModal = !this.showModal;
+        })
+        .catch(error => {
+            console.error('Error deleting service:', error);
+        });
+},
+    get_image(){
+      axios.get(`http://127.0.0.1:8000/api/get_image/?id=${this.FilialData.id}`)
+        .then(response => {
+          this.image = 'http://127.0.0.1:8000/' + response.data.image
+          console.log(response)
+        })
+        .catch(error => {
+          this.image = '../../static/img/Card.png'
+          console.error('Error fetching employees:', error);
+        });
+    }
+  },
+  mounted(){
+    this.get_image()
   },
 };
 </script>

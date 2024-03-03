@@ -18,5 +18,9 @@ urlpatterns = [
     path('get_buisnessTypes/', get_buisnessTypes, name='gettypes'),
     path('get_buisnessSphere/', get_buisnessSphere, name='gettypes'),
     path('createbranch/',create_branch, name='create_branch'),
-    path('get_branch/',get_Branch,name="get_branch")
+    path('get_branch/',get_Branch,name="get_branch"),
+    path('get_image/',get_image,name='get_image'),
+    path('delete_branch/', branch_delete, name='branch_delete'),
+
+
 ]

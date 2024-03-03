@@ -398,3 +398,35 @@ def get_Branch(request):
         branches = Branch.objects.filter(user=user_id)
         serializer = BranchSerializer(branches, many=True)
         return Response(serializer.data)
+    
+@api_view(['GET'])
+def get_image(request):
+    if request.method == 'GET':
+        branch_id = request.GET.get('id')
+        print(branch_id)
+        images = Image.objects.filter(branch=branch_id)
+        
+        # Retrieve the first object
+        first_image = images.first()
+
+        # Check if there's any image retrieved
+        if first_image is not None:
+            serializer = ImageSerializer(first_image)  # Serialize the first object
+            return Response(serializer.data)  # Return serialized data in the response
+        else:
+            return Response(status=404)  # Return 404 if no image found
+        
+@csrf_exempt
+def branch_delete(request):
+    if request.method == 'POST':
+        branch_id = request.POST.get('id')  # Получаем идентификатор услуги из тела запроса
+        try:
+            branch = Branch.objects.get(id=branch_id)  # Получаем объект услуги по идентификатору
+            branch.delete()  
+            return JsonResponse({'message': 'Услуга успешно удалена'})
+        except Usluga.DoesNotExist:
+            return JsonResponse({'error': 'Услуга с указанным идентификатором не найдена'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': f'Произошла ошибка при удалении услуги: {str(e)}'}, status=500)
+    else:
+        return JsonResponse({'error': 'Метод не разрешен'}, status=405)
