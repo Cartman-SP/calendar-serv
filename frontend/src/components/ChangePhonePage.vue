@@ -4,8 +4,25 @@
       <p>Изменение телефона</p>
       <div class="change-phone-modal">
         <p class="modal_head">Выберете код страны и введите номер телефона.<br> Мы отправим на него код для подтверждения.</p>
-        <div class="input_container">
-          <input v-model="confirmPhone" type="phone" id="confirmPhone">
+        <div class="form-group-phone" style="display: flex;">      
+          <div class="card flex justify-content-center">
+            <DropdownComponent v-model="selectedCountry" :options="countries" optionLabel="name" placeholder="🇷🇺" class="w-full md:w-14rem">
+              <template #value="slotProps">
+                <div v-if="slotProps.value" class="flex align-items-center">
+                  <div>{{ slotProps.value.name }}</div>
+                </div>
+                <span v-else>
+                  {{ slotProps.placeholder }}
+                </span>
+              </template>
+              <template #option="slotProps">
+                <div class="flex align-items-center">
+                  <div>{{ slotProps.option.name }}</div>
+                </div>
+              </template>
+            </DropdownComponent>
+          </div>
+          <InputMaskComponent @input="handleInput" id="basic" v-model="value" :mask="computedMask" :placeholder="computedPlaceholder" />
         </div>
         <div class="button-container">
           <div class="btns">
@@ -26,10 +43,48 @@
 export default {
   data() {
     return {
+      selectedCountry: null,
+      value: '7 ',
+      countries: [
+        { name: '🇷🇺', code: '+7' },
+        { name: '🇧🇾', code: '+375' },
+        { name: '🇰🇿', code: '+7' },
+        { name: '🇺🇦', code: '+380' },
+      ],
       showChangeButton: false,
       error: '',
     };
   },
+  computed: {
+    computedMask() {
+      if (this.selectedCountry) {
+        const countryCode = this.selectedCountry.code;
+        if (countryCode === '+375' || countryCode === '+380') {
+          return `${countryCode} (99) 999-99-99`;
+        } else {
+          return `${countryCode} (999) 999-99-99`;
+        }
+      } else {
+        return '+7 (999) 999-99-99'; // Default mask
+      }
+    },
+    computedPlaceholder() {
+      return this.selectedCountry ? this.selectedCountry.code + ' |' : '+7 |';
+    },
+  },
+  watch: {
+    selectedCountry(newCountry) {
+      if (newCountry) {
+        this.value = newCountry.code + ' ' + this.value.replace(/^\s*\+\d\s*\|\s*/, '');
+      }
+    },
+  },
+  methods: {
+    handleInput() {
+      const countryCode = this.selectedCountry ? this.selectedCountry.code : '';
+      this.value = countryCode + ' ' + this.value.replace(/^\s*\+\d\s*\|\s*/, '');
+    },
+  }
 };
 </script>
 
