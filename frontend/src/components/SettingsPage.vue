@@ -17,7 +17,9 @@
           <div class="photo-container">
             <label for="userPhoto">Фотография</label>
             <div class="input_container">
-              <input type="file" accept="image/*" ref="fileInput"/>Нажмите, чтобы загрузить
+              <label class="custom-file-upload">
+                <input type="file" accept="image/*" ref="fileInput"/>Нажмите, чтобы загрузить
+              </label>
               <button @click="saveImage" class="button-save">Сохранить изменения</button>
             </div>
             <p class="photo-info">до 5 МБ, PNG, JPG, JPEG. Для замены удалите миниатюру и загрузите заново</p>
