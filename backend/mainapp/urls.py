@@ -21,6 +21,7 @@ urlpatterns = [
     path('get_branch/',get_Branch,name="get_branch"),
     path('get_image/',get_image,name='get_image'),
     path('delete_branch/', branch_delete, name='branch_delete'),
-
+    path('change_name/', update_name , name='change_name'),
+    path('change_avatar/',update_avatar, name='change_avatar'),
 
 ]

@@ -7,7 +7,7 @@
           <div class="name-container">
             <label for="userName">Имя</label>
             <div class="input_container_top">
-              <input type="text" id="userName" :value="User.name">
+              <input type="text" id="userName" v-model="User.name">
               <button @click="saveName" class="button-save">Сохранить изменения</button>
             </div>
           </div>
@@ -17,10 +17,8 @@
           <div class="photo-container">
             <label for="userPhoto">Фотография</label>
             <div class="input_container">
-              <label class="custom-file-upload">
-                <input type="file" accept="image/*"/>Нажмите, чтобы загрузить
-              </label>
-              <button @click="saveName" class="button-save">Сохранить изменения</button>
+              <input type="file" accept="image/*" ref="fileInput"/>Нажмите, чтобы загрузить
+              <button @click="saveImage" class="button-save">Сохранить изменения</button>
             </div>
             <p class="photo-info">до 5 МБ, PNG, JPG, JPEG. Для замены удалите миниатюру и загрузите заново</p>
           </div>
@@ -58,7 +56,7 @@
         <div class="divider"></div>
         <div class="change">
           <label>Пароль</label>
-          <p class="password">Был установлен 3 месяца назад</p>
+          <p class="password">Был установлен {{when_changed}}</p>
           <button @click="showModals" type="button" class="button-change">Изменить пароль</button>
           <ChangePasswordPage v-if="showModal"/>
         </div>
@@ -81,7 +79,7 @@ export default {
       showModal: false,
       showMail: false,
       showPhone: false,
-
+      when_changed: 'Недавно',
       User: {
         name: '',
         avatar: '',
@@ -110,11 +108,54 @@ export default {
         this.position = response.data.profile.name // сделать должность
         this.company = response.data.profile.company_name
         this.User.phone =response.data.phone
+        if(response.data.password_set==0){
+          this.when_changed = "сегодня"
+        }else if(response.data.password_set==30){
+          this.when_changed = `месяц назад`
+        }else if(response.data.password_set>0){
+          this.when_changed = `${response.data.password_set} дней назад`
+        }else if(response.data.password_set<122){
+          this.when_changed = `${Math.floor(response.data.password_set/30)} месяца назад`
+        }else if(response.data.password_set>122){
+          this.when_changed = `${Math.floor(response.data.password_set/30)} месяцев назад`
+        }
+        console.log()
       })
       .catch(error => {
         // Ошибка при получении данных
         console.error('Ошибка при получении данных о пользователе:', error);
       });
+    },
+    saveName() {
+      axios.post('http://127.0.0.1:8000/api/change_name/', { 
+          id: this.$store.state.registrationData.user_id,
+          name: this.User.name 
+        })
+        .then(response => {
+          console.log('Имя успешно сохранено:', response.data);
+          window.location.reload();
+        })
+        .catch(error => {
+          console.error('Ошибка при сохранении имени:', error);
+        });
+    },
+    saveImage() {
+      const formData = new FormData();
+      formData.append('id', this.$store.state.registrationData.user_id);
+      formData.append('avatar', this.$refs.fileInput.files[0]);
+
+      axios.post('http://127.0.0.1:8000/api/change_avatar/', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+        .then(response => {
+          console.log('Изображение успешно сохранено:', response.data);
+          window.location.reload();
+        })
+        .catch(error => {
+          console.error('Ошибка при сохранении изображения:', error);
+        });
     },
   },
   mounted(){  

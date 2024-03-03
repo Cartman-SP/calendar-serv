@@ -10,6 +10,7 @@ class Profile(models.Model):
     timezone = models.CharField(max_length=50)
     currency = models.CharField(max_length=10)
     avatar = models.ImageField(upload_to='avatars/', default='avatars/default_avatar.svg')
+    password_changed_at = models.DateTimeField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
         # Если изображение не было передано, используем изображение по умолчанию

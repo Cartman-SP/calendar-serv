@@ -42,6 +42,9 @@ from .serializers import UslugaSerializer
 import random
 from rest_framework import status
 from django.contrib.auth.hashers import check_password, make_password
+from django.shortcuts import get_object_or_404
+from django.utils import timezone
+
 
 
 @csrf_exempt
@@ -86,7 +89,7 @@ def register_user(request):
 def update_profile(request):
     name = request.POST.get('name', '')
     company_name = request.POST.get('company', '')
-    timezone = request.POST.get('timezone', '')
+    timezoner = request.POST.get('timezone', '')
     currency = request.POST.get('currency', '')
     print(request.POST)
     user_id = request.POST.get('id', '')
@@ -100,7 +103,7 @@ def update_profile(request):
         profile.company_name = company_name
         profile.timezone = timezone
         profile.currency = currency
-
+        profile.password_changed_at = timezone.now()
         if avatar:
             profile.avatar = avatar
 
@@ -120,18 +123,18 @@ def get_profile(request):
         # Получаем пользователя и его профиль по ID
         user = User.objects.get(id=user_id)
         profile = Profile.objects.get(user=user)
-
         # Формируем данные о пользователе
         user_data = {
             'id': user.id,
             'phone': user.username,
             'email': user.email,
+            'password_set': (profile.password_changed_at - timezone.now()).seconds//86400,
             'profile': {
                 'name': profile.name,
                 'company_name': profile.company_name,
                 'timezone': profile.timezone,
                 'currency': profile.currency,
-                'avatar': profile.avatar.url  # URL изображения, если есть
+                'avatar': profile.avatar.url
             }
         }
 
@@ -238,7 +241,8 @@ def change_pass(request):
     if codes.token == code:
         user.set_password(new_pass)
         user.save()
-        print(new_pass)
+        prof = Profile.objects.get(user=user)
+        prof.password_changed_at = timezone.now()
         response_data = {'is_valid': True}
         return JsonResponse(response_data, status=200)
     else:
@@ -430,3 +434,46 @@ def branch_delete(request):
             return JsonResponse({'error': f'Произошла ошибка при удалении услуги: {str(e)}'}, status=500)
     else:
         return JsonResponse({'error': 'Метод не разрешен'}, status=405)
+    
+@csrf_exempt
+def update_name(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        user_id = data.get('id')
+        new_name = data.get('name')
+
+        if user_id is None or new_name is None:
+            return JsonResponse({'error': 'Missing user_id or name'}, status=400)
+
+        profile = Profile.objects.filter(user_id=user_id).first()
+
+        if profile is None:
+            return JsonResponse({'error': 'Profile not found'}, status=404)
+
+        profile.name = new_name
+        profile.save()
+
+        return JsonResponse({'message': 'Name updated successfully'})
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+
+@csrf_exempt
+def update_avatar(request):
+    if request.method == 'POST':
+        user_id = request.POST.get('id')
+
+        if 'avatar' not in request.FILES:
+            return JsonResponse({'error': 'No avatar provided'}, status=400)
+
+        profile = Profile.objects.filter(user_id=user_id).first()
+
+        if profile is None:
+            return JsonResponse({'error': 'Profile not found'}, status=404)
+
+        profile.avatar = request.FILES['avatar']
+        profile.save()
+
+        return JsonResponse({'message': 'Avatar updated successfully'})
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=405)

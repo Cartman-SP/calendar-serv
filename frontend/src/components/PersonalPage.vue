@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-      <div class="content" v-if="employees.length>0">
+      <div class="content" v-if="employees.length>0 && employees_load">
         <router-link to="/lk/personal/employees" class="add">
           <div class="svg-plus">
             <svg width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="0" xmlns="http://www.w3.org/2000/svg">
@@ -14,7 +14,7 @@
       </div>
 
       </div>
-      <div v-else class="personal">
+      <div v-else-if="employees.length==0 && employees_load" class="personal">
         <img src="../../static/img/personal.png" alt="" class="img_personal">
         <p class="header">Вот это скорость!</p>
         <p class="subheader">Мы видим, что вы завершили создание услуг. В этом разделе,<br>предлагаем добавить ваших сотрудников и назначить им ранее созданные<br>услуги. Если, у вас нет сотрудников, вы можете пропустить этот шаг<br>и перейти к созданию своего филиала/компании.</p>
@@ -22,6 +22,9 @@
           <a href="#/lk" style="text-decoration:none"><button class="personal_btn skip-btn"> Пропустить</button></a>
           <a href="#/lk/personal/employees" style="text-decoration:none"><button class="personal_btn"> + Добавить сотрудника</button></a>
         </div>
+      </div>
+      <div v-else>
+        <i class="pi pi-spin pi-spinner" style="font-size: 2.5rem;  color: #6266EA"></i>
       </div>
     </div>
   </template>
@@ -34,7 +37,8 @@
     components: { CardEmployeesPage },
     data() {
       return {
-        employees: [] // Сюда будем сохранять полученных сотрудников
+        employees: [], // Сюда будем сохранять полученных сотрудников
+        employees_load: false,
       };
     },
     mounted() {
@@ -45,6 +49,7 @@
       axios.get(`http://127.0.0.1:8000/api/get_employees/?user_id=${user_id}`)
         .then(response => {
           this.employees = response.data; // Сохраняем полученные данные в переменной
+          this.employees_load = true
           console.log(this.employees)
         })
         .catch(error => {
