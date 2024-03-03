@@ -17,7 +17,7 @@
               <input v-model="email" type="email" id="username" name="username" placeholder="Usermail@gmail.com" required>
             </div>
             <label for="phone">Телефон<span class="required-field">*</span></label>
-            <div class="form-group" style="display: flex;">      
+            <div class="form-group-phone" style="display: flex;">      
               <div class="card flex justify-content-center">
                 <DropdownComponent v-model="selectedCountry" :options="countries" optionLabel="name" placeholder="🇷🇺" class="w-full md:w-14rem">
                   <template #value="slotProps">
@@ -49,10 +49,16 @@
               Используя SKED, я соглашаюсь с обработкой <br> <span class="underlined">персональных данных</span> и <span class="underlined">договором публичной оферты</span>
             </p>
             <div class="social-icons">
-              <div id="buttonContainerId"></div>
-              <img class="logo" src="../../static/img/photo_2024-01-30_18-49-14.jpg" alt="Google">
-              <img class="logo" src="../../static/img/photo_2024-01-30_18-49-14.jpg" alt="Twitter">
-              <img class="logo" src="../../static/img/photo_2024-01-30_18-49-14.jpg" alt="Mail.ru">
+              <div class="google">
+                <img class="logo_auth" src="../../static/img/google.svg" alt="Google">
+                <p class="google_text">Войти с помощью Google</p>
+              </div>
+              <div class="yandex">
+                <img class="logo_auth" src="../../static/img/yandex.svg" alt="Twitter">
+              </div>
+              <div class="mailru">
+                <img class="logo_auth" src="../../static/img/mail.svg" alt="Mail.ru">
+              </div>
             </div>
           </form>
         </div>
@@ -211,20 +217,24 @@ export default {
     font-style: normal;
     font-weight: 300;
     line-height: 100%;
-    margin-bottom: 25px;
     text-align: left;
+    margin: 0;
   }
   
   .registration-form {
     background: #fff;
     width: 340px;
-    height: 475px;
+    height: auto;
     margin: 0 auto;
     padding: 40px;
     border-radius: 5px;
     box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.10);
   }
   
+  .form-group-phone{
+    display: flex;
+    gap: 5px;
+  }
   .form-group {
     margin-bottom: 20px;
   }
@@ -353,15 +363,74 @@ export default {
   }
   
   .social-icons {
-    margin: 10px;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
   }
-  
-  .logo{
-    justify-content: center;
+  .google{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid #DDE1E5;
+    border-radius: 5px;
+    height: 34px;
     padding: 10px;
+    cursor:pointer;
   }
-  
+  .google:hover{
+    border: 1px solid #535C69;
+    transition: all ease 0.35s
+  }
+  .google_text{
+    font-family: TT Norms Medium;
+    font-size: 10px;
+    line-height: 12px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #AFB6C1;
+    margin: 0;
+  }
+  .logo_auth{
+    width: 20px;
+    height: 20px;
+    padding: 0;
+  }
+  .mailru{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #DDE1E5;
+    border-radius: 5px;
+    height: 34px;
+    width: 34px;
+    cursor:pointer;
+  }
+  .mailru:hover{
+    margin: 0;
+    border: 1px solid #535C69;
+    transition: all ease 0.35s
+  }
+  .yandex{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #DDE1E5;
+    border-radius: 5px;
+    height: 34px;
+    width: 34px;
+    cursor:pointer;
+  }
+  .yandex:hover{
+    border: 1px solid #535C69;
+    transition: all ease 0.35s
+  }
+  input#username::placeholder {
+    font-family: 'TT Norms Medium';
+    font-size: 13px;
+    line-height: 17px;
+    letter-spacing: 0em;
+    color: #D2D8DE;
+  }
   </style>

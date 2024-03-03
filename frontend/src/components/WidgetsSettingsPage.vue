@@ -577,7 +577,7 @@ export default {
 
   input::placeholder {
     font-family: "TT Norms Medium";
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     line-height: 17px;
     letter-spacing: 0em;

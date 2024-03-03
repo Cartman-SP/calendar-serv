@@ -5,7 +5,7 @@
       <div class="change-password-modal">
         <div class="input_container">
           <label for="currentPassword">Текущий пароль</label>
-          <input v-model="currentPassword" type="password" id="currentPassword">
+          <input v-model="currentPassword" type="password" id="currentPassword" :class="{'input-error': error !== ''}">
         </div>
         <div class="input_container">
           <label for="newPassword">Новый пароль</label>
@@ -14,12 +14,12 @@
         <div class="input_container">
           <label for="confirmPassword">Повторите новый пароль</label>
           <input v-model="confirmPassword" type="password" id="confirmPassword">
+          <div class="error" v-if="error">{{error}}</div>
         </div>
         <div class="button-container">
           <button v-if="showChangeButton" class="button-change_hover" @click="changePassword">Сменить пароль</button>
           <button v-else class="button-change">Сменить пароль</button>
           <button @click="this.$parent.showModal = false" class="button-exit">Отмена</button>
-          <div v-if="error">{{error}}</div>
         </div>
       </div>
     </div>
@@ -104,6 +104,7 @@ label{
   line-height: 15px;
   letter-spacing: 0em;
   text-align: left;
+  margin: 0;
 }
 p{
   font-family: TT Norms Medium;
@@ -126,7 +127,7 @@ p{
   color: #7D838C;
 }
 input{
-  margin-bottom: 20px;
+  margin-bottom: 0;
 }
 .button-change_hover{
   background-color:#EFEFFF;
@@ -136,4 +137,29 @@ input{
   background-color: #6266EA;
   color: #FFFFFF;
 }
+.error{
+  font-family: TT Norms Medium;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #F97F7F;
+}
+.change-password-modal{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.input-error{
+  border: 1px solid #F97F7F; /* устанавливаем стиль границы для случая, когда пароль не верный */
+}
+.input_container{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.button-exit:hover{
+  color: #6266EA;
+}
+
 </style>

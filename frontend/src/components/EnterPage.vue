@@ -3,14 +3,14 @@
     <div class="container1">
       <div class="Forma">
         <div class="login-prompt">
-          Нет аккаунта? <router-link to="/register" class="login-link">Зарегистрироваться</router-link>
+          Нет аккаунта? <router-link to="/register" class="login-link" style="text-decoration: none;">Зарегистрироваться</router-link>
         </div>
         <div class="registration-form">
           <h2>Вход</h2>
           <form @submit.prevent="loginUser">
             <div class="form-group">
               <label for="username">Почта или телефон</label>
-              <input v-model="usernameOrEmail" id="username" name="username" placeholder="Usermail@gmail.com" required>
+              <input v-model="usernameOrEmail" id="username" name="username" placeholder="Usermail@gmail.com" required >
             </div>
             <div class="form-group">
               <label for="password">Пароль</label>
@@ -20,11 +20,20 @@
               <button type="submit">Войти</button>
               <router-link to="/reset" class="ResetPassword">Восстановить пароль</router-link>
             </div>
-            <div class="social-icons">
-              <!-- ... (ваш текущий код) ... -->
-            </div>
+            <div id="error">{{ errorMessage }}</div>  
           </form>
-          <div id="error">{{ errorMessage }}</div>
+          <div class="social-icons">
+            <div class="google">
+              <img class="logo_auth" src="../../static/img/google.svg" alt="Google">
+              <p class="google_text">Войти с помощью Google</p>
+            </div>
+            <div class="yandex">
+              <img class="logo_auth" src="../../static/img/yandex.svg" alt="Twitter">
+            </div>
+            <div class="mailru">
+              <img class="logo_auth" src="../../static/img/mail.svg" alt="Mail.ru">
+            </div>
+          </div>
         </div>
       </div>
       <div class="man">
@@ -121,11 +130,13 @@ export default {
     font-style: normal;
     font-weight: 300;
     line-height: 100%;
-    margin-bottom: 25px;
     text-align: left;
   }
   
   .registration-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
     background: #fff;
     width: 340px;
     height: auto;
@@ -236,18 +247,6 @@ export default {
   .ResetPassword:hover {
     color: #464AD9;
   }
-  
-  .social-icons {
-    margin: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
-  
-  .logo{
-    justify-content: center;
-    padding: 10px;
-  }
 
   .man{
     display: flex;
@@ -313,5 +312,24 @@ export default {
     border-bottom: 1px solid rgba(255, 255, 255, 1); 
     width: 30%;
     margin: 10px auto;
+  }
+  input::placeholder {
+    font-family: 'TT Norms Medium';
+    font-size: 13px;
+    line-height: 17px;
+    letter-spacing: 0em;
+    color: #D2D8DE;
+  }
+  #error{
+    font-family: TT Norms Medium;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #F97F7F;
+    margin-top: 5px;
+  }
+  .input-error{
+    border: 1px solid #F97F7F; /* устанавливаем стиль границы для случая, когда пароль не верный */
   }
   </style>

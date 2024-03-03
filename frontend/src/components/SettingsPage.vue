@@ -30,7 +30,7 @@
           <div class="email-container"> 
             <label for="userMail">Email</label>
             <p><span class="email-header">Будьте внимательны!</span> Email является логином для входа в сервис, если вы измените Email, то при авторизации нужно использовать обновленный Email</p>
-            <div class="input_container">
+            <div class="input_container_mail">
               <input type="mail" id="userMail" :value="this.$store.state.registrationData.email" disabled>
               <div class="email-btn">
                 <button @click="acceptMail">Подтвердить Email</button>
@@ -45,7 +45,7 @@
           <div class="phone-container">
             <label for="userPhone">Телефон</label>
             <p>Получайте SMS-уведомления о новых заявках</p>
-            <div class="input_container">
+            <div class="input_container_phone">
               <input id="userphone" :value="'+'+User.phone.toString()" disabled>
               <div class="phone-btn">
                 <button @click="acceptPhone">Подтвердить телефон</button>
@@ -154,6 +154,18 @@ label {
   gap: 10px;
   width: 100%;
 }
+.input_container_mail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+.input_container_phone {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
 .input_container_top {
   display: flex;
   align-items: center;
@@ -234,6 +246,9 @@ p{
   align-items: center;
   margin-bottom: 0;
   font-weight: 500;
+  background-image: url(../../static/img/paperclip.svg);
+  background-repeat: no-repeat;
+  background-position: calc(100% - 15px) center;
 }
 
 .custom-file-upload input[type="file"] {
@@ -255,8 +270,8 @@ h2{
 }
 .photo-info{
   color: #AFB6C1;
+  font-family: TT Norms Medium;
   font-size: 10px;
-  font-weight: 500;
   line-height: 10px;
   letter-spacing: 0em;
   margin: 5px 0;
@@ -264,9 +279,64 @@ h2{
 span{
   font-weight: bold;
 }
-.input_container input{
+.input_container_mail input {
+  position: relative;
   background-image: url(../../static/img/warning.svg);
   background-repeat: no-repeat;
   background-position: calc(100% - 15px) center;
+}
+.input_container_phone input {
+  position: relative;
+  background-image: url(../../static/img/warning.svg);
+  background-repeat: no-repeat;
+  background-position: calc(100% - 15px) center;
+}
+
+.input_container_mail:hover::after {
+  content: "Email адрес не подтвержден";
+  display: flex;
+  height: 36px;
+  width: auto;
+  background-color: #FFFFFF;
+  color: #7D838C;
+  position: absolute;
+  left: 30%;
+  top: 515px; /* Положение псевдоэлемента относительно input */
+  z-index: 15;
+  padding: 0 10px;
+  border-radius: 5px;
+  font-family: TT Norms Medium;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 17px;
+  letter-spacing: 0em;
+  text-align: left;
+  transition: all ease 0.3s;
+  align-items: center;
+  box-shadow: 0px 2px 8px 0px #7D879066;
+}
+
+.input_container_phone:hover::after {
+  content: "Телефон не подтвержден";
+  display: flex;
+  height: 36px;
+  width: auto;
+  background-color: #FFFFFF;
+  color: #7D838C;
+  position: absolute;
+  left: 30%;
+  top: 67%; /* Положение псевдоэлемента относительно input */
+  z-index: 15;
+  padding: 0 10px;
+  border-radius: 5px;
+  font-family: TT Norms Medium;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 17px;
+  letter-spacing: 0em;
+  text-align: left;
+  transition: all ease 0.3s;
+  align-items: center;
+  box-shadow: 0px 2px 8px 0px #7D879066;
 }
 </style>

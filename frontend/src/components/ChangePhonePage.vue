@@ -124,5 +124,9 @@ input{
   text-align: left;
   color: #7D879099;
 }
+.button-exit:hover{
+  color: #6266EA;
+}
+
 
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar">
     <div class="main_side">
-      <router-link to="/lk/">
+      <router-link to="/lk/service">
         <img src="../../static/img/logo.svg" alt="" class="logotype">
       </router-link>
       <div class="content">
