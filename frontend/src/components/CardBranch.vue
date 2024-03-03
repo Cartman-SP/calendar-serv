@@ -9,7 +9,7 @@
         <div v-if="showModal" class="modal">
             <div class="modal-content">
               <p class="text-header">Удаление услуги</p>
-              <p class="modal-subtext">Вы действительно хотите удалить услугу<br><span>Стрижка?</span></p>
+              <p class="modal-subtext">Вы действительно хотите удалить услугу<br><span>{{FilialData.name}}</span>?</p>
               <div class="btn_container">
                 <button class="delete" @click="deleteService">Удалить</button>
                 <button class="exit" @click="toggleModal">Отмена</button>
@@ -74,6 +74,7 @@ export default {
         {btnname:'Редактировать', svg:'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256" width="100px" height="100px"><g fill="#535c69" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M18,2l-2.41406,2.41406l4,4l2.41406,-2.41406zM14.07617,5.92383l-11.07617,11.07617v4h4l11.07617,-11.07617z"></path></g></g></svg>'},
       ],
       image: '',
+      showModal: false,
     };
   },
   methods: {
@@ -110,7 +111,10 @@ export default {
           this.image = '../../static/img/Card.png'
           console.error('Error fetching employees:', error);
         });
-    }
+    },
+    toggleModal() { // добавлено
+      this.showModal = !this.showModal;
+    },
   },
   mounted(){
     this.get_image()
