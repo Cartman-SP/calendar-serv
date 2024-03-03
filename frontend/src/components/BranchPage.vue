@@ -33,7 +33,8 @@ export default {
   components: { CardBranch },
     data() {
       return{
-        branchLoaded: false
+        branchLoaded: false,
+        filials: [],
       };
     },
     methods:{
@@ -42,8 +43,8 @@ export default {
     .then(response => {
         this.filials = response.data;
         this.filials.reverse();
-        console.log(response)
-        this.branchLoaded = true
+        console.log(response);
+        this.branchLoaded = true;
     })
     .catch(error => {
         console.error('Ошибка при получении данных о пользователе:', error);
