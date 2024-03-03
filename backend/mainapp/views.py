@@ -203,10 +203,19 @@ class UslugaList(APIView):
         return Response(serializer.data)
 
     def post(self, request):
+        print(request.data)
+        user = User.objects.get(id=request.data['user'])
+        profile = Profile.objects.get(user=user)
         serializer = UslugaSerializer(data=request.data)
+        if(profile.first_usluga==False):
+            if serializer.is_valid():
+                serializer.save()
+                profile.first_usluga = True
+                profile.save()
+                return Response(True, status=201)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=201)
+            return Response(False, status=201)
         return Response(serializer.errors, status=400)
     
 @csrf_exempt    

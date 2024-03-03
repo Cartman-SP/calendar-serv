@@ -11,7 +11,7 @@ class Profile(models.Model):
     currency = models.CharField(max_length=10)
     avatar = models.ImageField(upload_to='avatars/', default='avatars/default_avatar.svg')
     password_changed_at = models.DateTimeField(null=True, blank=True)
-
+    first_usluga = models.BooleanField(default=False)
     def save(self, *args, **kwargs):
         # Если изображение не было передано, используем изображение по умолчанию
         if not self.avatar:

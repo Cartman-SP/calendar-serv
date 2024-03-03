@@ -1,4 +1,6 @@
 <template>
+  <div class="div">
+    <div class="overlay"></div>
     <div class="modal-container">
       <div class="image-container">
         <img src="../../static/img/sweety.png" alt="" class="sweety">
@@ -29,11 +31,12 @@
           </div>
         </div>
         <div class="btn-wrapper">
-          <button class="add-btn">Добавить еще услуги</button>
-          <button class="add-employees">Добавить сотрудника</button>
+          <button class="add-btn" @click="this.$router.push('/lk/service')">Добавить еще услуги</button>
+          <button class="add-employees" @click="this.$router.push('/lk/personal/employees')">Добавить сотрудника</button>
         </div>
       </div>
     </div>
+  </div>
   </template>
   
 <script>
@@ -47,6 +50,15 @@
   
   
 <style scoped>
+.overlay {
+  z-index: 98;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Задний фон с прозрачностью 60% */
+}
   .modal-container {
       position: absolute;
       top: 50%;
@@ -59,6 +71,7 @@
       background-color: #FAFAFA;
       border-radius: 25px;
       box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.10);
+      z-index: 100000;
     }
     
     .image-container,
