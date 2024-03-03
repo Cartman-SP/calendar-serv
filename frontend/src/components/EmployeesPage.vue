@@ -536,6 +536,9 @@
         align-items: center;
         margin-bottom: 0;
         font-weight: 500;
+        background-image: url(../../static/img/paperclip.svg);
+        background-repeat: no-repeat;
+        background-position: calc(100% - 15px) center;
       }
       
       .custom-file-upload input[type="file"] {
@@ -543,7 +546,7 @@
       }
       input::placeholder {
         font-family: "TT Norms Medium";
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 500;
         line-height: 17px;
         letter-spacing: 0em;

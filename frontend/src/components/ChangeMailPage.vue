@@ -112,4 +112,7 @@ input{
   background-color: #6266EA;
   color: #FFFFFF;
 }
+.button-exit:hover{
+  color: #6266EA;
+}
 </style>

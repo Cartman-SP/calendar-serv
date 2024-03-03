@@ -19,6 +19,7 @@
             class="select"
             @input="option => selectedCountry = option"
             :placeholderdata="'Выберите страну'"
+            :class="{ 'select-error': selectedCountryError }"
             />
           </div>
 
@@ -29,6 +30,7 @@
             class="select"
             @input="option => selectedCity = option"
             :placeholderdata="'Выберите город'"
+            :class="{ 'select-error': selectedCityError }"
             />
           </div>
         </div>
@@ -36,7 +38,8 @@
         <div class="one-group">
           <div class="form-group">
             <label for="address">Адрес</label>
-            <input type="text" id="address" v-model="selectedAdress" placeholder="Введите точный адрес">
+            <input type="text" id="address" v-model="selectedAdress" placeholder="Введите точный адрес"
+            :class="{ 'input-error': selectedAdressError }">
           </div>
           <div class="form-group" style="flex-direction: row; gap: 5px;">      
                 <div class="card flex justify-content-center">
@@ -59,7 +62,8 @@
                 </div>
                 <div class="form-group">
                   <label>Телефон</label>
-                  <InputMaskComponent @input="handleInput" id="basic" v-model="value" :mask="computedMask" :placeholder="computedPlaceholder" />
+                  <InputMaskComponent @input="handleInput" id="basic" v-model="value" :mask="computedMask" :placeholder="computedPlaceholder"
+                  />
                 </div>
                 
           </div>
@@ -68,13 +72,16 @@
 
         <div class="form-group">
           <label for="branchName">Название филиала</label>
-          <input type="text" id="branchName" v-model="selectedName" placeholder="Введите название" maxlength="25">
+          <input type="text" id="branchName" v-model="selectedName" placeholder="Введите название" maxlength="25"
+          :class="{ 'input-error': selectedNameError }">
           <p class="character-limit">Название должно содержать не более 25 знаков</p>
         </div>
 
         <div class="form-group">
-          <label for="upload-image  ">Фото филиала</label>
-          <input type="file" accept="image/*" id="upload-image" @change="handleImageUpload" multiple>
+          <label for="upload-image ">Фото филиала</label>
+          <label class="custom-file-upload">
+            <input type="file" accept="image/*" id="upload-image" @change="handleImageUpload" multiple> Нажмите, чтобы добавить
+          </label>
           <p class="photo-info">до 5 МБ, PNG, JPG, JPEG. Для замены удалите миниатюру и загрузите заново</p>
         </div>
 
@@ -89,13 +96,13 @@
         <div class="form-group graffic">
           <label class="graffic_label">График работы</label>
           <div class="days">
-              <button class="btn_day" :class="{ 'active': isBtnActive('Пн') }" @click="toggleBtn('Пн')">Пн</button>
-              <button class="btn_day" :class="{ 'active': isBtnActive('Вт') }" @click="toggleBtn('Вт')">Вт</button>
-              <button class="btn_day" :class="{ 'active': isBtnActive('Ср') }" @click="toggleBtn('Ср')">Ср</button>
-              <button class="btn_day" :class="{ 'active': isBtnActive('Чт') }" @click="toggleBtn('Чт')">Чт</button>
-              <button class="btn_day" :class="{ 'active': isBtnActive('Пт') }" @click="toggleBtn('Пт')">Пт</button>
-              <button class="btn_day" :class="{ 'active': isBtnActive('Сб') }" @click="toggleBtn('Сб')">Сб</button>
-              <button class="btn_day" :class="{ 'active': isBtnActive('Вс') }" @click="toggleBtn('Вс')">Вс</button>
+              <button class="btn_day" :class="{ 'active': isBtnActive('Пн'),'button-days-error' : selectedDaysError}" @click="toggleBtn('Пн')">Пн</button>
+              <button class="btn_day" :class="{ 'active': isBtnActive('Вт'),'button-days-error' : selectedDaysError}" @click="toggleBtn('Вт')">Вт</button>
+              <button class="btn_day" :class="{ 'active': isBtnActive('Ср'),'button-days-error' : selectedDaysError}" @click="toggleBtn('Ср')">Ср</button>
+              <button class="btn_day" :class="{ 'active': isBtnActive('Чт'),'button-days-error' : selectedDaysError}" @click="toggleBtn('Чт')">Чт</button>
+              <button class="btn_day" :class="{ 'active': isBtnActive('Пт'),'button-days-error' : selectedDaysError}" @click="toggleBtn('Пт')">Пт</button>
+              <button class="btn_day" :class="{ 'active': isBtnActive('Сб'),'button-days-error' : selectedDaysError}" @click="toggleBtn('Сб')">Сб</button>
+              <button class="btn_day" :class="{ 'active': isBtnActive('Вс'),'button-days-error' : selectedDaysError}" @click="toggleBtn('Вс')">Вс</button>
           </div>
         </div>
         <div class="form-btn">  
@@ -106,7 +113,7 @@
             </div>
             <p class="steps-text">Шаг 1 из 2</p>
           </div>
-          <button class="btn" @click="onContinueButtonClick" :disabled="isContinueDisabled">Продолжить</button>
+          <button class="btn" @click="onContinueButtonClick">Продолжить</button>
         </div>
       </form>
       <div class="next-page" v-else>
@@ -119,6 +126,7 @@
               class="select"
               @input="option => selectedWorkHours  = option"
               :placeholderdata="'Выберите время'"
+              :class="{ 'select-error': selectedWorkHoursError }"
               />
             </div>
   
@@ -129,6 +137,7 @@
               class="select"
               @input="option => selectedTimeout  = option"
               :placeholderdata="'Выберите время'"
+              :class="{ 'select-error': selectedTimeoutError }"
               />
             </div>
           </div>
@@ -159,10 +168,10 @@
                         name: item.firstname + ' ' + item.secondname,
                         id: item.id,
                       }))"
-
             class="select"
             @input="handleSelectInput"
             :placeholderdata="'Выберите сотрудников'"
+            :class="{ 'select-error': chipsError }"
             />
           </div>
           <div class="chips-block">
@@ -190,18 +199,22 @@
         </div>  
       </div>
     </div>
+    <MessageAlert :message="alertMessage" :color="alertColor"/>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import SelectPage from '../components/SelectPage.vue';
+import MessageAlert from "../components/MessageAlert.vue";
 
 export default {
-  components: { SelectPage },
+  components: { SelectPage, MessageAlert},
   data() {
     return {
-      activeDays: [],
+      alertMessage: null,
+      alertColor: '',
+      selectedDays: [],
       selectedChoices: [],
       showContinueButtonClicked: false,
       businessTypes: ['qwdqwd', 'qwdqwdqdwqwd'],
@@ -211,7 +224,6 @@ export default {
       chips: [],
       selectedPhone: '79672262425',
 
-      selectedCountry: '',
       selectedCountryPhone: null,
       value: '7 ', // Начальное значение для InputMaskComponent
       countries: [
@@ -220,6 +232,23 @@ export default {
         { name: '🇰🇿', code: '+7' },
         { name: '🇺🇦', code: '+380' },
       ],
+
+      fileNameVariable: '',
+      selectedCity: '',
+      selectedCountry: '',
+      selectedAdress: '',
+      selectedName: '',
+      selectedWorkHours: '',
+      selectedTimeout: '', 
+
+      chipsError: false,
+      selectedNameError: false,
+      selectedAdressError: false,
+      selectedCountryError: false,
+      selectedCityError: false, 
+      selectedDaysError: false,
+      selectedWorkHoursError: false,
+      selectedTimeoutError: false, 
     }
   },
   mounted(){
@@ -254,6 +283,38 @@ export default {
       if (newCountry) {
         this.value = newCountry.code + ' ' + this.value.replace(/^\s*\+\d\s*\|\s*/, '');
       }
+    },
+    selectedCountry() {
+      this.alertMessage = null;
+      this.selectedCountryError = false;
+    },
+    selectedCity() {
+      this.alertMessage = null;
+      this.selectedCityError = false;
+    },
+    selectedAdress() {
+      this.alertMessage = null;
+      this.selectedAdressError = false;
+    },
+    selectedName() {
+      this.alertMessage = null;
+      this.selectedNameError = false;
+    },
+    selectedDays(){
+      this.alertMessage = null;
+      this.selectedDaysError = false;
+    },
+    selectedWorkHours(){
+      this.alertMessage = null;
+      this.selectedWorkHoursError = false;
+    },
+    selectedTimeout(){
+      this.alertMessage = null;
+      this.selectedTimeoutError = false;
+    },
+    chips(){
+      this.alertMessage = null;
+      this.chipsError = false;
     },
   },
   methods: {
@@ -322,69 +383,136 @@ export default {
 
 
     isBtnActive(day) {
-      return this.activeDays.includes(day);
+      return this.selectedDays.includes(day);
     },
     toggleBtn(day) {
       if (this.isBtnActive(day)) {
-        this.activeDays = this.activeDays.filter(activeDay => activeDay !== day);
+        this.selectedDays = this.selectedDays.filter(activeDay => activeDay !== day);
       } else {
-        this.activeDays.push(day);
+        this.selectedDays.push(day);
       }
     },
     onContinueButtonClick() {
-      if (!this.isContinueDisabled) {
-        this.showContinueButtonClicked = true;
+      console.log(this.selectedCountry, this.selectedCity, this.selectedAdress , this.selectedName)
+      if (!this.selectedCountry.length || !this.selectedCity.length || !this.selectedAdress || !this.selectedName|| !this.selectedDays.length) {
+        this.alertMessage = null;
+        setTimeout(() => {
+          this.alertMessage = 'Пожалуйста, заполните выделенные поля';
+          this.alertColor = '#F97F7F';
+        }, 100);
+
+        if (!this.selectedCountry.length) {
+          this.selectedCountryError = true;
+        }else{
+          this.selectedCountryError = false;
+        }
+
+        if (!this.selectedCity.length) {
+          this.selectedCityError = true;
+        }else{
+          this.selectedCityError = false;
+        }
+
+        if (!this.selectedAdress) {
+          this.selectedAdressError = true;
+        }else{
+          this.selectedAdressError = false;
+        }
+
+        if (!this.selectedName) {
+          this.selectedNameError = true;
+        }else{
+          this.sselectedNameError = false;
+        }     
+        
+        if (this.selectedDays.length === 0) {
+              this.selectedDaysError = true;
+        }else{
+              this.selectedDaysError = false;
+        }
+
+      } else {
+        if (!this.isContinueDisabled) {
+          this.showContinueButtonClicked = true;
+        }
       }
+
     },
     onBackClick() {
       this.showContinueButtonClicked = false;
     },
 
     Finish() {
-  // Создаем объект FormData
-  const formData = new FormData();
+      // Создаем объект FormData
+      const formData = new FormData();
+    
+      var ids = []
+      for(let i=0;i<this.chips.length;i++){
+        ids.push(this.chips[i].id);
+      }
+      var choices = []
+      for(let i=0;i<this.selectedChoices.length;i++){
+        choices.push(this.selectedChoices[i].id);
+      }
 
-  var ids = []
-  for(let i=0;i<this.chips.length;i++){
-    ids.push(this.chips[i].id);
-  }
-  var choices = []
-  for(let i=0;i<this.selectedChoices.length;i++){
-    choices.push(this.selectedChoices[i].id);
-  }
-  formData.append('country', this.selectedCountry);
-  formData.append('city', this.selectedCity);
-  formData.append('address', this.selectedAdress);
-  formData.append('name', this.selectedName);
-  formData.append('active_days', this.activeDays);
-  formData.append('work_hours', this.selectedWorkHours);
-  formData.append('timeout', this.selectedTimeout);
-  formData.append('choices', ids); // Преобразуем массив в строку JSON
-  formData.append('business', this.selectedBusiness);
-  formData.append('chips', choices);
-  formData.append('user_id', this.$store.state.registrationData.user_id)
-  formData.append('phone', this.selectedPhone)
-  // Добавляем каждое изображение в FormData
-  for (let i = 0; i < this.uploadedImages.length; i++) {
-    // Преобразовываем изображение в объект типа File
-    const file = this.dataURItoBlob(this.uploadedImages[i].url);
-    formData.append('images[]', file, this.uploadedImages[i].name); // Передаем файл, его имя и формат
-  }
+      if (!this.selectedWorkHours.length || !this.selectedTimeout.length || !this.chips.length) {
+        this.alertMessage = null;
+        setTimeout(() => {
+          this.alertMessage = 'Пожалуйста, заполните выделенные поля';
+          this.alertColor = '#F97F7F';
+        }, 100);
 
-  console.log(formData);
-  // Отправка данных на сервер для создания филиала
-  axios.post('http://127.0.0.1:8000/api/createbranch/', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data' // Указываем тип содержимого как multipart/form-data
-    }
-  })
-    .then(response => {
-      console.log('Данные филиала успешно отправлены:', response.data);
-      this.$router.go(-1);
-    })
-    .catch(error => {
-      console.error('Ошибка при отправке данных филиала:', error);
-    });
+        if (!this.selectedWorkHours.length) {
+          this.selectedWorkHoursError = true;
+        }else{
+          this.selectedWorkHoursError = false;
+        }
+        if (!this.selectedTimeout.length) {
+          this.selectedTimeoutError = true;
+        }else{
+          this.selectedTimeoutError = false;
+        }
+        if (!this.chips.length > 0) {
+          this.chipsError = true;
+        }else{
+          this.chipsError = false;
+        }
+      } else{
+        formData.append('country', this.selectedCountry);
+        formData.append('city', this.selectedCity);
+        formData.append('address', this.selectedAdress);
+        formData.append('name', this.selectedName);
+        formData.append('active_days', this.selectedDays);
+        formData.append('work_hours', this.selectedWorkHours);
+        formData.append('timeout', this.selectedTimeout);
+        formData.append('choices', ids); // Преобразуем массив в строку JSON
+        formData.append('business', this.selectedBusiness);
+        formData.append('chips', choices);
+        formData.append('user_id', this.$store.state.registrationData.user_id)
+        formData.append('phone', this.selectedPhone)
+        // Добавляем каждое изображение в FormData
+        for (let i = 0; i < this.uploadedImages.length; i++) {
+          // Преобразовываем изображение в объект типа File
+          const file = this.dataURItoBlob(this.uploadedImages[i].url);
+          formData.append('images[]', file, this.uploadedImages[i].name); // Передаем файл, его имя и формат
+        }
+      
+        console.log(formData);
+        // Отправка данных на сервер для создания филиала
+        axios.post('http://127.0.0.1:8000/api/createbranch/', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data' // Указываем тип содержимого как multipart/form-data
+          }
+        })
+          .then(response => {
+            console.log('Данные филиала успешно отправлены:', response.data);
+            this.$router.go(-1);
+          })
+          .catch(error => {
+            console.error('Ошибка при отправке данных филиала:', error);
+          });
+      }      
+      
 },
 
 // Метод для преобразования Data URI в Blob объект
@@ -430,6 +558,16 @@ dataURItoBlob(dataURI) {
 </script>
 
 <style scoped>
+.button-days-error{
+  border: 1px solid #F97F7F !important;
+  border-radius: 3px;
+}
+.select-error >>> .selected{
+  border: solid 1px #F97F7F !important;
+}
+.input-error {
+  border: 1px solid #F97F7F !important;
+}
 .chip svg:hover path{
     fill: rgb(250, 148, 148);
   }
@@ -554,7 +692,7 @@ dataURItoBlob(dataURI) {
 
   input::placeholder {
     font-family: "TT Norms Medium";
-    font-size: 14px;
+    font-size: 13px;
     line-height: 17px;
     letter-spacing: 0em;
     color: #D2D8DE;
@@ -568,6 +706,9 @@ dataURItoBlob(dataURI) {
     background-color: #F3F5F6;
     color: #D2D8DE;
     align-items: center;
+    background-image: url(../../static/img/paperclip.svg);
+    background-repeat: no-repeat;
+    background-position: calc(100% - 15px) center;
   }
   
   .custom-file-upload input[type="file"] {

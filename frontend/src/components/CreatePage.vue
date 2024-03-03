@@ -726,7 +726,7 @@ export default {
 }
 input::placeholder {
   font-family: 'TT Norms Medium';
-  font-size: 14px;
+  font-size: 13px;
   line-height: 17px;
   letter-spacing: 0em;
   color: #D2D8DE;
@@ -741,6 +741,9 @@ input::placeholder {
   color: #D2D8DE;
   align-items: center;
   font-weight: 500;
+  background-image: url(../../static/img/paperclip.svg);
+  background-repeat: no-repeat;
+  background-position: calc(100% - 15px) center;
 }
 
 .custom-file-upload-error{
