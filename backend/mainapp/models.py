@@ -12,6 +12,8 @@ class Profile(models.Model):
     avatar = models.ImageField(upload_to='avatars/', default='avatars/default_avatar.svg')
     password_changed_at = models.DateTimeField(null=True, blank=True)
     first_usluga = models.BooleanField(default=False)
+    first_sotrudnik = models.BooleanField(default=False)
+    first_filial = models.BooleanField(default=False)
     def save(self, *args, **kwargs):
         # Если изображение не было передано, используем изображение по умолчанию
         if not self.avatar:
@@ -68,6 +70,13 @@ class Branch(models.Model):
     business = models.CharField(max_length=255)
     phone = models.CharField(max_length = 20)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class Project(models.Model):
+    name = models.CharField(max_length=128)
+    timezone = models.CharField(max_length=128)
+    currency = models.CharField(max_length=128)
+    colour = models.CharField(max_length=128)
+    profile = models.ForeignKey(Profile, on_delete = models.CASCADE)
 
 class BranchEmployee(models.Model):
     branch = models.ForeignKey(Branch, related_name='employees', on_delete=models.CASCADE)

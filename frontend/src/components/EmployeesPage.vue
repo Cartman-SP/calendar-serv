@@ -1,5 +1,8 @@
     <template>
       <div class="main">
+        <div v-if="firstemployye">
+          <ModalEmployeesPage/>
+        </div>
         <div class="transition">
           <router-link to="/lk/personal" class="employesss-link">Сотрудники</router-link>
           <div class="arrow-container">
@@ -180,14 +183,14 @@
     import Tip from '../components/TipComponent.vue';
     import SelectPage from '../components/SelectPage.vue';
     import MessageAlert from "../components/MessageAlert.vue";
-
+    import ModalEmployeesPage from "../components/ModalEmployeesPage.vue"
     export default {
-      components: { Tip, SelectPage, MessageAlert },
+      components: { Tip, SelectPage, MessageAlert, ModalEmployeesPage },
       data() {
         return {
           timeArea: false,
           timeAreaDay: '',
-
+          firstemployye: false,
           selectedDays: [],
           selectedPaymentFormat: 'sessionPayment',
           uploadedFile: null,
@@ -357,9 +360,13 @@
               console.log('Employee created:', response.data);
               this.alertMessage = 'Настройки успешно сохранены'
               this.alertColor = '#0BB6A1'
+              console.log(response)
+              if(response.data){
+              this.firstemployye = response.data
+              }else{
               setTimeout(() => {
                 this.$router.go(-1);
-              }, 2000)
+              }, 2000)}
             })
             .catch(error => {
               console.error('Error creating service:', error);

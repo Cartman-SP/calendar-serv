@@ -101,14 +101,18 @@ def update_profile(request):
         profile, created = Profile.objects.get_or_create(user=user)
         profile.name = name
         profile.company_name = company_name
-        profile.timezone = timezone
+        profile.timezone = timezoner
         profile.currency = currency
         profile.password_changed_at = timezone.now()
         if avatar:
             profile.avatar = avatar
 
         profile.save()
-
+        project = Project.objects.get_or_create(profile=profile)
+        project.timezone = timezoner
+        project.currency = currency
+        project.colour = "ff0000"
+        project.save()
         return JsonResponse({'message': 'Профиль успешно обновлен'}, status=200)
     except User.DoesNotExist:
         return JsonResponse({'error': 'Пользователь не найден'}, status=400)
@@ -304,11 +308,19 @@ def create_employee(request):
         user_id = request.data.get('user_id')  # Получаем id пользователя из запроса
         try:
             user = User.objects.get(id=user_id)  # Получаем объект пользователя по id
-            request.data['user'] = user.id  # Заменяем id пользователя на объект пользователя в данных запроса
+            request.data['user'] = user.id  
             serializer = EmployeeSerializer(data=request.data)
+            profile = Profile.objects.get(user = user)
+
+            if(profile.first_sotrudnik==False):
+                if serializer.is_valid():
+                    serializer.save()
+                    profile.first_sotrudnik = True
+                    profile.save()
+                    return Response(True, status=201)
             if serializer.is_valid():
                 serializer.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
+                return Response(False, status=status.HTTP_201_CREATED)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except User.DoesNotExist:
             return Response({'message': 'User does not exist'}, status=status.HTTP_404_NOT_FOUND)
@@ -397,8 +409,12 @@ def create_branch(request):
         print(images)
         for img in images:
             Image.objects.create(branch=branch, image=img)
-        
-        return JsonResponse({'message': 'Branch created successfully'}, status=201)
+        profile = Profile.objects.get(user=User.objects.get(id = data.get('user_id')))
+        if(profile.first_filial==False):
+            profile.first_filial = True
+            profile.save()
+            return JsonResponse({'answer':True}, status=201)
+        return JsonResponse({'answer':False}, status=201)
     else:
         return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
 

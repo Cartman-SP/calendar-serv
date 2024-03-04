@@ -1,6 +1,9 @@
 <template>
   
   <div class="main">
+    <div v-if="first">
+      <ModalBranchPage/>
+    </div>
     <div class="transition">
       <router-link to="/lk/branch" class="employesss-link">Филиалы</router-link>
       <div class="arrow-container">
@@ -211,9 +214,10 @@ import axios from 'axios';
 import SelectPage from '../components/SelectPage.vue';
 import MessageAlert from "../components/MessageAlert.vue";
 import Tip from '../components/TipComponent.vue';
+import ModalBranchPage from '../components/ModalBranchPage.vue';
 
 export default {
-  components: { SelectPage, MessageAlert, Tip},
+  components: { SelectPage, MessageAlert, Tip, ModalBranchPage},
   data() {
     return {
       alertMessage: null,
@@ -227,7 +231,7 @@ export default {
       selectedEmployeeId: [], 
       chips: [],
       selectedPhone: '79672262425',
-
+      first: false,
       selectedCountryPhone: null,
       value: '7 ', // Начальное значение для InputMaskComponent
       countries: [
@@ -530,8 +534,15 @@ export default {
           }
         })
           .then(response => {
-            console.log('Данные филиала успешно отправлены:', response.data);
+          this.alertMessage = 'Настройки успешно сохранены'
+          this.alertColor = '#0BB6A1'
+          console.log(response)
+          if(response.data.answer){
+          this.first = response.data.answer
+          }else{
+          setTimeout(() => {
             this.$router.go(-1);
+          }, 2000)}
           })
           .catch(error => {
             console.error('Ошибка при отправке данных филиала:', error);
