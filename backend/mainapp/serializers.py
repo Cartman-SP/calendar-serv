@@ -5,7 +5,6 @@ from .models import *
 
 class UslugaSerializer(serializers.ModelSerializer):
     serviceCover = serializers.ImageField(required=False) # Добавляем поле для изображения
-    project = serializers.PrimaryKeyRelatedField(queryset=Project.objects.all())  # Добавляем поле проекта
 
     class Meta:
         model = Usluga

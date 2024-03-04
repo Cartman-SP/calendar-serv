@@ -203,7 +203,9 @@ class UslugaList(APIView):
 
     def get(self, request):
         user_id = request.GET.get('variable')
-        uslugi = Usluga.objects.filter(user = User.objects.get(id=user_id))
+        project = request.GET.get('project')
+        print(project,'---------')
+        uslugi = Usluga.objects.filter(user = User.objects.get(id=user_id),project = Project.objects.get(id=project))
         serializer = UslugaSerializer(uslugi, many=True)
         return Response(serializer.data)
 
@@ -215,7 +217,6 @@ class UslugaList(APIView):
         if(profile.first_usluga==False):
             if serializer.is_valid():
                 serializer.save()
-                print(serializer.id)
                 profile.first_usluga = True
                 profile.save()
                 return Response(True, status=201)
