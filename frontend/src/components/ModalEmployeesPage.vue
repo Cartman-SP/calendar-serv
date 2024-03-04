@@ -1,11 +1,13 @@
 <template>
+  <div>
+    <div class="overlay"></div>
     <div class="modal-container">
       
       <div class="image-container">
         <img src="../../static/img/sweety.png" alt="" class="sweety">
         <img src="../../static/img/woman_empl.png " alt="" class="woman_service">
       </div>
-  
+
       <div class="text-container">
         <p class="confirm-head">Супер!<br>Первый сотрудник добавлен</p>
         <p class="confirm-sub">Вероятнее всего у вас есть еще сотрудники, которых мы рекомендуем добавить сейчас.</p>
@@ -30,11 +32,16 @@
           </div>
         </div>
         <div class="btn-wrapper">
-          <button class="add-btn">Добавить еще сотрудника</button>
-          <button class="add-branch">Добавить филиал</button>
+          <router-link to="/lk/personal/employees" style="text-decoration:none">
+            <button class="add-btn">Добавить еще сотрудника</button>
+          </router-link>
+          <router-link to="/lk/branch" style="text-decoration:none">
+            <button class="add-branch">Добавить филиал</button>
+          </router-link>
         </div>
       </div>
     </div>
+  </div>
   </template>
   
 <script>
@@ -48,7 +55,17 @@
   
   
 <style scoped>
+.overlay {
+  z-index: 98;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Задний фон с прозрачностью 60% */
+}
   .modal-container {
+    z-index: 99;
       position: absolute;
       top: 50%;
       left: 50%;

@@ -35,7 +35,6 @@ export default {
                 color: '#28CCF0',
                 editDate: '23.02.24',
                 editTime: '12:55',
-                currentProject: false,
               },
               {
                 name: 'Аренда Даниила для бекенда',
@@ -47,7 +46,6 @@ export default {
                 color: '#28CCF0',
                 editDate: '23.02.24',
                 editTime: '14:39',
-                currentProject: true,
               },
             ],
         };
