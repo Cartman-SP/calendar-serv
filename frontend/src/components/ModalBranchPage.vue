@@ -1,4 +1,6 @@
 <template>
+  <div>
+    <div class="overlay"></div>
     <div class="modal-container">
       
       <div class="image-container">
@@ -30,11 +32,17 @@
           </div>
         </div>
         <div class="btn-wrapper">
-          <button class="add-widget">Создать виджет</button>
-          <button class="skip">Пропустить</button>
+          <router-link to="/lk/widgets/settings" style="text-decoration:none">
+            <button class="add-widget" >Создать виджет</button>
+          </router-link>
+          <router-link to="/lk/branch" style="text-decoration:none">
+            <button class="skip">Пропустить</button>
+          </router-link>
         </div>
       </div>
     </div>
+  </div>
+    
   </template>
   
 <script>
@@ -48,8 +56,18 @@
   
   
 <style scoped>
+.overlay {
+  z-index: 98;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Задний фон с прозрачностью 60% */
+}
   .modal-container {
       position: absolute;
+      z-index: 99;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);

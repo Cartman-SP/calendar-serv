@@ -9,8 +9,19 @@ export default createStore({
       email: null,
       phone: null,
     },
+    activeProjectId: null,
+    isActive: false,
   },
   mutations: {
+    setActiveProject(state, projectId) {
+      state.activeProjectId = projectId;
+      state.isActive = true;
+    },
+    deactivateProject(state) {
+      state.activeProjectId = null;
+      state.isActive = false;
+    },
+
     setRegistrationData(state, { user_id, email, phone }) {
       state.registrationData.user_id = user_id;
       state.registrationData.email = email;

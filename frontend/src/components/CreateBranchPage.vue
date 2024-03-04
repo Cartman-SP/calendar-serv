@@ -228,7 +228,7 @@ export default {
       businessTypes: ['qwdqwd', 'qwdqwdqdwqwd'],
       spheres: [],
       uploadedImages: [],
-      selectedEmployeeId: [], 
+      selectedEmployeeId: [],
       chips: [],
       selectedPhone: '79672262425',
       first: false,
