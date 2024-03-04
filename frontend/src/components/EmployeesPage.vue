@@ -222,9 +222,6 @@
     
       methods: {
         toggleTimeArea(day){
-          if (condition) {
-            
-          }
           this.timeArea = true;
           this.timeAreaDay = day;
         },

@@ -423,6 +423,5 @@ export default {
   font-size: 12px;
   text-align: center;
   padding-top: 3px;
-
 }
 </style>

@@ -2,17 +2,24 @@
     <div class="service_card">
       <div class="card-container">
         <div class="main_container">
-          <div class="card_img" v-if="ProjectData.currentProject">
+          <div class="main_wrapp">
+            <div class="card_img" v-if="ProjectData.currentProject">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 1C1.89543 1 1 1.89543 1 3V16C1 17.1046 1.89543 18 3 18H17C18.1046 18 19 17.1046 19 16V5C19 3.89543 18.1046 3 17 3H8C8 1.89543 7.10457 1 6 1H3Z" fill="white"/>
+              </svg> 
+            </div>
+            <div v-else class="avatar" :style="{ 'background-color': ProjectData.color }">
+              <p class="avatar_text">{{ formatText(ProjectData.name) }}</p>
+            </div>
+            <div class="main_text">
+              <p class="main_header">{{ ProjectData.name }}</p>
+              <p class="main_subheader">ID {{ ProjectData.id }}</p>
+            </div>
+          </div>
+          <div class="checkmark">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3 1C1.89543 1 1 1.89543 1 3V16C1 17.1046 1.89543 18 3 18H17C18.1046 18 19 17.1046 19 16V5C19 3.89543 18.1046 3 17 3H8C8 1.89543 7.10457 1 6 1H3Z" fill="white"/>
-            </svg> 
-          </div>
-          <div v-else class="avatar" :style="{ 'background-color': ProjectData.color }">
-            <p class="avatar_text">{{ formatText(ProjectData.name) }}</p>
-          </div>
-          <div class="main_text">
-            <p class="main_header">{{ ProjectData.name }}</p>
-            <p class="main_subheader">ID {{ ProjectData.id }}</p>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2556 6.15492L9.05226 14.4665L4.29285 9.7071L5.70706 8.29289L8.94764 11.5335L14.7443 4.84506L16.2556 6.15492Z" fill="white"/>
+            </svg>
           </div>
         </div>
         <div class="cards">
@@ -169,6 +176,7 @@
     }
     .main_container{
       display: flex;
+      justify-content: space-between;
       gap: 10px;
     }
     .main_header{
@@ -230,5 +238,22 @@
     a{
       text-decoration: none;
       width: 100%;
+    }
+    .main_wrapp{
+      display: flex;
+      gap: 10px;
+    }
+    .checkmark{
+      width: 22px;
+      height: 22px;
+      background: #F3F5F6;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease
+    }
+    .checkmark:hover{
+      background: #04C562;
     }
   </style>  
