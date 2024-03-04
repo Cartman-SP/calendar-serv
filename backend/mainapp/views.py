@@ -108,12 +108,13 @@ def update_profile(request):
             profile.avatar = avatar
 
         profile.save()
-        project = Project.objects.get_or_create(profile=profile)
+        project, created = Project.objects.get_or_create(profile=profile)
+        project.name = company_name
         project.timezone = timezoner
         project.currency = currency
-        project.colour = "ff0000"
+        project.colour = "#F3F5F6"
         project.save()
-        return JsonResponse({'message': 'Профиль успешно обновлен'}, status=200)
+        return JsonResponse({'message': 'Профиль успешно обновлен','project':project.id}, status=200)
     except User.DoesNotExist:
         return JsonResponse({'error': 'Пользователь не найден'}, status=400)
 
@@ -214,6 +215,7 @@ class UslugaList(APIView):
         if(profile.first_usluga==False):
             if serializer.is_valid():
                 serializer.save()
+                print(serializer.id)
                 profile.first_usluga = True
                 profile.save()
                 return Response(True, status=201)
@@ -502,3 +504,61 @@ def update_avatar(request):
         return JsonResponse({'message': 'Avatar updated successfully'})
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
+    
+class CreateProjectAPIView(APIView):
+    def get(self, request):
+        user_id = request.GET.get('user_id')
+        if user_id is not None:
+            try:
+                user = User.objects.get(id=user_id)
+                profile = user.profile
+                projects = Project.objects.filter(profile=profile)
+
+                # Создаем пустой словарь для хранения данных проектов с количеством услуг, филиалов и сотрудников
+                project_data_list = []
+
+                for project in projects:
+                    # Получаем количество услуг, связанных с текущим проектом
+                    num_services = Usluga.objects.filter(project=project).count()
+
+                    # Получаем количество филиалов, связанных с текущим проектом
+                    num_filials = Branch.objects.filter(project=project).count()
+
+                    # Получаем количество сотрудников, связанных с текущим проектом
+                    num_employees = Employee.objects.filter(project=project).count()
+
+                    # Сериализуем текущий проект
+                    serializer = ProjectSerializer(project)
+                    project_data = serializer.data
+
+                    # Добавляем количество услуг, филиалов и сотрудников к данным проекта
+                    project_data['services'] = num_services
+                    project_data['filials'] = num_filials
+                    project_data['employees'] = num_employees
+
+                    # Добавляем данные проекта в список
+                    project_data_list.append(project_data)
+
+                return Response(project_data_list)
+            except User.DoesNotExist:
+                return Response({'error': 'User with id {} does not exist'.format(user_id)}, status=status.HTTP_404_NOT_FOUND)
+            except Profile.DoesNotExist:
+                return Response({'error': 'Profile for user with id {} does not exist'.format(user_id)}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response({'error': 'user_id parameter is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+    def post(self, request, *args, **kwargs):
+        try:
+            user_id = request.data.get('user_id')
+            user = User.objects.get(id=user_id)
+            profile = Profile.objects.get(user=user)
+            request.data['profile'] = profile.id  # Добавляем ID профиля в данные запроса
+            serializer = ProjectSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

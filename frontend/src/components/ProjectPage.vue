@@ -18,6 +18,7 @@
 
 <script>
 import CardProject from '../components/CardProject.vue';
+import axios from 'axios';
 
 export default {
   components: { CardProject },
@@ -50,7 +51,27 @@ export default {
               },
             ],
         };
-  }
+  },
+  methods:{
+    get_projects(){
+      axios.get('http://127.0.0.1:8000/api/create_project/', {
+      params: {
+        user_id: this.$store.state.registrationData.user_id // Замените на нужный вам user_id
+      }
+    })
+    .then(response => {
+      console.log(response)
+      this.allPProjects = response.data
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+
+    },
+  },
+  mounted(){
+    this.get_projects();
+  },
 }
 </script>
 

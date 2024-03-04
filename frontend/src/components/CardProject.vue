@@ -8,7 +8,7 @@
                 <path d="M3 1C1.89543 1 1 1.89543 1 3V16C1 17.1046 1.89543 18 3 18H17C18.1046 18 19 17.1046 19 16V5C19 3.89543 18.1046 3 17 3H8C8 1.89543 7.10457 1 6 1H3Z" fill="white"/>
               </svg> 
             </div>
-            <div v-else class="avatar" :style="{ 'background-color': ProjectData.color }">
+            <div v-else class="avatar" :style="{ 'background-color': ProjectData.colour }">
               <p class="avatar_text">{{ formatText(ProjectData.name) }}</p>
             </div>
             <div class="main_text">

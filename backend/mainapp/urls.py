@@ -23,5 +23,5 @@ urlpatterns = [
     path('delete_branch/', branch_delete, name='branch_delete'),
     path('change_name/', update_name , name='change_name'),
     path('change_avatar/',update_avatar, name='change_avatar'),
-
+    path('create_project/', CreateProjectAPIView.as_view(), name='create_project'),
 ]

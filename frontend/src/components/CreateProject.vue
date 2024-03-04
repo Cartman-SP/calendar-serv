@@ -23,35 +23,33 @@
           <label for="service">Часовой пояс</label>
           <SelectPage
           :options="['0 — Лондон, Дублин', '+1 — Париж, Рим', '+2 — Афины, Каир', '+3 — Москва, Стамбул', '+4 — Дубай, Новосибирск', '+5 — Астана, Ташкент', '+6 — Омск, Бишкек', '+7 — Бангкок, Джакарта', '+8 — Гонконг, Сингапур', '-8 — Лос-Анджелес, Ванкувер', '-7 — Денвер, Эдмонтон', '-6 — Чикаго, Мехико', '-5 — Нью-Йорк, Монреаль', '-4 — Галифакс, Каракас', '-3 — Рио-де-Жанейро, Буэнос-Айрес']"
-          :default="'Выберите свой часовой пояс'"
-          class="select"
+          @input="option => this.timezone = option"
           />
         </div>
         <div class="form_container">
           <label for="service">Валюта</label>
           <SelectPage
           :options="['RUB — Российский рубль', 'BYN — Белорусский рубль', 'USD — Доллар США', 'EUR — Евро', 'KZT — Казахстанский тенге', 'UAH — Украинская гривна', 'AZN — Азербайджанский манат', 'AMD — Армянский драм', 'GEL — Грузинский лари', 'KGS — Киргизский сом', 'TJS — Таджикский сомони', 'UZS — Узбекский сум', 'ARS — Аргентинское песо', 'BRL — Бразильский реал', 'AED — Дирхам ОАЭ', 'INR — Индийская рупи', 'MDL — Молдавский лей', 'NGN — Нигерийская найра', 'ILS — Новый израильский шекель', 'THB — Тайский бат', 'TRY — Турецкая лира ', 'ZAR — Южноафриканский рэнд']"
-          :default="'Выберите основную валюту'"
-          class="select"
+          @input="option => this.currency = option"
           />
         </div>
       </div>
       <div class="picker">
         <p class="color_text">Цвет иконки проекта</p>
         <div class="color_container">
-          <div class="color" style="background:#F3F5F6"></div>
-          <div class="color" style="background:#7DCD37"></div>
-          <div class="color" style="background:#28CCF0"></div>
-          <div class="color" style="background:#9D8FF1"></div>
-          <div class="color" style="background:#FB88C0"></div>
-          <div class="color" style="background:#F97F7F"></div>
-          <div class="color" style="background:#F7D37D"></div>
+          <div class="color" @click="this.color = '#F3F5F6'" style="background:#F3F5F6"></div>
+          <div class="color" @click="this.color = '#7DCD37'" style="background:#7DCD37"></div>
+          <div class="color" @click="this.color = '#28CCF0'" style="background:#28CCF0"></div>
+          <div class="color" @click="this.color = '#9D8FF1'" style="background:#9D8FF1"></div>
+          <div class="color" @click="this.color = '#FB88C0'" style="background:#FB88C0"></div>
+          <div class="color" @click="this.color = '#F97F7F'" style="background:#F97F7F"></div>
+          <div class="color" @click="this.color = '#F7D37D'" style="background:#F7D37D"></div>
         </div>
       </div>
 
       <div class="bottom">
         <div class="bottom_container">
-          <button class="save">Сохранить</button>
+          <button class="save" @click="save">Сохранить</button>
           <button class="back">Вернуться</button>
         </div>
         <button class="delete" @click="toggleModal">Удалить проект</button>
@@ -72,6 +70,7 @@
 
 <script>
 import SelectPage from '../components/SelectPage.vue';
+import axios from 'axios';
 
 export default {
   components: { SelectPage },
@@ -79,6 +78,9 @@ export default {
     return {
       companyName: '',
       showModal: false,
+      currency: '',
+      timezone: '',
+      color: '',
     };
   },
   computed: {
@@ -95,6 +97,24 @@ export default {
       // TODO: Ваш код для удаления проекта
       this.toggleModal();
     },
+    save(){
+      const data = {
+      name: this.companyName,
+      currency: this.currency,
+      timezone: this.timezone,
+      user_id: this.$store.state.registrationData.user_id,
+      colour: this.color
+    };
+
+// Выполняем POST запрос с использованием Axios
+axios.post('http://127.0.0.1:8000/api/create_project/', data)
+  .then(response => {
+    console.log('Успешно отправлено на сервер:', response.data);
+    this.$router.push('/lk/project')
+  })
+  .catch(error => {
+    console.error('Ошибка при отправке на сервер:', error);
+  });    },
   },
 };
 </script>

@@ -20,6 +20,14 @@ class Profile(models.Model):
             self.avatar = 'avatars/default_avatar.svg'
         super(Profile, self).save(*args, **kwargs)
 
+class Project(models.Model):
+    name = models.CharField(max_length=128)
+    timezone = models.CharField(max_length=128)
+    currency = models.CharField(max_length=128)
+    colour = models.CharField(max_length=128)
+    profile = models.ForeignKey(Profile, on_delete = models.CASCADE)
+
+
 class Usluga(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
@@ -30,6 +38,8 @@ class Usluga(models.Model):
     rent_ammount = models.CharField(max_length=50)
     pay_type = models.CharField(max_length=50)
     serviceCover = models.ImageField(upload_to='service_covers/')
+    project = models.ForeignKey(Project,on_delete = models.CASCADE)
+
 
 class Reset_passwrod(models.Model):
     token = models.CharField(max_length=20)
@@ -58,6 +68,7 @@ class Employee(models.Model):
     timetable = models.CharField(max_length=10)
     chilltime = models.CharField(max_length=20)
     days = models.CharField(max_length = 100)
+    project = models.ForeignKey(Project,on_delete = models.CASCADE)
 
 class Branch(models.Model):
     country = models.CharField(max_length=100)
@@ -70,13 +81,8 @@ class Branch(models.Model):
     business = models.CharField(max_length=255)
     phone = models.CharField(max_length = 20)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project,on_delete = models.CASCADE)
 
-class Project(models.Model):
-    name = models.CharField(max_length=128)
-    timezone = models.CharField(max_length=128)
-    currency = models.CharField(max_length=128)
-    colour = models.CharField(max_length=128)
-    profile = models.ForeignKey(Profile, on_delete = models.CASCADE)
 
 class BranchEmployee(models.Model):
     branch = models.ForeignKey(Branch, related_name='employees', on_delete=models.CASCADE)
