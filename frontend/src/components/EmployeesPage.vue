@@ -74,14 +74,53 @@
                     Недельный график:
                   </p>
                   <div class="days-buttons">
-                    <button :class="{ 'form-btn-active': isDaySelected('Пн'), 'form-btn': !isDaySelected('Пн'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Пн')">Пн</button>
-                    <button :class="{ 'form-btn-active': isDaySelected('Вт'), 'form-btn': !isDaySelected('Вт'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Вт')">Вт</button>
-                    <button :class="{ 'form-btn-active': isDaySelected('Ср'), 'form-btn': !isDaySelected('Ср'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Ср')">Ср</button>
-                    <button :class="{ 'form-btn-active': isDaySelected('Чт'), 'form-btn': !isDaySelected('Чт'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Чт')">Чт</button>
-                    <button :class="{ 'form-btn-active': isDaySelected('Пт'), 'form-btn': !isDaySelected('Пт'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Пт')">Пт</button>
-                    <button :class="{ 'form-btn-active': isDaySelected('Сб'), 'form-btn': !isDaySelected('Сб'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Сб')">Сб</button>
-                    <button :class="{ 'form-btn-active': isDaySelected('Вс'), 'form-btn': !isDaySelected('Вс'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Вс')">Вс</button>
+                    <button :class="{ 'form-btn-active': isDaySelected('Пн'), 'form-btn': !isDaySelected('Пн'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Пн')">
+                      Пн
+                      <svg @click.stop="toggleTimeArea('Пн')" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4C8 6.20914 6.20914 8 4 8C1.79086 8 0 6.20914 0 4C0 1.79086 1.79086 0 4 0C6.20914 0 8 1.79086 8 4ZM4.2 1.8H3.4V3.96569L5.51716 6.08284L6.08284 5.51716L4.2 3.63431V1.8Z" fill="#D2D8DE"/>
+                      </svg>
+                    </button>
+                    <button :class="{ 'form-btn-active': isDaySelected('Вт'), 'form-btn': !isDaySelected('Вт'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Вт')">
+                      Вт
+                      <svg @click.stop="toggleTimeArea('Вт')" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4C8 6.20914 6.20914 8 4 8C1.79086 8 0 6.20914 0 4C0 1.79086 1.79086 0 4 0C6.20914 0 8 1.79086 8 4ZM4.2 1.8H3.4V3.96569L5.51716 6.08284L6.08284 5.51716L4.2 3.63431V1.8Z" fill="#D2D8DE"/>
+                      </svg>
+                    </button>
+                    <button :class="{ 'form-btn-active': isDaySelected('Ср'), 'form-btn': !isDaySelected('Ср'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Ср')">
+                      Ср
+                      <svg @click.stop="toggleTimeArea('Ср')" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4C8 6.20914 6.20914 8 4 8C1.79086 8 0 6.20914 0 4C0 1.79086 1.79086 0 4 0C6.20914 0 8 1.79086 8 4ZM4.2 1.8H3.4V3.96569L5.51716 6.08284L6.08284 5.51716L4.2 3.63431V1.8Z" fill="#D2D8DE"/>
+                      </svg>
+                    </button>
+                    <button :class="{ 'form-btn-active': isDaySelected('Чт'), 'form-btn': !isDaySelected('Чт'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Чт')">
+                      Чт
+                      <svg @click.stop="toggleTimeArea('Чт')" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4C8 6.20914 6.20914 8 4 8C1.79086 8 0 6.20914 0 4C0 1.79086 1.79086 0 4 0C6.20914 0 8 1.79086 8 4ZM4.2 1.8H3.4V3.96569L5.51716 6.08284L6.08284 5.51716L4.2 3.63431V1.8Z" fill="#D2D8DE"/>
+                      </svg>
+                    </button>
+                    <button :class="{ 'form-btn-active': isDaySelected('Пт'), 'form-btn': !isDaySelected('Пт'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Пт')">
+                      Пт
+                      <svg @click.stop="toggleTimeArea('Пт')" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4C8 6.20914 6.20914 8 4 8C1.79086 8 0 6.20914 0 4C0 1.79086 1.79086 0 4 0C6.20914 0 8 1.79086 8 4ZM4.2 1.8H3.4V3.96569L5.51716 6.08284L6.08284 5.51716L4.2 3.63431V1.8Z" fill="#D2D8DE"/>
+                      </svg>
+                    </button>
+                    <button :class="{ 'form-btn-active': isDaySelected('Сб'), 'form-btn': !isDaySelected('Сб'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Сб')">
+                      Сб
+                      <svg @click.stop="toggleTimeArea('Сб')" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4C8 6.20914 6.20914 8 4 8C1.79086 8 0 6.20914 0 4C0 1.79086 1.79086 0 4 0C6.20914 0 8 1.79086 8 4ZM4.2 1.8H3.4V3.96569L5.51716 6.08284L6.08284 5.51716L4.2 3.63431V1.8Z" fill="#D2D8DE"/>
+                      </svg>
+                    </button>
+                    <button :class="{ 'form-btn-active': isDaySelected('Вс'), 'form-btn': !isDaySelected('Вс'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Вс')">
+                      Вс
+                      <svg @click.stop="toggleTimeArea('Вс')" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4C8 6.20914 6.20914 8 4 8C1.79086 8 0 6.20914 0 4C0 1.79086 1.79086 0 4 0C6.20914 0 8 1.79086 8 4ZM4.2 1.8H3.4V3.96569L5.51716 6.08284L6.08284 5.51716L4.2 3.63431V1.8Z" fill="#D2D8DE"/>
+                      </svg>
+                    </button>
                   </div>
+                </div>
+                <div v-if="timeArea" class="form-column">
+                  <label>Рабочие часы - {{ timeAreaDay }}</label>
+                  <input type="text">
                 </div>
                 <div class="replaceable" v-show="isGrafficActive('replaceable')">
                   <p class="graffic_text">
@@ -146,6 +185,9 @@
       components: { Tip, SelectPage, MessageAlert },
       data() {
         return {
+          timeArea: false,
+          timeAreaDay: '',
+
           selectedDays: [],
           selectedPaymentFormat: 'sessionPayment',
           uploadedFile: null,
@@ -179,6 +221,14 @@
       },
     
       methods: {
+        toggleTimeArea(day){
+          if (condition) {
+            
+          }
+          this.timeArea = true;
+          this.timeAreaDay = day;
+        },
+        
         handleFileUpload(event) {
           const file = event.target.files[0];
           this.avatar = file; // сохраняем весь объект файла
@@ -553,24 +603,54 @@
         color: #D2D8DE;
       }
       .form-btn-active {
+        position: relative;
+        height: 50px;
+        width: 50px;
         box-sizing: border-box;
         background-color: #FFFFFF;
         color: #535C69;
         border-radius: 3px;
-        border: 1.5px solid #6266EA;
+        border: 1px solid #6266EA;
         background-color: rgba(98, 102, 234, 0.1);
       }
+
+      .form-btn-active svg{
+        position: absolute;
+        z-index: 10;
+        right: 2px;
+        bottom: 2px;
+      }
+
+      .form-btn-active svg path{
+        fill: #6266EA;
+        transition: all .2s ease;
+      }
+
       .form-btn {
+        position: relative;
+        height: 50px;
+        width: 50px;
         box-sizing: border-box;
         background-color: #FFFFFF;
         color: #535C69;
         border-radius: 3px;
-        border: 1.5px solid #DDE1E5;
+        border: 1px solid #DDE1E5;
+        transition: all .2s ease;
+      }
+
+      .form-btn svg{
+        position: absolute;
+        right: 2px;
+        bottom: 2px;
+      }
+
+      .form-btn svg path{
+        fill: #D2D8DE;
         transition: all .2s ease;
       }
 
       .form-btn:hover{  
-        border: 1.5px solid #535C69;
+        border: 1px solid #535C69;
       }
 
       select {

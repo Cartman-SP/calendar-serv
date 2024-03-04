@@ -345,7 +345,7 @@ export default {
       reader.readAsDataURL(this.serviceCover);
     },
     saveAndExit() {
-      if (!this.groupCapacity || !this.maxGroupCapacity || !this.serviceName || !this.serviceCost || !this.serviceDuration || !this.selectedPaymentFormat || !this.selectedRecordText || !this.serviceCover) {
+      if ((!this.groupCapacity && (this.selectedRecordType === 'group' || this.selectedRecordType === 'rental')) || (!this.maxGroupCapacity && (this.selectedRecordType === 'group' || this.selectedRecordType === 'rental')) || !this.serviceName || !this.serviceCost || !this.serviceDuration || !this.selectedPaymentFormat || !this.selectedRecordText || !this.serviceCover) {
         this.alertMessage = null;
         setTimeout(() => {
           this.alertMessage = 'Пожалуйста, заполните выделенные поля';
@@ -382,12 +382,12 @@ export default {
         }else{
           this.serviceCoverError = false;
         }
-        if (!this.groupCapacity) {
+        if (!this.groupCapacity && (this.selectedRecordType === 'group' || this.selectedRecordType === 'rental')) {
           this.GroupCapacityError = true;
         }else{
           this.GroupCapacityError = false;
         }
-        if (!this.maxGroupCapacity) {
+        if (!this.maxGroupCapacity && (this.selectedRecordType === 'group' || this.selectedRecordType === 'rental')) {
           this.MaxGroupCapacityError = true;
         }else{
           this.MaxGroupCapacityError = false;

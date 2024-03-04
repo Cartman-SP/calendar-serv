@@ -15,7 +15,7 @@
 
       </div>
       <div v-else-if="employees.length==0 && employees_load" class="personal">
-        <img src="../../static/img/personal.png" alt="" class="img_personal">
+        <img src="../../static/img/plus-sotrudnik.svg" alt="" class="img_personal">
         <p class="header">Вот это скорость!</p>
         <p class="subheader">Мы видим, что вы завершили создание услуг. В этом разделе,<br>предлагаем добавить ваших сотрудников и назначить им ранее созданные<br>услуги. Если, у вас нет сотрудников, вы можете пропустить этот шаг<br>и перейти к созданию своего филиала/компании.</p>
         <div class="pernosal_btns">

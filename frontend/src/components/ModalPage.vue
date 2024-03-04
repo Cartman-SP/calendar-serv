@@ -170,11 +170,18 @@ export default {
           console.log(this.$store.state.registrationData.user_id)
           axios.post('http://127.0.0.1:8000/api/profile/', formData) // http://127.0.0.1:8000/api/profile/
             .then(response => {
-              console.log('Service created:', response.data);
-              window.location.reload();
+              console.log('Profile created:', response.data);
+              this.alertMessage = null;
+              setTimeout(() => {
+                this.alertMessage = '365 дней бесплатного тариф начислены в ваш аккаунт';
+                this.alertColor = '#0BB6A1';
+              }, 100);
+              setTimeout(() => {
+                window.location.reload();
+              }, 3000);
             })
             .catch(error => {
-              console.error('Error creating service:', error);
+              console.error('Error creating profile:', error);
             });
         }
     },
