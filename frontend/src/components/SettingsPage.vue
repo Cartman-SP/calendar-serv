@@ -64,6 +64,7 @@
         </div>
       </div>
     </div>
+    <MessageAlert :message="alertMessage" :color="alertColor"/>
   </div>
 </template>
 
@@ -71,11 +72,12 @@
 import ChangePasswordPage from './ChangePasswordPage.vue';
 import ChangeMailPage from './ChangeMailPage.vue';
 import ChangePhonePage from './ChangePhonePage.vue';
-import axios from 'axios';  
-
+import axios from 'axios';
+import { mapMutations } from 'vuex';
+import MessageAlert from "../components/MessageAlert.vue";
 
 export default {
-  components: { ChangePasswordPage, ChangeMailPage, ChangePhonePage },
+  components: { ChangePasswordPage, ChangeMailPage, ChangePhonePage, MessageAlert },
   data() {
     return {
       showModal: false,
@@ -87,10 +89,23 @@ export default {
         avatar: '',
         email: '',
         phone: '',
-      }
+      },
+
+      alertMessage: null,
+      alertColor: '',
     };
   },
+  watch: {
+    'User.name': function() {
+      this.alertMessage = null;
+    },
+  },
   methods: {
+    ...mapMutations(['setUpdateSidebar']),
+    rerenderSidebar() {
+      this.setUpdateSidebar();
+    },
+
     showModals() {
       this.showModal = true;
     },
@@ -135,7 +150,9 @@ export default {
         })
         .then(response => {
           console.log('Имя успешно сохранено:', response.data);
-          window.location.reload();
+          this.rerenderSidebar();
+          this.alertMessage = 'Поле Имя успешно изменено!';
+          this.alertColor = '#0BB6A1';
         })
         .catch(error => {
           console.error('Ошибка при сохранении имени:', error);

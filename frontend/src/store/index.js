@@ -11,8 +11,14 @@ export default createStore({
     },
     activeProjectId: null,
     isActive: false,
+
+    updateSidebar: false,
   },
   mutations: {
+    setUpdateSidebar(state) {
+      state.updateSidebar = !state.updateSidebar;
+    },
+
     setActiveProject(state, projectId) {
       state.activeProjectId = projectId;
       state.isActive = true;

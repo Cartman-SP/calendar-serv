@@ -153,7 +153,7 @@
 
 <script>
 import axios from 'axios';  
-
+import { mapState } from 'vuex';
 
 export default {
   data() {
@@ -170,10 +170,16 @@ export default {
       userData() {
         return this.$store.getters.getRegistrationData;
       },
+      ...mapState(['updateSidebar']),
     },
-
+    watch: {
+      updateSidebar() {
+        this.get_profile();
+      },
+    },
   methods: {
     get_profile(){
+      console.log(this.updateSidebar)
       axios.post('http://127.0.0.1:8000/api/getprofile/', { user_id:  this.$store.state.registrationData.user_id})
       .then(response => {
         this.avatar = "http://127.0.0.1:8000" + response.data.profile.avatar

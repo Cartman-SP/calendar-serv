@@ -18,8 +18,6 @@ import TabView from 'primevue/tabview';
 import TabPanel from 'primevue/tabpanel';
 import Tooltip from 'primevue/tooltip';
 
-
-
 store.commit('restoreRegistrationData');
 const app = createApp(App).use(store);
 app.config.globalProperties.$axios = axios

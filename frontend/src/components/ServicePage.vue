@@ -19,9 +19,9 @@
         <a href="#/lk/service/create" style="text-decoration:none"><button class="service_btn"> + Добавить услуги</button></a>
       </div>
     </div>
-    <div v-else style="padding: 20%;">
+    <div v-else style="padding-top: 200px;">
       <!-- Показываем значок загрузки -->
-      <i class="pi pi-spin pi-spinner" style="font-size: 2.5rem;  color: #6266EA"></i>
+      <i class="pi pi-spin pi-spinner" style="font-size: 2rem;  color: #6266EA"></i>
     </div>
     <div class="overlay" v-show="false"></div>
     <FirstService v-show="false"/>

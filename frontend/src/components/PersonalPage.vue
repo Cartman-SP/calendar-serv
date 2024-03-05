@@ -23,8 +23,9 @@
           <a href="#/lk/personal/employees" style="text-decoration:none"><button class="personal_btn"> + Добавить сотрудника</button></a>
         </div>
       </div>
-      <div v-else>
-        <i class="pi pi-spin pi-spinner" style="font-size: 2.5rem;  color: #6266EA"></i>
+      <div v-else style="padding-top: 200px;">
+      <!-- Показываем значок загрузки -->
+        <i class="pi pi-spin pi-spinner" style="font-size: 2rem;  color: #6266EA"></i>
       </div>
     </div>
   </template>

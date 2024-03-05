@@ -19,8 +19,9 @@
         <p class="subheader">Осталось только создать виджет, выбрать его оформление и разместить его на сайте или в социальных сетях. После чего ваши клиенты смогут записываться к вам онлайн.</p>
         <a href="#/lk/branch/createbranch" style="text-decoration:none"><button class="branch_btn"> + Добавить филиал</button></a>
       </div>
-      <div v-else>
-        <i class="pi pi-spin pi-spinner" style="font-size: 2.5rem;  color: #6266EA"></i>
+      <div v-else style="padding-top: 200px;">
+      <!-- Показываем значок загрузки -->
+        <i class="pi pi-spin pi-spinner" style="font-size: 2rem;  color: #6266EA"></i>
       </div>
     </div>
   </template>
