@@ -24,48 +24,23 @@ export default {
   components: { CardProject },
   data() {
         return {
-            allPProjects:[ //подгружается в скролл со всеми проектами (массив словарей)
-              {
-                name: 'Аренда роликов',
-                id: '123345',
-                services: 3,
-                filials: 5,
-                employees: 34,
-                position: 'Владелец',
-                color: '#28CCF0',
-                editDate: '23.02.24',
-                editTime: '12:55',
-              },
-              {
-                name: 'Аренда Даниила для бекенда',
-                id: '56443345',
-                services: 12,
-                filials: 2,
-                employees: 164,
-                position: 'Администратор',
-                color: '#28CCF0',
-                editDate: '23.02.24',
-                editTime: '14:39',
-              },
-            ],
+            allPProjects:[],
         };
   },
   methods:{
     get_projects(){
-      console.log(this.$store.state.activeProjectId);
       axios.get('http://127.0.0.1:8000/api/create_project/', {
-      params: {
-        user_id: this.$store.state.registrationData.user_id // Замените на нужный вам user_id
-      }
-    })
-    .then(response => {
-      console.log(response)
-      this.allPProjects = response.data
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-
+        params: {
+          user_id: this.$store.state.registrationData.user_id // Замените на нужный вам user_id
+        }
+      })
+      .then(response => {
+        console.log(response)
+        this.allPProjects = response.data
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
     },
   },
   mounted(){

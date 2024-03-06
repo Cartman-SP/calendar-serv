@@ -12,8 +12,8 @@
               <p class="avatar_text">{{ formatText(ProjectData.name) }}</p>
             </div>
             <div class="main_text">
-              <p class="main_header">{{ ProjectData.name }}</p>
-              <p class="main_subheader">ID {{ ProjectData.id }}</p>
+              <p class="main_header">{{ ProjectData.name || 'NaN' }}</p>
+              <p class="main_subheader">ID {{ ProjectData.id || 'NaN' }}</p>
             </div>
           </div>
           <div class="checkmark" v-if="!isActive" @click="setActiveProject(ProjectData.id)">
@@ -29,24 +29,24 @@
         </div>
         <div class="cards">
           <div class="text-container">
-            <p class="text-header">{{ ProjectData.services }}</p>
+            <p class="text-header">{{ ProjectData.services || 'NaN' }}</p>
             <p class="text-subheader">Количество услуг</p>
           </div>
           <div class="cards">
             <div class="text-container">
-              <p class="text-header">{{ ProjectData.filials }}</p>
+              <p class="text-header">{{ ProjectData.filials || 'NaN' }}</p>
               <p class="text-subheader">Количество филиалов</p>
             </div>
           </div>
         </div>
         <div class="cards">
           <div class="text-container">
-            <p class="text-header">{{ ProjectData.employees }}</p>
+            <p class="text-header">{{ ProjectData.employees || 'NaN' }}</p>
             <p class="text-subheader">Сотрудников</p>
           </div>
           <div class="cards">
             <div class="text-container">
-              <p class="text-header">{{ ProjectData.position }}</p>
+              <p class="text-header">{{ ProjectData.position || 'NaN' }}</p>
               <p class="text-subheader">Ваша роль</p>
             </div>
           </div>
