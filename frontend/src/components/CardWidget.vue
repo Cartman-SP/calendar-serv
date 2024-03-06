@@ -221,4 +221,23 @@ export default {
     background: #0ABBA5;
     color: #FFFFFF;
   }
+  @media (max-width: 992px){
+    .card-header{
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+  @media (max-width: 576px){
+    img{
+      width: 100%;
+      height: auto;
+    }
+    .main{
+      flex-direction: column;
+    }
+    .main_container{
+      gap: 0;
+    }
+  }
 </style>

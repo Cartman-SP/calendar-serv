@@ -828,7 +828,6 @@ dataURItoBlob(dataURI) {
     letter-spacing: 0em;
     color: #535C69;
     margin-bottom: 0;
-    margin-top: 10px;
   }
   .continue-button-container {
     display: flex;
@@ -842,7 +841,6 @@ dataURItoBlob(dataURI) {
   .form-btn{
     display: flex;
     justify-content: space-between;
-    align-items: center;
   }
   .second-divider {
     border-bottom: 3px solid #6266EA; 
@@ -870,7 +868,6 @@ dataURItoBlob(dataURI) {
   .steps{
     margin-top: 20px;
     display: flex;
-    align-items: center;
     justify-content: space-between;
   }
   .form-container {
@@ -1012,5 +1009,47 @@ dataURItoBlob(dataURI) {
   input:focus {
     outline: none;
     border: 1px solid #6266EA;
+  }
+  .second-steps-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  @media (max-width: 1280px){
+    .create_branch{
+      width: 100%;
+    }
+  }
+  @media (max-width: 768px){
+    .main{
+      margin: 20px;
+    }
+  }
+  @media (max-width: 568px){
+    .one-group{
+      flex-direction: column;
+    }
+    .form-btn{
+      flex-direction: column;
+      gap: 10px;
+    }
+    .steps-progress{
+      justify-content: flex-start;
+    }
+    .divider{
+      margin: 10px 0;
+    }
+    .btn{
+      width: 100%;
+    }
+    .steps{
+      flex-direction: column;
+      gap: 10px;
+    }
+    .btn-container{
+      flex-direction: column;
+      margin: 0;
+      width: 100%;
+    }
   }
 </style>

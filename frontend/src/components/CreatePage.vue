@@ -645,7 +645,6 @@ export default {
 .cost-duration-container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
 .input-group {
@@ -676,7 +675,6 @@ export default {
 .record-type-container {
   display: flex;
   gap: 20px;
-  align-items: center;
   margin-bottom: 10px;
 }
 
@@ -815,4 +813,36 @@ label{
 input{
   margin: 0;
 }
+@media (max-width: 1340px){
+  .adaptive_window{
+    display: none;
+  }
+
+}
+@media (max-width: 992px){
+  .cost-duration-container{
+    flex-direction: column;
+    gap: 10px;
+  }
+  .input-group{
+    width: 100%;
+  }
+  .create_service{
+    width: 100%;
+  }
+}
+@media (max-width: 768px){
+  .main{
+    margin: 20px;
+  }
+}
+@media (max-width: 576px){
+  .record-type-container{
+    flex-direction: column;
+  }
+  .button-container{
+    flex-direction: column;
+  }
+}
+
 </style>

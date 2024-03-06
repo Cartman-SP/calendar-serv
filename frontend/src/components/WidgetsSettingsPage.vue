@@ -917,4 +917,15 @@ export default {
   .choice.active .circle_bottom {
     border-color: #6266EA; /* добавили изменение цвета границы для активного choice */
   }
+  @media (max-width: 768px){
+    .main{
+      padding: 20px;
+    }
+    #lightmode{
+      display: none;
+    }
+    .window{
+      width: 100%;
+    }
+  }
   </style>

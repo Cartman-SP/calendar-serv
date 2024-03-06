@@ -227,4 +227,12 @@ export default {
     background-color: rgba(0, 0, 0, 0.6); /* Задний фон с прозрачностью 60% */
     z-index: 98;
   }
+  @media (max-width: 568px){
+    .bottom{
+      flex-direction: column;
+    }
+    .bottom-text{
+      max-width: 100%; 
+    }
+  }
 </style>

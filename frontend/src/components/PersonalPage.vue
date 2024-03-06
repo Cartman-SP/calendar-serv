@@ -85,12 +85,12 @@
     border: 1px solid #DDE1E5
   }
   .personal {
+    height: 87vh;
     text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 560px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
   }
   
   .img_personal {
@@ -156,5 +156,23 @@
   }
   .add:hover{
     background: #EFEFFF;
+  }
+  @media (max-width: 1340px){
+    .content{
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 1061px){
+    .content{
+      grid-template-columns: 1fr
+    }
+    .add{
+      min-height: 135px;
+    }
+  }
+  @media (max-width: 768px){
+    .main{
+      padding: 20px;
+    }
   }
   </style>

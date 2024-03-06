@@ -44,6 +44,7 @@ export default {
   <style scoped>
   .main{
     overflow-y: scroll;
+    width: 100%;
     height: 87vh;
   }
   .widgets {
@@ -113,5 +114,10 @@ export default {
   }
   p{
     margin: 0;
+  }
+  @media (max-width: 768px){
+    .main{
+      padding: 20px;
+    }
   }
   </style>

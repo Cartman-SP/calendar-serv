@@ -1,16 +1,18 @@
 <template>
   <div class="reg">
-    <div class="container">
+    <div class="container2">
       <div class="header">
-        <div class="subheader">SKED</div>
+        <div class="subheader1">SKED</div>
         <div class="subtext">Онлайн запись — легко!</div>
       </div>
-      <div class="Forma">
+      <div class="Forma1">
         <div class="login-prompt">
           Уже есть аккаунт? <a class="login-link" href="#/login" style="text-decoration:none">Войти</a>
         </div>
-        <div class="registration-form">
-          <h2>Регистрация</h2>
+        <div class="registration-form1">
+          <div class="registers">
+            <h2>Регистрация</h2>
+          </div>
           <form @submit.prevent="registerUser">
             <div class="form-group">
               <label for="username">Почта<span class="required-field">*</span></label>
@@ -160,7 +162,7 @@ export default {
     display: block;
   }
 
-  .container {
+  .container2 {
     height: 100vh;
     padding: 0 30vw;
     display: flex;
@@ -174,7 +176,7 @@ export default {
     text-align: left;
   }
   
-  .subheader {
+  .subheader1 {
     text-align: left;
     color: #FFF;
     font-family: TT Norms Medium;
@@ -193,10 +195,9 @@ export default {
   }
   
   
-  .Forma {
+  .Forma1 {
     display: flex;
     flex-direction: column;
-    align-items: center;
   }
   
   .login-prompt {
@@ -229,7 +230,7 @@ export default {
     margin: 0;
   }
   
-  .registration-form {
+  .registration-form1 {
     background: #fff;
     width: 340px;
     height: auto;
@@ -237,6 +238,9 @@ export default {
     padding: 40px;
     border-radius: 5px;
     box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.10);
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
   }
   
   .form-group-phone{
@@ -440,5 +444,35 @@ export default {
     line-height: 17px;
     letter-spacing: 0em;
     color: #D2D8DE;
+  }
+  @media (max-width: 1641px){
+    .container2{
+      padding: 0 20vw;
+    }
+  }
+  @media (max-width: 1280px){
+    .container2{
+      padding: 0 10vw;
+    }
+  }
+  @media (max-width: 991px){
+    .container2{
+      padding: 0 10vw;
+      flex-direction: column;
+      height: 100vh;
+      gap: 30px;
+      align-items: center;
+      justify-content: center;
+    }
+    .Forma1{
+      width: 100%;
+    }
+    .registration-form1{
+      width: 100%;
+    }
+    .subheader1{
+      text-align: center;
+      font-size: 32px;
+    }
   }
   </style>

@@ -2,8 +2,13 @@
   <div class="sidebar">
     <div class="main_side">
       <router-link to="/lk/service">
-        <img src="../../static/img/logo.svg" alt="" class="logotype">
+        <img src="../../static/img/logo.svg"  id="desktopLink" alt="" class="logotype">
       </router-link>
+      <div class="mobile-logo">
+        <router-link to="/lk/service">
+          <img src="../../static/img/LogoMobile.svg" id="mobileLogo" alt="" class="logotype">
+        </router-link>
+      </div>
       <div class="content">
         <div class="top-group">
           <div class="cards-group">
@@ -83,20 +88,20 @@
           </div>
         </div>
             <div class="cards-group">
-              <div class="bottom_menu" style="cursor:pointer">
+              <div class="bottom_menu" id="zayavki" style="cursor:pointer">
                 <div class="left">
                   <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M2 16.4627C2 17.186 2.74418 17.67 3.40538 17.3768L20 10.0179L3.4069 2.6267C2.74553 2.3321 2 2.81616 2 3.54018V7.15049C2 8.19451 2.80304 9.06289 3.84388 9.14439L15 10.0179L3.84934 10.8603C2.80618 10.9391 2 11.8085 2 12.8546V16.4627Z" fill="#6266EA"/>
                   </svg> 
-                  <a href="" class="main_text">Заявки</a>
+                  <a href="" id="main-text" class="main_text">Заявки</a>
                 </div>
                 <p class="number">{{ zayavki }}</p>
               </div>
-              <div class="bottom_menu" style="display: block; padding: 20px;">
+              <div class="bottom_menu" id="bottom_avatar" style="display: block;">
                 <div class="avatar-top">
                   <div class="left-container" style="display: flex; align-items: center;">
                     <img class="img_profile" :src="avatar">
-                    <div style="margin-left: 10px;">
+                    <div class="names">
                       <p id="bottom_header"> {{ name }} </p>
                       <p id="bottom_subheader"> {{ position || 'Владелец' }}</p>
                     </div>
@@ -272,7 +277,6 @@ export default {
   text-align: center;
   text-decoration: none;
   color: #535C69;
-
 }
 
 .main_menu{
@@ -429,5 +433,82 @@ export default {
   font-size: 12px;
   text-align: center;
   padding-top: 3px;
+}
+.mobile-logo{
+  display: flex;
+  justify-content: center;
+}
+.names{
+  margin-left: 10px;
+}
+#bottom_avatar{
+  padding: 15px 20px;
+}
+@media (max-width: 1920px){
+  #mobileLogo {
+    display: none;
+  }
+}
+
+@media (max-width: 768px){
+  #desktopLink {
+    display: none;
+  }
+  #mobileLogo {
+    display: block;
+    margin-bottom: 30px;
+  }
+  #main-text{
+    display: none;
+  }
+  #bottom_avatar{
+    padding: 0;
+  }
+  #zayavki{
+    padding: 15px;
+  }
+  .content{
+    height: 95%;
+  }
+  .main_text p{
+    display: none;
+  }
+  .main_text a{
+    display: none;
+  }
+  .line{
+    display: none;
+  }
+  .number{
+    display: none;
+  }
+  .names{
+    display: none;
+  }
+  .dropdown{
+    display: none;
+  }
+  .avatar-bottom{
+    display: none;
+  }
+  .cards-group{
+    margin: 0;
+  }
+  .sidebar{
+    padding: 0;
+  }
+  .main_side{
+    width: 66px;
+    padding: 20px 10px;
+  }
+  .bottom_menu{
+    padding: 0;
+    display: flex;
+    justify-content: center;
+  }
+  .main_menu{
+    padding: 15px;
+    justify-content: center;
+  }
 }
 </style>

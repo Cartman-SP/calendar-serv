@@ -89,12 +89,12 @@ export default {
   background: #EFEFFF;
 }
   .branch {
+    height: 87vh;
     text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 450px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
   }
   
   .img_branch {
@@ -131,5 +131,8 @@ export default {
   svg{
     width: 40px;
     height: 40px;
+  }
+  .subheader{
+    max-width: 500px;
   }
   </style>

@@ -713,5 +713,25 @@
         text-align: left;
         color: #535C69;
       }
+      @media (max-width: 768px){
+        .main{
+          margin: 20px;
+        }      
+      }
+      @media (max-width: 576px){
+        .main{
+          height: 90vh;
+          overflow: scroll;
+        }
+        .form-row{
+          flex-direction: column;
+        }
+        .create_employess{
+          width: 100%;
+        }
+        .button-container{
+          flex-direction: column;
+        }
+      }
     </style>
       

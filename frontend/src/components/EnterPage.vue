@@ -332,4 +332,19 @@ export default {
   .input-error{
     border: 1px solid #F97F7F; /* устанавливаем стиль границы для случая, когда пароль не верный */
   }
+  @media (max-width: 991px){
+    .man{
+      display: none;
+    }
+  }
+   @media (max-width: 768px){
+    .container1{
+      padding: 0 0 0 20vw;
+    }
+  }
+  @media (max-width: 576px){
+    .container1{
+      padding: 0 0 0 15vw;
+    }
+  }
   </style>

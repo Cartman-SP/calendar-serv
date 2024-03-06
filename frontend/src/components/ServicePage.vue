@@ -15,7 +15,7 @@
       <div class="service">
         <img src="../../static/img/flag.svg" alt="" class="img_service">
         <p class="header">Поздравляем с регистрацией!</p>
-        <p class="subheader">Предлагаем вам перейти к созданию услуги, после чего<br>у вас появится возможность прикрепить созданные услуги<br>к вашим специалистам и добавить филиал.</p>
+        <p class="subheader">Предлагаем вам перейти к созданию услуги, после чего у вас появится возможность прикрепить созданные услуги к вашим специалистам и добавить филиал.</p>
         <a href="#/lk/service/create" style="text-decoration:none"><button class="service_btn"> + Добавить услуги</button></a>
       </div>
     </div>
@@ -74,11 +74,8 @@ export default {
   height: 87vh;
 }
 .service {
+  height: 87vh;
   text-align: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   align-items: center;
   justify-content: center;
   display: flex;
@@ -94,17 +91,17 @@ export default {
   line-height: 15px;
   letter-spacing: 0em;
   text-align: center;
-  margin-top: 20px;
 }
 
 .subheader {
   font-size: 16px;
-  line-height: 16px;
+  line-height: 18px;
   color: #AFB6C1;
   font-family: TT Norms Medium;
   font-weight: 500;
   letter-spacing: 0em;
   text-align: center;
+  max-width: 500px;
 }
 .service_btn{
   margin: 0 auto;
@@ -146,4 +143,27 @@ p{
 .add:hover{
   background: #EFEFFF;
 }
+@media (max-width: 1340px){
+  .content{
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 991px){
+  .content{
+    grid-template-columns: 1fr
+  }
+  .add{
+    min-height: 135px;
+  }
+}
+
+@media (max-width: 768px){
+  .subheader{
+    width: 500px;
+  }
+  .main{
+    padding: 20px;
+  }
+}
+
 </style>

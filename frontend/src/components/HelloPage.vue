@@ -15,17 +15,17 @@ export default {
 
 <style>
 body{
-    background: url('../../static/img/photo_2024-01-30_18-47-43.jpg') no-repeat center center fixed;
+    background: url('../../static/img/bg.svg') no-repeat center center fixed;
     background-size: cover;
 }
 
 .buttons {
-    position: absolute;
-    top: 50%;
-    left: 50%; 
-    transform: translate(-50%, -50%);
     display: flex;
-    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
   }
 
 .buttons a{
@@ -78,10 +78,14 @@ body{
     line-height: normal;
     border-radius: 3px;
     background: var(---, #464AD9);
-    margin-left: 50px;
    }
   .register:hover{
     color: #6266EA;
     background: #FFFFFF;
+  }
+  @media (max-width: 576px){
+    .buttons {
+      flex-direction: column;
+    }
   }
 </style>

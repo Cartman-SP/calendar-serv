@@ -183,7 +183,7 @@ export default {
               }, 100);
               setTimeout(() => {
                 window.location.reload();
-              }, 300000);
+              }, 3000);
             })
             .catch(error => {
               console.error('Error creating profile:', error);
@@ -441,5 +441,16 @@ export default {
     select:active, select:focus{
       outline:none
     }
-    
+    @media (max-width: 991px){
+      .image-container{
+        display: none;
+      }
+      .text-container{
+        width: 100%;
+      }
+      .modal-container{
+        width: 600px;
+        padding: 60px;
+      }
+    }
   </style>

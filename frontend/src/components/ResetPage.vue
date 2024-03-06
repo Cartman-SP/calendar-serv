@@ -1,8 +1,8 @@
 <template>
   <div class="reset">
-    <div v-if="reset_page" class="container">
+    <div v-if="reset_page" class="container3">
       <div class="header">
-        <div class="subheader">SKED</div>
+        <div class="subheader2">SKED</div>
         <div class="subtext">Онлайн запись — легко!</div>
       </div>
       <div class="Forma">
@@ -17,9 +17,9 @@
               <label for="username">Почта</label>
               <input v-model="email" type="email" id="username" name="username" placeholder="Usermail@gmail.com" required>
             </div>
-            <div class="reset">
+            <div class="reset-btn">
               <button type="submit" @click="send_email">Восстановить пароль</button>
-                  <p v-if="error">{{ error }}</p>
+              <p class="error-btn" v-if="error">{{ error }}</p>
             </div>
           </form>
         </div>
@@ -66,7 +66,7 @@ export default {
 </script>
 
     <style>
-    .container {
+    .container3 {
       height: 100vh;
       padding: 0 30vw;
       display: flex;
@@ -151,5 +151,46 @@ export default {
     
     .input-container {
       position: relative;
+    }
+    .reset-btn{
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .error-btn{
+      margin: 0;
+      text-align: left;
+      font-family: TT Norms Medium;
+      font-size: 12px;
+      line-height: 14px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: #F97F7F;
+    }
+
+    @media (max-width: 1641px){
+      .container3{
+        padding: 0 20vw;
+      }
+    }
+    @media (max-width: 1280px){
+      .container3{
+        padding: 0 10vw;
+      }
+    }
+    @media (max-width: 991px){
+      .container3{
+        padding: 0 10vw;
+        flex-direction: column;
+        height: 100vh;
+        gap: 30px;
+        align-items: center;
+        justify-content: center;
+      }
+      .subheader2{
+        text-align: center;
+        font-size: 32px;
+        color: #FFFFFF;
+      }
     }
     </style>

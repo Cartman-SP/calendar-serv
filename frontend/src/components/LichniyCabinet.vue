@@ -68,4 +68,10 @@ export default {
     height: 100vh;
     padding: 20px 20px 20px 0;
 }
+@media (max-width: 768px){
+  .lk {
+    padding: 0;
+    border-radius: 0;
+  }
+}
 </style>
