@@ -581,7 +581,7 @@ input{
   font-size: 14px;
 }
 .gates-panel-hide {
-  opacity: 0;
+  visibility: hidden;
   transition: all .1s ease;
   display: flex;
   filter: drop-shadow(0 0 10px rgb(228, 228, 228));
@@ -613,7 +613,7 @@ input{
   border-radius: 5px;
   padding: 20px;
   text-align: center;
-  opacity: 100%;
+ visibility: visible;
   transition: all .1s ease;
 }
 

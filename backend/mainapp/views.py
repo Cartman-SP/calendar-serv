@@ -98,7 +98,7 @@ def update_profile(request):
 
     try:
         user = User.objects.get(id=user_id)
-        profile, created = Profile.objects.get_or_create(user=user)
+        profile = Profile.objects.create(user=user)
         profile.name = name
         profile.company_name = company_name
         profile.timezone = timezoner
@@ -114,6 +114,7 @@ def update_profile(request):
         project.currency = currency
         project.colour = "#F3F5F6"
         project.save()
+        print('ZhopaZhopaZhopa', project.id)
         return JsonResponse({'message': 'Профиль успешно обновлен','project':project.id}, status=200)
     except User.DoesNotExist:
         return JsonResponse({'error': 'Пользователь не найден'}, status=400)
