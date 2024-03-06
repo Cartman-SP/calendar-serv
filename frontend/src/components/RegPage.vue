@@ -111,6 +111,9 @@ export default {
         this.value = newCountry.code + ' ' + this.value.replace(/^\s*\+\d\s*\|\s*/, '');
       }
     },
+    passwordValue(){
+      this.PasswordError = false;
+    }
   },
   methods: {
     handleInput() {
@@ -119,7 +122,7 @@ export default {
     },
 
     async registerUser() {
-      if (this.passwordValue .length < 6) {
+      if (this.passwordValue.length < 6) {
           this.PasswordError = true;
         }else{
           try {
