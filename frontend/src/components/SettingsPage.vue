@@ -187,7 +187,7 @@ export default {
 
 .settings {
   text-align: center;
-  width: 40vw;
+  width: fit-content;
   height: auto;
   background-color: #FFFFFF;
   padding: 20px;
@@ -339,29 +339,31 @@ h2{
 span{
   font-weight: bold;
 }
+
 .input_container_mail input {
   position: relative;
   background-image: url(../../static/img/warning.svg);
   background-repeat: no-repeat;
   background-position: calc(100% - 15px) center;
+  width: 250px;
 }
 .input_container_phone input {
   position: relative;
   background-image: url(../../static/img/warning.svg);
   background-repeat: no-repeat;
   background-position: calc(100% - 15px) center;
+  width: 250px;
 }
 
 .input_container_mail:hover::after {
+  position: absolute;
+  margin-top: 80px;
   content: "Email адрес не подтвержден";
   display: flex;
   height: 36px;
   width: auto;
   background-color: #FFFFFF;
   color: #7D838C;
-  position: absolute;
-  left: 30%;
-  top: 515px; /* Положение псевдоэлемента относительно input */
   z-index: 15;
   padding: 0 10px;
   border-radius: 5px;
@@ -370,8 +372,8 @@ span{
   font-weight: 500;
   line-height: 17px;
   letter-spacing: 0em;
-  text-align: left;
-  transition: all ease 0.3s;
+  text-align: center;
+  transition: all ease 0.2s;
   align-items: center;
   box-shadow: 0px 2px 8px 0px #7D879066;
 }
@@ -384,8 +386,7 @@ span{
   background-color: #FFFFFF;
   color: #7D838C;
   position: absolute;
-  left: 30%;
-  top: 67%; /* Положение псевдоэлемента относительно input */
+  margin-top: 80px;
   z-index: 15;
   padding: 0 10px;
   border-radius: 5px;
