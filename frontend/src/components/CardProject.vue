@@ -17,12 +17,12 @@
             </div>
           </div>
           <div class="checkmark" v-if="!isActive" @click="setActiveProject(ProjectData.id)">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="15" height="15" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2556 6.15492L9.05226 14.4665L4.29285 9.7071L5.70706 8.29289L8.94764 11.5335L14.7443 4.84506L16.2556 6.15492Z" fill="white"/>
             </svg>
           </div>
           <div class="active-checkmark" v-else @click="deactivateProject">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="15" height="15" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2556 6.15492L9.05226 14.4665L4.29285 9.7071L5.70706 8.29289L8.94764 11.5335L14.7443 4.84506L16.2556 6.15492Z" fill="white"/>
             </svg>
           </div>
@@ -265,8 +265,8 @@
       gap: 10px;
     }
     .checkmark{
-      width: 22px;
-      height: 22px;
+      width: 18px;
+      height: 18px;
       background: #F3F5F6;
       border-radius: 50%;
       display: flex;
@@ -279,8 +279,8 @@
     }
 
     .active-checkmark{
-      width: 22px;
-      height: 22px;
+      width: 18px;
+      height: 18px;
       background: #04C562;
       border-radius: 50%;
       display: flex;
