@@ -11,7 +11,7 @@
                       <path d="M1.8998 0.299988C1.01615 0.299988 0.299805 1.01633 0.299805 1.89999V12.3C0.299805 13.1836 1.01615 13.9 1.8998 13.9H13.0998C13.9835 13.9 14.6998 13.1836 14.6998 12.3V3.49999C14.6998 2.61633 13.9835 1.89999 13.0998 1.89999H5.8998C5.8998 1.01633 5.18346 0.299988 4.2998 0.299988H1.8998Z" fill="#6266EA"/>
                     </svg>
                   </a>
-                  <div  v-if="showGatesNotificationPanel" class="gates-panel">
+                  <div :class="{'gates-panel-show' : showGatesNotificationPanel, 'gates-panel-hide' : !showGatesNotificationPanel}">
                     <div class="navbar-arrow"></div>
                     <div>
                       <div class="header">
@@ -580,9 +580,27 @@ input{
   color: #FFFFFF;
   font-size: 14px;
 }
-.gates-panel {
-  filter: drop-shadow(0 0 10px rgb(228, 228, 228));
+.gates-panel-hide {
+  opacity: 0;
+  transition: all .1s ease;
   display: flex;
+  filter: drop-shadow(0 0 10px rgb(228, 228, 228));
+  flex-direction: column;
+  gap: 10px;
+  width: 370px;
+  height: auto;
+  background-color: #ffffff;
+  position: absolute;
+  right: -155px;
+  top: 50px;
+  z-index: 99;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.gates-panel-show{
+  display: flex;
+  filter: drop-shadow(0 0 10px rgb(228, 228, 228));
   flex-direction: column;
   gap: 10px;
   width: 370px;
@@ -595,7 +613,10 @@ input{
   border-radius: 5px;
   padding: 20px;
   text-align: center;
+  opacity: 100%;
+  transition: all .1s ease;
 }
+
 .wrapper{
   display: flex;
   flex-direction: column;
