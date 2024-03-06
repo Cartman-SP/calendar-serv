@@ -564,3 +564,18 @@ class CreateProjectAPIView(APIView):
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@csrf_exempt
+def employee_delete(request):
+    if request.method == 'POST':
+        branch_id = request.POST.get('id')  # Получаем идентификатор услуги из тела запроса
+        try:
+            branch = Employee.objects.get(id=branch_id)  # Получаем объект услуги по идентификатору
+            branch.delete()  
+            return JsonResponse({'message': 'Услуга успешно удалена'})
+        except Usluga.DoesNotExist:
+            return JsonResponse({'error': 'Услуга с указанным идентификатором не найдена'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': f'Произошла ошибка при удалении услуги: {str(e)}'}, status=500)
+    else:
+        return JsonResponse({'error': 'Метод не разрешен'}, status=405)

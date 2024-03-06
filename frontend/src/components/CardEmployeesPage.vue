@@ -82,9 +82,20 @@ export default {
   },
 
   methods: {
-    deleteEmployee(){
-      console.log('kek')
-    },
+    deleteEmployee() {
+    const serviceId = this.employeeData.id // Получаем идентификатор услуги
+    const formData = new FormData();
+    formData.append('id', serviceId);
+    axios.post('http://127.0.0.1:8000/api/deleteemployee/', formData)
+        .then(response => {
+            console.log('Service deleted:', response.data);
+            this.$parent.get_employee();
+            this.showModal = !this.showModal;
+        })
+        .catch(error => {
+            console.error('Error deleting service:', error);
+        });
+},
 
     toggleDropdown() {
       this.showDropdown = !this.showDropdown;

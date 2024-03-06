@@ -251,7 +251,7 @@
         },
     async get_uslugi(){
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/uslugi/?variable=${this.$store.state.registrationData.user_id}`);
+        const response = await axios.get(`http://127.0.0.1:8000/api/uslugi/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`);
         this.uslugi = response.data;
         
       } catch (error) {
@@ -355,6 +355,7 @@
           formData.append('days',selectedDaysString)
           formData.append('avatar', this.avatar);
           formData.append('user_id', this.$store.state.registrationData.user_id)
+          formData.append('project',this.$store.state.activeProjectId)
           axios.post('http://127.0.0.1:8000/api/employee/', formData)
             .then(response => {
               console.log('Employee created:', response.data);

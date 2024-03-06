@@ -42,9 +42,9 @@
         employees_load: false,
       };
     },
-    mounted() {
-      // Здесь нужно заменить 'STATIC_USER_ID' на актуальный user_id
-      const user_id =  this.$store.state.registrationData.user_id;// Замените на актуальный user_id
+    methods:{
+      get_employee(){
+              const user_id =  this.$store.state.registrationData.user_id;// Замените на актуальный user_id
   
       // Выполняем запрос к API Django
       axios.get(`http://127.0.0.1:8000/api/get_employees/?user_id=${user_id}`)
@@ -57,6 +57,11 @@
         .catch(error => {
           console.error('Error fetching employees:', error);
         });
+      },
+    },
+    mounted() {
+      // Здесь нужно заменить 'STATIC_USER_ID' на актуальный user_id
+      this.get_employee()
     }
   }
   </script>
