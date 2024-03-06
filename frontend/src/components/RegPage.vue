@@ -42,6 +42,7 @@
               <div class="card flex justify-content-center">
                 <PasswordComponent v-model="passwordValue" toggleMask />
               </div>
+              <div id="error" v-if="PasswordError">Введите более 6 знаков, включая цифры и латинские буквы</div>
             </div>
             <button type="submit">Создать аккаунт</button>
             <div id="error"> {{ error }} </div>
@@ -84,6 +85,7 @@ export default {
       ],
       email: '',
       error: '',
+      PasswordError: false,
     };
   },
   computed: {
@@ -117,28 +119,31 @@ export default {
     },
 
     async registerUser() {
-      try {
-        
-        const response = await axios.post('http://127.0.0.1:8000/api/reg/', {
-          password: this.passwordValue,
-          phone: this.value,
-          email: this.email
-        });
-        this.$store.dispatch('saveRegistrationData', response.data);
-        this.$router.push('/lk');
-      } catch (error) {
-        console.error('Ошибка регистрации', error.response);
+      if (this.passwordValue .length < 6) {
+          this.PasswordError = true;
+        }else{
+          try {
+            const response = await axios.post('http://127.0.0.1:8000/api/reg/', {
+              password: this.passwordValue,
+              phone: this.value,
+              email: this.email
+            });
+            this.$store.dispatch('saveRegistrationData', response.data);
+            this.$router.push('/lk');
+          } catch (error) {
+            console.error('Ошибка регистрации', error.response);
 
-        if (error.response.data && typeof error.response.data === 'object') {
-          console.error('Детали ошибки:', JSON.stringify(error.response.data, null, 2));
-          // Устанавливаем значение свойства error для отображения в div
-          this.error = error.response.data.error;
-        } else {
-          console.error('Детали ошибки:', error.response.data);
-          // Устанавливаем значение свойства error для отображения в div
-          this.error = error.response.data;
+            if (error.response.data && typeof error.response.data === 'object') {
+              console.error('Детали ошибки:', JSON.stringify(error.response.data, null, 2));
+              // Устанавливаем значение свойства error для отображения в div
+              this.error = error.response.data.error;
+            } else {
+              console.error('Детали ошибки:', error.response.data);
+              // Устанавливаем значение свойства error для отображения в div
+              this.error = error.response.data;
+            }
+          }
         }
-      }
     },
   },
 };
