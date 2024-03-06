@@ -52,6 +52,7 @@ export default {
   },
   methods:{
     get_projects(){
+      console.log(this.$store.state.activeProjectId);
       axios.get('http://127.0.0.1:8000/api/create_project/', {
       params: {
         user_id: this.$store.state.registrationData.user_id // Замените на нужный вам user_id

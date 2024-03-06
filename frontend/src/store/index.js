@@ -1,8 +1,10 @@
 // store/index.js
 
 import { createStore } from 'vuex';
+import createPersistedState from "vuex-persistedstate";
 
 export default createStore({
+  plugins: [createPersistedState()],
   state: {
     registrationData: {
       user_id: null,
@@ -15,6 +17,7 @@ export default createStore({
     updateSidebar: false,
   },
   mutations: {
+
     setUpdateSidebar(state) {
       state.updateSidebar = !state.updateSidebar;
     },
@@ -31,7 +34,7 @@ export default createStore({
     setRegistrationData(state, { user_id, email, phone }) {
       state.registrationData.user_id = user_id;
       state.registrationData.email = email;
-      state.registrationData.phone = phone;
+      state.registrationData.phone = phone; 
   
       localStorage.setItem('registrationData', JSON.stringify(state.registrationData));
     },
