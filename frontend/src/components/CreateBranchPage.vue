@@ -1024,8 +1024,21 @@ dataURItoBlob(dataURI) {
     .main{
       margin: 20px;
     }
+    .days{
+      flex-wrap: wrap;
+    }
   }
   @media (max-width: 568px){
+    .main{
+      height: 89vh;
+      overflow: scroll;
+    }
+    .employesss-link{
+      font-size: 16px;
+    }
+    .creation_text{
+      font-size: 16px;
+    }
     .one-group{
       flex-direction: column;
     }

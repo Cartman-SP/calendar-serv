@@ -148,7 +148,14 @@ p{
     grid-template-columns: repeat(2, 1fr);
   }
 }
-@media (max-width: 991px){
+@media (max-width: 900px){
+  .service{
+    height: 70vh;
+  }
+  .img_service{
+    width: 60px;
+    height: 60px;
+  }
   .content{
     grid-template-columns: 1fr
   }
@@ -159,10 +166,15 @@ p{
 
 @media (max-width: 768px){
   .subheader{
-    width: 500px;
+    max-width: 500px;
   }
   .main{
     padding: 20px;
+  }
+}
+@media (max-width: 398px){
+  .header{
+    font-size: 18px;
   }
 }
 

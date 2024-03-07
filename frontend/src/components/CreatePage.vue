@@ -837,6 +837,22 @@ input{
   }
 }
 @media (max-width: 576px){
+  .main{
+    height: 89vh;
+    overflow: scroll;
+  }
+  .group-buttons{
+    flex-direction: column;
+  }
+  .group-counter{
+    justify-content: center;
+  }
+  .employesss-link{
+    font-size: 16px;
+  }
+  .creation_text{
+    font-size: 16px;
+  }
   .record-type-container{
     flex-direction: column;
   }

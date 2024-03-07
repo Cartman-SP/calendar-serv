@@ -16,8 +16,8 @@
       <div v-else-if="branchLoaded && filials.length==0" class="branch">
         <img src="../../static/img/branch.png" alt="" class="img_branch">
         <p class="header">Здесь будет ваш филиал. Будет же?</p>
-        <p class="subheader">Осталось только создать виджет, выбрать его оформление и разместить его на сайте или в социальных сетях. После чего ваши клиенты смогут записываться к вам онлайн.</p>
-        <a href="#/lk/branch/createbranch" style="text-decoration:none"><button class="branch_btn"> + Добавить филиал</button></a>
+        <p class="subheader">Теперь нам осталось добавить информацию о своей компании\филиале, добавить местоположение, контакты для связи и прочее</p>
+        <a class="button_a" href="#/lk/branch/createbranch" style="text-decoration:none"><button class="branch_btn"> + Добавить филиал</button></a>
       </div>
       <div v-else style="padding-top: 200px;">
       <!-- Показываем значок загрузки -->
@@ -99,6 +99,8 @@ export default {
   
   .img_branch {
     margin-bottom: 10px;
+    width: 86px;
+    height: 86px;
   }
   
   .header {
@@ -115,7 +117,7 @@ export default {
   
   .subheader {
     font-size: 16px;
-    line-height: 16px;
+    line-height: 20px;
     color: #AFB6C1;
     font-family: TT Norms Medium;
     font-weight: 500;
@@ -134,5 +136,31 @@ export default {
   }
   .subheader{
     max-width: 500px;
+  }
+  @media (max-width: 900px){
+    .branch{
+      height: 70vh;
+    }
+    .img_branch{
+      width: 60px;
+      height: 60px;
+    }
+  }
+  @media (max-width: 768px){
+    .main{
+      padding: 20px;
+    }
+  }
+  @media (max-width: 576px){
+    .header{
+      line-height: 25px;
+    }
+    .branch_btn{
+      margin: 0;
+      width: 100%;
+    }
+    .button_a{
+      width: 100%;
+    }
   }
   </style>

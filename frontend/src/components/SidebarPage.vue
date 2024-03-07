@@ -450,6 +450,16 @@ export default {
   }
 }
 
+@media (max-width: 1024px){
+  .content{
+    height: 60%;
+  }
+}
+@media (max-width: 991px){
+  .content{
+    height: 65%;
+  }
+}
 @media (max-width: 768px){
   #desktopLink {
     display: none;
@@ -468,7 +478,7 @@ export default {
     padding: 15px;
   }
   .content{
-    height: 95%;
+    height: 90%;
   }
   .main_text p{
     display: none;

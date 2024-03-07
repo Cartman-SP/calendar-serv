@@ -719,8 +719,17 @@
         }      
       }
       @media (max-width: 576px){
-        .main{
-          height: 90vh;
+        .employesss-link{
+          font-size: 16px;
+        }
+        .creation_text{
+          font-size: 16px;
+        }
+        .days-buttons{
+          flex-wrap: wrap;
+        }
+        .create_employess{
+          height: 83vh;
           overflow: scroll;
         }
         .form-row{

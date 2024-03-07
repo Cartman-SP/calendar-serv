@@ -153,6 +153,13 @@
                     </svg>
                   </a>
                 </div>
+                <div class="hamburger">
+                  <svg width="1em" height="1em" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M19 17H1V15H19V17Z" fill="#AFB6C1"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M19 11H1V9H19V11Z" fill="#AFB6C1"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M19 5H1V3H19V5Z" fill="#AFB6C1"/>
+                  </svg>
+                </div>
                 <div class="showNotifications">
                   <a @click="showNotifications">
                     <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -183,6 +190,18 @@
                       <p>Очистить уведомления</p>
                     </div>
                   </div>
+                </div>
+                <div class="kebab">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M17 4.00006H2.5L15 6.10352e-05L17 4.00006Z" fill="white"/>
+                    <path d="M1 8.00012C1 6.89555 1.89543 6.00012 3 6.00012H17C18.1046 6.00012 19 6.89555 19 8.00012V11H15.6666C14.7222 11 14 11.65 14 12.5C14 13.35 14.7222 14 15.6666 14H19V17.0001C19 18.1047 18.1046 19.0001 17 19.0001H3C1.89543 19.0001 1 18.1047 1 17.0001V8.00012Z" fill="#6266EA"/>
+                  </svg>
+                  <div class="kebab_arrow">
+                    <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M2.62683 6.741L4.04104 5.32678L10.2089 11.4947L16.3768 5.32678L17.791 6.741L10.2089 14.3231L2.62683 6.741Z" fill="#535C69"/>
+                    </svg>  
+                  </div>
+                  
                 </div>
             </div>
             <div class="rate">
@@ -656,6 +675,12 @@ input{
   background-repeat: no-repeat;
   background-position: calc(100% - 15px) center;
 }
+.hamburger{
+  display: none;
+}
+.kebab{
+  display: none;
+}
 .company{
   display: flex;
   gap: 10px;
@@ -671,6 +696,9 @@ input{
   }
 }
 @media (max-width: 768px){
+  .buttons-menu{
+    margin: 0;
+  }
   .rate{
     display: none;
   }
@@ -687,6 +715,32 @@ input{
     justify-content: end;
     height: 66px;
     border-radius: 0;
+  }
+  .hamburger{
+    display: block;
+    background-color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .kebab{
+    display: block;
+    background-color: white;
+    width: 60px;
+    height: 40px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+  }
+  .kebab_arrow{
+    margin-top: 10px;
   }
 }
 </style>

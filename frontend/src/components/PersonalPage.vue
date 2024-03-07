@@ -17,7 +17,7 @@
       <div v-else-if="employees.length==0 && employees_load" class="personal">
         <img src="../../static/img/plus-sotrudnik.svg" alt="" class="img_personal">
         <p class="header">Вот это скорость!</p>
-        <p class="subheader">Мы видим, что вы завершили создание услуг. В этом разделе,<br>предлагаем добавить ваших сотрудников и назначить им ранее созданные<br>услуги. Если, у вас нет сотрудников, вы можете пропустить этот шаг<br>и перейти к созданию своего филиала/компании.</p>
+        <p class="subheader">Мы видим, что вы завершили создание услуг. В этом разделе,предлагаем добавить ваших сотрудников и назначить им ранее созданные услуги. Если, у вас нет сотрудников, вы можете пропустить этот шаг и перейти к созданию своего филиала/компании.</p>
         <div class="pernosal_btns">
           <a href="#/lk" style="text-decoration:none"><button class="personal_btn skip-btn"> Пропустить</button></a>
           <a href="#/lk/personal/employees" style="text-decoration:none"><button class="personal_btn"> + Добавить сотрудника</button></a>
@@ -91,10 +91,13 @@
     justify-content: center;
     display: flex;
     flex-direction: column;
+    gap: 20px;
   }
   
   .img_personal {
     margin-bottom: 10px;
+    width: 86px;
+    height: 86px;
   }
   
   .header {
@@ -105,18 +108,17 @@
     line-height: 15px;
     letter-spacing: 0em;
     text-align: center;
-    margin-bottom: 20px;
   }
   
   .subheader {
     font-size: 16px;
-    line-height: 16px;
+    line-height: 18px;
     color: #AFB6C1;
     font-family: TT Norms Medium;
     font-weight: 500;
     letter-spacing: 0em;
     text-align: center;
-    margin-bottom: 20px;
+    max-width: 500px;
   }
   .personal_btn{
     margin: 0 auto;
@@ -170,9 +172,28 @@
       min-height: 135px;
     }
   }
+  @media (max-width: 900px){
+    .personal{
+      height: 70vh;
+    }
+    .img_personal{
+      width: 60px;
+      height: 60px;
+    }
+  }
   @media (max-width: 768px){
     .main{
       padding: 20px;
+    }
+  }
+  @media (max-width: 576px){
+    .pernosal_btns{
+      flex-direction: column;
+      width: 100%;
+    }
+    .personal_btn{
+      margin: 0;
+      width: 100%;
     }
   }
   </style>
