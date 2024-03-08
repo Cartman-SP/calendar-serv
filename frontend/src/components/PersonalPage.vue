@@ -47,12 +47,12 @@
               const user_id =  this.$store.state.registrationData.user_id;// Замените на актуальный user_id
   
       // Выполняем запрос к API Django
-      axios.get(`http://127.0.0.1:8000/api/get_employees/?user_id=${user_id}`)
+      axios.get(`http://127.0.0.1:8000/api/get_employees/?user_id=${user_id}&project=${this.$store.state.activeProjectId}`)
         .then(response => {
           this.employees = response.data; // Сохраняем полученные данные в переменной
           this.employees_load = true;
           this.employees.reverse();
-          console.log(this.employees)
+          console.log(this.employees);
         })
         .catch(error => {
           console.error('Error fetching employees:', error);

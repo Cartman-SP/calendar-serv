@@ -67,3 +67,26 @@ class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = ['name', 'timezone', 'currency', 'colour', 'profile','id']
+
+
+class WidgetImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WidgetImage
+        fields = ('id', 'image')
+
+class WidgetSerializer(serializers.ModelSerializer):
+    images = WidgetImageSerializer(many=True, required=False)
+
+    class Meta:
+        model = Widget
+        fields = '__all__'
+        extra_kwargs = {
+            'place_ammount': {'required': False},
+            'rent_ammount': {'required': False},
+        }
+    def create(self, validated_data):
+        images_data = self.context.get('request').FILES.getlist('images[]')
+        widget = Widget.objects.create(**validated_data)
+        for image_data in images_data:
+            WidgetImage.objects.create(widget=widget, image=image_data)
+        return widget
