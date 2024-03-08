@@ -6,6 +6,7 @@
                 <NavbarPage/>
                 <ModalPage v-if="showModal" @regdone="showModal = !showModal" :result="modalResult" @closeModal="closeModal" />
                 <router-view v-else></router-view>
+                <WidgetSite></WidgetSite>
             </div>
         </div>
     </div>
@@ -15,10 +16,11 @@
 import ModalPage from './ModalPage.vue';
 import axios from 'axios';
 import NavbarPage from './NavbarPage.vue';
-import SidebarPage from './SidebarPage.vue';  
+import SidebarPage from './SidebarPage.vue';
+import WidgetSite from './WidgetSite.vue';  
 
 export default {
-    components: { NavbarPage, SidebarPage, ModalPage},
+    components: { NavbarPage, SidebarPage, ModalPage, WidgetSite},
     data() {
     return {
       showModal: false,
