@@ -16,7 +16,7 @@
           <form @submit.prevent="registerUser">
             <div class="form-group">
               <label for="username">Почта<span class="required-field">*</span></label>
-              <input v-model="email" type="email" id="username" name="username" placeholder="Usermail@gmail.com" required>
+              <input v-model="email" autocomplete="new-password" type="email" id="username" name="username" placeholder="Usermail@gmail.com" required>
             </div>
             <label for="phone">Телефон<span class="required-field">*</span></label>
             <div class="form-group-phone" style="display: flex;">      
@@ -37,12 +37,12 @@
                   </template>
                 </DropdownComponent>
               </div>
-              <InputMaskComponent @input="handleInput" id="basic" v-model="value" :mask="computedMask" :placeholder="computedPlaceholder" />
+              <InputMaskComponent autocomplete="new-password" @input="handleInput" id="basic" v-model="value" :mask="computedMask" :placeholder="computedPlaceholder" />
             </div>
             <div class="form-group">
               <label for="password">Пароль</label>
               <div class="card flex justify-content-center">
-                <PasswordComponent v-model="passwordValue" toggleMask />
+                <PasswordComponent autocomplete="new-password" v-model="passwordValue" toggleMask />
               </div>
               <div id="error" v-if="PasswordError">Введите более 6 знаков, включая цифры и латинские буквы</div>
             </div>

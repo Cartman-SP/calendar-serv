@@ -14,7 +14,7 @@
             </div>
             <div class="form-group">
               <label for="password">Пароль</label>
-              <PasswordComponent v-model="passwordValue" toggleMask />
+              <PasswordComponent v-model="passwordValue" toggleMask :feedback="false"/>
             </div>
             <div class="reset">
               <button type="submit">Войти</button>
@@ -119,8 +119,12 @@ export default {
   
   .login-link {
     color: #04C562;
-    text-decoration: underline;
     cursor: pointer;
+    transition: all .2s ease;
+  }
+
+  .login-link:hover{
+    color: #02a04e;
   }
   
   h2 {
@@ -153,7 +157,7 @@ export default {
   .p-dropdown{
       background: #f3f5f6;
       border: none;
-      transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, outline-color 0.2s;
+      transition: all .2s ease;
       border-radius: 6px;
       outline-color: transparent;
   }
@@ -220,7 +224,7 @@ export default {
     align-items: center;
     gap: 5px;
     border-radius: 3px;
-    transition: background-color 0.3s, color 0.3s
+    transition: all .2s ease;
   }
 
   button:hover {
@@ -292,7 +296,7 @@ export default {
     border: 1px solid #FAFAFA;
     padding: 15px 50px;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+    transition: all .2s ease;
     text-decoration: none;
     color: white;
   }
