@@ -137,7 +137,11 @@ export default {
       const file = event.target.files[0];
       this.serviceCover = file; // сохраняем весь объект файла
       const fileName = file.name; // извлекаем название файла
-      this.fileNameVariable = fileName; // сохраняем название файла в переменной
+      if (fileName.length > 40) {
+        this.fileNameVariable = fileName.slice(0, 40) + '...' + fileName.slice(-4);
+      }else{
+        this.fileNameVariable = fileName.slice(0, 40);
+      }
     },
 
     createProfile(){
@@ -168,7 +172,7 @@ export default {
           formData.append('currency', this.selectedCurrency);
           formData.append('id', this.$store.state.registrationData.user_id);
           console.log(this.$store.state.registrationData.user_id)
-          axios.post('http://127.0.0.1:8000/api/profile/', formData) // http://127.0.0.1:8000/api/profile/
+          axios.post('http://127.0.0.1:8000/api/profile/', formData)
             .then(response => {
               console.log('Profile created:', response.data);
               let projectId = response.data.project

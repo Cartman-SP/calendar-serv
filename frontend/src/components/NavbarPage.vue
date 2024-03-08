@@ -634,7 +634,7 @@ input{
   border-radius: 5px;
   padding: 20px;
   text-align: center;
- visibility: visible;
+  visibility: visible;
   transition: all .1s ease;
 }
 

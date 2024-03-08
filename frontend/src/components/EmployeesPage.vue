@@ -233,7 +233,11 @@
           const file = event.target.files[0];
           this.avatar = file; // сохраняем весь объект файла
           const fileName = file.name; // извлекаем название файла
-          this.fileNameVariable = fileName; // сохраняем название файла в переменной
+          if (fileName.length > 20) {
+            this.fileNameVariable = fileName.slice(0, 20) + '...' + fileName.slice(-4);
+          }else{
+            this.fileNameVariable = fileName.slice(0, 20);
+          }
         },
 
         deleteChip(chip){

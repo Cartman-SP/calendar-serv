@@ -109,7 +109,7 @@ export default {
 }
 
 .custom-select .items {
-  max-height: 200px;
+  max-height: 170px;
   overflow-y: scroll;
   margin-top: 10px;
   color: #535C69;
