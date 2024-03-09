@@ -59,7 +59,16 @@
               </div>
               <p class="pick_text">Сотрудник</p>
             </div>
-          </div>  
+          </div>
+        </div>
+        <div class="dropdown-item" v-if="selectedRole === 'Сотрудник'">
+          <p class="normal-text">Выберите сотрудника</p>
+          <SelectPage
+          :options="['123','123']"
+          :placeholderdata="'Выберите сотрудников'"
+          @input="option => selectedEmployees = option"
+          :class="{ 'select-error': selectedEmployeesError }"
+          />
         </div>
         <div class="send">
           <button class="send_btn">Отправить приглашение</button>
@@ -69,36 +78,46 @@
   </template>
   
   <script>
-  export default {
+  import SelectPage from '../components/SelectPage.vue';
+
+  export default { 
+    components: { SelectPage},
     data() {
       return {
+         selectedEmployees: false,
+         selectedRole: null,
       };
     },
     methods: {
       activateChoice(event) {
         // Получите ссылку на текущий выбор
         const choice = event.currentTarget;
-        // Проверьте, есть ли у выбранного выбора уже класс active
-        const isActive = choice.classList.contains('active');
 
         // Удалите `active` класс из всех choice
         document.querySelectorAll('.choice_pick').forEach(choice => {
-          choice.classList.remove('active');
+            choice.classList.remove('active');
+            choice.querySelector('.second_circle').style.display = 'none';
+            choice.querySelector('.pick_text').style.color = '#AFB6C1';
+            choice.querySelector('.circle').style.borderColor = '#C6CBD2'; // возвращаем цвет границы Circle
         });
 
-        // Если у выбранного выбора уже есть класс active, удаляем его и возвращаемся к изначальному состоянию
-        if (isActive) {
-          choice.querySelector('.second_circle').style.display = 'none';
-          choice.querySelector('.pick_text').style.color = '#AFB6C1';
-          choice.querySelector('.circle').style.borderColor = '#C6CBD2'; // возвращаем цвет границы Circle
-        } else {
-          // Если класса нет, добавляем его и меняем стиль в соответствии с задачей
-          choice.classList.add('active');
-          choice.querySelector('.second_circle').style.display = 'inline-block';
-          choice.querySelector('.pick_text').style.color = '#6266EA';
-          choice.querySelector('.circle').style.borderColor = '#6266EA'; // меняем цвет границы Circle
-        }
-      },
+        // Добавьте `active` класс только к текущему выбору
+        choice.classList.add('active');
+        choice.querySelector('.second_circle').style.display = 'inline-block';
+        choice.querySelector('.pick_text').style.color = '#6266EA';
+        choice.querySelector('.circle').style.borderColor = '#6266EA'; // меняем цвет границы Circle
+
+        const role = choice.querySelector('.pick_text').textContent;
+      // Устанавливаем выбранную роль в переменную selectedRole
+      this.selectedRole = role;
+
+      // Если выбран "Сотрудник", устанавливаем selectedEmployees в true
+      if (role === 'Сотрудник') {
+        this.selectedEmployees = true;
+      } else {
+        this.selectedEmployees = false;
+      }
+    },
     }
   };
   </script>
@@ -269,5 +288,18 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
+  }
+  .dropdown-item{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .normal-text {
+    color:#535C69;
+    font-family: TT Norms Medium;
+    font-size: 13px;
+    font-style: normal;
+    line-height: normal;
+    text-align: left;
   }
   </style>
