@@ -328,7 +328,9 @@ export default {
     },
     value(){
       this.alertMessage = null;
-      this.PhoneError = false;
+      if (!this.value.length < 6) {
+        this.PhoneError = false;
+      }
     },
     selectedBusiness(){
       this.alertMessage = null;
@@ -411,7 +413,7 @@ export default {
       }
     },
     onContinueButtonClick() {
-      if (this.value.length < 3 || !this.selectedCountry.length || !this.selectedCity.length || !this.selectedAdress || !this.selectedName || !this.selectedDays.length) {
+      if (this.value.length < 6 || !this.selectedCountry.length || !this.selectedCity.length || !this.selectedAdress || !this.selectedName || !this.selectedDays.length) {
         this.alertMessage = null;
         setTimeout(() => {
           this.alertMessage = 'Пожалуйста, заполните выделенные поля';
@@ -448,7 +450,7 @@ export default {
               this.selectedDaysError = false;
         }
 
-        if (this.value.length < 3) {
+        if (this.value.length < 6) {
           this.PhoneError = true;
         }else{
           this.PhoneError = false;
