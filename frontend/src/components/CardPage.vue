@@ -34,8 +34,8 @@
         </div>
       </div>
     </div>
-    <div class="overlay" v-if="showModal"></div>
-    <div v-if="showModal" class="modal">
+    <div :class="{'overlay-show' : showModal, 'overlay-hide' : !showModal}"></div>
+    <div :class="{'modal-show' : showModal, 'modal-hide' : !showModal}">
           <div class="modal-content">
             <p class="text-header">Удаление услуги</p>
             <p class="modal-subtext">Вы действительно хотите удалить услугу<br> <span>{{ this.usluga.name }}</span>?</p>
@@ -169,7 +169,7 @@ export default {
     object-fit: cover;
     border-radius: 5px;
   }
-  .modal{
+  .modal-show{
     width: auto;
     height: auto;
     position: absolute;
@@ -180,6 +180,48 @@ export default {
     transform: translate(-50%, -50%);
     background: white;
     z-index: 99;
+    opacity: 1;
+    visibility: visible;
+    transition: all .1s ease;
+  }
+  .modal-hide{
+    width: auto;
+    height: auto;
+    position: absolute;
+    padding: 40px;
+    border-radius: 10px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .1s ease;
+  }
+  .overlay-show {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Задний фон с прозрачностью 60% */
+    z-index: 98;
+    opacity: 1;
+    visibility: visible;
+    transition: all .1s ease;
+  }
+  .overlay-hide {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Задний фон с прозрачностью 60% */
+    z-index: 98;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .1s ease;
   }
   .delete{
     color: #F97F7F;
@@ -217,15 +259,6 @@ export default {
     color: #AFB6C1;
     margin: 0;
     margin-top: 10px;
-  }
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Задний фон с прозрачностью 60% */
-    z-index: 98;
   }
   @media (max-width: 568px){
     .bottom{

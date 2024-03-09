@@ -45,8 +45,8 @@
         </div>
       </div>
     </div>
-    <div class="overlay" v-if="showModal"></div>
-    <div v-if="showModal" class="modal">
+    <div :class="{'overlay-show' : showModal, 'overlay-hide' : !showModal}"></div>
+    <div :class="{'modal-show' : showModal, 'modal-hide' : !showModal}">
             <div class="modal-content">
               <p class="text-header">Удаление услуги</p>
               <p class="modal-subtext">Вы действительно хотите удалить сотрудника<br><span>{{ this.employeeData.firstname + ' ' + this.employeeData.secondname }}</span>?</p>
@@ -131,7 +131,37 @@ export default {
 
 
 <style scoped>
-.overlay {
+.modal-show{
+    width: auto;
+    height: auto;
+    position: absolute;
+    padding: 40px;
+    border-radius: 10px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    z-index: 99;
+    opacity: 1;
+    visibility: visible;
+    transition: all .1s ease;
+  }
+  .modal-hide{
+    width: auto;
+    height: auto;
+    position: absolute;
+    padding: 40px;
+    border-radius: 10px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .1s ease;
+  }
+  .overlay-show {
     position: fixed;
     top: 0;
     left: 0;
@@ -139,6 +169,21 @@ export default {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6); /* Задний фон с прозрачностью 60% */
     z-index: 98;
+    opacity: 1;
+    visibility: visible;
+    transition: all .1s ease;
+  }
+  .overlay-hide {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Задний фон с прозрачностью 60% */
+    z-index: 98;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .1s ease;
   }
 .text-header{
     font-family: TT Norms Medium;
@@ -202,18 +247,6 @@ export default {
   .dropdown_btn{
     display: flex;
     justify-content: right;
-  }
-  .modal{
-    width: auto;
-    height: auto;
-    position: absolute;
-    padding: 40px;
-    border-radius: 10px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    z-index: 99;
   }
   .delete{
     color: #F97F7F;

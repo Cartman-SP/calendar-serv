@@ -6,7 +6,7 @@
               <img v-if="showDropdown" src="../../static/img/x.svg" alt="Close">
             </button>
           </div>
-          <div v-if="showDropdown" class="dropdown-menu">
+          <div :class="{'dropdown-menu-show' : showDropdown, 'dropdown-menu-hide' : !showDropdown}">
             <div v-for="button in buttons" :key="button" @click="button.action">
               <div class="dropdown-item">
                 <div v-html="button.svg" class="svg-icon">
@@ -73,7 +73,7 @@ img{
   .dropdown:hover{
     border: 1px solid #535C69;
   }
-  .dropdown-menu {
+  .dropdown-menu-show {
     position: absolute;
     right: 0;
     top: 35px;
@@ -86,6 +86,29 @@ img{
     flex-direction: column;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
     text-align: left;
+    opacity: 1;
+    transform: translateY(0px);
+    visibility: visible;
+    transition: all .2s ease;
+  }
+
+  .dropdown-menu-hide {
+    position: absolute;
+    right: 0;
+    top: 35px;
+    width: 15vh;
+    height: auto;
+    background-color: #FFFFFF;
+    border: 1px solid #E4EAEF;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    opacity: 0;
+    transform: translateY(5px);
+    visibility: hidden;
+    transition: all .2s ease;
   }
   
   .dropdown-item{
@@ -99,6 +122,7 @@ img{
     line-height: 13px;
     letter-spacing: 0em;
     color: #AFB6C1;
+    transition: all .2s ease;
   }
 
   .svg-icon >>> svg{
@@ -106,10 +130,12 @@ img{
     width: 15px;
     margin-right: 5px;
     fill: #AFB6C1;
+    transition: all .2s ease;
   }
 
   .svg-icon >>> svg g{
     fill: #AFB6C1;
+    transition: all .2s ease;
   }
 
   .dropdown-item:hover{
@@ -133,6 +159,11 @@ img{
 
   #dropdown-delete:hover svg path{
     fill: #EF6262;
+    transition: all .2s ease;
+  }
+
+  #dropdown-delete svg path{
+    transition: all .2s ease;
   }
   .lines{
     width: 100%;
@@ -158,6 +189,7 @@ img{
     color: #F97F7F;
     background-color: rgba(249, 127, 127, 0.2);
     font-weight: bold;
+    transition: all .2s ease;
   }
   .delete:hover{
     background: #F97F7F;
