@@ -6,11 +6,15 @@
         <div class="actions">
             <div class="buttons-menu">
                 <div class="showGatesNotifications">
-                  <a @click="showGatesNotifications">
+                  <a @click="showGatesNotifications" @mouseover="showGatesNotifications_tip = true" @mouseleave="showGatesNotifications_tip = false">
                     <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M1.8998 0.299988C1.01615 0.299988 0.299805 1.01633 0.299805 1.89999V12.3C0.299805 13.1836 1.01615 13.9 1.8998 13.9H13.0998C13.9835 13.9 14.6998 13.1836 14.6998 12.3V3.49999C14.6998 2.61633 13.9835 1.89999 13.0998 1.89999H5.8998C5.8998 1.01633 5.18346 0.299988 4.2998 0.299988H1.8998Z" fill="#6266EA"/>
                     </svg>
                   </a>
+                  <div :class="{'tip-show' : showGatesNotifications_tip, 'tip-hide' : !showGatesNotifications_tip,}" v-if="!showGatesNotificationPanel">
+                    <div class="tooltip-arrow"></div>
+                    <p>Проекты</p>
+                  </div>
                   <div :class="{'gates-panel-show' : showGatesNotificationPanel, 'gates-panel-hide' : !showGatesNotificationPanel}">
                     <div class="navbar-arrow"></div>
                     <div>
@@ -83,11 +87,15 @@
                 </div>
                 
                 <div class="showPlusNotifications">
-                  <a @click="showPlusNotifications">
+                  <a @click="showPlusNotifications" @mouseover="showPlusNotifications_tip = true" @mouseleave="showPlusNotifications_tip = false">
                     <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M8.83301 5.16667V0.806667C9.44971 1.03956 10.0099 1.40087 10.4763 1.86667L12.799 4.19067C13.2653 4.65659 13.6269 5.2166 13.8597 5.83333H9.49967C9.32286 5.83333 9.15329 5.7631 9.02827 5.63807C8.90325 5.51305 8.83301 5.34348 8.83301 5.16667ZM14.1663 7.49V13.1667C14.1653 14.0504 13.8138 14.8976 13.1889 15.5225C12.564 16.1474 11.7167 16.4989 10.833 16.5H4.16634C3.28261 16.4989 2.43538 16.1474 1.81049 15.5225C1.1856 14.8976 0.834066 14.0504 0.833008 13.1667V3.83333C0.834066 2.9496 1.1856 2.10237 1.81049 1.47748C2.43538 0.852588 3.28261 0.501059 4.16634 0.5L7.17634 0.5C7.28501 0.5 7.39234 0.508667 7.49967 0.516V5.16667C7.49967 5.6971 7.71039 6.20581 8.08546 6.58088C8.46053 6.95595 8.96924 7.16667 9.49967 7.16667H14.1503C14.1577 7.274 14.1663 7.38133 14.1663 7.49ZM10.1663 11.8333C10.1663 11.6565 10.0961 11.487 9.97108 11.3619C9.84606 11.2369 9.67649 11.1667 9.49967 11.1667H8.16634V9.83333C8.16634 9.65652 8.0961 9.48695 7.97108 9.36193C7.84606 9.23691 7.67649 9.16667 7.49967 9.16667C7.32286 9.16667 7.15329 9.23691 7.02827 9.36193C6.90325 9.48695 6.83301 9.65652 6.83301 9.83333V11.1667H5.49967C5.32286 11.1667 5.15329 11.2369 5.02827 11.3619C4.90325 11.487 4.83301 11.6565 4.83301 11.8333C4.83301 12.0101 4.90325 12.1797 5.02827 12.3047C5.15329 12.4298 5.32286 12.5 5.49967 12.5H6.83301V13.8333C6.83301 14.0101 6.90325 14.1797 7.02827 14.3047C7.15329 14.4298 7.32286 14.5 7.49967 14.5C7.67649 14.5 7.84606 14.4298 7.97108 14.3047C8.0961 14.1797 8.16634 14.0101 8.16634 13.8333V12.5H9.49967C9.67649 12.5 9.84606 12.4298 9.97108 12.3047C10.0961 12.1797 10.1663 12.0101 10.1663 11.8333Z" fill="#6266EA"/>
                     </svg>
                   </a>
+                  <div :class="{'tip-show' : showPlusNotifications_tip, 'tip-hide' : !showPlusNotifications_tip,}" v-if="!showPlusNotificationPanel">
+                    <div class="tooltip-arrow"></div>
+                    <p>Создать</p>
+                  </div>
                   <div :class="{'plus-panel-show' : showPlusNotificationPanel, 'plus-panel-hide' : !showPlusNotificationPanel}">
                     <div class="navbar-arrow"></div>
                     <div class="header">
@@ -161,12 +169,16 @@
                   </svg>
                 </div>
                 <div class="showNotifications">
-                  <a @click="showNotifications">
+                  <a @click="showNotifications" @mouseover="showNotifications_tip = true" @mouseleave="showNotifications_tip = false">
                     <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M13.2998 6.9C13.2998 4.20278 12.1067 2.1508 9.98838 1.51001C9.75722 0.922564 9.18914 0.5 8.4998 0.5C7.81423 0.5 7.24859 0.917967 7.01504 1.50041C4.85022 2.1301 3.69981 4.18917 3.69981 6.9C3.69981 8.09303 3.69981 12.5 1.2998 12.5L1.29981 13.3H15.6998V12.5C13.2998 12.5 13.2998 8.1 13.2998 6.9Z" fill="#464AD9"/>
                       <path d="M10.0998 14.9C10.0998 15.7837 9.38346 16.5 8.4998 16.5C7.61615 16.5 6.89981 15.7837 6.89981 14.9H10.0998Z" fill="#464AD9"/>
                     </svg>
                     <div v-if="notifications.length > 0" class="chip"></div>
+                    <div :class="{'tip-show' : showNotifications_tip, 'tip-hide' : !showNotifications_tip,}" v-if="!showNotificationPanel">
+                      <div class="tooltip-arrow"></div>
+                      <p>Уведомления</p>
+                    </div>
                   </a>
                   <div :class="{'notification-panel-show' : showNotificationPanel, 'notification-panel-hide' : !showNotificationPanel}">
                     <div class="navbar-arrow"></div>
@@ -225,6 +237,10 @@ export default {
             showNotificationPanel: false,
             showPlusNotificationPanel: false,
             showGatesNotificationPanel: false,
+
+            showGatesNotifications_tip: false,
+            showPlusNotifications_tip: false,
+            showNotifications_tip: false,
             
             rate: 'Название', //подгружается в название тарифа
             notifications: ['Подтвердите адрес электронной почты','У вас новая заявка','Ваша первая заявка','Ваша первая заявка'], //подгружается в уведомления
@@ -295,6 +311,61 @@ export default {
 </script>
 
 <style scoped>
+.tip-show{
+  font-size: 15px;
+  font-family: 'TT Norms Medium';
+  max-width: 700px;
+  width: auto;
+  text-align: left;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  position: absolute;
+  background-color: #212326;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 999;
+
+  transform: translateY(50px);
+  transition: all .2s ease;
+  opacity: 100%;
+  visibility: visible;
+}
+
+.tip-hide{
+  font-size: 15px;
+  font-family: 'TT Norms Medium';
+  max-width: 700px;
+  width: auto;
+  text-align: left;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  position: absolute;
+  background-color: #212326;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 999;
+
+  transform: translateY(60px);
+  transition: all .2s ease;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.tooltip-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid #212326;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 .navbar-arrow {
     position: absolute;
     width: 0;
@@ -347,7 +418,7 @@ export default {
   gap: 10px;
   justify-content: start;
   align-items: center;
-  font-family: 'TT Norms Medium';
+  
   font-size: 14px;
   margin-top: 10px;
   padding: 10px;
@@ -384,12 +455,15 @@ export default {
 
 .showNotifications{
   position: relative; 
+  display: flex; flex-direction: column; align-items: center;
 }
 .showGatesNotifications{
   position: relative;
+  display: flex; flex-direction: column; align-items: center;
 }
 .showPlusNotifications{
   position: relative;
+  display: flex; flex-direction: column; align-items: center;
 }
 
 img{

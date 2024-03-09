@@ -22,141 +22,27 @@
             <input class="input_search" type="search" name="" id="" placeholder="Найти услугу">
           </div>
       
-          <div class="card">
+          <div class="card" v-for="u in uslugi" :key="u.id">
             <div class="compo-wrapper">
               <img src="../../static/img/barber.svg" alt="">
-              <p class="">Комплексная мужская<br>стрижка</p>
+              <p class="usluga-head">{{ u.name }}</p>
             </div>
             <div class="compo-wrapper-tariff">
               <div class="tariff">
                 <div class="tariff-item">
-                  <p>3000 тнг</p>
+                  <p>{{ u.cost }} {{ costsign || 'RUB' }}</p>
                 </div>
                 <div class="dot"></div>
                 <div class="tariff-item">
-                  <p>1 час</p>
+                  <p>{{ u.time }}</p>
                 </div>
               </div>
               <button @click="toggleSelection" v-if="!isCircleShown" class="btn-wrapper">Выбрать</button>
               <div v-else class="delete">
-                <button @click="resetSelection" class="delete-btn">
-                  <img src="../../static/img/trash_2.svg" alt="Иконка Удаления">
-                </button>
-              </div>
-            </div>
-          </div>
-      
-          <div class="card">
-            <div class="compo-wrapper">
-              <img src="../../static/img/barber.svg" alt="">
-              <p class="">Комплексная мужская<br>стрижка</p>
-            </div>
-            <div class="compo-wrapper-tariff">
-              <div class="tariff">
-                <div class="tariff-item">
-                  <p>3000 тнг</p>
-                </div>
-                <div class="dot"></div>
-                <div class="tariff-item">
-                  <p>1 час</p>
-                </div>
-              </div>
-              <button @click="toggleSelection" v-if="!isCircleShown" class="btn-wrapper">Выбрать</button>
-              <div v-else class="delete">
-                <button @click="resetSelection" class="delete-btn">
-                  <img src="../../static/img/trash_2.svg" alt="Иконка Удаления">
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="compo-wrapper">
-              <img src="../../static/img/barber.svg" alt="">
-              <p class="">Комплексная мужская<br>стрижка</p>
-            </div>
-            <div class="compo-wrapper-tariff">
-              <div class="tariff">
-                <div class="tariff-item">
-                  <p>3000 тнг</p>
-                </div>
-                <div class="dot"></div>
-                <div class="tariff-item">
-                  <p>1 час</p>
-                </div>
-              </div>
-              <button @click="toggleSelection" v-if="!isCircleShown" class="btn-wrapper">Выбрать</button>
-              <div v-else class="delete">
-                <button @click="resetSelection" class="delete-btn">
-                  <img src="../../static/img/trash_2.svg" alt="Иконка Удаления">
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="compo-wrapper">
-              <img src="../../static/img/barber.svg" alt="">
-              <p class="">Комплексная мужская<br>стрижка</p>
-            </div>
-            <div class="compo-wrapper-tariff">
-              <div class="tariff">
-                <div class="tariff-item">
-                  <p>3000 тнг</p>
-                </div>
-                <div class="dot"></div>
-                <div class="tariff-item">
-                  <p>1 час</p>
-                </div>
-              </div>
-              <button @click="toggleSelection" v-if="!isCircleShown" class="btn-wrapper">Выбрать</button>
-              <div v-else class="delete">
-                <button @click="resetSelection" class="delete-btn">
-                  <img src="../../static/img/trash_2.svg" alt="Иконка Удаления">
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="compo-wrapper">
-              <img src="../../static/img/barber.svg" alt="">
-              <p class="">Комплексная мужская<br>стрижка</p>
-            </div>
-            <div class="compo-wrapper-tariff">
-              <div class="tariff">
-                <div class="tariff-item">
-                  <p>3000 тнг</p>
-                </div>
-                <div class="dot"></div>
-                <div class="tariff-item">
-                  <p>1 час</p>
-                </div>
-              </div>
-              <button @click="toggleSelection" v-if="!isCircleShown" class="btn-wrapper">Выбрать</button>
-              <div v-else class="delete">
-                <button @click="resetSelection" class="delete-btn">
-                  <img src="../../static/img/trash_2.svg" alt="Иконка Удаления">
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="compo-wrapper">
-              <img src="../../static/img/barber.svg" alt="">
-              <p class="">Комплексная мужская<br>стрижка</p>
-            </div>
-            <div class="compo-wrapper-tariff">
-              <div class="tariff">
-                <div class="tariff-item">
-                  <p>3000 тнг</p>
-                </div>
-                <div class="dot"></div>
-                <div class="tariff-item">
-                  <p>1 час</p>
-                </div>
-              </div>
-              <button @click="toggleSelection" v-if="!isCircleShown" class="btn-wrapper">Выбрать</button>
-              <div v-else class="delete">
-                <button @click="resetSelection" class="delete-btn">
-                  <img src="../../static/img/trash_2.svg" alt="Иконка Удаления">
+                <button @click="resetSelection" style="background-color: rgba(249, 144, 144, 0.1); height: 30px; width: 30px; border-radius: 15px; padding: 5px;">
+                  <svg width="12" height="12" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M1.94318 1.55556C1.94318 1.1797 2.2637 0.875 2.65909 0.875H9.34092C9.73631 0.875 10.0568 1.1797 10.0568 1.55556C10.0568 1.93142 9.73631 2.23611 9.34092 2.23611H2.65909C2.2637 2.23611 1.94318 1.93142 1.94318 1.55556ZM1.46591 4.95833H0.75V3.59722H11.25V4.95833H10.5341V10.6296C10.5341 12.0078 9.35886 13.125 7.9091 13.125H4.09091C2.64116 13.125 1.46591 12.0078 1.46591 10.6296V4.95833ZM9.10227 4.95833H2.89773V10.6296C2.89773 11.2561 3.43194 11.7639 4.09091 11.7639H7.9091C8.56806 11.7639 9.10227 11.2561 9.10227 10.6296V4.95833Z" fill="#F97F7F"/>
+                  </svg>
                 </button>
               </div>
             </div>
@@ -184,6 +70,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   props: ['theme', 'MainColor', 'WidgetColor', 'BakcgroundColor', 'TextColor'],
   watch: {
@@ -207,9 +95,22 @@ export default {
     return {
       isCircleShown: false,
       colortheme: 'lightmode',
+      uslugi: [],
     };
   },
   methods: {
+    async get_uslugi(){
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/uslugi/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`);
+        this.uslugi = response.data; // Присваиваем полученные данные массиву uslugi
+        this.uslugi.reverse();
+        console.log(this.uslugi)
+      } catch (error) {
+        console.error('Error fetching uslugi:', error);
+      }
+    },
+
+
     toggleSelection() {
       this.isCircleShown = !this.isCircleShown;
     },
@@ -256,11 +157,24 @@ export default {
       return `rgba(${r},${g},${b},${alpha})`;
     },
   },
+  async mounted() {
+      // Выполняем запрос при монтировании страницы
+      await this.get_uslugi();
+    },
 };
 
 </script>
 
 <style scoped>
+.usluga-head{
+  text-align: left;
+    font-family: TT Norms Medium;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+    color:var(--color-text);
+}
+
 #lightmode {
   --color-main: var(--cw, white);
   --color-gray: var(--cb, #FAFAFA);
@@ -342,6 +256,8 @@ export default {
     border-radius: 100px;
     background: var(--color-btnmain);
     color: var(--color-global);
+    height: 30px;
+    font-family: TT Norms Medium; 
     font-weight: 500;
     padding: 2px 20px;
   }
@@ -361,7 +277,7 @@ export default {
   }
   p{
     text-align: left;
-    font-family: TT Norms Medium;
+    font-family: TT Norms Light;
     font-size: 14px;
     font-weight: 500;
     line-height: 17px;

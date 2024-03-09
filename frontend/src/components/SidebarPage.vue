@@ -444,10 +444,8 @@ export default {
 #bottom_avatar{
   padding: 15px 20px;
 }
-@media (max-width: 1920px){
-  #mobileLogo {
+#mobileLogo {
     display: none;
-  }
 }
 
 @media (max-width: 1024px){

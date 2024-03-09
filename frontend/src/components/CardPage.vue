@@ -128,6 +128,7 @@ export default {
     height: 100%;
     background-color: #FFF;
     border-radius: 5px;
+    transition: filter .2s ease;
   }
 
   .service_card-deleting{
