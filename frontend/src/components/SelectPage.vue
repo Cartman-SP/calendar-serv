@@ -5,6 +5,7 @@
     </div>
 
     <div class="items" :class="{ selectHide: !open }">
+      <div v-if="!optionsList.length > 0">Здесь пока ничего нет</div>
       <div
         v-for="option in optionsList"
         :key="getOptionKey(option)"
