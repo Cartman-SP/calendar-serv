@@ -16,7 +16,9 @@
     "primevue": "^3.47.2",
     "vue": "^3.4.15",
     "vue-click-outside": "^1.1.0",
+    "vue-draggable-plus": "^0.3.5",
     "vue-router": "^4.0.3",
+    "vuedraggable": "^2.24.3",
     "vuex": "^4.1.0",
     "vuex-persistedstate": "^4.1.0"
   },

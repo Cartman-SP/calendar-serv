@@ -77,7 +77,7 @@ img{
     position: absolute;
     right: 0;
     top: 35px;
-    width: 15vh;
+    width: 150px;
     height: auto;
     background-color: #FFFFFF;
     border: 1px solid #E4EAEF;
@@ -96,7 +96,7 @@ img{
     position: absolute;
     right: 0;
     top: 35px;
-    width: 15vh;
+    width: 150px;
     height: auto;
     background-color: #FFFFFF;
     border: 1px solid #E4EAEF;

@@ -9,9 +9,9 @@
         </div>
         <p>Добавить виджет</p>
       </router-link>
-      <CardWidget :widgetData="Widget"/>
+      <CardWidget v-for="Widget in allwidgets" :key="Widget.id" :widgetData="Widget"/>
     </div>
-    <div class="widgets" v-if="!Widget">
+    <div class="widgets" v-if="!allwidgets">
         <img src="../../static/img/big_flag.png" alt="" class="img_widgets">
         <p class="header">Последний рывок</p>
         <p class="subheader">Осталось только создать виджет, выбрать его оформление<br> и разместить его на сайте или в социальных сетях. После<br> чего ваши клиенты смогут записываться к вам онлайн.</p>
@@ -29,13 +29,26 @@ export default {
   components: { CardWidget },
     data() {
       return{
-        Widget:
+        allwidgets:[
           {
             name: 'qwdqwd',
             link: 'qxcvdbtbqwd.com',
             date: '12.02.24',
             id: '237465',
-          }
+          },
+          {
+            name: 'fdgdfg',
+            link: 'qxcvdbtbqwd.com',
+            date: '12.02.24',
+            id: '237465',
+          },
+          {
+            name: '568',
+            link: 'qxcvdbtbqwd.com',
+            date: '12.02.24',
+            id: '237465',
+          },
+        ]
       };
     }
   }

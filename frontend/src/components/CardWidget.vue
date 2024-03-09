@@ -19,7 +19,7 @@
                 <img src="../../static/img/edit.png" alt="">
                 <p class="id">{{ widgetData.date }}</p>
               </div>
-              <p class="id">id {{ widgetData.id }}</p>
+              <p class="id"><span style="font-family: TT Norms Medium; color: rgba(210, 216, 222, 1);">ID</span> {{ widgetData.id }}</p>
             </div>
           </div>
         </div>
@@ -91,7 +91,7 @@ export default {
 <style scoped>
   .text-header{
     font-family: TT Norms Medium;
-    font-size: 16px;
+    font-size: 20px;
     line-height: 18px;
     letter-spacing: 0em;
     color: #535C69;
@@ -175,6 +175,8 @@ export default {
     display: flex;
     align-items: center;
     gap: 10px;
+    font-size: 14px;
+    font-family: TT Norms;
   }
   .main_container{
     display: flex;
@@ -196,7 +198,7 @@ export default {
   }
   .id{
     color: #D2D8DE;
-    font-family: TT Norms Medium;
+    font-family: TT Norms;
     font-size: 12px;
     line-height: 14px;
     letter-spacing: 0em;
