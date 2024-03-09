@@ -10,165 +10,221 @@
           </div>
           <p class="creation_text">Создание сотрудника</p>
         </div>
-        <div class="create_employess">
-          <!-- Form Elements -->
-          <div class="form-container">
-            <div class="form-row">
-              <div class="form-column">
-                <label for="firstName">Имя</label>
-                <input type="text" v-model="firstname" id="firstName" placeholder="Введите имя" :class="{ 'input-error': firstnameError }">
+        <div class="main_group">
+          <div class="create_employess">
+            <!-- Form Elements -->
+            <div class="form-container">
+              <div class="form-row">
+                <div class="form-column">
+                  <label for="firstName">Имя</label>
+                  <input type="text" v-model="firstname" id="firstName" placeholder="Введите имя" :class="{ 'input-error': firstnameError }">
+                </div>
+                <div class="form-column">
+                  <label for="lastName">Фамилия</label>
+                  <input type="text" v-model="secondname" id="lastName" placeholder="Введите фамилию" :class="{ 'input-error': secondnameError }">
+                </div>
               </div>
-              <div class="form-column">
-                <label for="lastName">Фамилия</label>
-                <input type="text" v-model="secondname" id="lastName" placeholder="Введите фамилию" :class="{ 'input-error': secondnameError }">
+  
+              <div class="form-row">
+                <div class="form-column">
+                  <label for="position">Должность</label>
+                  <input type="text" v-model="rank" id="position" placeholder="Введите должность" :class="{ 'input-error': rankError }">
+                </div>
+                <div class="form-column">
+                  <label for="photo">Фото</label>
+                  <label class="custom-file-upload" :class="{'custom-file-upload-error' : avatarError}" v-if="!fileNameVariable">
+                    <input type="file" accept="image/*" @change="handleFileUpload($event)"/>Нажмите, чтобы добавить 
+                  </label>
+                  <label style="color: #535C69;" class="custom-file-upload" :class="{'custom-file-upload-error' : avatarError}" v-else>
+                    <input type="file" accept="image/*" @change="handleFileUpload($event)"/>{{ fileNameVariable }}
+                  </label>
+                </div>
               </div>
-            </div>
-
-            <div class="form-row">
-              <div class="form-column">
-                <label for="position">Должность</label>
-                <input type="text" v-model="rank" id="position" placeholder="Введите должность" :class="{ 'input-error': rankError }">
-              </div>
-              <div class="form-column">
-                <label for="photo">Фото</label>
-                <label class="custom-file-upload" :class="{'custom-file-upload-error' : avatarError}" v-if="!fileNameVariable">
-                  <input type="file" accept="image/*" @change="handleFileUpload($event)"/>Нажмите, чтобы добавить 
-                </label>
-                <label style="color: #535C69;" class="custom-file-upload" :class="{'custom-file-upload-error' : avatarError}" v-else>
-                  <input type="file" accept="image/*" @change="handleFileUpload($event)"/>{{ fileNameVariable }}
-                </label>
-              </div>
-            </div>
-            
-            <div class="dropdown-container">
-              <label for="service">Услуга</label>
-              <SelectPage
-                :options="this.uslugi.map(item => 
-                ({name: item.name, 
-                  id: item.id}))"
-                class="select"
-                @input="handleSelectInput"
-                :placeholderdata="'Выберите услугу'"
-                :class="{ 'select-error': chipsError }"
-              />
-            </div>
-
-            <div class="chips-block">
-              <div class="chip" v-for="chip in chips" :key="chip.id">
-                <svg @click="deleteChip(chip)" width="8" height="8" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M2.29294 3.00003L0.146484 5.14648L0.853591 5.85359L3.00004 3.70714L5.1465 5.85359L5.85361 5.14648L3.70715 3.00003L5.85359 0.853591L5.14648 0.146484L3.00004 2.29292L0.853605 0.146484L0.146499 0.853591L2.29294 3.00003Z" fill="white"/>
-                </svg>
-                <p>{{ chip.name }}</p>
-              </div>
-            </div>
-
-            <div class="form-row">
+              
               <div class="dropdown-container">
-                <div class="usluga-head" v-if="selectedRecordType !== ''">
-                  <label for="groupCapacity">График работы</label>
-                  <Tip :Tip="'На основе выбранного графика, система автоматически \n сформирует график работы на месяц вперед'"/>
+                <label for="service">Услуга</label>
+                <SelectPage
+                  :options="this.uslugi.map(item => 
+                  ({name: item.name, 
+                    id: item.id}))"
+                  class="select"
+                  @input="handleSelectInput"
+                  :placeholderdata="'Выберите услугу'"
+                  :class="{ 'select-error': chipsError }"
+                />
+              </div>
+  
+              <div class="chips-block">
+                <div class="chip" v-for="chip in chips" :key="chip.id">
+                  <svg @click="deleteChip(chip)" width="8" height="8" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.29294 3.00003L0.146484 5.14648L0.853591 5.85359L3.00004 3.70714L5.1465 5.85359L5.85361 5.14648L3.70715 3.00003L5.85359 0.853591L5.14648 0.146484L3.00004 2.29292L0.853605 0.146484L0.146499 0.853591L2.29294 3.00003Z" fill="white"/>
+                  </svg>
+                  <p>{{ chip.name }}</p>
                 </div>
-                <div class="graffic_container">
-                  <button class="graffic_btn" @click="toggleGraffic('weekly')" :class="{ 'graffic_btn-active': selectedRecordType === 'weekly', 'button-error' : selectedRecordTypeError }">Недельный график</button>
-                  <button class="graffic_btn" @click="toggleGraffic('replaceable')" :class="{ 'graffic_btn-active': selectedRecordType === 'replaceable', 'button-error' : selectedRecordTypeError  }">Сменный график</button>
-                </div>
-                <div class="weekly" v-show="isGrafficActive('weekly')">
-                  <p class="graffic_text">
-                    Недельный график:
-                  </p>
-                  <div class="days-buttons">
-                    <button :class="{ 'form-btn-active': isDaySelected('Пн'), 'form-btn': !isDaySelected('Пн'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Пн')">
-                      Пн
-                      <svg @click.stop="toggleTimeArea('Пн')" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4C8 6.20914 6.20914 8 4 8C1.79086 8 0 6.20914 0 4C0 1.79086 1.79086 0 4 0C6.20914 0 8 1.79086 8 4ZM4.2 1.8H3.4V3.96569L5.51716 6.08284L6.08284 5.51716L4.2 3.63431V1.8Z" fill="#D2D8DE"/>
-                      </svg>
-                    </button>
-                    <button :class="{ 'form-btn-active': isDaySelected('Вт'), 'form-btn': !isDaySelected('Вт'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Вт')">
-                      Вт
-                      <svg @click.stop="toggleTimeArea('Вт')" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4C8 6.20914 6.20914 8 4 8C1.79086 8 0 6.20914 0 4C0 1.79086 1.79086 0 4 0C6.20914 0 8 1.79086 8 4ZM4.2 1.8H3.4V3.96569L5.51716 6.08284L6.08284 5.51716L4.2 3.63431V1.8Z" fill="#D2D8DE"/>
-                      </svg>
-                    </button>
-                    <button :class="{ 'form-btn-active': isDaySelected('Ср'), 'form-btn': !isDaySelected('Ср'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Ср')">
-                      Ср
-                      <svg @click.stop="toggleTimeArea('Ср')" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4C8 6.20914 6.20914 8 4 8C1.79086 8 0 6.20914 0 4C0 1.79086 1.79086 0 4 0C6.20914 0 8 1.79086 8 4ZM4.2 1.8H3.4V3.96569L5.51716 6.08284L6.08284 5.51716L4.2 3.63431V1.8Z" fill="#D2D8DE"/>
-                      </svg>
-                    </button>
-                    <button :class="{ 'form-btn-active': isDaySelected('Чт'), 'form-btn': !isDaySelected('Чт'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Чт')">
-                      Чт
-                      <svg @click.stop="toggleTimeArea('Чт')" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4C8 6.20914 6.20914 8 4 8C1.79086 8 0 6.20914 0 4C0 1.79086 1.79086 0 4 0C6.20914 0 8 1.79086 8 4ZM4.2 1.8H3.4V3.96569L5.51716 6.08284L6.08284 5.51716L4.2 3.63431V1.8Z" fill="#D2D8DE"/>
-                      </svg>
-                    </button>
-                    <button :class="{ 'form-btn-active': isDaySelected('Пт'), 'form-btn': !isDaySelected('Пт'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Пт')">
-                      Пт
-                      <svg @click.stop="toggleTimeArea('Пт')" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4C8 6.20914 6.20914 8 4 8C1.79086 8 0 6.20914 0 4C0 1.79086 1.79086 0 4 0C6.20914 0 8 1.79086 8 4ZM4.2 1.8H3.4V3.96569L5.51716 6.08284L6.08284 5.51716L4.2 3.63431V1.8Z" fill="#D2D8DE"/>
-                      </svg>
-                    </button>
-                    <button :class="{ 'form-btn-active': isDaySelected('Сб'), 'form-btn': !isDaySelected('Сб'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Сб')">
-                      Сб
-                      <svg @click.stop="toggleTimeArea('Сб')" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4C8 6.20914 6.20914 8 4 8C1.79086 8 0 6.20914 0 4C0 1.79086 1.79086 0 4 0C6.20914 0 8 1.79086 8 4ZM4.2 1.8H3.4V3.96569L5.51716 6.08284L6.08284 5.51716L4.2 3.63431V1.8Z" fill="#D2D8DE"/>
-                      </svg>
-                    </button>
-                    <button :class="{ 'form-btn-active': isDaySelected('Вс'), 'form-btn': !isDaySelected('Вс'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Вс')">
-                      Вс
-                      <svg @click.stop="toggleTimeArea('Вс')" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+              </div>
+  
+              <div class="form-row">
+                <div class="dropdown-container">
+                  <div class="usluga-head" v-if="selectedRecordType !== ''">
+                    <label for="groupCapacity">График работы</label>
+                    <Tip :Tip="'На основе выбранного графика, система автоматически \n сформирует график работы на месяц вперед'"/>
+                  </div>
+                  <div class="graffic_container">
+                    <button class="graffic_btn" @click="toggleGraffic('weekly')" :class="{ 'graffic_btn-active': selectedRecordType === 'weekly', 'button-error' : selectedRecordTypeError }">Недельный график</button>
+                    <button class="graffic_btn" @click="toggleGraffic('replaceable')" :class="{ 'graffic_btn-active': selectedRecordType === 'replaceable', 'button-error' : selectedRecordTypeError  }">Сменный график</button>
+                  </div>
+                  <div class="weekly" v-show="isGrafficActive('weekly')">
+                    <p class="graffic_text">
+                      Недельный график:
+                    </p>
+                    <div class="days-buttons">
+                      <button :class="{ 'form-btn-active': isDaySelected('Пн'), 'form-btn': !isDaySelected('Пн'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Пн')">
+                        Пн
+                        <svg @click.stop="toggleTimeArea('Пн')" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4C8 6.20914 6.20914 8 4 8C1.79086 8 0 6.20914 0 4C0 1.79086 1.79086 0 4 0C6.20914 0 8 1.79086 8 4ZM4.2 1.8H3.4V3.96569L5.51716 6.08284L6.08284 5.51716L4.2 3.63431V1.8Z" fill="#D2D8DE"/>
-                      </svg>
-                    </button>
+                        </svg>
+                      </button>
+                      <button :class="{ 'form-btn-active': isDaySelected('Вт'), 'form-btn': !isDaySelected('Вт'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Вт')">
+                        Вт
+                        <svg @click.stop="toggleTimeArea('Вт')" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4C8 6.20914 6.20914 8 4 8C1.79086 8 0 6.20914 0 4C0 1.79086 1.79086 0 4 0C6.20914 0 8 1.79086 8 4ZM4.2 1.8H3.4V3.96569L5.51716 6.08284L6.08284 5.51716L4.2 3.63431V1.8Z" fill="#D2D8DE"/>
+                        </svg>
+                      </button>
+                      <button :class="{ 'form-btn-active': isDaySelected('Ср'), 'form-btn': !isDaySelected('Ср'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Ср')">
+                        Ср
+                        <svg @click.stop="toggleTimeArea('Ср')" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4C8 6.20914 6.20914 8 4 8C1.79086 8 0 6.20914 0 4C0 1.79086 1.79086 0 4 0C6.20914 0 8 1.79086 8 4ZM4.2 1.8H3.4V3.96569L5.51716 6.08284L6.08284 5.51716L4.2 3.63431V1.8Z" fill="#D2D8DE"/>
+                        </svg>
+                      </button>
+                      <button :class="{ 'form-btn-active': isDaySelected('Чт'), 'form-btn': !isDaySelected('Чт'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Чт')">
+                        Чт
+                        <svg @click.stop="toggleTimeArea('Чт')" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4C8 6.20914 6.20914 8 4 8C1.79086 8 0 6.20914 0 4C0 1.79086 1.79086 0 4 0C6.20914 0 8 1.79086 8 4ZM4.2 1.8H3.4V3.96569L5.51716 6.08284L6.08284 5.51716L4.2 3.63431V1.8Z" fill="#D2D8DE"/>
+                        </svg>
+                      </button>
+                      <button :class="{ 'form-btn-active': isDaySelected('Пт'), 'form-btn': !isDaySelected('Пт'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Пт')">
+                        Пт
+                        <svg @click.stop="toggleTimeArea('Пт')" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4C8 6.20914 6.20914 8 4 8C1.79086 8 0 6.20914 0 4C0 1.79086 1.79086 0 4 0C6.20914 0 8 1.79086 8 4ZM4.2 1.8H3.4V3.96569L5.51716 6.08284L6.08284 5.51716L4.2 3.63431V1.8Z" fill="#D2D8DE"/>
+                        </svg>
+                      </button>
+                      <button :class="{ 'form-btn-active': isDaySelected('Сб'), 'form-btn': !isDaySelected('Сб'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Сб')">
+                        Сб
+                        <svg @click.stop="toggleTimeArea('Сб')" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4C8 6.20914 6.20914 8 4 8C1.79086 8 0 6.20914 0 4C0 1.79086 1.79086 0 4 0C6.20914 0 8 1.79086 8 4ZM4.2 1.8H3.4V3.96569L5.51716 6.08284L6.08284 5.51716L4.2 3.63431V1.8Z" fill="#D2D8DE"/>
+                        </svg>
+                      </button>
+                      <button :class="{ 'form-btn-active': isDaySelected('Вс'), 'form-btn': !isDaySelected('Вс'), 'button-days-error' : selectedDaysError }" @click="toggleDay('Вс')">
+                        Вс
+                        <svg @click.stop="toggleTimeArea('Вс')" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4C8 6.20914 6.20914 8 4 8C1.79086 8 0 6.20914 0 4C0 1.79086 1.79086 0 4 0C6.20914 0 8 1.79086 8 4ZM4.2 1.8H3.4V3.96569L5.51716 6.08284L6.08284 5.51716L4.2 3.63431V1.8Z" fill="#D2D8DE"/>
+                        </svg>
+                      </button>
+                    </div>
                   </div>
-                </div>
-                <div v-if="selectedDays.length > 0" class="form-column">
-                  <div class="form-row">
-                    <div class="dropdown-container">
-                      <label>Рабочие часы - {{ timeAreaDay || selectedDays[0]}}</label>
+                  <div v-if="selectedDays.length > 0" class="form-column">
+                    <div class="form-row">
                       <div class="dropdown-container">
-                        <SelectPage
-                        :options="['9:00 — 19:00', '9:00 — 20:00', '9:00 — 21:00', '10:00 — 18:00','10:00 — 19:00','10:00 — 20:00', '10:00 — 22:00']"
-                        @input="option => work_time = option"
-                        :placeholderdata="'Выберите время'"
-                        :class="{ 'select-error': work_timeError }"
-                        />    
+                        <label>Рабочие часы - {{ timeAreaDay || selectedDays[0]}}</label>
+                        <div class="dropdown-container">
+                          <SelectPage
+                          :options="['9:00 — 19:00', '9:00 — 20:00', '9:00 — 21:00', '10:00 — 18:00','10:00 — 19:00','10:00 — 20:00', '10:00 — 22:00']"
+                          @input="option => work_time = option"
+                          :placeholderdata="'Выберите время'"
+                          :class="{ 'select-error': work_timeError }"
+                          />    
+                        </div>
+                      </div>
+                      <div class="dropdown-container">
+                        <label for="break">Перерыв - {{ timeAreaDay || selectedDays[0] }}</label>
+                        <div class="dropdown-container">
+                          <SelectPage
+                          :options="['13:00 — 14:00', '13:00 — 14:00', '13:00 — 14:00']"
+                          @input="option => chill_time = option"
+                          :placeholderdata="'Выберите время'"
+                          :class="{ 'select-error': chill_timeError }"
+                          />
+                        </div>
                       </div>
                     </div>
-                    <div class="dropdown-container">
-                      <label for="break">Перерыв - {{ timeAreaDay || selectedDays[0] }}</label>
-                      <div class="dropdown-container">
-                        <SelectPage
-                        :options="['13:00 — 14:00', '13:00 — 14:00', '13:00 — 14:00']"
-                        @input="option => chill_time = option"
-                        :placeholderdata="'Выберите время'"
-                        :class="{ 'select-error': chill_timeError }"
-                        />
-                      </div>
-                    </div>
                   </div>
-                </div>
-                <div class="replaceable" v-show="isGrafficActive('replaceable')">
-                  <p class="graffic_text">
-                    Сменный график (Рабочий день х Выходной день):
-                  </p>
-                  <div class="days-buttons">
-                    <button :class="{ 'form-btn-active': isDaySelected('1x1'), 'form-btn': !isDaySelected('1x1'), 'button-days-error' : selectedDaysError }" @click="toggleDay('1x1')">1x1</button>
-                    <button :class="{ 'form-btn-active': isDaySelected('2х2'), 'form-btn': !isDaySelected('2х2'), 'button-days-error' : selectedDaysError }" @click="toggleDay('2х2')">2х2</button>
-                    <button :class="{ 'form-btn-active': isDaySelected('3х3'), 'form-btn': !isDaySelected('3х3'), 'button-days-error' : selectedDaysError }" @click="toggleDay('3х3')">3х3</button>
-                    <button :class="{ 'form-btn-active': isDaySelected('7х7'), 'form-btn': !isDaySelected('7х7'), 'button-days-error' : selectedDaysError }" @click="toggleDay('7х7')">7х7</button>
-                    <button :class="{ 'form-btn-active': isDaySelected('1х2'), 'form-btn': !isDaySelected('1х2'), 'button-days-error' : selectedDaysError }" @click="toggleDay('1х2')">1х2</button>
-                    <button :class="{ 'form-btn-active': isDaySelected('2х1'), 'form-btn': !isDaySelected('2х1'), 'button-days-error' : selectedDaysError }" @click="toggleDay('2х1')">2х1</button>
-                    <button :class="{ 'form-btn-active': isDaySelected('15х15'), 'form-btn': !isDaySelected('15х15'), 'button-days-error' : selectedDaysError }" @click="toggleDay('15х15')">15х15</button>
+                  <div class="replaceable" v-show="isGrafficActive('replaceable')">
+                    <p class="graffic_text">
+                      Сменный график (Рабочий день х Выходной день):
+                    </p>
+                    <div class="days-buttons">
+                      <button :class="{ 'form-btn-active': isDaySelected('1x1'), 'form-btn': !isDaySelected('1x1'), 'button-days-error' : selectedDaysError }" @click="toggleDay('1x1')">1x1</button>
+                      <button :class="{ 'form-btn-active': isDaySelected('2х2'), 'form-btn': !isDaySelected('2х2'), 'button-days-error' : selectedDaysError }" @click="toggleDay('2х2')">2х2</button>
+                      <button :class="{ 'form-btn-active': isDaySelected('3х3'), 'form-btn': !isDaySelected('3х3'), 'button-days-error' : selectedDaysError }" @click="toggleDay('3х3')">3х3</button>
+                      <button :class="{ 'form-btn-active': isDaySelected('7х7'), 'form-btn': !isDaySelected('7х7'), 'button-days-error' : selectedDaysError }" @click="toggleDay('7х7')">7х7</button>
+                      <button :class="{ 'form-btn-active': isDaySelected('1х2'), 'form-btn': !isDaySelected('1х2'), 'button-days-error' : selectedDaysError }" @click="toggleDay('1х2')">1х2</button>
+                      <button :class="{ 'form-btn-active': isDaySelected('2х1'), 'form-btn': !isDaySelected('2х1'), 'button-days-error' : selectedDaysError }" @click="toggleDay('2х1')">2х1</button>
+                      <button :class="{ 'form-btn-active': isDaySelected('15х15'), 'form-btn': !isDaySelected('15х15'), 'button-days-error' : selectedDaysError }" @click="toggleDay('15х15')">15х15</button>
+                    </div>
                   </div>
                 </div>
               </div>
+            </div>
+  
+            <!-- Buttons -->
+            <div class="button-container">
+              <button @click="saveAndExit" class="save-and-exit-button">Сохранить и выйти</button>
+              <button @click="cancel" class="cancel-button">Отмена</button>
             </div>
           </div>
-
-          <!-- Buttons -->
-          <div class="button-container">
-            <button @click="saveAndExit" class="save-and-exit-button">Сохранить и выйти</button>
-            <button @click="cancel" class="cancel-button">Отмена</button>
+          <div class="adaptive_window">
+            <img v-if="serviceCover" :src="coverDataUrl" alt="">
+            <div class="img_container" v-else>
+              <div class="adaptive_img">
+                <img class="img_window"  src="../../static/img/service.svg" alt="">
+              </div>
+              <div class="adaptive_name">
+                <div style="display:flex; justify-content:space-between; align-items:center">
+                  <div v-if="selectedPaymentText">
+                    <p class="header">{{selectedPaymentText}}</p>
+                    <p class="descr">Формат оплаты</p>
+                  </div>
+                  <div v-else class="second">
+                    <div class="stripe" style="width: 109px;"></div>
+                    <div class="stripe" style="width: 63px;"></div>
+                  </div>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center">
+                  <div v-if="selectedPaymentText">
+                    <p class="header">{{selectedPaymentText}}</p>
+                    <p class="descr">Формат оплаты</p>
+                  </div>
+                  <div v-else class="second">
+                    <div class="stripe" style="width: 109px;"></div>
+                    <div class="stripe" style="width: 63px;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div v-if="serviceName">
+              <p class="header">{{serviceName}}</p>
+              <p class="descr">Название услуги</p>
+            </div>
+            <div v-else class="first">
+              <div class="stripe" style="width: 143px;"></div>
+              <div class="stripe" style="width: 97px;"></div>
+            </div>
+            <div v-if="serviceDuration" >
+              <p class="header">{{serviceDuration}}</p>
+              <p class="descr">Длительность</p>
+            </div>
+            <div v-else class="first">
+              <div class="stripe" style="width: 143px;"></div>
+              <div class="stripe" style="width: 97px;"></div>
+            </div>
+            <div v-if="selectedRecordText">
+              <p class="header">{{selectedRecordText}}</p>
+              <p class="descr">Тип записи</p>
+            </div>
+            <div v-else class="first">
+              <div class="stripe" style="width: 143px;"></div>
+              <div class="stripe" style="width: 97px;"></div>
+            </div>
           </div>
         </div>
         <MessageAlert :message="alertMessage" :color="alertColor"/>
@@ -713,6 +769,106 @@
         letter-spacing: 0em;
         text-align: left;
         color: #535C69;
+      }
+      .main_group{
+        display: flex;
+        gap: 40px;
+      }
+      .adaptive_window{
+        background-color: #FFFFFF;
+        height: fit-content;
+        padding: 20px;
+        border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      .header{
+        font-family: 'TT Norms Medium';
+        font-size: 22px;
+        line-height: 22px;
+        text-align: left;
+        color: #535C69;
+        margin: 0;
+      }
+      .first{
+        width: 220px;
+        height: 50px;
+        border-radius: 2px;
+        background: linear-gradient(90deg, #F6F6F6 0%, #F1F4F9 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+        padding: 10px;
+      }
+      .stripe {
+        height: 10px;
+        background: linear-gradient(90deg, #EBEBEB 0%, #DAE2EE 100%);
+        border-radius: 2px;
+      }
+      .second{
+        width: 155px;
+        height: 50px;
+        border-radius: 2px;
+        background: linear-gradient(90deg, #F6F6F6 0%, #F1F4F9 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+        padding: 10px;
+      }
+      .third{
+        width: 92px;
+        height: 36px;
+        border-radius: 2px;
+        background: linear-gradient(90deg, #F6F6F6 0%, #F1F4F9 100%);
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        padding: 10px;
+      }
+      .circle{
+        width: 16px;
+        height: 16px;
+        background: #E7ECF6;
+        border-radius: 100px;
+      }
+      .descr{
+        color: #AFB6C1;
+        font-family: 'TT Norms Medium';
+        font-size: 16px;
+        line-height: 19px;
+        text-align: left;
+        margin: 5px 0 0 0;
+      }
+      .img_container{
+        max-width: 365px;
+        height: 150px;
+        display: flex;
+        align-items: center;
+        border-radius: 2px;
+        gap: 20px;
+      }
+      .adaptive_name{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+      }
+      .adaptive_img{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 80px;
+        height: 80px;
+        border-radius: 50px;
+        background: linear-gradient(90deg, #F6F6F6 0%, #F1F4F9 100%);
+      }
+      .img_window{
+        width: 48px;
+        height: 48px;
       }
       @media (max-width: 768px){
         .main{

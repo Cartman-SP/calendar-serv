@@ -40,7 +40,13 @@
               <path d="M15.9667 1L9.00006 1.03317L11.783 3.8029L7.00008 8.5858V13.5858L2.29297 18.2929L3.70718 19.7071L9.00008 14.4142V9.41423L13.2006 5.21375L16.0001 8L15.9667 1Z" fill="#6266EA"/>
             </svg> 
           </button>
-          <button>Редактировать</button>
+          <button class="edit_btn">
+            <svg width="14" height="14  " viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.6818 4.96251L15.0375 8.31816L6.71227 16.6434C6.63377 16.7219 6.53023 16.7704 6.41967 16.7804L2.51757 17.998C2.22243 18.0248 1.97517 17.7776 2.002 17.4824L3.21957 13.5803C3.22962 13.4698 3.27812 13.3662 3.35662 13.2877L11.6818 4.96251Z" fill="white"/>
+              <path d="M14.3664 2.27799C14.737 1.90734 15.338 1.90734 15.7086 2.27799L17.722 4.29138C18.0927 4.66204 18.0927 5.26299 17.722 5.63364L16.3797 6.97591L13.0241 3.62025L14.3664 2.27799Z" fill="white"/>
+            </svg>
+            Редактировать
+          </button>
           <Kebab :buttons="buttons" :HasDelete="true" :HasDeviders="true"/>
           <div v-if="showModal" class="modal">
               <div class="modal-content">
@@ -222,6 +228,10 @@ export default {
   .play:hover{
     background: #0ABBA5;
     color: #FFFFFF;
+  }
+  .edit_btn{
+    display: flex;
+    gap: 5px;
   }
   @media (max-width: 992px){
     .card-header{
