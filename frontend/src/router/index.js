@@ -21,8 +21,8 @@ import ProjectEditPage from '../components/ProjectEditPage.vue';
 import ProjectGatesPage from '../components/ProjectGatesPage.vue';
 import CreateProject from '../components/CreateProject.vue';
 import AccessesPage from '../components/AccessesPage.vue';
+import LockedPage from '../components/LockedPage.vue';
 import store from '../store';
-
 
 const routes = [
  {
@@ -149,6 +149,12 @@ const routes = [
         path: '/lk/project/accesses',
         name: 'accesses',
         component: AccessesPage,
+        meta: { requiresAuth: true }
+      },
+      {
+        path: '/lk/locked',
+        name: 'locked',
+        component: LockedPage,
         meta: { requiresAuth: true }
       },
               
