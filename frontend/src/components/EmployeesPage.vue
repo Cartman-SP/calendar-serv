@@ -179,20 +179,20 @@
                 <img class="img_window"  src="../../static/img/service.svg" alt="">
               </div>
               <div class="adaptive_name">
-                <div style="display:flex; justify-content:space-between; align-items:center">
-                  <div v-if="selectedPaymentText">
-                    <p class="header">{{selectedPaymentText}}</p>
-                    <p class="descr">Формат оплаты</p>
+                <div>
+                  <div v-if="firstname">
+                    <p class="header">{{firstname}}</p>
+                    <p class="descr">Имя</p>
                   </div>
                   <div v-else class="second">
                     <div class="stripe" style="width: 109px;"></div>
                     <div class="stripe" style="width: 63px;"></div>
                   </div>
                 </div>
-                <div style="display:flex; justify-content:space-between; align-items:center">
-                  <div v-if="selectedPaymentText">
-                    <p class="header">{{selectedPaymentText}}</p>
-                    <p class="descr">Формат оплаты</p>
+                <div>
+                  <div v-if="secondname">
+                    <p class="header">{{secondname}}</p>
+                    <p class="descr">Фамилия</p>
                   </div>
                   <div v-else class="second">
                     <div class="stripe" style="width: 109px;"></div>
@@ -201,9 +201,9 @@
                 </div>
               </div>
             </div>
-            <div v-if="serviceName">
-              <p class="header">{{serviceName}}</p>
-              <p class="descr">Название услуги</p>
+            <div v-if="rank">
+              <p class="header">{{rank}}</p>
+              <p class="descr">Должность</p>
             </div>
             <div v-else class="first">
               <div class="stripe" style="width: 143px;"></div>
@@ -211,15 +211,15 @@
             </div>
             <div v-if="serviceDuration" >
               <p class="header">{{serviceDuration}}</p>
-              <p class="descr">Длительность</p>
+              <p class="descr">Рабочие часы</p>
             </div>
             <div v-else class="first">
               <div class="stripe" style="width: 143px;"></div>
               <div class="stripe" style="width: 97px;"></div>
             </div>
-            <div v-if="selectedRecordText">
-              <p class="header">{{selectedRecordText}}</p>
-              <p class="descr">Тип записи</p>
+            <div v-if="selectedDays">
+              <p class="header">{{selectedDays}}</p>
+              <p class="descr">График работы</p>
             </div>
             <div v-else class="first">
               <div class="stripe" style="width: 143px;"></div>
@@ -792,7 +792,7 @@
         margin: 0;
       }
       .first{
-        width: 220px;
+        width: auto;
         height: 50px;
         border-radius: 2px;
         background: linear-gradient(90deg, #F6F6F6 0%, #F1F4F9 100%);
@@ -854,7 +854,6 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
-        align-items: center;
         justify-content: center;
       }
       .adaptive_img{
