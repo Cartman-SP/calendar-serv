@@ -311,10 +311,252 @@
           </div>
           <div class="card_btn_container">
             <button class="card_back_btn" @click="showFavor">Назад</button>
-            <button class="card_next_btn" @click="showEmployees">Продолжить</button>
+            <button class="card_next_btn" @click="showCalendar">Продолжить</button>
           </div>
         </div> 
       </div>
+    </div>
+    
+    <div class="calendar" v-else-if="currentPage === 'calendar'">
+      <div class="calendar_numbers_container">
+        <div class="calendar_numbers">
+          <img src="../../static/img/calendar.svg" alt="" class="">
+        </div>
+        <div class="calendar_numbers">
+          <p class="calendar_numbers_head">6 чт</p>
+          <p class="calendar_numbers_sub">дек</p>
+        </div>
+        <div class="calendar_numbers">
+          <p class="calendar_numbers_head">7 пт</p>
+          <p class="calendar_numbers_sub">нояб</p>
+        </div>
+        <div class="calendar_numbers">
+          <p class="calendar_numbers_head">8 <span class="weekend">сб</span></p>
+          <p class="calendar_numbers_sub">сен</p>
+        </div>
+        <div class="calendar_numbers">
+          <p class="calendar_numbers_head">9 <span class="weekend">вс</span></p>
+          <p class="calendar_numbers_sub">окт</p>
+        </div>
+        <div class="calendar_numbers">
+          <p class="calendar_numbers_head">10 пн</p>
+          <p class="calendar_numbers_sub">июля</p>
+        </div>
+        <div class="calendar_numbers">
+          <p class="calendar_numbers_head">11 вт</p>
+          <p class="calendar_numbers_sub">июнь</p>
+        </div>
+        <div class="calendar_numbers">
+          <p class="calendar_numbers_head">12 ср</p>
+          <p class="calendar_numbers_sub">авг</p>
+        </div>
+        <div class="calendar_numbers">
+          <p class="calendar_numbers_head">13 чт</p>
+          <p class="calendar_numbers_sub">фев</p>
+        </div>
+      </div>
+
+      <div class="calendar_card">
+        <div class="calendar_wrapper">
+          <div class="calendar_compo-wrapper">
+            <img src="../../static/img/barber.svg" alt="">
+            <div class="calendar_container">
+              <p class="calendar_text">Комплексная мужская стрижка</p>
+              <div class="tariff">
+                <div class="tariff-item">
+                  <p class="tariff_text">3000 тнг</p>
+                </div>
+                <div class="dot"></div>
+                <div class="tariff-item">
+                  <p class="tariff_text">1 час</p>
+                </div>
+              </div>
+            </div>            
+          </div>
+          <div class="calendar_rate">
+            <div class="star_container">
+              <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.2575 5.95727C11.7944 5.95727 11.3874 5.66134 11.2602 5.2321L11.2426 5.1728C11.2405 5.16555 11.2382 5.15833 11.2359 5.15112L9.7288 0.469756C9.7288 0.469756 9.7288 0.469756 9.7288 0.469756C9.53202 -0.141467 8.64216 -0.1614 8.41615 0.440352C8.41615 0.440352 8.41615 0.440352 8.41615 0.440352L6.65496 5.12944C6.64683 5.15109 6.63948 5.17301 6.63292 5.19515L6.62196 5.23211C6.49474 5.66134 6.08776 5.95727 5.62468 5.95727H5.582H0.693556C0.693556 5.95727 0.693556 5.95727 0.693556 5.95727C0.0294735 5.95727 -0.253536 6.77131 0.276429 7.15708C0.276429 7.15708 0.27643 7.15708 0.276429 7.15708L4.37907 10.1434C4.39527 10.1552 4.41183 10.1666 4.42873 10.1774L4.48064 10.2108C4.85591 10.452 5.02647 10.8993 4.90256 11.3174L4.87737 11.4024C4.87568 11.4081 4.87393 11.4138 4.87213 11.4195L3.37747 16.1422C3.18269 16.7577 3.92148 17.2519 4.45137 16.8606L8.27591 14.0367C8.28719 14.0284 8.29829 14.0198 8.30921 14.011L8.33601 13.9895C8.72065 13.6805 9.27936 13.6805 9.66399 13.9895L9.6908 14.011C9.70171 14.0198 9.71282 14.0284 9.7241 14.0367L13.5486 16.8606C14.0785 17.2519 14.8173 16.7577 14.6225 16.1422L13.1279 11.4195C13.1261 11.4138 13.1243 11.4081 13.1226 11.4024L13.0974 11.3174C12.9735 10.8993 13.1441 10.452 13.5194 10.2108L13.5713 10.1774C13.5882 10.1666 13.6047 10.1552 13.6209 10.1434L17.7236 7.15708C17.7236 7.15708 17.7236 7.15708 17.7236 7.15708C18.2535 6.77131 17.9705 5.95727 17.3064 5.95727H12.3001H12.2575Z" fill="#F7D37D"/>
+              </svg>
+              <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.2575 5.95727C11.7944 5.95727 11.3874 5.66134 11.2602 5.2321L11.2426 5.1728C11.2405 5.16555 11.2382 5.15833 11.2359 5.15112L9.7288 0.469756C9.7288 0.469756 9.7288 0.469756 9.7288 0.469756C9.53202 -0.141467 8.64216 -0.1614 8.41615 0.440352C8.41615 0.440352 8.41615 0.440352 8.41615 0.440352L6.65496 5.12944C6.64683 5.15109 6.63948 5.17301 6.63292 5.19515L6.62196 5.23211C6.49474 5.66134 6.08776 5.95727 5.62468 5.95727H5.582H0.693556C0.693556 5.95727 0.693556 5.95727 0.693556 5.95727C0.0294735 5.95727 -0.253536 6.77131 0.276429 7.15708C0.276429 7.15708 0.27643 7.15708 0.276429 7.15708L4.37907 10.1434C4.39527 10.1552 4.41183 10.1666 4.42873 10.1774L4.48064 10.2108C4.85591 10.452 5.02647 10.8993 4.90256 11.3174L4.87737 11.4024C4.87568 11.4081 4.87393 11.4138 4.87213 11.4195L3.37747 16.1422C3.18269 16.7577 3.92148 17.2519 4.45137 16.8606L8.27591 14.0367C8.28719 14.0284 8.29829 14.0198 8.30921 14.011L8.33601 13.9895C8.72065 13.6805 9.27936 13.6805 9.66399 13.9895L9.6908 14.011C9.70171 14.0198 9.71282 14.0284 9.7241 14.0367L13.5486 16.8606C14.0785 17.2519 14.8173 16.7577 14.6225 16.1422L13.1279 11.4195C13.1261 11.4138 13.1243 11.4081 13.1226 11.4024L13.0974 11.3174C12.9735 10.8993 13.1441 10.452 13.5194 10.2108L13.5713 10.1774C13.5882 10.1666 13.6047 10.1552 13.6209 10.1434L17.7236 7.15708C17.7236 7.15708 17.7236 7.15708 17.7236 7.15708C18.2535 6.77131 17.9705 5.95727 17.3064 5.95727H12.3001H12.2575Z" fill="#F7D37D"/>
+              </svg>
+              <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.2575 5.95727C11.7944 5.95727 11.3874 5.66134 11.2602 5.2321L11.2426 5.1728C11.2405 5.16555 11.2382 5.15833 11.2359 5.15112L9.7288 0.469756C9.7288 0.469756 9.7288 0.469756 9.7288 0.469756C9.53202 -0.141467 8.64216 -0.1614 8.41615 0.440352C8.41615 0.440352 8.41615 0.440352 8.41615 0.440352L6.65496 5.12944C6.64683 5.15109 6.63948 5.17301 6.63292 5.19515L6.62196 5.23211C6.49474 5.66134 6.08776 5.95727 5.62468 5.95727H5.582H0.693556C0.693556 5.95727 0.693556 5.95727 0.693556 5.95727C0.0294735 5.95727 -0.253536 6.77131 0.276429 7.15708C0.276429 7.15708 0.27643 7.15708 0.276429 7.15708L4.37907 10.1434C4.39527 10.1552 4.41183 10.1666 4.42873 10.1774L4.48064 10.2108C4.85591 10.452 5.02647 10.8993 4.90256 11.3174L4.87737 11.4024C4.87568 11.4081 4.87393 11.4138 4.87213 11.4195L3.37747 16.1422C3.18269 16.7577 3.92148 17.2519 4.45137 16.8606L8.27591 14.0367C8.28719 14.0284 8.29829 14.0198 8.30921 14.011L8.33601 13.9895C8.72065 13.6805 9.27936 13.6805 9.66399 13.9895L9.6908 14.011C9.70171 14.0198 9.71282 14.0284 9.7241 14.0367L13.5486 16.8606C14.0785 17.2519 14.8173 16.7577 14.6225 16.1422L13.1279 11.4195C13.1261 11.4138 13.1243 11.4081 13.1226 11.4024L13.0974 11.3174C12.9735 10.8993 13.1441 10.452 13.5194 10.2108L13.5713 10.1774C13.5882 10.1666 13.6047 10.1552 13.6209 10.1434L17.7236 7.15708C17.7236 7.15708 17.7236 7.15708 17.7236 7.15708C18.2535 6.77131 17.9705 5.95727 17.3064 5.95727H12.3001H12.2575Z" fill="#F7D37D"/>
+              </svg>
+              <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.2575 5.95727C11.7944 5.95727 11.3874 5.66134 11.2602 5.2321L11.2426 5.1728C11.2405 5.16555 11.2382 5.15833 11.2359 5.15112L9.7288 0.469756C9.7288 0.469756 9.7288 0.469756 9.7288 0.469756C9.53202 -0.141467 8.64216 -0.1614 8.41615 0.440352C8.41615 0.440352 8.41615 0.440352 8.41615 0.440352L6.65496 5.12944C6.64683 5.15109 6.63948 5.17301 6.63292 5.19515L6.62196 5.23211C6.49474 5.66134 6.08776 5.95727 5.62468 5.95727H5.582H0.693556C0.693556 5.95727 0.693556 5.95727 0.693556 5.95727C0.0294735 5.95727 -0.253536 6.77131 0.276429 7.15708C0.276429 7.15708 0.27643 7.15708 0.276429 7.15708L4.37907 10.1434C4.39527 10.1552 4.41183 10.1666 4.42873 10.1774L4.48064 10.2108C4.85591 10.452 5.02647 10.8993 4.90256 11.3174L4.87737 11.4024C4.87568 11.4081 4.87393 11.4138 4.87213 11.4195L3.37747 16.1422C3.18269 16.7577 3.92148 17.2519 4.45137 16.8606L8.27591 14.0367C8.28719 14.0284 8.29829 14.0198 8.30921 14.011L8.33601 13.9895C8.72065 13.6805 9.27936 13.6805 9.66399 13.9895L9.6908 14.011C9.70171 14.0198 9.71282 14.0284 9.7241 14.0367L13.5486 16.8606C14.0785 17.2519 14.8173 16.7577 14.6225 16.1422L13.1279 11.4195C13.1261 11.4138 13.1243 11.4081 13.1226 11.4024L13.0974 11.3174C12.9735 10.8993 13.1441 10.452 13.5194 10.2108L13.5713 10.1774C13.5882 10.1666 13.6047 10.1552 13.6209 10.1434L17.7236 7.15708C17.7236 7.15708 17.7236 7.15708 17.7236 7.15708C18.2535 6.77131 17.9705 5.95727 17.3064 5.95727H12.3001H12.2575Z" fill="#F7D37D"/>
+              </svg>
+              <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.1279 11.4195L14.6225 16.1422C14.8173 16.7577 14.0785 17.2519 13.5486 16.8606L9.7241 14.0367C9.33946 13.7277 8.66054 13.7277 8.27591 14.0367L4.45137 16.8606C3.92148 17.2519 3.18269 16.7577 3.37747 16.1422L4.87213 11.4195C4.99604 11.0014 4.75434 10.3846 4.37907 10.1434L0.276429 7.15708C-0.253536 6.77131 0.0294735 5.95727 0.693556 5.95727H5.582C6.04508 5.95727 6.52774 5.55867 6.65496 5.12944L8.41615 0.440352C8.64216 -0.1614 9.53202 -0.141467 9.7288 0.469756L11.2426 5.1728C11.3698 5.60204 11.8371 5.95727 12.3001 5.95727H17.3064C17.9705 5.95727 18.2535 6.77131 17.7236 7.15708L13.6209 10.1434C13.2457 10.3846 13.004 11.0014 13.1279 11.4195ZM13.0512 9.32131L16.2989 6.95727H12.3001C11.398 6.95727 10.5455 6.3166 10.2878 5.47017L9.04518 1.60965L7.60128 5.45397C7.46294 5.88503 7.17789 6.24179 6.86355 6.48962C6.53959 6.74502 6.09137 6.95727 5.582 6.95727H1.70114L4.94884 9.32131C5.34504 9.58694 5.6032 9.98792 5.74502 10.3532C5.88916 10.7246 5.97464 11.2187 5.83091 11.7036L5.8283 11.7124L4.63541 15.4817L7.66859 13.2421C8.07252 12.926 8.5664 12.8049 9 12.8049C9.43362 12.8049 9.9275 12.926 10.3314 13.2421L13.3646 15.4817L12.1717 11.7124L12.1691 11.7036C12.0254 11.2187 12.1108 10.7246 12.255 10.3532C12.3968 9.9879 12.655 9.58693 13.0512 9.32131Z" fill="#AFB6C1"/>
+              </svg>
+            </div>
+            <p class="calendar_rate_text">1 отзывов</p>
+          </div>
+        </div>
+        <div class="calendar_time_container">
+          <div class="calendar_time">13:00</div>
+          <div class="calendar_time">14:00</div>
+          <div class="calendar_time">15:00</div>
+          <div class="calendar_time">16:00</div>
+          <div class="calendar_time">17:00</div>
+          <div class="calendar_time">18:00</div>
+          <div class="calendar_time">19:00</div>
+          <div class="calendar_time">20:00</div>
+          <div class="calendar_time">21:00</div>
+        </div>
+      </div>
+
+      <div class="calendar_bottom">
+        <div class="card_next">
+          <div class="card_next_container">
+            <p class="card_next_text">Выбор даты и времени</p>
+            <div class="divider_step_container">
+              <div class="calendar_divider_step_one"></div>
+              <div class="calendar_divider_step_two"></div>
+            </div>
+            <p class="card_next_subtext">Шаг 3 из 4</p>
+          </div>
+          <div class="card_btn_container">
+            <button class="card_back_btn" @click="showEmployees">Назад</button>
+            <button class="card_next_btn" @click="showData">Продолжить</button>
+          </div>
+        </div> 
+      </div>
+    </div>
+
+    <div class="data" v-else-if="currentPage === 'data'">
+      <div class="data_wrap">
+
+        <div class="data_container">
+          <div class="data_info">
+            <div class="data_info_card">
+              <img src="../../static/img/data.png" alt="" class="data_img">
+              <div class="data_info_container">
+                <p class="data_info_head">Адамов Бейбарыс</p>
+                <p class="data_info_sub">Ваш мастер</p>
+              </div>    
+            </div>
+            <div class="data_info_card">
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 5V0H7V5H5Z" fill="#6266EA"/>
+                <path d="M13 5V0H15V5H13Z" fill="#6266EA"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M2 19C1.44772 19 1 18.5523 1 18V3C1 2.44772 1.44772 2 2 2H4V6H8V2H12V6H16V2H18C18.5523 2 19 2.44772 19 3V18C19 18.5523 18.5523 19 18 19H2ZM17 17V8H3V17H17Z" fill="#6266EA"/>
+              </svg>
+              <div class="data_info_container">
+                <p class="data_info_head">6 июля, 14:10</p>
+                <p class="data_info_sub">Дата и время</p>
+              </div>    
+            </div>
+            <div class="data_info_card">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.5998 3.20006H1.9998L11.9998 6.10352e-05L13.5998 3.20006Z" fill="#6266EA"/>
+                <path d="M0.799805 6.40011C0.799805 5.51645 1.51615 4.80011 2.3998 4.80011H13.5998C14.4835 4.80011 15.1998 5.51645 15.1998 6.40011V8.80001H12.5331C11.7776 8.80001 11.1998 9.32002 11.1998 10C11.1998 10.68 11.7776 11.2 12.5331 11.2H15.1998V13.6001C15.1998 14.4838 14.4835 15.2001 13.5998 15.2001H2.3998C1.51615 15.2001 0.799805 14.4838 0.799805 13.6001V6.40011Z" fill="#6266EA"/>
+              </svg>
+                
+              <div class="data_info_container">
+                <p class="data_info_head">6000 тнг</p>
+                <p class="data_info_sub">Стоимость</p>
+              </div>    
+            </div>
+          </div>
+  
+          <div class="data_details">
+            <p class="data_details_head">Пожалуйста, укажите свои реальные контактные данные:</p>
+            <div class="data_forma">
+              <div class="data_forma_container">
+                <p class="data_forma_text">Имя <span class="data_forma_star">*</span></p>
+                <input type="text" id="" placeholder="Введите имя">
+              </div>
+              <div class="data_forma_container">
+                <p class="data_forma_text">Фамилия</p>
+                <input type="text" id="" placeholder="Введите фамилию">
+              </div>
+              <div class="data_forma_container">
+                <p class="data_forma_text">Телефон <span class="data_forma_star">*</span></p>
+                <input type="text" id="" placeholder="Введите имя">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="figures">
+          <p class="figures_text">Убедитесь, что все указано верно</p>
+          <div class="figures_container">
+            <div class="checkmark"></div>
+            <p class="figures_personal">Согласен на обработку <span class="personal_span"> персональных данных</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="data_bottom">
+        <div class="card_next">
+          <div class="card_next_container">
+            <p class="card_next_text">Почти готово!</p>
+            <div class="divider_step_container">
+              <div class="data_divider_step_one"></div>
+            </div>
+            <p class="card_next_subtext">Шаг 4 из 4</p>
+          </div>
+          <div class="card_btn_container">
+            <button class="card_back_btn" @click="showCalendar">Назад</button>
+            <button class="card_next_btn" @click="showNotes">Записаться</button>
+          </div>
+        </div> 
+      </div>
+    </div>
+
+    <div class="notes" v-else-if="currentPage === 'notes'">
+      <div class="notes_container">
+        <div class="notes_info">
+          <div class="data_info_card">
+            <img src="../../static/img/data.png" alt="" class="data_img">
+            <div class="data_info_container">
+              <p class="data_info_head">Адамов Бейбарыс</p>
+              <p class="data_info_sub">Ваш мастер</p>
+            </div>    
+          </div>
+          <div class="data_info_card">
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 5V0H7V5H5Z" fill="#6266EA"/>
+              <path d="M13 5V0H15V5H13Z" fill="#6266EA"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M2 19C1.44772 19 1 18.5523 1 18V3C1 2.44772 1.44772 2 2 2H4V6H8V2H12V6H16V2H18C18.5523 2 19 2.44772 19 3V18C19 18.5523 18.5523 19 18 19H2ZM17 17V8H3V17H17Z" fill="#6266EA"/>
+            </svg>
+            <div class="data_info_container">
+              <p class="data_info_head">6 июля, 14:10</p>
+              <p class="data_info_sub">Дата и время</p>
+            </div>    
+          </div>
+          <div class="data_info_card">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M13.5998 3.20006H1.9998L11.9998 6.10352e-05L13.5998 3.20006Z" fill="#6266EA"/>
+              <path d="M0.799805 6.40011C0.799805 5.51645 1.51615 4.80011 2.3998 4.80011H13.5998C14.4835 4.80011 15.1998 5.51645 15.1998 6.40011V8.80001H12.5331C11.7776 8.80001 11.1998 9.32002 11.1998 10C11.1998 10.68 11.7776 11.2 12.5331 11.2H15.1998V13.6001C15.1998 14.4838 14.4835 15.2001 13.5998 15.2001H2.3998C1.51615 15.2001 0.799805 14.4838 0.799805 13.6001V6.40011Z" fill="#6266EA"/>
+            </svg>
+              
+            <div class="data_info_container">
+              <p class="data_info_head">6000 тнг</p>
+              <p class="data_info_sub">Стоимость</p>
+            </div>    
+          </div>
+        </div>
+        
+        <div class="notes_confirm">
+          <div class="notes_confirm_container">
+            <p class="notes_confirm_head">Вы записались!</p>
+            <p class="notes_confirm_sub">Ниже, вы можете посмотреть прошлые записи, перенести время или отменить текущую запись</p>
+          </div>
+          <button class="notes_button">
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 12H19V14H10V12Z" fill="#6266EA"/>
+              <path d="M10 16H16V18H10V16Z" fill="#6266EA"/>
+              <path d="M1 13C1 12.4477 1.44772 12 2 12H7C7.55228 12 8 12.4477 8 13V18C8 18.5523 7.55228 19 7 19H2C1.44772 19 1 18.5523 1 18V13Z" fill="#6266EA"/>
+              <path d="M10 5H16V7H10V5Z" fill="#6266EA"/>
+              <path d="M10 1H19V3H10V1Z" fill="#6266EA"/>
+              <path d="M1 2C1 1.44772 1.44772 1 2 1H7C7.55228 1 8 1.44772 8 2V7C8 7.55228 7.55228 8 7 8H2C1.44772 8 1 7.55228 1 7V2Z" fill="#6266EA"/>
+            </svg>
+            Мои записи
+          </button>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -335,6 +577,15 @@ export default {
     },
     showEmployees() {
       this.currentPage = 'employees'; // Показать страницу Choice
+    },
+    showCalendar() {
+      this.currentPage = 'calendar'; // Показать страницу Choice
+    },
+    showData() {
+      this.currentPage = 'data'; // Показать страницу Choice
+    },
+    showNotes() {
+      this.currentPage = 'notes'; // Показать страницу Choice
     }
   }
 };
@@ -433,7 +684,6 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-top: 25px;
 }
 .card_next{
   display: flex;
@@ -566,7 +816,7 @@ p{
 .favor_card{
   background: #fafafa;
   border-radius: 10px;
-  padding: 5px;
+  padding: 10px;
   width: 255px;
 }
 .favor_compo-wrapper{
@@ -676,7 +926,7 @@ p{
 .employees_card{
   background: #fafafa;
   border-radius: 10px;
-  padding: 5px;
+  padding: 10px;
   width: 255px;
 }
 .employees_compo-wrapper{
@@ -737,6 +987,344 @@ p{
 }
 .btn-wrapper:hover{
   background: #E0E4FF;
+  color: #6266EA;
+}
+.calendar{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 30px 40px;
+  height: 315px;
+  background: #FFFFFF;
+  border-radius: 25px;
+}
+.calendar_numbers_container{
+  display: flex;
+  gap: 15px;
+}
+.calendar_numbers{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 33px;
+  border-radius: 3px;
+  background: #FAFAFA;
+}
+.calendar_numbers_head{
+  font-family: TT Norms Medium;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #535C69;
+}
+.calendar_numbers_sub{
+  font-family: TT Norms light;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #535C69;
+}
+.weekend{
+  color: #F97F7F;
+}
+.calendar_card_container{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+}
+.calendar_card{
+  background: #fafafa;
+  border-radius: 10px;
+  padding: 10px;
+  width: 100%;
+  height: 110px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.calendar_compo-wrapper{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.calendar_text{
+  text-align: left;
+  font-family: TT Norms Medium;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+  color: #535C69;  
+}
+.calendar_container{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.calendar_wrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.calendar_rate{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.calendar_rate_text{
+  font-family: TT Norms Medium;
+  font-size: 10px;
+  line-height: 10px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #535C69;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.calendar_time_container{
+  display: flex;
+  gap: 10px;
+}
+.calendar_time{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFFFFF;
+  font-family: TT Norms Medium;
+  font-size: 10px;
+  font-weight: 300;
+  line-height: 10px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #535C69;
+  width: 45px;
+  height: 24px;
+}
+.calendar_divider_step_one{
+  width: 171px;
+  height: 3px;
+  border-radius: 100px;
+  background: #6266EA;
+}
+.calendar_divider_step_two{
+  width: 28px;
+  height: 3px;
+  border-radius: 100px;
+  background: #D8DDE3;
+}
+.data{
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 30px 40px;
+  height: 427px;
+  background: #FFFFFF;
+  border-radius: 25px;
+}
+.data_wrap{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.data_info{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 5px;
+  width: 236px;
+  background: #FAFAFA;
+  padding: 25px 15px;
+}
+.data_info_card{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #FFFFFF;
+  padding: 10px;
+  border-radius: 3px;
+}
+.data_img{
+  width: 40px;
+  height: 40px;
+}
+.data_info_container{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.data_info_head{
+  font-family: TT Norms Medium;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #535C69;
+}
+.data_info_sub{
+  font-family: TT Norms Medium;
+  font-size: 10px;
+  line-height: 10px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #AFB6C1;
+}
+.data_container{
+  display: flex;
+  gap: 25px;
+}
+.data_details_head{
+  font-family: TT Norms Medium;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #535C69;
+}
+.data_details{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 260px;
+}
+.data_forma_text{
+  font-family: TT Norms Medium;
+  font-size: 13px;
+  line-height: 15px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #535C69;
+}
+.data_forma{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.data_forma_star{
+  font-family: TT Norms Medium;
+  font-size: 13px;
+  line-height: 15px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #F97F7F;
+}
+.data_forma_container{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+input{
+  margin: 0;
+}
+.figures{
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+}
+.figures_text{
+  font-family: TT Norms Medium;
+  font-size: 13px;
+  line-height: 15px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #D2D8DE;
+}
+.figures_container{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.checkmark{
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  border: 1px solid #C6CBD2;
+}
+.figures_personal{
+  font-family: TT Norms Medium;
+  font-size: 10px;
+  line-height: 12px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #C6CBD2;
+}
+.personal_span{
+  color: #6266EA;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.data_divider_step_one{
+  width: 201px;
+  height: 3px;
+  border-radius: 100px;
+  background: #6266EA;
+}
+.notes{
+  display: flex;
+  flex-direction: column;
+  padding: 30px 40px;
+  height: 356px;
+  background: #FFFFFF;
+  border-radius: 25px;
+}
+.notes_container{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.notes_info{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 5px;
+  width: 246px;
+  background: #FAFAFA;
+  padding: 25px 15px;
+}
+.notes_confirm{
+  width: 261px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.notes_confirm_container{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.notes_confirm_head{
+  font-family: TT Norms Medium;
+  font-size: 28px;
+  line-height: 33px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #535C69;
+}
+.notes_confirm_sub{
+  font-family: TT Norms light;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 19px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #535C69;
+}
+.notes_button{
+  font-family: TT Norms Medium;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: 0em;
+  text-align: left;
+  display: flex;
+  gap: 5px;
+  background: #EFEFFF;
   color: #6266EA;
 }
 </style>
