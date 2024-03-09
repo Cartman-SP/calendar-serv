@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="service_card">
+  <div style="height: 100%;">
+    <div :class="{'service_card' : !deleteAction, 'service_card-deleting' : deleteAction}">
       <div class="card-container">
         <div class="card-header">
           <div class="main">
@@ -74,6 +74,7 @@ export default {
     return {
       showDropdown: false,
       showModal: false,
+      deleteAction: false,
       usluganame: "",
       buttons:[
         {btnname:'Редактировать', svg:'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256" width="100px" height="100px"><g fill="#535c69" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M18,2l-2.41406,2.41406l4,4l2.41406,-2.41406zM14.07617,5.92383l-11.07617,11.07617v4h4l11.07617,-11.07617z"></path></g></g></svg>'},
@@ -87,15 +88,19 @@ export default {
     const formData = new FormData();
     formData.append('id', serviceId);
     axios.post('http://127.0.0.1:8000/api/deleteemployee/', formData)
-        .then(response => {
-            console.log('Service deleted:', response.data);
+      .then(response => {
+          console.log('Service deleted:', response.data);
+          this.deleteAction = true;
+          setTimeout(() => {
             this.$parent.get_employee();
-            this.showModal = !this.showModal;
-        })
-        .catch(error => {
-            console.error('Error deleting service:', error);
-        });
-},
+            this.deleteAction = false;
+          }, 200);
+          this.showModal = !this.showModal;
+      })
+      .catch(error => {
+          console.error('Error deleting service:', error);
+      });
+    },
 
     toggleDropdown() {
       this.showDropdown = !this.showDropdown;
@@ -214,6 +219,11 @@ export default {
     height: 100%;
     background-color: #FFF;
     border-radius: 5px;
+  }
+
+  .service_card-deleting{
+    scale: 0;
+    opacity: 0;
     transition: all .2s ease;
   }
 

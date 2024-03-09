@@ -225,7 +225,7 @@ export default {
       selectedDays: [],
       selectedChoices: [],
       showContinueButtonClicked: false,
-      businessTypes: ['qwdqwd', 'qwdqwdqdwqwd'],
+      businessTypes: [],
       spheres: [],
       uploadedImages: [],
       selectedEmployeeId: [],
@@ -411,8 +411,7 @@ export default {
       }
     },
     onContinueButtonClick() {
-      console.log(this.value, this.selectedCountry, this.selectedCity, this.selectedAdress , this.selectedName)
-      if (this.value.length < 3 || !this.selectedCountry.length || !this.selectedCity.length || !this.selectedAdress || !this.selectedName|| !this.selectedDays.length) {
+      if (this.value.length < 3 || !this.selectedCountry.length || !this.selectedCity.length || !this.selectedAdress || !this.selectedName || !this.selectedDays.length) {
         this.alertMessage = null;
         setTimeout(() => {
           this.alertMessage = 'Пожалуйста, заполните выделенные поля';

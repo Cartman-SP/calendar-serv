@@ -121,9 +121,31 @@
                     </button>
                   </div>
                 </div>
-                <div v-if="timeArea" class="form-column">
-                  <label>Рабочие часы - {{ timeAreaDay }}</label>
-                  <input type="text">
+                <div v-if="selectedDays.length > 0" class="form-column">
+                  <div class="form-row">
+                    <div class="dropdown-container">
+                      <label>Рабочие часы - {{ timeAreaDay || selectedDays[0]}}</label>
+                      <div class="dropdown-container">
+                        <SelectPage
+                        :options="['9:00 — 19:00', '9:00 — 20:00', '9:00 — 21:00', '10:00 — 18:00','10:00 — 19:00','10:00 — 20:00', '10:00 — 22:00']"
+                        @input="option => work_time = option"
+                        :placeholderdata="'Выберите время'"
+                        :class="{ 'select-error': work_timeError }"
+                        />    
+                      </div>
+                    </div>
+                    <div class="dropdown-container">
+                      <label for="break">Перерыв - {{ timeAreaDay || selectedDays[0] }}</label>
+                      <div class="dropdown-container">
+                        <SelectPage
+                        :options="['13:00 — 14:00', '13:00 — 14:00', '13:00 — 14:00']"
+                        @input="option => chill_time = option"
+                        :placeholderdata="'Выберите время'"
+                        :class="{ 'select-error': chill_timeError }"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="replaceable" v-show="isGrafficActive('replaceable')">
                   <p class="graffic_text">
@@ -138,31 +160,6 @@
                     <button :class="{ 'form-btn-active': isDaySelected('2х1'), 'form-btn': !isDaySelected('2х1'), 'button-days-error' : selectedDaysError }" @click="toggleDay('2х1')">2х1</button>
                     <button :class="{ 'form-btn-active': isDaySelected('15х15'), 'form-btn': !isDaySelected('15х15'), 'button-days-error' : selectedDaysError }" @click="toggleDay('15х15')">15х15</button>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="dropdown-container">
-                <label for="workingHours">Рабочие часы</label>
-                <div class="dropdown-container">
-                  <SelectPage
-                  :options="['9:00 — 19:00', '9:00 — 20:00', '9:00 — 21:00', '10:00 — 18:00','10:00 — 19:00','10:00 — 20:00', '10:00 — 22:00']"
-                  @input="option => work_time = option"
-                  :placeholderdata="'Выберите время'"
-                  :class="{ 'select-error': work_timeError }"
-                  />    
-                </div>
-              </div>
-              <div class="dropdown-container">
-                <label for="break">Перерыв</label>
-                <div class="dropdown-container">
-                  <SelectPage
-                  :options="['13:00 — 14:00', '13:00 — 14:00', '13:00 — 14:00']"
-                  @input="option => chill_time = option"
-                  :placeholderdata="'Выберите время'"
-                  :class="{ 'select-error': chill_timeError }"
-                  />
                 </div>
               </div>
             </div>
@@ -188,7 +185,6 @@
       components: { Tip, SelectPage, MessageAlert, ModalEmployeesPage },
       data() {
         return {
-          timeArea: false,
           timeAreaDay: '',
           firstemployye: false,
           selectedDays: [],
@@ -225,14 +221,15 @@
     
       methods: {
         toggleTimeArea(day){
-          this.timeArea = true;
-          this.timeAreaDay = day;
+          if (this.selectedDays.includes(day)) {
+            this.timeAreaDay = day;
+          }
         },
         
         handleFileUpload(event) {
           const file = event.target.files[0];
-          this.avatar = file; // сохраняем весь объект файла
-          const fileName = file.name; // извлекаем название файла
+          this.avatar = file;
+          const fileName = file.name;
           if (fileName.length > 20) {
             this.fileNameVariable = fileName.slice(0, 20) + '...' + fileName.slice(-4);
           }else{
@@ -286,7 +283,7 @@
           this.selectedRecordType = type;
         },
         saveAndExit() {
-          if (!this.firstname || !this.secondname || !this.rank || !this.avatar || !this.chips.length || !this.selectedRecordType || !this.selectedDays.length || !this.work_time || this.chill_time) {
+          if (!this.firstname || !this.secondname || !this.rank || !this.avatar || !this.chips.length || !this.selectedRecordType || !this.selectedDays.length || !this.work_time || !this.chill_time) {
             this.alertMessage = null;
             console.log(this.selectedDays.length, this.work_time, this.chill_time)
             setTimeout(() => {
