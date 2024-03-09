@@ -88,7 +88,7 @@
                       <path d="M8.83301 5.16667V0.806667C9.44971 1.03956 10.0099 1.40087 10.4763 1.86667L12.799 4.19067C13.2653 4.65659 13.6269 5.2166 13.8597 5.83333H9.49967C9.32286 5.83333 9.15329 5.7631 9.02827 5.63807C8.90325 5.51305 8.83301 5.34348 8.83301 5.16667ZM14.1663 7.49V13.1667C14.1653 14.0504 13.8138 14.8976 13.1889 15.5225C12.564 16.1474 11.7167 16.4989 10.833 16.5H4.16634C3.28261 16.4989 2.43538 16.1474 1.81049 15.5225C1.1856 14.8976 0.834066 14.0504 0.833008 13.1667V3.83333C0.834066 2.9496 1.1856 2.10237 1.81049 1.47748C2.43538 0.852588 3.28261 0.501059 4.16634 0.5L7.17634 0.5C7.28501 0.5 7.39234 0.508667 7.49967 0.516V5.16667C7.49967 5.6971 7.71039 6.20581 8.08546 6.58088C8.46053 6.95595 8.96924 7.16667 9.49967 7.16667H14.1503C14.1577 7.274 14.1663 7.38133 14.1663 7.49ZM10.1663 11.8333C10.1663 11.6565 10.0961 11.487 9.97108 11.3619C9.84606 11.2369 9.67649 11.1667 9.49967 11.1667H8.16634V9.83333C8.16634 9.65652 8.0961 9.48695 7.97108 9.36193C7.84606 9.23691 7.67649 9.16667 7.49967 9.16667C7.32286 9.16667 7.15329 9.23691 7.02827 9.36193C6.90325 9.48695 6.83301 9.65652 6.83301 9.83333V11.1667H5.49967C5.32286 11.1667 5.15329 11.2369 5.02827 11.3619C4.90325 11.487 4.83301 11.6565 4.83301 11.8333C4.83301 12.0101 4.90325 12.1797 5.02827 12.3047C5.15329 12.4298 5.32286 12.5 5.49967 12.5H6.83301V13.8333C6.83301 14.0101 6.90325 14.1797 7.02827 14.3047C7.15329 14.4298 7.32286 14.5 7.49967 14.5C7.67649 14.5 7.84606 14.4298 7.97108 14.3047C8.0961 14.1797 8.16634 14.0101 8.16634 13.8333V12.5H9.49967C9.67649 12.5 9.84606 12.4298 9.97108 12.3047C10.0961 12.1797 10.1663 12.0101 10.1663 11.8333Z" fill="#6266EA"/>
                     </svg>
                   </a>
-                  <div v-if="showPlusNotificationPanel" class="plus-panel">
+                  <div :class="{'plus-panel-show' : showPlusNotificationPanel, 'plus-panel-hide' : !showPlusNotificationPanel}">
                     <div class="navbar-arrow"></div>
                     <div class="header">
                       <p>Быстрое создание</p>
@@ -168,7 +168,7 @@
                     </svg>
                     <div v-if="notifications.length > 0" class="chip"></div>
                   </a>
-                  <div v-if="showNotificationPanel" class="notification-panel">
+                  <div :class="{'notification-panel-show' : showNotificationPanel, 'notification-panel-hide' : !showNotificationPanel}">
                     <div class="navbar-arrow"></div>
                     <div class="header">
                       <p>Уведомления ({{ notifications.length }})</p>
@@ -250,6 +250,13 @@ export default {
                 position: 'Администратор',
                 favourites: true,
                 color: '#F7D37D',
+              },
+              {
+                name: 'Барбер',
+                id: '154906',
+                position: 'Сотрудник',
+                favourites: false,
+                color: '#6266EA',
               },
               {
                 name: 'Барбер',
@@ -459,7 +466,29 @@ img{
     color: #52565F;
     font-size: 14px;
 }
-.notification-panel {
+.notification-panel-hide {
+    visibility: hidden;
+    transform: translateY(10px);
+    opacity: 0;
+    transition: all .2s ease;
+    z-index: 99;
+    width: 260px;
+    height: fit-content;
+    right: -100px;
+    top: 50px;
+    background-color: #ffffff;
+    position: absolute;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    filter: drop-shadow(0 0 10px rgb(228, 228, 228));
+}
+
+.notification-panel-show {
+    transform: translateY(0px);
+    transition: all .2s ease;
+    opacity: 100%;
+    visibility: visible;
     z-index: 99;
     width: 260px;
     height: fit-content;
@@ -495,7 +524,29 @@ img{
   color:#AFB6C1;
 }
 
-.plus-panel {
+.plus-panel-hide {
+  visibility: hidden;
+  transform: translateY(10px);
+  opacity: 0;
+  transition: all .2s ease;
+  width: 260px;
+  height: 230px;
+  background-color: #ffffff;
+  position: absolute;
+  z-index: 99;
+  right: -100px;
+  top: 50px;
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center;
+  filter: drop-shadow(0 0 10px rgb(228, 228, 228));
+}
+
+.plus-panel-show {
+  transform: translateY(0px);
+  transition: all .2s ease;
+  opacity: 100%;
+  visibility: visible;
   width: 260px;
   height: 230px;
   background-color: #ffffff;
@@ -603,7 +654,9 @@ input{
 }
 .gates-panel-hide {
   visibility: hidden;
-  transition: all .1s ease;
+  transform: translateY(10px);
+  opacity: 0;
+  transition: all .2s ease;
   display: flex;
   filter: drop-shadow(0 0 10px rgb(228, 228, 228));
   flex-direction: column;
@@ -620,6 +673,10 @@ input{
 }
 
 .gates-panel-show{
+  transform: translateY(0px);
+  transition: all .2s ease;
+  opacity: 100%;
+  visibility: visible;
   display: flex;
   filter: drop-shadow(0 0 10px rgb(228, 228, 228));
   flex-direction: column;
@@ -634,8 +691,6 @@ input{
   border-radius: 5px;
   padding: 20px;
   text-align: center;
-  visibility: visible;
-  transition: all .1s ease;
 }
 
 .wrapper{
