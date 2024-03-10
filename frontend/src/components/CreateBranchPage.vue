@@ -198,7 +198,12 @@
               <p class="steps-text">Шаг 2 из 2</p>
             </div>
             <div class="btn-container">
-              <button class="back" @click="onBackClick">Вернуться</button>
+              <button class="back" @click="onBackClick">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.3999 6.96667L4.8999 3.5V6.3H13.2999V7.7H4.8999V10.5L1.3999 6.96667Z" fill="#D2D8DE"/>
+                </svg>
+                Вернуться
+              </button>
               <button class="btn" @click="Finish">Завершить</button>
             </div>
           </div>
@@ -855,12 +860,18 @@ dataURItoBlob(dataURI) {
     border-radius: 100px;
   }
   .back{
+    display: flex;
+    gap: 5px;
     padding: 10px, 14px, 10px, 14px;
     border-radius: 3px;
     border: 1px solid #DDE1E5;
     gap: 5px;
     color: #535C69;
     background-color: #FFFFFF;
+    transition: all 0.2 ease;
+  }
+  .back:hover{
+    color: #6266EA;
   }
   .btn-container{
     display: flex;

@@ -654,6 +654,10 @@
         color: #535C69;
         border-radius: 3px;
         border: 1px solid #DDE1E5;
+        transition: all 0.2 ease;
+      }
+      .cancel-button:hover{
+        color: #6266EA;
       }
       .custom-file-upload {
         height: 36px;

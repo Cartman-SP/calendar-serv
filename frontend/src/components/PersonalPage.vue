@@ -82,7 +82,11 @@
     color: #535C69;
     background: #FFFFFF;
     border-radius: 3px;
-    border: 1px solid #DDE1E5
+    border: 1px solid #DDE1E5;
+    transition: all 0.2s ease;
+  }
+  .skip-btn:hover{
+    color: #6266EA;
   }
   .personal {
     height: 87vh;

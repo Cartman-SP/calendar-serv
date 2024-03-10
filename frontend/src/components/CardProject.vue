@@ -196,6 +196,7 @@
       background: #F97F7F;
     }
     .main_container{
+      position: relative;
       display: flex;
       justify-content: space-between;
       gap: 10px;
@@ -266,8 +267,8 @@
     }
     .checkmark{
       position: absolute;
-      top: 10px;
-      right: 10px;
+      top: -10px;
+      right: -10px;
       width: 18px;
       height: 18px;
       background: #F3F5F6;
@@ -282,6 +283,9 @@
     }
 
     .active-checkmark{
+      position: absolute;
+      top: -10px;
+      right: -10px;
       width: 18px;
       height: 18px;
       background: #04C562;
