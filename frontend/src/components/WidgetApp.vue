@@ -8,14 +8,13 @@
             </svg>
             <p class="compo-text">Сычевальня</p>
           </div>
-          <div class="compo-top">
+            <div class="compo-top">
             <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M2 7.98124C2 3.52416 5.53247 0 10 0C14.3636 0 18 3.62781 18 7.98124C18 13.3347 10 20 10 20C10 20 2 13.4383 2 7.98124ZM10 11C11.6569 11 13 9.65685 13 8C13 6.34315 11.6569 5 10 5C8.34315 5 7 6.34315 7 8C7 9.65685 8.34315 11 10 11Z" fill="white"/>
             </svg>
             <p class="compo-text">г. Пиводар, ул. Членододблина 1000/3</p>
+            </div>
           </div>
-          </div>
-          
         </div>
         <div class="compo_main">
           <div class="search">
@@ -222,6 +221,7 @@ export default {
   }
   .compo-top{
     display: flex;
+    align-items: center;
     gap: 10px;
     padding: 5px 10px;
   }

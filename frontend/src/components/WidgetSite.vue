@@ -1,43 +1,85 @@
 <template>
   <div class="main">
-    <img src="../../static/img/widget.png" alt="" class="img_head">
+    <div class="compo-container" :style="{ backgroundImage: 'url(' + imageUrl + ')' }">
+      <div class="compo-wrap">
+        <div class="compo-top">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4V3.5C5 1.84315 6.34315 0.5 8 0.5H12C13.6569 0.5 15 1.84315 15 3.5V4H18C19.1046 4 20 4.89543 20 6V16C20 17.1046 19.1046 18 18 18H2C0.895431 18 0 17.1046 0 16V6C0 4.89543 0.895431 4 2 4H5ZM7 3.5C7 2.94772 7.44772 2.5 8 2.5H12C12.5523 2.5 13 2.94772 13 3.5V4H7V3.5ZM10 10C10.8284 10 11.5 9.32843 11.5 8.5C11.5 7.67157 10.8284 7 10 7C9.17157 7 8.5 7.67157 8.5 8.5C8.5 9.32843 9.17157 10 10 10Z" fill="white"/>
+        </svg>
+        <p class="compo-text">Nomad Barbershop №2</p>
+      </div>
+        <div class="compo-top">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M2 7.98124C2 3.52416 5.53247 0 10 0C14.3636 0 18 3.62781 18 7.98124C18 13.3347 10 20 10 20C10 20 2 13.4383 2 7.98124ZM10 11C11.6569 11 13 9.65685 13 8C13 6.34315 11.6569 5 10 5C8.34315 5 7 6.34315 7 8C7 9.65685 8.34315 11 10 11Z" fill="white"/>
+        </svg>
+        <p class="compo-text">г. Павлодар, ул. Торайгырова 153/1</p>
+        </div>
+      </div>
+      <div class="divider_container">
+        <div class="compo_divider"></div>
+        <div class="compo_divider"></div>
+        <div class="compo_divider"></div>
+        <div class="compo_divider"></div>
+        <div class="compo_divider"></div>
+      </div>
+    </div>
     <div class="branch" v-if="currentPage === 'branch'">
       <div class="search">
         <input type="text" placeholder="Введите название улицы или филиала">
       </div>
-      <div class="card">
-        <img src="../../static/img/map.png" alt="">
-        <div class="card_container">
-          <p class="card_name">Nomad Barbershop №1 на Сатпаева 253/1</p>
-          <div class="card_address_container">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M1.2002 4.78875C1.2002 2.11449 3.31968 0 6.0002 0C8.61838 0 10.8002 2.17669 10.8002 4.78875C10.8002 8.00081 6.0002 12 6.0002 12C6.0002 12 1.2002 8.063 1.2002 4.78875ZM6.0002 6.6C6.99431 6.6 7.8002 5.79411 7.8002 4.8C7.8002 3.80589 6.99431 3 6.0002 3C5.00608 3 4.2002 3.80589 4.2002 4.8C4.2002 5.79411 5.00608 6.6 6.0002 6.6Z" fill="#AFB6C1"/>
-            </svg>
-            <p class="card_address">г. Павлодар, ул. Сатпаева 253/1</p>
-          </div>
-          <div class="card_time_container">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6C12 9.31371 9.31371 12 6 12C2.68629 12 0 9.31371 0 6C0 2.68629 2.68629 0 6 0C9.31371 0 12 2.68629 12 6ZM6.3 2.7H5.1V5.94853L8.27574 9.12426L9.12426 8.27574L6.3 5.45147V2.7Z" fill="#AFB6C1"/>
-            </svg>
-            <p class="card_time">Ближайшая свободная запись: сегодня в 18:30</p>
+      <div class="branch_card">
+        <div class="card">
+          <img src="../../static/img/map.png" alt="">
+          <div class="card_container">
+            <p class="card_name">Nomad Barbershop №1 на Сатпаева 253/1</p>
+            <div class="card_address_container">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M1.2002 4.78875C1.2002 2.11449 3.31968 0 6.0002 0C8.61838 0 10.8002 2.17669 10.8002 4.78875C10.8002 8.00081 6.0002 12 6.0002 12C6.0002 12 1.2002 8.063 1.2002 4.78875ZM6.0002 6.6C6.99431 6.6 7.8002 5.79411 7.8002 4.8C7.8002 3.80589 6.99431 3 6.0002 3C5.00608 3 4.2002 3.80589 4.2002 4.8C4.2002 5.79411 5.00608 6.6 6.0002 6.6Z" fill="#AFB6C1"/>
+              </svg>
+              <p class="card_address">г. Павлодар, ул. Сатпаева 253/1</p>
+            </div>
+            <div class="card_time_container">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6C12 9.31371 9.31371 12 6 12C2.68629 12 0 9.31371 0 6C0 2.68629 2.68629 0 6 0C9.31371 0 12 2.68629 12 6ZM6.3 2.7H5.1V5.94853L8.27574 9.12426L9.12426 8.27574L6.3 5.45147V2.7Z" fill="#AFB6C1"/>
+              </svg>
+              <p class="card_time">Ближайшая свободная запись: сегодня в 18:30</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="card">
-        <img src="../../static/img/map.png" alt="">
-        <div class="card_container">
-          <p class="card_name">Nomad Barbershop №1 на Сатпаева 253/1</p>
-          <div class="card_address_container">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M1.2002 4.78875C1.2002 2.11449 3.31968 0 6.0002 0C8.61838 0 10.8002 2.17669 10.8002 4.78875C10.8002 8.00081 6.0002 12 6.0002 12C6.0002 12 1.2002 8.063 1.2002 4.78875ZM6.0002 6.6C6.99431 6.6 7.8002 5.79411 7.8002 4.8C7.8002 3.80589 6.99431 3 6.0002 3C5.00608 3 4.2002 3.80589 4.2002 4.8C4.2002 5.79411 5.00608 6.6 6.0002 6.6Z" fill="#AFB6C1"/>
-            </svg>
-            <p class="card_address">г. Павлодар, ул. Сатпаева 253/1</p>
+        <div class="card">
+          <img src="../../static/img/map.png" alt="">
+          <div class="card_container">
+            <p class="card_name">Nomad Barbershop №1 на Сатпаева 253/1</p>
+            <div class="card_address_container">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M1.2002 4.78875C1.2002 2.11449 3.31968 0 6.0002 0C8.61838 0 10.8002 2.17669 10.8002 4.78875C10.8002 8.00081 6.0002 12 6.0002 12C6.0002 12 1.2002 8.063 1.2002 4.78875ZM6.0002 6.6C6.99431 6.6 7.8002 5.79411 7.8002 4.8C7.8002 3.80589 6.99431 3 6.0002 3C5.00608 3 4.2002 3.80589 4.2002 4.8C4.2002 5.79411 5.00608 6.6 6.0002 6.6Z" fill="#AFB6C1"/>
+              </svg>
+              <p class="card_address">г. Павлодар, ул. Сатпаева 253/1</p>
+            </div>
+            <div class="card_time_container">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6C12 9.31371 9.31371 12 6 12C2.68629 12 0 9.31371 0 6C0 2.68629 2.68629 0 6 0C9.31371 0 12 2.68629 12 6ZM6.3 2.7H5.1V5.94853L8.27574 9.12426L9.12426 8.27574L6.3 5.45147V2.7Z" fill="#AFB6C1"/>
+              </svg>
+              <p class="card_time">Ближайшая свободная запись: сегодня в 18:30</p>
+            </div>
           </div>
-          <div class="card_time_container">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6C12 9.31371 9.31371 12 6 12C2.68629 12 0 9.31371 0 6C0 2.68629 2.68629 0 6 0C9.31371 0 12 2.68629 12 6ZM6.3 2.7H5.1V5.94853L8.27574 9.12426L9.12426 8.27574L6.3 5.45147V2.7Z" fill="#AFB6C1"/>
-            </svg>
-            <p class="card_time">Ближайшая свободная запись: сегодня в 18:30</p>
+        </div>
+        <div class="card">
+          <img src="../../static/img/map.png" alt="">
+          <div class="card_container">
+            <p class="card_name">Nomad Barbershop №1 на Сатпаева 253/1</p>
+            <div class="card_address_container">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M1.2002 4.78875C1.2002 2.11449 3.31968 0 6.0002 0C8.61838 0 10.8002 2.17669 10.8002 4.78875C10.8002 8.00081 6.0002 12 6.0002 12C6.0002 12 1.2002 8.063 1.2002 4.78875ZM6.0002 6.6C6.99431 6.6 7.8002 5.79411 7.8002 4.8C7.8002 3.80589 6.99431 3 6.0002 3C5.00608 3 4.2002 3.80589 4.2002 4.8C4.2002 5.79411 5.00608 6.6 6.0002 6.6Z" fill="#AFB6C1"/>
+              </svg>
+              <p class="card_address">г. Павлодар, ул. Сатпаева 253/1</p>
+            </div>
+            <div class="card_time_container">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6C12 9.31371 9.31371 12 6 12C2.68629 12 0 9.31371 0 6C0 2.68629 2.68629 0 6 0C9.31371 0 12 2.68629 12 6ZM6.3 2.7H5.1V5.94853L8.27574 9.12426L9.12426 8.27574L6.3 5.45147V2.7Z" fill="#AFB6C1"/>
+              </svg>
+              <p class="card_time">Ближайшая свободная запись: сегодня в 18:30</p>
+            </div>
           </div>
         </div>
       </div>
@@ -95,9 +137,31 @@
       <div class="service">
         <div class="service_container">
           <p class="service_container_text">Выбрать услугу</p>
+          <img src="../../static/img/tools.svg" alt="" class="service_tools">
+          <div class="checkmark" v-if="!isActive" @click="setActiveProject()">
+            <svg width="15" height="15" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2556 6.15492L9.05226 14.4665L4.29285 9.7071L5.70706 8.29289L8.94764 11.5335L14.7443 4.84506L16.2556 6.15492Z" fill="#F5F5F5"/>
+            </svg>
+          </div>
+          <div class="active-checkmark" v-else @click="deactivateProject">
+            <svg width="15" height="15" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2556 6.15492L9.05226 14.4665L4.29285 9.7071L5.70706 8.29289L8.94764 11.5335L14.7443 4.84506L16.2556 6.15492Z" fill="#F5F5F5"/>
+            </svg>
+          </div>
         </div>
         <div class="service_container">
           <p class="service_container_text">Выбрать<br>специалиста</p>
+          <img src="../../static/img/ppl.svg" alt="" class="service_ppl">
+          <div class="checkmark" v-if="!isActive" @click="setActiveProject()">
+            <svg width="15" height="15" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2556 6.15492L9.05226 14.4665L4.29285 9.7071L5.70706 8.29289L8.94764 11.5335L14.7443 4.84506L16.2556 6.15492Z" fill="#F5F5F5"/>
+            </svg>
+          </div>
+          <div class="active-checkmark" v-else @click="deactivateProject">
+            <svg width="15" height="15" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2556 6.15492L9.05226 14.4665L4.29285 9.7071L5.70706 8.29289L8.94764 11.5335L14.7443 4.84506L16.2556 6.15492Z" fill="#F5F5F5"/>
+            </svg>
+          </div>
         </div>
       </div>
       <div class="card_next">
@@ -322,37 +386,15 @@
         <div class="calendar_numbers">
           <img src="../../static/img/calendar.svg" alt="" class="">
         </div>
-        <div class="calendar_numbers">
-          <p class="calendar_numbers_head">6 чт</p>
-          <p class="calendar_numbers_sub">дек</p>
-        </div>
-        <div class="calendar_numbers">
-          <p class="calendar_numbers_head">7 пт</p>
-          <p class="calendar_numbers_sub">нояб</p>
-        </div>
-        <div class="calendar_numbers">
-          <p class="calendar_numbers_head">8 <span class="weekend">сб</span></p>
-          <p class="calendar_numbers_sub">сен</p>
-        </div>
-        <div class="calendar_numbers">
-          <p class="calendar_numbers_head">9 <span class="weekend">вс</span></p>
-          <p class="calendar_numbers_sub">окт</p>
-        </div>
-        <div class="calendar_numbers">
-          <p class="calendar_numbers_head">10 пн</p>
-          <p class="calendar_numbers_sub">июля</p>
-        </div>
-        <div class="calendar_numbers">
-          <p class="calendar_numbers_head">11 вт</p>
-          <p class="calendar_numbers_sub">июнь</p>
-        </div>
-        <div class="calendar_numbers">
-          <p class="calendar_numbers_head">12 ср</p>
-          <p class="calendar_numbers_sub">авг</p>
-        </div>
-        <div class="calendar_numbers">
-          <p class="calendar_numbers_head">13 чт</p>
-          <p class="calendar_numbers_sub">фев</p>
+        <div 
+          v-for="(day, index) in days" 
+          :key="index" 
+          class="calendar_numbers" 
+          @click="changeColor(index)"
+          :style="{ background: isClicked[index] ? '#6266EA' : '#FAFAFA', color: isClicked[index] ? '#FFFFFF' : '#535C69' }"
+        >
+          <p class="calendar_numbers_head" :style="{ color: isClicked[index] ? '#FFFFFF' : '#535C69' }">{{ day.number }}</p>
+          <p class="calendar_numbers_sub" :style="{ color: isClicked[index] ? '#FFFFFF' : '#535C69' }">{{ day.month }}</p>
         </div>
       </div>
 
@@ -395,15 +437,96 @@
           </div>
         </div>
         <div class="calendar_time_container">
-          <div class="calendar_time">13:00</div>
-          <div class="calendar_time">14:00</div>
-          <div class="calendar_time">15:00</div>
-          <div class="calendar_time">16:00</div>
-          <div class="calendar_time">17:00</div>
-          <div class="calendar_time">18:00</div>
-          <div class="calendar_time">19:00</div>
-          <div class="calendar_time">20:00</div>
-          <div class="calendar_time">21:00</div>
+          <div class="calendar_time">
+            <div class="selectwidget">
+              <SelectWidget
+              :options="['18:05', '18:10', '18:15', '18:20', '18:25', '18:30', '18:35', '18:40', '18:45', '18:50', '18:55']"
+              class="select" @input="option => selectedLanguage = option"
+              :placeholderdata="'13:00'"
+              />
+              <div class="selectwidget_dot"></div>
+            </div>
+          </div>
+          <div class="calendar_time">
+            <div class="selectwidget">
+              <SelectWidget
+              :options="['18:05', '18:10', '18:15', '18:20', '18:25', '18:30', '18:35', '18:40', '18:45', '18:50', '18:55']"
+              class="select" @input="option => selectedLanguage = option"
+              :placeholderdata="'14:00'"
+              />
+              <div class="selectwidget_dot"></div>
+            </div>
+          </div>
+          <div class="calendar_time">
+            <div class="selectwidget">
+              <SelectWidget
+              :options="['18:05', '18:10', '18:15', '18:20', '18:25', '18:30', '18:35', '18:40', '18:45', '18:50', '18:55']"
+              class="select" @input="option => selectedLanguage = option"
+              :placeholderdata="'15:00'"
+              />
+              <div class="selectwidget_dot"></div>
+            </div>
+          </div>
+          <div class="calendar_time">
+            <div class="selectwidget">
+              <SelectWidget
+              :options="['18:05', '18:10', '18:15', '18:20', '18:25', '18:30', '18:35', '18:40', '18:45', '18:50', '18:55']"
+              class="select" @input="option => selectedLanguage = option"
+              :placeholderdata="'16:00'"
+              />
+              <div class="selectwidget_dot"></div>
+            </div>
+          </div>
+          <div class="calendar_time">
+            <div class="selectwidget">
+              <SelectWidget
+              :options="['18:05', '18:10', '18:15', '18:20', '18:25', '18:30', '18:35', '18:40', '18:45', '18:50', '18:55']"
+              class="select" @input="option => selectedLanguage = option"
+              :placeholderdata="'17:00'"
+              />
+              <div class="selectwidget_dot"></div>
+            </div>
+          </div>
+          <div class="calendar_time">
+            <div class="selectwidget">
+              <SelectWidget
+              :options="['18:05', '18:10', '18:15', '18:20', '18:25', '18:30', '18:35', '18:40', '18:45', '18:50', '18:55']"
+              class="select" @input="option => selectedLanguage = option"
+              :placeholderdata="'18:00'"
+              />
+              <div class="selectwidget_dot"></div>
+            </div>
+          </div>
+          <div class="calendar_time">
+            <div class="selectwidget">
+              <SelectWidget
+              :options="['18:05', '18:10', '18:15', '18:20', '18:25', '18:30', '18:35', '18:40', '18:45', '18:50', '18:55']"
+              class="select" @input="option => selectedLanguage = option"
+              :placeholderdata="'19:00'"
+              />
+              <div class="selectwidget_dot"></div>
+            </div>
+          </div>
+          <div class="calendar_time">
+            <div class="selectwidget">
+              <SelectWidget
+              :options="['18:05', '18:10', '18:15', '18:20', '18:25', '18:30', '18:35', '18:40', '18:45', '18:50', '18:55']"
+              class="select" @input="option => selectedLanguage = option"
+              :placeholderdata="'20:00'"
+              />
+              <div class="selectwidget_dot"></div>
+            </div>
+          </div>
+          <div class="calendar_time">
+            <div class="selectwidget">
+              <SelectWidget
+              :options="['18:05', '18:10', '18:15', '18:20', '18:25', '18:30', '18:35', '18:40', '18:45', '18:50', '18:55']"
+              class="select" @input="option => selectedLanguage = option"
+              :placeholderdata="'21:00'"
+              />
+              <div class="selectwidget_dot"></div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -474,7 +597,26 @@
               </div>
               <div class="data_forma_container">
                 <p class="data_forma_text">Телефон <span class="data_forma_star">*</span></p>
-                <input type="text" id="" placeholder="Введите имя">
+                <div class="form-group-phone" style="display: flex;">      
+                  <div class="card flex justify-content-center">
+                    <DropdownComponent v-model="selectedCountry" :options="countries" optionLabel="name" placeholder="🇷🇺" class="w-full md:w-14rem">
+                      <template #value="slotProps">
+                        <div v-if="slotProps.value" class="flex align-items-center">
+                          <div>{{ slotProps.value.name }}</div>
+                        </div>
+                        <span v-else>
+                          {{ slotProps.placeholder }}
+                        </span>
+                      </template>
+                      <template #option="slotProps">
+                        <div class="flex align-items-center">
+                          <div>{{ slotProps.option.name }}</div>
+                        </div>
+                      </template>
+                    </DropdownComponent>
+                  </div>
+                  <InputMaskComponent autocomplete="new-password" @input="handleInput" id="basic" v-model="value" :mask="computedMask" :placeholder="computedPlaceholder" />
+                </div>
               </div>
             </div>
           </div>
@@ -482,7 +624,10 @@
         <div class="figures">
           <p class="figures_text">Убедитесь, что все указано верно</p>
           <div class="figures_container">
-            <div class="checkmark"></div>
+            <div class="mark" v-if="!Mark" @click="Mark = !Mark"></div>
+            <div class="mark_active" v-else @click="Mark = !Mark">
+              <img src="../../static/img/checkmark.svg" alt="">
+            </div>
             <p class="figures_personal">Согласен на обработку <span class="personal_span"> персональных данных</span></p>
           </div>
         </div>
@@ -562,30 +707,111 @@
 </template>
 
 <script>
+import SelectWidget from '../components/SelectWidget.vue';
+
 export default {
+  components: { SelectWidget} ,
   data() {
     return {
-      currentPage: 'branch' // Изначально показывается страница Favor
+      Mark: false,
+      currentPage: 'branch',
+      selectedCountry: null,
+      value: '7 ', // Начальное значение для InputMaskComponent
+      countries: [
+        { name: '🇷🇺', code: '+7' },
+        { name: '🇧🇾', code: '+375' },
+        { name: '🇰🇿', code: '+7' },
+        { name: '🇺🇦', code: '+380' },
+      ],
+      images: [
+        '/static/img/salon.png',
+        '/static/img/widget.png',
+        // Добавьте любые другие изображения, которые хотите использовать
+      ],
+      currentImageIndex: 0,
+      isClicked: new Array(9).fill(false), // Значения по умолчанию для каждого элемента
+      days: [
+        { number: '6 чт', month: 'дек' },
+        { number: '7 пт', month: 'нояб' },
+        { number: '8 сб', month: 'сен' },
+        { number: '9 вс', month: 'окт' },
+        { number: '10 пн', month: 'июля' },
+        { number: '11 вт', month: 'июнь' },
+        { number: '12 ср', month: 'авг' },
+        { number: '13 чт', month: 'фев' }
+      ]
     };
   },
+  computed: {
+    computedMask() {
+      if (this.selectedCountry) {
+        const countryCode = this.selectedCountry.code;
+        if (countryCode === '+375' || countryCode === '+380') {
+          return `${countryCode} (99) 999-99-99`;
+        } else {
+          return `${countryCode} (999) 999-99-99`;
+        }
+      } else {
+        return '+7 (999) 999-99-99'; // Default mask
+      }
+    },
+    imageUrl() {
+      return this.images[this.currentImageIndex];
+    },
+    computedPlaceholder() {
+      return this.selectedCountry ? this.selectedCountry.code + ' |' : '+7 |';
+    },
+  },
+  watch: {
+    selectedCountry(newCountry) {
+      if (newCountry) {
+        this.value = newCountry.code + ' ' + this.value.replace(/^\s*\+\d\s*\|\s*/, '');
+      }
+    },
+  },
+  mounted() {
+    // Запускаем функцию для автоматического переключения изображений
+    this.startImageSlider();
+  },
   methods: {
+    handleInput() {
+      const countryCode = this.selectedCountry ? this.selectedCountry.code : '';
+      this.value = countryCode + ' ' + this.value.replace(/^\s*\+\d\s*\|\s*/, '');
+    },
     showFavor() {
-      this.currentPage = 'favor'; // Показать страницу Favor
+      this.currentPage = 'favor';
     },
     showChoice() {
-      this.currentPage = 'choice'; // Показать страницу Choice
+      this.currentPage = 'choice';
     },
     showEmployees() {
-      this.currentPage = 'employees'; // Показать страницу Choice
+      this.currentPage = 'employees';
     },
     showCalendar() {
-      this.currentPage = 'calendar'; // Показать страницу Choice
+      this.currentPage = 'calendar';
     },
     showData() {
-      this.currentPage = 'data'; // Показать страницу Choice
+      this.currentPage = 'data';
     },
     showNotes() {
-      this.currentPage = 'notes'; // Показать страницу Choice
+      this.currentPage = 'notes';
+    },
+    startImageSlider() {
+      // Устанавливаем интервал для переключения изображений каждые 5 секунд
+      setInterval(() => {
+        this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
+      }, 5000);
+      console.log(this.imageUrl)
+    },
+    setActiveProject(projectId) {
+      this.$store.commit('setActiveProject', projectId);
+    },
+    deactivateProject() {
+      this.$store.commit('deactivateProject');
+    },
+    changeColor(index) {
+      // Сброс выбора всех элементов
+      this.isClicked = this.isClicked.map((value, i) => i === index);
     }
   }
 };
@@ -594,7 +820,6 @@ export default {
 <style scoped>
 .main{
   width: 600px;
-  height: 560px;
   border-radius: 20px;
   background: #FFFFFF;
 }
@@ -783,6 +1008,7 @@ p{
   gap: 20px;
 }
 .service_container{
+  position: relative;
   padding: 20px;
   width: 250px;
   height: 170px;
@@ -812,6 +1038,8 @@ p{
   grid-template-rows: repeat(2, 1fr);
   grid-column-gap: 10px;
   grid-row-gap: 10px;
+  width: 540px;
+  overflow: scroll;
 }
 .favor_card{
   background: #fafafa;
@@ -857,11 +1085,27 @@ p{
   background: #6266EA;
   border-radius: 5px;
 }
+.selectwidget{
+  position: relative;
+}
+.selectwidget_dot {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  display: flex;
+  align-items: center;
+  height: 2px;
+  width: 2px;
+  background: #04C562;
+  border-radius: 5px;
+}
 .btn-wrapper{
   border-radius: 100px;
   background: #EBEDFF;
   color: #6266EA;
   font-weight: 500;
+  height: 30px;
+  font-family: TT Norms Medium; 
   padding: 2px 20px;
 }
 .btn_wrapper:hover{
@@ -922,6 +1166,8 @@ p{
   grid-template-rows: repeat(2, 1fr);
   grid-column-gap: 10px;
   grid-row-gap: 10px;
+  width: 540px;
+  overflow: scroll;
 }
 .employees_card{
   background: #fafafa;
@@ -1011,6 +1257,7 @@ p{
   height: 33px;
   border-radius: 3px;
   background: #FAFAFA;
+  cursor: pointer;
 }
 .calendar_numbers_head{
   font-family: TT Norms Medium;
@@ -1023,9 +1270,9 @@ p{
 }
 .calendar_numbers_sub{
   font-family: TT Norms light;
-  font-size: 16px;
+  font-size: 10px;
   font-weight: 500;
-  line-height: 16px;
+  line-height: 10px;
   letter-spacing: 0em;
   text-align: left;
   color: #535C69;
@@ -1240,11 +1487,25 @@ input{
   align-items: center;
   gap: 5px;
 }
-.checkmark{
+.mark{
   width: 16px;
   height: 16px;
   border-radius: 3px;
   border: 1px solid #C6CBD2;
+  cursor: pointer;
+  user-select:none;
+}
+.mark_active{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  border: 1px solid #6266EA;
+  cursor: pointer;
+  background: #6266EA;
+  user-select:none;
 }
 .figures_personal{
   font-family: TT Norms Medium;
@@ -1326,5 +1587,91 @@ input{
   gap: 5px;
   background: #EFEFFF;
   color: #6266EA;
+}
+.branch_card{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 262px;
+  overflow: scroll;
+}
+.compo-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  gap: 10px;
+  height: 230px;
+  padding: 40px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-image: url(../../static/img/widget.png);
+}
+.compo-wrap{
+  display: flex;
+  gap: 20px;
+}
+.compo-top{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.compo-text{
+  color: #FFFFFF;
+  font-family: TT Norms Medium;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 14px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin: 0;
+}
+.divider_container{
+  display: flex;
+  gap: 3px;
+}
+.compo_divider{
+  width: 100px;
+  height: 5px;
+  border-radius: 100px;
+  background: #FFFFFF80;
+}
+.service_tools{
+  position: absolute;
+  bottom: -4px;
+  right: 0;
+}
+.service_ppl{
+  position: absolute;
+  bottom: 0;
+  right: -25px;
+}
+.checkmark{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 18px;
+  height: 18px;
+  background: #FFFFFF;
+  border: 1px solid #F5F5F5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+.checkmark:hover{
+  background: #04C562;
+  cursor: pointer;
+}
+
+.active-checkmark{
+  width: 18px;
+  height: 18px;
+  background: #04C562;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease
 }
 </style>
