@@ -109,45 +109,48 @@
                   <div class="dropdown_btn">
                     <button @click="toggleDropdown" class="dropdown" :style="{ 'background-color': showDropdown ? '#F3F6F8' : 'transparent' }">
                       <img v-if="!showDropdown" src="../../static/img/kebab.svg" alt="Open">
-                      <img v-if="showDropdown" src="../../static/img/x.svg" alt="Close">
+                      <img v-if="showDropdown" src="../../static/img/x.svg" alt="Close" style="width: 12px; height: 12px;">
                     </button>
+                    <div :class="{'dropdown-menu-show' : showDropdown, 'dropdown-menu-hide' : !showDropdown}" @click="closeDropdown">
+                    <router-link to="/lk/settings" style="text-decoration:none" class="dropdown-link">
+                      <div class="dropdown-item">
+                        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M8.82231 0.5C8.56215 0.5 8.35124 0.710907 8.35124 0.971074V2.74768C7.61716 2.92912 6.91437 3.2195 6.26632 3.60914L5.01431 2.3539C4.92601 2.26537 4.80613 2.21558 4.68109 2.2155C4.55605 2.21542 4.4361 2.26505 4.34769 2.35347L2.35347 4.34769C2.26505 4.4361 2.21542 4.55605 2.2155 4.68109C2.21558 4.80613 2.26537 4.92601 2.3539 5.01431L3.60914 6.26632C3.2195 6.91437 2.92912 7.61716 2.74768 8.35124H0.971074C0.710907 8.35124 0.5 8.56215 0.5 8.82231V11.1777C0.5 11.4379 0.710907 11.6488 0.971074 11.6488H2.74768C2.92912 12.3828 3.2195 13.0856 3.60914 13.7337L2.3539 14.9857C2.26537 15.074 2.21558 15.1939 2.2155 15.3189C2.21542 15.444 2.26505 15.5639 2.35347 15.6523L4.34769 17.6465C4.4361 17.7349 4.55605 17.7846 4.68109 17.7845C4.80613 17.7844 4.92601 17.7346 5.01431 17.6461L6.26632 16.3909C6.91437 16.7805 7.61716 17.0709 8.35124 17.2523V19.0289C8.35124 19.2891 8.56215 19.5 8.82231 19.5H11.1777C11.4379 19.5 11.6488 19.2891 11.6488 19.0289V17.2523C12.3828 17.0709 13.0856 16.7805 13.7337 16.3909L14.9857 17.6461C15.074 17.7346 15.1939 17.7844 15.3189 17.7845C15.444 17.7846 15.5639 17.7349 15.6523 17.6465L17.6465 15.6523C17.7349 15.5639 17.7846 15.444 17.7845 15.3189C17.7844 15.1939 17.7346 15.074 17.6461 14.9857L16.3909 13.7337C16.7805 13.0856 17.0709 12.3828 17.2523 11.6488H19.0289C19.2891 11.6488 19.5 11.4379 19.5 11.1777V8.82231C19.5 8.56215 19.2891 8.35124 19.0289 8.35124H17.2523C17.0709 7.61716 16.7805 6.91437 16.3909 6.26632L17.6461 5.01431C17.7346 4.92601 17.7844 4.80613 17.7845 4.68109C17.7846 4.55605 17.7349 4.4361 17.6465 4.34769L15.6523 2.35347C15.5639 2.26505 15.444 2.21542 15.3189 2.2155C15.1939 2.21558 15.074 2.26537 14.9857 2.3539L13.7337 3.60914C13.0856 3.2195 12.3828 2.92912 11.6488 2.74768V0.971074C11.6488 0.710907 11.4379 0.5 11.1777 0.5H8.82231ZM6.70248 10C6.70248 8.17883 8.17883 6.70248 10 6.70248C11.8212 6.70248 13.2975 8.17883 13.2975 10C13.2975 11.8212 11.8212 13.2975 10 13.2975C8.17883 13.2975 6.70248 11.8212 6.70248 10Z" fill="#AFB6C1"/>
+                        </svg> 
+                        <p class="dropdown-header">Настройка профиля</p>
+                      </div>
+                    </router-link>
+                    <router-link to="#" style="text-decoration:none" class="dropdown-link">
+                      <div class="dropdown-item">
+                        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M17 4.00006H2.5L15 6.10352e-05L17 4.00006Z" fill="#AFB6C1"/>
+                          <path d="M1 8.00012C1 6.89555 1.89543 6.00012 3 6.00012H17C18.1046 6.00012 19 6.89555 19 8.00012V11H15.6666C14.7222 11 14 11.65 14 12.5C14 13.35 14.7222 14 15.6666 14H19V17.0001C19 18.1047 18.1046 19.0001 17 19.0001H3C1.89543 19.0001 1 18.1047 1 17.0001V8.00012Z" fill="#AFB6C1"/>
+                        </svg>
+                        <p class="dropdown-header">Тарифный план</p>
+                      </div>
+                    </router-link>
+                    <router-link to="#" style="text-decoration:none" class="dropdown-link">
+                      <div class="dropdown-item" id="logout">
+                        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <g clip-path="url(#clip0_767_17838)">
+                          <path d="M13.332 17.5H17.1578C17.3459 17.4995 17.4982 17.3472 17.4987 17.1592V2.84082C17.4982 2.65277 17.3459 2.50043 17.1578 2.5H13.332C12.6417 2.5 12.082 1.94035 12.082 1.25C12.082 0.559648 12.6417 0 13.332 0H17.1578C18.726 0.00183594 19.9968 1.27266 19.9987 2.84082V17.1591C19.9968 18.7273 18.726 19.9982 17.1578 20H13.332C12.6417 20 12.082 19.4404 12.082 18.75C12.082 18.0596 12.6416 17.5 13.332 17.5Z" fill="#F97F7F"/>
+                          <path d="M1.2487 8.75L12.6154 8.7725L9.72707 5.88417C9.23875 5.39609 9.23855 4.60457 9.72663 4.11625C10.2147 3.62792 11.0062 3.62773 11.4946 4.11582L14.7271 7.34832C16.1916 8.81277 16.1916 11.1871 14.7271 12.6516L14.7271 12.6516L11.4946 15.8841C11.0062 16.3722 10.2147 16.372 9.72663 15.8837C9.23855 15.3954 9.23875 14.6039 9.72707 14.1158L12.5712 11.2725L1.2487 11.25C0.558353 11.2486 -0.000161171 10.6878 0.0012064 9.9975C0.00257301 9.30714 0.563354 8.74863 1.25371 8.75H1.2487Z" fill="#F97F7F"/>
+                          </g>
+                          <defs>
+                          <clipPath id="clip0_767_17838">
+                          <rect width="20" height="20" fill="white" transform="matrix(-1 0 0 1 20 0)"/>
+                          </clipPath>
+                          </defs>
+                        </svg>
+                        <div class="dropdown-subheader" @click="logout">Выйти из аккаунта</div>
+                      </div>
+                    </router-link>
+                    </div>
                   </div>
                 </div>
                 <div class="avatar-bottom">
                   <img src="../../static/img/Union.png" alt="">
                   <p id="bottom_sub_text">{{ company }}</p>
-                </div>
-                <div v-if="showDropdown" class="dropdown-menu" @click="closeDropdown">
-                  <router-link to="/lk/settings" style="text-decoration:none">
-                    <div class="dropdown-item">
-                      <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M8.82231 0.5C8.56215 0.5 8.35124 0.710907 8.35124 0.971074V2.74768C7.61716 2.92912 6.91437 3.2195 6.26632 3.60914L5.01431 2.3539C4.92601 2.26537 4.80613 2.21558 4.68109 2.2155C4.55605 2.21542 4.4361 2.26505 4.34769 2.35347L2.35347 4.34769C2.26505 4.4361 2.21542 4.55605 2.2155 4.68109C2.21558 4.80613 2.26537 4.92601 2.3539 5.01431L3.60914 6.26632C3.2195 6.91437 2.92912 7.61716 2.74768 8.35124H0.971074C0.710907 8.35124 0.5 8.56215 0.5 8.82231V11.1777C0.5 11.4379 0.710907 11.6488 0.971074 11.6488H2.74768C2.92912 12.3828 3.2195 13.0856 3.60914 13.7337L2.3539 14.9857C2.26537 15.074 2.21558 15.1939 2.2155 15.3189C2.21542 15.444 2.26505 15.5639 2.35347 15.6523L4.34769 17.6465C4.4361 17.7349 4.55605 17.7846 4.68109 17.7845C4.80613 17.7844 4.92601 17.7346 5.01431 17.6461L6.26632 16.3909C6.91437 16.7805 7.61716 17.0709 8.35124 17.2523V19.0289C8.35124 19.2891 8.56215 19.5 8.82231 19.5H11.1777C11.4379 19.5 11.6488 19.2891 11.6488 19.0289V17.2523C12.3828 17.0709 13.0856 16.7805 13.7337 16.3909L14.9857 17.6461C15.074 17.7346 15.1939 17.7844 15.3189 17.7845C15.444 17.7846 15.5639 17.7349 15.6523 17.6465L17.6465 15.6523C17.7349 15.5639 17.7846 15.444 17.7845 15.3189C17.7844 15.1939 17.7346 15.074 17.6461 14.9857L16.3909 13.7337C16.7805 13.0856 17.0709 12.3828 17.2523 11.6488H19.0289C19.2891 11.6488 19.5 11.4379 19.5 11.1777V8.82231C19.5 8.56215 19.2891 8.35124 19.0289 8.35124H17.2523C17.0709 7.61716 16.7805 6.91437 16.3909 6.26632L17.6461 5.01431C17.7346 4.92601 17.7844 4.80613 17.7845 4.68109C17.7846 4.55605 17.7349 4.4361 17.6465 4.34769L15.6523 2.35347C15.5639 2.26505 15.444 2.21542 15.3189 2.2155C15.1939 2.21558 15.074 2.26537 14.9857 2.3539L13.7337 3.60914C13.0856 3.2195 12.3828 2.92912 11.6488 2.74768V0.971074C11.6488 0.710907 11.4379 0.5 11.1777 0.5H8.82231ZM6.70248 10C6.70248 8.17883 8.17883 6.70248 10 6.70248C11.8212 6.70248 13.2975 8.17883 13.2975 10C13.2975 11.8212 11.8212 13.2975 10 13.2975C8.17883 13.2975 6.70248 11.8212 6.70248 10Z" fill="#AFB6C1"/>
-                      </svg> 
-                      <p class="dropdown-header">Настройка профиля</p>
-                    </div>
-                  </router-link>
-                  <div class="line"></div>
-                  <div class="dropdown-item">
-                    <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M17 4.00006H2.5L15 6.10352e-05L17 4.00006Z" fill="#AFB6C1"/>
-                      <path d="M1 8.00012C1 6.89555 1.89543 6.00012 3 6.00012H17C18.1046 6.00012 19 6.89555 19 8.00012V11H15.6666C14.7222 11 14 11.65 14 12.5C14 13.35 14.7222 14 15.6666 14H19V17.0001C19 18.1047 18.1046 19.0001 17 19.0001H3C1.89543 19.0001 1 18.1047 1 17.0001V8.00012Z" fill="#AFB6C1"/>
-                    </svg>
-                    <p class="dropdown-header">Тарифный план</p>
-                  </div>
-                  <div class="dropdown-item">
-                    <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <g clip-path="url(#clip0_767_17838)">
-                      <path d="M13.332 17.5H17.1578C17.3459 17.4995 17.4982 17.3472 17.4987 17.1592V2.84082C17.4982 2.65277 17.3459 2.50043 17.1578 2.5H13.332C12.6417 2.5 12.082 1.94035 12.082 1.25C12.082 0.559648 12.6417 0 13.332 0H17.1578C18.726 0.00183594 19.9968 1.27266 19.9987 2.84082V17.1591C19.9968 18.7273 18.726 19.9982 17.1578 20H13.332C12.6417 20 12.082 19.4404 12.082 18.75C12.082 18.0596 12.6416 17.5 13.332 17.5Z" fill="#F97F7F"/>
-                      <path d="M1.2487 8.75L12.6154 8.7725L9.72707 5.88417C9.23875 5.39609 9.23855 4.60457 9.72663 4.11625C10.2147 3.62792 11.0062 3.62773 11.4946 4.11582L14.7271 7.34832C16.1916 8.81277 16.1916 11.1871 14.7271 12.6516L14.7271 12.6516L11.4946 15.8841C11.0062 16.3722 10.2147 16.372 9.72663 15.8837C9.23855 15.3954 9.23875 14.6039 9.72707 14.1158L12.5712 11.2725L1.2487 11.25C0.558353 11.2486 -0.000161171 10.6878 0.0012064 9.9975C0.00257301 9.30714 0.563354 8.74863 1.25371 8.75H1.2487Z" fill="#F97F7F"/>
-                      </g>
-                      <defs>
-                      <clipPath id="clip0_767_17838">
-                      <rect width="20" height="20" fill="white" transform="matrix(-1 0 0 1 20 0)"/>
-                      </clipPath>
-                      </defs>
-                    </svg>
-                    <div class="dropdown-subheader" @click="logout">Выйти из аккаунта</div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -219,6 +222,41 @@ export default {
 </script>
 
 <style scoped>
+.dropdown-link:hover .dropdown-item p{
+  color: #535C69;
+}
+
+.dropdown-link .dropdown-item p{
+  transition: all .2s ease;
+}
+
+.dropdown-link:hover .dropdown-item svg path{
+  fill: #535C69;
+}
+
+.dropdown-link:hover #logout div{
+  color: #f20808;
+}
+
+.dropdown-link:hover #logout svg path{
+  fill: #f20808;
+}
+
+.dropdown-link .dropdown-item div{
+  transition: all .2s ease;
+}
+
+.dropdown-link .dropdown-item svg path{
+  transition: all .2s ease;
+}
+
+.dropdown-link:hover #logout p{
+  transition: all .2s ease;
+}
+
+.dropdown-link:hover #logout svg path{
+  transition: all .2s ease;
+}
 .avatar-bottom{
   margin-top: 10px;
   background-color: #fafafa;
@@ -354,6 +392,8 @@ export default {
   background-color: white;
 }
 .dropdown{
+  position: relative;
+  display: inline-block;
   color: #AFB6C1;
   font-size: 15px;
   background-color: white;
@@ -363,25 +403,48 @@ export default {
   align-items: center;
   justify-content: center;
   border-radius: 3px;
-  transition: background-color 0.3s ease;
+  border: 1px solid #ffffff;
+  transition: all .2s ease;
 }
 .dropdown:hover{
   border: 1px solid #535C69;
 }
-.dropdown-menu {
-  width: 171px;
-  height: 105px;
+.dropdown-menu-show {
+  width: 170px;
+  height: auto;
   background-color: white;
   position: absolute;
+  transform: translate(40px, -35px);
   bottom: 0;
-  left: 280px;
-  bottom: 50px;
   border: 1px solid #E4EAEF;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   text-align: left;
+
+  opacity: 1;
+  visibility: visible;
+  transition: all .2s ease;
+}
+
+.dropdown-menu-hide {
+  width: 170px;
+  height: auto;
+  background-color: white;
+  position: absolute;
+  transform: translate(40px, -35px);
+  bottom: 0;
+  border: 1px solid #E4EAEF;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
+
+  opacity: 0;
+  visibility: hidden;
+  transition: all .2s ease;
 }
 
 .dropdown-item {
@@ -403,9 +466,6 @@ export default {
   width: 100%;
   background: #FFFFFF;
   margin: 0;
-}
-.dropdown-header:hover {
-  color: #535C69;
 }
 .dropdown-subheader{
   font-family: TT Norms Medium;
