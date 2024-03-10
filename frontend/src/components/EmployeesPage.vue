@@ -173,33 +173,35 @@
             </div>
           </div>
           <div class="adaptive_window">
-            <img v-if="serviceCover" :src="coverDataUrl" alt="">
-            <div class="img_container" v-else>
-              <div class="adaptive_img">
-                <img class="img_window"  src="../../static/img/service.svg" alt="">
+            <div class="img_container">
+              <div class="img_container" v-if="avatar">
+                <img class="img_window" :src="coverDataUrl" alt="">
+              </div>
+              <div class="adaptive_img" v-else>
+                <img style="height: 40px; width: 40px;" src="../../static/img/service.svg" alt="">
               </div>
               <div class="adaptive_name">
-                <div>
-                  <div v-if="firstname">
-                    <p class="header">{{firstname}}</p>
-                    <p class="descr">Имя</p>
-                  </div>
-                  <div v-else class="second">
-                    <div class="stripe" style="width: 109px;"></div>
-                    <div class="stripe" style="width: 63px;"></div>
-                  </div>
+              <div>
+                <div v-if="firstname">
+                  <p class="header">{{firstname}}</p>
+                  <p class="descr">Имя</p>
                 </div>
-                <div>
-                  <div v-if="secondname">
-                    <p class="header">{{secondname}}</p>
-                    <p class="descr">Фамилия</p>
-                  </div>
-                  <div v-else class="second">
-                    <div class="stripe" style="width: 109px;"></div>
-                    <div class="stripe" style="width: 63px;"></div>
-                  </div>
+                <div v-else class="second">
+                  <div class="stripe" style="width: 109px;"></div>
+                  <div class="stripe" style="width: 63px;"></div>
                 </div>
               </div>
+              <div>
+                <div v-if="secondname">
+                  <p class="header">{{secondname}}</p>
+                  <p class="descr">Фамилия</p>
+                </div>
+                <div v-else class="second">
+                  <div class="stripe" style="width: 109px;"></div>
+                  <div class="stripe" style="width: 63px;"></div>
+                </div>
+              </div>
+            </div>
             </div>
             <div v-if="rank">
               <p class="header">{{rank}}</p>
@@ -209,16 +211,16 @@
               <div class="stripe" style="width: 143px;"></div>
               <div class="stripe" style="width: 97px;"></div>
             </div>
-            <div v-if="serviceDuration" >
-              <p class="header">{{serviceDuration}}</p>
+            <div v-if="work_time" >
+              <p class="header">{{work_time}}</p>
               <p class="descr">Рабочие часы</p>
             </div>
             <div v-else class="first">
               <div class="stripe" style="width: 143px;"></div>
               <div class="stripe" style="width: 97px;"></div>
             </div>
-            <div v-if="selectedDays">
-              <p class="header">{{selectedDays}}</p>
+            <div v-if="selectedDays.length > 0">
+              <p class="header">{{selectedDays.toString()}}</p>
               <p class="descr">График работы</p>
             </div>
             <div v-else class="first">
@@ -271,6 +273,8 @@
           work_timeError: false,
           chill_timeError: false,
 
+          coverDataUrl: null,
+
           fileNameVariable: '',
         };
       },
@@ -291,6 +295,17 @@
           }else{
             this.fileNameVariable = fileName.slice(0, 20);
           }
+
+          this.readCoverDataUrl(); 
+        },
+
+        readCoverDataUrl() {
+          if (!this.avatar) return;
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            this.coverDataUrl = e.target.result;
+          };
+          reader.readAsDataURL(this.avatar);
         },
 
         deleteChip(chip){
@@ -328,6 +343,8 @@
 
           if (!this.selectedDays.includes(day)) {
             this.selectedDays.push(day);
+            const dayOrder = { "Пн": 1, "Вт": 2, "Ср": 3, "Чт": 4, "Пт": 5, "Сб": 6, "Вс": 7 };
+            this.selectedDays = this.selectedDays.slice().sort((a, b) => dayOrder[a] - dayOrder[b]);
           } else {
             this.selectedDays = this.selectedDays.filter(selectedDay => selectedDay !== day);
           }
@@ -777,6 +794,7 @@
       .adaptive_window{
         background-color: #FFFFFF;
         height: fit-content;
+        min-width: 420px;
         padding: 20px;
         border-radius: 15px;
         display: flex;
@@ -808,7 +826,7 @@
         border-radius: 2px;
       }
       .second{
-        width: 155px;
+        width: auto;
         height: 50px;
         border-radius: 2px;
         background: linear-gradient(90deg, #F6F6F6 0%, #F1F4F9 100%);
@@ -842,19 +860,18 @@
         text-align: left;
         margin: 5px 0 0 0;
       }
+
       .img_container{
-        max-width: 365px;
-        height: 150px;
         display: flex;
-        align-items: center;
-        border-radius: 2px;
+        align-items: start;
         gap: 20px;
       }
       .adaptive_name{
         display: flex;
         flex-direction: column;
         gap: 10px;
-        justify-content: center;
+        justify-content: start;
+        width: auto;
       }
       .adaptive_img{
         display: flex;
@@ -862,12 +879,14 @@
         align-items: center;
         width: 80px;
         height: 80px;
-        border-radius: 50px;
+        border-radius: 40px;
         background: linear-gradient(90deg, #F6F6F6 0%, #F1F4F9 100%);
       }
       .img_window{
-        width: 48px;
-        height: 48px;
+        width: 80px;
+        height: 80px;
+        border-radius: 40px;
+        object-fit: cover;
       }
       @media (max-width: 768px){
         .main{
