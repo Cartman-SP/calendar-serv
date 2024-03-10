@@ -6,7 +6,7 @@
                 <NavbarPage/>
                 <ModalPage v-if="showModal" @regdone="showModal = !showModal" :result="modalResult" @closeModal="closeModal" />
                 <router-view v-else></router-view>
-                <WidgetSite style="display: none;"></WidgetSite>
+                <WidgetSite style="display: block;"></WidgetSite>
             </div>
         </div>
     </div>

@@ -41,6 +41,24 @@
           </div>
         </div>
       </div>
+      <div class="card">
+        <img src="../../static/img/map.png" alt="">
+        <div class="card_container">
+          <p class="card_name">Nomad Barbershop №1 на Сатпаева 253/1</p>
+          <div class="card_address_container">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M1.2002 4.78875C1.2002 2.11449 3.31968 0 6.0002 0C8.61838 0 10.8002 2.17669 10.8002 4.78875C10.8002 8.00081 6.0002 12 6.0002 12C6.0002 12 1.2002 8.063 1.2002 4.78875ZM6.0002 6.6C6.99431 6.6 7.8002 5.79411 7.8002 4.8C7.8002 3.80589 6.99431 3 6.0002 3C5.00608 3 4.2002 3.80589 4.2002 4.8C4.2002 5.79411 5.00608 6.6 6.0002 6.6Z" fill="#AFB6C1"/>
+            </svg>
+            <p class="card_address">г. Павлодар, ул. Сатпаева 253/1</p>
+          </div>
+          <div class="card_time_container">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6C12 9.31371 9.31371 12 6 12C2.68629 12 0 9.31371 0 6C0 2.68629 2.68629 0 6 0C9.31371 0 12 2.68629 12 6ZM6.3 2.7H5.1V5.94853L8.27574 9.12426L9.12426 8.27574L6.3 5.45147V2.7Z" fill="#AFB6C1"/>
+            </svg>
+            <p class="card_time">Ближайшая свободная запись: сегодня в 18:30</p>
+          </div>
+        </div>
+      </div>
       <div class="card_next">
         <div class="card_next_container">
           <p class="card_next_text">Выбор филиала</p>
