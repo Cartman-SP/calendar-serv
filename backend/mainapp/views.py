@@ -332,8 +332,9 @@ def create_employee(request):
 @api_view(['GET'])
 def get_employees_by_user(request):
     if request.method == 'GET':
-        user_id = request.GET.get('user_id')  # Получаем user_id из запроса
-        employees = Employee.objects.filter(user_id=user_id)  # Получаем объекты Employee по user_id
+        user_id = request.GET.get('user_id') 
+        project = request.GET.get('project') # Получаем user_id из запроса
+        employees = Employee.objects.filter(user_id=user_id,project = project)  # Получаем объекты Employee по user_id
         serializer = EmployeeSerializer(employees, many=True)
         print(serializer.data)
         return Response(serializer.data)
@@ -394,6 +395,7 @@ def create_branch(request):
             business=data.get('business'),
             user = User.objects.get(id = data.get('user_id')),
             phone = data.get('phone'),
+            project = Project.objects.get(id=data.get('project'))
         )
         
         # Обработка сотрудников
@@ -427,8 +429,9 @@ def create_branch(request):
 def get_Branch(request):
     if request.method == 'GET':
         user_id = request.GET.get('variable')
+        project = request.GET.get('project')
         print(request.GET)
-        branches = Branch.objects.filter(user=user_id)
+        branches = Branch.objects.filter(user=user_id,project=project)
         serializer = BranchSerializer(branches, many=True)
         return Response(serializer.data)
     
@@ -579,3 +582,14 @@ def employee_delete(request):
             return JsonResponse({'error': f'Произошла ошибка при удалении услуги: {str(e)}'}, status=500)
     else:
         return JsonResponse({'error': 'Метод не разрешен'}, status=405)
+    
+@api_view(['POST'])
+def create_widget(request):
+    if request.method == 'POST':
+        serializer = WidgetSerializer(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            print(serializer.errors)  # Печать ошибок сериализатора в консоль
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

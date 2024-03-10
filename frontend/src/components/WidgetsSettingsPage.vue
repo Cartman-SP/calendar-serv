@@ -287,11 +287,13 @@
 import WidgetApp from './WidgetApp.vue';
 import PalitraPage from './PalitraPage.vue';
 import SelectPage from '../components/SelectPage.vue';
+import axios from 'axios';
 
 export default {
   components: { WidgetApp , PalitraPage, SelectPage} ,
   data() {
     return {
+      selectedImages: [],
       selectedTab: 'general',
       switches: {
         telegram: false,
@@ -361,33 +363,41 @@ export default {
     },
 
     save(){
-      console.log(this.widgetName,
-      this.selectedLanguage,
-      this.switches.telegram,
-      this.widgetLinkTelegram,
-      this.switches.instagram, 
-      this.widgetLinkInstagram,
-      this.switches.whatsapp, 
-      this.widgetLinkWhatsApp, 
-      this.switches.vkontakte,
-      this.widgetLinkVk,
-      this.chips, // chips это branch
-      this.switches.feedback, 
-      this.switches.company, 
-      this.switches.employee, 
-      this.switches.cancellation, 
-      this.selectedInterval,
-      this.selectedOgranichenie,
-      
-      this.switches.theme,
-      this.widget.Main,
-      this.widget.Back,
-      this.widget.Plashka,
-      this.widget.Text,
-
-      this.widgetDesign,
-      this.widgetLink,
-      )
+      const formData = new FormData();
+      formData.append('language', this.selectedLanguage);
+      formData.append('link', this.widgetLink);
+      formData.append('design', this.widgetDesign);
+      formData.append('text', this.widget.Text);
+      formData.append('plashka', this.widget.Plashka);
+      formData.append('back', this.widget.Back);
+      formData.append('main', this.widget.Main);
+      formData.append('theme', this.switches.theme);
+      formData.append('ogranichenie', this.selectedOgranichenie);
+      formData.append('interval', this.selectedInterval);
+      formData.append('cancellation', this.switches.cancellation);
+      formData.append('employee', this.switches.employee);
+      formData.append('company', this.switches.company);
+      formData.append('fedback', this.switches.feedback);
+      formData.append('branches', this.chips);
+      formData.append('vklink', this.widgetLinkVk)
+      formData.append('isvk', this.switches.vkontakte,);
+      formData.append('whatsapplink', this.widgetLinkWhatsApp);
+      formData.append('iswhatsapp', this.switches.whatsapp);
+      formData.append('instagramlink', this.widgetLinkInstagram);
+      formData.append('isinstagram', this.switches.instagram);
+      formData.append('telegramlink', this.widgetLinkTelegram);
+      formData.append('istelegram', this.switches.telegram);
+      formData.append('name', this.widgetName);      
+      this.selectedImages.forEach(image => {formData.append('images[]', image);});
+      axios.post('http://127.0.0.1:8000/api/widget_create/', formData)
+      .then(response => {
+        // Обработка успешного ответа
+        console.log(response);
+      })
+      .catch(error => {
+        // Обработка ошибок
+        console.error('Error while posting formData:', error);
+      });
     },
 
     themechange(){
@@ -412,16 +422,18 @@ export default {
       }
     },
     handleImageUpload(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          // Update the src of img_plus with the uploaded image
-          event.target.closest('.img_plus').querySelector('img').src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      }
-    },
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      // Обновляем src изображения
+      event.target.closest('.img_plus').querySelector('img').src = e.target.result;
+      // Добавляем выбранное изображение в переменную selectedImages
+      this.selectedImages.push(file);
+    };
+    reader.readAsDataURL(file);
+  }
+},
     toggleSelection(num) {
       switch(num){
         case 1:{ this.isCircleShown1=true;this.isCircleShown2=false;this.isCircleShown3=false;this.isCircleShown4=false;break}

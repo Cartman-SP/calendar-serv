@@ -96,6 +96,35 @@ class BranchType(models.Model):
     branch = models.ForeignKey(Branch, related_name='branches2', on_delete=models.CASCADE)
     type = models.ForeignKey(Buisness_Type, related_name='Buisness_Type', on_delete=models.CASCADE)
 
+class Widget(models.Model):
+    language = models.CharField(max_length=100)
+    link = models.URLField()
+    design = models.CharField(max_length=100)
+    text = models.TextField()
+    plashka = models.CharField(max_length=100)
+    back = models.CharField(max_length=100)
+    main = models.CharField(max_length=100)
+    theme = models.BooleanField(default=False)
+    ogranichenie = models.CharField(max_length=100)
+    interval = models.CharField(max_length=100)
+    cancellation = models.BooleanField(default=False)
+    employee = models.BooleanField(default=False)
+    company = models.BooleanField(default=False)
+    feedback = models.BooleanField(default=False)
+    vklink = models.CharField(max_length=100)
+    isvk = models.BooleanField(default=False)
+    whatsapplink = models.CharField(max_length=100)
+    iswhatsapp = models.BooleanField(default=False)
+    instagramlink = models.CharField(max_length=100)
+    isinstagram = models.BooleanField(default=False)
+    telegramlink = models.CharField(max_length=100)
+    istelegram = models.BooleanField(default=False)
+    name = models.CharField(max_length=100)
+    # Другие поля по вашему выбору
+
+class WidgetImage(models.Model):
+    widget = models.ForeignKey(Widget, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='widget_images')
 
 admin.site.register(Buisness_Type)
 admin.site.register(Buisness_sphere)

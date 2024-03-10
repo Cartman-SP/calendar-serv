@@ -520,6 +520,7 @@ export default {
         formData.append('chips', choices);
         formData.append('user_id', this.$store.state.registrationData.user_id)
         formData.append('phone', this.selectedPhone)
+        formData.append('project', this.$store.state.activeProjectId)
         // Добавляем каждое изображение в FormData
         for (let i = 0; i < this.uploadedImages.length; i++) {
           // Преобразовываем изображение в объект типа File
