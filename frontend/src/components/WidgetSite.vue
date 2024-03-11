@@ -1,18 +1,18 @@
 <template>
   <div class="main">
-    <div class="compo-container" :style="{ backgroundImage: 'url(' + imageUrl + ')' }">
+    <div class="compo-container" style="background-color: red;" :style="{ backgroundImage: 'url(' + imageUrl + ')' }">
       <div class="compo-wrap">
         <div class="compo-top">
         <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4V3.5C5 1.84315 6.34315 0.5 8 0.5H12C13.6569 0.5 15 1.84315 15 3.5V4H18C19.1046 4 20 4.89543 20 6V16C20 17.1046 19.1046 18 18 18H2C0.895431 18 0 17.1046 0 16V6C0 4.89543 0.895431 4 2 4H5ZM7 3.5C7 2.94772 7.44772 2.5 8 2.5H12C12.5523 2.5 13 2.94772 13 3.5V4H7V3.5ZM10 10C10.8284 10 11.5 9.32843 11.5 8.5C11.5 7.67157 10.8284 7 10 7C9.17157 7 8.5 7.67157 8.5 8.5C8.5 9.32843 9.17157 10 10 10Z" fill="white"/>
         </svg>
-        <p class="compo-text">Nomad Barbershop №2</p>
+        <p class="compo-text">{{ activeFilial.name || 'Пожалуйста, выбирите филиал' }}</p>
       </div>
-        <div class="compo-top">
+        <div class="compo-top" v-if="activeFilial.name">
         <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M2 7.98124C2 3.52416 5.53247 0 10 0C14.3636 0 18 3.62781 18 7.98124C18 13.3347 10 20 10 20C10 20 2 13.4383 2 7.98124ZM10 11C11.6569 11 13 9.65685 13 8C13 6.34315 11.6569 5 10 5C8.34315 5 7 6.34315 7 8C7 9.65685 8.34315 11 10 11Z" fill="white"/>
         </svg>
-        <p class="compo-text">г. Павлодар, ул. Торайгырова 153/1</p>
+        <p class="compo-text">{{ activeFilial.adress }}</p>
         </div>
       </div>
       <div class="divider_container">
@@ -28,76 +28,22 @@
         <input type="text" placeholder="Введите название улицы или филиала">
       </div>
       <div class="branch_card">
-        <div class="card">
+        <div class="card" v-for="filial in Widget.filials" :key="filial.id" @click="activateFilial(filial)">
           <img src="../../static/img/map.png" alt="">
           <div class="card_container">
-            <p class="card_name">Nomad Barbershop №1 на Сатпаева 253/1</p>
+            <p class="card_name">{{filial.name}}</p>
             <div class="card_address_container">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M1.2002 4.78875C1.2002 2.11449 3.31968 0 6.0002 0C8.61838 0 10.8002 2.17669 10.8002 4.78875C10.8002 8.00081 6.0002 12 6.0002 12C6.0002 12 1.2002 8.063 1.2002 4.78875ZM6.0002 6.6C6.99431 6.6 7.8002 5.79411 7.8002 4.8C7.8002 3.80589 6.99431 3 6.0002 3C5.00608 3 4.2002 3.80589 4.2002 4.8C4.2002 5.79411 5.00608 6.6 6.0002 6.6Z" fill="#AFB6C1"/>
               </svg>
-              <p class="card_address">г. Павлодар, ул. Сатпаева 253/1</p>
+              <p class="card_address">{{filial.adress}}</p>
             </div>
             <div class="card_time_container">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6C12 9.31371 9.31371 12 6 12C2.68629 12 0 9.31371 0 6C0 2.68629 2.68629 0 6 0C9.31371 0 12 2.68629 12 6ZM6.3 2.7H5.1V5.94853L8.27574 9.12426L9.12426 8.27574L6.3 5.45147V2.7Z" fill="#AFB6C1"/>
               </svg>
-              <p class="card_time">Ближайшая свободная запись: сегодня в 18:30</p>
+              <p class="card_time">Ближайшая свободная запись: <br> {{filial.available_date}} в {{filial.available_time}}</p>
             </div>
-          </div>
-        </div>
-        <div class="card">
-          <img src="../../static/img/map.png" alt="">
-          <div class="card_container">
-            <p class="card_name">Nomad Barbershop №1 на Сатпаева 253/1</p>
-            <div class="card_address_container">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M1.2002 4.78875C1.2002 2.11449 3.31968 0 6.0002 0C8.61838 0 10.8002 2.17669 10.8002 4.78875C10.8002 8.00081 6.0002 12 6.0002 12C6.0002 12 1.2002 8.063 1.2002 4.78875ZM6.0002 6.6C6.99431 6.6 7.8002 5.79411 7.8002 4.8C7.8002 3.80589 6.99431 3 6.0002 3C5.00608 3 4.2002 3.80589 4.2002 4.8C4.2002 5.79411 5.00608 6.6 6.0002 6.6Z" fill="#AFB6C1"/>
-              </svg>
-              <p class="card_address">г. Павлодар, ул. Сатпаева 253/1</p>
-            </div>
-            <div class="card_time_container">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6C12 9.31371 9.31371 12 6 12C2.68629 12 0 9.31371 0 6C0 2.68629 2.68629 0 6 0C9.31371 0 12 2.68629 12 6ZM6.3 2.7H5.1V5.94853L8.27574 9.12426L9.12426 8.27574L6.3 5.45147V2.7Z" fill="#AFB6C1"/>
-              </svg>
-              <p class="card_time">Ближайшая свободная запись: сегодня в 18:30</p>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <img src="../../static/img/map.png" alt="">
-          <div class="card_container">
-            <p class="card_name">Nomad Barbershop №1 на Сатпаева 253/1</p>
-            <div class="card_address_container">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M1.2002 4.78875C1.2002 2.11449 3.31968 0 6.0002 0C8.61838 0 10.8002 2.17669 10.8002 4.78875C10.8002 8.00081 6.0002 12 6.0002 12C6.0002 12 1.2002 8.063 1.2002 4.78875ZM6.0002 6.6C6.99431 6.6 7.8002 5.79411 7.8002 4.8C7.8002 3.80589 6.99431 3 6.0002 3C5.00608 3 4.2002 3.80589 4.2002 4.8C4.2002 5.79411 5.00608 6.6 6.0002 6.6Z" fill="#AFB6C1"/>
-              </svg>
-              <p class="card_address">г. Павлодар, ул. Сатпаева 253/1</p>
-            </div>
-            <div class="card_time_container">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6C12 9.31371 9.31371 12 6 12C2.68629 12 0 9.31371 0 6C0 2.68629 2.68629 0 6 0C9.31371 0 12 2.68629 12 6ZM6.3 2.7H5.1V5.94853L8.27574 9.12426L9.12426 8.27574L6.3 5.45147V2.7Z" fill="#AFB6C1"/>
-              </svg>
-              <p class="card_time">Ближайшая свободная запись: сегодня в 18:30</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <img src="../../static/img/map.png" alt="">
-        <div class="card_container">
-          <p class="card_name">Nomad Barbershop №1 на Сатпаева 253/1</p>
-          <div class="card_address_container">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M1.2002 4.78875C1.2002 2.11449 3.31968 0 6.0002 0C8.61838 0 10.8002 2.17669 10.8002 4.78875C10.8002 8.00081 6.0002 12 6.0002 12C6.0002 12 1.2002 8.063 1.2002 4.78875ZM6.0002 6.6C6.99431 6.6 7.8002 5.79411 7.8002 4.8C7.8002 3.80589 6.99431 3 6.0002 3C5.00608 3 4.2002 3.80589 4.2002 4.8C4.2002 5.79411 5.00608 6.6 6.0002 6.6Z" fill="#AFB6C1"/>
-            </svg>
-            <p class="card_address">г. Павлодар, ул. Сатпаева 253/1</p>
-          </div>
-          <div class="card_time_container">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6C12 9.31371 9.31371 12 6 12C2.68629 12 0 9.31371 0 6C0 2.68629 2.68629 0 6 0C9.31371 0 12 2.68629 12 6ZM6.3 2.7H5.1V5.94853L8.27574 9.12426L9.12426 8.27574L6.3 5.45147V2.7Z" fill="#AFB6C1"/>
-            </svg>
-            <p class="card_time">Ближайшая свободная запись: сегодня в 18:30</p>
           </div>
         </div>
       </div>
@@ -105,17 +51,17 @@
         <div class="card_next_container">
           <p class="card_next_text">Выбор филиала</p>
           <div class="divider"></div>
-          <p class="card_next_subtext">Всего <span class="card_number">6</span> филиалов</p>
+          <p class="card_next_subtext">Всего филиалов: <span class="card_number">{{ Widget.filials.length }}</span></p>
         </div>
         <div class="card_btn">
-          <button class="card_next_btn" @click="showChoice">Продолжить</button>
+          <button class="card_next_btn-disabled" :class="{'card_next_btn-disabled' : !activeFilial.name, 'card_next_btn-active' : activeFilial.name}" @click="showChoice">Продолжить</button>
         </div>
       </div>        
     </div>
     <div class="choice" v-else-if="currentPage === 'choice'">
       <div class="choice_overview ">
         <div class="choice_rate_container">
-          <p class="choice_rate">3.7</p>
+          <p class="choice_rate">{{activeFilial.rating}}</p>
           <div class="choice_star_container">
             <div class="stars">
               <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -142,13 +88,13 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M1.25 5C1.25 2.44066 2.7056 1.51888 3.75412 1.3033C4.06243 1.23991 4.36115 1.39819 4.55 1.65L5.97962 3.55616C6.27821 3.95428 6.23862 4.51138 5.88673 4.86327L4.75965 5.99035C4.45529 6.29471 4.38168 6.75866 4.60979 7.12367C4.96976 7.69966 5.59983 8.59983 6.5 9.5C7.40017 10.4002 8.30034 11.0302 8.87633 11.3902C9.24134 11.6183 9.70529 11.5447 10.0097 11.2403L11.1367 10.1133C11.4886 9.76138 12.0457 9.72179 12.4438 10.0204L14.35 11.45C14.6018 11.6389 14.7601 11.9376 14.6967 12.2459C14.4811 13.2944 13.5593 14.75 11 14.75C8 14.75 5.75 12.5 4.625 11.375C3.5 10.25 1.25 8 1.25 5Z" fill="#535C69"/>
             </svg>
-            <p class="choice_info_text">+ 7 (705) 356 55 55</p>
+            <p class="choice_info_text">{{activeFilial.phone}}</p>
           </div>
           <div class="choice_info_container">
             <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5 7.5C15.5 11.6421 12.1421 15 8 15C3.85786 15 0.5 11.6421 0.5 7.5C0.5 3.35786 3.85786 0 8 0C12.1421 0 15.5 3.35786 15.5 7.5ZM8.375 3.375H6.875V7.43566L10.8447 11.4053L11.9053 10.3447L8.375 6.81434V3.375Z" fill="#535C69"/>
             </svg>
-            <p class="choice_info_text">Пн—Вс: с 9:00 до 20:00</p>
+            <p class="choice_info_text">{{activeFilial.work_days}}: {{activeFilial.work_hours}}</p>
           </div>
         </div>
       </div>
@@ -642,8 +588,8 @@
         <div class="figures">
           <p class="figures_text">Убедитесь, что все указано верно</p>
           <div class="figures_container">
-            <div class="mark" v-if="!Mark" @click="Mark = !Mark"></div>
-            <div class="mark_active" v-else @click="Mark = !Mark">
+            <div class="mark" v-if="!Mark" @click="Mark = true"></div>
+            <div class="mark_active" v-else @click="Mark = false">
               <img src="../../static/img/checkmark.svg" alt="">
             </div>
             <p class="figures_personal">Согласен на обработку <span class="personal_span"> персональных данных</span></p>
@@ -757,7 +703,46 @@ export default {
         { number: '11 вт', month: 'июнь' },
         { number: '12 ср', month: 'авг' },
         { number: '13 чт', month: 'фев' }
-      ]
+      ],
+
+      Widget:{
+        filials:[
+          {
+            id: '1',
+            name: 'Кофейня на Лесной',
+            adress: 'ул. Лесная, дом 23',
+            available_date: '29.07.23',
+            available_time: '18:30',
+            phone: '+71234567890',
+            work_days: 'Пн—Вс',
+            work_hours: 'с 9:00 до 20:00',
+            rating: '4.5',
+          },
+          {
+            id: '2',
+            name: 'Кофейня на Пушкина',
+            adress: 'ул. Пушкина, дом 7',
+            available_date: '29.07.23',
+            available_time: '18:30',
+            phone: '+71256385890',
+            work_days: 'Пн—Вс',
+            work_hours: 'с 9:00 до 20:00',
+            rating: '4.3',
+          },
+          {
+            id: '3',
+            name: 'Кофейня в Митино',
+            adress: 'ул. Митинская, дом 11',
+            available_date: '29.07.23',
+            available_time: '18:30',
+            phone: '+71283941890',
+            work_days: 'Пн—Вс',
+            work_hours: 'с 9:00 до 20:00',
+            rating: '3.7',
+          },
+        ],
+      },
+      activeFilial: {},
     };
   },
   computed: {
@@ -792,6 +777,10 @@ export default {
     this.startImageSlider();
   },
   methods: {
+    activateFilial(filialData){
+      this.activeFilial = filialData;
+    },
+    
     handleInput() {
       const countryCode = this.selectedCountry ? this.selectedCountry.code : '';
       this.value = countryCode + ' ' + this.value.replace(/^\s*\+\d\s*\|\s*/, '');
@@ -800,7 +789,9 @@ export default {
       this.currentPage = 'favor';
     },
     showChoice() {
-      this.currentPage = 'choice';
+      if (this.activeFilial.name) {
+        this.currentPage = 'choice';
+      }
     },
     showEmployees() {
       this.currentPage = 'employees';
@@ -878,10 +869,22 @@ export default {
   background-position: 15px;
 }
 .card{
+  background-color: #FAFAFA;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   gap: 20px;
+  cursor: pointer;
 }
+
+.card:hover .card_name{
+  color: #6266EA;
+}
+
+.card:hover .card_address, .card:hover .card_time{
+  color: #535C69;
+}
+
 .card_container{
   width: 245px;
   display: flex;
@@ -890,10 +893,12 @@ export default {
 }
 .card_address_container{
   display: flex;
+  align-items: center;
   gap: 5px;
 }
 .card_time_container{
   display: flex;
+  align-items: center;
   gap: 5px;
 }
 .card_name{
@@ -961,10 +966,24 @@ export default {
 .card_number{
   color: #6266EA;
 }
-.card_next_btn{
+.card_next_btn-disabled{
+  cursor: not-allowed;
   background: #FAFAFA;
   color: #D2D8DE;
 }
+
+.card_next_btn-active{
+  cursor: pointer;
+  background: #EFEFFF;
+  color: #6266EA;
+}
+
+.card_next_btn-active:hover{
+  cursor: pointer;
+  background: #DBEAFF;
+  color: #6266EA;
+}
+
 .choice_overview{
   display: flex;
   justify-content: space-between;
