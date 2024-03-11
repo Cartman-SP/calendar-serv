@@ -135,7 +135,7 @@
           <p class="card_next_subtext">Приступим</p>
         </div>
         <div class="card_btn">
-          <button class="card_next_btn" @click="activeUslugi ? showFavor() : showEmployees()" :class="{'card_next_btn-disabled' : !activeUslugi || !activePersonal, 'card_next_btn-active' : activeUslugi || activePersonal}">Продолжить</button>
+          <button class="card_next_btn" @click="activeUslugi ? showFavor() : showEmployees(); step = 1" :class="{'card_next_btn-disabled' : !activeUslugi || !activePersonal, 'card_next_btn-active' : activeUslugi || activePersonal}">Продолжить</button>
         </div>
       </div>
     </div>
@@ -144,94 +144,22 @@
         <input type="text" placeholder="Введите название улицы или филиала">
       </div>
       <div class="favor_card_container">
-        <div class="favor_card">
+        <div class="favor_card" v-for="u in uslugi" :key="u.id">
           <div class="favor_compo-wrapper">
             <img src="../../static/img/barber.svg" alt="">
-            <p class="favor_text">Комплексная мужская<br>стрижка</p>
+            <p class="favor_text">{{u.name}}</p>
           </div>
           <div class="compo-wrapper-tariff">
             <div class="tariff">
               <div class="tariff-item">
-                <p class="tariff_text">3000 тнг</p>
+                <p class="tariff_text">{{u.cost}} {{ costSign }}</p>
               </div>
               <div class="dot"></div>
               <div class="tariff-item">
-                <p class="tariff_text">1 час</p>
+                <p class="tariff_text">{{u.time}}</p>
               </div>
             </div>
-            <button @click="toggleSelection" v-if="!isCircleShown" class="btn-wrapper">Выбрать</button>
-            <div v-else class="delete">
-              <button @click="resetSelection" class="delete-btn">
-                <img src="../../static/img/trash_2.svg" alt="Иконка Удаления">
-              </button>
-            </div>
-          </div>
-        </div>
-  
-        <div class="favor_card">
-          <div class="favor_compo-wrapper">
-            <img src="../../static/img/barber.svg" alt="">
-            <p class="favor_text">Комплексная мужская<br>стрижка</p>
-          </div>
-          <div class="compo-wrapper-tariff">
-            <div class="tariff">
-              <div class="tariff-item">
-                <p class="tariff_text">3000 тнг</p>
-              </div>
-              <div class="dot"></div>
-              <div class="tariff-item">
-                <p class="tariff_text">1 час</p>
-              </div>
-            </div>
-            <button @click="toggleSelection" v-if="!isCircleShown" class="btn-wrapper">Выбрать</button>
-            <div v-else class="delete">
-              <button @click="resetSelection" class="delete-btn">
-                <img src="../../static/img/trash_2.svg" alt="Иконка Удаления">
-              </button>
-            </div>
-          </div>
-        </div>
-  
-        <div class="favor_card">
-          <div class="favor_compo-wrapper">
-            <img src="../../static/img/barber.svg" alt="">
-            <p class="favor_text">Комплексная мужская<br>стрижка</p>
-          </div>
-          <div class="compo-wrapper-tariff">
-            <div class="tariff">
-              <div class="tariff-item">
-                <p class="tariff_text">3000 тнг</p>
-              </div>
-              <div class="dot"></div>
-              <div class="tariff-item">
-                <p class="tariff_text">1 час</p>
-              </div>
-            </div>
-            <button @click="toggleSelection" v-if="!isCircleShown" class="btn-wrapper">Выбрать</button>
-            <div v-else class="delete">
-              <button @click="resetSelection" class="delete-btn">
-                <img src="../../static/img/trash_2.svg" alt="Иконка Удаления">
-              </button>
-            </div>
-          </div>
-        </div>
-  
-        <div class="favor_card">
-          <div class="favor_compo-wrapper">
-            <img src="../../static/img/barber.svg" alt="">
-            <p class="favor_text">Комплексная мужская<br>стрижка</p>
-          </div>
-          <div class="compo-wrapper-tariff">
-            <div class="tariff">
-              <div class="tariff-item">
-                <p class="tariff_text">3000 тнг</p>
-              </div>
-              <div class="dot"></div>
-              <div class="tariff-item">
-                <p class="tariff_text">1 час</p>
-              </div>
-            </div>
-            <button @click="toggleSelection" v-if="!isCircleShown" class="btn-wrapper">Выбрать</button>
+            <button @click="UslugaSelected(u.id)" v-if="!isCircleShown" class="btn-wrapper">Выбрать</button>
             <div v-else class="delete">
               <button @click="resetSelection" class="delete-btn">
                 <img src="../../static/img/trash_2.svg" alt="Иконка Удаления">
@@ -249,11 +177,11 @@
               <div class="divider_step_one"></div>
               <div class="divider_step_two"></div>
             </div>
-            <p class="card_next_subtext">Шаг 1 из 4</p>
+            <p class="card_next_subtext">Шаг {{ step }} из 4</p>
           </div>
           <div class="card_btn_container">
-            <button class="card_back_btn" @click="showChoice">Назад</button>
-            <button class="card_next_btn" @click="showEmployees">Продолжить</button>
+            <button class="card_back_btn" @click="activeUslugi ? showChoice() : showEmployees(); activeUslugi ? step = 1 : step = 1;">Назад</button>
+            <button class="card_next_btn" @click="activeUslugi ? showEmployees() : showCalendar(); activeUslugi ? step = 2 : step = 3;">Продолжить</button>
           </div>
         </div> 
       </div>
@@ -265,7 +193,6 @@
       </div>
 
       <div class="employees_card_container">
-
         <div class="employees_card">
           <div class="employees_compo-wrapper">
             <div class="user-alt">
@@ -335,11 +262,11 @@
               <div class="employees_divider_step_one"></div>
               <div class="employees_divider_step_two"></div>
             </div>
-            <p class="card_next_subtext">Шаг 2 из 4</p>
+            <p class="card_next_subtext">Шаг {{ step }} из 4</p>
           </div>
           <div class="card_btn_container">
-            <button class="card_back_btn" @click="showFavor">Назад</button>
-            <button class="card_next_btn" @click="showCalendar">Продолжить</button>
+            <button class="card_back_btn" @click="activeUslugi ? showFavor() : showChoice(); activeUslugi ? step = 1 : step = 0;">Назад</button>
+            <button class="card_next_btn" @click="activeUslugi ? showCalendar() : showFavor(); activeUslugi ? step = 3 : step = 2; ">Продолжить</button>
           </div>
         </div> 
       </div>
@@ -502,10 +429,10 @@
               <div class="calendar_divider_step_one"></div>
               <div class="calendar_divider_step_two"></div>
             </div>
-            <p class="card_next_subtext">Шаг 3 из 4</p>
+            <p class="card_next_subtext">Шаг {{ step }} из 4</p>
           </div>
           <div class="card_btn_container">
-            <button class="card_back_btn" @click="showEmployees">Назад</button>
+            <button class="card_back_btn" @click="activeUslugi ? showEmployees() : showFavor(); step = 2">Назад</button>
             <button class="card_next_btn" @click="showData">Продолжить</button>
           </div>
         </div> 
@@ -745,6 +672,8 @@ export default {
       activeFilial: {},
       activeUslugi: false,
       activePersonal: false,
+
+      selectedUsluga: '',
     };
   },
   computed: {
@@ -781,6 +710,10 @@ export default {
   methods: {
     activateFilial(filialData){
       this.activeFilial = filialData;
+    },
+
+    UslugaSelected(id){
+      this.selectedUsluga = id;
     },
     
     handleInput() {
@@ -887,6 +820,14 @@ export default {
   color: #535C69;
 }
 
+svg path{
+  transition: all .2s ease;
+}
+
+.card:hover svg path{
+  fill: #535C69;
+}
+
 .card_container{
   width: 245px;
   display: flex;
@@ -911,6 +852,7 @@ export default {
   text-align: left;
   color: #535C69;
   margin: 0;
+  transition: all .2s ease;
 }
 .card_address{
   font-family: TT Norms Medium;
@@ -920,6 +862,7 @@ export default {
   text-align: left;
   color: #AFB6C1;
   margin: 0;
+  transition: all .2s ease;
 }
 .card_time{
   font-family: TT Norms Medium;
@@ -929,6 +872,7 @@ export default {
   text-align: left;
   color: #AFB6C1;
   margin: 0;
+  transition: all .2s ease;
 }
 .card_next_container{
   display: flex;
