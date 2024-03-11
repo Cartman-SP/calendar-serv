@@ -144,7 +144,7 @@
         <input type="text" placeholder="Введите название улицы или филиала">
       </div>
       <div class="favor_card_container">
-        <div class="favor_card" v-for="u in uslugi" :key="u.id">
+        <div class="favor_card" v-for="u in Widget.uslugi" :key="u.id">
           <div class="favor_compo-wrapper">
             <img src="../../static/img/barber.svg" alt="">
             <p class="favor_text">{{u.name}}</p>
@@ -159,10 +159,12 @@
                 <p class="tariff_text">{{u.time}}</p>
               </div>
             </div>
-            <button @click="UslugaSelected(u.id)" v-if="!isCircleShown" class="btn-wrapper">Выбрать</button>
+            <button v-if="!selectedUslugi.includes(u.id)" @click="UslugaSelected(u.id)" class="btn-wrapper">Выбрать</button>
             <div v-else class="delete">
-              <button @click="resetSelection" class="delete-btn">
-                <img src="../../static/img/trash_2.svg" alt="Иконка Удаления">
+              <button @click="UslugaDeleting(u.id)" class="delete-btn">
+                <svg width="16" height="16" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M1.94318 1.55556C1.94318 1.1797 2.2637 0.875 2.65909 0.875H9.34092C9.73631 0.875 10.0568 1.1797 10.0568 1.55556C10.0568 1.93142 9.73631 2.23611 9.34092 2.23611H2.65909C2.2637 2.23611 1.94318 1.93142 1.94318 1.55556ZM1.46591 4.95833H0.75V3.59722H11.25V4.95833H10.5341V10.6296C10.5341 12.0078 9.35886 13.125 7.9091 13.125H4.09091C2.64116 13.125 1.46591 12.0078 1.46591 10.6296V4.95833ZM9.10227 4.95833H2.89773V10.6296C2.89773 11.2561 3.43194 11.7639 4.09091 11.7639H7.9091C8.56806 11.7639 9.10227 11.2561 9.10227 10.6296V4.95833Z" fill="#F97F7F"/>
+                  </svg>
               </button>
             </div>
           </div>
@@ -181,7 +183,7 @@
           </div>
           <div class="card_btn_container">
             <button class="card_back_btn" @click="activeUslugi ? showChoice() : showEmployees(); activeUslugi ? step = 1 : step = 1;">Назад</button>
-            <button class="card_next_btn" @click="activeUslugi ? showEmployees() : showCalendar(); activeUslugi ? step = 2 : step = 3;">Продолжить</button>
+            <button @click="activeUslugi ? showEmployees() : showCalendar(); activeUslugi ? step = 2 : step = 3;" :class="{'card_next_btn-disabled' : !selectedUslugi.length > 0, 'card_next_btn-active' : selectedUslugi.length > 0}">Продолжить</button>
           </div>
         </div> 
       </div>
@@ -205,21 +207,23 @@
 
           </div>
           <div class="alt_btn">
-            <button @click="toggleSelection" v-if="!isCircleShown" class="btn-wrapper">Выбрать</button> 
+            <button v-if="!selectedEmployees.includes('random')" @click="EmployeeSelected('random')" class="btn-wrapper">Выбрать</button>
             <div v-else class="delete">
-              <button @click="resetSelection" class="delete-btn">
-                <img src="../../static/img/trash_2.svg" alt="Иконка Удаления">
+              <button @click="EmployeeDeleting('random')" class="delete-btn">
+                <svg width="16" height="16" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M1.94318 1.55556C1.94318 1.1797 2.2637 0.875 2.65909 0.875H9.34092C9.73631 0.875 10.0568 1.1797 10.0568 1.55556C10.0568 1.93142 9.73631 2.23611 9.34092 2.23611H2.65909C2.2637 2.23611 1.94318 1.93142 1.94318 1.55556ZM1.46591 4.95833H0.75V3.59722H11.25V4.95833H10.5341V10.6296C10.5341 12.0078 9.35886 13.125 7.9091 13.125H4.09091C2.64116 13.125 1.46591 12.0078 1.46591 10.6296V4.95833ZM9.10227 4.95833H2.89773V10.6296C2.89773 11.2561 3.43194 11.7639 4.09091 11.7639H7.9091C8.56806 11.7639 9.10227 11.2561 9.10227 10.6296V4.95833Z" fill="#F97F7F"/>
+                  </svg>
               </button>
             </div>
           </div>
         </div>
 
-        <div class="employees_card">
+        <div class="employees_card" v-for="e in Widget.employees" :key="e.id">
           <div class="employees_compo-wrapper">
             <img src="../../static/img/barber.svg" alt="">
             <div class="employees_container">
-              <p class="employees_text">Юлия Дайценко</p>
-              <p class="employees_subtext">Мастер SPA</p>
+              <p class="employees_text">{{ e.name }}</p>
+              <p class="employees_subtext">{{ e.work }}</p>
             </div>
 
           </div>
@@ -242,12 +246,14 @@
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M13.1279 11.4195L14.6225 16.1422C14.8173 16.7577 14.0785 17.2519 13.5486 16.8606L9.7241 14.0367C9.33946 13.7277 8.66054 13.7277 8.27591 14.0367L4.45137 16.8606C3.92148 17.2519 3.18269 16.7577 3.37747 16.1422L4.87213 11.4195C4.99604 11.0014 4.75434 10.3846 4.37907 10.1434L0.276429 7.15708C-0.253536 6.77131 0.0294735 5.95727 0.693556 5.95727H5.582C6.04508 5.95727 6.52774 5.55867 6.65496 5.12944L8.41615 0.440352C8.64216 -0.1614 9.53202 -0.141467 9.7288 0.469756L11.2426 5.1728C11.3698 5.60204 11.8371 5.95727 12.3001 5.95727H17.3064C17.9705 5.95727 18.2535 6.77131 17.7236 7.15708L13.6209 10.1434C13.2457 10.3846 13.004 11.0014 13.1279 11.4195ZM13.0512 9.32131L16.2989 6.95727H12.3001C11.398 6.95727 10.5455 6.3166 10.2878 5.47017L9.04518 1.60965L7.60128 5.45397C7.46294 5.88503 7.17789 6.24179 6.86355 6.48962C6.53959 6.74502 6.09137 6.95727 5.582 6.95727H1.70114L4.94884 9.32131C5.34504 9.58694 5.6032 9.98792 5.74502 10.3532C5.88916 10.7246 5.97464 11.2187 5.83091 11.7036L5.8283 11.7124L4.63541 15.4817L7.66859 13.2421C8.07252 12.926 8.5664 12.8049 9 12.8049C9.43362 12.8049 9.9275 12.926 10.3314 13.2421L13.3646 15.4817L12.1717 11.7124L12.1691 11.7036C12.0254 11.2187 12.1108 10.7246 12.255 10.3532C12.3968 9.9879 12.655 9.58693 13.0512 9.32131Z" fill="#AFB6C1"/>
                 </svg>
               </div>
-              <p class="employees_rate_text">1 отзывов</p>
+              <p class="employees_rate_text">{{ e.reviews }} отзывов</p>
             </div>
-            <button @click="toggleSelection" v-if="!isCircleShown" class="btn-wrapper">Выбрать</button>
+            <button v-if="!selectedEmployees.includes(e)" @click="EmployeeSelected(e)" class="btn-wrapper">Выбрать</button>
             <div v-else class="delete">
-              <button @click="resetSelection" class="delete-btn">
-                <img src="../../static/img/trash_2.svg" alt="Иконка Удаления">
+              <button @click="EmployeeDeleting(e)" class="delete-btn">
+                <svg width="16" height="16" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M1.94318 1.55556C1.94318 1.1797 2.2637 0.875 2.65909 0.875H9.34092C9.73631 0.875 10.0568 1.1797 10.0568 1.55556C10.0568 1.93142 9.73631 2.23611 9.34092 2.23611H2.65909C2.2637 2.23611 1.94318 1.93142 1.94318 1.55556ZM1.46591 4.95833H0.75V3.59722H11.25V4.95833H10.5341V10.6296C10.5341 12.0078 9.35886 13.125 7.9091 13.125H4.09091C2.64116 13.125 1.46591 12.0078 1.46591 10.6296V4.95833ZM9.10227 4.95833H2.89773V10.6296C2.89773 11.2561 3.43194 11.7639 4.09091 11.7639H7.9091C8.56806 11.7639 9.10227 11.2561 9.10227 10.6296V4.95833Z" fill="#F97F7F"/>
+                  </svg>
               </button>
             </div>
           </div>
@@ -266,7 +272,7 @@
           </div>
           <div class="card_btn_container">
             <button class="card_back_btn" @click="activeUslugi ? showFavor() : showChoice(); activeUslugi ? step = 1 : step = 0;">Назад</button>
-            <button class="card_next_btn" @click="activeUslugi ? showCalendar() : showFavor(); activeUslugi ? step = 3 : step = 2; ">Продолжить</button>
+            <button class="card_next_btn" @click="activeUslugi ? showCalendar() : showFavor(); activeUslugi ? step = 3 : step = 2; " :class="{'card_next_btn-disabled' : !selectedEmployees.length > 0, 'card_next_btn-active' : selectedEmployees.length > 0}">Продолжить</button>
           </div>
         </div> 
       </div>
@@ -294,7 +300,7 @@
           <div class="calendar_compo-wrapper">
             <img src="../../static/img/barber.svg" alt="">
             <div class="calendar_container">
-              <p class="calendar_text">Комплексная мужская стрижка</p>
+              <p class="calendar_text">{{ selectedUslugi[0].name }} у {{ selectedEmployees[0].name }}</p>
               <div class="tariff">
                 <div class="tariff-item">
                   <p class="tariff_text">3000 тнг</p>
@@ -668,12 +674,77 @@ export default {
             rating: '3.7',
           },
         ],
+        uslugi:[
+        {
+            id: '1',
+            name: 'Стрижка',
+            cost: '650',
+            time: '1 час',
+          },
+          {
+            id: '2',
+            name: 'Маникюр',
+            cost: '5900',
+            time: '2 часа 15 минут',
+          },
+          {
+            id: '3',
+            name: 'Массаж',
+            cost: '2500',
+            time: '30 минут',
+          },
+          {
+            id: '4',
+            name: 'Быстро покромсать волосы',
+            cost: '250',
+            time: '15 минут',
+          },
+          {
+            id: '5',
+            name: 'Поздароваться с Ахмедом',
+            cost: '100',
+            time: '5 минут',
+          },
+          {
+            id: '6',
+            name: 'Массаж плюс',
+            cost: '4700',
+            time: '1 час 30 минут',
+          },
+        ],
+        employees:[
+        {
+            id: '1',
+            name: 'Юлия Дайценко',
+            work: 'Барбер',
+            reviews: '23'
+          },
+          {
+            id: '2',
+            name: 'Месси',
+            work: 'Бекендер',
+            reviews: '3'
+          },
+          {
+            id: '3',
+            name: 'Данёк',
+            work: 'Врач',
+            reviews: '34'
+          },
+          {
+            id: '4',
+            name: 'Булкин Слава',
+            work: 'Мастер SPA',
+            reviews: '22'
+          },
+        ],
       },
       activeFilial: {},
       activeUslugi: false,
       activePersonal: false,
 
-      selectedUsluga: '',
+      selectedUslugi: [],
+      selectedEmployees: [],
     };
   },
   computed: {
@@ -712,8 +783,32 @@ export default {
       this.activeFilial = filialData;
     },
 
-    UslugaSelected(id){
-      this.selectedUsluga = id;
+    UslugaSelected(data){
+      while(this.selectedUslugi.length > 0) {
+        this.selectedUslugi.pop();
+      }
+      this.selectedUslugi.push(data);
+    },
+
+    UslugaDeleting(data) {
+      let indexToRemove = this.selectedUslugi.indexOf(data);
+        if (indexToRemove !== -1) {
+          this.selectedUslugi.splice(indexToRemove, 1);
+        }
+    },
+
+    EmployeeSelected(data){
+      while(this.selectedEmployees.length > 0) {
+        this.selectedEmployees.pop();
+      }
+      this.selectedEmployees.push(data);
+    },
+
+    EmployeeDeleting(data) {
+      let indexToRemove = this.selectedEmployees.indexOf(data);
+        if (indexToRemove !== -1) {
+          this.selectedEmployees.splice(indexToRemove, 1);
+        }
     },
     
     handleInput() {
@@ -762,6 +857,22 @@ export default {
 </script>
 
 <style scoped>
+.delete-btn{
+    width: 30px;
+    height: 30px;
+    background-color: rgba(249, 144, 144, 0.1);
+    border-radius: 50%;
+    padding: 0;
+  }
+
+  .delete-btn:hover{
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    background-color: rgba(241, 129, 129, 0.391);
+    border-radius: 50%;
+    padding: 0;
+  }
 .main{
   width: 600px;
   border-radius: 20px;
@@ -1039,6 +1150,7 @@ p{
 }
 .favor_compo-wrapper{
   display: flex;
+  align-items: center;
   gap: 10px;
 }
 .favor_text{
@@ -1122,6 +1234,7 @@ p{
   gap: 10px;
 }
 .card_back_btn{
+  font-family: TT Norms Medium;
   background: #FFFFFF;
   color: #535C69;
 }
