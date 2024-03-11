@@ -99,29 +99,29 @@
         </div>
       </div>
       <div class="service">
-        <div class="service_container">
+        <div class="service_container" @click="activeUslugi = !activeUslugi, activePersonal ? activePersonal=false : activePersonal = false">
           <p class="service_container_text">Выбрать услугу</p>
           <img src="../../static/img/tools.svg" alt="" class="service_tools">
-          <div class="checkmark" v-if="!isActive" @click="setActiveProject()">
+          <div class="checkmark" v-if="!activeUslugi">
             <svg width="15" height="15" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2556 6.15492L9.05226 14.4665L4.29285 9.7071L5.70706 8.29289L8.94764 11.5335L14.7443 4.84506L16.2556 6.15492Z" fill="#F5F5F5"/>
             </svg>
           </div>
-          <div class="active-checkmark" v-else @click="deactivateProject">
+          <div class="active-checkmark" v-else >
             <svg width="15" height="15" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2556 6.15492L9.05226 14.4665L4.29285 9.7071L5.70706 8.29289L8.94764 11.5335L14.7443 4.84506L16.2556 6.15492Z" fill="#F5F5F5"/>
             </svg>
           </div>
         </div>
-        <div class="service_container">
+        <div class="service_container" @click="activePersonal = !activePersonal, activeUslugi ? activeUslugi=false : activeUslugi = false">
           <p class="service_container_text">Выбрать<br>специалиста</p>
           <img src="../../static/img/ppl.svg" alt="" class="service_ppl">
-          <div class="checkmark" v-if="!isActive" @click="setActiveProject()">
+          <div class="checkmark" v-if="!activePersonal">
             <svg width="15" height="15" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2556 6.15492L9.05226 14.4665L4.29285 9.7071L5.70706 8.29289L8.94764 11.5335L14.7443 4.84506L16.2556 6.15492Z" fill="#F5F5F5"/>
             </svg>
           </div>
-          <div class="active-checkmark" v-else @click="deactivateProject">
+          <div class="active-checkmark" v-else >
             <svg width="15" height="15" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2556 6.15492L9.05226 14.4665L4.29285 9.7071L5.70706 8.29289L8.94764 11.5335L14.7443 4.84506L16.2556 6.15492Z" fill="#F5F5F5"/>
             </svg>
@@ -135,7 +135,7 @@
           <p class="card_next_subtext">Приступим</p>
         </div>
         <div class="card_btn">
-          <button class="card_next_btn" @click="showFavor">Продолжить</button>
+          <button class="card_next_btn" @click="activeUslugi ? showFavor() : showEmployees()" :class="{'card_next_btn-disabled' : !activeUslugi || !activePersonal, 'card_next_btn-active' : activeUslugi || activePersonal}">Продолжить</button>
         </div>
       </div>
     </div>
@@ -244,7 +244,7 @@
       <div class="favor_bottom">
         <div class="card_next">
           <div class="card_next_container">
-            <p class="card_next_text">Выбор филиала</p>
+            <p class="card_next_text">Выбор услуги</p>
             <div class="divider_step_container">
               <div class="divider_step_one"></div>
               <div class="divider_step_two"></div>
@@ -330,7 +330,7 @@
       <div class="employees_bottom">
         <div class="card_next">
           <div class="card_next_container">
-            <p class="card_next_text">Выбор филиала</p>
+            <p class="card_next_text">Выбор специалиста</p>
             <div class="divider_step_container">
               <div class="employees_divider_step_one"></div>
               <div class="employees_divider_step_two"></div>
@@ -743,6 +743,8 @@ export default {
         ],
       },
       activeFilial: {},
+      activeUslugi: false,
+      activePersonal: false,
     };
   },
   computed: {
@@ -1049,9 +1051,15 @@ p{
   padding: 20px;
   width: 250px;
   height: 170px;
-  background: #F5F5F5;
+  background: #FAFAFA;
   border-radius: 15px;
+  cursor: pointer;
 }
+
+.service_container:hover .service_container_text{
+  color: #6266EA;
+}
+
 .service_container_text{
   font-family: TT Norms Medium;
   font-size: 20px;
@@ -1059,6 +1067,7 @@ p{
   letter-spacing: 0em;
   text-align: left;
   color: #535C69;
+  transition: all .2s ease;
 }
 .favor{
   display: flex;
@@ -1702,6 +1711,9 @@ input{
 }
 
 .active-checkmark{
+  position: absolute;
+  top: 10px;
+  right: 10px;
   width: 18px;
   height: 18px;
   background: #04C562;
