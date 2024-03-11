@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="main" :id="colortheme">
     <div class="compo-container" style="background-color: red;" :style="{ backgroundImage: 'url(' + imageUrl + ')' }">
       <div class="compo-wrap">
         <div class="compo-top">
@@ -86,13 +86,13 @@
         <div class="choice_info">
           <div class="choice_info_container">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1.25 5C1.25 2.44066 2.7056 1.51888 3.75412 1.3033C4.06243 1.23991 4.36115 1.39819 4.55 1.65L5.97962 3.55616C6.27821 3.95428 6.23862 4.51138 5.88673 4.86327L4.75965 5.99035C4.45529 6.29471 4.38168 6.75866 4.60979 7.12367C4.96976 7.69966 5.59983 8.59983 6.5 9.5C7.40017 10.4002 8.30034 11.0302 8.87633 11.3902C9.24134 11.6183 9.70529 11.5447 10.0097 11.2403L11.1367 10.1133C11.4886 9.76138 12.0457 9.72179 12.4438 10.0204L14.35 11.45C14.6018 11.6389 14.7601 11.9376 14.6967 12.2459C14.4811 13.2944 13.5593 14.75 11 14.75C8 14.75 5.75 12.5 4.625 11.375C3.5 10.25 1.25 8 1.25 5Z" fill="#535C69"/>
+              <path d="M1.25 5C1.25 2.44066 2.7056 1.51888 3.75412 1.3033C4.06243 1.23991 4.36115 1.39819 4.55 1.65L5.97962 3.55616C6.27821 3.95428 6.23862 4.51138 5.88673 4.86327L4.75965 5.99035C4.45529 6.29471 4.38168 6.75866 4.60979 7.12367C4.96976 7.69966 5.59983 8.59983 6.5 9.5C7.40017 10.4002 8.30034 11.0302 8.87633 11.3902C9.24134 11.6183 9.70529 11.5447 10.0097 11.2403L11.1367 10.1133C11.4886 9.76138 12.0457 9.72179 12.4438 10.0204L14.35 11.45C14.6018 11.6389 14.7601 11.9376 14.6967 12.2459C14.4811 13.2944 13.5593 14.75 11 14.75C8 14.75 5.75 12.5 4.625 11.375C3.5 10.25 1.25 8 1.25 5Z" fill="var(--color-text)"/>
             </svg>
             <p class="choice_info_text">{{activeFilial.phone}}</p>
           </div>
           <div class="choice_info_container">
             <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5 7.5C15.5 11.6421 12.1421 15 8 15C3.85786 15 0.5 11.6421 0.5 7.5C0.5 3.35786 3.85786 0 8 0C12.1421 0 15.5 3.35786 15.5 7.5ZM8.375 3.375H6.875V7.43566L10.8447 11.4053L11.9053 10.3447L8.375 6.81434V3.375Z" fill="#535C69"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5 7.5C15.5 11.6421 12.1421 15 8 15C3.85786 15 0.5 11.6421 0.5 7.5C0.5 3.35786 3.85786 0 8 0C12.1421 0 15.5 3.35786 15.5 7.5ZM8.375 3.375H6.875V7.43566L10.8447 11.4053L11.9053 10.3447L8.375 6.81434V3.375Z" fill="var(--color-text)"/>
             </svg>
             <p class="choice_info_text">{{activeFilial.work_days}}: {{activeFilial.work_hours}}</p>
           </div>
@@ -288,10 +288,10 @@
           :key="index" 
           class="calendar_numbers" 
           @click="changeColor(index)"
-          :style="{ background: isClicked[index] ? '#6266EA' : '#FAFAFA', color: isClicked[index] ? '#FFFFFF' : '#535C69' }"
+          :style="{ background: isClicked[index] ? '#6266EA' : '#FAFAFA', color: isClicked[index] ? '#FFFFFF' : 'var(--color-text)' }"
         >
-          <p class="calendar_numbers_head" :style="{ color: isClicked[index] ? '#FFFFFF' : '#535C69' }">{{ day.number }}</p>
-          <p class="calendar_numbers_sub" :style="{ color: isClicked[index] ? '#FFFFFF' : '#535C69' }">{{ day.month }}</p>
+          <p class="calendar_numbers_head" :style="{ color: isClicked[index] ? '#FFFFFF' : 'var(--color-text)' }">{{ day.number }}</p>
+          <p class="calendar_numbers_sub" :style="{ color: isClicked[index] ? '#FFFFFF' : 'var(--color-text)' }">{{ day.month }}</p>
         </div>
       </div>
 
@@ -745,6 +745,13 @@ export default {
 
       selectedUslugi: [],
       selectedEmployees: [],
+
+      theme: true,
+      colortheme: '',
+      MainColor: '',
+      WidgetColor: '',
+      BakcgroundColor: '',
+      TextColor: '',
     };
   },
   computed: {
@@ -777,8 +784,53 @@ export default {
   mounted() {
     // Запускаем функцию для автоматического переключения изображений
     this.startImageSlider();
+    this.updateColors();
   },
   methods: {
+    updateColors() {
+      if (this.theme) {
+        this.colortheme = 'darkmode';
+      } else {
+        this.colortheme = 'lightmode';
+      }
+
+      if (this.MainColor) {
+        this.$el.style.setProperty('--cm', this.MainColor);
+        // Изменяем прозрачность и записываем в --cmlight
+        const transparentColor = this.changeTransparency(this.MainColor, 0.2);
+        this.$el.style.setProperty('--cmlight', transparentColor);
+      }
+      if (this.WidgetColor) {
+        this.$el.style.setProperty('--cw', this.WidgetColor);
+      }
+      if (this.BakcgroundColor) {
+        this.$el.style.setProperty('--cb', this.BakcgroundColor);
+      }
+      if (this.TextColor) {
+        this.$el.style.setProperty('--ct', this.TextColor);
+      }
+    },
+    changeTransparency(hex, alpha) {
+      const isValidHex = /^#([0-9A-Fa-f]{3}){1,2}$/i.test(hex);
+      if (!isValidHex) {
+        console.error('Invalid HEX color:', hex);
+        return hex;
+      }
+
+      hex = hex.replace(/^#/, '');
+      const bigint = parseInt(hex, 16);
+
+      const r = (bigint >> 16) & 255;
+      const g = (bigint >> 8) & 255;
+      const b = bigint & 255;
+
+      return `rgba(${r},${g},${b},${alpha})`;
+    },
+
+
+
+
+
     activateFilial(filialData){
       this.activeFilial = filialData;
     },
@@ -857,6 +909,23 @@ export default {
 </script>
 
 <style scoped>
+#lightmode {
+  --color-main: var(--cw, white);
+  --color-gray: var(--cb, #FAFAFA);
+  --color-btnmain: var(--cmlight, #EBEDFF);
+  --color-global: var(--cm, #6266EA);
+  --color-text: var(--ct, #535C69);
+  --color-shadow: rgb(216, 216, 216);
+}
+
+#darkmode{
+  --color-main: var(--cw, #1A1B27);
+  --color-gray: var(--cb, #222433);
+  --color-btnmain: var(--cmlight, rgba(255, 194, 90, 0.1));
+  --color-global: var(--cm, #FFCF7D);
+  --color-text: var(--ct, #F5F5F5);
+  --color-shadow: rgb(21, 20, 29);
+}
 .delete-btn{
     width: 30px;
     height: 30px;
@@ -876,7 +945,7 @@ export default {
 .main{
   width: 600px;
   border-radius: 20px;
-  background: #FFFFFF;
+  background: transparent;
 }
 .choice{
   display: flex;
@@ -885,7 +954,7 @@ export default {
   padding: 30px 40px;
   border-radius: 25px;
   height: 427px;
-  background: #FFFFFF; 
+  background: var(--color-main); 
 }
 .branch{
   display: flex;
@@ -894,10 +963,10 @@ export default {
   padding: 30px 40px;
   border-radius: 25px;
   height: 427px;
-  background: #FFFFFF;
+  background: var(--color-main);
 }
 .search input{
-  background-color: #ffffff;
+  background-color: var(--color-main);
   color:#D2D8DE;
   margin: 0;
   width: 100%;
@@ -906,7 +975,7 @@ export default {
 
 .search input:focus{
   outline: none;
-  border: 1px solid #6266EA;
+  border: 1px solid var(--color-global);
 }
 .search input{
   background-image: url(../../static/img/search.svg);
@@ -915,7 +984,7 @@ export default {
   background-position: 15px;
 }
 .card{
-  background-color: #FAFAFA;
+  background-color: var(--color-gray);
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -924,11 +993,11 @@ export default {
 }
 
 .card:hover .card_name{
-  color: #6266EA;
+  color: var(--color-global);
 }
 
 .card:hover .card_address, .card:hover .card_time{
-  color: #535C69;
+  color: var(--color-text);
 }
 
 svg path{
@@ -936,7 +1005,7 @@ svg path{
 }
 
 .card:hover svg path{
-  fill: #535C69;
+  fill: var(--color-text);
 }
 
 .card_container{
@@ -961,7 +1030,7 @@ svg path{
   line-height: 16px;
   letter-spacing: 0em;
   text-align: left;
-  color: #535C69;
+  color: var(--color-text);
   margin: 0;
   transition: all .2s ease;
 }
@@ -1001,7 +1070,7 @@ svg path{
   line-height: 16px;
   letter-spacing: 0em;
   text-align: left;
-  color: #535C69;
+  color: var(--color-text);
   margin: 0;
 }
 .divider{
@@ -1017,35 +1086,37 @@ svg path{
   line-height: 10px;
   letter-spacing: 0em;
   text-align: left;
-  color: #535C69;
+  color: var(--color-text);
   margin: 0;
 }
 .card_number{
-  color: #6266EA;
+  color: var(--color-global);
 }
 .card_next_btn-disabled{
   cursor: not-allowed;
-  background: #FAFAFA;
-  color: #D2D8DE;
+  background: var(--color-btnmain);
+  color: var(--color-global);
+  filter: brightness(50%);
 }
 
 .card_next_btn-active{
   cursor: pointer;
-  background: #EFEFFF;
-  color: #6266EA;
+  background: var(--color-global);
+  color: var(--color-main);
+  filter: brightness(100%);
 }
 
 .card_next_btn-active:hover{
   cursor: pointer;
-  background: #DBEAFF;
-  color: #6266EA;
+  background: var(--color-btnmain);
+  color: var(--color-global);
 }
 
 .choice_overview{
   display: flex;
   justify-content: space-between;
   height: 90px;
-  background: #FAFAFA;
+  background: var(--color-gray);
   padding: 20px;
   border-radius: 15px;
 }
@@ -1060,7 +1131,7 @@ svg path{
   line-height: 50px;
   letter-spacing: 0em;
   text-align: center;
-  color: #535C69;
+  color: var(--color-text);
 }
 .choice_star_text{
   font-family: TT Norms Medium;
@@ -1068,7 +1139,7 @@ svg path{
   line-height: 10px;
   letter-spacing: 0em;
   text-align: left;
-  color: #535C69;
+  color: var(--color-text);
   text-decoration: underline;
   cursor: pointer;
 }
@@ -1095,7 +1166,7 @@ p{
   line-height: 24px;
   letter-spacing: 0em;
   text-align: left;
-  color: #535C69;
+  color: var(--color-text);
 }
 .service{
   display: flex;
@@ -1106,13 +1177,13 @@ p{
   padding: 20px;
   width: 250px;
   height: 170px;
-  background: #FAFAFA;
+  background: var(--color-gray);
   border-radius: 15px;
   cursor: pointer;
 }
 
 .service_container:hover .service_container_text{
-  color: #6266EA;
+  color: var(--color-global);
 }
 
 .service_container_text{
@@ -1121,7 +1192,7 @@ p{
   line-height: 24px;
   letter-spacing: 0em;
   text-align: left;
-  color: #535C69;
+  color: var(--color-text);
   transition: all .2s ease;
 }
 .favor{
@@ -1130,7 +1201,7 @@ p{
   gap: 30px;
   padding: 30px 40px;
   height: 427px;
-  background: #FFFFFF;
+  background: var(--color-main);
   border-radius: 25px;
 }
 .favor_card_container{
@@ -1143,7 +1214,7 @@ p{
   overflow: scroll;
 }
 .favor_card{
-  background: #fafafa;
+  background: var(--color-gray);
   border-radius: 10px;
   padding: 10px;
   width: 255px;
@@ -1159,7 +1230,7 @@ p{
   font-size: 14px;
   font-weight: 500;
   line-height: 17px;
-  color: #535C69;  
+  color: var(--color-text);  
 }
 .compo-wrapper-tariff{
   display: flex;
@@ -1177,14 +1248,14 @@ p{
   line-height: 12px;
   letter-spacing: 0em;
   text-align: left;
-  color: #535C69;
+  color: var(--color-text);
 }
 .dot {
   display: flex;
   align-items: center;
   height: 2px;
   width: 2px;
-  background: #6266EA;
+  background: var(--color-global);
   border-radius: 5px;
 }
 .selectwidget{
@@ -1203,16 +1274,14 @@ p{
 }
 .btn-wrapper{
   border-radius: 100px;
-  background: #EBEDFF;
-  color: #6266EA;
+  background: var(--color-btnmain);
+  color: var(--color-global);
   font-weight: 500;
   height: 30px;
   font-family: TT Norms Medium; 
   padding: 2px 20px;
 }
-.btn_wrapper:hover{
-  background: #6266EA;
-}
+
 .divider_step_container{
   display: flex;
   gap: 5px;
@@ -1221,7 +1290,7 @@ p{
   width: 30px;
   height: 3px;
   border-radius: 100px;
-  background: #6266EA;
+  background: var(--color-global);
 }
 .divider_step_two{
   width: 166px;
@@ -1235,12 +1304,12 @@ p{
 }
 .card_back_btn{
   font-family: TT Norms Medium;
-  background: #FFFFFF;
-  color: #535C69;
+  background: var(--color-main);
+  color: var(--color-text);
 }
 .card_back_btn:hover{
-  background: #FFFFFF;
-  color: #6266EA;
+  background: var(--color-main);
+  color: var(--color-global);
 }
 .employees{
   display: flex;
@@ -1248,14 +1317,14 @@ p{
   gap: 30px;
   padding: 30px 40px;
   height: 427px;
-  background: #FFFFFF;
+  background: var(--color-main);
   border-radius: 25px;
 }
 .employees_divider_step_one{
   width: 107px;
   height: 3px;
   border-radius: 100px;
-  background: #6266EA;
+  background: var(--color-global);
 }
 .employees_divider_step_two{
   width: 91px;
@@ -1273,7 +1342,7 @@ p{
   overflow: scroll;
 }
 .employees_card{
-  background: #fafafa;
+  background: var(--color-gray);
   border-radius: 10px;
   padding: 10px;
   width: 255px;
@@ -1288,7 +1357,7 @@ p{
   font-size: 14px;
   font-weight: 500;
   line-height: 17px;
-  color: #535C69;  
+  color: var(--color-text);  
 }
 .employees_subtext{
   font-family: TT Norms Medium;
@@ -1296,7 +1365,7 @@ p{
   line-height: 12px;
   letter-spacing: 0em;
   text-align: left;
-  color: #535C69;
+  color: var(--color-text);
 }
 .employees_container{
   display: flex;
@@ -1318,14 +1387,14 @@ p{
   line-height: 10px;
   letter-spacing: 0em;
   text-align: left;
-  color: #535C69;
+  color: var(--color-text);
   text-decoration: underline;
   cursor: pointer;
 }
 .user-alt{
   width: 70px;
   height: 54px;
-  background: #FFFFFF;
+  background: var(--color-main);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1335,8 +1404,7 @@ p{
   justify-content: end;
 }
 .btn-wrapper:hover{
-  background: #E0E4FF;
-  color: #6266EA;
+  filter: brightness(70%);
 }
 .calendar{
   display: flex;
@@ -1344,7 +1412,7 @@ p{
   gap: 30px;
   padding: 30px 40px;
   height: 315px;
-  background: #FFFFFF;
+  background: var(--color-main);
   border-radius: 25px;
 }
 .calendar_numbers_container{
@@ -1359,7 +1427,7 @@ p{
   width: 45px;
   height: 33px;
   border-radius: 3px;
-  background: #FAFAFA;
+  background: var(--color-gray);
   cursor: pointer;
 }
 .calendar_numbers_head{
@@ -1369,7 +1437,7 @@ p{
   line-height: 16px;
   letter-spacing: 0em;
   text-align: left;
-  color: #535C69;
+  color: var(--color-text);
 }
 .calendar_numbers_sub{
   font-family: TT Norms light;
@@ -1378,7 +1446,7 @@ p{
   line-height: 10px;
   letter-spacing: 0em;
   text-align: left;
-  color: #535C69;
+  color: var(--color-text);
 }
 .weekend{
   color: #F97F7F;
@@ -1391,7 +1459,7 @@ p{
   grid-row-gap: 10px;
 }
 .calendar_card{
-  background: #fafafa;
+  background: var(--color-gray);
   border-radius: 10px;
   padding: 10px;
   width: 100%;
@@ -1411,7 +1479,7 @@ p{
   font-size: 14px;
   font-weight: 500;
   line-height: 17px;
-  color: #535C69;  
+  color: var(--color-text);  
 }
 .calendar_container{
   display: flex;
@@ -1434,7 +1502,7 @@ p{
   line-height: 10px;
   letter-spacing: 0em;
   text-align: left;
-  color: #535C69;
+  color: var(--color-text);
   text-decoration: underline;
   cursor: pointer;
 }
@@ -1446,14 +1514,14 @@ p{
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #FFFFFF;
+  background: var(--color-main);
   font-family: TT Norms Medium;
   font-size: 10px;
   font-weight: 300;
   line-height: 10px;
   letter-spacing: 0em;
   text-align: left;
-  color: #535C69;
+  color: var(--color-text);
   width: 45px;
   height: 24px;
 }
@@ -1461,7 +1529,7 @@ p{
   width: 171px;
   height: 3px;
   border-radius: 100px;
-  background: #6266EA;
+  background: var(--color-global);
 }
 .calendar_divider_step_two{
   width: 28px;
@@ -1475,7 +1543,7 @@ p{
   gap: 40px;
   padding: 30px 40px;
   height: 427px;
-  background: #FFFFFF;
+  background: var(--color-main);
   border-radius: 25px;
 }
 .data_wrap{
@@ -1489,14 +1557,14 @@ p{
   gap: 10px;
   border-radius: 5px;
   width: 236px;
-  background: #FAFAFA;
+  background: var(--color-gray);
   padding: 25px 15px;
 }
 .data_info_card{
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #FFFFFF;
+  background: var(--color-main);
   padding: 10px;
   border-radius: 3px;
 }
@@ -1515,7 +1583,7 @@ p{
   line-height: 16px;
   letter-spacing: 0em;
   text-align: left;
-  color: #535C69;
+  color: var(--color-text);
 }
 .data_info_sub{
   font-family: TT Norms Medium;
@@ -1535,7 +1603,7 @@ p{
   line-height: 19px;
   letter-spacing: 0em;
   text-align: left;
-  color: #535C69;
+  color: var(--color-text);
 }
 .data_details{
   display: flex;
@@ -1549,7 +1617,7 @@ p{
   line-height: 15px;
   letter-spacing: 0em;
   text-align: left;
-  color: #535C69;
+  color: var(--color-text);
 }
 .data_forma{
   display: flex;
@@ -1605,9 +1673,9 @@ input{
   width: 16px;
   height: 16px;
   border-radius: 3px;
-  border: 1px solid #6266EA;
+  border: 1px solid var(--color-global);
   cursor: pointer;
-  background: #6266EA;
+  background: var(--color-global);
   user-select:none;
 }
 .figures_personal{
@@ -1619,7 +1687,7 @@ input{
   color: #C6CBD2;
 }
 .personal_span{
-  color: #6266EA;
+  color: var(--color-global);
   cursor: pointer;
   text-decoration: underline;
 }
@@ -1627,14 +1695,14 @@ input{
   width: 201px;
   height: 3px;
   border-radius: 100px;
-  background: #6266EA;
+  background: var(--color-global);
 }
 .notes{
   display: flex;
   flex-direction: column;
   padding: 30px 40px;
   height: 356px;
-  background: #FFFFFF;
+  background: var(--color-main);
   border-radius: 25px;
 }
 .notes_container{
@@ -1648,7 +1716,7 @@ input{
   gap: 10px;
   border-radius: 5px;
   width: 246px;
-  background: #FAFAFA;
+  background: var(--color-gray);
   padding: 25px 15px;
 }
 .notes_confirm{
@@ -1668,7 +1736,7 @@ input{
   line-height: 33px;
   letter-spacing: 0em;
   text-align: left;
-  color: #535C69;
+  color: var(--color-text);
 }
 .notes_confirm_sub{
   font-family: TT Norms light;
@@ -1677,7 +1745,7 @@ input{
   line-height: 19px;
   letter-spacing: 0em;
   text-align: left;
-  color: #535C69;
+  color: var(--color-text);
 }
 .notes_button{
   font-family: TT Norms Medium;
@@ -1689,7 +1757,7 @@ input{
   display: flex;
   gap: 5px;
   background: #EFEFFF;
-  color: #6266EA;
+  color: var(--color-global);
 }
 .branch_card{
   display: flex;
@@ -1719,7 +1787,7 @@ input{
   gap: 10px;
 }
 .compo-text{
-  color: #FFFFFF;
+  color: var(--color-main);
   font-family: TT Norms Medium;
   font-size: 14px;
   font-weight: 500;
@@ -1754,7 +1822,7 @@ input{
   right: 10px;
   width: 18px;
   height: 18px;
-  background: #FFFFFF;
+  background: var(--color-main);
   border: 1px solid #F5F5F5;
   border-radius: 50%;
   display: flex;
