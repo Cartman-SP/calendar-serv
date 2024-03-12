@@ -749,12 +749,12 @@ export default {
       selectedUslugi: [],
       selectedEmployees: [],
 
-      theme: true,
+      theme: true,//по дефолту false - это светлая; true - темная
       colortheme: '',
-      MainColor: '#F97F7F',
-      WidgetColor: '',
-      BakcgroundColor: '',
-      TextColor: '',
+      MainColor: '', // акцентный цвет виджета
+      WidgetColor: '', // цвет у фона
+      BakcgroundColor: '', // цвет у карточек
+      TextColor: '', // цвет текста
     };
   },
   computed: {
