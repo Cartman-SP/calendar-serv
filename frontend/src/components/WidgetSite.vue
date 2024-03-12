@@ -16,11 +16,7 @@
         </div>
       </div>
       <div class="divider_container">
-        <div class="compo_divider"></div>
-        <div class="compo_divider"></div>
-        <div class="compo_divider"></div>
-        <div class="compo_divider"></div>
-        <div class="compo_divider"></div>
+        <div v-for="i in images" :key="i.id" class="compo_divider"></div>
       </div>
     </div>
     <div class="branch" v-if="currentPage === 'branch'">
@@ -175,9 +171,13 @@
         <div class="card_next">
           <div class="card_next_container">
             <p class="card_next_text">Выбор услуги</p>
-            <div class="divider_step_container">
+            <div class="divider_step_container" v-if="step === 1">
               <div class="divider_step_one"></div>
               <div class="divider_step_two"></div>
+            </div>
+            <div class="divider_step_container" v-else>
+              <div class="employees_divider_step_one"></div>
+              <div class="employees_divider_step_two"></div>
             </div>
             <p class="card_next_subtext">Шаг {{ step }} из 4</p>
           </div>
@@ -264,7 +264,11 @@
         <div class="card_next">
           <div class="card_next_container">
             <p class="card_next_text">Выбор специалиста</p>
-            <div class="divider_step_container">
+            <div class="divider_step_container" v-if="step === 1">
+              <div class="divider_step_one"></div>
+              <div class="divider_step_two"></div>
+            </div>
+            <div class="divider_step_container" v-else>
               <div class="employees_divider_step_one"></div>
               <div class="employees_divider_step_two"></div>
             </div>
@@ -342,88 +346,9 @@
             <div class="selectwidget">
               <SelectWidget
               :options="['18:05', '18:10', '18:15', '18:20', '18:25', '18:30', '18:35', '18:40', '18:45', '18:50', '18:55']"
-              class="select" @input="option => selectedLanguage = option"
+              class="select" @input="option => selectedTime = option"
               :placeholderdata="'13:00'"
-              />
-              <div class="selectwidget_dot"></div>
-            </div>
-          </div>
-          <div class="calendar_time">
-            <div class="selectwidget">
-              <SelectWidget
-              :options="['18:05', '18:10', '18:15', '18:20', '18:25', '18:30', '18:35', '18:40', '18:45', '18:50', '18:55']"
-              class="select" @input="option => selectedLanguage = option"
-              :placeholderdata="'14:00'"
-              />
-              <div class="selectwidget_dot"></div>
-            </div>
-          </div>
-          <div class="calendar_time">
-            <div class="selectwidget">
-              <SelectWidget
-              :options="['18:05', '18:10', '18:15', '18:20', '18:25', '18:30', '18:35', '18:40', '18:45', '18:50', '18:55']"
-              class="select" @input="option => selectedLanguage = option"
-              :placeholderdata="'15:00'"
-              />
-              <div class="selectwidget_dot"></div>
-            </div>
-          </div>
-          <div class="calendar_time">
-            <div class="selectwidget">
-              <SelectWidget
-              :options="['18:05', '18:10', '18:15', '18:20', '18:25', '18:30', '18:35', '18:40', '18:45', '18:50', '18:55']"
-              class="select" @input="option => selectedLanguage = option"
-              :placeholderdata="'16:00'"
-              />
-              <div class="selectwidget_dot"></div>
-            </div>
-          </div>
-          <div class="calendar_time">
-            <div class="selectwidget">
-              <SelectWidget
-              :options="['18:05', '18:10', '18:15', '18:20', '18:25', '18:30', '18:35', '18:40', '18:45', '18:50', '18:55']"
-              class="select" @input="option => selectedLanguage = option"
-              :placeholderdata="'17:00'"
-              />
-              <div class="selectwidget_dot"></div>
-            </div>
-          </div>
-          <div class="calendar_time">
-            <div class="selectwidget">
-              <SelectWidget
-              :options="['18:05', '18:10', '18:15', '18:20', '18:25', '18:30', '18:35', '18:40', '18:45', '18:50', '18:55']"
-              class="select" @input="option => selectedLanguage = option"
-              :placeholderdata="'18:00'"
-              />
-              <div class="selectwidget_dot"></div>
-            </div>
-          </div>
-          <div class="calendar_time">
-            <div class="selectwidget">
-              <SelectWidget
-              :options="['18:05', '18:10', '18:15', '18:20', '18:25', '18:30', '18:35', '18:40', '18:45', '18:50', '18:55']"
-              class="select" @input="option => selectedLanguage = option"
-              :placeholderdata="'19:00'"
-              />
-              <div class="selectwidget_dot"></div>
-            </div>
-          </div>
-          <div class="calendar_time">
-            <div class="selectwidget">
-              <SelectWidget
-              :options="['18:05', '18:10', '18:15', '18:20', '18:25', '18:30', '18:35', '18:40', '18:45', '18:50', '18:55']"
-              class="select" @input="option => selectedLanguage = option"
-              :placeholderdata="'20:00'"
-              />
-              <div class="selectwidget_dot"></div>
-            </div>
-          </div>
-          <div class="calendar_time">
-            <div class="selectwidget">
-              <SelectWidget
-              :options="['18:05', '18:10', '18:15', '18:20', '18:25', '18:30', '18:35', '18:40', '18:45', '18:50', '18:55']"
-              class="select" @input="option => selectedLanguage = option"
-              :placeholderdata="'21:00'"
+              :Theme="theme" :MC="MainColor" :WC="WidgetColor" :BC="BakcgroundColor" :TC="TextColor"
               />
               <div class="selectwidget_dot"></div>
             </div>
@@ -443,7 +368,7 @@
           </div>
           <div class="card_btn_container">
             <button class="card_back_btn" @click="activeUslugi ? showEmployees() : showFavor(); step = 2">Назад</button>
-            <button class="card_next_btn" @click="showData">Продолжить</button>
+            <button :class="{'card_next_btn-disabled' : !activeFilial.name, 'card_next_btn-active' : activeFilial.name}" @click="showData">Продолжить</button>
           </div>
         </div> 
       </div>
@@ -748,6 +673,8 @@ export default {
 
       selectedUslugi: [],
       selectedEmployees: [],
+
+      selectedTime: '',
 
       theme: true,//по дефолту false - это светлая; true - темная
       colortheme: '',
@@ -1077,10 +1004,11 @@ svg path{
   margin: 0;
 }
 .divider{
-  width: 201px;
+  width: 200px;
   height: 3px;
   border-radius: 15px;
-  background: #D8DDE3;
+  border: none;
+  background: var(--color-gray);
   margin: 0;
 }
 .card_next_subtext{
@@ -1093,6 +1021,7 @@ svg path{
   margin: 0;
 }
 .card_number{
+  text-decoration: underline;
   color: var(--color-global);
 }
 .card_next_btn-disabled{
@@ -1286,6 +1215,7 @@ p{
 }
 
 .divider_step_container{
+  width: 200px;
   display: flex;
   gap: 5px;
 }
@@ -1299,7 +1229,7 @@ p{
   width: 166px;
   height: 3px;
   border-radius: 100px;
-  background: #D8DDE3;
+  background: var(--color-gray);
 }
 .card_btn_container{
   display: flex;
@@ -1333,7 +1263,7 @@ p{
   width: 91px;
   height: 3px;
   border-radius: 100px;
-  background: #D8DDE3;
+  background: var(--color-gray);
 }
 .employees_card_container{
   display: grid;
@@ -1792,7 +1722,7 @@ input{
   gap: 10px;
 }
 .compo-text{
-  color: var(--color-text);
+  color: white;
   font-family: TT Norms Medium;
   font-size: 14px;
   font-weight: 500;
@@ -1802,6 +1732,7 @@ input{
   margin: 0;
 }
 .divider_container{
+  justify-content: center;
   display: flex;
   gap: 3px;
 }
