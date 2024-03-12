@@ -281,14 +281,18 @@
     <div class="calendar" v-else-if="currentPage === 'calendar'">
       <div class="calendar_numbers_container">
         <div class="calendar_numbers">
-          <img src="../../static/img/calendar.svg" alt="" class="">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 5V0H7V5H5Z" fill="var(--color-global)"/>
+          <path d="M13 5V0H15V5H13Z" fill="var(--color-global)"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M2 19C1.44772 19 1 18.5523 1 18V3C1 2.44772 1.44772 2 2 2H4V6H8V2H12V6H16V2H18C18.5523 2 19 2.44772 19 3V18C19 18.5523 18.5523 19 18 19H2ZM17 17V8H3V17H17Z" fill="var(--color-global)"/>
+          </svg>
         </div>
         <div 
           v-for="(day, index) in days" 
           :key="index" 
           class="calendar_numbers" 
           @click="changeColor(index)"
-          :style="{ background: isClicked[index] ? 'var(--color-global)' : '#FAFAFA', color: isClicked[index] ? '#FFFFFF' : 'var(--color-text)' }"
+          :style="{ background: isClicked[index] ? 'var(--color-global)' : 'var(--color-gray)', color: isClicked[index] ? '#FFFFFF' : 'var(--color-text)' }"
         >
           <p class="calendar_numbers_head" :style="{ color: isClicked[index] ? '#FFFFFF' : 'var(--color-text)' }">{{ day.number }}</p>
           <p class="calendar_numbers_sub" :style="{ color: isClicked[index] ? '#FFFFFF' : 'var(--color-text)' }">{{ day.month }}</p>
@@ -747,7 +751,7 @@ export default {
 
       theme: true,
       colortheme: '',
-      MainColor: '',
+      MainColor: '#F97F7F',
       WidgetColor: '',
       BakcgroundColor: '',
       TextColor: '',
@@ -1788,7 +1792,7 @@ input{
   gap: 10px;
 }
 .compo-text{
-  color: var(--color-main);
+  color: var(--color-text);
   font-family: TT Norms Medium;
   font-size: 14px;
   font-weight: 500;
