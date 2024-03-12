@@ -99,7 +99,7 @@
       text-align: left;
     }
     .confirm-sub{
-      font-family: TT Norms;
+      font-family: TT Norms light;
       font-size: 18px;
       font-weight: 300;
       line-height: 23px;
@@ -157,5 +157,49 @@
     .sweety{
       position: absolute;
       top: 10px;
+    }
+    .add-employees{
+      background: #EFEFFF;
+      color: #6266EA;
+    }
+    .add-employees:hover{
+      background: #464AD9;
+      color: #FFFFFF;
+    }
+    .add-btn:hover{
+      color: #6266EA;
+    }
+    @media (max-width: 991px){
+      .image-container{
+        display: none;
+      }
+    }
+    @media (max-width: 768px){
+      .text-container {
+        width: 100%;
+      }
+      .confirm-head {
+        color: #535C69;
+        font-size: 20px;
+        line-height: 20px;
+        text-align: center;
+      }
+      .confirm-sub{
+        color: #535C69;
+        font-size: 20px;
+        line-height: 20px;
+        text-align: center;
+      }
+
+      .modal-container{
+        max-width: 390px;
+        height: auto;
+      }
+    }
+    @media (max-width: 576px){
+      .btn-wrapper{
+        flex-direction: column;
+        gap: 20px;
+      }
     }
 </style>

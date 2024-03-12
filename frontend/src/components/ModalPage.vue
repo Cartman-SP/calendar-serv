@@ -3,24 +3,32 @@
     <div class="overlay"></div>
     <div class="modal-container">
       <div class="image-container">
-        <img src="../../static/img/woman.png" alt="" class="woman">
+        <img src="../../static/img/woman_modal.svg" alt="" class="woman">
       </div>
 
       <div class="text-container" v-if="!showContinueButtonClicked">
-        <p class="days-text">Завершив регистрацию<br>мы подарим вам <span class="days-highlight">365 дней</span><br>бесплатного пользования</p>
-        <p class="normal-text">Имя</p>
-        <input type="text" placeholder="Введите имя" v-model="name" :class="{ 'input-error': nameError }">
-        <p class="normal-text">Фотография (необязательно)</p>
-        <label class="custom-file-upload" :class="{'custom-file-upload-error' : serviceCoverError}" v-if="!fileNameVariable">
-          <input type="file" accept="image/*" @change="handleFileUpload($event)"/>Прикрепите фото 
-        </label>
-        <label style="color: #535C69;" class="custom-file-upload" :class="{'custom-file-upload-error' : serviceCoverError}" v-else>
-          <input type="file" accept="image/*" @change="handleFileUpload($event)"/>{{ fileNameVariable }}
-        </label>
-        <p class="small-text">до 5 МБ, PNG, JPG, JPEG. Для замены - загрузите заново</p>
-        <p class="normal-text">Название компании</p>
-        <input maxlength="25" type="text" v-model="companyName" placeholder="Введите название" :class="{ 'input-error': companyNameError }">
-        <p class="small-text">Для ввода доступно — <span class="remaining-characters">{{ remainingCharacters }}</span>/25</p>
+        <div class="days-text-container">
+          <p class="days-text">Завершив регистрацию<br>мы подарим вам <span class="days-highlight">365 дней</span> бесплатного пользования</p>
+        </div>
+        <div class="input_container">
+          <p class="normal-text">Имя</p>
+          <input type="text" placeholder="Введите имя" v-model="name" :class="{ 'input-error': nameError }">
+        </div>
+        <div class="input_container">
+          <p class="normal-text">Фотография (необязательно)</p>
+          <label class="custom-file-upload" :class="{'custom-file-upload-error' : serviceCoverError}" v-if="!fileNameVariable">
+            <input type="file" accept="image/*" @change="handleFileUpload($event)"/>Прикрепите фото 
+          </label>
+          <label style="color: #535C69;" class="custom-file-upload" :class="{'custom-file-upload-error' : serviceCoverError}" v-else>
+            <input type="file" accept="image/*" @change="handleFileUpload($event)"/>{{ fileNameVariable }}
+          </label>
+          <p class="small-text">до 5 МБ, PNG, JPG, JPEG. Для замены - загрузите заново</p>
+        </div>
+        <div class="input_container">
+          <p class="normal-text">Название компании</p>
+          <input maxlength="25" type="text" v-model="companyName" placeholder="Введите название" :class="{ 'input-error': companyNameError }">
+          <p class="small-text">Для ввода доступно — <span class="remaining-characters">{{ remainingCharacters }}</span>/25</p>
+        </div>
         <div class="steps-container">
           <div class="continue-button-container">
             <div class="steps-progress">
@@ -33,7 +41,7 @@
         </div>
       </div>
 
-      <div v-else>
+      <div class="form" v-else>
         <div class="form-container">
           <p class="days-text">Завершив регистрацию<br>мы подарим вам <span class="days-highlight">365 дней</span><br>бесплатного пользования</p>
           <div class="dropdown-container">
@@ -67,7 +75,11 @@
               <p class="steps-text">Шаг 2 из 2</p>
             </div>
             <div class="btn-container">
-              <button class="back" @click="onBackClick">Назад</button>
+              <button class="back" @click="onBackClick">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.3999 6.96667L4.8999 3.5V6.3H13.2999V7.7H4.8999V10.5L1.3999 6.96667Z" fill="#535C69"/>
+                </svg>
+              </button>
               <button class="next-button" @click="createProfile">Продолжить</button>
             </div>
           </div>
@@ -251,6 +263,7 @@ export default {
       left: 50%;
       transform: translate(-50%, -50%);
       display: flex;
+      gap: 40px;
       align-items: center;
       width: 932px;
       height: 560px;
@@ -259,19 +272,26 @@ export default {
       box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.10);
     }
     
-    .image-container,
+    .image-container{
+      width: 381px;
+    }
+
     .text-container {
-      width: 50%;
+      width: 437px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
       box-sizing: border-box;
-      padding: 20px;
     }
     
     .days-text {
       color: #535C69;
       font-family: TT Norms Medium;
-      font-size: 32px;
-      font-style: normal;
-      line-height: 120%;
+      font-size: 36px;
+      font-weight: 500;
+      line-height: 43px;
+      letter-spacing: 0em;
       text-align: left;
     }
     
@@ -295,10 +315,10 @@ export default {
     .small-text {
       color:#D2D8DE;
       font-family: TT Norms Medium;
-      font-size: 14px;
-      font-style: normal;
+      font-size: 12px;
       font-weight: 500;
-      line-height: normal;
+      line-height: 14px;
+      letter-spacing: 0em;
       text-align: left;
     }
     .small-text .remaining-characters {
@@ -321,7 +341,7 @@ export default {
     }
     .steps-text{
       text-align: left;
-      font-family: TT Norms;
+      font-family: TT Norms Medium;
       font-size: 10px;
       font-weight: 300;
       line-height: 10px;
@@ -330,9 +350,8 @@ export default {
       margin-bottom: 0;
     }
     input{
-      width: 340px;
       color: #535C69;
-      font-family: TT Norms;
+      font-family: TT Norms Medium;
       font-size: 14px;
       font-weight: 500;
       line-height: 17px;
@@ -348,7 +367,7 @@ export default {
       color: #D2D8DE;
     }
     .custom-file-upload {
-      width: 340px;
+      width: 100%;
       height: 36px;
       display: flex;
       padding: 8px 10px;
@@ -356,15 +375,29 @@ export default {
       background-color: #F3F5F6;
       color: #D2D8DE;
       align-items: center;
+      background-image: url(../../static/img/paperclip.svg);
+      background-repeat: no-repeat;
+      background-position: calc(100% - 15px) center;
     }
   
     .custom-file-upload input[type="file"] {
       display: none;
     }
     .form-container {
-      width: 100%;
+      width: 437px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
       box-sizing: border-box;
-      padding: 20px;
+    }
+    .form {
+      width: 437px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+      box-sizing: border-box;
     }
     .second-divider {
       border-bottom: 3px solid #6266EA; 
@@ -392,6 +425,15 @@ export default {
       display: flex;
       flex-direction: column;
     }
+    .continue-button{
+      background: #EFEFFF;
+      color: #6266EA;
+      transition: all 0.2s ease;
+    }
+    .continue-button:hover{
+      background: #6266EA;
+      color: #FFFFFF;
+    }
     .steps-container{
       display: flex;
       justify-content: space-between;
@@ -406,6 +448,12 @@ export default {
       display: flex;
       flex-direction: column;
       margin-bottom: 20px;
+      gap: 5px;
+    }
+    .input_container{
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
     }
     input:focus {
       outline: none;
@@ -445,6 +493,18 @@ export default {
     select:active, select:focus{
       outline:none
     }
+    p{
+      margin: 0;
+    }
+    input{
+      margin: 0;
+      width: 100%;
+    }
+    .second-steps-container{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
     @media (max-width: 991px){
       .image-container{
         display: none;
@@ -452,9 +512,48 @@ export default {
       .text-container{
         width: 100%;
       }
+      .form-container{
+        width: 100%;
+      }
       .modal-container{
         width: 600px;
         padding: 60px;
       }
     }
+    @media (max-width: 768px){
+      .modal-container{
+        padding: 30px;
+        max-width: 390px;
+        height: auto;
+      }
+      input{
+        width: 100%;
+      }
+      .days-text{
+        text-align: center;
+        font-size: 20px;
+        line-height: 20px;
+        margin: 0;
+      }
+      .days-highlight{
+        font-size: 20px;
+        line-height: 20px;
+      }
+      .custom-file-upload{
+        width: 100%;
+      }
+      .text-container{
+        padding: 0;
+      }
+  }
+  @media (max-width: 576px){
+    .steps-container{
+      flex-direction: column;
+      gap: 10px;
+    }
+    .steps{
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
   </style>
