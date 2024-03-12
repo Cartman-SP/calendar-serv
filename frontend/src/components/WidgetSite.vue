@@ -621,9 +621,8 @@ export default {
         { name: '🇺🇦', code: '+380' },
       ],
       images: [
-        '/static/img/salon.png',
-        '/static/img/widget.png',
-        // Добавьте любые другие изображения, которые хотите использовать
+        "http://127.0.0.1:8000" + '/media/service_covers/143976-abstraktnoe_iskusstvo-kraska-krasnyj_cvet-art-sinij-3840x2160_m2WC2Ts.jpg',
+        "http://127.0.0.1:8000" + '/media/service_covers/143976-abstraktnoe_iskusstvo-kraska-krasnyj_cvet-art-sinij-3840x2160_m2WC2Ts.jpg',
       ],
       currentImageIndex: 0,
       isClicked: new Array(9).fill(false), // Значения по умолчанию для каждого элемента
@@ -1775,8 +1774,9 @@ input{
   padding: 40px 40px 50px 40px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  background-image: url(../../static/img/widget.png);
   margin-bottom: -30px;
+  object-fit: cover;
+  width: 100%;
 }
 .compo-wrap{
   display: flex;
