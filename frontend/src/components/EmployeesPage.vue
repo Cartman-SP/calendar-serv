@@ -888,6 +888,12 @@
         border-radius: 40px;
         object-fit: cover;
       }
+      @media (max-width: 1340px){
+        .adaptive_window{
+          display: none;
+        }
+      
+      }
       @media (max-width: 768px){
         .main{
           margin: 20px;

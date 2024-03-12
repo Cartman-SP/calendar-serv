@@ -167,6 +167,15 @@
       .image-container{
         display: none;
       }
+      .modal-container{
+        max-width: 690px;
+        height: auto;
+        padding: 60px;
+      }
+      .text-container {
+        width: 100%;
+        padding: 0;
+      }
     }
     @media (max-width: 768px){
       .text-container {

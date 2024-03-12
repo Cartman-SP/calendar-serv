@@ -33,7 +33,7 @@
         </div>
         <div class="btn-wrapper">
           <button class="add-btn" @click="this.$router.push('/lk/personal')">Добавить еще сотрудника</button>
-          <button class="add-branch" @click="this.$router.push('/lk/personal/branch')">Добавить филиал</button>
+          <button class="add-branch" @click="this.$router.push('/lk/branch/createbranch')">Добавить филиал</button>
         </div>
       </div>
     </div>
@@ -171,6 +171,15 @@
       .image-container{
         display: none;
       }
+      .modal-container{
+        max-width: 690px;
+        height: auto;
+        padding: 60px;
+      }
+      .text-container {
+        width: 100%;
+        padding: 0;
+      }
     }
     @media (max-width: 768px){
       .text-container {
@@ -184,7 +193,7 @@
       }
       .confirm-sub{
         color: #535C69;
-        font-size: 20px;
+        font-size: 14px;
         line-height: 20px;
         text-align: center;
       }
@@ -199,6 +208,12 @@
         align-items: center;
         flex-direction: column;
         gap: 20px;
+      }
+      .add-btn{
+        width: 100%;
+      }
+      .add-branch{
+        width: 100%;
       }
     }
 </style>
