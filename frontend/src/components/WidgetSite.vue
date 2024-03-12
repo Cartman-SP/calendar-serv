@@ -159,9 +159,9 @@
                 <p class="tariff_text">{{u.time}}</p>
               </div>
             </div>
-            <button v-if="!selectedUslugi.includes(u.id)" @click="UslugaSelected(u.id)" class="btn-wrapper">Выбрать</button>
+            <button v-if="!selectedUslugi.includes(u)" @click="UslugaSelected(u)" class="btn-wrapper">Выбрать</button>
             <div v-else class="delete">
-              <button @click="UslugaDeleting(u.id)" class="delete-btn">
+              <button @click="UslugaDeleting(u)" class="delete-btn">
                 <svg width="16" height="16" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M1.94318 1.55556C1.94318 1.1797 2.2637 0.875 2.65909 0.875H9.34092C9.73631 0.875 10.0568 1.1797 10.0568 1.55556C10.0568 1.93142 9.73631 2.23611 9.34092 2.23611H2.65909C2.2637 2.23611 1.94318 1.93142 1.94318 1.55556ZM1.46591 4.95833H0.75V3.59722H11.25V4.95833H10.5341V10.6296C10.5341 12.0078 9.35886 13.125 7.9091 13.125H4.09091C2.64116 13.125 1.46591 12.0078 1.46591 10.6296V4.95833ZM9.10227 4.95833H2.89773V10.6296C2.89773 11.2561 3.43194 11.7639 4.09091 11.7639H7.9091C8.56806 11.7639 9.10227 11.2561 9.10227 10.6296V4.95833Z" fill="#F97F7F"/>
                   </svg>
@@ -288,7 +288,7 @@
           :key="index" 
           class="calendar_numbers" 
           @click="changeColor(index)"
-          :style="{ background: isClicked[index] ? '#6266EA' : '#FAFAFA', color: isClicked[index] ? '#FFFFFF' : 'var(--color-text)' }"
+          :style="{ background: isClicked[index] ? 'var(--color-global)' : '#FAFAFA', color: isClicked[index] ? '#FFFFFF' : 'var(--color-text)' }"
         >
           <p class="calendar_numbers_head" :style="{ color: isClicked[index] ? '#FFFFFF' : 'var(--color-text)' }">{{ day.number }}</p>
           <p class="calendar_numbers_sub" :style="{ color: isClicked[index] ? '#FFFFFF' : 'var(--color-text)' }">{{ day.month }}</p>
@@ -303,11 +303,11 @@
               <p class="calendar_text">{{ selectedUslugi[0].name }} у {{ selectedEmployees[0].name }}</p>
               <div class="tariff">
                 <div class="tariff-item">
-                  <p class="tariff_text">3000 тнг</p>
+                  <p class="tariff_text">{{ selectedUslugi[0].cost }}</p>
                 </div>
                 <div class="dot"></div>
                 <div class="tariff-item">
-                  <p class="tariff_text">1 час</p>
+                  <p class="tariff_text">{{ selectedUslugi[0].time }}</p>
                 </div>
               </div>
             </div>            
@@ -459,9 +459,9 @@
             </div>
             <div class="data_info_card">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 5V0H7V5H5Z" fill="#6266EA"/>
-                <path d="M13 5V0H15V5H13Z" fill="#6266EA"/>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M2 19C1.44772 19 1 18.5523 1 18V3C1 2.44772 1.44772 2 2 2H4V6H8V2H12V6H16V2H18C18.5523 2 19 2.44772 19 3V18C19 18.5523 18.5523 19 18 19H2ZM17 17V8H3V17H17Z" fill="#6266EA"/>
+                <path d="M5 5V0H7V5H5Z" fill="var(--color-global)"/>
+                <path d="M13 5V0H15V5H13Z" fill="var(--color-global)"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M2 19C1.44772 19 1 18.5523 1 18V3C1 2.44772 1.44772 2 2 2H4V6H8V2H12V6H16V2H18C18.5523 2 19 2.44772 19 3V18C19 18.5523 18.5523 19 18 19H2ZM17 17V8H3V17H17Z" fill="var(--color-global)"/>
               </svg>
               <div class="data_info_container">
                 <p class="data_info_head">6 июля, 14:10</p>
@@ -470,8 +470,8 @@
             </div>
             <div class="data_info_card">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.5998 3.20006H1.9998L11.9998 6.10352e-05L13.5998 3.20006Z" fill="#6266EA"/>
-                <path d="M0.799805 6.40011C0.799805 5.51645 1.51615 4.80011 2.3998 4.80011H13.5998C14.4835 4.80011 15.1998 5.51645 15.1998 6.40011V8.80001H12.5331C11.7776 8.80001 11.1998 9.32002 11.1998 10C11.1998 10.68 11.7776 11.2 12.5331 11.2H15.1998V13.6001C15.1998 14.4838 14.4835 15.2001 13.5998 15.2001H2.3998C1.51615 15.2001 0.799805 14.4838 0.799805 13.6001V6.40011Z" fill="#6266EA"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.5998 3.20006H1.9998L11.9998 6.10352e-05L13.5998 3.20006Z" fill="var(--color-global)"/>
+                <path d="M0.799805 6.40011C0.799805 5.51645 1.51615 4.80011 2.3998 4.80011H13.5998C14.4835 4.80011 15.1998 5.51645 15.1998 6.40011V8.80001H12.5331C11.7776 8.80001 11.1998 9.32002 11.1998 10C11.1998 10.68 11.7776 11.2 12.5331 11.2H15.1998V13.6001C15.1998 14.4838 14.4835 15.2001 13.5998 15.2001H2.3998C1.51615 15.2001 0.799805 14.4838 0.799805 13.6001V6.40011Z" fill="var(--color-global)"/>
               </svg>
                 
               <div class="data_info_container">
@@ -558,9 +558,9 @@
           </div>
           <div class="data_info_card">
             <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M5 5V0H7V5H5Z" fill="#6266EA"/>
-              <path d="M13 5V0H15V5H13Z" fill="#6266EA"/>
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M2 19C1.44772 19 1 18.5523 1 18V3C1 2.44772 1.44772 2 2 2H4V6H8V2H12V6H16V2H18C18.5523 2 19 2.44772 19 3V18C19 18.5523 18.5523 19 18 19H2ZM17 17V8H3V17H17Z" fill="#6266EA"/>
+              <path d="M5 5V0H7V5H5Z" fill="var(--color-global)"/>
+              <path d="M13 5V0H15V5H13Z" fill="var(--color-global)"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M2 19C1.44772 19 1 18.5523 1 18V3C1 2.44772 1.44772 2 2 2H4V6H8V2H12V6H16V2H18C18.5523 2 19 2.44772 19 3V18C19 18.5523 18.5523 19 18 19H2ZM17 17V8H3V17H17Z" fill="var(--color-global)"/>
             </svg>
             <div class="data_info_container">
               <p class="data_info_head">6 июля, 14:10</p>
@@ -569,8 +569,8 @@
           </div>
           <div class="data_info_card">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M13.5998 3.20006H1.9998L11.9998 6.10352e-05L13.5998 3.20006Z" fill="#6266EA"/>
-              <path d="M0.799805 6.40011C0.799805 5.51645 1.51615 4.80011 2.3998 4.80011H13.5998C14.4835 4.80011 15.1998 5.51645 15.1998 6.40011V8.80001H12.5331C11.7776 8.80001 11.1998 9.32002 11.1998 10C11.1998 10.68 11.7776 11.2 12.5331 11.2H15.1998V13.6001C15.1998 14.4838 14.4835 15.2001 13.5998 15.2001H2.3998C1.51615 15.2001 0.799805 14.4838 0.799805 13.6001V6.40011Z" fill="#6266EA"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M13.5998 3.20006H1.9998L11.9998 6.10352e-05L13.5998 3.20006Z" fill="var(--color-global)"/>
+              <path d="M0.799805 6.40011C0.799805 5.51645 1.51615 4.80011 2.3998 4.80011H13.5998C14.4835 4.80011 15.1998 5.51645 15.1998 6.40011V8.80001H12.5331C11.7776 8.80001 11.1998 9.32002 11.1998 10C11.1998 10.68 11.7776 11.2 12.5331 11.2H15.1998V13.6001C15.1998 14.4838 14.4835 15.2001 13.5998 15.2001H2.3998C1.51615 15.2001 0.799805 14.4838 0.799805 13.6001V6.40011Z" fill="var(--color-global)"/>
             </svg>
               
             <div class="data_info_container">
@@ -587,12 +587,12 @@
           </div>
           <button class="notes_button">
             <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10 12H19V14H10V12Z" fill="#6266EA"/>
-              <path d="M10 16H16V18H10V16Z" fill="#6266EA"/>
-              <path d="M1 13C1 12.4477 1.44772 12 2 12H7C7.55228 12 8 12.4477 8 13V18C8 18.5523 7.55228 19 7 19H2C1.44772 19 1 18.5523 1 18V13Z" fill="#6266EA"/>
-              <path d="M10 5H16V7H10V5Z" fill="#6266EA"/>
-              <path d="M10 1H19V3H10V1Z" fill="#6266EA"/>
-              <path d="M1 2C1 1.44772 1.44772 1 2 1H7C7.55228 1 8 1.44772 8 2V7C8 7.55228 7.55228 8 7 8H2C1.44772 8 1 7.55228 1 7V2Z" fill="#6266EA"/>
+              <path d="M10 12H19V14H10V12Z" fill="var(--color-global)"/>
+              <path d="M10 16H16V18H10V16Z" fill="var(--color-global)"/>
+              <path d="M1 13C1 12.4477 1.44772 12 2 12H7C7.55228 12 8 12.4477 8 13V18C8 18.5523 7.55228 19 7 19H2C1.44772 19 1 18.5523 1 18V13Z" fill="var(--color-global)"/>
+              <path d="M10 5H16V7H10V5Z" fill="var(--color-global)"/>
+              <path d="M10 1H19V3H10V1Z" fill="var(--color-global)"/>
+              <path d="M1 2C1 1.44772 1.44772 1 2 1H7C7.55228 1 8 1.44772 8 2V7C8 7.55228 7.55228 8 7 8H2C1.44772 8 1 7.55228 1 7V2Z" fill="var(--color-global)"/>
             </svg>
             Мои записи
           </button>
@@ -796,7 +796,7 @@ export default {
 
       if (this.MainColor) {
         this.$el.style.setProperty('--cm', this.MainColor);
-        // Изменяем прозрачность и записываем в --cmlight
+
         const transparentColor = this.changeTransparency(this.MainColor, 0.2);
         this.$el.style.setProperty('--cmlight', transparentColor);
       }
@@ -1772,10 +1772,11 @@ input{
   justify-content: end;
   gap: 10px;
   height: 230px;
-  padding: 40px;
+  padding: 40px 40px 50px 40px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   background-image: url(../../static/img/widget.png);
+  margin-bottom: -30px;
 }
 .compo-wrap{
   display: flex;
