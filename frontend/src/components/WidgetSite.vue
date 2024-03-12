@@ -96,7 +96,7 @@
       </div>
       <div class="service">
         <div class="service_container" @click="activeUslugi = !activeUslugi, activePersonal ? activePersonal=false : activePersonal = false">
-          <p class="service_container_text">Выбрать услугу</p>
+          <p class="service_container_text" :style="activeUslugi ? { color: 'var(--color-global)' } : {}">Выбрать услугу</p>
           <img src="../../static/img/tools.svg" alt="" class="service_tools">
           <div class="checkmark" v-if="!activeUslugi">
             <svg width="15" height="15" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -110,7 +110,7 @@
           </div>
         </div>
         <div class="service_container" @click="activePersonal = !activePersonal, activeUslugi ? activeUslugi=false : activeUslugi = false">
-          <p class="service_container_text">Выбрать<br>специалиста</p>
+          <p class="service_container_text"  :style="activePersonal ? { color: 'var(--color-global)' } : {}">Выбрать<br>специалиста</p>
           <img src="../../static/img/ppl.svg" alt="" class="service_ppl">
           <div class="checkmark" v-if="!activePersonal">
             <svg width="15" height="15" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -678,7 +678,7 @@ export default {
 
       theme: true,//по дефолту false - это светлая; true - темная
       colortheme: '',
-      MainColor: '', // акцентный цвет виджета
+      MainColor: '#0BB6A1', // акцентный цвет виджета
       WidgetColor: '', // цвет у фона
       BakcgroundColor: '', // цвет у карточек
       TextColor: '', // цвет текста
