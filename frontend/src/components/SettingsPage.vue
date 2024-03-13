@@ -18,7 +18,7 @@
             <label for="userPhoto">Фотография</label>
             <div class="input_container">
               <label class="custom-file-upload">
-                <input type="file" accept="image/*" ref="fileInput"/>Нажмите, чтобы загрузить
+                <input type="file" accept="image/*" ref="fileInput" @change="handleFileUpload($event)"/><span :class="{'inputFile-empty' : !fileNameVariable, 'inputFile-file' : fileNameVariable}">{{ fileNameVariable || 'Нажмите, чтобы загрузить' }}</span>
               </label>
               <button @click="saveImage" class="button-save">Сохранить изменения</button>
             </div>
@@ -91,6 +91,8 @@ export default {
         phone: '',
       },
 
+      fileNameVariable: '',
+
       alertMessage: null,
       alertColor: '',
     };
@@ -101,6 +103,16 @@ export default {
     },
   },
   methods: {
+    handleFileUpload(event) {
+      const file = event.target.files[0];
+      const fileName = file.name; // извлекаем название файла
+      if (fileName.length > 30) {
+        this.fileNameVariable = fileName.slice(0, 30) + '...' + fileName.slice(-4);
+      }else{
+        this.fileNameVariable = fileName.slice(0, 30);
+      }
+    },
+
     ...mapMutations(['setUpdateSidebar']),
     rerenderSidebar() {
       this.setUpdateSidebar();
@@ -170,7 +182,9 @@ export default {
       })
         .then(response => {
           console.log('Изображение успешно сохранено:', response.data);
-          window.location.reload();
+          this.rerenderSidebar();
+          this.alertMessage = 'Поле Фото успешно изменено!';
+          this.alertColor = '#0BB6A1';
         })
         .catch(error => {
           console.error('Ошибка при сохранении изображения:', error);
@@ -184,7 +198,15 @@ export default {
 </script>
 
 <style scoped>
+.inputFile-empty{
+  font-family: TT Norms;
+  color: #D2D8DE;
+}
 
+.inputFile-file{
+  font-family: TT Norms;
+  color: #535C69;
+}
 .settings {
   text-align: center;
   width: fit-content;

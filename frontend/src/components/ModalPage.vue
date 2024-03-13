@@ -25,7 +25,10 @@
           <p class="small-text">до 5 МБ, PNG, JPG, JPEG. Для замены - загрузите заново</p>
         </div>
         <div class="input_container">
-          <p class="normal-text">Название компании</p>
+          <div style="display: flex; align-items: center; gap: 5px;">
+            <p class="normal-text">Название компании</p>
+            <Tip :Tip="'Придумать текст описания'"/>
+          </div>
           <input maxlength="25" type="text" v-model="companyName" placeholder="Введите название" :class="{ 'input-error': companyNameError }">
           <p class="small-text">Для ввода доступно — <span class="remaining-characters">{{ remainingCharacters }}</span>/25</p>
         </div>
@@ -96,9 +99,10 @@
 import SelectPage from '../components/SelectPage.vue';
 import axios from 'axios';
 import MessageAlert from "../components/MessageAlert.vue";
+import Tip from '../components/TipComponent.vue';
 
 export default { 
-  components: { SelectPage, MessageAlert },
+  components: { SelectPage, MessageAlert, Tip },
   data() {
     return {
       alertMessage: null,
@@ -505,6 +509,10 @@ export default {
       flex-direction: column;
       gap: 10px;
     }
+
+    .image-container{
+        display: block;
+      }
     @media (max-width: 991px){
       .image-container{
         display: none;
