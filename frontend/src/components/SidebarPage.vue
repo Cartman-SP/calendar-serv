@@ -38,7 +38,7 @@
               </div>
             </router-link>
             <router-link :to="!employees.length > 0 ? '/lk/locked' : '/lk/branch'" class="main_text" :class="{ active: $route.path === '/lk/branch' }">
-              <div :class="{'disabled-menu' : !uslugi.length > 0, 'main_menu' : uslugi.length > 0}">
+              <div :class="{'disabled-menu' : !employees.length > 0, 'main_menu' : employees.length > 0}">
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4V3.5C5 1.84315 6.34315 0.5 8 0.5H12C13.6569 0.5 15 1.84315 15 3.5V4H18C19.1046 4 20 4.89543 20 6V16C20 17.1046 19.1046 18 18 18H2C0.895431 18 0 17.1046 0 16V6C0 4.89543 0.895431 4 2 4H5ZM7 3.5C7 2.94772 7.44772 2.5 8 2.5H12C12.5523 2.5 13 2.94772 13 3.5V4H7V3.5ZM10 10C10.8284 10 11.5 9.32843 11.5 8.5C11.5 7.67157 10.8284 7 10 7C9.17157 7 8.5 7.67157 8.5 8.5C8.5 9.32843 9.17157 10 10 10Z" fill="#6266EA"/>
                 </svg>
@@ -48,8 +48,8 @@
           </div>
           <div class="line"></div>
           <div class="cards-group">
-            <router-link to="/lk/widgets" class="main_text" :class="{ active: $route.path === '/lk/widgets' }">
-              <div class="main_menu">
+            <router-link  :to="!filials.length > 0 ? '/lk/locked' : '/lk/widgets'" class="main_text" :class="{ active: $route.path === '/lk/widgets' }">
+              <div :class="{'disabled-menu' : !filials.length > 0, 'main_menu' : filials.length > 0}">
                 <svg width="16" height="16" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M8 2.1C4.48183 2.1 1.6 4.98183 1.6 8.5C1.6 12.0182 4.48183 14.9 8 14.9V16.5C3.59817 16.5 0 12.9018 0 8.5C0 4.09817 3.59817 0.5 8 0.5C12.4018 0.5 16 4.09817 16 8.5C16 12.7506 14 15.7 11.2 15.7C8.8 15.7 7.2 13.46 7.2 10.9H6.39998C5.51632 10.9 4.79998 10.1836 4.79998 9.29997L4.79999 6.89998H5.93488V4.66746C5.93488 4.31809 6.21808 4.03489 6.56744 4.03489C6.91679 4.03489 7.19999 4.31809 7.19999 4.66746V6.89998H8.79999V4.66746C8.79999 4.31809 9.08319 4.03489 9.43256 4.03489C9.7819 4.03489 10.0651 4.31809 10.0651 4.66746V6.89998H11.2V9.29998C11.2 10.1836 10.4836 10.9 9.59999 10.9H8.8C8.8 13.3 10 14.1 11.2 14.1C12.8 14.1 14.4 12.3854 14.4 8.5C14.4 4.98183 11.5182 2.1 8 2.1Z" fill="#6266EA"/>
                 </svg>
@@ -175,6 +175,7 @@ export default {
 
       uslugi: [],
       employees: [],
+      filials: [],
     };
   },
   computed: {
@@ -189,6 +190,18 @@ export default {
       },
     },
   methods: {
+    async getfilials(){
+      axios.get(`http://127.0.0.1:8000/api/get_branch/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`)
+        .then(response => {
+            this.filials = response.data;
+            this.filials.reverse();
+            console.log(response);
+        })
+        .catch(error => {
+            console.error('Ошибка при получении данных о пользователе:', error);
+        });
+    },
+
     async get_uslugi(){
       try {
         const response = await axios.get(`http://127.0.0.1:8000/api/uslugi/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`);
@@ -245,6 +258,7 @@ export default {
     this.get_profile();
     this.get_uslugi();
     this.get_employee();
+    this.getfilials();
   }
 };
 </script>
