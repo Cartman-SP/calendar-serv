@@ -12,7 +12,7 @@
       <div class="content">
         <div class="top-group">
           <div class="cards-group">
-            <router-link to="/lk/service" class="main_text" :class="{ active: $route.path === '/lk/service' }">
+            <router-link to="/lk/service" class="main_text" :class="{ active: $route.path === '/lk/service'}">
               <div class="main_menu">
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M10 12H19V14H10V12Z" fill="#6266EA"/>
@@ -26,8 +26,8 @@
                 <p class="main_text">Услуги</p>
               </div>
             </router-link>
-            <router-link to="/lk/personal" class="main_text" :class="{ active: $route.path === '/lk/personal' }">
-              <div class="main_menu">
+            <router-link :to="!uslugi.length > 0 ? '/lk/locked' : '/lk/personal'" class="main_text" :class="{ active: $route.path === '/lk/personal' }">
+              <div :class="{'disabled-menu' : !uslugi.length > 0, 'main_menu' : uslugi.length > 0}">
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M16 6.5C16 7.88071 14.8807 9 13.5 9C12.1193 9 11 7.88071 11 6.5C11 5.11929 12.1193 4 13.5 4C14.8807 4 16 5.11929 16 6.5Z" fill="#6266EA"/>
                   <path d="M7 11H2C0.895431 11 0 11.8954 0 13V18H13V17C13 13.6863 10.3137 11 7 11Z" fill="#6266EA"/>
@@ -37,8 +37,8 @@
                 <p class="main_text">Сотрудники</p>
               </div>
             </router-link>
-            <router-link to="/lk/branch" class="main_text" :class="{ active: $route.path === '/lk/branch' }">
-              <div class="main_menu">
+            <router-link :to="!employees.length > 0 ? '/lk/locked' : '/lk/branch'" class="main_text" :class="{ active: $route.path === '/lk/branch' }">
+              <div :class="{'disabled-menu' : !uslugi.length > 0, 'main_menu' : uslugi.length > 0}">
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4V3.5C5 1.84315 6.34315 0.5 8 0.5H12C13.6569 0.5 15 1.84315 15 3.5V4H18C19.1046 4 20 4.89543 20 6V16C20 17.1046 19.1046 18 18 18H2C0.895431 18 0 17.1046 0 16V6C0 4.89543 0.895431 4 2 4H5ZM7 3.5C7 2.94772 7.44772 2.5 8 2.5H12C12.5523 2.5 13 2.94772 13 3.5V4H7V3.5ZM10 10C10.8284 10 11.5 9.32843 11.5 8.5C11.5 7.67157 10.8284 7 10 7C9.17157 7 8.5 7.67157 8.5 8.5C8.5 9.32843 9.17157 10 10 10Z" fill="#6266EA"/>
                 </svg>
@@ -172,6 +172,9 @@ export default {
       avatar: "",
       company:"",
       zayavki: '2', // сделать кол-во заявок
+
+      uslugi: [],
+      employees: [],
     };
   },
   computed: {
@@ -186,6 +189,29 @@ export default {
       },
     },
   methods: {
+    async get_uslugi(){
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/uslugi/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`);
+        this.uslugi = response.data;
+        this.uslugi.reverse();
+      } catch (error) {
+        console.error('Error fetching uslugi:', error);
+      }
+    },
+    async get_employee(){
+              const user_id =  this.$store.state.registrationData.user_id;// Замените на актуальный user_id
+  
+      // Выполняем запрос к API Django
+      axios.get(`http://127.0.0.1:8000/api/get_employees/?user_id=${user_id}&project=${this.$store.state.activeProjectId}`)
+        .then(response => {
+          this.employees = response.data; // Сохраняем полученные данные в переменной
+          this.employees.reverse();
+          console.log(this.employees);
+        })
+        .catch(error => {
+          console.error('Error fetching employees:', error);
+        });
+    },
     get_profile(){
       console.log(this.updateSidebar)
       axios.post('http://127.0.0.1:8000/api/getprofile/', { user_id:  this.$store.state.registrationData.user_id})
@@ -217,11 +243,38 @@ export default {
   },
   mounted(){  
     this.get_profile();
+    this.get_uslugi();
+    this.get_employee();
   }
 };
 </script>
 
 <style scoped>
+.disabled-menu{
+    text-align: left;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0px 20px;
+    transition: all .2s ease;
+    background-color: transparent;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.disabled-menu:hover{
+  background: white;
+}
+
+.disabled-menu p{
+  color: #9da0a4;
+}
+
+.disabled-menu svg path{
+  fill: #888cff;
+}
+
 .dropdown-link:hover .dropdown-item p{
   color: #535C69;
 }
