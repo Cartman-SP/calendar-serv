@@ -30,7 +30,7 @@
           <div class="email-container"> 
             <label for="userMail">Email</label>
             <p><span class="email-header">Будьте внимательны!</span> Email является логином для входа в сервис, если вы измените Email, то при авторизации нужно использовать обновленный Email</p>
-            <div class="input_container">
+            <div class="input_container_mail">
               <input type="mail" id="userMail" :value="this.$store.state.registrationData.email" disabled>
               <div class="email-btn">
                 <button @click="acceptMail">Подтвердить Email</button>
@@ -45,7 +45,7 @@
           <div class="phone-container">
             <label for="userPhone">Телефон</label>
             <p>Получайте SMS-уведомления о новых заявках</p>
-            <div class="input_container">
+            <div class="input_container_phone">
               <input id="userphone" :value="'+'+User.phone.toString()" disabled>
               <div class="phone-btn">
                 <button @click="acceptPhone">Подтвердить телефон</button>
@@ -362,7 +362,15 @@ span{
   font-weight: bold;
 }
 
-.input_container input {
+.input_container_mail input {
+  position: relative;
+  background-image: url(../../static/img/warning.svg);
+  background-repeat: no-repeat;
+  background-position: calc(100% - 15px) center;
+  width: 250px;
+  transition: all 0.2s ease;
+}
+.input_container_phone input {
   position: relative;
   background-image: url(../../static/img/warning.svg);
   background-repeat: no-repeat;
@@ -371,11 +379,33 @@ span{
   transition: all 0.2s ease;
 }
 
-.input_container:hover::after {
+.input_container_mail:hover::after {
   position: absolute;
   margin-top: 80px;
   left: 450px;
   content: "Email адрес не подтвержден";
+  display: flex;
+  height: 36px;
+  width: auto;
+  background-color: #FFFFFF;
+  color: #7D838C;
+  z-index: 15;
+  padding: 0 10px;
+  border-radius: 5px;
+  font-family: TT Norms Medium;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 17px;
+  letter-spacing: 0em;
+  text-align: center;
+  align-items: center;
+  box-shadow: 0px 2px 8px 0px #7D879066;
+}
+.input_container_phone:hover::after {
+  position: absolute;
+  margin-top: 80px;
+  left: 450px;
+  content: "Телефон не подтвержден";
   display: flex;
   height: 36px;
   width: auto;
