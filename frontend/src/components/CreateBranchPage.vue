@@ -84,7 +84,7 @@
             <label for="upload-image ">Фото филиала</label>
             <Tip :Tip="'Мы рекомендуем загрузить наиболее удачные фотографии. \n Первая фотография будет размещена в шапке виджета, остальные \n фотографии будут видны в виджете вашим клиентам'"/>
           </div>
-          <label class="custom-file-upload">
+          <label class="custom-file-upload" :class="{ 'input-error': imagesError }">
             <input type="file" accept="image/*" id="upload-image" @change="handleImageUpload" multiple> Нажмите, чтобы добавить
           </label>
           <p class="photo-info">до 5 МБ, PNG, JPG, JPEG. Для замены удалите миниатюру и загрузите заново</p>
@@ -264,6 +264,7 @@ export default {
       selectedTimeoutError: false, 
       selectedBusinessError: false,
       PhoneError: false,
+      imagesError: false,
     }
   },
   mounted(){
@@ -294,6 +295,10 @@ export default {
     }
   },
   watch: {
+    uploadedImages(){
+      this.alertMessage = null;
+      this.imagesError = false;
+    },
     selectedCountryPhone(newCountry) {
       if (newCountry) {
         this.value = newCountry.code + ' ' + this.value.replace(/^\s*\+\d\s*\|\s*/, '');
@@ -418,7 +423,7 @@ export default {
       }
     },
     onContinueButtonClick() {
-      if (this.value.length < 6 || !this.selectedCountry.length || !this.selectedCity.length || !this.selectedAdress || !this.selectedName || !this.selectedDays.length) {
+      if (this.value.length < 6 || !this.selectedCountry.length || !this.selectedCity.length || !this.selectedAdress || !this.selectedName || !this.selectedDays.length || !this.uploadedImages.length > 0) {
         this.alertMessage = null;
         setTimeout(() => {
           this.alertMessage = 'Пожалуйста, заполните выделенные поля';
@@ -459,6 +464,12 @@ export default {
           this.PhoneError = true;
         }else{
           this.PhoneError = false;
+        }
+
+        if (!this.uploadedImages.length > 0) {
+          this.imagesError = true;
+        }else{
+          this.imagesError = false;
         }
 
       } else {

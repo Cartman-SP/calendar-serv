@@ -276,7 +276,7 @@
           </div>
           <div class="card_btn_container">
             <button class="card_back_btn" @click="activeUslugi ? showFavor() : showChoice(); activeUslugi ? step = 1 : step = 0;">Назад</button>
-            <button :disabled="!selectedEmployees.length > 0" class="card_next_btn" @click="activeUslugi ? showCalendar() : showFavor(); activeUslugi ? step = 3 : step = 2; " :class="{'card_next_btn-disabled' : !selectedEmployees.length > 0, 'card_next_btn-active' : selectedEmployees.length > 0}">Продолжить</button>
+            <button :disabled="!selectedEmployees.length > 0" @click="activeUslugi ? showCalendar() : showFavor(); activeUslugi ? step = 3 : step = 2; " :class="{'card_next_btn-disabled' : !selectedEmployees.length > 0, 'card_next_btn-active' : selectedEmployees.length > 0}">Продолжить</button>
           </div>
         </div> 
       </div>
@@ -739,7 +739,7 @@ export default {
 
       theme: true,//по дефолту false - это светлая; true - темная
       colortheme: '',
-      MainColor: '#66D7D1', // акцентный цвет виджета
+      MainColor: '#9BDEAC', // акцентный цвет виджета
       WidgetColor: '', // цвет у фона
       BakcgroundColor: '', // цвет у карточек
       TextColor: '', // цвет текста
