@@ -1213,6 +1213,9 @@ p{
   overflow: scroll;
 }
 .favor_card{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   background: var(--color-gray);
   border-radius: 10px;
   padding: 10px;
@@ -1342,6 +1345,9 @@ p{
   overflow: scroll;
 }
 .employees_card{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   background: var(--color-gray);
   border-radius: 10px;
   padding: 10px;
@@ -1929,6 +1935,6 @@ input{
   content: '';
   border-radius: 50%;
   background: var(--color-main);
-  transform: translateX(50%)
+    transform: translateX(50%)
 }
 </style>

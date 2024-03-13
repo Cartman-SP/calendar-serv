@@ -169,7 +169,7 @@
             <!-- Buttons -->
             <div class="button-container">
               <button @click="saveAndExit" class="save-and-exit-button">Сохранить и выйти</button>
-              <button @click="cancel" class="cancel-button">Отмена</button>
+              <button @click="this.$router.push('/lk/personal')" class="cancel-button">Отмена</button>
             </div>
           </div>
           <div class="adaptive_window">
@@ -654,6 +654,10 @@
         color: #535C69;
         border-radius: 3px;
         border: 1px solid #DDE1E5;
+        transition: all 0.2s ease;
+      }
+      .cancel-button:hover{
+        color: #6266EA;
       }
       .custom-file-upload {
         height: 36px;
