@@ -1,6 +1,6 @@
 <template>
   <div class="main" :id="colortheme">
-    <div class="compo-container" style="background-color: red;" :style="{ backgroundImage: 'url(' + imageUrl + ')' }">
+    <div class="compo-container" :style="{ backgroundImage: 'url(' + imageUrl + ')' }" style="background-size: cover; background-color: black;">
       <div class="compo-wrap">
         <div class="compo-top">
         <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -50,7 +50,7 @@
           <p class="card_next_subtext">Всего филиалов: <span class="card_number">{{ Widget.filials.length }}</span></p>
         </div>
         <div class="card_btn">
-          <button class="card_next_btn-disabled" :class="{'card_next_btn-disabled' : !activeFilial.name, 'card_next_btn-active' : activeFilial.name}" @click="showChoice">Продолжить</button>
+          <button :class="{'card_next_btn-disabled' : !activeFilial.name, 'card_next_btn-active' : activeFilial.name}" @click="showChoice">Продолжить</button>
         </div>
       </div>        
     </div>
@@ -131,7 +131,7 @@
           <p class="card_next_subtext">Приступим</p>
         </div>
         <div class="card_btn">
-          <button class="card_next_btn" @click="activeUslugi ? showFavor() : showEmployees(); step = 1" :class="{'card_next_btn-disabled' : !activeUslugi || !activePersonal, 'card_next_btn-active' : activeUslugi || activePersonal}">Продолжить</button>
+          <button @click="activeUslugi ? showFavor() : showEmployees(); step = 1" :class="{'card_next_btn-disabled' : !activeUslugi || !activePersonal, 'card_next_btn-active' : activeUslugi || activePersonal}">Продолжить</button>
         </div>
       </div>
     </div>
@@ -148,7 +148,7 @@
           <div class="compo-wrapper-tariff">
             <div class="tariff">
               <div class="tariff-item">
-                <p class="tariff_text">{{u.cost}} {{ costSign }}</p>
+                <p class="tariff_text">{{u.cost}}</p>
               </div>
               <div class="dot"></div>
               <div class="tariff-item">
@@ -368,7 +368,7 @@
           </div>
           <div class="card_btn_container">
             <button class="card_back_btn" @click="activeUslugi ? showEmployees() : showFavor(); step = 2">Назад</button>
-            <button :class="{'card_next_btn-disabled' : !activeFilial.name, 'card_next_btn-active' : activeFilial.name}" @click="showData">Продолжить</button>
+            <button :class="{'card_next_btn-disabled' : !selectedTime.length>0, 'card_next_btn-active' : selectedTime.length>0}" @click="showData">Продолжить</button>
           </div>
         </div> 
       </div>
@@ -382,7 +382,7 @@
             <div class="data_info_card">
               <img src="../../static/img/data.png" alt="" class="data_img">
               <div class="data_info_container">
-                <p class="data_info_head">Адамов Бейбарыс</p>
+                <p class="data_info_head">{{ selectedEmployees[0].name }}</p>
                 <p class="data_info_sub">Ваш мастер</p>
               </div>    
             </div>
@@ -404,7 +404,7 @@
               </svg>
                 
               <div class="data_info_container">
-                <p class="data_info_head">6000 тнг</p>
+                <p class="data_info_head">{{ selectedUslugi[0].cost }}</p>
                 <p class="data_info_sub">Стоимость</p>
               </div>    
             </div>
@@ -415,11 +415,11 @@
             <div class="data_forma">
               <div class="data_forma_container">
                 <p class="data_forma_text">Имя <span class="data_forma_star">*</span></p>
-                <input type="text" id="" placeholder="Введите имя">
+                <input type="text" id="" placeholder="Введите имя" v-model="clientFisrtName">
               </div>
               <div class="data_forma_container">
                 <p class="data_forma_text">Фамилия</p>
-                <input type="text" id="" placeholder="Введите фамилию">
+                <input type="text" id="" placeholder="Введите фамилию" v-model="clientSecondName">
               </div>
               <div class="data_forma_container">
                 <p class="data_forma_text">Телефон <span class="data_forma_star">*</span></p>
@@ -481,7 +481,7 @@
           <div class="data_info_card">
             <img src="../../static/img/data.png" alt="" class="data_img">
             <div class="data_info_container">
-              <p class="data_info_head">Адамов Бейбарыс</p>
+              <p class="data_info_head">{{ selectedEmployees[0].name }}</p>
               <p class="data_info_sub">Ваш мастер</p>
             </div>    
           </div>
@@ -503,7 +503,7 @@
             </svg>
               
             <div class="data_info_container">
-              <p class="data_info_head">6000 тнг</p>
+              <p class="data_info_head">{{ selectedUslugi[0].cost }}</p>
               <p class="data_info_sub">Стоимость</p>
             </div>    
           </div>
@@ -551,7 +551,7 @@ export default {
       ],
       images: [
         "http://127.0.0.1:8000" + '/media/service_covers/143976-abstraktnoe_iskusstvo-kraska-krasnyj_cvet-art-sinij-3840x2160_m2WC2Ts.jpg',
-        "http://127.0.0.1:8000" + '/media/service_covers/143976-abstraktnoe_iskusstvo-kraska-krasnyj_cvet-art-sinij-3840x2160_m2WC2Ts.jpg',
+        "http://127.0.0.1:8000" + '/media/service_covers/kraska_razvody_rozovyj_136631_3840x2160_93Z7A8z.jpg',
       ],
       currentImageIndex: 0,
       isClicked: new Array(9).fill(false), // Значения по умолчанию для каждого элемента
@@ -678,7 +678,7 @@ export default {
 
       theme: true,//по дефолту false - это светлая; true - темная
       colortheme: '',
-      MainColor: '#0BB6A1', // акцентный цвет виджета
+      MainColor: '#FFCF7D', // акцентный цвет виджета
       WidgetColor: '', // цвет у фона
       BakcgroundColor: '', // цвет у карточек
       TextColor: '', // цвет текста
@@ -757,10 +757,6 @@ export default {
       return `rgba(${r},${g},${b},${alpha})`;
     },
 
-
-
-
-
     activateFilial(filialData){
       this.activeFilial = filialData;
     },
@@ -812,7 +808,9 @@ export default {
       this.currentPage = 'calendar';
     },
     showData() {
-      this.currentPage = 'data';
+      if (this.selectedTime.length>0) {
+        this.currentPage = 'data';
+      }
     },
     showNotes() {
       this.currentPage = 'notes';
@@ -1572,6 +1570,8 @@ p{
 }
 input{
   margin: 0;
+  background: var(--color-gray);
+  color: var(--color-text);
 }
 .figures{
   width: 95%;
