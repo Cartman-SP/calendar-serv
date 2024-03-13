@@ -19,7 +19,7 @@
         <p class="header">Вот это скорость!</p>
         <p class="subheader">Мы видим, что вы завершили создание услуг. В этом разделе,предлагаем добавить ваших сотрудников и назначить им ранее созданные услуги. Если, у вас нет сотрудников, вы можете пропустить этот шаг и перейти к созданию своего филиала/компании.</p>
         <div class="pernosal_btns">
-          <a href="#/lk" style="text-decoration:none"><button class="personal_btn skip-btn"> Пропустить</button></a>
+          <a href="#/lk" style="text-decoration:none"><button class="personal_btn skip-btn">Пропустить</button></a>
           <a href="#/lk/personal/employees" style="text-decoration:none"><button class="personal_btn"> + Добавить сотрудника</button></a>
         </div>
       </div>
@@ -82,7 +82,11 @@
     color: #535C69;
     background: #FFFFFF;
     border-radius: 3px;
-    border: 1px solid #DDE1E5
+    border: 1px solid #DDE1E5;
+    transition: all 0.2s ease;
+  }
+  .skip-btn:hover{
+    color: #6266EA;
   }
   .personal {
     height: 87vh;

@@ -819,7 +819,11 @@ export default {
     background-color: #FFFFFF;
     color: #535C69;
     border-radius: 3px;
-    border: 1px solid #DDE1E5
+    border: 1px solid #DDE1E5;
+    transition: all 0.2s ease;
+  }
+  .cancel-button:hover{
+    color: #5357c7;
   }
   .lane_container{
     display: flex;
