@@ -12,7 +12,8 @@
       <Card v-for="(usluga, index) in uslugi" :key="index" :usluga="usluga" />
     </div>
     <div v-else-if="uslugiLoaded && uslugi.length === 0">
-      <div class="service">
+      <WidgetSite style="display: block;"></WidgetSite>
+      <div class="service" v-show="false">
         <img src="../../static/img/flag.svg" alt="" class="img_service">
         <p class="header">Поздравляем с регистрацией!</p>
         <p class="subheader">Предлагаем вам перейти к созданию услуги, после чего у вас появится возможность прикрепить созданные услуги к вашим специалистам и добавить филиал.</p>
@@ -32,9 +33,10 @@
 import axios from 'axios';
 import Card from '../components/CardPage.vue';
 import FirstService from '../components/ModalServicePage.vue';
+import WidgetSite from '../components/WidgetSite.vue'; 
 
 export default {
-  components: { Card, FirstService },
+  components: { Card, FirstService, WidgetSite },
   data() {
     return {
       uslugi: [], // Создаем массив для хранения объектов Usluga

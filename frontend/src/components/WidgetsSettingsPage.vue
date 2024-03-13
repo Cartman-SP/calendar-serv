@@ -290,7 +290,7 @@ import SelectPage from '../components/SelectPage.vue';
 import axios from 'axios';
 
 export default {
-  components: { WidgetApp , PalitraPage, SelectPage} ,
+  components: { WidgetApp , PalitraPage, SelectPage } ,
   data() {
     return {
       selectedImages: [],
