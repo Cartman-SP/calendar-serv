@@ -376,37 +376,44 @@
 
     <div class="data" v-else-if="currentPage === 'data'">
       <div class="data_wrap">
-
         <div class="data_container">
-          <div class="data_info">
-            <div class="data_info_card">
-              <img src="../../static/img/data.png" alt="" class="data_img">
-              <div class="data_info_container">
-                <p class="data_info_head">{{ selectedEmployees[0].name }}</p>
-                <p class="data_info_sub">Ваш мастер</p>
-              </div>    
+          <div class="notes_data">
+            <div class="data_info">
+              <div class="data_info_card">
+                <img src="../../static/img/data.png" alt="" class="data_img">
+                <div class="data_info_container">
+                  <p class="data_info_head">{{ selectedEmployees[0].name }}</p>
+                  <p class="data_info_sub">Ваш мастер</p>
+                </div>    
+              </div>
+              <div class="data_info_card">
+                <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 5V0H7V5H5Z" fill="var(--color-global)"/>
+                  <path d="M13 5V0H15V5H13Z" fill="var(--color-global)"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M2 19C1.44772 19 1 18.5523 1 18V3C1 2.44772 1.44772 2 2 2H4V6H8V2H12V6H16V2H18C18.5523 2 19 2.44772 19 3V18C19 18.5523 18.5523 19 18 19H2ZM17 17V8H3V17H17Z" fill="var(--color-global)"/>
+                </svg>
+                <div class="data_info_container">
+                  <p class="data_info_head">6 июля, 14:10</p>
+                  <p class="data_info_sub">Дата и время</p>
+                </div>    
+              </div>
             </div>
-            <div class="data_info_card">
-              <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 5V0H7V5H5Z" fill="var(--color-global)"/>
-                <path d="M13 5V0H15V5H13Z" fill="var(--color-global)"/>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M2 19C1.44772 19 1 18.5523 1 18V3C1 2.44772 1.44772 2 2 2H4V6H8V2H12V6H16V2H18C18.5523 2 19 2.44772 19 3V18C19 18.5523 18.5523 19 18 19H2ZM17 17V8H3V17H17Z" fill="var(--color-global)"/>
-              </svg>
-              <div class="data_info_container">
-                <p class="data_info_head">6 июля, 14:10</p>
-                <p class="data_info_sub">Дата и время</p>
-              </div>    
+
+            <div class="divider_dotted_container">
+              <div class="divider_dotted"></div>
             </div>
-            <div class="data_info_card">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.5998 3.20006H1.9998L11.9998 6.10352e-05L13.5998 3.20006Z" fill="var(--color-global)"/>
-                <path d="M0.799805 6.40011C0.799805 5.51645 1.51615 4.80011 2.3998 4.80011H13.5998C14.4835 4.80011 15.1998 5.51645 15.1998 6.40011V8.80001H12.5331C11.7776 8.80001 11.1998 9.32002 11.1998 10C11.1998 10.68 11.7776 11.2 12.5331 11.2H15.1998V13.6001C15.1998 14.4838 14.4835 15.2001 13.5998 15.2001H2.3998C1.51615 15.2001 0.799805 14.4838 0.799805 13.6001V6.40011Z" fill="var(--color-global)"/>
-              </svg>
-                
-              <div class="data_info_container">
-                <p class="data_info_head">{{ selectedUslugi[0].cost }}</p>
-                <p class="data_info_sub">Стоимость</p>
-              </div>    
+
+            <div class="data_info_bottom">
+              <div class="data_info_card">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M13.5998 3.20006H1.9998L11.9998 6.10352e-05L13.5998 3.20006Z" fill="var(--color-global)"/>
+                  <path d="M0.799805 6.40011C0.799805 5.51645 1.51615 4.80011 2.3998 4.80011H13.5998C14.4835 4.80011 15.1998 5.51645 15.1998 6.40011V8.80001H12.5331C11.7776 8.80001 11.1998 9.32002 11.1998 10C11.1998 10.68 11.7776 11.2 12.5331 11.2H15.1998V13.6001C15.1998 14.4838 14.4835 15.2001 13.5998 15.2001H2.3998C1.51615 15.2001 0.799805 14.4838 0.799805 13.6001V6.40011Z" fill="var(--color-global)"/>
+                </svg>
+                <div class="data_info_container">
+                  <p class="data_info_head">{{ selectedUslugi[0].cost }}</p>
+                  <p class="data_info_sub">Стоимость</p>
+                </div>    
+              </div>
             </div>
           </div>
   
@@ -477,38 +484,47 @@
 
     <div class="notes" v-else-if="currentPage === 'notes'">
       <div class="notes_container">
-        <div class="notes_info">
-          <div class="data_info_card">
-            <img src="../../static/img/data.png" alt="" class="data_img">
-            <div class="data_info_container">
-              <p class="data_info_head">{{ selectedEmployees[0].name }}</p>
-              <p class="data_info_sub">Ваш мастер</p>
-            </div>    
+        <div class="notes_data">
+          <div class="notes_info">
+            <img src="../../static/img/widget_checkmark.svg" alt="" class="img_checkmark">
+            <div class="data_info_card">
+              <img src="../../static/img/data.png" alt="" class="data_img">
+              <div class="data_info_container">
+                <p class="data_info_head">{{ selectedEmployees[0].name }}</p>
+                <p class="data_info_sub">Ваш мастер</p>
+              </div>    
+            </div>
+            <div class="data_info_card">
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 5V0H7V5H5Z" fill="var(--color-global)"/>
+                <path d="M13 5V0H15V5H13Z" fill="var(--color-global)"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M2 19C1.44772 19 1 18.5523 1 18V3C1 2.44772 1.44772 2 2 2H4V6H8V2H12V6H16V2H18C18.5523 2 19 2.44772 19 3V18C19 18.5523 18.5523 19 18 19H2ZM17 17V8H3V17H17Z" fill="var(--color-global)"/>
+              </svg>
+              <div class="data_info_container">
+                <p class="data_info_head">6 июля, 14:10</p>
+                <p class="data_info_sub">Дата и время</p>
+              </div>    
+            </div>
           </div>
-          <div class="data_info_card">
-            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M5 5V0H7V5H5Z" fill="var(--color-global)"/>
-              <path d="M13 5V0H15V5H13Z" fill="var(--color-global)"/>
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M2 19C1.44772 19 1 18.5523 1 18V3C1 2.44772 1.44772 2 2 2H4V6H8V2H12V6H16V2H18C18.5523 2 19 2.44772 19 3V18C19 18.5523 18.5523 19 18 19H2ZM17 17V8H3V17H17Z" fill="var(--color-global)"/>
-            </svg>
-            <div class="data_info_container">
-              <p class="data_info_head">6 июля, 14:10</p>
-              <p class="data_info_sub">Дата и время</p>
-            </div>    
+      
+          <div class="divider_dotted_container">
+            <div class="divider_dotted"></div>
           </div>
-          <div class="data_info_card">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M13.5998 3.20006H1.9998L11.9998 6.10352e-05L13.5998 3.20006Z" fill="var(--color-global)"/>
-              <path d="M0.799805 6.40011C0.799805 5.51645 1.51615 4.80011 2.3998 4.80011H13.5998C14.4835 4.80011 15.1998 5.51645 15.1998 6.40011V8.80001H12.5331C11.7776 8.80001 11.1998 9.32002 11.1998 10C11.1998 10.68 11.7776 11.2 12.5331 11.2H15.1998V13.6001C15.1998 14.4838 14.4835 15.2001 13.5998 15.2001H2.3998C1.51615 15.2001 0.799805 14.4838 0.799805 13.6001V6.40011Z" fill="var(--color-global)"/>
-            </svg>
-              
-            <div class="data_info_container">
-              <p class="data_info_head">{{ selectedUslugi[0].cost }}</p>
-              <p class="data_info_sub">Стоимость</p>
-            </div>    
+
+          <div class="notes_info_bottom">
+            <div class="data_info_card">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.5998 3.20006H1.9998L11.9998 6.10352e-05L13.5998 3.20006Z" fill="var(--color-global)"/>
+                <path d="M0.799805 6.40011C0.799805 5.51645 1.51615 4.80011 2.3998 4.80011H13.5998C14.4835 4.80011 15.1998 5.51645 15.1998 6.40011V8.80001H12.5331C11.7776 8.80001 11.1998 9.32002 11.1998 10C11.1998 10.68 11.7776 11.2 12.5331 11.2H15.1998V13.6001C15.1998 14.4838 14.4835 15.2001 13.5998 15.2001H2.3998C1.51615 15.2001 0.799805 14.4838 0.799805 13.6001V6.40011Z" fill="var(--color-global)"/>
+              </svg>
+              <div class="data_info_container">
+                <p class="data_info_head">{{ selectedUslugi[0].cost }}</p>
+                <p class="data_info_sub">Стоимость</p>
+              </div>    
+            </div>
           </div>
         </div>
-        
+
         <div class="notes_confirm">
           <div class="notes_confirm_container">
             <p class="notes_confirm_head">Вы записались!</p>
@@ -1483,15 +1499,17 @@ p{
   gap: 10px;
 }
 .data_info{
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  border-radius: 5px;
+  border-radius: 10px 10px 0 0;
   width: 236px;
   background: var(--color-gray);
-  padding: 25px 15px;
+  padding: 25px 15px 12px 15px;
 }
 .data_info_card{
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -1644,13 +1662,14 @@ input{
   gap: 15px;
 }
 .notes_info{
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  border-radius: 5px;
-  width: 246px;
+  border-radius: 10px 10px 0 0;
+  width: 236px;
   background: var(--color-gray);
-  padding: 25px 15px;
+  padding: 25px 15px 12px 15px;
 }
 .notes_confirm{
   width: 261px;
@@ -1783,5 +1802,68 @@ input{
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease
+}
+.img_checkmark{
+  position: absolute;
+  top: -20px;
+  left: 100px;
+}
+.notes_data{
+  display: flex;
+  flex-direction: column;
+}
+.notes_info_bottom{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 0 0 10px 10px;
+  width: 236px;
+  background: var(--color-gray);
+  padding: 8px 15px 25px 15px;
+}
+.data_info_bottom{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 0 0 10px 10px;
+  width: 236px;
+  background: var(--color-gray);
+  padding: 8px 15px 25px 15px;
+}
+.divider_dotted_container{
+  position: relative;
+  background: var(--color-gray);
+  height: 12px;
+  display: flex;
+  align-items: center;
+}
+.divider_dotted{
+  width: 100%;
+  height: 2px;
+  border-bottom: 2px dashed #D2D8DE1A;
+}
+.divider_dotted_container::before{
+  position: absolute;
+  top: 0;
+  width: 12px;
+  height: 12px;
+  left: 0;
+  content: '';
+  border-radius: 50%;
+  background: #1A1B27;
+  transform: translateX(-50%)
+}
+.divider_dotted_container::after{
+  position: absolute;
+  top: 0;
+  width: 12px;
+  height: 12px;
+  right: 0;
+  content: '';
+  border-radius: 50%;
+  background: #1A1B27;
+  transform: translateX(50%)
 }
 </style>
