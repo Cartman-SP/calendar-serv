@@ -131,7 +131,7 @@
           <p class="card_next_subtext">Приступим</p>
         </div>
         <div class="card_btn">
-          <button @click="activeUslugi ? showFavor() : showEmployees(); step = 1" :class="{'card_next_btn-disabled' : !activeUslugi || !activePersonal, 'card_next_btn-active' : activeUslugi || activePersonal}">Продолжить</button>
+          <button :disabled="!activeUslugi && !activePersonal" @click="activeUslugi ? showFavor() : showEmployees(); step = 1" :class="{'card_next_btn-disabled' : !activeUslugi || !activePersonal, 'card_next_btn-active' : activeUslugi || activePersonal}">Продолжить</button>
         </div>
       </div>
     </div>
@@ -183,7 +183,7 @@
           </div>
           <div class="card_btn_container">
             <button class="card_back_btn" @click="activeUslugi ? showChoice() : showEmployees(); activeUslugi ? step = 1 : step = 1;">Назад</button>
-            <button @click="activeUslugi ? showEmployees() : showCalendar(); activeUslugi ? step = 2 : step = 3;" :class="{'card_next_btn-disabled' : !selectedUslugi.length > 0, 'card_next_btn-active' : selectedUslugi.length > 0}">Продолжить</button>
+            <button :disabled="!selectedUslugi.length > 0" @click="activeUslugi ? showEmployees() : showCalendar(); activeUslugi ? step = 2 : step = 3;" :class="{'card_next_btn-disabled' : !selectedUslugi.length > 0, 'card_next_btn-active' : selectedUslugi.length > 0}">Продолжить</button>
           </div>
         </div> 
       </div>
@@ -276,7 +276,7 @@
           </div>
           <div class="card_btn_container">
             <button class="card_back_btn" @click="activeUslugi ? showFavor() : showChoice(); activeUslugi ? step = 1 : step = 0;">Назад</button>
-            <button class="card_next_btn" @click="activeUslugi ? showCalendar() : showFavor(); activeUslugi ? step = 3 : step = 2; " :class="{'card_next_btn-disabled' : !selectedEmployees.length > 0, 'card_next_btn-active' : selectedEmployees.length > 0}">Продолжить</button>
+            <button :disabled="!selectedEmployees.length > 0" class="card_next_btn" @click="activeUslugi ? showCalendar() : showFavor(); activeUslugi ? step = 3 : step = 2; " :class="{'card_next_btn-disabled' : !selectedEmployees.length > 0, 'card_next_btn-active' : selectedEmployees.length > 0}">Продолжить</button>
           </div>
         </div> 
       </div>
@@ -292,14 +292,12 @@
           </svg>
         </div>
         <div 
-          v-for="(day, index) in days" 
-          :key="index" 
-          class="calendar_numbers" 
-          @click="changeColor(index)"
-          :style="{ background: isClicked[index] ? 'var(--color-global)' : 'var(--color-gray)', color: isClicked[index] ? '#FFFFFF' : 'var(--color-text)' }"
-        >
-          <p class="calendar_numbers_head" :style="{ color: isClicked[index] ? '#FFFFFF' : 'var(--color-text)' }">{{ day.number }}</p>
-          <p class="calendar_numbers_sub" :style="{ color: isClicked[index] ? '#FFFFFF' : 'var(--color-text)' }">{{ day.month }}</p>
+          v-for="d in selectedEmployees[0].availableRegistrationData" 
+          :key="d.day" 
+          :style="{ background: selectedDay.day === d.day ? 'var(--color-global)' : 'var(--color-gray)', color: selectedDay.day === d.day ? '#FFFFFF' : 'var(--color-text)' }"
+          class="calendar_numbers" @click="selectedDay = d">
+          <p class="calendar_numbers_head">{{ d.day }}</p>
+          <p class="calendar_numbers_sub">дек</p>
         </div>
       </div>
 
@@ -342,14 +340,15 @@
           </div>
         </div>
         <div class="calendar_time_container">
-          <div class="calendar_time">
+          <div class="calendar_time" v-for="t in selectedDay.time" :key="t">
             <div class="selectwidget">
               <SelectWidget
-              :options="['18:05', '18:10', '18:15', '18:20', '18:25', '18:30', '18:35', '18:40', '18:45', '18:50', '18:55']"
+              :options="selectedDay.time"
               class="select" @input="option => selectedTime = option"
-              :placeholderdata="'13:00'"
+              :placeholderdata="t"
               :Theme="theme" :MC="MainColor" :WC="WidgetColor" :BC="BakcgroundColor" :TC="TextColor"
-              />
+              /> 
+              <!-- :options="Widget.employees.availableRegistrationData.time" -->
               <div class="selectwidget_dot"></div>
             </div>
           </div>
@@ -570,17 +569,6 @@ export default {
         "http://127.0.0.1:8000" + '/media/service_covers/kraska_razvody_rozovyj_136631_3840x2160_93Z7A8z.jpg',
       ],
       currentImageIndex: 0,
-      isClicked: new Array(9).fill(false), // Значения по умолчанию для каждого элемента
-      days: [
-        { number: '6 чт', month: 'дек' },
-        { number: '7 пт', month: 'нояб' },
-        { number: '8 сб', month: 'сен' },
-        { number: '9 вс', month: 'окт' },
-        { number: '10 пн', month: 'июля' },
-        { number: '11 вт', month: 'июнь' },
-        { number: '12 ср', month: 'авг' },
-        { number: '13 чт', month: 'фев' }
-      ],
 
       Widget:{
         filials:[
@@ -661,28 +649,85 @@ export default {
             id: '1',
             name: 'Юлия Дайценко',
             work: 'Барбер',
-            reviews: '23'
+            reviews: '23',
+            availableRegistrationData:[
+              {
+                day: 'Пн',
+                time: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
+              },
+              {
+                day: 'Вт',
+                time: ['14:00', '15:00', '16:00', '17:00']
+              },
+              {
+                day: 'Чт',
+                time: ['13:00', '14:00', '15:00']
+              },
+            ],
           },
           {
             id: '2',
             name: 'Месси',
             work: 'Бекендер',
-            reviews: '3'
+            reviews: '3',
+            availableRegistrationData:[
+              {
+                day: 'Пн',
+                time: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
+              },
+              {
+                day: 'Вт',
+                time: ['14:00', '15:00', '16:00', '17:00']
+              },
+              {
+                day: 'Чт',
+                time: ['13:00', '14:00', '15:00']
+              },
+            ],
           },
           {
             id: '3',
             name: 'Данёк',
             work: 'Врач',
-            reviews: '34'
+            reviews: '34',
+            availableRegistrationData:[
+              {
+                day: 'Пн',
+                time: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
+              },
+              {
+                day: 'Вт',
+                time: ['14:00', '15:00', '16:00', '17:00']
+              },
+              {
+                day: 'Чт',
+                time: ['13:00', '14:00', '15:00']
+              },
+            ],
           },
           {
             id: '4',
             name: 'Булкин Слава',
             work: 'Мастер SPA',
-            reviews: '22'
+            reviews: '22',
+            availableRegistrationData:[
+              {
+                day: 'Пн',
+                time: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
+              },
+              {
+                day: 'Вт',
+                time: ['14:00', '15:00', '16:00', '17:00']
+              },
+              {
+                day: 'Чт',
+                time: ['13:00', '14:00', '15:00']
+              },
+            ],
           },
         ],
       },
+
       activeFilial: {},
       activeUslugi: false,
       activePersonal: false,
@@ -690,6 +735,7 @@ export default {
       selectedUslugi: [],
       selectedEmployees: [],
 
+      selectedDay: [],
       selectedTime: '',
 
       theme: true,//по дефолту false - это светлая; true - темная
@@ -821,6 +867,7 @@ export default {
       this.currentPage = 'employees';
     },
     showCalendar() {
+      console.log(this.selectedEmployees[0])
       this.currentPage = 'calendar';
     },
     showData() {
