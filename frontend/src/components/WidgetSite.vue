@@ -348,7 +348,6 @@
               :placeholderdata="t"
               :Theme="theme" :MC="MainColor" :WC="WidgetColor" :BC="BakcgroundColor" :TC="TextColor"
               /> 
-              <!-- :options="Widget.employees.availableRegistrationData.time" -->
               <div class="selectwidget_dot"></div>
             </div>
           </div>
@@ -475,7 +474,7 @@
           </div>
           <div class="card_btn_container">
             <button class="card_back_btn" @click="showCalendar">Назад</button>
-            <button class="card_next_btn" @click="showNotes">Записаться</button>
+            <button :class="{'card_next_btn-disabled' : !clientFisrtName || !clientSecondName || !Mark || value.length < 6, 'card_next_btn-active' : clientFisrtName && clientSecondName && Mark && value.length > 6}" @click="showNotes">Записаться</button>
           </div>
         </div> 
       </div>
@@ -531,12 +530,12 @@
           </div>
           <button class="notes_button">
             <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10 12H19V14H10V12Z" fill="var(--color-global)"/>
-              <path d="M10 16H16V18H10V16Z" fill="var(--color-global)"/>
-              <path d="M1 13C1 12.4477 1.44772 12 2 12H7C7.55228 12 8 12.4477 8 13V18C8 18.5523 7.55228 19 7 19H2C1.44772 19 1 18.5523 1 18V13Z" fill="var(--color-global)"/>
-              <path d="M10 5H16V7H10V5Z" fill="var(--color-global)"/>
-              <path d="M10 1H19V3H10V1Z" fill="var(--color-global)"/>
-              <path d="M1 2C1 1.44772 1.44772 1 2 1H7C7.55228 1 8 1.44772 8 2V7C8 7.55228 7.55228 8 7 8H2C1.44772 8 1 7.55228 1 7V2Z" fill="var(--color-global)"/>
+              <path d="M10 12H19V14H10V12Z" fill="var(--color-main)"/>
+              <path d="M10 16H16V18H10V16Z" fill="var(--color-main)"/>
+              <path d="M1 13C1 12.4477 1.44772 12 2 12H7C7.55228 12 8 12.4477 8 13V18C8 18.5523 7.55228 19 7 19H2C1.44772 19 1 18.5523 1 18V13Z" fill="var(--color-main)"/>
+              <path d="M10 5H16V7H10V5Z" fill="var(--color-main)"/>
+              <path d="M10 1H19V3H10V1Z" fill="var(--color-main)"/>
+              <path d="M1 2C1 1.44772 1.44772 1 2 1H7C7.55228 1 8 1.44772 8 2V7C8 7.55228 7.55228 8 7 8H2C1.44772 8 1 7.55228 1 7V2Z" fill="var(--color-main)"/>
             </svg>
             Мои записи
           </button>
@@ -740,7 +739,7 @@ export default {
 
       theme: true,//по дефолту false - это светлая; true - темная
       colortheme: '',
-      MainColor: '#FFCF7D', // акцентный цвет виджета
+      MainColor: '#66D7D1', // акцентный цвет виджета
       WidgetColor: '', // цвет у фона
       BakcgroundColor: '', // цвет у карточек
       TextColor: '', // цвет текста
@@ -876,7 +875,10 @@ export default {
       }
     },
     showNotes() {
-      this.currentPage = 'notes';
+      if (this.clientFisrtName && this.clientSecondName && this.Mark && this.value.length > 6) {
+        this.currentPage = 'notes';
+      }
+      
     },
     startImageSlider() {
       // Устанавливаем интервал для переключения изображений каждые 5 секунд
@@ -916,6 +918,10 @@ export default {
   --color-global: var(--cm, #FFCF7D);
   --color-text: var(--ct, #F5F5F5);
   --color-shadow: rgb(21, 20, 29);
+}
+
+.p-dropdown{
+  background: var(--color-gray);
 }
 .delete-btn{
     width: 30px;
@@ -1639,11 +1645,12 @@ input{
   color: var(--color-text);
 }
 .figures{
-  width: 95%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
 }
 .figures_text{
+  width: 51%;
   font-family: TT Norms Medium;
   font-size: 13px;
   line-height: 15px;
@@ -1652,6 +1659,7 @@ input{
   color: #D2D8DE;
 }
 .figures_container{
+  width: 49%;
   display: flex;
   align-items: center;
   gap: 5px;
@@ -1755,8 +1763,18 @@ input{
   text-align: left;
   display: flex;
   gap: 5px;
-  background: #EFEFFF;
+  background: var(--color-global);
+  color: var(--color-main);
+}
+
+.notes_button:hover{
+  cursor: pointer;
+  background: var(--color-btnmain);
   color: var(--color-global);
+}
+
+.notes_button:hover svg path{
+  fill: var(--color-global);
 }
 .branch_card{
   display: flex;
@@ -1889,7 +1907,7 @@ input{
 .divider_dotted{
   width: 100%;
   height: 2px;
-  border-bottom: 2px dashed #D2D8DE1A;
+  border-bottom: 2px dashed #AFB6C1;
 }
 .divider_dotted_container::before{
   position: absolute;
@@ -1899,7 +1917,7 @@ input{
   left: 0;
   content: '';
   border-radius: 50%;
-  background: #1A1B27;
+  background: var(--color-main);
   transform: translateX(-50%)
 }
 .divider_dotted_container::after{
@@ -1910,7 +1928,7 @@ input{
   right: 0;
   content: '';
   border-radius: 50%;
-  background: #1A1B27;
+  background: var(--color-main);
   transform: translateX(50%)
 }
 </style>
