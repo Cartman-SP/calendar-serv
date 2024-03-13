@@ -242,6 +242,7 @@ import Tip from '../components/TipComponent.vue';
 import SelectPage from '../components/SelectPage.vue';
 import MessageAlert from "../components/MessageAlert.vue";
 import ModalServicePage from "../components/ModalServicePage.vue"
+
 export default {
   components: { Tip, SelectPage, MessageAlert, ModalServicePage },
   data() {
@@ -420,7 +421,7 @@ export default {
           this.first = response.data
           }else{
           setTimeout(() => {
-            this.$router.go(-1);
+            this.$router.push('/lk/service');
           }, 2000)}
         })
         .catch(error => {
