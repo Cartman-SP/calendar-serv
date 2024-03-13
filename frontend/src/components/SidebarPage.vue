@@ -274,6 +274,7 @@ export default {
   background-color: transparent;
   margin: 0;
   padding: 0;
+  user-select:none;
 }
 .avatar-top{
   display: flex;
