@@ -29,6 +29,7 @@
   <script>
 import CardBranch from '../components/CardBranch.vue';
 import axios from 'axios';
+import { mapMutations } from 'vuex';
 
 export default {
   components: { CardBranch },
@@ -39,6 +40,11 @@ export default {
       };
     },
     methods:{
+      ...mapMutations(['setUpdateSidebar']),
+      rerenderSidebar() {
+        this.setUpdateSidebar();
+      },
+
       getfilials(){
         axios.get(`http://127.0.0.1:8000/api/get_branch/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`)
     .then(response => {
@@ -46,6 +52,7 @@ export default {
         this.filials.reverse();
         console.log(response);
         this.branchLoaded = true;
+        this.rerenderSidebar();
     })
     .catch(error => {
         console.error('Ошибка при получении данных о пользователе:', error);
@@ -53,7 +60,7 @@ export default {
       },
     },
     mounted() {
-      this.getfilials()
+      this.getfilials();
     },
   }
   </script>

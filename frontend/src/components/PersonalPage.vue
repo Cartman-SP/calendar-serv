@@ -51,6 +51,7 @@
 
       get_employee(){
               const user_id =  this.$store.state.registrationData.user_id;// Замените на актуальный user_id
+              this.rerenderSidebar();
   
       // Выполняем запрос к API Django
       axios.get(`http://127.0.0.1:8000/api/get_employees/?user_id=${user_id}&project=${this.$store.state.activeProjectId}`)
@@ -67,7 +68,6 @@
     },
     async mounted() {
       // Здесь нужно заменить 'STATIC_USER_ID' на актуальный user_id
-      this.rerenderSidebar();
       this.get_employee()
     }
   }

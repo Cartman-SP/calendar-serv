@@ -53,6 +53,7 @@ export default {
         this.uslugi = response.data; // Присваиваем полученные данные массиву uslugi
         this.uslugi.reverse();
         this.uslugiLoaded = true; // Устанавливаем флаг загрузки в true sd
+        this.rerenderSidebar();
       } catch (error) {
         console.error('Error fetching uslugi:', error);
       }
@@ -60,7 +61,6 @@ export default {
   },
   async mounted() {
     // Выполняем запрос при монтировании страницы
-    this.rerenderSidebar();
     await this.get_uslugi();
   }
 };
