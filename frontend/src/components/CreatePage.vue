@@ -243,6 +243,7 @@ import SelectPage from '../components/SelectPage.vue';
 import MessageAlert from "../components/MessageAlert.vue";
 import ModalServicePage from "../components/ModalServicePage.vue"
 
+
 export default {
   components: { Tip, SelectPage, MessageAlert, ModalServicePage },
   data() {
@@ -319,6 +320,7 @@ export default {
     },
   },
   methods: {
+
     selectRecordType(type,text) {
       this.selectedRecordType = type;
       this.selectedRecordText = text;

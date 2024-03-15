@@ -33,6 +33,7 @@
   <script>
   import axios from 'axios';
   import CardEmployeesPage from '../components/CardEmployeesPage.vue';
+  import { mapMutations } from 'vuex';
   
   export default {
     components: { CardEmployeesPage },
@@ -43,6 +44,11 @@
       };
     },
     methods:{
+      ...mapMutations(['setUpdateSidebar']),
+        rerenderSidebar() {
+          this.setUpdateSidebar();
+        },
+
       get_employee(){
               const user_id =  this.$store.state.registrationData.user_id;// Замените на актуальный user_id
   
@@ -59,8 +65,9 @@
         });
       },
     },
-    mounted() {
+    async mounted() {
       // Здесь нужно заменить 'STATIC_USER_ID' на актуальный user_id
+      this.rerenderSidebar();
       this.get_employee()
     }
   }

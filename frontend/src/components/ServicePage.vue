@@ -32,6 +32,7 @@
 import axios from 'axios';
 import Card from '../components/CardPage.vue';
 import FirstService from '../components/ModalServicePage.vue';
+import { mapMutations } from 'vuex';
 
 export default {
   components: { Card, FirstService},
@@ -42,6 +43,10 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(['setUpdateSidebar']),
+      rerenderSidebar() {
+        this.setUpdateSidebar();
+      },
     async get_uslugi(){
       try {
         const response = await axios.get(`http://127.0.0.1:8000/api/uslugi/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`);
@@ -55,6 +60,7 @@ export default {
   },
   async mounted() {
     // Выполняем запрос при монтировании страницы
+    this.rerenderSidebar();
     await this.get_uslugi();
   }
 };

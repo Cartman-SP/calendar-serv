@@ -163,6 +163,7 @@
 import axios from 'axios';  
 import { mapState } from 'vuex';
 
+
 export default {
   data() {
     return {
@@ -187,6 +188,9 @@ export default {
     watch: {
       updateSidebar() {
         this.get_profile();
+        this.getfilials();
+        this.get_uslugi();
+        this.get_employee();
       },
     },
   methods: {
