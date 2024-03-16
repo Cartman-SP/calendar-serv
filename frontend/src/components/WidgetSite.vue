@@ -2404,7 +2404,7 @@ input{
     grid-template-rows: repeat(1, 1fr);
     grid-column-gap: 10px;
     grid-row-gap: 10px;
-    width: 540px;
+    width: 100%;
     overflow: scroll;
   }
   .employees_card{
@@ -2414,7 +2414,7 @@ input{
     background: var(--color-gray);
     border-radius: 10px;
     padding: 10px;
-    width: 255px;
+    width: 100%;
   }
   .employees_compo-wrapper{
     display: flex;
@@ -2478,11 +2478,11 @@ input{
   .calendar{
     display: flex;
     flex-direction: column;
-    gap: 30px;
-    padding: 30px 40px;
-    height: 315px;
+    gap: 10px;
+    padding: 10px 10px 15px 10px;
+    border-radius: 0 0 25px 25px;
+    height: 560px;
     background: var(--color-main);
-    border-radius: 25px;
   }
   .calendar_numbers_container{
     display: flex;
