@@ -896,7 +896,6 @@
         .adaptive_window{
           display: none;
         }
-      
       }
       @media (max-width: 768px){
         .main{

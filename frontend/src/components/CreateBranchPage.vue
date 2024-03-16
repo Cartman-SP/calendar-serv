@@ -11,203 +11,243 @@
       </div>
       <p class="creation_text">Создание филиала</p>
     </div>
-    <div class="create_branch">
-      <!-- Форма создания филиала -->
-      <form class="branch-form" v-if="!showContinueButtonClicked" enctype="multipart/form-data">
-        <div class="one-group">
-          <div class="form-group">
-            <label for="country">Страна</label>
-            <SelectPage
-            :options="['Россия', 'Казахстан','Украина','Таджикистан','Кыргызстан']"
-            class="select"
-            @input="option => selectedCountry = option"
-            :placeholderdata="'Выберите страну'"
-            :class="{ 'select-error': selectedCountryError }"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="city">Город</label>
-            <SelectPage
-            :options="['Москва', 'Санкт-Петербург','Тула','Тверь','Великий Новгород']"
-            class="select"
-            @input="option => selectedCity = option"
-            :placeholderdata="'Выберите город'"
-            :class="{ 'select-error': selectedCityError }"
-            />
-          </div>
-        </div>
-
-        <div class="one-group">
-          <div class="form-group">
-            <label for="address">Адрес</label>
-            <input type="text" id="address" v-model="selectedAdress" placeholder="Введите точный адрес"
-            :class="{ 'input-error': selectedAdressError }">
-          </div>
-          <div class="form-group" style="flex-direction: row; gap: 5px;">      
-                <div class="card flex justify-content-center">
-                  <label>Регион</label>
-                  <DropdownComponent v-model="selectedCountryPhone" :options="countries" optionLabel="name" placeholder="🇷🇺" class="w-full md:w-14rem">
-                    <template #value="slotProps">
-                      <div v-if="slotProps.value" class="flex align-items-center">
-                        <div>{{ slotProps.value.name }}</div>
-                      </div>
-                      <span v-else>
-                        {{ slotProps.placeholder }}
-                      </span>
-                    </template>
-                    <template #option="slotProps">
-                      <div class="flex align-items-center">
-                        <div>{{ slotProps.option.name }}</div>
-                      </div>
-                    </template>
-                  </DropdownComponent>
-                </div>
-                <div class="form-group">
-                  <label>Телефон</label>
-                  <InputMaskComponent :class="{'PhoneError' : PhoneError}" id="basic" v-model="value" :mask="computedMask" :placeholder="computedPlaceholder"/>
-                </div>
-                
-          </div>
-        </div>
-        
-
-        <div class="form-group">
-          <label for="branchName">Название филиала</label>
-          <input type="text" id="branchName" v-model="selectedName" placeholder="Введите название" maxlength="25"
-          :class="{ 'input-error': selectedNameError }">
-          <p class="character-limit">Название должно содержать не более 25 знаков</p>
-        </div>
-
-        <div class="form-group">
-          <div class="usluga-head">
-            <label for="upload-image ">Фото филиала</label>
-            <Tip :Tip="'Мы рекомендуем загрузить наиболее удачные фотографии. \n Первая фотография будет размещена в шапке виджета, остальные \n фотографии будут видны в виджете вашим клиентам'"/>
-          </div>
-          <label class="custom-file-upload" :class="{ 'input-error': imagesError }">
-            <input type="file" accept="image/*" id="upload-image" @change="handleImageUpload" multiple> Нажмите, чтобы добавить
-          </label>
-          <p class="photo-info">до 5 МБ, PNG, JPG, JPEG. Для замены удалите миниатюру и загрузите заново</p>
-        </div>
-
-        <div class="upload">
-          <div class="upload_img" v-for="(image, index) in uploadedImages" :key="index">
-            <img class="upl_img" :src="image.url" :alt="image.name">
-          </div>
-        </div>
-
-        <div class="form-group graffic">
-          <div class="usluga-head">
-            <label>График работы</label>
-            <Tip :Tip="'График работы это график работы, логично \n (нет описания на фигме)'"/>
-          </div>
-          <div class="days">
-              <button class="btn_day" :class="{ 'active': isBtnActive('Пн'),'button-days-error' : selectedDaysError}" @click="toggleBtn('Пн')">Пн</button>
-              <button class="btn_day" :class="{ 'active': isBtnActive('Вт'),'button-days-error' : selectedDaysError}" @click="toggleBtn('Вт')">Вт</button>
-              <button class="btn_day" :class="{ 'active': isBtnActive('Ср'),'button-days-error' : selectedDaysError}" @click="toggleBtn('Ср')">Ср</button>
-              <button class="btn_day" :class="{ 'active': isBtnActive('Чт'),'button-days-error' : selectedDaysError}" @click="toggleBtn('Чт')">Чт</button>
-              <button class="btn_day" :class="{ 'active': isBtnActive('Пт'),'button-days-error' : selectedDaysError}" @click="toggleBtn('Пт')">Пт</button>
-              <button class="btn_day" :class="{ 'active': isBtnActive('Сб'),'button-days-error' : selectedDaysError}" @click="toggleBtn('Сб')">Сб</button>
-              <button class="btn_day" :class="{ 'active': isBtnActive('Вс'),'button-days-error' : selectedDaysError}" @click="toggleBtn('Вс')">Вс</button>
-          </div>
-        </div>
-        <div class="form-btn">  
-          <div class="continue-button-container">
-            <div class="steps-progress">
-              <div class="divider"></div>
-              <div class="divider-two"></div>
-            </div>
-            <p class="steps-text">Шаг 1 из 2</p>
-          </div>
-          <button class="btn" @click="onContinueButtonClick">Продолжить</button>
-        </div>
-      </form>
-      <div class="next-page" v-else>
-        <div class="form-container">
+    <div class="main_group">
+      <div class="create_branch">
+        <form class="branch-form" v-if="!showContinueButtonClicked" enctype="multipart/form-data">
           <div class="one-group">
             <div class="form-group">
-              <label for="country">Рабочие часы</label>
+              <label for="country">Страна</label>
               <SelectPage
-              :options="['9:00 — 19:00', '9:00 — 20:00', '9:00 — 21:00', '10:00 — 18:00','10:00 — 19:00','10:00 — 20:00', '10:00 — 22:00']"
+              :options="['Россия', 'Казахстан','Украина','Таджикистан','Кыргызстан']"
               class="select"
-              @input="option => selectedWorkHours  = option"
-              :placeholderdata="'Выберите время'"
-              :class="{ 'select-error': selectedWorkHoursError }"
+              @input="option => selectedCountry = option"
+              :placeholderdata="'Выберите страну'"
+              :class="{ 'select-error': selectedCountryError }"
               />
             </div>
   
             <div class="form-group">
-              <label for="city">Перерыв</label>
+              <label for="city">Город</label>
+              <input type="text" :class="{ 'input-error': selectedCityError }" v-model="selectedCity" placeholder="Добавьте город">
+            </div>
+          </div>
+  
+          <div class="one-group">
+            <div class="form-group">
+              <label for="address">Адрес</label>
+              <input type="text" id="address" v-model="selectedAdress" placeholder="Введите точный адрес"
+              :class="{ 'input-error': selectedAdressError }">
+            </div>
+            <div class="form-group" style="flex-direction: row; gap: 5px;">      
+                  <div class="card flex justify-content-center">
+                    <label>Регион</label>
+                    <DropdownComponent v-model="selectedCountryPhone" :options="countries" optionLabel="name" placeholder="🇷🇺" class="w-full md:w-14rem">
+                      <template #value="slotProps">
+                        <div v-if="slotProps.value" class="flex align-items-center">
+                          <div>{{ slotProps.value.name }}</div>
+                        </div>
+                        <span v-else>
+                          {{ slotProps.placeholder }}
+                        </span>
+                      </template>
+                      <template #option="slotProps">
+                        <div class="flex align-items-center">
+                          <div>{{ slotProps.option.name }}</div>
+                        </div>
+                      </template>
+                    </DropdownComponent>
+                  </div>
+                  <div class="form-group">
+                    <label>Телефон</label>
+                    <InputMaskComponent :class="{'PhoneError' : PhoneError}" id="basic" v-model="value" :mask="computedMask" :placeholder="computedPlaceholder"/>
+                  </div>
+            </div>
+          </div>
+          
+  
+          <div class="form-group">
+            <label for="branchName">Название филиала</label>
+            <input type="text" id="branchName" v-model="selectedName" placeholder="Введите название" maxlength="25"
+            :class="{ 'input-error': selectedNameError }">
+            <p class="character-limit">Название должно содержать не более 25 знаков</p>
+          </div>
+  
+          <div class="form-group">
+            <div class="usluga-head">
+              <label for="upload-image ">Фото филиала</label>
+              <Tip :Tip="'Мы рекомендуем загрузить наиболее удачные фотографии. \n Первая фотография будет размещена в шапке виджета, остальные \n фотографии будут видны в виджете вашим клиентам'"/>
+            </div>
+            <label class="custom-file-upload" :class="{ 'input-error': imagesError }">
+              <input type="file" accept="image/*" id="upload-image" @change="handleImageUpload" multiple> Нажмите, чтобы добавить
+            </label>
+            <p class="photo-info">до 5 МБ, PNG, JPG, JPEG. Для замены удалите миниатюру и загрузите заново</p>
+          </div>
+  
+          <div class="upload">
+            <div class="upload_img" v-for="(image, index) in uploadedImages" :key="index">
+              <img class="upl_img" :src="image.url" :alt="image.name">
+            </div>
+          </div>
+  
+          <div class="form-group graffic">
+            <div class="usluga-head">
+              <label>График работы</label>
+              <Tip :Tip="'График работы это график работы, логично \n (нет описания на фигме)'"/>
+            </div>
+            <div class="days">
+                <button class="btn_day" :class="{ 'active': isBtnActive('Пн'),'button-days-error' : selectedDaysError}" @click="toggleBtn('Пн')">Пн</button>
+                <button class="btn_day" :class="{ 'active': isBtnActive('Вт'),'button-days-error' : selectedDaysError}" @click="toggleBtn('Вт')">Вт</button>
+                <button class="btn_day" :class="{ 'active': isBtnActive('Ср'),'button-days-error' : selectedDaysError}" @click="toggleBtn('Ср')">Ср</button>
+                <button class="btn_day" :class="{ 'active': isBtnActive('Чт'),'button-days-error' : selectedDaysError}" @click="toggleBtn('Чт')">Чт</button>
+                <button class="btn_day" :class="{ 'active': isBtnActive('Пт'),'button-days-error' : selectedDaysError}" @click="toggleBtn('Пт')">Пт</button>
+                <button class="btn_day" :class="{ 'active': isBtnActive('Сб'),'button-days-error' : selectedDaysError}" @click="toggleBtn('Сб')">Сб</button>
+                <button class="btn_day" :class="{ 'active': isBtnActive('Вс'),'button-days-error' : selectedDaysError}" @click="toggleBtn('Вс')">Вс</button>
+            </div>
+          </div>
+          <div class="form-btn">  
+            <div class="continue-button-container">
+              <div class="steps-progress">
+                <div class="divider"></div>
+                <div class="divider-two"></div>
+              </div>
+              <p class="steps-text">Шаг 1 из 2</p>
+            </div>
+            <button class="btn" @click="onContinueButtonClick">Продолжить</button>
+          </div>
+        </form>
+        <div class="next-page" v-else>
+          <div class="form-container">
+            <div class="one-group">
+              <div class="form-group">
+                <label for="country">Рабочие часы</label>
+                <SelectPage
+                :options="['9:00 — 19:00', '9:00 — 20:00', '9:00 — 21:00', '10:00 — 18:00','10:00 — 19:00','10:00 — 20:00', '10:00 — 22:00']"
+                class="select"
+                @input="option => selectedWorkHours  = option"
+                :placeholderdata="'Выберите время'"
+                :class="{ 'select-error': selectedWorkHoursError }"
+                />
+              </div>
+    
+              <div class="form-group">
+                <label for="city">Перерыв</label>
+                <SelectPage
+                :options="['9:00 — 19:00', '9:00 — 20:00', '9:00 — 21:00', '10:00 — 18:00','10:00 — 19:00','10:00 — 20:00', '10:00 — 22:00']"
+                class="select"
+                @input="option => selectedTimeout  = option"
+                :placeholderdata="'Выберите время'"
+                :class="{ 'select-error': selectedTimeoutError }"
+                />
+              </div>
+            </div>
+            <div class="types-container">
+              <label style="margin-bottom:10px">Выберите тип бизнеса</label>
+              <div class="types">
+                <div v-for="t in businessTypes" :key="t.name" class="choice" @click="activateChoice(t)">
+                  <div class="circle">
+                    <div class="second_circle"></div>
+                  </div>
+                  <p class="choice_text">{{ t.name }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="dropdown-container">
+              <label for="service">Сфера бизнеса</label>
               <SelectPage
-              :options="['9:00 — 19:00', '9:00 — 20:00', '9:00 — 21:00', '10:00 — 18:00','10:00 — 19:00','10:00 — 20:00', '10:00 — 22:00']"
-              class="select"
-              @input="option => selectedTimeout  = option"
-              :placeholderdata="'Выберите время'"
-              :class="{ 'select-error': selectedTimeoutError }"
+              :options="this.spheres.map(item => item.name)"
+              :class="{'select-error' : selectedBusinessError}"
+              @input="option => selectedBusiness = option"
+              :placeholderdata="'Выберите сферу бизнеса'"
               />
             </div>
-          </div>
-          <div class="types-container">
-            <label style="margin-bottom:10px">Выберите тип бизнеса</label>
-            <div class="types">
-              <div v-for="t in businessTypes" :key="t.name" class="choice" @click="activateChoice(t)">
-                <div class="circle">
-                  <div class="second_circle"></div>
+            <div class="dropdown-container">
+              <label for="service">Выберите сотрудников для этого филиала</label>
+              <SelectPage
+              :options="this.employees.map(item => ({
+                          name: item.firstname + ' ' + item.secondname,
+                          id: item.id,
+                        }))"
+              class="select"
+              @input="handleSelectInput"
+              :placeholderdata="'Выберите сотрудников'"
+              :class="{ 'select-error': chipsError }"
+              />
+            </div>
+            <div class="chips-block">
+              <div class="chip" v-for="chip in filteredChips" :key="chip.id">
+                <svg @click="deleteChip(chip)" width="8" height="8" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2.29294 3.00003L0.146484 5.14648L0.853591 5.85359L3.00004 3.70714L5.1465 5.85359L5.85361 5.14648L3.70715 3.00003L5.85359 0.853591L5.14648 0.146484L3.00004 2.29292L0.853605 0.146484L0.146499 0.853591L2.29294 3.00003Z" fill="white"/>
+                </svg>
+                <p>{{ chip.name }}</p>
+              </div>
+  
+            </div>
+            <div class="steps">
+              <div class="second-steps-container">
+                <div class="steps-progress">
+                  <div class="second-divider"></div>
+                  <div class="second-divider-two"></div>
                 </div>
-                <p class="choice_text">{{ t.name }}</p>
+                <p class="steps-text">Шаг 2 из 2</p>
+              </div>
+              <div class="btn-container">
+                <button class="back" @click="onBackClick">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.3999 6.96667L4.8999 3.5V6.3H13.2999V7.7H4.8999V10.5L1.3999 6.96667Z" fill="#535C69"/>
+                  </svg> 
+                  Вернуться
+                </button>
+                <button class="btn" @click="Finish">Завершить</button>
               </div>
             </div>
-          </div>
-          <div class="dropdown-container">
-            <label for="service">Сфера бизнеса</label>
-            <SelectPage
-            :options="this.spheres.map(item => item.name)"
-            :class="{'select-error' : selectedBusinessError}"
-            @input="option => selectedBusiness = option"
-            :placeholderdata="'Выберите сферу бизнеса'"
-            />
-          </div>
-          <div class="dropdown-container">
-            <label for="service">Выберите сотрудников для этого филиала</label>
-            <SelectPage
-            :options="this.employees.map(item => ({
-                        name: item.firstname + ' ' + item.secondname,
-                        id: item.id,
-                      }))"
-            class="select"
-            @input="handleSelectInput"
-            :placeholderdata="'Выберите сотрудников'"
-            :class="{ 'select-error': chipsError }"
-            />
-          </div>
-          <div class="chips-block">
-            <div class="chip" v-for="chip in filteredChips" :key="chip.id">
-              <svg @click="deleteChip(chip)" width="8" height="8" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2.29294 3.00003L0.146484 5.14648L0.853591 5.85359L3.00004 3.70714L5.1465 5.85359L5.85361 5.14648L3.70715 3.00003L5.85359 0.853591L5.14648 0.146484L3.00004 2.29292L0.853605 0.146484L0.146499 0.853591L2.29294 3.00003Z" fill="white"/>
-              </svg>
-              <p>{{ chip.name }}</p>
-            </div>
-
-          </div>
-          <div class="steps">
-            <div class="second-steps-container">
-              <div class="steps-progress">
-                <div class="second-divider"></div>
-                <div class="second-divider-two"></div>
-              </div>
-              <p class="steps-text">Шаг 2 из 2</p>
-            </div>
-            <div class="btn-container">
-              <button class="back" @click="onBackClick">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M1.3999 6.96667L4.8999 3.5V6.3H13.2999V7.7H4.8999V10.5L1.3999 6.96667Z" fill="#535C69"/>
-                </svg> 
-                Вернуться
-              </button>
-              <button class="btn" @click="Finish">Завершить</button>
-            </div>
-          </div>
-        </div>  
+          </div>  
+        </div>
+      </div>
+      <div class="adaptive_window">
+        <div v-if="selectedPaymentText">
+          <p class="header">{{selectedPaymentText}}</p>
+          <p class="descr">Формат оплаты</p>
+        </div>
+        <div v-else class="second">
+          <div class="stripe" style="width: 109px;"></div>
+          <div class="stripe" style="width: 63px;"></div>
+        </div>
+        <img v-if="serviceCover" :src="coverDataUrl" alt="" style="width:auto;height:200px;border-radius:2px;">
+        <div class="img_container" v-else>
+          <img class="img_window"  src="../../static/img/service.svg" alt="">
+        </div>
+        <div v-if="serviceName">
+          <p class="header">{{serviceName}}</p>
+          <p class="descr">Адрес</p>
+        </div>
+        <div v-else class="first">
+          <div class="stripe" style="width: 143px;"></div>
+          <div class="stripe" style="width: 97px;"></div>
+        </div>
+        <div v-if="serviceDuration.length > 0" >
+          <p class="header">{{serviceDuration}}</p>
+          <p class="descr">Телефон</p>
+        </div>
+        <div v-else class="first">
+          <div class="stripe" style="width: 143px;"></div>
+          <div class="stripe" style="width: 97px;"></div>
+        </div>
+        <div v-if="selectedRecordText">
+          <p class="header">{{selectedRecordText}}</p>
+          <p class="descr">Рабочие часы</p>
+        </div>
+        <div v-else class="first">
+          <div class="stripe" style="width: 143px;"></div>
+          <div class="stripe" style="width: 97px;"></div>
+        </div>
+        <div v-if="selectedRecordText">
+          <p class="header">{{selectedRecordText}}</p>
+          <p class="descr">График работы</p>
+        </div>
+        <div v-else class="first">
+          <div class="stripe" style="width: 143px;"></div>
+          <div class="stripe" style="width: 97px;"></div>
+        </div>
       </div>
     </div>
     <MessageAlert :message="alertMessage" :color="alertColor"/>
@@ -225,6 +265,7 @@ export default {
   components: { SelectPage, MessageAlert, Tip, ModalBranchPage},
   data() {
     return {
+      serviceDuration: '',
       alertMessage: null,
       alertColor: '',
       selectedDays: [],
@@ -612,6 +653,87 @@ dataURItoBlob(dataURI) {
 </script>
 
 <style scoped>
+.adaptive_window{
+  background-color: #FFFFFF;
+  width: 400px;
+  height: auto;
+  padding: 20px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.img_container{
+  align-items: center;
+  max-width: 365px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(90deg, #F6F6F6 0%, #F1F4F9 100%);
+  border-radius: 5px;
+}
+.img_window{
+  width:58px;
+  height:58px;
+  border-radius:2px;
+}
+.main_group{
+  display: flex;
+  gap: 40px;
+}
+.header{
+  font-family: 'TT Norms Medium';
+  font-size: 22px;
+  line-height: 22px;
+  text-align: left;
+  color: #535C69;
+  margin: 0;
+}
+.first{
+  width: 220px;
+  height: 50px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #F6F6F6 0%, #F1F4F9 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+}
+.stripe {
+  height: 10px;
+  background: linear-gradient(90deg, #EBEBEB 0%, #DAE2EE 100%);
+  border-radius: 2px;
+}
+.second{
+  width: 155px;
+  height: 50px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #F6F6F6 0%, #F1F4F9 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+}
+.third{
+  width: 92px;
+  height: 36px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #F6F6F6 0%, #F1F4F9 100%);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 10px;
+}
+.descr{
+  color: #AFB6C1;
+  font-family: 'TT Norms Medium';
+  font-size: 16px;
+  line-height: 19px;
+  text-align: left;
+  margin: 5px 0 0 0;
+}
 .usluga-head{
   display: flex;
   justify-content: start;
@@ -1037,6 +1159,11 @@ dataURItoBlob(dataURI) {
     display: flex;
     flex-direction: column;
     gap: 10px;
+  }
+  @media (max-width: 1340px){
+    .adaptive_window{
+      display: none;
+    }
   }
   @media (max-width: 1280px){
     .create_branch{

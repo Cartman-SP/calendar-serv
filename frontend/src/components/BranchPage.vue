@@ -144,13 +144,22 @@ export default {
   .subheader{
     max-width: 500px;
   }
-  @media (max-width: 900px){
-    .branch{
-      height: 70vh;
+  @media (max-width: 1340px){
+    .filials{
+      grid-template-columns: repeat(2, 1fr);
     }
-    .img_branch{
-      width: 60px;
-      height: 60px;
+  }
+  @media (max-width: 1061px){
+    .filials{
+      grid-template-columns: 1fr
+    }
+    .add{
+      min-height: 135px;
+    }
+  } 
+  @media (max-width: 900px){
+    .filials{
+      height: 70vh;
     }
   }
   @media (max-width: 768px){

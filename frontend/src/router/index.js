@@ -22,6 +22,7 @@ import ProjectGatesPage from '../components/ProjectGatesPage.vue';
 import CreateProject from '../components/CreateProject.vue';
 import AccessesPage from '../components/AccessesPage.vue';
 import LockedPage from '../components/LockedPage.vue';
+import WidgetCreatePage from '../components/WidgetCreatePage.vue';
 import store from '../store';
 
 const routes = [
@@ -157,7 +158,12 @@ const routes = [
         component: LockedPage,
         meta: { requiresAuth: true }
       },
-              
+      {
+        path: '/lk/widgets/create',
+        name: 'widget_create',
+        component: WidgetCreatePage,
+        meta: { requiresAuth: true }
+      },              
     ]
   },
   {
