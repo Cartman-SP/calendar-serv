@@ -1,220 +1,223 @@
 <template>
-  <div class="main">
-    <div class="transition">
-      <router-link to="/lk/widgets" class="employesss-link">Виджеты</router-link>
-      <div class="arrow-container">
-        <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
-      </div>
-      <p class="creation_text">Создание виджета</p>
+  <div style="display: flex;">
+    <div class="main">
+      <div class="transition">
+        <router-link to="/lk/widgets" class="employesss-link">Виджеты</router-link>
+        <div class="arrow-container">
+          <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
+        </div>
+        <p class="creation_text">Создание виджета</p>
 
-    </div>
-    <div class="card">
-      <div>
-        <div class="navigation">
-          <div class="settings">
-              <div class="forms">
-                <div class="name-container">
-                  <div class="input-content">
-                    <label for="widgetName">Название виджета</label>
-                    <input type="text" id="widgetName" placeholder="Мой виджет" v-model="widgetName">
-                  </div>
-      
-                  <div class="input-content">
-                    <label for="widgetLanguage">Язык виджета</label>
-                    <SelectPage
-                    :options="['Русский', 'Белорусский']"
-                    class="select" @input="option => selectedLanguage = option"
-                    :placeholderdata="'Выберите язык'"
-                    />
-                  </div>
-                </div>
-                <div class="filial_container">
-                  <div class="label_container">
-                    <label for="widgetbranch">Филиалы</label>
-                    <Tip :Tip="'Придумать текст.</span>'"/>
-                  </div>
-                  <SelectPage
-                      :options="[{
-                        name: 'qwdqwd',
-                        id: '23'
-                      },{
-                        name: 'ddfbbbbbb',
-                        id: '3777'
-                      }]"
-                      class="select" @input="handleSelectInput"
-                      :placeholderdata="'Выберите филиалы'"
+      </div>
+      <div class="card">
+        <div>
+          <div class="navigation">
+            <div class="settings">
+                <div class="forms">
+                  <div class="name-container">
+                    <div class="input-content">
+                      <label for="widgetName">Название виджета</label>
+                      <input type="text" id="widgetName" placeholder="Мой виджет" v-model="widgetName">
+                    </div>
+        
+                    <div class="input-content">
+                      <label for="widgetLanguage">Язык виджета</label>
+                      <SelectPage
+                      :options="['Русский', 'Белорусский']"
+                      class="select" @input="option => selectedLanguage = option"
+                      :placeholderdata="'Выберите язык'"
                       />
-                      <div class="chips-block">
-                        <div class="chip" v-for="chip in filteredChips" :key="chip.id">
-                          <svg @click="deleteChip(chip)" width="8" height="8" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M2.29294 3.00003L0.146484 5.14648L0.853591 5.85359L3.00004 3.70714L5.1465 5.85359L5.85361 5.14648L3.70715 3.00003L5.85359 0.853591L5.14648 0.146484L3.00004 2.29292L0.853605 0.146484L0.146499 0.853591L2.29294 3.00003Z" fill="white"/>
-                          </svg>
-                          <p>{{ chip.name }}</p>
+                    </div>
+                  </div>
+                  <div class="filial_container">
+                    <div class="label_container">
+                      <label for="widgetbranch">Филиалы</label>
+                      <Tip :Tip="'Придумать текст.</span>'"/>
+                    </div>
+                    <SelectPage
+                        :options="[{
+                          name: 'qwdqwd',
+                          id: '23'
+                        },{
+                          name: 'ddfbbbbbb',
+                          id: '3777'
+                        }]"
+                        class="select" @input="handleSelectInput"
+                        :placeholderdata="'Выберите филиалы'"
+                        />
+                        <div class="chips-block">
+                          <div class="chip" v-for="chip in filteredChips" :key="chip.id">
+                            <svg @click="deleteChip(chip)" width="8" height="8" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M2.29294 3.00003L0.146484 5.14648L0.853591 5.85359L3.00004 3.70714L5.1465 5.85359L5.85361 5.14648L3.70715 3.00003L5.85359 0.853591L5.14648 0.146484L3.00004 2.29292L0.853605 0.146484L0.146499 0.853591L2.29294 3.00003Z" fill="white"/>
+                            </svg>
+                            <p>{{ chip.name }}</p>
+                          </div>
                         </div>
+                  </div>
+              </div>
+              <div class="img_container">
+                <div class="text_container">
+                  <p class="header">Обложка виджета</p>
+                  <p class="descr">Выберите фотографию для обложки из ранее загруженных или добавьте новую</p>
+                </div>
+                <div class="plus_container">
+                  <div class="img_plus" @click="uploadImage">
+                    <input type="file" style="display: none;" @change="handleImageUpload">
+                    <img src="" alt="">
+                  </div>
+                  <div class="img_plus" @click="uploadImage">
+                    <input type="file" style="display: none;" @change="handleImageUpload">
+                    <img src="" alt="">
+                  </div>
+                  <div class="img_plus" @click="uploadImage">
+                    <input type="file" style="display: none;" @change="handleImageUpload">
+                    <img src="" alt="">
+                  </div>
+                  <div class="img_plus" @click="uploadImage">
+                    <input type="file" style="display: none;" @change="handleImageUpload">
+                    <img src="" alt="">
+                  </div>
+                  <div class="img_plus" @click="uploadImage">
+                    <input type="file" style="display: none;" @change="handleImageUpload">
+                    <img src="" alt="">
+                  </div>
+                  <div class="img_plus" @click="uploadImage">
+                    <input type="file" style="display: none;" @change="handleImageUpload">
+                    <img src="" alt="">
+                  </div>
+                </div>
+              </div>
+              <div class="color_container">
+                <div class="color">
+                  <p class="header">Цветовой схема</p>
+                  <div class="switch_container">
+                    <p class="light">Светлая</p>
+                    <InputSwitchComponent v-model="switches.theme" @change="themechange" style="margin-top: 5px;"/>
+                    <p class="dark">Тёмная</p>
+                  </div>
+                </div>
+                <div class="color">
+                  <p class="header">Основной</p>
+                  <div class="rgb" @click="toggleSelection(1)">
+                    <p class="rgb_color">{{ widget.Main }}</p>
+                    <div class="rgb_choise" :style="{ backgroundColor: widget.Main }"></div>
+                    <PalitraPage v-if="isCircleShown1" class="show" @updateColor="color => handleColorUpdate(color, 1)"></PalitraPage>
+                  </div>
+                </div>
+                <div class="color">
+                  <p class="header">Фон виджета</p>
+                  <div class="rgb" @click="toggleSelection(2)">
+                    <p class="rgb_color">{{ widget.Back }}</p>
+                    <div class="rgb_choise" :style="{ backgroundColor: widget.Back }"></div>
+                    <PalitraPage v-if="isCircleShown2" class="show" @updateColor="color => handleColorUpdate(color, 2)"></PalitraPage>
+                  </div>
+                </div>
+                <div class="color">
+                  <p class="header">Фон плашка</p>
+                  <div class="rgb" @click="toggleSelection(3)">
+                    <p class="rgb_color">{{ widget.Plashka }}</p>
+                    <div class="rgb_choise" :style="{ backgroundColor: widget.Plashka }"></div>
+                    <PalitraPage v-if="isCircleShown3" class="show" @updateColor="color => handleColorUpdate(color, 3)"></PalitraPage>
+                  </div>
+                </div>
+                <div class="color">
+                  <p class="header">Цвет текста</p>
+                  <div class="rgb" @click="toggleSelection(4)">
+                    <p class="rgb_color">{{ widget.Text }}</p>
+                    <div class="rgb_choise" :style="{ backgroundColor: widget.Text }"></div>
+                    <PalitraPage v-if="isCircleShown4" class="show" @updateColor="color => handleColorUpdate(color, 4)"></PalitraPage>
+                  </div>
+                </div>
+              </div>
+              <div class="window_wrapper">
+                <p class="header">Выберите дизайн виджета</p>
+                <div class="wrapper">
+                  <div class="window_container">
+                    <div class="window">
+                      <div class="square"></div>
+                      <div class="stripe"></div>
+                      <div class="stripe"></div>
+                      <div class="stripe"></div>
+                      <div class="rectangle"></div>
+                    </div>
+                    <div class="choice" @click="activateChoice" data-type="site">
+                      <div class="circle_bottom">
+                        <div class="second_circle"></div>
                       </div>
-                </div>
-            </div>
-            <div class="img_container">
-              <div class="text_container">
-                <p class="header">Обложка виджета</p>
-                <p class="descr">Выберите фотографию для обложки из ранее загруженных или добавьте новую</p>
-              </div>
-              <div class="plus_container">
-                <div class="img_plus" @click="uploadImage">
-                  <input type="file" style="display: none;" @change="handleImageUpload">
-                  <img src="" alt="">
-                </div>
-                <div class="img_plus" @click="uploadImage">
-                  <input type="file" style="display: none;" @change="handleImageUpload">
-                  <img src="" alt="">
-                </div>
-                <div class="img_plus" @click="uploadImage">
-                  <input type="file" style="display: none;" @change="handleImageUpload">
-                  <img src="" alt="">
-                </div>
-                <div class="img_plus" @click="uploadImage">
-                  <input type="file" style="display: none;" @change="handleImageUpload">
-                  <img src="" alt="">
-                </div>
-                <div class="img_plus" @click="uploadImage">
-                  <input type="file" style="display: none;" @change="handleImageUpload">
-                  <img src="" alt="">
-                </div>
-                <div class="img_plus" @click="uploadImage">
-                  <input type="file" style="display: none;" @change="handleImageUpload">
-                  <img src="" alt="">
-                </div>
-              </div>
-            </div>
-            <div class="color_container">
-              <div class="color">
-                <p class="header">Цветовой схема</p>
-                <div class="switch_container">
-                  <p class="light">Светлая</p>
-                  <InputSwitchComponent v-model="switches.theme" @change="themechange" style="margin-top: 5px;"/>
-                  <p class="dark">Тёмная</p>
-                </div>
-              </div>
-              <div class="color">
-                <p class="header">Основной</p>
-                <div class="rgb" @click="toggleSelection(1)">
-                  <p class="rgb_color">{{ widget.Main }}</p>
-                  <div class="rgb_choise" :style="{ backgroundColor: widget.Main }"></div>
-                  <PalitraPage v-if="isCircleShown1" class="show" @updateColor="color => handleColorUpdate(color, 1)"></PalitraPage>
-                </div>
-              </div>
-              <div class="color">
-                <p class="header">Фон виджета</p>
-                <div class="rgb" @click="toggleSelection(2)">
-                  <p class="rgb_color">{{ widget.Back }}</p>
-                  <div class="rgb_choise" :style="{ backgroundColor: widget.Back }"></div>
-                  <PalitraPage v-if="isCircleShown2" class="show" @updateColor="color => handleColorUpdate(color, 2)"></PalitraPage>
-                </div>
-              </div>
-              <div class="color">
-                <p class="header">Фон плашка</p>
-                <div class="rgb" @click="toggleSelection(3)">
-                  <p class="rgb_color">{{ widget.Plashka }}</p>
-                  <div class="rgb_choise" :style="{ backgroundColor: widget.Plashka }"></div>
-                  <PalitraPage v-if="isCircleShown3" class="show" @updateColor="color => handleColorUpdate(color, 3)"></PalitraPage>
-                </div>
-              </div>
-              <div class="color">
-                <p class="header">Цвет текста</p>
-                <div class="rgb" @click="toggleSelection(4)">
-                  <p class="rgb_color">{{ widget.Text }}</p>
-                  <div class="rgb_choise" :style="{ backgroundColor: widget.Text }"></div>
-                  <PalitraPage v-if="isCircleShown4" class="show" @updateColor="color => handleColorUpdate(color, 4)"></PalitraPage>
-                </div>
-              </div>
-            </div>
-            <div class="window_wrapper">
-              <p class="header">Выберите дизайн виджета</p>
-              <div class="wrapper">
-                <div class="window_container">
-                  <div class="window">
-                    <div class="square"></div>
-                    <div class="stripe"></div>
-                    <div class="stripe"></div>
-                    <div class="stripe"></div>
-                    <div class="rectangle"></div>
-                  </div>
-                  <div class="choice" @click="activateChoice" data-type="site">
-                    <div class="circle_bottom">
-                      <div class="second_circle"></div>
-                    </div>
-                    <p class="">Виджет в виде сайта</p>
-                  </div>
-                </div>
-                <div class="window_container">
-                  <div class="window">
-                    <div class="stripe"></div>
-                    <div class="stripe" style="width:80%"></div>
-                    <div class="stripe" style="width:60%"></div>
-                    <div class="rectangle"></div>
-                  </div>
-                  <div class="choice" @click="activateChoice" data-type="embedded">
-                    <div class="circle_bottom">
-                      <div class="second_circle"></div>
-                    </div>
-                    <p>Встроенный виджет для вашего сайта</p>
-                  </div>
-                </div>
-                <div class="window_container">
-                  <div class="window">
-                    <div class="lane_container">
-                      <div class="lane" style="width:32%"></div>
-                      <div class="lane" style="width:62%"></div>
-                    </div>
-                    <div class="stripe" style="width:80%"></div>
-                    <div class="stripe" style="width:60%"></div>
-                    <div class="stripe" style="width:40%"></div>
-                    <div class="lane_container">
-                      <div class="lane" style="width:55%"></div>
-                      <div class="circle"></div>
+                      <p class="">Виджет в виде сайта</p>
                     </div>
                   </div>
-                  <div class="choice" @click="activateChoice" data-type="floating">
-                    <div class="circle_bottom">
-                      <div class="second_circle"></div>
+                  <div class="window_container">
+                    <div class="window">
+                      <div class="stripe"></div>
+                      <div class="stripe" style="width:80%"></div>
+                      <div class="stripe" style="width:60%"></div>
+                      <div class="rectangle"></div>
                     </div>
-                    <p>Плавающая кнопка на вашем сайте</p>
+                    <div class="choice" @click="activateChoice" data-type="embedded">
+                      <div class="circle_bottom">
+                        <div class="second_circle"></div>
+                      </div>
+                      <p>Встроенный виджет для вашего сайта</p>
+                    </div>
+                  </div>
+                  <div class="window_container">
+                    <div class="window">
+                      <div class="lane_container">
+                        <div class="lane" style="width:32%"></div>
+                        <div class="lane" style="width:62%"></div>
+                      </div>
+                      <div class="stripe" style="width:80%"></div>
+                      <div class="stripe" style="width:60%"></div>
+                      <div class="stripe" style="width:40%"></div>
+                      <div class="lane_container">
+                        <div class="lane" style="width:55%"></div>
+                        <div class="circle"></div>
+                      </div>
+                    </div>
+                    <div class="choice" @click="activateChoice" data-type="floating">
+                      <div class="circle_bottom">
+                        <div class="second_circle"></div>
+                      </div>
+                      <p>Плавающая кнопка на вашем сайте</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="switch_wrapper">
-              <div class="switch">
-                <p class="switch-text">Показывать отзывы?</p>
-                <InputSwitchComponent/>
+              <div class="switch_wrapper">
+                <div class="switch">
+                  <p class="switch-text">Показывать отзывы?</p>
+                  <InputSwitchComponent/>
+                </div>
+                <div class="switch">
+                  <p class="switch-text">Показывать раздел «О нас»?</p>
+                  <InputSwitchComponent/>
+                </div>
               </div>
-              <div class="switch">
-                <p class="switch-text">Показывать раздел «О нас»?</p>
-                <InputSwitchComponent/>
+              <div class="button-container">
+                <button @click="save" class="save-button">Сохранить и выйти</button>
+                <button @click="cancel" class="cancel-button">Отмена</button>
               </div>
-            </div>
-            <div class="button-container">
-              <button @click="save" class="save-button">Сохранить и выйти</button>
-              <button @click="cancel" class="cancel-button">Отмена</button>
             </div>
           </div>
         </div>
       </div>
-      <WidgetApp v-bind:theme="switches.theme" :MainColor="widget.Main" :WidgetColor="widget.Back" :BakcgroundColor="widget.Plashka" :TextColor="widget.Text"/>
     </div>
-    
+    <div>
+      <WidgetConstructor :theme="switches.theme" :MainColor="widget.Main" :WidgetColor="widget.Back" :BakcgroundColor="widget.Plashka" :TextColor="widget.Text"/>  
+    </div>
   </div>
 </template>
   
 <script>
-import WidgetApp from './WidgetApp.vue';
+import WidgetConstructor from './WidgetConstructor.vue';
 import PalitraPage from './PalitraPage.vue';
 import SelectPage from '../components/SelectPage.vue';
 import Tip from '../components/TipComponent.vue';
 import axios from 'axios';
 
 export default {
-  components: { WidgetApp , PalitraPage, SelectPage, Tip} ,
+  components: { WidgetConstructor , PalitraPage, SelectPage, Tip} ,
   data() {
     return {
       selectedImages: [],

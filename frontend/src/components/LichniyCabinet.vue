@@ -4,8 +4,7 @@
             <SidebarPage/>
             <div class="lk">
               <div style="display: flex; gap: 20px;">
-                <WidgetSite v-show="true"></WidgetSite>
-                <WidgetApp v-show="true"></WidgetApp>
+                <WidgetSite v-show="false"></WidgetSite>
               </div>
                 <NavbarPage/>
                 <ModalPage v-if="showModal" @regdone="showModal = !showModal" :result="modalResult" @closeModal="closeModal" />
@@ -21,10 +20,9 @@ import axios from 'axios';
 import NavbarPage from './NavbarPage.vue';
 import SidebarPage from './SidebarPage.vue';
 import WidgetSite from './WidgetSite.vue';
-import WidgetApp from './WidgetApp.vue';
 
 export default {
-    components: { NavbarPage, SidebarPage, ModalPage, WidgetSite, WidgetApp},
+    components: { NavbarPage, SidebarPage, ModalPage, WidgetSite},
     data() {
     return {
       showModal: false,

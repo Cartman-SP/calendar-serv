@@ -281,20 +281,20 @@
       <div v-if="selectedTab === 'custom'">
         <!-- Содержимое для своего кода -->
       </div>
-      <WidgetApp v-bind:theme="switches.theme" :MainColor="widget.Main" :WidgetColor="widget.Back" :BakcgroundColor="widget.Plashka" :TextColor="widget.Text"/>
+      <WidgetConstructor v-bind:theme="switches.theme" :MainColor="widget.Main" :WidgetColor="widget.Back" :BakcgroundColor="widget.Plashka" :TextColor="widget.Text"/>
     </div>
     
   </div>
 </template>
   
 <script>
-import WidgetApp from './WidgetApp.vue';
+import WidgetConstructor from './WidgetConstructor.vue';
 import PalitraPage from './PalitraPage.vue';
 import SelectPage from '../components/SelectPage.vue';
 import axios from 'axios';
 
 export default {
-  components: { WidgetApp , PalitraPage, SelectPage } ,
+  components: { WidgetConstructor , PalitraPage, SelectPage } ,
   data() {
     return {
       selectedImages: [],
