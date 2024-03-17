@@ -1,6 +1,8 @@
 <template>
   <div class="main" :id="colortheme">
-    <div class="compo-container" :style="{ backgroundImage: 'url(' + imageUrl + ')' }" style="background-size: cover; background-color: black;">
+
+
+    <div class="compo-container" style="background-size: cover; background-image: url(https://archdetali.ru/upload/iblock/512/512be4da7bbced5434e0b0fdc211cd8d.jpg);">
       <div class="compo-wrap">
         <div class="compo-top">
         <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -19,13 +21,17 @@
         <div v-for="i in images" :key="i.id" class="compo_divider"></div>
       </div>
     </div>
+
+
     <div class="branch" v-if="currentPage === 'branch'">
       <div class="search">
         <input type="text" placeholder="Введите название улицы или филиала">
       </div>
       <div class="branch_card">
         <div class="card" v-for="filial in Widget.filials" :key="filial.id" @click="activateFilial(filial)">
-          <img src="../../static/img/map.png" alt="">
+          <div class="card-image">
+            <img src="../../static/img/map.png" alt="">
+          </div>
           <div class="card_container">
             <p class="card_name" :style="activeFilial.name === filial.name ? { color: 'var(--color-global)' } : {}">{{filial.name}}</p>
             <div class="card_address_container">
@@ -50,11 +56,14 @@
           <p class="card_next_subtext">Всего филиалов: <span class="card_number">{{ Widget.filials.length }}</span></p>
         </div>
         <div class="card_btn">
-          <button :class="{'card_next_btn-disabled' : !activeFilial.name, 'card_next_btn-active' : activeFilial.name}" @click="showChoice">Продолжить</button>
+          <button :class="{'card_next_btn-disabled' : !activeFilial.name, 'card_next_btn-active' : activeFilial.name}" @click="showChoice">{{size === 'desktop' ? 'Продолжить' : 'Далее'}}</button>
         </div>
       </div>        
     </div>
     <div class="choice" v-else-if="currentPage === 'choice'">
+
+      <div class="choice-banner" :style="{ backgroundImage: 'url(' + imageUrl + ')' }"></div>
+
       <div class="choice_overview ">
         <div class="choice_rate_container">
           <p class="choice_rate">{{activeFilial.rating}}</p>
@@ -131,7 +140,7 @@
           <p class="card_next_subtext">Приступим</p>
         </div>
         <div class="card_btn">
-          <button :disabled="!activeUslugi && !activePersonal" @click="activeUslugi ? showFavor() : showEmployees(); step = 1" :class="{'card_next_btn-disabled' : !activeUslugi || !activePersonal, 'card_next_btn-active' : activeUslugi || activePersonal}">Продолжить</button>
+          <button :disabled="!activeUslugi && !activePersonal" @click="activeUslugi ? showFavor() : showEmployees(); step = 1" :class="{'card_next_btn-disabled' : !activeUslugi || !activePersonal, 'card_next_btn-active' : activeUslugi || activePersonal}">{{size === 'desktop' ? 'Продолжить' : 'Далее'}}</button>
         </div>
       </div>
     </div>
@@ -183,7 +192,7 @@
           </div>
           <div class="card_btn_container">
             <button class="card_back_btn" @click="activeUslugi ? showChoice() : showEmployees(); activeUslugi ? step = 1 : step = 1;">Назад</button>
-            <button :disabled="!selectedUslugi.length > 0" @click="activeUslugi ? showEmployees() : showCalendar(); activeUslugi ? step = 2 : step = 3;" :class="{'card_next_btn-disabled' : !selectedUslugi.length > 0, 'card_next_btn-active' : selectedUslugi.length > 0}">Продолжить</button>
+            <button :disabled="!selectedUslugi.length > 0" @click="activeUslugi ? showEmployees() : showCalendar(); activeUslugi ? step = 2 : step = 3;" :class="{'card_next_btn-disabled' : !selectedUslugi.length > 0, 'card_next_btn-active' : selectedUslugi.length > 0}">{{size === 'desktop' ? 'Продолжить' : 'Далее'}}</button>
           </div>
         </div> 
       </div>
@@ -276,7 +285,7 @@
           </div>
           <div class="card_btn_container">
             <button class="card_back_btn" @click="activeUslugi ? showFavor() : showChoice(); activeUslugi ? step = 1 : step = 0;">Назад</button>
-            <button :disabled="!selectedEmployees.length > 0" @click="activeUslugi ? showCalendar() : showFavor(); activeUslugi ? step = 3 : step = 2; " :class="{'card_next_btn-disabled' : !selectedEmployees.length > 0, 'card_next_btn-active' : selectedEmployees.length > 0}">Продолжить</button>
+            <button :disabled="!selectedEmployees.length > 0" @click="activeUslugi ? showCalendar() : showFavor(); activeUslugi ? step = 3 : step = 2; " :class="{'card_next_btn-disabled' : !selectedEmployees.length > 0, 'card_next_btn-active' : selectedEmployees.length > 0}">{{size === 'desktop' ? 'Продолжить' : 'Далее'}}</button>
           </div>
         </div> 
       </div>
@@ -366,7 +375,7 @@
           </div>
           <div class="card_btn_container">
             <button class="card_back_btn" @click="activeUslugi ? showEmployees() : showFavor(); step = 2">Назад</button>
-            <button :class="{'card_next_btn-disabled' : !selectedTime.length>0, 'card_next_btn-active' : selectedTime.length>0}" @click="showData">Продолжить</button>
+            <button :class="{'card_next_btn-disabled' : !selectedTime.length>0, 'card_next_btn-active' : selectedTime.length>0}" @click="showData">{{size === 'desktop' ? 'Продолжить' : 'Далее'}}</button>
           </div>
         </div> 
       </div>
@@ -554,6 +563,8 @@ export default {
   components: { SelectWidget} ,
   data() {
     return {
+      size: '',
+
       Mark: false,
       currentPage: 'branch',
       selectedCountry: null,
@@ -663,6 +674,30 @@ export default {
                 day: 'Чт',
                 time: ['13:00', '14:00', '15:00']
               },
+              {
+                day: 'Пн',
+                time: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
+              },
+              {
+                day: 'Вт',
+                time: ['14:00', '15:00', '16:00', '17:00']
+              },
+              {
+                day: 'Чт',
+                time: ['13:00', '14:00', '15:00']
+              },
+              {
+                day: 'Пн',
+                time: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
+              },
+              {
+                day: 'Вт',
+                time: ['14:00', '15:00', '16:00', '17:00']
+              },
+              {
+                day: 'Чт',
+                time: ['13:00', '14:00', '15:00']
+              },
             ],
           },
           {
@@ -746,6 +781,13 @@ export default {
       TextColor: '', // цвет текста
     };
   },
+  created() {
+    this.setSize(window.innerWidth);
+    window.addEventListener('resize', this.onResize);
+  },
+  unmounted() {
+    window.removeEventListener('resize', this.onResize);
+  },
   computed: {
     computedMask() {
       if (this.selectedCountry) {
@@ -779,6 +821,17 @@ export default {
     this.updateColors();
   },
   methods: {
+    onResize(event) {
+      this.setSize(event.target.innerWidth);
+    },
+    setSize(width) {
+      if (width > 768) {
+        this.size = 'desktop';
+      } else {
+        this.size = 'mobile';
+      }
+    },
+
     updateColors() {
       if (this.theme) {
         this.colortheme = 'darkmode';
@@ -919,6 +972,10 @@ export default {
   --color-global: var(--cm, #FFCF7D);
   --color-text: var(--ct, #F5F5F5);
   --color-shadow: rgb(21, 20, 29);
+}
+
+.choice-banner{
+  display: none;
 }
 
 .p-dropdown{
@@ -1093,6 +1150,7 @@ svg path{
   color: var(--color-global);
 }
 .card_next_btn-disabled{
+  border-radius: 3px;
   cursor: not-allowed;
   background: var(--color-btnmain);
   color: var(--color-global);
@@ -1100,6 +1158,7 @@ svg path{
 }
 
 .card_next_btn-active{
+  border-radius: 3px;
   cursor: pointer;
   background: var(--color-global);
   color: var(--color-main);
@@ -1802,6 +1861,7 @@ input{
   margin-bottom: -30px;
   object-fit: cover;
   width: 100%;
+  box-shadow: inset 0px -100px 30px rgba(0, 0, 0, 0.825);
 }
 .compo-wrap{
   display: flex;
@@ -1937,5 +1997,1051 @@ input{
   border-radius: 50%;
   background: var(--color-main);
     transform: translateX(50%)
+}
+
+@media (max-width: 768px){
+  .choice-banner{
+    display: block;
+    height: 163px;
+    width: 100%;
+    background-size: cover;
+    border-radius: 15px;
+  }
+  .p-dropdown{
+    background: var(--color-gray);
+  }
+  .delete-btn{
+      width: 30px;
+      height: 30px;
+      background-color: rgba(249, 144, 144, 0.1);
+      border-radius: 50%;
+      padding: 0;
+    }
+
+    .delete-btn:hover{
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      background-color: rgba(241, 129, 129, 0.391);
+      border-radius: 50%;
+      padding: 0;
+    }
+  .main{
+    width: 315px;
+    border-radius: 20px;
+    background: transparent;
+  }
+  .choice{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 10px 15px 10px;
+    border-radius: 0 0 25px 25px;
+    height: 560px;
+    background: var(--color-main);
+  }
+  .branch{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 10px 15px 10px;
+    border-radius: 0 0 25px 25px;
+    height: 560px;
+    background: var(--color-main);
+  }
+  .search input{
+    background-color: var(--color-main);
+    color:#D2D8DE;
+    margin: 0;
+    width: 100%;
+    border: 1px solid #D2D8DE;
+  }
+
+  .search input:focus{
+    outline: none;
+    border: 1px solid var(--color-global);
+  }
+  .search input{
+    background-image: url(../../static/img/search.svg);
+    background-repeat: no-repeat;
+    padding-left: 35px;
+    background-position: 15px;
+  }
+  .card{
+    background-color: var(--color-gray);
+    border-radius: 15px;
+    display: block;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .card-image img{
+    border-radius: 15px 15px 0 0;
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+  }
+  .card:hover .card_name{
+    color: var(--color-global);
+  }
+
+  .card:hover .card_address, .card:hover .card_time{
+    color: var(--color-text);
+  }
+
+  svg path{
+    transition: all .2s ease;
+  }
+
+  .card:hover svg path{
+    fill: var(--color-text);
+  }
+
+  .card_container{
+    background-color: var(--color-gray);
+    width: 100%;
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .card_address_container{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .card_time_container{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .card_name{
+    font-family: TT Norms Medium;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: var(--color-text);
+    margin: 0;
+    transition: all .2s ease;
+  }
+  .card_address{
+    font-family: TT Norms Medium;
+    font-size: 10px;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #AFB6C1;
+    margin: 0;
+    transition: all .2s ease;
+  }
+  .card_time{
+    font-family: TT Norms Medium;
+    font-size: 10px;
+    line-height: 12px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #AFB6C1;
+    margin: 0;
+    transition: all .2s ease;
+  }
+  .card_next_container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .card_next{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .card_next_text{
+    font-family: TT Norms Medium;
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: var(--color-text);
+    margin: 0;
+  }
+  .divider{
+    width: 130px;
+    height: 3px;
+    border-radius: 15px;
+    border: none;
+    background: var(--color-gray);
+    margin: 0;
+  }
+  .card_next_subtext{
+    font-family: TT Norms Medium;
+    font-size: 10px;
+    line-height: 10px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: var(--color-text);
+    margin: 0;
+  }
+  .card_number{
+    text-decoration: underline;
+    color: var(--color-global);
+  }
+  .card_next_btn-disabled{
+    border-radius: 30px;
+    cursor: not-allowed;
+    background: var(--color-btnmain);
+    color: var(--color-global);
+    filter: brightness(50%);
+  }
+
+  .card_next_btn-active{
+    border-radius: 30px;
+    cursor: pointer;
+    background: var(--color-global);
+    color: var(--color-main);
+    filter: brightness(100%);
+  }
+
+  .card_next_btn-active:hover{
+    cursor: pointer;
+    background: var(--color-btnmain);
+    color: var(--color-global);
+  }
+
+  .choice>*:nth-child(3){
+    margin-top: auto;
+  }
+
+  .choice_overview{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: fit-content;
+    background: var(--color-gray);
+    padding: 20px;
+    border-radius: 15px;
+  }
+  .choice_rate_container{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  .choice_rate{
+    font-family: TT Norms Medium;
+    font-size: 42px;
+    line-height: 50px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: var(--color-text);
+  }
+  .choice_star_text{
+    font-family: TT Norms Medium;
+    font-size: 10px;
+    line-height: 10px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: var(--color-text);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  p{
+    margin: 0;
+  }
+  .stars{
+    display: flex;
+    gap: 7px;
+  }
+  .choice_star_container{
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .choice_info_container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .choice_info_text{
+    font-family: TT Norms Medium;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: var(--color-text);
+  }
+  .service{
+    display: flex;
+    justify-content: space-between;
+    gap: 0;
+  }
+  .service_container{
+    position: relative;
+    padding: 20px;
+    width: 48%;
+    height: 170px;
+    background: var(--color-gray);
+    border-radius: 15px;
+    cursor: pointer;
+  }
+
+  .service_container:hover .service_container_text{
+    color: var(--color-global);
+  }
+
+  .service_container_text{
+    font-family: TT Norms Medium;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: var(--color-text);
+    transition: all .2s ease;
+  }
+  .favor{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 10px 15px 10px;
+    border-radius: 0 0 25px 25px;
+    height: 560px;
+    background: var(--color-main);
+  }
+  .favor_card_container{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    width: 100%;
+    overflow: scroll;
+  }
+  .favor_card{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: var(--color-gray);
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+  }
+  .favor_compo-wrapper{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .favor_text{
+    text-align: left;
+    font-family: TT Norms Medium;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+    color: var(--color-text);  
+  }
+  .compo-wrapper-tariff{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .tariff{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .tariff_text{
+    font-family: TT Norms Medium;
+    font-size: 12px;
+    line-height: 12px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: var(--color-text);
+  }
+  .dot {
+    display: flex;
+    align-items: center;
+    height: 2px;
+    width: 2px;
+    background: var(--color-global);
+    border-radius: 5px;
+  }
+  .selectwidget{
+    position: relative;
+  }
+  .selectwidget_dot {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    display: flex;
+    align-items: center;
+    height: 2px;
+    width: 2px;
+    background: #04C562;
+    border-radius: 5px;
+  }
+  .btn-wrapper{
+    border-radius: 100px;
+    background: var(--color-btnmain);
+    color: var(--color-global);
+    font-weight: 500;
+    height: 30px;
+    font-family: TT Norms Medium; 
+    padding: 2px 20px;
+  }
+
+  .divider_step_container{
+    width: 125px;
+    display: flex;
+    gap: 5px;
+  }
+  .divider_step_one{
+    width: 30px;
+    height: 3px;
+    border-radius: 100px;
+    background: var(--color-global);
+  }
+  .divider_step_two{
+    width: 166px;
+    height: 3px;
+    border-radius: 100px;
+    background: var(--color-gray);
+  }
+  .card_btn_container{
+    display: flex;
+    gap: 10px;
+  }
+  .card_back_btn{
+    font-family: TT Norms Medium;
+    background: var(--color-main);
+    color: var(--color-text);
+  }
+  .card_back_btn:hover{
+    background: var(--color-main);
+    color: var(--color-global);
+  }
+  .employees{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 10px 15px 10px;
+    border-radius: 0 0 25px 25px;
+    height: 560px;
+    background: var(--color-main);
+  }
+  .employees_divider_step_one{
+    width: 107px;
+    height: 3px;
+    border-radius: 100px;
+    background: var(--color-global);
+  }
+  .employees_divider_step_two{
+    width: 91px;
+    height: 3px;
+    border-radius: 100px;
+    background: var(--color-gray);
+  }
+  .employees_card_container{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    width: 100%;
+    overflow: scroll;
+  }
+  .employees_card{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: var(--color-gray);
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+  }
+  .employees_compo-wrapper{
+    display: flex;
+    gap: 10px;
+  }
+  .employees_text{
+    text-align: left;
+    font-family: TT Norms Medium;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+    color: var(--color-text);  
+  }
+  .employees_subtext{
+    font-family: TT Norms Medium;
+    font-size: 12px;
+    line-height: 12px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: var(--color-text);
+  }
+  .employees_container{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .star_container{
+    display: flex;
+    gap: 5px;
+  }
+  .employees_rate{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .employees_rate_text{
+    font-family: TT Norms Medium;
+    font-size: 10px;
+    line-height: 10px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: var(--color-text);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .user-alt{
+    width: 70px;
+    height: 54px;
+    background: var(--color-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .alt_btn{
+    display: flex;
+    justify-content: end;
+  }
+  .btn-wrapper:hover{
+    filter: brightness(70%);
+  }
+  .calendar{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 10px 15px 10px;
+    border-radius: 0 0 25px 25px;
+    height: 560px;
+    background: var(--color-main);
+  }
+  .calendar_numbers_container{
+    display: flex;
+    gap: 15px;
+    overflow-x: scroll;
+  }
+  .calendar_numbers{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 33px;
+    border-radius: 3px;
+    background: var(--color-gray);
+    cursor: pointer;
+  }
+  .calendar_numbers_head{
+    font-family: TT Norms Medium;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: var(--color-text);
+  }
+  .calendar_numbers_sub{
+    font-family: TT Norms light;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 10px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: var(--color-text);
+  }
+  .weekend{
+    color: #F97F7F;
+  }
+  .calendar_card_container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+  }
+  .calendar_card{
+    background: var(--color-gray);
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    height: 110px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .calendar_compo-wrapper{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .calendar_text{
+    text-align: left;
+    font-family: TT Norms Medium;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+    color: var(--color-text);  
+  }
+  .calendar_container{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .calendar_wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .calendar_rate{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .calendar_rate_text{
+    font-family: TT Norms Medium;
+    font-size: 10px;
+    line-height: 10px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: var(--color-text);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .calendar_time_container{
+    display: flex;
+    gap: 10px;
+  }
+  .calendar_time{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-main);
+    font-family: TT Norms Medium;
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 10px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: var(--color-text);
+    width: 45px;
+    height: 24px;
+  }
+  .calendar_divider_step_one{
+    width: 171px;
+    height: 3px;
+    border-radius: 100px;
+    background: var(--color-global);
+  }
+  .calendar_divider_step_two{
+    width: 28px;
+    height: 3px;
+    border-radius: 100px;
+    background: #D8DDE3;
+  }
+  .data{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 30px 40px;
+    height: 427px;
+    background: var(--color-main);
+    border-radius: 25px;
+  }
+  .data_wrap{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .data_info{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 10px 10px 0 0;
+    width: 236px;
+    background: var(--color-gray);
+    padding: 25px 15px 12px 15px;
+  }
+  .data_info_card{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--color-main);
+    padding: 10px;
+    border-radius: 3px;
+  }
+  .data_img{
+    width: 40px;
+    height: 40px;
+  }
+  .data_info_container{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .data_info_head{
+    font-family: TT Norms Medium;
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: var(--color-text);
+  }
+  .data_info_sub{
+    font-family: TT Norms Medium;
+    font-size: 10px;
+    line-height: 10px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #AFB6C1;
+  }
+  .data_container{
+    display: flex;
+    gap: 25px;
+  }
+  .data_details_head{
+    font-family: TT Norms Medium;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: var(--color-text);
+  }
+  .data_details{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 260px;
+  }
+  .data_forma_text{
+    font-family: TT Norms Medium;
+    font-size: 13px;
+    line-height: 15px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: var(--color-text);
+  }
+  .data_forma{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .data_forma_star{
+    font-family: TT Norms Medium;
+    font-size: 13px;
+    line-height: 15px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #F97F7F;
+  }
+  .data_forma_container{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  input{
+    margin: 0;
+    background: var(--color-gray);
+    color: var(--color-text);
+  }
+  .figures{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .figures_text{
+    width: 51%;
+    font-family: TT Norms Medium;
+    font-size: 13px;
+    line-height: 15px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #D2D8DE;
+  }
+  .figures_container{
+    width: 49%;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .mark{
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    border: 1px solid #C6CBD2;
+    cursor: pointer;
+    user-select:none;
+  }
+  .mark_active{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    border: 1px solid var(--color-global);
+    cursor: pointer;
+    background: var(--color-global);
+    user-select:none;
+  }
+  .figures_personal{
+    font-family: TT Norms Medium;
+    font-size: 10px;
+    line-height: 12px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #C6CBD2;
+  }
+  .personal_span{
+    color: var(--color-global);
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  .data_divider_step_one{
+    width: 201px;
+    height: 3px;
+    border-radius: 100px;
+    background: var(--color-global);
+  }
+  .notes{
+    display: flex;
+    flex-direction: column;
+    padding: 30px 40px;
+    height: 356px;
+    background: var(--color-main);
+    border-radius: 25px;
+  }
+  .notes_container{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  .notes_info{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 10px 10px 0 0;
+    width: 236px;
+    background: var(--color-gray);
+    padding: 25px 15px 12px 15px;
+  }
+  .notes_confirm{
+    width: 261px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .notes_confirm_container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .notes_confirm_head{
+    font-family: TT Norms Medium;
+    font-size: 28px;
+    line-height: 33px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: var(--color-text);
+  }
+  .notes_confirm_sub{
+    font-family: TT Norms light;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: var(--color-text);
+  }
+  .notes_button{
+    font-family: TT Norms Medium;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: left;
+    display: flex;
+    gap: 5px;
+    background: var(--color-global);
+    color: var(--color-main);
+  }
+
+  .notes_button:hover{
+    cursor: pointer;
+    background: var(--color-btnmain);
+    color: var(--color-global);
+  }
+
+  .notes_button:hover svg path{
+    fill: var(--color-global);
+  }
+  .branch_card{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+    overflow: scroll;
+  }
+  .compo-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    gap: 10px;
+    height: 120px;
+    padding: 10px 10px 0px 10px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    margin-bottom: 0;
+    object-fit: cover;
+    width: 100%;
+    box-shadow: inset 0px -50px 20px rgba(0, 0, 0, 0.779);
+  }
+  .compo-wrap{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .compo-top{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .compo-text{
+    color: white;
+    font-family: TT Norms Medium;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 14px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin: 0;
+  }
+  .divider_container{
+    justify-content: center;
+    display: flex;
+    gap: 3px;
+  }
+  .compo_divider{
+    width: 0;
+    height: 0;
+    border-radius: 100px;
+    background: #FFFFFF80;
+  }
+  .service_tools{
+    position: absolute;
+    bottom: -4px;
+    right: 0;
+  }
+  .service_ppl{
+    position: absolute;
+    bottom: 0;
+    right: -25px;
+  }
+  .checkmark{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 18px;
+    height: 18px;
+    background: var(--color-main);
+    border: 1px solid #F5F5F5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+  .checkmark:hover{
+    background: #04C562;
+    cursor: pointer;
+  }
+
+  .active-checkmark{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 18px;
+    height: 18px;
+    background: #04C562;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease
+  }
+  .img_checkmark{
+    position: absolute;
+    top: -20px;
+    left: 100px;
+  }
+  .notes_data{
+    display: flex;
+    flex-direction: column;
+  }
+  .notes_info_bottom{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 0 0 10px 10px;
+    width: 236px;
+    background: var(--color-gray);
+    padding: 8px 15px 25px 15px;
+  }
+  .data_info_bottom{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 0 0 10px 10px;
+    width: 236px;
+    background: var(--color-gray);
+    padding: 8px 15px 25px 15px;
+  }
+  .divider_dotted_container{
+    position: relative;
+    background: var(--color-gray);
+    height: 12px;
+    display: flex;
+    align-items: center;
+  }
+  .divider_dotted{
+    width: 100%;
+    height: 2px;
+    border-bottom: 2px dashed #AFB6C1;
+  }
+  .divider_dotted_container::before{
+    position: absolute;
+    top: 0;
+    width: 12px;
+    height: 12px;
+    left: 0;
+    content: '';
+    border-radius: 50%;
+    background: var(--color-main);
+    transform: translateX(-50%)
+  }
+  .divider_dotted_container::after{
+    position: absolute;
+    top: 0;
+    width: 12px;
+    height: 12px;
+    right: 0;
+    content: '';
+    border-radius: 50%;
+    background: var(--color-main);
+      transform: translateX(50%)
+  }
 }
 </style>
