@@ -28,7 +28,7 @@
         <input type="text" placeholder="Введите название улицы или филиала">
       </div>
       <div class="branch_card">
-        <div class="card" v-for="filial in Widget.filials" :key="filial.id" @click="activateFilial(filial)">
+        <div class="card" v-for="filial in Filials" :key="filial.id" @click="activateFilial(filial)">
           <div class="card-image">
             <img src="../../static/img/map.png" alt="">
           </div>
@@ -38,7 +38,7 @@
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path :style="activeFilial.name === filial.name ? { 'fill': 'var(--color-text)' } : {}" fill-rule="evenodd" clip-rule="evenodd" d="M1.2002 4.78875C1.2002 2.11449 3.31968 0 6.0002 0C8.61838 0 10.8002 2.17669 10.8002 4.78875C10.8002 8.00081 6.0002 12 6.0002 12C6.0002 12 1.2002 8.063 1.2002 4.78875ZM6.0002 6.6C6.99431 6.6 7.8002 5.79411 7.8002 4.8C7.8002 3.80589 6.99431 3 6.0002 3C5.00608 3 4.2002 3.80589 4.2002 4.8C4.2002 5.79411 5.00608 6.6 6.0002 6.6Z" fill="#AFB6C1"/>
               </svg>
-              <p class="card_address" :style="activeFilial.name === filial.name ? { 'color': 'var(--color-text)' } : {}">{{filial.adress}}</p>
+              <p class="card_address" :style="activeFilial.name === filial.name ? { 'color': 'var(--color-text)' } : {}">{{filial.address}}</p>
             </div>
             <div class="card_time_container">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -559,7 +559,7 @@
 import SelectWidget from '../components/SelectWidget.vue';
 
 export default {
-  props: ['theme', 'MainColor', 'WidgetColor', 'BakcgroundColor', 'TextColor'],
+  props: ['theme', 'MainColor', 'WidgetColor', 'BakcgroundColor', 'TextColor', 'Filials'],
   components: { SelectWidget} ,
   data() {
     return {

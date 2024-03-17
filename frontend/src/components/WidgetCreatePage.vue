@@ -35,13 +35,7 @@
                       <Tip :Tip="'Придумать текст.</span>'"/>
                     </div>
                     <SelectPage
-                        :options="[{
-                          name: 'qwdqwd',
-                          id: '23'
-                        },{
-                          name: 'ddfbbbbbb',
-                          id: '3777'
-                        }]"
+                        :options="filials"
                         class="select" @input="handleSelectInput"
                         :placeholderdata="'Выберите филиалы'"
                         />
@@ -204,7 +198,7 @@
       </div>
     </div>
     <div>
-      <WidgetConstructor :theme="switches.theme" :MainColor="widget.Main" :WidgetColor="widget.Back" :BakcgroundColor="widget.Plashka" :TextColor="widget.Text"/>  
+      <WidgetConstructor :theme="switches.theme" :MainColor="widget.Main" :WidgetColor="widget.Back" :BakcgroundColor="widget.Plashka" :TextColor="widget.Text" :Filials="chips"/>  
     </div>
   </div>
 </template>
@@ -242,15 +236,37 @@ export default {
         Text: '#535C69',
       },
       chips: [],
+      filials: [],
     };
   },
   computed: {
     filteredChips() {
       // Начинаем с индекса 1 (второй элемент) и возвращаем оставшиеся элементы
-      return this.chips.slice(1);
+      this.chips.forEach(element => {
+        console.log(element)
+      });
+      
+      return this.chips.slice(0);
     }
   },
+  mounted(){
+    this.getfilials()
+  },
   methods: {
+    getfilials(){
+        axios.get(`http://127.0.0.1:8000/api/get_branch/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`)
+        .then(response => {
+            this.filials = response.data;
+            this.filials.reverse();
+            console.log(this.filials);
+            this.branchLoaded = true;
+            this.rerenderSidebar();
+        })
+        .catch(error => {
+            console.error('Ошибка при получении данных о пользователе:', error);
+        });
+    },
+
     deleteChip(chip){
       let indexToRemove = this.chips.indexOf(chip);
       if (indexToRemove !== -1) {
