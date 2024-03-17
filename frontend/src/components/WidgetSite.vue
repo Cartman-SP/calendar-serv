@@ -550,6 +550,7 @@
 import SelectWidget from '../components/SelectWidget.vue';
 
 export default {
+  props: ['username', 'widgetname'],
   components: { SelectWidget} ,
   data() {
     return {

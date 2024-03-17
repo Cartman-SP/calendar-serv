@@ -23,6 +23,7 @@ import CreateProject from '../components/CreateProject.vue';
 import AccessesPage from '../components/AccessesPage.vue';
 import LockedPage from '../components/LockedPage.vue';
 import store from '../store';
+import WidgetSite from '@/components/WidgetSite.vue'
 
 const routes = [
  {
@@ -157,6 +158,15 @@ const routes = [
         component: LockedPage,
         meta: { requiresAuth: true }
       },
+      {
+        path: '/widget/:user/:widgetname',
+        name: 'widget',
+        component: WidgetSite,
+        props: route => ({
+          user: route.params.user,
+          widgetname: route.params.widgetname
+        })
+      }
               
     ]
   },

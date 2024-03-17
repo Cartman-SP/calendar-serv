@@ -342,11 +342,23 @@ export default {
         this.chips.splice(indexToRemove, 1);
       }
     },
-
+    async get_uslugi(filials){
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/uslugi_fromfilials/?variable=${filials}`);
+        this.uslugi = response.data; // Присваиваем полученные данные массиву uslugi
+        this.uslugi.reverse();
+        this.uslugiLoaded = true; // Устанавливаем флаг загрузки в true sd
+      } catch (error) {
+        console.error('Error fetching uslugi:', error);
+      }
+    },
     handleSelectInput(selected) {
       const existingChip = this.chips.find(chip => chip.name === selected.name && chip.id === selected.id);
       if (!existingChip) {
         this.chips.push({ name: selected.name, id: selected.id });
+        var chipIds = this.chips.map(chip => chip.id);
+        var string = chipIds.join(',');
+        this.get_uslugi(string)
       }
     },
 
