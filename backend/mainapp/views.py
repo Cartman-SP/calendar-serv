@@ -593,3 +593,6 @@ def create_widget(request):
         else:
             print(serializer.errors)  # Печать ошибок сериализатора в консоль
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+def get_uslugi_fromfilials(request):
+    pass
