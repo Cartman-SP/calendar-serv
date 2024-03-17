@@ -5,18 +5,18 @@
       <div class="change-password-modal">
         <div class="input_container">
           <label for="currentMail">Новый Email</label>
-          <input v-model="currentMail" type="password" id="currentMail">
+          <input v-model="currentMail" type="email" id="currentMail">
         </div>
         <div class="input_container">
           <label for="newMail">Повторно введите Email</label>
-          <input v-model="newMail" type="password" id="newMail">
+          <input v-model="newMail" type="email" id="newMail">
         </div>
         <div class="input_container">
           <label for="confirmMail">Текущий пароль</label>
           <input v-model="confirmMail" type="password" id="confirmMail">
         </div>
         <div class="button-container">
-          <button v-if="showChangeButton" class="button-change_hover">Сменить Email</button>
+          <button v-if="showChangeButton" @click="change_email()" class="button-change_hover">Сменить Email</button>
           <button v-else class="button-change">Сменить Email</button>
           <button @click="cancelChange" class="button-exit">Отмена</button>
         </div>
@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -45,6 +47,19 @@ export default {
     confirmMail(value) {
       this.showChangeButton = this.currentMail !== '' && this.newMail !== '' && value !== '';
     },
+  },
+  methods:{
+    change_email(){
+      axios.post('http://127.0.0.1:8000/api/change_mail/',{
+        old_mail: this.currentMail,
+        new_mail: this.newMail, 
+        password: this.confirmMail, 
+        user_id: this.$store.state.registrationData.user_id})  
+        .then(function (response) {
+          console.log(response);
+        })
+
+    }
   }
 };
 </script>

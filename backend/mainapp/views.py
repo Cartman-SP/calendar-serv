@@ -596,3 +596,40 @@ def create_widget(request):
 
 def get_uslugi_fromfilials(request):
     pass
+
+
+@api_view(['POST'])
+def change_mail(request):
+    if request.method == 'POST':
+        user_id = request.data.get('user_id')
+        password = request.data.get('password')
+        new_mail = request.data.get('new_mail')
+
+        # Проверка наличия обязательных полей в запросе
+        if not all([user_id, password, new_mail]):
+            return Response({'error': 'Missing required fields'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            user = User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            return Response({'error': 'User does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+        # Проверка аутентификации пользователя
+        user = authenticate(request, username=user.username, password=password)
+        if not user:
+            return Response({'error': 'Invalid credentials'}, status=status.HTTP_409_CONFLICT)
+
+        # Проверка, что новый адрес электронной почты не привязан к другому пользователю
+        try:
+            existing_user_with_email = User.objects.get(email=new_mail)
+            if existing_user_with_email != user:
+                return Response({'error': 'Email already in use by another user'}, status=status.HTTP_409_CONFLICT)
+        except User.DoesNotExist:
+            pass  # Новый адрес электронной почты свободен
+
+        # Изменение адреса электронной почты текущего пользователя
+        user.email = new_mail
+        user.save()
+
+        return Response({'message': 'Email changed successfully'}, status=status.HTTP_200_OK)
+
