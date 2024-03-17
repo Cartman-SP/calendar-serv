@@ -38,7 +38,7 @@
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path :style="activeFilial.name === filial.name ? { 'fill': 'var(--color-text)' } : {}" fill-rule="evenodd" clip-rule="evenodd" d="M1.2002 4.78875C1.2002 2.11449 3.31968 0 6.0002 0C8.61838 0 10.8002 2.17669 10.8002 4.78875C10.8002 8.00081 6.0002 12 6.0002 12C6.0002 12 1.2002 8.063 1.2002 4.78875ZM6.0002 6.6C6.99431 6.6 7.8002 5.79411 7.8002 4.8C7.8002 3.80589 6.99431 3 6.0002 3C5.00608 3 4.2002 3.80589 4.2002 4.8C4.2002 5.79411 5.00608 6.6 6.0002 6.6Z" fill="#AFB6C1"/>
               </svg>
-              <p class="card_address" :style="activeFilial.name === filial.name ? { 'color': 'var(--color-text)' } : {}">{{filial.address}}</p>
+              <p class="card_address" :style="activeFilial.name === filial.name ? { 'color': 'var(--color-text)' } : {}">{{filial.adress}}</p>
             </div>
             <div class="card_time_container">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -140,6 +140,12 @@
           <p class="card_next_subtext">Приступим</p>
         </div>
         <div class="card_btn">
+          <button v-if="size === 'desktop'" class="card_back_btn" @click="showBranch()">Назад</button>
+          <button v-else class="card_back_btn-arrow" @click="showBranch()">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1.3999 6.96667L4.8999 3.5V6.3H13.2999V7.7H4.8999V10.5L1.3999 6.96667Z" fill="var(--color-text)"/>
+              </svg>
+          </button>
           <button :disabled="!activeUslugi && !activePersonal" @click="activeUslugi ? showFavor() : showEmployees(); step = 1" :class="{'card_next_btn-disabled' : !activeUslugi || !activePersonal, 'card_next_btn-active' : activeUslugi || activePersonal}">{{size === 'desktop' ? 'Продолжить' : 'Далее'}}</button>
         </div>
       </div>
@@ -190,8 +196,13 @@
             </div>
             <p class="card_next_subtext">Шаг {{ step }} из 4</p>
           </div>
-          <div class="card_btn_container">
-            <button class="card_back_btn" @click="activeUslugi ? showChoice() : showEmployees(); activeUslugi ? step = 1 : step = 1;">Назад</button>
+          <div class="card_btn">
+            <button v-if="size === 'desktop'" class="card_back_btn" @click="activeUslugi ? showChoice() : showEmployees()">Назад</button>
+            <button v-else class="card_back_btn-arrow" @click="activeUslugi ? showChoice() : showEmployees()">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.3999 6.96667L4.8999 3.5V6.3H13.2999V7.7H4.8999V10.5L1.3999 6.96667Z" fill="var(--color-text)"/>
+                </svg>
+            </button>
             <button :disabled="!selectedUslugi.length > 0" @click="activeUslugi ? showEmployees() : showCalendar(); activeUslugi ? step = 2 : step = 3;" :class="{'card_next_btn-disabled' : !selectedUslugi.length > 0, 'card_next_btn-active' : selectedUslugi.length > 0}">{{size === 'desktop' ? 'Продолжить' : 'Далее'}}</button>
           </div>
         </div> 
@@ -283,8 +294,13 @@
             </div>
             <p class="card_next_subtext">Шаг {{ step }} из 4</p>
           </div>
-          <div class="card_btn_container">
-            <button class="card_back_btn" @click="activeUslugi ? showFavor() : showChoice(); activeUslugi ? step = 1 : step = 0;">Назад</button>
+          <div class="card_btn">
+            <button v-if="size === 'desktop'" class="card_back_btn" @click="activeUslugi ? showFavor() : showChoice(); activeUslugi ? step = 1 : step = 0;">Назад</button>
+            <button v-else class="card_back_btn-arrow" @click="activeUslugi ? showFavor() : showChoice(); activeUslugi ? step = 1 : step = 0;">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.3999 6.96667L4.8999 3.5V6.3H13.2999V7.7H4.8999V10.5L1.3999 6.96667Z" fill="var(--color-text)"/>
+                </svg>
+            </button>
             <button :disabled="!selectedEmployees.length > 0" @click="activeUslugi ? showCalendar() : showFavor(); activeUslugi ? step = 3 : step = 2; " :class="{'card_next_btn-disabled' : !selectedEmployees.length > 0, 'card_next_btn-active' : selectedEmployees.length > 0}">{{size === 'desktop' ? 'Продолжить' : 'Далее'}}</button>
           </div>
         </div> 
@@ -348,7 +364,7 @@
             <p class="calendar_rate_text">1 отзывов</p>
           </div>
         </div>
-        <div class="calendar_time_container">
+        <div class="calendar_time_container" v-if="selectedDay.time">
           <div class="calendar_time" v-for="t in selectedDay.time" :key="t">
             <div class="selectwidget">
               <SelectWidget
@@ -373,8 +389,13 @@
             </div>
             <p class="card_next_subtext">Шаг {{ step }} из 4</p>
           </div>
-          <div class="card_btn_container">
-            <button class="card_back_btn" @click="activeUslugi ? showEmployees() : showFavor(); step = 2">Назад</button>
+          <div class="card_btn">
+            <button v-if="size === 'desktop'" class="card_back_btn" @click="activeUslugi ? showEmployees() : showFavor(); step = 2">Назад</button>
+            <button v-else class="card_back_btn-arrow" @click="activeUslugi ? showEmployees() : showFavor(); step = 2">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.3999 6.96667L4.8999 3.5V6.3H13.2999V7.7H4.8999V10.5L1.3999 6.96667Z" fill="var(--color-text)"/>
+                </svg>
+            </button>
             <button :class="{'card_next_btn-disabled' : !selectedTime.length>0, 'card_next_btn-active' : selectedTime.length>0}" @click="showData">{{size === 'desktop' ? 'Продолжить' : 'Далее'}}</button>
           </div>
         </div> 
@@ -384,7 +405,7 @@
     <div class="data" v-else-if="currentPage === 'data'">
       <div class="data_wrap">
         <div class="data_container">
-          <div class="notes_data">
+          <div class="notes_data" v-if="size === 'desktop'">
             <div class="data_info">
               <div class="data_info_card">
                 <img src="../../static/img/data.png" alt="" class="data_img">
@@ -423,6 +444,40 @@
               </div>
             </div>
           </div>
+          <div class="data_info" v-else>
+              <div class="data_info_card">
+                <img src="../../static/img/data.png" alt="" class="data_img">
+                <div class="data_info_container">
+                  <p class="data_info_head">{{ selectedEmployees[0].name }}</p>
+                  <p class="data_info_sub">Ваш мастер</p>
+                </div>    
+              </div>
+
+              <div style="display: flex; gap: 10px;">
+                <div class="data_info_card">
+                  <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 5V0H7V5H5Z" fill="var(--color-global)"/>
+                    <path d="M13 5V0H15V5H13Z" fill="var(--color-global)"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2 19C1.44772 19 1 18.5523 1 18V3C1 2.44772 1.44772 2 2 2H4V6H8V2H12V6H16V2H18C18.5523 2 19 2.44772 19 3V18C19 18.5523 18.5523 19 18 19H2ZM17 17V8H3V17H17Z" fill="var(--color-global)"/>
+                  </svg>
+                  <div class="data_info_container">
+                    <p class="data_info_head">6 июля, 14:10</p>
+                    <p class="data_info_sub">Дата и время</p>
+                  </div>
+                </div>
+                <div class="data_info_card">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M13.5998 3.20006H1.9998L11.9998 6.10352e-05L13.5998 3.20006Z" fill="var(--color-global)"/>
+                    <path d="M0.799805 6.40011C0.799805 5.51645 1.51615 4.80011 2.3998 4.80011H13.5998C14.4835 4.80011 15.1998 5.51645 15.1998 6.40011V8.80001H12.5331C11.7776 8.80001 11.1998 9.32002 11.1998 10C11.1998 10.68 11.7776 11.2 12.5331 11.2H15.1998V13.6001C15.1998 14.4838 14.4835 15.2001 13.5998 15.2001H2.3998C1.51615 15.2001 0.799805 14.4838 0.799805 13.6001V6.40011Z" fill="var(--color-global)"/>
+                  </svg>
+                  <div class="data_info_container">
+                    <p class="data_info_head">{{ selectedUslugi[0].cost }}</p>
+                    <p class="data_info_sub">Стоимость</p>
+                  </div>    
+                </div>
+              </div>
+              <p class="figures_text-mob" v-if="size === 'mobile'">Убедитесь, что все указано верно</p>
+            </div>
   
           <div class="data_details">
             <p class="data_details_head">Пожалуйста, укажите свои реальные контактные данные:</p>
@@ -462,7 +517,7 @@
           </div>
         </div>
         <div class="figures">
-          <p class="figures_text">Убедитесь, что все указано верно</p>
+          <p class="figures_text" v-if="size === 'desktop'">Убедитесь, что все указано верно</p>
           <div class="figures_container">
             <div class="mark" v-if="!Mark" @click="Mark = true"></div>
             <div class="mark_active" v-else @click="Mark = false">
@@ -481,8 +536,13 @@
             </div>
             <p class="card_next_subtext">Шаг 4 из 4</p>
           </div>
-          <div class="card_btn_container">
-            <button class="card_back_btn" @click="showCalendar">Назад</button>
+          <div class="card_btn">
+            <button v-if="size === 'desktop'" class="card_back_btn" @click="showCalendar">Назад</button>
+            <button v-else class="card_back_btn-arrow" @click="showCalendar">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.3999 6.96667L4.8999 3.5V6.3H13.2999V7.7H4.8999V10.5L1.3999 6.96667Z" fill="var(--color-text)"/>
+                </svg>
+            </button>
             <button :class="{'card_next_btn-disabled' : !clientFisrtName || !clientSecondName || !Mark || value.length < 6, 'card_next_btn-active' : clientFisrtName && clientSecondName && Mark && value.length > 6}" @click="showNotes">Записаться</button>
           </div>
         </div> 
@@ -563,7 +623,7 @@ export default {
   components: { SelectWidget} ,
   data() {
     return {
-      size: '',
+      size: 'mobile',
 
       Mark: false,
       currentPage: 'branch',
@@ -809,6 +869,9 @@ export default {
         this.value = newCountry.code + ' ' + this.value.replace(/^\s*\+\d\s*\|\s*/, '');
       }
     },
+    theme(){
+      this.updateColors()
+    },
     MainColor(){
       this.updateColors()
     },
@@ -819,9 +882,6 @@ export default {
       this.updateColors()
     },
     TextColor(){
-      this.updateColors()
-    },
-    theme(){
       this.updateColors()
     },
   },
@@ -836,7 +896,7 @@ export default {
     },
     setSize(width) {
       if (width > 768) {
-        this.size = 'desktop';
+        this.size = 'mobile';
       } else {
         this.size = 'mobile';
       }
@@ -918,6 +978,9 @@ export default {
       const countryCode = this.selectedCountry ? this.selectedCountry.code : '';
       this.value = countryCode + ' ' + this.value.replace(/^\s*\+\d\s*\|\s*/, '');
     },
+    showBranch() {
+      this.currentPage = 'branch';
+    },
     showFavor() {
       this.currentPage = 'favor';
     },
@@ -983,6 +1046,24 @@ export default {
   --color-text: var(--ct, #F5F5F5);
   --color-shadow: rgb(21, 20, 29);
 }
+
+.card_back_btn-arrow{
+  border: 1px solid var(--color-text);
+  background: var(--color-main);
+  border-radius: 100px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+}
+
+.card_back_btn-arrow:hover{
+  border: 1px solid var(--color-global);
+}
+
+.card_back_btn-arrow:hover svg path{
+  fill: var(--color-global);
+}
+
 
 .choice-banner{
   display: none;
@@ -1371,9 +1452,11 @@ p{
   border-radius: 100px;
   background: var(--color-gray);
 }
-.card_btn_container{
+
+.card_btn{
   display: flex;
-  gap: 10px;
+  align-items: center;
+  gap: 5px;
 }
 .card_back_btn{
   font-family: TT Norms Medium;
@@ -1734,6 +1817,16 @@ input{
   text-align: left;
   color: #D2D8DE;
 }
+
+.figures_text-mob{
+  width: 100%;
+  font-family: TT Norms Medium;
+  font-size: 10px;
+  line-height: 10px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #D2D8DE;
+}
 .figures_container{
   width: 49%;
   display: flex;
@@ -2008,6 +2101,7 @@ input{
   background: var(--color-main);
     transform: translateX(50%)
 }
+
   .choice-banner{
     display: block;
     height: 163px;
@@ -2534,15 +2628,17 @@ input{
   }
   .calendar_numbers_container{
     display: flex;
-    gap: 15px;
+    gap: 10px;
     overflow-x: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
   }
   .calendar_numbers{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 45px;
+    min-width: 45px;
     height: 33px;
     border-radius: 3px;
     background: var(--color-gray);
@@ -2581,10 +2677,11 @@ input{
     border-radius: 10px;
     padding: 10px;
     width: 100%;
-    height: 110px;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     gap: 15px;
+    flex-grow: 5;
   }
   .calendar_compo-wrapper{
     display: flex;
@@ -2606,8 +2703,10 @@ input{
   }
   .calendar_wrapper{
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    gap: 15px;
+    align-items: start;
   }
   .calendar_rate{
     display: flex;
@@ -2626,6 +2725,7 @@ input{
   }
   .calendar_time_container{
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
   }
   .calendar_time{
@@ -2658,11 +2758,11 @@ input{
   .data{
     display: flex;
     flex-direction: column;
-    gap: 40px;
-    padding: 30px 40px;
-    height: 427px;
+    gap: 10px;
+    padding: 10px 10px 15px 10px;
+    border-radius: 0 0 25px 25px;
+    height: 560px;
     background: var(--color-main);
-    border-radius: 25px;
   }
   .data_wrap{
     display: flex;
@@ -2674,10 +2774,10 @@ input{
     display: flex;
     flex-direction: column;
     gap: 10px;
-    border-radius: 10px 10px 0 0;
-    width: 236px;
+    border-radius: 10px;
+    width: 100%;
     background: var(--color-gray);
-    padding: 25px 15px 12px 15px;
+    padding: 10px;
   }
   .data_info_card{
     width: 100%;
@@ -2699,7 +2799,7 @@ input{
   }
   .data_info_head{
     font-family: TT Norms Medium;
-    font-size: 16px;
+    font-size: 12px;
     line-height: 16px;
     letter-spacing: 0em;
     text-align: left;
@@ -2714,7 +2814,7 @@ input{
     color: #AFB6C1;
   }
   .data_container{
-    display: flex;
+    display: block;
     gap: 25px;
   }
   .data_details_head{
@@ -2726,10 +2826,11 @@ input{
     color: var(--color-text);
   }
   .data_details{
+    margin: 20px 30px 0 30px;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 260px;
+    width: auto;
   }
   .data_forma_text{
     font-family: TT Norms Medium;
@@ -2777,7 +2878,8 @@ input{
     color: #D2D8DE;
   }
   .figures_container{
-    width: 49%;
+    margin: 0 30px;
+    width: 100%;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -2807,7 +2909,7 @@ input{
     font-size: 10px;
     line-height: 12px;
     letter-spacing: 0em;
-    text-align: center;
+    text-align: left;
     color: #C6CBD2;
   }
   .personal_span{
@@ -2824,13 +2926,15 @@ input{
   .notes{
     display: flex;
     flex-direction: column;
-    padding: 30px 40px;
-    height: 356px;
+    gap: 10px;
+    padding: 10px 10px 15px 10px;
+    border-radius: 0 0 25px 25px;
+    height: 560px;
     background: var(--color-main);
-    border-radius: 25px;
   }
   .notes_container{
     display: flex;
+    flex-direction: column-reverse;
     align-items: center;
     gap: 15px;
   }
@@ -2840,15 +2944,18 @@ input{
     flex-direction: column;
     gap: 10px;
     border-radius: 10px 10px 0 0;
-    width: 236px;
+    width: 100%;
     background: var(--color-gray);
     padding: 25px 15px 12px 15px;
   }
   .notes_confirm{
-    width: 261px;
+    width: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 30px;
+    margin-top: 25px;
   }
   .notes_confirm_container{
     display: flex;
@@ -2860,7 +2967,7 @@ input{
     font-size: 28px;
     line-height: 33px;
     letter-spacing: 0em;
-    text-align: left;
+    text-align: center;
     color: var(--color-text);
   }
   .notes_confirm_sub{
@@ -2869,7 +2976,7 @@ input{
     font-weight: 300;
     line-height: 19px;
     letter-spacing: 0em;
-    text-align: left;
+    text-align: center;
     color: var(--color-text);
   }
   .notes_button{
@@ -2878,9 +2985,11 @@ input{
     font-weight: 500;
     line-height: 21px;
     letter-spacing: 0em;
-    text-align: left;
+    text-align: center;
     display: flex;
     gap: 5px;
+    width: fit-content;
+    border-radius: 100px;
     background: var(--color-global);
     color: var(--color-main);
   }
@@ -2991,9 +3100,11 @@ input{
   .img_checkmark{
     position: absolute;
     top: -20px;
-    left: 100px;
+    left: 44%;
   }
   .notes_data{
+    width: 100%;
+    margin: 40px;
     display: flex;
     flex-direction: column;
   }
@@ -3003,7 +3114,7 @@ input{
     flex-direction: column;
     gap: 10px;
     border-radius: 0 0 10px 10px;
-    width: 236px;
+    width: 100%;
     background: var(--color-gray);
     padding: 8px 15px 25px 15px;
   }
@@ -3013,15 +3124,15 @@ input{
     flex-direction: column;
     gap: 10px;
     border-radius: 0 0 10px 10px;
-    width: 236px;
+    width: 100%;
     background: var(--color-gray);
     padding: 8px 15px 25px 15px;
   }
   .divider_dotted_container{
+    display: flex;
     position: relative;
     background: var(--color-gray);
     height: 12px;
-    display: flex;
     align-items: center;
   }
   .divider_dotted{
