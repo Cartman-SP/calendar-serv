@@ -2,7 +2,7 @@
   <div class="main" :id="colortheme">
 
 
-    <div class="compo-container" :style="{ backgroundImage: 'url(' + imageUrl + ')' }" style="background-size: cover; background-color: black;">
+    <div class="compo-container" style="background-size: cover; background-image: url(https://archdetali.ru/upload/iblock/512/512be4da7bbced5434e0b0fdc211cd8d.jpg);">
       <div class="compo-wrap">
         <div class="compo-top">
         <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -61,6 +61,9 @@
       </div>        
     </div>
     <div class="choice" v-else-if="currentPage === 'choice'">
+
+      <div class="choice-banner" :style="{ backgroundImage: 'url(' + imageUrl + ')' }"></div>
+
       <div class="choice_overview ">
         <div class="choice_rate_container">
           <p class="choice_rate">{{activeFilial.rating}}</p>
@@ -670,6 +673,30 @@ export default {
                 day: 'Чт',
                 time: ['13:00', '14:00', '15:00']
               },
+              {
+                day: 'Пн',
+                time: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
+              },
+              {
+                day: 'Вт',
+                time: ['14:00', '15:00', '16:00', '17:00']
+              },
+              {
+                day: 'Чт',
+                time: ['13:00', '14:00', '15:00']
+              },
+              {
+                day: 'Пн',
+                time: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
+              },
+              {
+                day: 'Вт',
+                time: ['14:00', '15:00', '16:00', '17:00']
+              },
+              {
+                day: 'Чт',
+                time: ['13:00', '14:00', '15:00']
+              },
             ],
           },
           {
@@ -944,6 +971,10 @@ export default {
   --color-global: var(--cm, #FFCF7D);
   --color-text: var(--ct, #F5F5F5);
   --color-shadow: rgb(21, 20, 29);
+}
+
+.choice-banner{
+  display: none;
 }
 
 .p-dropdown{
@@ -1829,6 +1860,7 @@ input{
   margin-bottom: -30px;
   object-fit: cover;
   width: 100%;
+  box-shadow: inset 0px -100px 30px rgba(0, 0, 0, 0.825);
 }
 .compo-wrap{
   display: flex;
@@ -1967,6 +1999,13 @@ input{
 }
 
 @media (max-width: 768px){
+  .choice-banner{
+    display: block;
+    height: 163px;
+    width: 100%;
+    background-size: cover;
+    border-radius: 15px;
+  }
   .p-dropdown{
     background: var(--color-gray);
   }
@@ -2487,6 +2526,7 @@ input{
   .calendar_numbers_container{
     display: flex;
     gap: 15px;
+    overflow-x: scroll;
   }
   .calendar_numbers{
     display: flex;
@@ -2864,6 +2904,7 @@ input{
     margin-bottom: 0;
     object-fit: cover;
     width: 100%;
+    box-shadow: inset 0px -50px 20px rgba(0, 0, 0, 0.779);
   }
   .compo-wrap{
     display: flex;
