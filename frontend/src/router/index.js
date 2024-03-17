@@ -22,6 +22,7 @@ import ProjectGatesPage from '../components/ProjectGatesPage.vue';
 import CreateProject from '../components/CreateProject.vue';
 import AccessesPage from '../components/AccessesPage.vue';
 import LockedPage from '../components/LockedPage.vue';
+import WidgetCreatePage from '../components/WidgetCreatePage.vue';
 import store from '../store';
 import WidgetSite from '@/components/WidgetSite.vue'
 
@@ -159,15 +160,11 @@ const routes = [
         meta: { requiresAuth: true }
       },
       {
-        path: '/widget/:user/:widgetname',
-        name: 'widget',
-        component: WidgetSite,
-        props: route => ({
-          user: route.params.user,
-          widgetname: route.params.widgetname
-        })
-      }
-              
+        path: '/lk/widgets/create',
+        name: 'widget_create',
+        component: WidgetCreatePage,
+        meta: { requiresAuth: true }
+      },              
     ]
   },
   {

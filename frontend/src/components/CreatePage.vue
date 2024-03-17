@@ -817,7 +817,7 @@ label{
   display: flex;
   justify-content: center;
   background: linear-gradient(90deg, #F6F6F6 0%, #F1F4F9 100%);
-  border-radius: 2px;
+  border-radius: 5px;
 }
 input{
   margin: 0;

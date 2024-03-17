@@ -290,4 +290,12 @@ export default {
   img{
     border-radius: 5px;
   }
+  .delete{
+    color: #F97F7F;
+    background-color: rgba(249, 127, 127, 0.2);
+  }
+  .delete:hover{
+    background: #F97F7F;
+    color: #FFFFFF;
+  }
 </style>

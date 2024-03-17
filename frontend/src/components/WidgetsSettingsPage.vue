@@ -5,7 +5,7 @@
       <div class="arrow-container">
         <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
       </div>
-      <p class="creation_text">Создание виджета</p>
+      <p class="creation_text">Редактирование виджета</p>
 
     </div>
     <div class="tab" ref="tabs">
@@ -137,6 +137,10 @@
             <p class="header">Обложка виджета</p>
             <p class="descr">Выберите фотографию для обложки из ранее загруженных или добавьте новую</p>
             <div class="plus_container">
+              <div class="img_plus" @click="uploadImage">
+                <input type="file" style="display: none;" @change="handleImageUpload">
+                <img src="" alt="">
+              </div>
               <div class="img_plus" @click="uploadImage">
                 <input type="file" style="display: none;" @change="handleImageUpload">
                 <img src="" alt="">
@@ -778,7 +782,7 @@ export default {
     margin: 0;
   }
   .window{
-    width: 10vw;
+    width: 100%;
     height: 120px;
     border-radius: 2px;
     padding: 15px;
@@ -900,8 +904,6 @@ export default {
   .window_container{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
   }
   .active-tab {
     color: #6266EA;
