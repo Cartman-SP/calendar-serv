@@ -85,7 +85,7 @@
   
           <div class="upload">
             <div class="upload_img" v-for="(image, index) in uploadedImages" :key="index">
-              <img class="upl_img" :src="image.url" :alt="image.name">
+              <img @click="delete_img(index)" class="upl_img" :src="image.url" :alt="image.name" >
             </div>
           </div>
   
@@ -394,6 +394,9 @@ export default {
       if (indexToRemove !== -1) {
         this.chips.splice(indexToRemove, 1);
       }
+    },
+    delete_img(index){
+      this.uploadedImages.splice(index, 1)
     },
 
     handleImageUpload(event) {
