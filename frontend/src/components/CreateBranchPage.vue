@@ -204,8 +204,8 @@
         </div>
       </div>
       <div class="adaptive_window">
-        <div v-if="selectedPaymentText">
-          <p class="header">{{selectedPaymentText}}</p>
+        <div v-if="selectedName">
+          <p class="header">{{selectedName}}</p>
           <p class="descr">Формат оплаты</p>
         </div>
         <div v-else class="second">
@@ -216,16 +216,16 @@
         <div class="img_container" v-else>
           <img class="img_window"  src="../../static/img/service.svg" alt="">
         </div>
-        <div v-if="serviceName">
-          <p class="header">{{serviceName}}</p>
+        <div v-if="selectedAdress">
+          <p class="header">{{selectedAdress}}</p>
           <p class="descr">Адрес</p>
         </div>
         <div v-else class="first">
           <div class="stripe" style="width: 143px;"></div>
           <div class="stripe" style="width: 97px;"></div>
         </div>
-        <div v-if="serviceDuration.length > 0" >
-          <p class="header">{{serviceDuration}}</p>
+        <div v-if="value.length > 0" >
+          <p class="header">{{value}}</p>
           <p class="descr">Телефон</p>
         </div>
         <div v-else class="first">
@@ -240,8 +240,8 @@
           <div class="stripe" style="width: 143px;"></div>
           <div class="stripe" style="width: 97px;"></div>
         </div>
-        <div v-if="selectedRecordText">
-          <p class="header">{{selectedRecordText}}</p>
+        <div v-if="selectedDays">
+          <p class="header">{{selectedDays.toString()}}</p>
           <p class="descr">График работы</p>
         </div>
         <div v-else class="first">
@@ -279,7 +279,7 @@ export default {
       selectedPhone: '79672262425',
       first: false,
       selectedCountryPhone: null,
-      value: '7 ', // Начальное значение для InputMaskComponent
+      value: '', // Начальное значение для InputMaskComponent
       countries: [
         { name: '🇷🇺', code: '+7' },
         { name: '🇧🇾', code: '+375' },
@@ -798,7 +798,7 @@ dataURItoBlob(dataURI) {
   }
   .create_branch {
     width: 600px;
-    height: auto;
+    height: fit-content;
     background-color: #FFFFFF;
     padding: 20px;
     border-radius: 5px;
