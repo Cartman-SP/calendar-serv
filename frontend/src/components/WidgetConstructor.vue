@@ -611,8 +611,7 @@
       </div>
 
     </div>
-    <button @click="getfilial">11111111111111111111111111111111111</button>
-
+    <button @click="getuslugi_by_specialist">11111111111111111111</button>
   </div>
 </template>
 
@@ -903,6 +902,19 @@ export default {
         console.error('Ошибка при получении данных о Филиале:', error);
     });
       },
+
+
+    getuslugi_by_specialist(){  /// возвращает все услуги по филиалам и сотрудникам, если сотрудников нет, то возвращает все услуги филиала
+      const employee_id = 0
+      const filial_id = 1
+        axios.get(`http://127.0.0.1:8000/api/getuslugi_by_specialist/?filial=${filial_id}&employee=${employee_id}`)
+    .then(response => {
+        console.log(response)
+    })
+    .catch(error => {
+        console.error('Ошибка при получении данных о Филиале:', error);
+    });
+      },  
 
     onResize(event) {
       this.setSize(event.target.innerWidth);

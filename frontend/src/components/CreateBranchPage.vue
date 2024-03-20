@@ -414,7 +414,7 @@ export default {
     },
 
     get_workers(){
-      axios.post('http://127.0.0.1:8000/api/getworkers/', { user_id:  this.$store.state.registrationData.user_id})
+      axios.post('http://127.0.0.1:8000/api/getworkers/', { user_id:  this.$store.state.registrationData.user_id, project: this.$store.state.activeProjectId})
       .then(response => {
         console.log(response.data)
         this.employees = response.data;
@@ -581,6 +581,7 @@ export default {
         formData.append('user_id', this.$store.state.registrationData.user_id)
         formData.append('phone', this.selectedPhone)
         formData.append('project', this.$store.state.activeProjectId)
+        formData.append('employees', '1,2,3')                  /// ВОТ ЗДЕСЬ НАДО ЕБАНУТЬ ВЫБРАННЫХ СОТРУДНИКОВ В ВИДЕ СТРОКИ ЧЕРЕЗ ЗАПЯТУЮ
         // Добавляем каждое изображение в FormData
         for (let i = 0; i < this.uploadedImages.length; i++) {
           // Преобразовываем изображение в объект типа File

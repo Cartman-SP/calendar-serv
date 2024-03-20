@@ -357,7 +357,9 @@ def get_usluga_name(request):
 def get_workers(request):
     user_id = json.loads(request.body)['user_id']
     user = User.objects.get(id=user_id)
-    employees = Employee.objects.filter(user=user)
+    project_id = json.loads(request.body)['project']
+    project = Project.objects.get(id=project_id)
+    employees = Employee.objects.filter(user=user,project = project)
 
     serializer = EmployeeSerializer(employees, many=True)
     
@@ -395,7 +397,8 @@ def create_branch(request):
             business=data.get('business'),
             user = User.objects.get(id = data.get('user_id')),
             phone = data.get('phone'),
-            project = Project.objects.get(id=data.get('project'))
+            project = Project.objects.get(id=data.get('project')),
+            employees_id = data.get('employees'),
         )
         
         # Обработка сотрудников
@@ -641,4 +644,32 @@ def get_filial_by_id(request):
         print(request.GET)
         branch = Branch.objects.get(id = id)
         serializer = BranchSerializer(branch)
+        return Response(serializer.data)
+    
+@api_view(['GET'])
+def getuslugi_by_specialist(request):
+    filial_id = int(request.GET.get('filial'))
+    employee_id = int(request.GET.get('employee'))
+    print(filial_id)
+    if employee_id:
+        employee = Employee.objects.get(id=employee_id)
+        services_ids = employee.serviceid.split(',')
+        services_ids = list(filter(bool, services_ids))
+        services = Usluga.objects.filter(id__in=services_ids)
+        serializer = UslugaSerializer(services, many=True)
+        return Response(serializer.data)
+    else:
+        branch = Branch.objects.get(id=filial_id)
+        employees_ids = branch.employees_id.split(',')
+        employees_ids = list(filter(bool, employees_ids))
+        employees = Employee.objects.filter(id__in=employees_ids)
+        all_services = set()  # Множество для хранения уникальных услуг
+
+        for employee in employees:
+            services_ids = employee.serviceid.split(',')
+            services_ids = list(filter(bool, services_ids))
+            services = Usluga.objects.filter(id__in=services_ids)
+            all_services.update(services)  # Добавляем услуги в множество
+
+        serializer = UslugaSerializer(all_services, many=True)
         return Response(serializer.data)

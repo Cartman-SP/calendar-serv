@@ -28,5 +28,6 @@ urlpatterns = [
     path('widget_create/',create_widget,name='widget_create'),
     path('uslugi_fromfilials/', get_uslugi_fromfilials ,name='get_uslugi_fromfilials'),
     path('change_mail/',change_mail,name="change_mail"),
-    path('get_filialbyid/',get_filial_by_id, name='get_filialbyid/')
+    path('get_filialbyid/',get_filial_by_id, name='get_filialbyid/'),
+    path('getuslugi_by_specialist/',getuslugi_by_specialist,name='getuslugi_by_specialist'),
 ]

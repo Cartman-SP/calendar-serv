@@ -82,7 +82,7 @@ class Branch(models.Model):
     phone = models.CharField(max_length = 20)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     project = models.ForeignKey(Project,on_delete = models.CASCADE)
-
+    employees_id = models.CharField(max_length = 1000)
 
 class BranchEmployee(models.Model):
     branch = models.ForeignKey(Branch, related_name='employees', on_delete=models.CASCADE)
