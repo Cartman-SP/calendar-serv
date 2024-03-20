@@ -573,7 +573,6 @@
               </div>    
             </div>
           </div>
-      
           <div class="divider_dotted_container">
             <div class="divider_dotted"></div>
           </div>
@@ -612,12 +611,14 @@
       </div>
 
     </div>
+    <button @click="getfilial">11111111111111111111111111111111111</button>
+
   </div>
 </template>
 
 <script>
 import SelectWidget from '../components/SelectWidget.vue';
-
+import axios from 'axios';
 export default {
   props: ['theme', 'MainColor', 'WidgetColor', 'BakcgroundColor', 'TextColor', 'Filials'],
   components: { SelectWidget} ,
@@ -889,8 +890,20 @@ export default {
     // Запускаем функцию для автоматического переключения изображений
     this.startImageSlider();
     this.updateColors();
+    
   },
   methods: {
+    getfilial(){
+      const id = 1
+        axios.get(`http://127.0.0.1:8000/api/get_filialbyid/?variable=${id}`)
+    .then(response => {
+        console.log(response)
+    })
+    .catch(error => {
+        console.error('Ошибка при получении данных о Филиале:', error);
+    });
+      },
+
     onResize(event) {
       this.setSize(event.target.innerWidth);
     },
@@ -901,7 +914,7 @@ export default {
         this.size = 'mobile';
       }
     },
-
+    
     updateColors() {
       if (this.theme) {
         this.colortheme = 'darkmode';
