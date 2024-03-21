@@ -39,7 +39,7 @@ class Usluga(models.Model):
     pay_type = models.CharField(max_length=50)
     serviceCover = models.ImageField(upload_to='service_covers/')
     project = models.ForeignKey(Project,on_delete = models.CASCADE)
-
+    employees = models.CharField(max_length=50, default = '')
 
 class Reset_passwrod(models.Model):
     token = models.CharField(max_length=20)

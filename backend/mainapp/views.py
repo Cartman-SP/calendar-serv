@@ -305,12 +305,21 @@ def usluga_delete(request):
     else:
         return JsonResponse({'error': 'Метод не разрешен'}, status=405)
     
+def add_employee_to_serviece(string, employee_id):
+        usluga_ids = string.split(',')
+        usluga_ids = list(filter(bool, usluga_ids))
+        for i in usluga_ids:
+            usluga = Usluga.objects.get(id=i)
+            usluga.employees = usluga.employees + ","+str(employee_id)
+            usluga.save()
+
 @api_view(['POST'])
 def create_employee(request):
     if request.method == 'POST':
         print(request.data )
         user_id = request.data.get('user_id')  # Получаем id пользователя из запроса
         try:
+            print()
             user = User.objects.get(id=user_id)  # Получаем объект пользователя по id
             request.data['user'] = user.id  
             serializer = EmployeeSerializer(data=request.data)
@@ -321,9 +330,11 @@ def create_employee(request):
                     serializer.save()
                     profile.first_sotrudnik = True
                     profile.save()
+                    add_employee_to_serviece(request.data.get('serviceid'),serializer.instance.id)
                     return Response(True, status=201)
             if serializer.is_valid():
                 serializer.save()
+                add_employee_to_serviece(request.data.get('serviceid'),serializer.instance.id)
                 return Response(False, status=status.HTTP_201_CREATED)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except User.DoesNotExist:
@@ -672,4 +683,39 @@ def getuslugi_by_specialist(request):
             all_services.update(services)  # Добавляем услуги в множество
 
         serializer = UslugaSerializer(all_services, many=True)
+        return Response(serializer.data)
+
+
+@api_view(['GET'])
+def getspecialist_by_usluga(request):
+    filial_id = int(request.GET.get('filial'))
+    usluga_id = int(request.GET.get('usluga'))
+
+    if usluga_id:
+        usluga = Usluga.objects.get(id=usluga_id)
+        employees_ids = usluga.employee_set.all().values_list('id', flat=True)
+        employees = Employee.objects.filter(id__in=employees_ids)
+        serializer = EmployeeSerializer(employees, many=True)
+        return Response(serializer.data)
+    else:
+        return Response({"message": "Не указан идентификатор услуги"}, status=400)
+    
+
+@api_view(['GET'])
+def getspecialist_by_usluga(request):
+    filial_id = int(request.GET.get('filial'))
+    usluga_id = int(request.GET.get('usluga'))
+    if usluga_id:
+        usluga = Usluga.objects.get(id=usluga_id)
+        employees_ids = usluga.employees.split(',')
+        employees_ids = list(filter(bool, employees_ids))
+        employees = Employee.objects.filter(id__in=employees_ids)
+        serializer = EmployeeSerializer(employees, many=True)
+        return Response(serializer.data)
+    else:
+        branch = Branch.objects.get(id=filial_id)
+        employees_ids = branch.employees_id.split(',')
+        employees_ids = list(filter(bool, employees_ids))
+        employees = Employee.objects.filter(id__in=employees_ids)
+        employees = EmployeeSerializer(employees, many=True)
         return Response(serializer.data)
