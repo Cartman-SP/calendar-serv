@@ -164,17 +164,18 @@ const routes = [
         name: 'widget_create',
         component: WidgetCreatePage,
         meta: { requiresAuth: true }
-      },
-      {
-        path: '/widget/:user/:widgetname',
-        name: 'widget',
-        component: WidgetSite,
-        props: route => ({
-          user: route.params.user,
-          widgetname: route.params.widgetname
-        })
-      }              
+      }
     ]
+  },
+  {
+    // Маршрут для виджета
+    path: '/widget/:user/:widgetname',
+    name: 'widget',
+    component: WidgetSite,
+    props: route => ({
+      user: route.params.user,
+      widgetname: route.params.widgetname
+    })
   },
   {
     // Новый маршрут для перенаправления, если пользователь уже авторизован
@@ -191,7 +192,6 @@ const routes = [
     },
   },
 ]
-
 const router = createRouter({
   history: createWebHashHistory(),
   routes

@@ -1,6 +1,6 @@
 <template>
   <div class="main" :id="colortheme">
-
+    
 
     <div class="compo-container" style="background-size: cover; background-image: url(https://archdetali.ru/upload/iblock/512/512be4da7bbced5434e0b0fdc211cd8d.jpg);">
       <div class="compo-wrap">
@@ -51,7 +51,7 @@
       </div>
       <div class="card_next">
         <div class="card_next_container">
-          <p class="card_next_text">Выбор филиала</p>
+          <p class="card_next_text">{{ widgetname }}</p>
           <div class="divider"></div>
           <p class="card_next_subtext">Всего филиалов: <span class="card_number">{{ Widget.filials.length }}</span></p>
         </div>
