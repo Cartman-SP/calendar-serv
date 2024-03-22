@@ -611,7 +611,6 @@
       </div>
 
     </div>
-    <button @click="getuslugi_by_specialist">11111111111111111111</button>
   </div>
 </template>
 
@@ -619,12 +618,12 @@
 import SelectWidget from '../components/SelectWidget.vue';
 import axios from 'axios';
 export default {
-  props: ['theme', 'MainColor', 'WidgetColor', 'BakcgroundColor', 'TextColor', 'Filials'],
+  props: ['theme', 'MainColor', 'WidgetColor', 'BakcgroundColor', 'TextColor', 'Filials_ids'],
   components: { SelectWidget} ,
   data() {
     return {
       size: 'mobile',
-
+      Filials: [],
       Mark: false,
       currentPage: 'branch',
       selectedCountry: null,
@@ -642,41 +641,6 @@ export default {
       currentImageIndex: 0,
 
       Widget:{
-        filials:[
-          {
-            id: '1',
-            name: 'Кофейня на Лесной',
-            adress: 'ул. Лесная, дом 23',
-            available_date: '29.07.23',
-            available_time: '18:30',
-            phone: '+71234567890',
-            work_days: 'Пн—Вс',
-            work_hours: 'с 9:00 до 20:00',
-            rating: '4.5',
-          },
-          {
-            id: '2',
-            name: 'Кофейня на Пушкина',
-            adress: 'ул. Пушкина, дом 7',
-            available_date: '29.07.23',
-            available_time: '18:30',
-            phone: '+71256385890',
-            work_days: 'Пн—Вс',
-            work_hours: 'с 9:00 до 20:00',
-            rating: '4.3',
-          },
-          {
-            id: '3',
-            name: 'Кофейня в Митино',
-            adress: 'ул. Митинская, дом 11',
-            available_date: '29.07.23',
-            available_time: '18:30',
-            phone: '+71283941890',
-            work_days: 'Пн—Вс',
-            work_hours: 'с 9:00 до 20:00',
-            rating: '3.7',
-          },
-        ],
         uslugi:[
         {
             id: '1',
@@ -779,6 +743,10 @@ export default {
     TextColor(){
       this.updateColors()
     },
+    Filials_ids(){
+      console.log('Filials_ids changed')
+      this.filialsAddToArray()
+    }
   },
   mounted() {
     // Запускаем функцию для автоматического переключения изображений
@@ -787,16 +755,25 @@ export default {
     
   },
   methods: {
-    async getfilial(i) {
-      try {
-          const id = i;
-          const response = await axios.get(`http://127.0.0.1:8000/api/get_filialbyid/?variable=${id}`);
-          console.log(response);
-          return response.data;
-      } catch (error) {
-          console.error('Ошибка при получении данных о Филиале:', error);
-          throw error; // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
+    filialsAddToArray(){
+      while (this.Filials.length > 0){
+        this.Filials.pop();
       }
+      for (let index of this.Filials_ids) {
+        this.Filials.push(this.getfilial(index));
+        console.log('Filails:' + this.Filials)
+      }
+    },
+
+    async getfilial(i) {
+        try {
+            const id = i;
+            const response = await axios.get(`http://127.0.0.1:8000/api/get_filialbyid/?variable=${id}`);
+            return response.data;
+        } catch (error) {
+            console.error('Ошибка при получении данных о Филиале:', error);
+            throw error; // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
+        }
     },
 
 
@@ -867,7 +844,7 @@ export default {
     async activateFilial(filialData) {
         try {
             this.activeFilial = await this.getfilial(filialData.id);
-            this.employees = await this.getfilial(filialData.id);
+            console.log('----------------', this.activeFilial);
         } catch (error) {
             console.error('Ошибка при активации Филиала:', error);
         }

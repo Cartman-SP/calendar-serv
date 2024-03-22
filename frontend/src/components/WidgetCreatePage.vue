@@ -198,7 +198,7 @@
       </div>
     </div>
     <div>
-      <WidgetConstructor :theme="switches.theme" :MainColor="widget.Main" :WidgetColor="widget.Back" :BakcgroundColor="widget.Plashka" :TextColor="widget.Text" :Filials="chips"/>  
+      <WidgetConstructor :theme="switches.theme" :MainColor="widget.Main" :WidgetColor="widget.Back" :BakcgroundColor="widget.Plashka" :TextColor="widget.Text" :Filials_ids="this.chips.map(chip => chip.id)"/>  
     </div>
   </div>
 </template>
