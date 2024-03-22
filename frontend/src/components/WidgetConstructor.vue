@@ -155,7 +155,7 @@
         <input type="text" placeholder="Введите название улицы или филиала">
       </div>
       <div class="favor_card_container">
-        <div class="favor_card" v-for="u in Widget.uslugi" :key="u.id">
+        <div class="favor_card" v-for="u in uslugi" :key="u.id">
           <div class="favor_compo-wrapper">
             <img src="../../static/img/barber.svg" alt="">
             <p class="favor_text">{{u.name}}</p>
@@ -736,7 +736,6 @@ export default {
         try {
             const id = i;
             const response = await axios.get(`http://127.0.0.1:8000/api/get_filialbyid/?variable=${id}`);
-            console.log(response.data)
             return response.data;
         } catch (error) {
             console.error('Ошибка при получении данных о Филиале:', error);
@@ -745,17 +744,17 @@ export default {
     },
 
 
-    getuslugi_by_specialist(ei, fi){ 
-      console.log('getuslugi_by_specialist') /// возвращает все услуги по филиалам и сотрудникам, если сотрудников нет, то возвращает все услуги филиала
+    async getuslugi_by_specialist(ei, fi){ 
+ /// возвращает все услуги по филиалам и сотрудникам, если сотрудников нет, то возвращает все услуги филиала
       const employee_id = ei
       const filial_id = fi
-        axios.get(`http://127.0.0.1:8000/api/getuslugi_by_specialist/?filial=${filial_id}&employee=${employee_id}`)
-    .then(response => {
-        console.log(response)
-    })
-    .catch(error => {
-        console.error('Ошибка при получении данных о Филиале:', error);
-    });
+      await axios.get(`http://127.0.0.1:8000/api/getuslugi_by_specialist/?filial=${filial_id}&employee=${employee_id}`)
+        .then(response => {
+          return response
+        })
+        .catch(error => {
+            console.error('Ошибка при получении данных о Филиале:', error);
+        });
       },  
 
     getspecialist_by_usluga(){
@@ -824,7 +823,11 @@ export default {
     async activateFilial(filialData) {
         try {
             this.activeFilial = await this.getfilial(filialData.id);
-            this.uslugi = this.getuslugi_by_specialist(null, this.activeFilial.id);
+            while (this.uslugi.length > 0){
+              this.uslugi.pop(); 
+            }
+            this.uslugi.push(this.getuslugi_by_specialist(0, this.activeFilial.id));
+            console.log(this.uslugi)
         } catch (error) {
             console.error('Ошибка при активации Филиала:', error);
         }
