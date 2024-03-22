@@ -611,7 +611,6 @@
       </div>
 
     </div>
-    <button @click="getuslugi_by_specialist">11111111111111111111</button>
   </div>
 </template>
 
@@ -619,11 +618,15 @@
 import SelectWidget from '../components/SelectWidget.vue';
 import axios from 'axios';
 export default {
-  props: ['theme', 'MainColor', 'WidgetColor', 'BakcgroundColor', 'TextColor', 'Filials'],
+  props: ['theme', 'MainColor', 'WidgetColor', 'BakcgroundColor', 'TextColor', 'Filials_ids'],
   components: { SelectWidget} ,
   data() {
     return {
       size: 'mobile',
+
+      Filials: [],
+      uslugi: [],
+
 
       Mark: false,
       currentPage: 'branch',
@@ -642,185 +645,7 @@ export default {
       currentImageIndex: 0,
 
       Widget:{
-        filials:[
-          {
-            id: '1',
-            name: 'Кофейня на Лесной',
-            adress: 'ул. Лесная, дом 23',
-            available_date: '29.07.23',
-            available_time: '18:30',
-            phone: '+71234567890',
-            work_days: 'Пн—Вс',
-            work_hours: 'с 9:00 до 20:00',
-            rating: '4.5',
-          },
-          {
-            id: '2',
-            name: 'Кофейня на Пушкина',
-            adress: 'ул. Пушкина, дом 7',
-            available_date: '29.07.23',
-            available_time: '18:30',
-            phone: '+71256385890',
-            work_days: 'Пн—Вс',
-            work_hours: 'с 9:00 до 20:00',
-            rating: '4.3',
-          },
-          {
-            id: '3',
-            name: 'Кофейня в Митино',
-            adress: 'ул. Митинская, дом 11',
-            available_date: '29.07.23',
-            available_time: '18:30',
-            phone: '+71283941890',
-            work_days: 'Пн—Вс',
-            work_hours: 'с 9:00 до 20:00',
-            rating: '3.7',
-          },
-        ],
-        uslugi:[
-        {
-            id: '1',
-            name: 'Стрижка',
-            cost: '650',
-            time: '1 час',
-          },
-          {
-            id: '2',
-            name: 'Маникюр',
-            cost: '5900',
-            time: '2 часа 15 минут',
-          },
-          {
-            id: '3',
-            name: 'Массаж',
-            cost: '2500',
-            time: '30 минут',
-          },
-          {
-            id: '4',
-            name: 'Быстро покромсать волосы',
-            cost: '250',
-            time: '15 минут',
-          },
-          {
-            id: '5',
-            name: 'Поздароваться с Ахмедом',
-            cost: '100',
-            time: '5 минут',
-          },
-          {
-            id: '6',
-            name: 'Массаж плюс',
-            cost: '4700',
-            time: '1 час 30 минут',
-          },
-        ],
-        employees:[
-        {
-            id: '1',
-            name: 'Юлия Дайценко',
-            work: 'Барбер',
-            reviews: '23',
-            availableRegistrationData:[
-              {
-                day: 'Пн',
-                time: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
-              },
-              {
-                day: 'Вт',
-                time: ['14:00', '15:00', '16:00', '17:00']
-              },
-              {
-                day: 'Чт',
-                time: ['13:00', '14:00', '15:00']
-              },
-              {
-                day: 'Пн',
-                time: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
-              },
-              {
-                day: 'Вт',
-                time: ['14:00', '15:00', '16:00', '17:00']
-              },
-              {
-                day: 'Чт',
-                time: ['13:00', '14:00', '15:00']
-              },
-              {
-                day: 'Пн',
-                time: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
-              },
-              {
-                day: 'Вт',
-                time: ['14:00', '15:00', '16:00', '17:00']
-              },
-              {
-                day: 'Чт',
-                time: ['13:00', '14:00', '15:00']
-              },
-            ],
-          },
-          {
-            id: '2',
-            name: 'Месси',
-            work: 'Бекендер',
-            reviews: '3',
-            availableRegistrationData:[
-              {
-                day: 'Пн',
-                time: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
-              },
-              {
-                day: 'Вт',
-                time: ['14:00', '15:00', '16:00', '17:00']
-              },
-              {
-                day: 'Чт',
-                time: ['13:00', '14:00', '15:00']
-              },
-            ],
-          },
-          {
-            id: '3',
-            name: 'Данёк',
-            work: 'Врач',
-            reviews: '34',
-            availableRegistrationData:[
-              {
-                day: 'Пн',
-                time: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
-              },
-              {
-                day: 'Вт',
-                time: ['14:00', '15:00', '16:00', '17:00']
-              },
-              {
-                day: 'Чт',
-                time: ['13:00', '14:00', '15:00']
-              },
-            ],
-          },
-          {
-            id: '4',
-            name: 'Булкин Слава',
-            work: 'Мастер SPA',
-            reviews: '22',
-            availableRegistrationData:[
-              {
-                day: 'Пн',
-                time: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
-              },
-              {
-                day: 'Вт',
-                time: ['14:00', '15:00', '16:00', '17:00']
-              },
-              {
-                day: 'Чт',
-                time: ['13:00', '14:00', '15:00']
-              },
-            ],
-          },
-        ],
+        employees:[],
       },
 
       activeFilial: {},
@@ -884,6 +709,10 @@ export default {
     TextColor(){
       this.updateColors()
     },
+    Filials_ids(){
+      console.log('Filials_ids changed')
+      this.filialsAddToArray()
+    }
   },
   mounted() {
     // Запускаем функцию для автоматического переключения изображений
@@ -892,16 +721,28 @@ export default {
     
   },
   methods: {
-    getfilial(){
-      const id = 1
-        axios.get(`http://127.0.0.1:8000/api/get_filialbyid/?variable=${id}`)
-    .then(response => {
-        console.log(response)
-    })
-    .catch(error => {
-        console.error('Ошибка при получении данных о Филиале:', error);
-    });
-      },
+    async filialsAddToArray(){
+      while (this.Filials.length > 0){
+        this.Filials.pop(); 
+      }
+      for (let index of this.Filials_ids) {
+        let f = await this.getfilial(index);
+        this.Filials.push(f);
+        console.log('Filails:' + this.Filials)
+      }
+    },
+
+    async getfilial(i) {
+        try {
+            const id = i;
+            const response = await axios.get(`http://127.0.0.1:8000/api/get_filialbyid/?variable=${id}`);
+            console.log(response.data)
+            return response.data;
+        } catch (error) {
+            console.error('Ошибка при получении данных о Филиале:', error);
+            throw error; // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
+        }
+    },
 
 
     getuslugi_by_specialist(){  /// возвращает все услуги по филиалам и сотрудникам, если сотрудников нет, то возвращает все услуги филиала
@@ -979,8 +820,13 @@ export default {
       return `rgba(${r},${g},${b},${alpha})`;
     },
 
-    activateFilial(filialData){
-      this.activeFilial = filialData;
+    async activateFilial(filialData) {
+        try {
+            this.activeFilial = await this.getfilial(filialData.id);
+            console.log('----------------', this.activeFilial);
+        } catch (error) {
+            console.error('Ошибка при активации Филиала:', error);
+        }
     },
 
     UslugaSelected(data){
