@@ -14,7 +14,7 @@
         <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M2 7.98124C2 3.52416 5.53247 0 10 0C14.3636 0 18 3.62781 18 7.98124C18 13.3347 10 20 10 20C10 20 2 13.4383 2 7.98124ZM10 11C11.6569 11 13 9.65685 13 8C13 6.34315 11.6569 5 10 5C8.34315 5 7 6.34315 7 8C7 9.65685 8.34315 11 10 11Z" fill="white"/>
         </svg>
-        <p class="compo-text">{{ activeFilial.adress }}</p>
+        <p class="compo-text">{{ activeFilial.address }}</p>
         </div>
       </div>
       <div class="divider_container">
@@ -38,7 +38,7 @@
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path :style="activeFilial.name === filial.name ? { 'fill': 'var(--color-text)' } : {}" fill-rule="evenodd" clip-rule="evenodd" d="M1.2002 4.78875C1.2002 2.11449 3.31968 0 6.0002 0C8.61838 0 10.8002 2.17669 10.8002 4.78875C10.8002 8.00081 6.0002 12 6.0002 12C6.0002 12 1.2002 8.063 1.2002 4.78875ZM6.0002 6.6C6.99431 6.6 7.8002 5.79411 7.8002 4.8C7.8002 3.80589 6.99431 3 6.0002 3C5.00608 3 4.2002 3.80589 4.2002 4.8C4.2002 5.79411 5.00608 6.6 6.0002 6.6Z" fill="#AFB6C1"/>
               </svg>
-              <p class="card_address" :style="activeFilial.name === filial.name ? { 'color': 'var(--color-text)' } : {}">{{filial.adress}}</p>
+              <p class="card_address" :style="activeFilial.name === filial.name ? { 'color': 'var(--color-text)' } : {}">{{filial.address}}</p>
             </div>
             <div class="card_time_container">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -53,7 +53,7 @@
         <div class="card_next_container">
           <p class="card_next_text">Выбор филиала</p>
           <div class="divider"></div>
-          <p class="card_next_subtext">Всего филиалов: <span class="card_number">{{ Widget.filials.length }}</span></p>
+          <p class="card_next_subtext">Всего филиалов: <span class="card_number">{{ Filials.length }}</span></p>
         </div>
         <div class="card_btn">
           <button :class="{'card_next_btn-disabled' : !activeFilial.name, 'card_next_btn-active' : activeFilial.name}" @click="showChoice">{{size === 'desktop' ? 'Продолжить' : 'Далее'}}</button>
@@ -66,7 +66,7 @@
 
       <div class="choice_overview ">
         <div class="choice_rate_container">
-          <p class="choice_rate">{{activeFilial.rating}}</p>
+          <p class="choice_rate">{{'0.0'}}</p>
           <div class="choice_star_container">
             <div class="stars">
               <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -757,17 +757,17 @@ export default {
     });
       },  
 
-      getspecialist_by_usluga(){
-        const usluga_id = 0
-        const filial_id = 1
-        axios.get(`http://127.0.0.1:8000/api/getspecialist_by_usluga/?filial=${filial_id}&usluga=${usluga_id}`)
-    .then(response => {
-        console.log(response)
-    })
-    .catch(error => {
-        console.error('Ошибка при получении данных о Филиале:', error);
-    });
-      },
+    getspecialist_by_usluga(){
+      const usluga_id = 0
+      const filial_id = 1
+      axios.get(`http://127.0.0.1:8000/api/getspecialist_by_usluga/?filial=${filial_id}&usluga=${usluga_id}`)
+        .then(response => {
+            console.log(response)
+        })
+        .catch(error => {
+            console.error('Ошибка при получении данных о Филиале:', error);
+        });
+    },
 
     onResize(event) {
       this.setSize(event.target.innerWidth);
