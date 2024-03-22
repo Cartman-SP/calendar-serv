@@ -623,7 +623,11 @@ export default {
   data() {
     return {
       size: 'mobile',
+
       Filials: [],
+      uslugi: [],
+
+
       Mark: false,
       currentPage: 'branch',
       selectedCountry: null,
@@ -641,44 +645,6 @@ export default {
       currentImageIndex: 0,
 
       Widget:{
-        uslugi:[
-        {
-            id: '1',
-            name: 'Стрижка',
-            cost: '650',
-            time: '1 час',
-          },
-          {
-            id: '2',
-            name: 'Маникюр',
-            cost: '5900',
-            time: '2 часа 15 минут',
-          },
-          {
-            id: '3',
-            name: 'Массаж',
-            cost: '2500',
-            time: '30 минут',
-          },
-          {
-            id: '4',
-            name: 'Быстро покромсать волосы',
-            cost: '250',
-            time: '15 минут',
-          },
-          {
-            id: '5',
-            name: 'Поздароваться с Ахмедом',
-            cost: '100',
-            time: '5 минут',
-          },
-          {
-            id: '6',
-            name: 'Массаж плюс',
-            cost: '4700',
-            time: '1 час 30 минут',
-          },
-        ],
         employees:[],
       },
 
@@ -755,12 +721,13 @@ export default {
     
   },
   methods: {
-    filialsAddToArray(){
+    async filialsAddToArray(){
       while (this.Filials.length > 0){
-        this.Filials.pop();
+        this.Filials.pop(); 
       }
       for (let index of this.Filials_ids) {
-        this.Filials.push(this.getfilial(index));
+        let f = await this.getfilial(index);
+        this.Filials.push(f);
         console.log('Filails:' + this.Filials)
       }
     },
@@ -769,6 +736,7 @@ export default {
         try {
             const id = i;
             const response = await axios.get(`http://127.0.0.1:8000/api/get_filialbyid/?variable=${id}`);
+            console.log(response.data)
             return response.data;
         } catch (error) {
             console.error('Ошибка при получении данных о Филиале:', error);
