@@ -745,9 +745,10 @@ export default {
     },
 
 
-    getuslugi_by_specialist(){  /// возвращает все услуги по филиалам и сотрудникам, если сотрудников нет, то возвращает все услуги филиала
-      const employee_id = 0
-      const filial_id = 1
+    getuslugi_by_specialist(ei, fi){ 
+      console.log('getuslugi_by_specialist') /// возвращает все услуги по филиалам и сотрудникам, если сотрудников нет, то возвращает все услуги филиала
+      const employee_id = ei
+      const filial_id = fi
         axios.get(`http://127.0.0.1:8000/api/getuslugi_by_specialist/?filial=${filial_id}&employee=${employee_id}`)
     .then(response => {
         console.log(response)
@@ -823,7 +824,7 @@ export default {
     async activateFilial(filialData) {
         try {
             this.activeFilial = await this.getfilial(filialData.id);
-            console.log('----------------', this.activeFilial);
+            this.uslugi = this.getuslugi_by_specialist(null, this.activeFilial.id);
         } catch (error) {
             console.error('Ошибка при активации Филиала:', error);
         }
