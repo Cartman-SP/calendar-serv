@@ -39,22 +39,27 @@ class BranchEmployeeSerializer(serializers.ModelSerializer):
         model = BranchEmployee
         fields = ['branch', 'employee']
 
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Image
+        fields = ('image',)
+
 class BranchSerializer(serializers.ModelSerializer):
-    employees = BranchEmployeeSerializer(many=True, read_only=True)  # Используйте EmployeeSerializer для вложенной сериализации сотрудников
-    avatar = serializers.ImageField(required=False)  # Добавляем поле изображения
-    project = serializers.PrimaryKeyRelatedField(queryset=Project.objects.all())  # Добавляем поле проекта
+    employees = BranchEmployeeSerializer(many=True, read_only=True)  # Возможно, вам нужно будет создать сериализатор для BranchEmployee
+    avatar = serializers.ImageField(required=False)
+    project = serializers.PrimaryKeyRelatedField(queryset=Project.objects.all())
+    images = ImageSerializer(many=True, read_only=True)
 
     class Meta:
         model = Branch
-        fields = ['id', 'country', 'city', 'address', 'name', 'active_days', 'work_hours', 'timeout', 'business', 'phone', 'user', 'project', 'avatar', 'employees']
+        fields = ['id', 'country', 'city', 'address', 'name', 'active_days', 'work_hours', 'timeout', 'business', 'phone', 'user', 'project', 'avatar', 'employees', 'images']
 
     def create(self, validated_data):
-        avatar = validated_data.pop('avatar', None)
-        instance = super().create(validated_data)
-        if avatar:
-            instance.avatar = avatar
-            instance.save()
-        return instance
+        images_data = self.context.get('request').FILES.getlist('images')  # Получение изображений из запроса
+        branch = Branch.objects.create(**validated_data)
+        for image_data in images_data:
+            Image.objects.create(branch=branch, image=image_data)
+        return branch
 
     
 
