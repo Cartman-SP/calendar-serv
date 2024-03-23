@@ -768,7 +768,7 @@ export default {
             console.log(response);
             return response.data;
         } catch (error) {
-            console.error('Ошибка при получении данных о Филиале:', error);
+            console.error('Ошибка при получении данных о специалистах:', error);
             throw error;
         }
     },
@@ -833,6 +833,12 @@ export default {
               this.uslugi.pop(); 
             }
             this.uslugi = await this.getuslugi_by_specialist(0, filialData.id);
+
+            while (this.employees.length > 0){
+              this.employees.pop(); 
+            }
+            this.employees = await this.getspecialist_by_usluga(0, filialData.id);
+            console.log(this.employees)
         } catch (error) {
             console.error('Ошибка при активации Филиала:', error);
         }
