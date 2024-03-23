@@ -581,7 +581,14 @@ export default {
         formData.append('user_id', this.$store.state.registrationData.user_id)
         formData.append('phone', this.selectedPhone)
         formData.append('project', this.$store.state.activeProjectId)
-        formData.append('employees', '1,2,3')                  /// ВОТ ЗДЕСЬ НАДО ЕБАНУТЬ ВЫБРАННЫХ СОТРУДНИКОВ В ВИДЕ СТРОКИ ЧЕРЕЗ ЗАПЯТУЮ
+        
+        let idString = "";
+        this.filteredChips.forEach(chip => {
+            idString += chip.id + ",";
+        });
+        idString = idString.slice(0, -1);
+
+        formData.append('employees', idString)                  /// ВОТ ЗДЕСЬ НАДО ЕБАНУТЬ ВЫБРАННЫХ СОТРУДНИКОВ В ВИДЕ СТРОКИ ЧЕРЕЗ ЗАПЯТУЮ
         // Добавляем каждое изображение в FormData
         for (let i = 0; i < this.uploadedImages.length; i++) {
           // Преобразовываем изображение в объект типа File

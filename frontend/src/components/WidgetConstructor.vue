@@ -238,12 +238,12 @@
           </div>
         </div>
 
-        <div class="employees_card" v-for="e in Widget.employees" :key="e.id">
+        <div class="employees_card" v-for="e in employees" :key="e.id">
           <div class="employees_compo-wrapper">
             <img src="../../static/img/barber.svg" alt="">
             <div class="employees_container">
-              <p class="employees_text">{{ e.name }}</p>
-              <p class="employees_subtext">{{ e.work }}</p>
+              <p class="employees_text">{{ e.firstname + ' ' + e.secondname }}</p>
+              <p class="employees_subtext">{{ e.rank }}</p>
             </div>
 
           </div>
@@ -266,7 +266,7 @@
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M13.1279 11.4195L14.6225 16.1422C14.8173 16.7577 14.0785 17.2519 13.5486 16.8606L9.7241 14.0367C9.33946 13.7277 8.66054 13.7277 8.27591 14.0367L4.45137 16.8606C3.92148 17.2519 3.18269 16.7577 3.37747 16.1422L4.87213 11.4195C4.99604 11.0014 4.75434 10.3846 4.37907 10.1434L0.276429 7.15708C-0.253536 6.77131 0.0294735 5.95727 0.693556 5.95727H5.582C6.04508 5.95727 6.52774 5.55867 6.65496 5.12944L8.41615 0.440352C8.64216 -0.1614 9.53202 -0.141467 9.7288 0.469756L11.2426 5.1728C11.3698 5.60204 11.8371 5.95727 12.3001 5.95727H17.3064C17.9705 5.95727 18.2535 6.77131 17.7236 7.15708L13.6209 10.1434C13.2457 10.3846 13.004 11.0014 13.1279 11.4195ZM13.0512 9.32131L16.2989 6.95727H12.3001C11.398 6.95727 10.5455 6.3166 10.2878 5.47017L9.04518 1.60965L7.60128 5.45397C7.46294 5.88503 7.17789 6.24179 6.86355 6.48962C6.53959 6.74502 6.09137 6.95727 5.582 6.95727H1.70114L4.94884 9.32131C5.34504 9.58694 5.6032 9.98792 5.74502 10.3532C5.88916 10.7246 5.97464 11.2187 5.83091 11.7036L5.8283 11.7124L4.63541 15.4817L7.66859 13.2421C8.07252 12.926 8.5664 12.8049 9 12.8049C9.43362 12.8049 9.9275 12.926 10.3314 13.2421L13.3646 15.4817L12.1717 11.7124L12.1691 11.7036C12.0254 11.2187 12.1108 10.7246 12.255 10.3532C12.3968 9.9879 12.655 9.58693 13.0512 9.32131Z" fill="#AFB6C1"/>
                 </svg>
               </div>
-              <p class="employees_rate_text">{{ e.reviews }} отзывов</p>
+              <p class="employees_rate_text">{{ e.reviews || 'NaN' }} отзывов</p>
             </div>
             <button v-if="!selectedEmployees.includes(e)" @click="EmployeeSelected(e)" class="btn-wrapper">Выбрать</button>
             <div v-else class="delete">
@@ -317,12 +317,12 @@
           </svg>
         </div>
         <div 
-          v-for="d in selectedEmployees[0].availableRegistrationData" 
-          :key="d.day" 
-          :style="{ background: selectedDay.day === d.day ? 'var(--color-global)' : 'var(--color-gray)', color: selectedDay.day === d.day ? '#FFFFFF' : 'var(--color-text)' }"
+          v-for="d in selectedDays"
+          :key="d" 
+          :style="{ background: selectedDay === d ? 'var(--color-global)' : 'var(--color-gray)'}"
           class="calendar_numbers" @click="selectedDay = d">
-          <p class="calendar_numbers_head">{{ d.day }}</p>
-          <p class="calendar_numbers_sub">дек</p>
+          <p :style="{color: selectedDay === d ? '#FFFFFF' : 'var(--color-text)'}" class="calendar_numbers_head">{{ d }}</p>
+          <p :style="{color: selectedDay === d ? '#FFFFFF' : 'var(--color-text)'}" class="calendar_numbers_sub">дек</p>
         </div>
       </div>
 
@@ -331,7 +331,7 @@
           <div class="calendar_compo-wrapper">
             <img src="../../static/img/barber.svg" alt="">
             <div class="calendar_container">
-              <p class="calendar_text">{{ selectedUslugi[0].name }} у {{ selectedEmployees[0].name }}</p>
+              <p class="calendar_text">{{ selectedUslugi[0].name }} у {{ selectedEmployees[0].firstname + ' ' + selectedEmployees[0].secondname }}</p>
               <div class="tariff">
                 <div class="tariff-item">
                   <p class="tariff_text">{{ selectedUslugi[0].cost }}</p>
@@ -410,7 +410,7 @@
               <div class="data_info_card">
                 <img src="../../static/img/data.png" alt="" class="data_img">
                 <div class="data_info_container">
-                  <p class="data_info_head">{{ selectedEmployees[0].name }}</p>
+                  <p class="data_info_head">{{ selectedEmployees[0].firstname }}</p>
                   <p class="data_info_sub">Ваш мастер</p>
                 </div>    
               </div>
@@ -626,6 +626,7 @@ export default {
 
       Filials: [],
       uslugi: [],
+      employees:[],
 
 
       Mark: false,
@@ -643,10 +644,6 @@ export default {
         "http://127.0.0.1:8000" + '/media/service_covers/kraska_razvody_rozovyj_136631_3840x2160_93Z7A8z.jpg',
       ],
       currentImageIndex: 0,
-
-      Widget:{
-        employees:[],
-      },
 
       activeFilial: {},
       activeUslugi: false,
@@ -686,6 +683,12 @@ export default {
     },
     computedPlaceholder() {
       return this.selectedCountry ? this.selectedCountry.code + ' |' : '+7 |';
+    },
+    selectedDays() {
+      if (!this.selectedEmployees[0] || !this.selectedEmployees[0].days) {
+        return [];
+      }
+      return this.selectedEmployees[0].days.split(",");
     },
   },
   watch: {
@@ -749,25 +752,28 @@ export default {
             const employee_id = ei;
             const filial_id = fi;
             const response = await axios.get(`http://127.0.0.1:8000/api/getuslugi_by_specialist/?filial=${filial_id}&employee=${employee_id}`);
+            console.log(response, fi)
             return response.data;
         } catch (error) {
             console.error('Ошибка при получении данных о услугах:', error);
             throw error;
         }
     },
- 
 
-    getspecialist_by_usluga(){
-      const usluga_id = 0
-      const filial_id = 1
-      axios.get(`http://127.0.0.1:8000/api/getspecialist_by_usluga/?filial=${filial_id}&usluga=${usluga_id}`)
-        .then(response => {
-            console.log(response)
-        })
-        .catch(error => {
+    async getspecialist_by_usluga(ui, fi) {
+        try {
+            const usluga_id = ui;
+            const filial_id = fi;
+            const response = await axios.get(`http://127.0.0.1:8000/api/getspecialist_by_usluga/?filial=${filial_id}&usluga=${usluga_id}`);
+            console.log(response);
+            return response.data;
+        } catch (error) {
             console.error('Ошибка при получении данных о Филиале:', error);
-        });
+            throw error;
+        }
     },
+
+
 
     onResize(event) {
       this.setSize(event.target.innerWidth);
@@ -832,11 +838,16 @@ export default {
         }
     },
 
-    UslugaSelected(data){
+    async UslugaSelected(data){
       while(this.selectedUslugi.length > 0) {
         this.selectedUslugi.pop();
       }
       this.selectedUslugi.push(data);
+      while (this.employees.length > 0){
+          this.employees.pop(); 
+      }
+      this.employees = await this.getspecialist_by_usluga(data.id, this.activeFilial.id);
+      console.log(this.employees)
     },
 
     UslugaDeleting(data) {
@@ -1383,6 +1394,7 @@ p{
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   width: 540px;
+  height: 100%;
   overflow: scroll;
 }
 .employees_card{
@@ -1393,6 +1405,7 @@ p{
   border-radius: 10px;
   padding: 10px;
   width: 255px;
+  height: fit-content;
 }
 .employees_compo-wrapper{
   display: flex;
@@ -1510,7 +1523,7 @@ p{
   border-radius: 10px;
   padding: 10px;
   width: 100%;
-  height: 110px;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -2430,6 +2443,7 @@ input{
     background: var(--color-gray);
   }
   .employees_card_container{
+    height: 100%;
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(1, 1fr);
@@ -2439,6 +2453,7 @@ input{
     overflow: scroll;
   }
   .employees_card{
+    height: fit-content;
     display: flex;
     flex-direction: column;
     gap: 10px;
