@@ -647,15 +647,14 @@ def change_mail(request):
 
         return Response({'message': 'Email changed successfully'}, status=status.HTTP_200_OK)
     
-
 @api_view(['GET'])
 def get_filial_by_id(request):
     if request.method == 'GET':
         id = request.GET.get('variable')
-        print(request.GET)
-        branch = Branch.objects.get(id = id)
+        branch = Branch.objects.get(id=id)
         serializer = BranchSerializer(branch)
         return Response(serializer.data)
+    
     
 @api_view(['GET'])
 def getuslugi_by_specialist(request):
