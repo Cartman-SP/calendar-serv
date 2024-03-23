@@ -744,18 +744,18 @@ export default {
     },
 
 
-    async getuslugi_by_specialist(ei, fi){ 
- /// возвращает все услуги по филиалам и сотрудникам, если сотрудников нет, то возвращает все услуги филиала
-      const employee_id = ei
-      const filial_id = fi
-      await axios.get(`http://127.0.0.1:8000/api/getuslugi_by_specialist/?filial=${filial_id}&employee=${employee_id}`)
-        .then(response => {
-          return response
-        })
-        .catch(error => {
-            console.error('Ошибка при получении данных о Филиале:', error);
-        });
-      },  
+    async getuslugi_by_specialist(ei, fi) {
+        try {
+            const employee_id = ei;
+            const filial_id = fi;
+            const response = await axios.get(`http://127.0.0.1:8000/api/getuslugi_by_specialist/?filial=${filial_id}&employee=${employee_id}`);
+            return response.data;
+        } catch (error) {
+            console.error('Ошибка при получении данных о услугах:', error);
+            throw error;
+        }
+    },
+ 
 
     getspecialist_by_usluga(){
       const usluga_id = 0
@@ -826,8 +826,7 @@ export default {
             while (this.uslugi.length > 0){
               this.uslugi.pop(); 
             }
-            this.uslugi.push(this.getuslugi_by_specialist(0, this.activeFilial.id));
-            console.log(this.uslugi)
+            this.uslugi = await this.getuslugi_by_specialist(0, filialData.id);
         } catch (error) {
             console.error('Ошибка при активации Филиала:', error);
         }
@@ -1248,6 +1247,7 @@ p{
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   width: 540px;
+  height: 100%;
   overflow: scroll;
 }
 .favor_card{
@@ -2296,6 +2296,7 @@ input{
     background: var(--color-main);
   }
   .favor_card_container{
+    height: 100%;
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(1, 1fr);
