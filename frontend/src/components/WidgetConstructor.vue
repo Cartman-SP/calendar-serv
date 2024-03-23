@@ -718,7 +718,7 @@ export default {
     // Запускаем функцию для автоматического переключения изображений
     this.startImageSlider();
     this.updateColors();
-    
+    this.filialsAddToArray()
   },
   methods: {
     async filialsAddToArray(){

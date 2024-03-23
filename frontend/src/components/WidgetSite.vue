@@ -1037,6 +1037,46 @@ export default {
   --color-shadow: rgb(21, 20, 29);
 }
 
+input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  /* Для Webkit (Chrome, Safari) */
+  input::-webkit-inner-spin-button,
+  input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+
+*,
+html * /* override x.xhtml.ru style */ 
+{
+  scrollbar-width: thin;
+  scrollbar-color: #E5E8EB transparent;
+}
+
+*::-webkit-scrollbar,
+html *::-webkit-scrollbar {
+  height: 12px;
+  width: 12px;
+}
+*::-webkit-scrollbar-track,
+html *::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb,
+html *::-webkit-scrollbar-thumb {
+  background-color: #E5E8EB;
+  border-radius: 5px;
+  border: 3px solid transparent;
+}
+
+
+
+
+
+
 .card_back_btn-arrow{
   border: 1px solid var(--color-text);
   background: var(--color-main);
