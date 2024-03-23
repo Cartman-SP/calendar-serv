@@ -1251,6 +1251,7 @@ p{
   overflow: scroll;
 }
 .favor_card{
+  height: fit-content;
   display: flex;
   flex-direction: column;
   gap: 10px;
