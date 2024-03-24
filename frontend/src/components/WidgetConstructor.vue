@@ -752,7 +752,6 @@ export default {
             const employee_id = ei;
             const filial_id = fi;
             const response = await axios.get(`http://127.0.0.1:8000/api/getuslugi_by_specialist/?filial=${filial_id}&employee=${employee_id}`);
-            console.log(response, fi)
             return response.data;
         } catch (error) {
             console.error('Ошибка при получении данных о услугах:', error);
@@ -765,15 +764,12 @@ export default {
             const usluga_id = ui;
             const filial_id = fi;
             const response = await axios.get(`http://127.0.0.1:8000/api/getspecialist_by_usluga/?filial=${filial_id}&usluga=${usluga_id}`);
-            console.log(response);
             return response.data;
         } catch (error) {
             console.error('Ошибка при получении данных о специалистах:', error);
             throw error;
         }
     },
-
-
 
     onResize(event) {
       this.setSize(event.target.innerWidth);
@@ -863,11 +859,15 @@ export default {
         }
     },
 
-    EmployeeSelected(data){
+    async EmployeeSelected(data){
       while(this.selectedEmployees.length > 0) {
         this.selectedEmployees.pop();
       }
       this.selectedEmployees.push(data);
+      while (this.uslugi.length > 0){
+        this.uslugi.pop(); 
+      }
+      this.uslugi = await this.getuslugi_by_specialist(data.id, this.activeFilial.id);
     },
 
     EmployeeDeleting(data) {

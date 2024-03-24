@@ -59,26 +59,6 @@
                     <input type="file" style="display: none;" @change="handleImageUpload">
                     <img src="" alt="">
                   </div>
-                  <div class="img_plus" @click="uploadImage">
-                    <input type="file" style="display: none;" @change="handleImageUpload">
-                    <img src="" alt="">
-                  </div>
-                  <div class="img_plus" @click="uploadImage">
-                    <input type="file" style="display: none;" @change="handleImageUpload">
-                    <img src="" alt="">
-                  </div>
-                  <div class="img_plus" @click="uploadImage">
-                    <input type="file" style="display: none;" @change="handleImageUpload">
-                    <img src="" alt="">
-                  </div>
-                  <div class="img_plus" @click="uploadImage">
-                    <input type="file" style="display: none;" @change="handleImageUpload">
-                    <img src="" alt="">
-                  </div>
-                  <div class="img_plus" @click="uploadImage">
-                    <input type="file" style="display: none;" @change="handleImageUpload">
-                    <img src="" alt="">
-                  </div>
                 </div>
               </div>
               <div class="color_container">
@@ -650,8 +630,8 @@ select option {
   gap: 10px;
 }
 .img_plus {
-  width: 80px;
-  height: 80px;
+  width: 200px;
+  height: 100px;
   border-radius: 5px;
   border: 1px solid #D2D8DE;
   display: flex;
@@ -659,7 +639,8 @@ select option {
   justify-content: center;
   overflow: hidden;
   background: url(../../static/img/plus.svg) center center/cover no-repeat;
-  background-size: 25%;
+  background-size: 10%;
+  transition: all .2s ease;
 }
 
 .img_plus:hover{
@@ -668,8 +649,8 @@ select option {
 }
 
 .img_plus img {
-  max-width: 80px;
-  max-height: 80px;
+  max-width: 100%;
+  max-height: 100%;
 }
 .color_container{
   display: flex;

@@ -689,21 +689,6 @@ def getuslugi_by_specialist(request):
 def getspecialist_by_usluga(request):
     filial_id = int(request.GET.get('filial'))
     usluga_id = int(request.GET.get('usluga'))
-
-    if usluga_id:
-        usluga = Usluga.objects.get(id=usluga_id)
-        employees_ids = usluga.employee_set.all().values_list('id', flat=True)
-        employees = Employee.objects.filter(id__in=employees_ids)
-        serializer = EmployeeSerializer(employees, many=True)
-        return Response(serializer.data)
-    else:
-        return Response({"message": "Не указан идентификатор услуги"}, status=400)
-    
-
-@api_view(['GET'])
-def getspecialist_by_usluga(request):
-    filial_id = int(request.GET.get('filial'))
-    usluga_id = int(request.GET.get('usluga'))
     if usluga_id:
         usluga = Usluga.objects.get(id=usluga_id)
         employees_ids = usluga.employees.split(',')
@@ -716,5 +701,5 @@ def getspecialist_by_usluga(request):
         employees_ids = branch.employees_id.split(',')
         employees_ids = list(filter(bool, employees_ids))
         employees = Employee.objects.filter(id__in=employees_ids)
-        employees = EmployeeSerializer(employees, many=True)
+        serializer = EmployeeSerializer(employees, many=True)
         return Response(serializer.data)
