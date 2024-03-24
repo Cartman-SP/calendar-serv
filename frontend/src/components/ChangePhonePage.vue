@@ -28,14 +28,14 @@
           <div class="btns">
             <button v-if="showChangeButton" class="button-change_hover" @click="changePhone">Отправить код</button>
             <button v-else class="button-change">Отправить код</button>
-            <button @click="this.$parent.showModal = false" class="button-exit">Отмена</button>
+            <button @click="this.$parent.showPhone = false" class="button-exit">Отмена</button>
             <div v-if="error">{{error}}</div>
           </div>
           <p class="modal_descr">Политика конфиденциальности</p>
         </div>
       </div>
     </div>
-  </div>
+  </div>  
 </template>
 
 <script>

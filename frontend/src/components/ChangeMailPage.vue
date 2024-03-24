@@ -18,14 +18,14 @@
         <div class="button-container">
           <button v-if="showChangeButton" @click="change_email()" class="button-change_hover">Сменить Email</button>
           <button v-else class="button-change">Сменить Email</button>
-          <button @click="cancelChange" class="button-exit">Отмена</button>
+          <button @click="this.$parent.showMail = false" class="button-exit">Отмена</button>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script> 
 import axios from 'axios';
 
 export default {
@@ -34,7 +34,7 @@ export default {
       currentMail: '',
       newMail: '',
       confirmMail: '',
-      showChangeButton: false
+      showChangeButton: false,
     };
   },
   watch: {

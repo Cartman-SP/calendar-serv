@@ -161,13 +161,16 @@
                     </svg>
                   </a>
                 </div>
-                <div class="hamburger">
+                <div class="hamburger" @click="toggleSidebarMobile">
                   <svg width="1em" height="1em" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M19 17H1V15H19V17Z" fill="#AFB6C1"/>
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M19 11H1V9H19V11Z" fill="#AFB6C1"/>
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M19 5H1V3H19V5Z" fill="#AFB6C1"/>
                   </svg>
                 </div>
+            
+                <SidebarMobilePage v-if="showSidebarMobile" @close-sidebar="toggleSidebarMobile"/>
+                
                 <div class="showNotifications">
                   <a @click="showNotifications" @mouseover="showNotifications_tip = true" @mouseleave="showNotifications_tip = false">
                     <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -234,6 +237,8 @@ export default {
     components: { Tip },
     data() {
         return {
+            showSidebarMobile: false,
+
             showNotificationPanel: false,
             showPlusNotificationPanel: false,
             showGatesNotificationPanel: false,
@@ -285,6 +290,10 @@ export default {
         };
     },
     methods: {
+        toggleSidebarMobile() {
+          this.showSidebarMobile = !this.showSidebarMobile;
+        },
+
         showNotifications() {
             this.showNotificationPanel = !this.showNotificationPanel;
             this.showPlusNotificationPanel = false;
