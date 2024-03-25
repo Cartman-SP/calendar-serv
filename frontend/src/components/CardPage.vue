@@ -139,7 +139,6 @@ export default {
 
   .service_card:hover{
     filter: drop-shadow(0 0 10px rgb(228, 228, 228));
-    cursor: pointer;
   }
   .card-container{
     padding: 20px;

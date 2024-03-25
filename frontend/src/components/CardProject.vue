@@ -163,7 +163,6 @@
     }
 
     .service_card:hover{
-      cursor: pointer;
       filter: drop-shadow(0 0 10px rgb(228, 228, 228));
     }
     .card-container{

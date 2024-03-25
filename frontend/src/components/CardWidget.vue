@@ -109,6 +109,10 @@ export default {
     height: auto;
     background-color: #FFF;
     border-radius: 5px;
+    transition: all .2s ease;
+  }
+  .service_card:hover{
+    filter: drop-shadow(0 0 10px rgb(228, 228, 228));
   }
   .card-container{
     padding: 20px;

@@ -226,6 +226,11 @@ export default {
     height: 100%;
     background-color: #FFF;
     border-radius: 5px;
+    transition: all .2s ease;
+  }
+
+  .service_card:hover{
+    filter: drop-shadow(0 0 10px rgb(228, 228, 228));
   }
 
   .service_card-deleting{
