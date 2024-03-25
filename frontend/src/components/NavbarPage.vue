@@ -161,13 +161,30 @@
                     </svg>
                   </a>
                 </div>
-                <div class="hamburger">
+                <div class="hamburger" @click="visible = !visible">
+
                   <svg width="1em" height="1em" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M19 17H1V15H19V17Z" fill="#AFB6C1"/>
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M19 11H1V9H19V11Z" fill="#AFB6C1"/>
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M19 5H1V3H19V5Z" fill="#AFB6C1"/>
                   </svg>
                 </div>
+            
+                
+                <div class="card flex justify-content-center">
+                    <Sidebar style="background-color: #F3F6F8; width: 260px;" v-model:visible="visible">
+                      <SidebarMobilePage/>
+                      <template #closeicon>
+                        
+                      </template>
+                      <template #header>
+                        <div class="flex align-items-center gap-2">
+                          <img style="width: 108px;" src="../../static/img/small_logo.svg" alt="">
+                        </div>
+                      </template>
+                    </Sidebar>
+                </div>
+                
                 <div class="showNotifications">
                   <a @click="showNotifications" @mouseover="showNotifications_tip = true" @mouseleave="showNotifications_tip = false">
                     <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -229,11 +246,17 @@
 
 <script>
 import Tip from '../components/TipComponent.vue';
+import SidebarMobilePage from '../components/SidebarMobilePage.vue'
+import Sidebar from 'primevue/sidebar';
 
 export default {
-    components: { Tip },
+    components: { Tip, SidebarMobilePage, Sidebar },
     data() {
         return {
+            visible: false,
+
+            showSidebarMobile: false,
+
             showNotificationPanel: false,
             showPlusNotificationPanel: false,
             showGatesNotificationPanel: false,
@@ -285,6 +308,10 @@ export default {
         };
     },
     methods: {
+        toggleSidebarMobile() {
+          this.showSidebarMobile = !this.showSidebarMobile;
+        },
+
         showNotifications() {
             this.showNotificationPanel = !this.showNotificationPanel;
             this.showPlusNotificationPanel = false;

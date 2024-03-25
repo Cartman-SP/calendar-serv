@@ -154,8 +154,6 @@ export default {
 };
 </script>
 
-
-
   
   <style>
   .p-password{
@@ -344,7 +342,7 @@ export default {
     cursor: pointer;
   }
   
-  button {
+  /* button {
     color: var(--ffffff, #FFF);
     background:#6266EA;
     padding: 10px 20px;
@@ -357,7 +355,7 @@ export default {
     align-items: center;
     gap: 5px;
     border-radius: 3px;
-  }
+  } */
   
   .disclaimer {
     color: var(--cold-text-muted-400, #AFB6C1);

@@ -212,7 +212,7 @@ export default {
     cursor: pointer;
   }
   
-  button {
+  /* button {
     color: var(--ffffff, #FFF);
     background:#6266EA;
     border: none;
@@ -225,7 +225,7 @@ export default {
     gap: 5px;
     border-radius: 3px;
     transition: all .2s ease;
-  }
+  } */
 
   button:hover {
     background-color: #464AD9;

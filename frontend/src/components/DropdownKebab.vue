@@ -61,7 +61,7 @@ img{
     font-size: 15px;
     font-family: 'TT Norms Medium';
     background-color: white;
-    width: 1em;
+    width: 2em;
     height: 2em;
     display: flex;
     align-items: center;
@@ -72,6 +72,7 @@ img{
   }
   .dropdown:hover{
     border: 1px solid #535C69;
+    cursor: pointer;
   }
   .dropdown-menu-show {
     position: absolute;
