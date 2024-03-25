@@ -739,6 +739,7 @@ export default {
         try {
             const id = i;
             const response = await axios.get(`http://127.0.0.1:8000/api/get_filialbyid/?variable=${id}`);
+            console.log(response)
             return response.data;
         } catch (error) {
             console.error('Ошибка при получении данных о Филиале:', error);
