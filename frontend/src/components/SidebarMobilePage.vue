@@ -1,14 +1,6 @@
 <template>
   <div class="sidebar">
     <div class="main_side">
-      <router-link to="/lk/service">
-        <img src="../../static/img/logo.svg"  id="desktopLink" alt="" class="logotype">
-      </router-link>
-      <div class="mobile-logo">
-        <router-link to="/lk/service">
-          <img src="../../static/img/LogoMobile.svg" id="mobileLogo" alt="" class="logotype">
-        </router-link>
-      </div>
       <div class="content">
         <div class="top-group">
           <div class="cards-group">
@@ -355,14 +347,13 @@ export default {
 }
 .sidebar{
   position: absolute;
-  padding: 20px;
   height: 100vh;
 }
 .content{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
+  height: 89%;
 }
 .line{
   width: 100%;
@@ -370,12 +361,12 @@ export default {
   background-color: #E4EAEF;
 }
 .cards-group{
-  margin: 20px 0;
+  margin: 0px 0;
 }
+
 .main_side {
-    padding: 20px;
     background-color: #F3F6F8;
-    width: 260px;
+    width: 220px;
     border-radius: 10px;
     height: 100%;
     top: 0;

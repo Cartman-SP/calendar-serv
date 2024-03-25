@@ -157,7 +157,7 @@ export default {
 
 
   
-  <style>
+  <style scoped>
   .p-password{
     display: block;
   }
