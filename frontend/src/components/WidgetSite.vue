@@ -617,7 +617,7 @@
 
 <script>
 import SelectWidget from '../components/SelectWidget.vue';
-
+import axios from 'axios'
 export default {
   props: ['username', 'widgetname'],
   components: { SelectWidget} ,
@@ -877,10 +877,26 @@ export default {
   },
   mounted() {
     // Запускаем функцию для автоматического переключения изображений
+    this.getfilials();
     this.startImageSlider();
     this.updateColors();
   },
   methods: {
+    getfilials(){
+        axios.get(`http://127.0.0.1:8000/api/get_branch_bylink/?company=${this.username}&widget=${this.widgetname}`)
+    .then(response => {
+      console.log(this.username, this.widgetname)
+        this.Widget.filials = response.data;
+        this.filials.reverse();
+        console.log(response);
+        this.branchLoaded = true;
+        this.rerenderSidebar();
+    })
+    .catch(error => {
+        console.error('Ошибка при получении данных о пользователе:', error);
+    });
+      },
+
     onResize(event) {
       this.setSize(event.target.innerWidth);
     },

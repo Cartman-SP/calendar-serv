@@ -11,7 +11,7 @@
                 <svg width="10" height="10" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M3.5 2C2.67157 2 2 2.67157 2 3.5V16.5C2 17.3284 2.67157 18 3.5 18H16.5C17.3284 18 18 17.3284 18 16.5V11H19V16.5C19 17.8807 17.8807 19 16.5 19H3.5C2.11929 19 1 17.8807 1 16.5V3.5C1 2.11929 2.11929 1 3.5 1H9V2H3.5ZM11.8431 2H18V8.15685H17V3.70711L7.95406 12.753L7.24695 12.0459L16.2929 3H11.8431V2Z" fill="#398BFF"/>
                 </svg>
-                <a href="">{{ widgetData.link }}</a>
+                <a :href="this.link">{{ link }}</a>
               </div>
             </div>
             <div class="main_subheader">
@@ -65,6 +65,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Kebab from '../components/DropdownKebab.vue';
 export default {
   components: { Kebab },
@@ -73,6 +74,7 @@ export default {
   },
   data() {
     return {
+      link:'',
       showDropdown: false,
       showModal: false,
       buttons:[
@@ -89,6 +91,21 @@ export default {
     toggleModal() { // добавлено
       this.showModal = !this.showModal;
     },
+    get_profile(){
+      axios.post('http://127.0.0.1:8000/api/getprofile/', { user_id:  this.$store.state.registrationData.user_id})
+      .then(response => {
+
+        this.link = 'http://localhost:8080/#/widget/' + response.data.profile.company_name + '/' + this.widgetData.name 
+
+      })
+      .catch(error => {
+        // Ошибка при получении данных
+        console.error('Ошибка при получении данных о пользователе:', error);
+      });
+    },
+  },
+  mounted(){
+    this.get_profile()
   }
 };
 </script>

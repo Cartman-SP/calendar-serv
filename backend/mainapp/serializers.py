@@ -88,6 +88,12 @@ class WidgetSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'place_ammount': {'required': False},
             'rent_ammount': {'required': False},
+            'telegramlink':{'required': False},
+            'instagramlink':{'required': False},
+            'whatsapplink':{'required': False},
+            'vklink':{'required': False},
+            'ogranichenie':{'required': False},
+            'interval':{'required': False},
         }
     def create(self, validated_data):
         images_data = self.context.get('request').FILES.getlist('images[]')

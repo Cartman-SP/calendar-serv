@@ -13,6 +13,20 @@ export default {
 </script>
 
 <style>
+button {
+  color: var(--ffffff, #FFF);
+  background:#6266EA;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  height: 36px;
+  padding: 10px 14px;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  border-radius: 3px;
+  transition: all .2s ease;
+}
 input[type="number"] {
     -moz-appearance: textfield;
   }

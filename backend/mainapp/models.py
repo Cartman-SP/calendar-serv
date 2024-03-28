@@ -6,7 +6,7 @@ from django.contrib import admin
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
-    company_name = models.CharField(max_length=255)
+    company_name = models.CharField(max_length=255, unique = True)
     timezone = models.CharField(max_length=50)
     currency = models.CharField(max_length=10)
     avatar = models.ImageField(upload_to='avatars/', default='avatars/default_avatar.svg')
@@ -98,7 +98,6 @@ class BranchType(models.Model):
 
 class Widget(models.Model):
     language = models.CharField(max_length=100)
-    link = models.URLField()
     design = models.CharField(max_length=100)
     text = models.TextField()
     plashka = models.CharField(max_length=100)
@@ -119,8 +118,10 @@ class Widget(models.Model):
     isinstagram = models.BooleanField(default=False)
     telegramlink = models.CharField(max_length=100)
     istelegram = models.BooleanField(default=False)
-    name = models.CharField(max_length=100)
-    # Другие поля по вашему выбору
+    name = models.CharField(max_length=100, unique = True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete = models.CASCADE)
+    branches = models.CharField(max_length=10000)
 
 class WidgetImage(models.Model):
     widget = models.ForeignKey(Widget, related_name='images', on_delete=models.CASCADE)

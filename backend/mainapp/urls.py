@@ -30,5 +30,7 @@ urlpatterns = [
     path('change_mail/',change_mail,name="change_mail"),
     path('get_filialbyid/',get_filial_by_id, name='get_filialbyid/'),
     path('getuslugi_by_specialist/',getuslugi_by_specialist,name='getuslugi_by_specialist'),
-    path('getspecialist_by_usluga/',getspecialist_by_usluga,name='getspecialist_by_usluga')
+    path('getspecialist_by_usluga/',getspecialist_by_usluga,name='getspecialist_by_usluga'),
+    path('get_widget/', get_widget, name = 'get_widget'),
+    path('get_branch_bylink/', get_branch_bylink, name='get_branch_bylink'),
 ]

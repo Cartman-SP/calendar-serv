@@ -703,3 +703,26 @@ def getspecialist_by_usluga(request):
         employees = Employee.objects.filter(id__in=employees_ids)
         serializer = EmployeeSerializer(employees, many=True)
         return Response(serializer.data)
+    
+@api_view(['GET'])
+def get_widget(request):
+    if request.method == 'GET':
+        user_id = request.GET.get('variable')
+        project = request.GET.get('project')
+        print(request.GET)
+        branches = Widget.objects.filter(user=user_id,project=project)
+        serializer = WidgetSerializer(branches, many=True)
+        return Response(serializer.data)
+    
+@api_view(['GET'])
+def get_branch_bylink(request):
+    if request.method == 'GET':
+        company = request.GET.get('company')
+        widget_name = request.GET.get('widget')
+        profile = Profile.objects.get(company_name = company)
+        user = profile.user
+        widget = Widget.objects.get(user = user, name = widget_name)
+        print(widget.branches)
+        branches = Branch.objects.filter(user=user_id,project=project)
+        serializer = BranchSerializer(branches, many=True)
+        return Response(serializer.data)

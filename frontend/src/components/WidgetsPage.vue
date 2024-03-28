@@ -24,11 +24,12 @@
 
   <script>
 import CardWidget from '../components/CardWidget.vue';
-
+import axios from 'axios';
 export default {
   components: { CardWidget },
     data() {
       return{
+        link:'',
         allwidgets:[
           {
             name: 'qwdqwd',
@@ -50,6 +51,22 @@ export default {
           },
         ]
       };
+    },
+    methods:{
+      getwidgets(){
+        axios.get(`http://127.0.0.1:8000/api/get_widget/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`)
+    .then(response => {
+        this.allwidgets = response.data;
+        this.allwidgets.reverse();
+
+    })
+    .catch(error => {
+        console.error('Ошибка при получении данных о пользователе:', error);
+    });
+      },
+    },
+    mounted(){
+      this.getwidgets()
     }
   }
   </script>

@@ -169,11 +169,11 @@ const routes = [
   },
   {
     // Маршрут для виджета
-    path: '/widget/:user/:widgetname',
+    path: '/widget/:username/:widgetname',
     name: 'widget',
     component: WidgetSite,
     props: route => ({
-      user: route.params.user,
+      username: route.params.username,
       widgetname: route.params.widgetname
     })
   },

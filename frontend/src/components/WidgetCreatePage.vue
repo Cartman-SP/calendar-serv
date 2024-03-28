@@ -276,7 +276,7 @@ export default {
     save(){
       const formData = new FormData();
       formData.append('language', this.selectedLanguage);
-      formData.append('link', this.widgetLink);
+      //formData.append('link', this.widgetLink);
       formData.append('design', this.widgetDesign);
       formData.append('text', this.widget.Text);
       formData.append('plashka', this.widget.Plashka);
@@ -289,12 +289,14 @@ export default {
       formData.append('employee', this.switches.employee);
       formData.append('company', this.switches.company);
       formData.append('fedback', this.switches.feedback);
-      formData.append('branches', this.chips);
-      formData.append('name', this.widgetName);      
+      formData.append('branches',  Object.values(this.chips).map(item => item.id).join(','));
+      formData.append('name', this.widgetName);
+      formData.append('user', this.$store.state.registrationData.user_id);
+      formData.append('project', this.$store.state.activeProjectId)      
       this.selectedImages.forEach(image => {formData.append('images[]', image);});
       axios.post('http://127.0.0.1:8000/api/widget_create/', formData)
       .then(response => {
-        // Обработка успешного ответа
+        this.$router.push('/lk/widgets/')
         console.log(response);
       })
       .catch(error => {
