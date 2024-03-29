@@ -3,9 +3,6 @@
         <div class="navigation">
             <SidebarPage/>
             <div class="lk">
-              <div style="display: flex; gap: 20px;">
-                <WidgetSite v-show="false"></WidgetSite>
-              </div>
                 <NavbarPage/>
                 <ModalPage v-if="showModal" @regdone="showModal = !showModal" :result="modalResult" @closeModal="closeModal" />
                 <router-view v-else></router-view>
@@ -19,10 +16,9 @@ import ModalPage from './ModalPage.vue';
 import axios from 'axios';
 import NavbarPage from './NavbarPage.vue';
 import SidebarPage from './SidebarPage.vue';
-import WidgetSite from './WidgetSite.vue';
 
 export default {
-    components: { NavbarPage, SidebarPage, ModalPage, WidgetSite},
+    components: { NavbarPage, SidebarPage, ModalPage},
     data() {
     return {
       showModal: false,
