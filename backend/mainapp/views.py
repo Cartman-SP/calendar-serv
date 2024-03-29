@@ -722,7 +722,7 @@ def get_branch_bylink(request):
         profile = Profile.objects.get(company_name = company)
         user = profile.user
         widget = Widget.objects.get(user = user, name = widget_name)
-        print(widget.branches)
-        branches = Branch.objects.filter(user=user_id,project=project)
+        ids = widget.branches.split(',')
+        branches = Branch.objects.filter(id__in=ids)
         serializer = BranchSerializer(branches, many=True)
         return Response(serializer.data)

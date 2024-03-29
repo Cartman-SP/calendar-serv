@@ -118,10 +118,15 @@ class Widget(models.Model):
     isinstagram = models.BooleanField(default=False)
     telegramlink = models.CharField(max_length=100)
     istelegram = models.BooleanField(default=False)
-    name = models.CharField(max_length=100, unique = True)
+    name = models.CharField(max_length=100)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    project = models.ForeignKey(Project, on_delete = models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
     branches = models.CharField(max_length=10000)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'name'], name='unique_user_widget_name')
+        ]
 
 class WidgetImage(models.Model):
     widget = models.ForeignKey(Widget, related_name='images', on_delete=models.CASCADE)
