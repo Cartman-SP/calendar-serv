@@ -1,6 +1,6 @@
 <template>
   <div class="main" :id="colortheme">
-    
+
 
     <div class="compo-container" style="background-size: cover; background-image: url(https://archdetali.ru/upload/iblock/512/512be4da7bbced5434e0b0fdc211cd8d.jpg);">
       <div class="compo-wrap">
@@ -14,7 +14,7 @@
         <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M2 7.98124C2 3.52416 5.53247 0 10 0C14.3636 0 18 3.62781 18 7.98124C18 13.3347 10 20 10 20C10 20 2 13.4383 2 7.98124ZM10 11C11.6569 11 13 9.65685 13 8C13 6.34315 11.6569 5 10 5C8.34315 5 7 6.34315 7 8C7 9.65685 8.34315 11 10 11Z" fill="white"/>
         </svg>
-        <p class="compo-text">{{ activeFilial.adress }}</p>
+        <p class="compo-text">{{ activeFilial.address }}</p>
         </div>
       </div>
       <div class="divider_container">
@@ -28,7 +28,7 @@
         <input type="text" placeholder="Введите название улицы или филиала">
       </div>
       <div class="branch_card">
-        <div class="card" v-for="filial in Widget.filials" :key="filial.id" @click="activateFilial(filial)">
+        <div class="card" v-for="filial in Filials" :key="filial.id" @click="activateFilial(filial)">
           <div class="card-image">
             <img src="../../static/img/map.png" alt="">
           </div>
@@ -38,7 +38,7 @@
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path :style="activeFilial.name === filial.name ? { 'fill': 'var(--color-text)' } : {}" fill-rule="evenodd" clip-rule="evenodd" d="M1.2002 4.78875C1.2002 2.11449 3.31968 0 6.0002 0C8.61838 0 10.8002 2.17669 10.8002 4.78875C10.8002 8.00081 6.0002 12 6.0002 12C6.0002 12 1.2002 8.063 1.2002 4.78875ZM6.0002 6.6C6.99431 6.6 7.8002 5.79411 7.8002 4.8C7.8002 3.80589 6.99431 3 6.0002 3C5.00608 3 4.2002 3.80589 4.2002 4.8C4.2002 5.79411 5.00608 6.6 6.0002 6.6Z" fill="#AFB6C1"/>
               </svg>
-              <p class="card_address" :style="activeFilial.name === filial.name ? { 'color': 'var(--color-text)' } : {}">{{filial.adress}}</p>
+              <p class="card_address" :style="activeFilial.name === filial.name ? { 'color': 'var(--color-text)' } : {}">{{filial.address}}</p>
             </div>
             <div class="card_time_container">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -51,9 +51,9 @@
       </div>
       <div class="card_next">
         <div class="card_next_container">
-          <p class="card_next_text">{{ widgetname }}</p>
+          <p class="card_next_text">Выбор филиала</p>
           <div class="divider"></div>
-          <p class="card_next_subtext">Всего филиалов: <span class="card_number">{{ Widget.filials.length }}</span></p>
+          <p class="card_next_subtext">Всего филиалов: <span class="card_number">{{ Filials.length }}</span></p>
         </div>
         <div class="card_btn">
           <button :class="{'card_next_btn-disabled' : !activeFilial.name, 'card_next_btn-active' : activeFilial.name}" @click="showChoice">{{size === 'desktop' ? 'Продолжить' : 'Далее'}}</button>
@@ -66,7 +66,7 @@
 
       <div class="choice_overview ">
         <div class="choice_rate_container">
-          <p class="choice_rate">{{activeFilial.rating}}</p>
+          <p class="choice_rate">{{'0.0'}}</p>
           <div class="choice_star_container">
             <div class="stars">
               <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -155,7 +155,7 @@
         <input type="text" placeholder="Введите название улицы или филиала">
       </div>
       <div class="favor_card_container">
-        <div class="favor_card" v-for="u in Widget.uslugi" :key="u.id">
+        <div class="favor_card" v-for="u in uslugi" :key="u.id">
           <div class="favor_compo-wrapper">
             <img src="../../static/img/barber.svg" alt="">
             <p class="favor_text">{{u.name}}</p>
@@ -238,12 +238,12 @@
           </div>
         </div>
 
-        <div class="employees_card" v-for="e in Widget.employees" :key="e.id">
+        <div class="employees_card" v-for="e in employees" :key="e.id">
           <div class="employees_compo-wrapper">
             <img src="../../static/img/barber.svg" alt="">
             <div class="employees_container">
-              <p class="employees_text">{{ e.name }}</p>
-              <p class="employees_subtext">{{ e.work }}</p>
+              <p class="employees_text">{{ e.firstname + ' ' + e.secondname }}</p>
+              <p class="employees_subtext">{{ e.rank }}</p>
             </div>
 
           </div>
@@ -266,7 +266,7 @@
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M13.1279 11.4195L14.6225 16.1422C14.8173 16.7577 14.0785 17.2519 13.5486 16.8606L9.7241 14.0367C9.33946 13.7277 8.66054 13.7277 8.27591 14.0367L4.45137 16.8606C3.92148 17.2519 3.18269 16.7577 3.37747 16.1422L4.87213 11.4195C4.99604 11.0014 4.75434 10.3846 4.37907 10.1434L0.276429 7.15708C-0.253536 6.77131 0.0294735 5.95727 0.693556 5.95727H5.582C6.04508 5.95727 6.52774 5.55867 6.65496 5.12944L8.41615 0.440352C8.64216 -0.1614 9.53202 -0.141467 9.7288 0.469756L11.2426 5.1728C11.3698 5.60204 11.8371 5.95727 12.3001 5.95727H17.3064C17.9705 5.95727 18.2535 6.77131 17.7236 7.15708L13.6209 10.1434C13.2457 10.3846 13.004 11.0014 13.1279 11.4195ZM13.0512 9.32131L16.2989 6.95727H12.3001C11.398 6.95727 10.5455 6.3166 10.2878 5.47017L9.04518 1.60965L7.60128 5.45397C7.46294 5.88503 7.17789 6.24179 6.86355 6.48962C6.53959 6.74502 6.09137 6.95727 5.582 6.95727H1.70114L4.94884 9.32131C5.34504 9.58694 5.6032 9.98792 5.74502 10.3532C5.88916 10.7246 5.97464 11.2187 5.83091 11.7036L5.8283 11.7124L4.63541 15.4817L7.66859 13.2421C8.07252 12.926 8.5664 12.8049 9 12.8049C9.43362 12.8049 9.9275 12.926 10.3314 13.2421L13.3646 15.4817L12.1717 11.7124L12.1691 11.7036C12.0254 11.2187 12.1108 10.7246 12.255 10.3532C12.3968 9.9879 12.655 9.58693 13.0512 9.32131Z" fill="#AFB6C1"/>
                 </svg>
               </div>
-              <p class="employees_rate_text">{{ e.reviews }} отзывов</p>
+              <p class="employees_rate_text">{{ e.reviews || 'NaN' }} отзывов</p>
             </div>
             <button v-if="!selectedEmployees.includes(e)" @click="EmployeeSelected(e)" class="btn-wrapper">Выбрать</button>
             <div v-else class="delete">
@@ -317,12 +317,12 @@
           </svg>
         </div>
         <div 
-          v-for="d in selectedEmployees[0].availableRegistrationData" 
-          :key="d.day" 
-          :style="{ background: selectedDay.day === d.day ? 'var(--color-global)' : 'var(--color-gray)', color: selectedDay.day === d.day ? '#FFFFFF' : 'var(--color-text)' }"
+          v-for="d in selectedDays"
+          :key="d" 
+          :style="{ background: selectedDay === d ? 'var(--color-global)' : 'var(--color-gray)'}"
           class="calendar_numbers" @click="selectedDay = d">
-          <p class="calendar_numbers_head">{{ d.day }}</p>
-          <p class="calendar_numbers_sub">дек</p>
+          <p :style="{color: selectedDay === d ? '#FFFFFF' : 'var(--color-text)'}" class="calendar_numbers_head">{{ d }}</p>
+          <p :style="{color: selectedDay === d ? '#FFFFFF' : 'var(--color-text)'}" class="calendar_numbers_sub">дек</p>
         </div>
       </div>
 
@@ -331,7 +331,7 @@
           <div class="calendar_compo-wrapper">
             <img src="../../static/img/barber.svg" alt="">
             <div class="calendar_container">
-              <p class="calendar_text">{{ selectedUslugi[0].name }} у {{ selectedEmployees[0].name }}</p>
+              <p class="calendar_text">{{ selectedUslugi[0].name }} у {{ selectedEmployees[0].firstname + ' ' + selectedEmployees[0].secondname }}</p>
               <div class="tariff">
                 <div class="tariff-item">
                   <p class="tariff_text">{{ selectedUslugi[0].cost }}</p>
@@ -410,7 +410,7 @@
               <div class="data_info_card">
                 <img src="../../static/img/data.png" alt="" class="data_img">
                 <div class="data_info_container">
-                  <p class="data_info_head">{{ selectedEmployees[0].name }}</p>
+                  <p class="data_info_head">{{ selectedEmployees[0].firstname }}</p>
                   <p class="data_info_sub">Ваш мастер</p>
                 </div>    
               </div>
@@ -573,7 +573,6 @@
               </div>    
             </div>
           </div>
-      
           <div class="divider_dotted_container">
             <div class="divider_dotted"></div>
           </div>
@@ -625,10 +624,14 @@ export default {
     return {
       size: '',
 
+      Filials: [],
+      uslugi: [],
+      employees:[],
+
       Mark: false,
       currentPage: 'branch',
       selectedCountry: null,
-      value: '7 ', // Начальное значение для InputMaskComponent
+      value: '', // Начальное значение для InputMaskComponent
       countries: [
         { name: '🇷🇺', code: '+7' },
         { name: '🇧🇾', code: '+375' },
@@ -641,187 +644,6 @@ export default {
       ],
       currentImageIndex: 0,
 
-      Widget:{
-        filials:[
-          {
-            id: '1',
-            name: 'Кофейня на Лесной',
-            adress: 'ул. Лесная, дом 23',
-            available_date: '29.07.23',
-            available_time: '18:30',
-            phone: '+71234567890',
-            work_days: 'Пн—Вс',
-            work_hours: 'с 9:00 до 20:00',
-            rating: '4.5',
-          },
-          {
-            id: '2',
-            name: 'Кофейня на Пушкина',
-            adress: 'ул. Пушкина, дом 7',
-            available_date: '29.07.23',
-            available_time: '18:30',
-            phone: '+71256385890',
-            work_days: 'Пн—Вс',
-            work_hours: 'с 9:00 до 20:00',
-            rating: '4.3',
-          },
-          {
-            id: '3',
-            name: 'Кофейня в Митино',
-            adress: 'ул. Митинская, дом 11',
-            available_date: '29.07.23',
-            available_time: '18:30',
-            phone: '+71283941890',
-            work_days: 'Пн—Вс',
-            work_hours: 'с 9:00 до 20:00',
-            rating: '3.7',
-          },
-        ],
-        uslugi:[
-        {
-            id: '1',
-            name: 'Стрижка',
-            cost: '650',
-            time: '1 час',
-          },
-          {
-            id: '2',
-            name: 'Маникюр',
-            cost: '5900',
-            time: '2 часа 15 минут',
-          },
-          {
-            id: '3',
-            name: 'Массаж',
-            cost: '2500',
-            time: '30 минут',
-          },
-          {
-            id: '4',
-            name: 'Быстро покромсать волосы',
-            cost: '250',
-            time: '15 минут',
-          },
-          {
-            id: '5',
-            name: 'Поздароваться с Ахмедом',
-            cost: '100',
-            time: '5 минут',
-          },
-          {
-            id: '6',
-            name: 'Массаж плюс',
-            cost: '4700',
-            time: '1 час 30 минут',
-          },
-        ],
-        employees:[
-        {
-            id: '1',
-            name: 'Юлия Дайценко',
-            work: 'Барбер',
-            reviews: '23',
-            availableRegistrationData:[
-              {
-                day: 'Пн',
-                time: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
-              },
-              {
-                day: 'Вт',
-                time: ['14:00', '15:00', '16:00', '17:00']
-              },
-              {
-                day: 'Чт',
-                time: ['13:00', '14:00', '15:00']
-              },
-              {
-                day: 'Пн',
-                time: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
-              },
-              {
-                day: 'Вт',
-                time: ['14:00', '15:00', '16:00', '17:00']
-              },
-              {
-                day: 'Чт',
-                time: ['13:00', '14:00', '15:00']
-              },
-              {
-                day: 'Пн',
-                time: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
-              },
-              {
-                day: 'Вт',
-                time: ['14:00', '15:00', '16:00', '17:00']
-              },
-              {
-                day: 'Чт',
-                time: ['13:00', '14:00', '15:00']
-              },
-            ],
-          },
-          {
-            id: '2',
-            name: 'Месси',
-            work: 'Бекендер',
-            reviews: '3',
-            availableRegistrationData:[
-              {
-                day: 'Пн',
-                time: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
-              },
-              {
-                day: 'Вт',
-                time: ['14:00', '15:00', '16:00', '17:00']
-              },
-              {
-                day: 'Чт',
-                time: ['13:00', '14:00', '15:00']
-              },
-            ],
-          },
-          {
-            id: '3',
-            name: 'Данёк',
-            work: 'Врач',
-            reviews: '34',
-            availableRegistrationData:[
-              {
-                day: 'Пн',
-                time: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
-              },
-              {
-                day: 'Вт',
-                time: ['14:00', '15:00', '16:00', '17:00']
-              },
-              {
-                day: 'Чт',
-                time: ['13:00', '14:00', '15:00']
-              },
-            ],
-          },
-          {
-            id: '4',
-            name: 'Булкин Слава',
-            work: 'Мастер SPA',
-            reviews: '22',
-            availableRegistrationData:[
-              {
-                day: 'Пн',
-                time: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
-              },
-              {
-                day: 'Вт',
-                time: ['14:00', '15:00', '16:00', '17:00']
-              },
-              {
-                day: 'Чт',
-                time: ['13:00', '14:00', '15:00']
-              },
-            ],
-          },
-        ],
-      },
 
       activeFilial: {},
       activeUslugi: false,
@@ -874,28 +696,72 @@ export default {
         this.value = newCountry.code + ' ' + this.value.replace(/^\s*\+\d\s*\|\s*/, '');
       }
     },
+
   },
   mounted() {
     // Запускаем функцию для автоматического переключения изображений
-    this.getfilials();
     this.startImageSlider();
     this.updateColors();
+    this.getfilial()
+    this.filialsAddToArray()
   },
   methods: {
-    getfilials(){
-        axios.get(`http://127.0.0.1:8000/api/get_branch_bylink/?company=${this.username}&widget=${this.widgetname}`)
-    .then(response => {
-      console.log(this.username, this.widgetname)
-        this.Widget.filials = response.data;
-        this.filials.reverse();
-        console.log(response);
-        this.branchLoaded = true;
-        this.rerenderSidebar();
-    })
-    .catch(error => {
-        console.error('Ошибка при получении данных о пользователе:', error);
-    });
-      },
+    async filialsAddToArray(){
+      while (this.Filials.length > 0){
+        this.Filials.pop(); 
+      } 
+      try {
+        // Ожидаем разрешения Promise
+        let filialsArray = await this.getfilial();
+        
+        // Перебираем каждый словарь в массиве
+        for (let f of filialsArray) {
+            // Добавляем в массив Filials целиком
+            this.Filials.push(f);
+            
+            // Выводим массив Filials в консоль (для отладки)
+            console.log('Filials:', this.Filials);
+        }
+      } catch (error) {
+          console.error('Error:', error);
+      }
+    },
+
+    async getfilial() {
+        try {
+            const response = await axios.get(`http://127.0.0.1:8000/api/get_branch_bylink/?company=${this.username}&widget=${this.widgetname}`);
+            console.log(response)
+            return response.data;
+        } catch (error) {
+            console.error('Ошибка при получении данных о Филиале:', error);
+            throw error; // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
+        }
+    },
+
+
+    async getuslugi_by_specialist(ei, fi) {
+        try {
+            const employee_id = ei;
+            const filial_id = fi;
+            const response = await axios.get(`http://127.0.0.1:8000/api/getuslugi_by_specialist/?filial=${filial_id}&employee=${employee_id}`);
+            return response.data;
+        } catch (error) {
+            console.error('Ошибка при получении данных о услугах:', error);
+            throw error;
+        }
+    },
+
+    async getspecialist_by_usluga(ui, fi) {
+        try {
+            const usluga_id = ui;
+            const filial_id = fi;
+            const response = await axios.get(`http://127.0.0.1:8000/api/getspecialist_by_usluga/?filial=${filial_id}&usluga=${usluga_id}`);
+            return response.data;
+        } catch (error) {
+            console.error('Ошибка при получении данных о специалистах:', error);
+            throw error;
+        }
+    },
 
     onResize(event) {
       this.setSize(event.target.innerWidth);
@@ -948,15 +814,34 @@ export default {
       return `rgba(${r},${g},${b},${alpha})`;
     },
 
-    activateFilial(filialData){
-      this.activeFilial = filialData;
+    async activateFilial(filialData) {
+        try {
+          this.activeFilial = filialData;
+            while (this.uslugi.length > 0){
+              this.uslugi.pop(); 
+            }
+            this.uslugi = await this.getuslugi_by_specialist(0, filialData.id);
+
+            while (this.employees.length > 0){
+              this.employees.pop(); 
+            }
+            this.employees = await this.getspecialist_by_usluga(0, filialData.id);
+            console.log(this.activeFilial)
+        } catch (error) {
+            console.error('Ошибка при активации Филиала:', error);
+        }
     },
 
-    UslugaSelected(data){
+    async UslugaSelected(data){
       while(this.selectedUslugi.length > 0) {
         this.selectedUslugi.pop();
       }
       this.selectedUslugi.push(data);
+      while (this.employees.length > 0){
+          this.employees.pop(); 
+      }
+      this.employees = await this.getspecialist_by_usluga(data.id, this.activeFilial.id);
+      console.log(this.employees)
     },
 
     UslugaDeleting(data) {
@@ -966,11 +851,15 @@ export default {
         }
     },
 
-    EmployeeSelected(data){
+    async EmployeeSelected(data){
       while(this.selectedEmployees.length > 0) {
         this.selectedEmployees.pop();
       }
       this.selectedEmployees.push(data);
+      while (this.uslugi.length > 0){
+        this.uslugi.pop(); 
+      }
+      this.uslugi = await this.getuslugi_by_specialist(data.id, this.activeFilial.id);
     },
 
     EmployeeDeleting(data) {
