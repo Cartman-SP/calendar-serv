@@ -157,7 +157,7 @@
       <div class="favor_card_container">
         <div class="favor_card" v-for="u in uslugi" :key="u.id">
           <div class="favor_compo-wrapper">
-            <img src="../../static/img/barber.svg" alt="">
+            <img :src="'http://127.0.0.1:8000/' + u.serviceCover" alt="" class="card-avatar">
             <p class="favor_text">{{u.name}}</p>
           </div>
           <div class="compo-wrapper-tariff">
@@ -240,7 +240,7 @@
 
         <div class="employees_card" v-for="e in employees" :key="e.id">
           <div class="employees_compo-wrapper">
-            <img src="../../static/img/barber.svg" alt="">
+            <img :src="'http://127.0.0.1:8000/' + e.avatar" class="card-avatar" alt="">
             <div class="employees_container">
               <p class="employees_text">{{ e.firstname + ' ' + e.secondname }}</p>
               <p class="employees_subtext">{{ e.rank }}</p>
@@ -329,7 +329,7 @@
       <div class="calendar_card">
         <div class="calendar_wrapper">
           <div class="calendar_compo-wrapper">
-            <img src="../../static/img/barber.svg" alt="">
+            <img  :src="'http://127.0.0.1:8000/' + selectedEmployees[0].avatar" alt="" class="card-avatar">
             <div class="calendar_container">
               <p class="calendar_text">{{ selectedUslugi[0].name }} у {{ selectedEmployees[0].firstname + ' ' + selectedEmployees[0].secondname }}</p>
               <div class="tariff">
@@ -408,7 +408,7 @@
           <div class="notes_data" v-if="size === 'desktop'">
             <div class="data_info">
               <div class="data_info_card">
-                <img src="../../static/img/data.png" alt="" class="data_img">
+                <img  :src="'http://127.0.0.1:8000/' + selectedEmployees[0].avatar" alt="" class="data_img">
                 <div class="data_info_container">
                   <p class="data_info_head">{{ selectedEmployees[0].firstname }}</p>
                   <p class="data_info_sub">Ваш мастер</p>
@@ -446,7 +446,7 @@
           </div>
           <div class="data_info" v-else>
               <div class="data_info_card">
-                <img src="../../static/img/data.png" alt="" class="data_img">
+                <img :src="'http://127.0.0.1:8000/' + selectedEmployees[0].avatar" class="data_img">
                 <div class="data_info_container">
                   <p class="data_info_head">{{ selectedEmployees[0].name }}</p>
                   <p class="data_info_sub">Ваш мастер</p>
@@ -958,6 +958,13 @@ export default {
   width: 30px;
   height: 30px;
   padding: 0;
+}
+
+.card-avatar{
+  width: 54px;
+  height: 54px;
+  object-fit: cover;
+  border-radius: 5px;
 }
 
 .card_back_btn-arrow:hover{
