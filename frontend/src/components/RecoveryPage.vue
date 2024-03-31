@@ -43,7 +43,7 @@ export default {
   },
   methods:{
     change_passd(){
-      const apiUrl = 'http://sked.online/api/change_pass/';
+      const apiUrl = 'http://95.163.243.5/api/change_pass/';
 
       const data = {
           email: this.email,

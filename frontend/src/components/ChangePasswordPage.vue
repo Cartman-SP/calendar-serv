@@ -60,7 +60,7 @@ export default {
     };
 
     try {
-      const response = await axios.post('http://sked.online/api/change_pass_two/', data);
+      const response = await axios.post('http://95.163.243.5/api/change_pass_two/', data);
       console.log('Password changed:', response.data);
       this.$parent.showModal = false
     } catch (error) {

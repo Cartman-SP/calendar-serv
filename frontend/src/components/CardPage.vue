@@ -4,7 +4,7 @@
       <div class="card-container">
         <div class="card-header">
           <div class="main">
-            <img :src="'http://sked.online/' + usluga.serviceCover" alt="No service cover" class="img_head">
+            <img :src="'http://95.163.243.5/' + usluga.serviceCover" alt="No service cover" class="img_head">
             <div class="head">
               <div class="text-container">
                 <p class="text-header">{{ usluga.name }}</p> <!-- Отображаем название услуги -->
@@ -78,7 +78,7 @@ export default {
     console.log(this.usluga)
     const formData = new FormData();
     formData.append('id', serviceId);
-    axios.post('http://sked.online/api/delete/', formData)
+    axios.post('http://95.163.243.5/api/delete/', formData)
         .then(response => {
             console.log('Service deleted:', response.data);
             this.deleteAction = true;

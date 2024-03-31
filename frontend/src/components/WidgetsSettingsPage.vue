@@ -3,7 +3,7 @@
     <div class="transition">
       <router-link to="/lk/widgets" class="employesss-link">Виджеты</router-link>
       <div class="arrow-container">
-        <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
+        <img src="static/viewapp/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
       </div>
       <p class="creation_text">Создание виджета</p>
 
@@ -277,20 +277,20 @@
       <div v-if="selectedTab === 'custom'">
         <!-- Содержимое для своего кода -->
       </div>
-      <WidgetApp v-bind:theme="switches.theme" :MainColor="widget.Main" :WidgetColor="widget.Back" :BakcgroundColor="widget.Plashka" :TextColor="widget.Text"/>
+      <WidgetConstructor v-bind:theme="switches.theme" :MainColor="widget.Main" :WidgetColor="widget.Back" :BakcgroundColor="widget.Plashka" :TextColor="widget.Text"/>
     </div>
     
   </div>
 </template>
   
 <script>
-import WidgetApp from './WidgetApp.vue';
+import WidgetConstructor from './WidgetConstructor.vue';
 import PalitraPage from './PalitraPage.vue';
 import SelectPage from '../components/SelectPage.vue';
 import axios from 'axios';
 
 export default {
-  components: { WidgetApp , PalitraPage, SelectPage } ,
+  components: { WidgetConstructor , PalitraPage, SelectPage } ,
   data() {
     return {
       selectedImages: [],
@@ -344,7 +344,7 @@ export default {
     },
     async get_uslugi(filials){
       try {
-        const response = await axios.get(`http://sked.online/api/uslugi_fromfilials/?variable=${filials}`);
+        const response = await axios.get(`http://95.163.243.5/api/uslugi_fromfilials/?variable=${filials}`);
         this.uslugi = response.data; // Присваиваем полученные данные массиву uslugi
         this.uslugi.reverse();
         this.uslugiLoaded = true; // Устанавливаем флаг загрузки в true sd
@@ -358,7 +358,7 @@ export default {
         this.chips.push({ name: selected.name, id: selected.id });
         var chipIds = this.chips.map(chip => chip.id);
         var string = chipIds.join(',');
-        this.get_uslugi(straing)
+        this.get_uslugi(string)
       }
     },
 
@@ -401,7 +401,7 @@ export default {
       formData.append('istelegram', this.switches.telegram);
       formData.append('name', this.widgetName);      
       this.selectedImages.forEach(image => {formData.append('images[]', image);});
-      axios.post('http://sked.online/api/widget_create/', formData)
+      axios.post('http://95.163.243.5/api/widget_create/', formData)
       .then(response => {
         // Обработка успешного ответа
         console.log(response);
@@ -703,7 +703,7 @@ export default {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background: url(../../static/img/plus.svg) center center/cover no-repeat;
+    background: url(static/viewapp/img/plus.svg) center center/cover no-repeat;
     background-size: 25%;
   }
 

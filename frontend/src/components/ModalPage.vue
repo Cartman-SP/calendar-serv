@@ -3,7 +3,7 @@
     <div class="overlay"></div>
     <div class="modal-container">
       <div class="image-container">
-        <img src="../../static/img/woman_modal.svg" alt="" class="woman">
+        <img src="static/viewapp/img/woman_modal.svg" alt="" class="woman">
       </div>
 
       <div class="text-container" v-if="!showContinueButtonClicked">
@@ -188,7 +188,7 @@ export default {
           formData.append('currency', this.selectedCurrency);
           formData.append('id', this.$store.state.registrationData.user_id);
           console.log(this.$store.state.registrationData.user_id)
-          axios.post('http://sked.online/api/profile/', formData)
+          axios.post('http://95.163.243.5/api/profile/', formData)
             .then(response => {
               console.log('Profile created:', response.data);
               let projectId = response.data.project
@@ -379,7 +379,7 @@ export default {
       background-color: #F3F5F6;
       color: #D2D8DE;
       align-items: center;
-      background-image: url(../../static/img/paperclip.svg);
+      background-image: url(static/viewapp/img/paperclip.svg);
       background-repeat: no-repeat;
       background-position: calc(100% - 15px) center;
     }

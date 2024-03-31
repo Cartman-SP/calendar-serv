@@ -4,7 +4,7 @@
     <div class="transition">
       <router-link to="/lk/project" class="eidt-link">Мои проекты</router-link>
       <div class="arrow-container">
-        <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
+        <img src="static/viewapp/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
       </div>
       <p class="creation_text">Барбершоп на Сатпаева</p>
     </div>

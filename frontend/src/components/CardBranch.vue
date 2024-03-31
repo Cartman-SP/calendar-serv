@@ -97,7 +97,7 @@ export default {
     deleteService() {
         const formData = new FormData();
         formData.append('id', this.FilialData.id);
-        axios.post('http://sked.online/api/delete_branch/', formData)
+        axios.post('http://95.163.243.5/api/delete_branch/', formData)
             .then(response => {
                 console.log('Service deleted:', response.data);
                 this.deleteAction = true;
@@ -112,13 +112,13 @@ export default {
             });
     },
     get_image(){
-      axios.get(`http://sked.online/api/get_image/?id=${this.FilialData.id}`)
+      axios.get(`http://95.163.243.5/api/get_image/?id=${this.FilialData.id}`)
         .then(response => {
-          this.image = 'http://sked.online/' + response.data.image
+          this.image = 'http://95.163.243.5/' + response.data.image
           console.log(response)
         })
         .catch(error => {
-          this.image = '../../static/img/Card.png'
+          this.image = 'static/viewapp/img/Card.png'
           console.error('Error fetching employees:', error);
         });
     },

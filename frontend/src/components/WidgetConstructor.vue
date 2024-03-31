@@ -30,7 +30,7 @@
       <div class="branch_card">
         <div class="card" v-for="filial in Filials" :key="filial.id" @click="activateFilial(filial)">
           <div class="card-image">
-            <img src="../../static/img/map.png" alt="">
+            <img src="static/viewapp/img/map.png" alt="">
           </div>
           <div class="card_container">
             <p class="card_name" :style="activeFilial.name === filial.name ? { color: 'var(--color-global)' } : {}">{{filial.name}}</p>
@@ -106,7 +106,7 @@
       <div class="service">
         <div class="service_container" @click="activeUslugi = !activeUslugi, activePersonal ? activePersonal=false : activePersonal = false">
           <p class="service_container_text" :style="activeUslugi ? { color: 'var(--color-global)' } : {}">Выбрать услугу</p>
-          <img src="../../static/img/tools.svg" alt="" class="service_tools">
+          <img src="static/viewapp/img/tools.svg" alt="" class="service_tools">
           <div class="checkmark" v-if="!activeUslugi">
             <svg width="15" height="15" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2556 6.15492L9.05226 14.4665L4.29285 9.7071L5.70706 8.29289L8.94764 11.5335L14.7443 4.84506L16.2556 6.15492Z" fill="#F5F5F5"/>
@@ -120,7 +120,7 @@
         </div>
         <div class="service_container" @click="activePersonal = !activePersonal, activeUslugi ? activeUslugi=false : activeUslugi = false">
           <p class="service_container_text"  :style="activePersonal ? { color: 'var(--color-global)' } : {}">Выбрать<br>специалиста</p>
-          <img src="../../static/img/ppl.svg" alt="" class="service_ppl">
+          <img src="static/viewapp/img/ppl.svg" alt="" class="service_ppl">
           <div class="checkmark" v-if="!activePersonal">
             <svg width="15" height="15" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2556 6.15492L9.05226 14.4665L4.29285 9.7071L5.70706 8.29289L8.94764 11.5335L14.7443 4.84506L16.2556 6.15492Z" fill="#F5F5F5"/>
@@ -157,7 +157,7 @@
       <div class="favor_card_container">
         <div class="favor_card" v-for="u in uslugi" :key="u.id">
           <div class="favor_compo-wrapper">
-            <img :src="'http://sked.online/' + u.serviceCover" alt="" class="card-avatar">
+            <img :src="'http://95.163.243.5/' + u.serviceCover" alt="" class="card-avatar">
             <p class="favor_text">{{u.name}}</p>
           </div>
           <div class="compo-wrapper-tariff">
@@ -218,7 +218,7 @@
         <div class="employees_card">
           <div class="employees_compo-wrapper">
             <div class="user-alt">
-              <img src="../../static/img/user-alt.svg" alt="">
+              <img src="static/viewapp/img/user-alt.svg" alt="">
             </div>
             <div class="employees_container">
               <p class="employees_text">Любой сотрудник</p>
@@ -240,7 +240,7 @@
 
         <div class="employees_card" v-for="e in employees" :key="e.id">
           <div class="employees_compo-wrapper">
-            <img :src="'http://sked.online/' + e.avatar" class="card-avatar" alt="">
+            <img :src="'http://95.163.243.5/' + e.avatar" class="card-avatar" alt="">
             <div class="employees_container">
               <p class="employees_text">{{ e.firstname + ' ' + e.secondname }}</p>
               <p class="employees_subtext">{{ e.rank }}</p>
@@ -329,7 +329,7 @@
       <div class="calendar_card">
         <div class="calendar_wrapper">
           <div class="calendar_compo-wrapper">
-            <img  :src="'http://sked.online/' + selectedEmployees[0].avatar" alt="" class="card-avatar">
+            <img  :src="'http://95.163.243.5/' + selectedEmployees[0].avatar" alt="" class="card-avatar">
             <div class="calendar_container">
               <p class="calendar_text">{{ selectedUslugi[0].name }} у {{ selectedEmployees[0].firstname + ' ' + selectedEmployees[0].secondname }}</p>
               <div class="tariff">
@@ -408,7 +408,7 @@
           <div class="notes_data" v-if="size === 'desktop'">
             <div class="data_info">
               <div class="data_info_card">
-                <img  :src="'http://sked.online/' + selectedEmployees[0].avatar" alt="" class="data_img">
+                <img  :src="'http://95.163.243.5/' + selectedEmployees[0].avatar" alt="" class="data_img">
                 <div class="data_info_container">
                   <p class="data_info_head">{{ selectedEmployees[0].firstname }}</p>
                   <p class="data_info_sub">Ваш мастер</p>
@@ -446,7 +446,7 @@
           </div>
           <div class="data_info" v-else>
               <div class="data_info_card">
-                <img :src="'http://sked.online/' + selectedEmployees[0].avatar" class="data_img">
+                <img :src="'http://95.163.243.5/' + selectedEmployees[0].avatar" class="data_img">
                 <div class="data_info_container">
                   <p class="data_info_head">{{ selectedEmployees[0].name }}</p>
                   <p class="data_info_sub">Ваш мастер</p>
@@ -521,7 +521,7 @@
           <div class="figures_container">
             <div class="mark" v-if="!Mark" @click="Mark = true"></div>
             <div class="mark_active" v-else @click="Mark = false">
-              <img src="../../static/img/checkmark.svg" alt="">
+              <img src="static/viewapp/img/checkmark.svg" alt="">
             </div>
             <p class="figures_personal">Согласен на обработку <span class="personal_span"> персональных данных</span></p>
           </div>
@@ -553,9 +553,9 @@
       <div class="notes_container">
         <div class="notes_data">
           <div class="notes_info">
-            <img src="../../static/img/widget_checkmark.svg" alt="" class="img_checkmark">
+            <img src="static/viewapp/img/widget_checkmark.svg" alt="" class="img_checkmark">
             <div class="data_info_card">
-              <img src="../../static/img/data.png" alt="" class="data_img">
+              <img src="static/viewapp/img/data.png" alt="" class="data_img">
               <div class="data_info_container">
                 <p class="data_info_head">{{ selectedEmployees[0].name }}</p>
                 <p class="data_info_sub">Ваш мастер</p>
@@ -640,8 +640,8 @@ export default {
         { name: '🇺🇦', code: '+380' },
       ],
       images: [
-        "http://127.0.0.1:8000" + '/media/service_covers/143976-abstraktnoe_iskusstvo-kraska-krasnyj_cvet-art-sinij-3840x2160_m2WC2Ts.jpg',
-        "http://127.0.0.1:8000" + '/media/service_covers/kraska_razvody_rozovyj_136631_3840x2160_93Z7A8z.jpg',
+        "http://95.163.243.5" + '/media/service_covers/143976-abstraktnoe_iskusstvo-kraska-krasnyj_cvet-art-sinij-3840x2160_m2WC2Ts.jpg',
+        "http://95.163.243.5" + '/media/service_covers/kraska_razvody_rozovyj_136631_3840x2160_93Z7A8z.jpg',
       ],
       currentImageIndex: 0,
 
@@ -738,7 +738,7 @@ export default {
     async getfilial(i) {
         try {
             const id = i;
-            const response = await axios.get(`http://sked.online/api/get_filialbyid/?variable=${id}`);
+            const response = await axios.get(`http://95.163.243.5/api/get_filialbyid/?variable=${id}`);
             console.log(response)
             return response.data;
         } catch (error) {
@@ -752,7 +752,7 @@ export default {
         try {
             const employee_id = ei;
             const filial_id = fi;
-            const response = await axios.get(`http://sked.online/api/getuslugi_by_specialist/?filial=${filial_id}&employee=${employee_id}`);
+            const response = await axios.get(`http://95.163.243.5/api/getuslugi_by_specialist/?filial=${filial_id}&employee=${employee_id}`);
             return response.data;
         } catch (error) {
             console.error('Ошибка при получении данных о услугах:', error);
@@ -764,7 +764,7 @@ export default {
         try {
             const usluga_id = ui;
             const filial_id = fi;
-            const response = await axios.get(`http://sked.online/api/getspecialist_by_usluga/?filial=${filial_id}&usluga=${usluga_id}`);
+            const response = await axios.get(`http://95.163.243.5/api/getspecialist_by_usluga/?filial=${filial_id}&usluga=${usluga_id}`);
             return response.data;
         } catch (error) {
             console.error('Ошибка при получении данных о специалистах:', error);
@@ -1035,7 +1035,7 @@ export default {
   border: 1px solid var(--color-global);
 }
 .search input{
-  background-image: url(../../static/img/search.svg);
+  background-image: url(static/viewapp/img/search.svg);
   background-repeat: no-repeat;
   padding-left: 35px;
   background-position: 15px;
@@ -2079,7 +2079,7 @@ input{
     border: 1px solid var(--color-global);
   }
   .search input{
-    background-image: url(../../static/img/search.svg);
+    background-image: url(static/viewapp/img/search.svg);
     background-repeat: no-repeat;
     padding-left: 35px;
     background-position: 15px;

@@ -1,6 +1,6 @@
 <template>
     <div class="lock">
-        <img src="../../static/img/locked.svg" alt="" class="img_locked">
+        <img src="static/viewapp/img/locked.svg" alt="" class="img_locked">
         <p>Вам закрыт доступ в этот раздел :(</p>
         <p>Вероятнее всего вы заполнили не всю информацию о компании (сотрудники, услуги, филиалы). И обратите внимание, что необходимо создать хотя бы один виджет.</p>
     </div>

@@ -6,7 +6,7 @@
         <div class="transition">
           <router-link to="/lk/personal" class="employesss-link">Сотрудники</router-link>
           <div class="arrow-container">
-            <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
+            <img src="static/viewapp/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
           </div>
           <p class="creation_text">Создание сотрудника</p>
         </div>
@@ -178,7 +178,7 @@
                 <img class="img_window" :src="coverDataUrl" alt="">
               </div>
               <div class="adaptive_img" v-else>
-                <img style="height: 40px; width: 40px;" src="../../static/img/service.svg" alt="">
+                <img style="height: 40px; width: 40px;" src="static/viewapp/img/service.svg" alt="">
               </div>
               <div class="adaptive_name">
               <div>
@@ -323,7 +323,7 @@
         },
     async get_uslugi(){
       try {
-        const response = await axios.get(`http://sked.online/api/uslugi/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`);
+        const response = await axios.get(`http://95.163.243.5/api/uslugi/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`);
         this.uslugi = response.data;
         
       } catch (error) {
@@ -431,7 +431,7 @@
           formData.append('avatar', this.avatar);
           formData.append('user_id', this.$store.state.registrationData.user_id)
           formData.append('project',this.$store.state.activeProjectId)
-          axios.post('http://sked.online/api/employee/', formData)
+          axios.post('http://95.163.243.5/api/employee/', formData)
             .then(response => {
               console.log('Employee created:', response.data);
               this.alertMessage = 'Настройки успешно сохранены'
@@ -670,7 +670,7 @@
         align-items: center;
         margin-bottom: 0;
         font-weight: 500;
-        background-image: url(../../static/img/paperclip.svg);
+        background-image: url(static/viewapp/img/paperclip.svg);
         background-repeat: no-repeat;
         background-position: calc(100% - 15px) center;
       }

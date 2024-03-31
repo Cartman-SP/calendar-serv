@@ -15,7 +15,7 @@ export default {
 
 <style>
 body{
-    background: url('../../static/img/bg.svg') no-repeat center center fixed;
+    background: url('static/viewapp/img/bg.svg') no-repeat center center fixed;
     background-size: cover;
 }
 

@@ -4,8 +4,8 @@
     <div class="modal-container">
       
       <div class="image-container">
-        <img src="../../static/img/sweety.png" alt="" class="sweety">
-        <img src="../../static/img/woman_empl.png " alt="" class="woman_service">
+        <img src="static/viewapp/img/sweety.png" alt="" class="sweety">
+        <img src="static/viewapp/img/woman_empl.png " alt="" class="woman_service">
       </div>
 
       <div class="text-container">

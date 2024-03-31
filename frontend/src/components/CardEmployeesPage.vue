@@ -87,7 +87,7 @@ export default {
     const serviceId = this.employeeData.id // Получаем идентификатор услуги
     const formData = new FormData();
     formData.append('id', serviceId);
-    axios.post('http://sked.online/api/deleteemployee/', formData)
+    axios.post('http://95.163.243.5/api/deleteemployee/', formData)
       .then(response => {
           console.log('Service deleted:', response.data);
           this.deleteAction = true;
@@ -109,11 +109,11 @@ export default {
       this.showModal = !this.showModal;
     },
     get_img(){
-      return "http://127.0.0.1:8000"+this.employeeData.avatar
+      return "http://95.163.243.5"+this.employeeData.avatar
     },
     get_usluga(){
       console.log(this.employeeData.serviceid)
-      axios.get('http://sked.online/api/get_usluga_name/', {
+      axios.get('http://95.163.243.5/api/get_usluga_name/', {
       params: {
         usluga_id: this.employeeData.serviceid // ваш ID услуги, который вы хотите получить
       }

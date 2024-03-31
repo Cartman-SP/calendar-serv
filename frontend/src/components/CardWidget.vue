@@ -3,7 +3,7 @@
     <div class="card-container">
       <div class="card-header">
         <div class="main">
-          <img src="../../static/img/Salon_2.png" alt="">
+          <img src="static/viewapp/img/Salon_2.png" alt="">
           <div class="main_container">
             <div class="main_header">
               <p class="text-header">{{ widgetData.name }} </p>
@@ -16,7 +16,7 @@
             </div>
             <div class="main_subheader">
               <div class="date">
-                <img src="../../static/img/edit.png" alt="">
+                <img src="static/viewapp/img/edit.png" alt="">
                 <p class="id">{{ widgetData.date }}</p>
               </div>
               <p class="id"><span style="font-family: TT Norms Medium; color: rgba(210, 216, 222, 1);">ID</span> {{ widgetData.id }}</p>
@@ -92,10 +92,10 @@ export default {
       this.showModal = !this.showModal;
     },
     get_profile(){
-      axios.post('http://sked.online/api/getprofile/', { user_id:  this.$store.state.registrationData.user_id})
+      axios.post('http://95.163.243.5/api/getprofile/', { user_id:  this.$store.state.registrationData.user_id})
       .then(response => {
 
-        this.link = 'http://localhost:8080/#/widget/' + response.data.profile.company_name + '/' + this.widgetData.name 
+        this.link = 'http://95.163.243.5/#/widget/' + response.data.profile.company_name + '/' + this.widgetData.name 
 
       })
       .catch(error => {

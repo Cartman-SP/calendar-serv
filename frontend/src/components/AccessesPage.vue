@@ -3,11 +3,11 @@
       <div class="transition">
         <router-link to="/lk/project" class="eidt-link">Мои проекты</router-link>
         <div class="arrow-container">
-          <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
+          <img src="static/viewapp/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
         </div>
         <router-link to="/lk/project" class="eidt-link">Барбершоп на Сатпаева</router-link>
         <div class="arrow-container">
-          <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
+          <img src="static/viewapp/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
         </div>  
         <p class="creation_text">Доступы</p>
       </div>
@@ -38,7 +38,7 @@
               <div class="edit_container">
                 <div class="edit_bottom">
                   <div class="img_container">
-                    <img class="avatar" src="../../static/img/service_2.png" alt="">
+                    <img class="avatar" src="static/viewapp/img/service_2.png" alt="">
                     <div class="name_container">
                       <p class="name_head">
                         Никита Половинко
@@ -68,7 +68,7 @@
               <div class="edit_container">
                 <div class="edit_bottom">
                   <div class="img_container">
-                    <img class="avatar" src="../../static/img/service_2.png" alt="">
+                    <img class="avatar" src="static/viewapp/img/service_2.png" alt="">
                     <div class="name_container">
                       <p class="name_head">
                         Никита Половинко
@@ -98,7 +98,7 @@
               <div class="edit_container">
                 <div class="edit_bottom">
                   <div class="img_container">
-                    <img class="avatar" src="../../static/img/service_2.png" alt="">
+                    <img class="avatar" src="static/viewapp/img/service_2.png" alt="">
                     <div class="name_container">
                       <p class="name_head">
                         Никита Половинко

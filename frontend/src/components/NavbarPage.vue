@@ -179,7 +179,7 @@
                       </template>
                       <template #header>
                         <div class="flex align-items-center gap-2">
-                          <img style="width: 108px;" src="../../static/img/small_logo.svg" alt="">
+                          <img style="width: 108px;" src="static/viewapp/img/small_logo.svg" alt="">
                         </div>
                       </template>
                     </Sidebar>
@@ -234,7 +234,7 @@
                 </div>
             </div>
             <div class="rate">
-                <img src="../../static/img/wallet.svg" alt="231">
+                <img src="static/viewapp/img/wallet.svg" alt="231">
                 <div class="text">
                     <p>Тариф</p>
                     <h4>{{ rate }}</h4>
@@ -821,13 +821,13 @@ input{
   color: #AFB6C1;
 }
 .search input{
-  background-image: url(../../static/img/search.svg);
+  background-image: url(static/viewapp/img/search.svg);
   background-repeat: no-repeat;
   padding-left: 35px;
   background-position: 15px;
 }
 .wrapper input{
-  background-image: url(../../static/img/search.svg);
+  background-image: url(static/viewapp/img/search.svg);
   background-repeat: no-repeat;
   background-position: calc(100% - 15px) center;
 }

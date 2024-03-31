@@ -4,7 +4,7 @@
     <div class="transition">
       <router-link to="/lk/service" class="employesss-link">Услуги</router-link>
       <div class="arrow-container">
-        <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
+        <img src="static/viewapp/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
       </div>
       <p class="creation_text">Создание услуги</p>
     </div>
@@ -187,7 +187,7 @@
       <div class="adaptive_window">
         <img v-if="serviceCover" :src="coverDataUrl" alt="" style="width:auto;height:200px;border-radius:2px;">
         <div class="img_container" v-else>
-          <img class="img_window"  src="../../static/img/service.svg" alt="">
+          <img class="img_window"  src="static/viewapp/img/service.svg" alt="">
         </div>
         <div v-if="serviceName">
           <p class="header">{{serviceName}}</p>
@@ -414,7 +414,7 @@ export default {
       formData.append('user', this.$store.state.registrationData.user_id);
       formData.append('serviceCover', this.serviceCover);
       formData.append('project', this.$store.state.activeProjectId)
-      axios.post('http://sked.online/api/uslugi/', formData)
+      axios.post('http://95.163.243.5/api/uslugi/', formData)
         .then(response => {
           console.log('Service created:', response.data); // ЧИТАЙТЕ КОММЕНТАРИЙ ЗДЕСЬ ВОЗВРАЩАЕТСЯ True или False со значением надо ли показывать модалку о первом создании услуги!!!!!!!!!!!!!
           this.alertMessage = 'Настройки успешно сохранены'
@@ -752,7 +752,7 @@ input::placeholder {
   color: #D2D8DE;
   align-items: center;
   font-weight: 500;
-  background-image: url(../../static/img/paperclip.svg);
+  background-image: url(static/viewapp/img/paperclip.svg);
   background-repeat: no-repeat;
   background-position: calc(100% - 15px) center;
 }

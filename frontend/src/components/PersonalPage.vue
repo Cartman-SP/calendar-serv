@@ -15,7 +15,7 @@
 
       </div>
       <div v-else-if="employees.length==0 && employees_load" class="personal">
-        <img src="../../static/img/plus-sotrudnik.svg" alt="" class="img_personal">
+        <img src="static/viewapp/img/plus-sotrudnik.svg" alt="" class="img_personal">
         <p class="header">Вот это скорость!</p>
         <p class="subheader">Мы видим, что вы завершили создание услуг. В этом разделе,предлагаем добавить ваших сотрудников и назначить им ранее созданные услуги. Если, у вас нет сотрудников, вы можете пропустить этот шаг и перейти к созданию своего филиала/компании.</p>
         <div class="pernosal_btns">
@@ -54,7 +54,7 @@
               this.rerenderSidebar();
   
       // Выполняем запрос к API Django
-      axios.get(`http://sked.online/api/get_employees/?user_id=${user_id}&project=${this.$store.state.activeProjectId}`)
+      axios.get(`http://95.163.243.5/api/get_employees/?user_id=${user_id}&project=${this.$store.state.activeProjectId}`)
         .then(response => {
           this.employees = response.data; // Сохраняем полученные данные в переменной
           this.employees_load = true;

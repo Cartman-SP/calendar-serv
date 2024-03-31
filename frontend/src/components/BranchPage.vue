@@ -14,7 +14,7 @@
         </div>
       </div>
       <div v-else-if="branchLoaded && filials.length==0" class="branch">
-        <img src="../../static/img/filial-create.svg" alt="" class="img_branch">
+        <img src="static/viewapp/img/filial-create.svg" alt="" class="img_branch">
         <p class="header">Здесь будет ваш филиал. Будет же?</p>
         <p class="subheader">Теперь нам осталось добавить информацию о своей компании\филиале, добавить местоположение, контакты для связи и прочее</p>
         <a class="button_a" href="#/lk/branch/createbranch" style="text-decoration:none"><button class="branch_btn"> + Добавить филиал</button></a>
@@ -46,7 +46,7 @@ export default {
       },
 
       getfilials(){
-        axios.get(`http://sked.online/api/get_branch/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`)
+        axios.get(`http://95.163.243.5/api/get_branch/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`)
     .then(response => {
         this.filials = response.data;
         this.filials.reverse();

@@ -7,7 +7,7 @@
     <div class="transition">
       <router-link to="/lk/branch" class="employesss-link">Филиалы</router-link>
       <div class="arrow-container">
-        <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
+        <img src="static/viewapp/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
       </div>
       <p class="creation_text">Создание филиала</p>
     </div>
@@ -214,7 +214,7 @@
         </div>
         <img v-if="serviceCover" :src="coverDataUrl" alt="" style="width:auto;height:200px;border-radius:2px;">
         <div class="img_container" v-else>
-          <img class="img_window"  src="../../static/img/service.svg" alt="">
+          <img class="img_window"  src="static/viewapp/img/service.svg" alt="">
         </div>
         <div v-if="selectedAdress">
           <p class="header">{{selectedAdress}}</p>
@@ -414,7 +414,7 @@ export default {
     },
 
     get_workers(){
-      axios.post('http://sked.online/api/getworkers/', { user_id:  this.$store.state.registrationData.user_id, project: this.$store.state.activeProjectId})
+      axios.post('http://95.163.243.5/api/getworkers/', { user_id:  this.$store.state.registrationData.user_id, project: this.$store.state.activeProjectId})
       .then(response => {
         console.log(response.data)
         this.employees = response.data;
@@ -425,7 +425,7 @@ export default {
       });
     },
     get_buisnessTypes(){
-      axios.get('http://sked.online/api/get_buisnessTypes/')
+      axios.get('http://95.163.243.5/api/get_buisnessTypes/')
       .then(response => {
         console.log(response.data)
         this.businessTypes = response.data
@@ -437,7 +437,7 @@ export default {
     },
 
     get_buisnesssphere(){
-      axios.get('http://sked.online/api/get_buisnessSphere/')
+      axios.get('http://95.163.243.5/api/get_buisnessSphere/')
       .then(response => {
         console.log(response.data)
         this.spheres = response.data
@@ -598,7 +598,7 @@ export default {
       
         console.log(formData);
         // Отправка данных на сервер для создания филиала
-        axios.post('http://sked.online/api/createbranch/', formData, {
+        axios.post('http://95.163.243.5/api/createbranch/', formData, {
           headers: {
             'Content-Type': 'multipart/form-data' // Указываем тип содержимого как multipart/form-data
           }
@@ -908,7 +908,7 @@ dataURItoBlob(dataURI) {
     background-color: #F3F5F6;
     color: #D2D8DE;
     align-items: center;
-    background-image: url(../../static/img/paperclip.svg);
+    background-image: url(static/viewapp/img/paperclip.svg);
     background-repeat: no-repeat;
     background-position: calc(100% - 15px) center;
   }

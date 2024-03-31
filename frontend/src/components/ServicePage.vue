@@ -13,7 +13,7 @@
     </div>
     <div v-else-if="uslugiLoaded && uslugi.length === 0">
       <div class="service">
-        <img src="../../static/img/flag.svg" alt="" class="img_service">
+        <img src="static/viewapp/img/flag.svg" alt="" class="img_service">
         <p class="header">Поздравляем с регистрацией!</p>
         <p class="subheader">Предлагаем вам перейти к созданию услуги, после чего у вас появится возможность прикрепить созданные услуги к вашим специалистам и добавить филиал.</p>
         <a href="#/lk/service/create" style="text-decoration:none"><button class="service_btn"> + Добавить услуги</button></a>
@@ -49,7 +49,7 @@ export default {
       },
     async get_uslugi(){
       try {
-        const response = await axios.get(`http://sked.online/api/uslugi/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`);
+        const response = await axios.get(`http://95.163.243.5/api/uslugi/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`);
         this.uslugi = response.data; // Присваиваем полученные данные массиву uslugi
         this.uslugi.reverse();
         this.uslugiLoaded = true; // Устанавливаем флаг загрузки в true sd

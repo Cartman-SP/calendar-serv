@@ -4,7 +4,7 @@
       <div class="transition">
         <router-link to="/lk/widgets" class="employesss-link">Виджеты</router-link>
         <div class="arrow-container">
-          <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
+          <img src="static/viewapp/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
         </div>
         <p class="creation_text">Создание виджета</p>
 
@@ -234,7 +234,7 @@ export default {
   },
   methods: {
     getfilials(){
-        axios.get(`http://sked.online/api/get_branch/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`)
+        axios.get(`http://95.163.243.5/api/get_branch/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`)
         .then(response => {
             this.filials = response.data;
             this.filials.reverse();
@@ -294,7 +294,7 @@ export default {
       formData.append('user', this.$store.state.registrationData.user_id);
       formData.append('project', this.$store.state.activeProjectId)      
       this.selectedImages.forEach(image => {formData.append('images[]', image);});
-      axios.post('http://sked.online/api/widget_create/', formData)
+      axios.post('http://95.163.243.5/api/widget_create/', formData)
       .then(response => {
         this.$router.push('/lk/widgets/')
         console.log(response);
@@ -640,7 +640,7 @@ select option {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: url(../../static/img/plus.svg) center center/cover no-repeat;
+  background: url(static/viewapp/img/plus.svg) center center/cover no-repeat;
   background-size: 10%;
   transition: all .2s ease;
 }

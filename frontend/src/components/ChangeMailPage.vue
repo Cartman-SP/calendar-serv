@@ -50,7 +50,7 @@ export default {
   },
   methods:{
     change_email(){
-      axios.post('http://sked.online/api/change_mail/',{
+      axios.post('http://95.163.243.5/api/change_mail/',{
         old_mail: this.currentMail,
         new_mail: this.newMail, 
         password: this.confirmMail, 

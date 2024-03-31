@@ -24,20 +24,20 @@
           </form>
           <div class="social-icons">
             <div class="google">
-              <img class="logo_auth" src="../../static/img/google.svg" alt="Google">
+              <img class="logo_auth" src="static/viewapp/img/google.svg" alt="Google">
               <p class="google_text">Войти с помощью Google</p>
             </div>
             <div class="yandex">
-              <img class="logo_auth" src="../../static/img/yandex.svg" alt="Twitter">
+              <img class="logo_auth" src="static/viewapp/img/yandex.svg" alt="Twitter">
             </div>
             <div class="mailru">
-              <img class="logo_auth" src="../../static/img/mail.svg" alt="Mail.ru">
+              <img class="logo_auth" src="static/viewapp/img/mail.svg" alt="Mail.ru">
             </div>
           </div>
         </div>
       </div>
       <div class="man">
-        <img src="../../static/img/Man.png" alt="">
+        <img src="static/viewapp/img/Man.png" alt="">
         <div class="man_head">
           <div class="man_header">Здравствуйте!</div>
           <div class="divider"></div>
@@ -65,7 +65,7 @@ export default {
   methods: {
     async loginUser() {
       try {
-        const response = await axios.post('http://sked.online/api/login/', {
+        const response = await axios.post('http://95.163.243.5/api/login/', {
           username_or_email: this.usernameOrEmail,
           password: this.passwordValue,
         });

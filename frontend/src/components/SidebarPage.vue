@@ -2,11 +2,11 @@
   <div class="sidebar">
     <div class="main_side">
       <router-link to="/lk/service">
-        <img src="../../static/img/logo.svg"  id="desktopLink" alt="" class="logotype">
+        <img src="static/viewapp/img/logo.svg"  id="desktopLink" alt="" class="logotype">
       </router-link>
       <div class="mobile-logo">
         <router-link to="/lk/service">
-          <img src="../../static/img/LogoMobile.svg" id="mobileLogo" alt="" class="logotype">
+          <img src="static/viewapp/img/LogoMobile.svg" id="mobileLogo" alt="" class="logotype">
         </router-link>
       </div>
       <div class="content">
@@ -108,8 +108,8 @@
                   </div>  
                   <div class="dropdown_btn">
                     <button @click="toggleDropdown" class="dropdown" :style="{ 'background-color': showDropdown ? '#F3F6F8' : 'transparent' }">
-                      <img v-if="!showDropdown" src="../../static/img/kebab.svg" alt="Open">
-                      <img v-if="showDropdown" src="../../static/img/x.svg" alt="Close" style="width: 12px; height: 12px;">
+                      <img v-if="!showDropdown" src="static/viewapp/img/kebab.svg" alt="Open">
+                      <img v-if="showDropdown" src="static/viewapp/img/x.svg" alt="Close" style="width: 12px; height: 12px;">
                     </button>
                     <div :class="{'dropdown-menu-show' : showDropdown, 'dropdown-menu-hide' : !showDropdown}" @click="closeDropdown">
                     <router-link to="/lk/settings" style="text-decoration:none" class="dropdown-link">
@@ -149,7 +149,7 @@
                   </div>
                 </div>
                 <div class="avatar-bottom">
-                  <img src="../../static/img/Union.png" alt="">
+                  <img src="static/viewapp/img/Union.png" alt="">
                   <p id="bottom_sub_text">{{ company }}</p>
                 </div>
               </div>
@@ -196,7 +196,7 @@ export default {
   methods: {
 
     async getfilials(){
-      axios.get(`http://sked.online/api/get_branch/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`)
+      axios.get(`http://95.163.243.5/api/get_branch/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`)
         .then(response => {
             this.filials = response.data;
             this.filials.reverse();
@@ -209,7 +209,7 @@ export default {
 
     async get_uslugi(){
       try {
-        const response = await axios.get(`http://sked.online/api/uslugi/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`);
+        const response = await axios.get(`http://95.163.243.5/api/uslugi/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`);
         this.uslugi = response.data;
         this.uslugi.reverse();
       } catch (error) {
@@ -220,7 +220,7 @@ export default {
               const user_id =  this.$store.state.registrationData.user_id;// Замените на актуальный user_id
   
       // Выполняем запрос к API Django
-      axios.get(`http://sked.online/api/get_employees/?user_id=${user_id}&project=${this.$store.state.activeProjectId}`)
+      axios.get(`http://95.163.243.5/api/get_employees/?user_id=${user_id}&project=${this.$store.state.activeProjectId}`)
         .then(response => {
           this.employees = response.data; // Сохраняем полученные данные в переменной
           this.employees.reverse();
@@ -232,9 +232,9 @@ export default {
     },
     get_profile(){
       console.log(this.updateSidebar)
-      axios.post('http://sked.online/api/getprofile/', { user_id:  this.$store.state.registrationData.user_id})
+      axios.post('http://95.163.243.5/api/getprofile/', { user_id:  this.$store.state.registrationData.user_id})
       .then(response => {
-        this.avatar = "http://127.0.0.1:8000" + response.data.profile.avatar
+        this.avatar = "http://95.163.243.5" + response.data.profile.avatar
         console.log(this.avatar)
         this.name = response.data.profile.name
         // this.position = response.data.profile.name // сделать должность

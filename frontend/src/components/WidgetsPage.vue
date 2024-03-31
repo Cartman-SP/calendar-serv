@@ -12,7 +12,7 @@
       <CardWidget v-for="Widget in allwidgets" :key="Widget.id" :widgetData="Widget"/>
     </div>
     <div class="widgets" v-if="!allwidgets">
-        <img src="../../static/img/big_flag.png" alt="" class="img_widgets">
+        <img src="static/viewapp/img/big_flag.png" alt="" class="img_widgets">
         <p class="header">Последний рывок</p>
         <p class="subheader">Осталось только создать виджет, выбрать его оформление<br> и разместить его на сайте или в социальных сетях. После<br> чего ваши клиенты смогут записываться к вам онлайн.</p>
         <router-link to="/lk/widgets/create" style="text-decoration:none">
@@ -54,7 +54,7 @@ export default {
     },
     methods:{
       getwidgets(){
-        axios.get(`http://sked.online/api/get_widget/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`)
+        axios.get(`http://95.163.243.5/api/get_widget/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`)
     .then(response => {
         this.allwidgets = response.data;
         this.allwidgets.reverse();

@@ -129,9 +129,9 @@ export default {
     },
 
     get_profile(){
-      axios.post('http://sked.online/api/getprofile/', { user_id:  this.$store.state.registrationData.user_id})
+      axios.post('http://95.163.243.5/api/getprofile/', { user_id:  this.$store.state.registrationData.user_id})
       .then(response => {
-        this.avatar = "http://127.0.0.1:8000" + response.data.profile.avatar
+        this.avatar = "http://95.163.243.5" + response.data.profile.avatar
         this.User.name = response.data.profile.name
         console.log(response.data)
         this.position = response.data.profile.name // сделать должность
@@ -156,7 +156,7 @@ export default {
       });
     },
     saveName() {
-      axios.post('http://sked.online/api/change_name/', { 
+      axios.post('http://95.163.243.5/api/change_name/', { 
           id: this.$store.state.registrationData.user_id,
           name: this.User.name 
         })
@@ -175,7 +175,7 @@ export default {
       formData.append('id', this.$store.state.registrationData.user_id);
       formData.append('avatar', this.$refs.fileInput.files[0]);
 
-      axios.post('http://sked.online/api/change_avatar/', formData, {
+      axios.post('http://95.163.243.5/api/change_avatar/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -328,7 +328,7 @@ p{
   align-items: center;
   margin-bottom: 0;
   font-weight: 500;
-  background-image: url(../../static/img/paperclip.svg);
+  background-image: url(static/viewapp/img/paperclip.svg);
   background-repeat: no-repeat;
   background-position: calc(100% - 15px) center;
 }
@@ -364,7 +364,7 @@ span{
 
 .input_container_mail input {
   position: relative;
-  background-image: url(../../static/img/warning.svg);
+  background-image: url(static/viewapp/img/warning.svg);
   background-repeat: no-repeat;
   background-position: calc(100% - 15px) center;
   width: 250px;
@@ -372,7 +372,7 @@ span{
 }
 .input_container_phone input {
   position: relative;
-  background-image: url(../../static/img/warning.svg);
+  background-image: url(static/viewapp/img/warning.svg);
   background-repeat: no-repeat;
   background-position: calc(100% - 15px) center;
   width: 250px;
