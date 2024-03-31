@@ -157,7 +157,7 @@
       <div class="favor_card_container">
         <div class="favor_card" v-for="u in uslugi" :key="u.id">
           <div class="favor_compo-wrapper">
-            <img :src="'http://127.0.0.1:8000/' + u.serviceCover" alt="" class="card-avatar">
+            <img :src="'http://sked.online/' + u.serviceCover" alt="" class="card-avatar">
             <p class="favor_text">{{u.name}}</p>
           </div>
           <div class="compo-wrapper-tariff">
@@ -240,7 +240,7 @@
 
         <div class="employees_card" v-for="e in employees" :key="e.id">
           <div class="employees_compo-wrapper">
-            <img :src="'http://127.0.0.1:8000/' + e.avatar" alt="" class="card-avatar">
+            <img :src="'http://sked.online/' + e.avatar" alt="" class="card-avatar">
             <div class="employees_container">
               <p class="employees_text">{{ e.firstname + ' ' + e.secondname }}</p>
               <p class="employees_subtext">{{ e.rank }}</p>
@@ -329,7 +329,7 @@
       <div class="calendar_card">
         <div class="calendar_wrapper">
           <div class="calendar_compo-wrapper">
-            <img :src="'http://127.0.0.1:8000/' + selectedEmployees[0].avatar" class="card-avatar" alt="">
+            <img :src="'http://sked.online/' + selectedEmployees[0].avatar" class="card-avatar" alt="">
             <div class="calendar_container">
               <p class="calendar_text">{{ selectedUslugi[0].name }} у {{ selectedEmployees[0].firstname + ' ' + selectedEmployees[0].secondname }}</p>
               <div class="tariff">
@@ -408,7 +408,7 @@
           <div class="notes_data" v-if="size === 'desktop'">
             <div class="data_info">
               <div class="data_info_card">
-                <img :src="'http://127.0.0.1:8000/' + selectedEmployees[0].avatar" class="data_img">
+                <img :src="'http://sked.online/' + selectedEmployees[0].avatar" class="data_img">
                 <div class="data_info_container">
                   <p class="data_info_head">{{ selectedEmployees[0].firstname }}</p>
                   <p class="data_info_sub">Ваш мастер</p>
@@ -446,7 +446,7 @@
           </div>
           <div class="data_info" v-else>
               <div class="data_info_card">
-                <img :src="'http://127.0.0.1:8000/' + selectedEmployees[0].avatar" alt="" class="data_img">
+                <img :src="'http://sked.online/' + selectedEmployees[0].avatar" alt="" class="data_img">
                 <div class="data_info_container">
                   <p class="data_info_head">{{ selectedEmployees[0].name }}</p>
                   <p class="data_info_sub">Ваш мастер</p>
@@ -555,7 +555,7 @@
           <div class="notes_info">
             <img src="../../static/img/widget_checkmark.svg" alt="" class="img_checkmark">
             <div class="data_info_card">
-              <img :src="'http://127.0.0.1:8000/' + selectedEmployees[0].avatar" alt="" class="data_img">
+              <img :src="'http://sked.online/' + selectedEmployees[0].avatar" alt="" class="data_img">
               <div class="data_info_container">
                 <p class="data_info_head">{{ selectedEmployees[0].name }}</p>
                 <p class="data_info_sub">Ваш мастер</p>
@@ -729,7 +729,7 @@ export default {
 
     async getfilial() {
         try {
-            const response = await axios.get(`http://127.0.0.1:8000/api/get_branch_bylink/?company=${this.username}&widget=${this.widgetname}`);
+            const response = await axios.get(`http://sked.online/api/get_branch_bylink/?company=${this.username}&widget=${this.widgetname}`);
             console.log(response)
             return response.data;
         } catch (error) {
@@ -743,7 +743,7 @@ export default {
         try {
             const employee_id = ei;
             const filial_id = fi;
-            const response = await axios.get(`http://127.0.0.1:8000/api/getuslugi_by_specialist/?filial=${filial_id}&employee=${employee_id}`);
+            const response = await axios.get(`http://sked.online/api/getuslugi_by_specialist/?filial=${filial_id}&employee=${employee_id}`);
             return response.data;
         } catch (error) {
             console.error('Ошибка при получении данных о услугах:', error);
@@ -755,7 +755,7 @@ export default {
         try {
             const usluga_id = ui;
             const filial_id = fi;
-            const response = await axios.get(`http://127.0.0.1:8000/api/getspecialist_by_usluga/?filial=${filial_id}&usluga=${usluga_id}`);
+            const response = await axios.get(`http://sked.online/api/getspecialist_by_usluga/?filial=${filial_id}&usluga=${usluga_id}`);
             return response.data;
         } catch (error) {
             console.error('Ошибка при получении данных о специалистах:', error);

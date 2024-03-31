@@ -5,7 +5,7 @@
       <div class="arrow-container">
         <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
       </div>
-      <p class="creation_text">Редактирование виджета</p>
+      <p class="creation_text">Создание виджета</p>
 
     </div>
     <div class="tab" ref="tabs">
@@ -157,10 +157,6 @@
                 <input type="file" style="display: none;" @change="handleImageUpload">
                 <img src="" alt="">
               </div>
-              <div class="img_plus" @click="uploadImage">
-                <input type="file" style="display: none;" @change="handleImageUpload">
-                <img src="" alt="">
-              </div>
             </div>
             <div class="color_container">
               <div class="color">
@@ -281,20 +277,20 @@
       <div v-if="selectedTab === 'custom'">
         <!-- Содержимое для своего кода -->
       </div>
-      <WidgetConstructor v-bind:theme="switches.theme" :MainColor="widget.Main" :WidgetColor="widget.Back" :BakcgroundColor="widget.Plashka" :TextColor="widget.Text"/>
+      <WidgetApp v-bind:theme="switches.theme" :MainColor="widget.Main" :WidgetColor="widget.Back" :BakcgroundColor="widget.Plashka" :TextColor="widget.Text"/>
     </div>
     
   </div>
 </template>
   
 <script>
-import WidgetConstructor from './WidgetConstructor.vue';
+import WidgetApp from './WidgetApp.vue';
 import PalitraPage from './PalitraPage.vue';
 import SelectPage from '../components/SelectPage.vue';
 import axios from 'axios';
 
 export default {
-  components: { WidgetConstructor , PalitraPage, SelectPage } ,
+  components: { WidgetApp , PalitraPage, SelectPage } ,
   data() {
     return {
       selectedImages: [],
@@ -348,7 +344,7 @@ export default {
     },
     async get_uslugi(filials){
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/uslugi_fromfilials/?variable=${filials}`);
+        const response = await axios.get(`http://sked.online/api/uslugi_fromfilials/?variable=${filials}`);
         this.uslugi = response.data; // Присваиваем полученные данные массиву uslugi
         this.uslugi.reverse();
         this.uslugiLoaded = true; // Устанавливаем флаг загрузки в true sd
@@ -362,7 +358,7 @@ export default {
         this.chips.push({ name: selected.name, id: selected.id });
         var chipIds = this.chips.map(chip => chip.id);
         var string = chipIds.join(',');
-        this.get_uslugi(string)
+        this.get_uslugi(straing)
       }
     },
 
@@ -405,7 +401,7 @@ export default {
       formData.append('istelegram', this.switches.telegram);
       formData.append('name', this.widgetName);      
       this.selectedImages.forEach(image => {formData.append('images[]', image);});
-      axios.post('http://127.0.0.1:8000/api/widget_create/', formData)
+      axios.post('http://sked.online/api/widget_create/', formData)
       .then(response => {
         // Обработка успешного ответа
         console.log(response);
@@ -782,7 +778,7 @@ export default {
     margin: 0;
   }
   .window{
-    width: 100%;
+    width: 10vw;
     height: 120px;
     border-radius: 2px;
     padding: 15px;
@@ -904,6 +900,8 @@ export default {
   .window_container{
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   .active-tab {
     color: #6266EA;

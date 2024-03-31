@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mainapp',
     'corsheaders',
+    'viewapp',
 ]
 
 MIDDLEWARE = [
@@ -82,8 +83,12 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'django_project_db',
+        'USER': 'django',
+        'PASSWORD': 'AeCh4aj3ex9j',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -144,3 +149,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # URL-префикс для медиа-файлов
 MEDIA_URL = '/media/'
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_URL = '/static/'

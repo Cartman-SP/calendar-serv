@@ -196,7 +196,7 @@ export default {
   methods: {
 
     async getfilials(){
-      axios.get(`http://127.0.0.1:8000/api/get_branch/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`)
+      axios.get(`http://sked.online/api/get_branch/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`)
         .then(response => {
             this.filials = response.data;
             this.filials.reverse();
@@ -209,7 +209,7 @@ export default {
 
     async get_uslugi(){
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/uslugi/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`);
+        const response = await axios.get(`http://sked.online/api/uslugi/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`);
         this.uslugi = response.data;
         this.uslugi.reverse();
       } catch (error) {
@@ -220,7 +220,7 @@ export default {
               const user_id =  this.$store.state.registrationData.user_id;// Замените на актуальный user_id
   
       // Выполняем запрос к API Django
-      axios.get(`http://127.0.0.1:8000/api/get_employees/?user_id=${user_id}&project=${this.$store.state.activeProjectId}`)
+      axios.get(`http://sked.online/api/get_employees/?user_id=${user_id}&project=${this.$store.state.activeProjectId}`)
         .then(response => {
           this.employees = response.data; // Сохраняем полученные данные в переменной
           this.employees.reverse();
@@ -232,7 +232,7 @@ export default {
     },
     get_profile(){
       console.log(this.updateSidebar)
-      axios.post('http://127.0.0.1:8000/api/getprofile/', { user_id:  this.$store.state.registrationData.user_id})
+      axios.post('http://sked.online/api/getprofile/', { user_id:  this.$store.state.registrationData.user_id})
       .then(response => {
         this.avatar = "http://127.0.0.1:8000" + response.data.profile.avatar
         console.log(this.avatar)

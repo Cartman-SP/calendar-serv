@@ -54,7 +54,7 @@ export default {
     },
     methods:{
       getwidgets(){
-        axios.get(`http://127.0.0.1:8000/api/get_widget/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`)
+        axios.get(`http://sked.online/api/get_widget/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`)
     .then(response => {
         this.allwidgets = response.data;
         this.allwidgets.reverse();

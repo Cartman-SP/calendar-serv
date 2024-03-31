@@ -92,7 +92,7 @@ export default {
       this.showModal = !this.showModal;
     },
     get_profile(){
-      axios.post('http://127.0.0.1:8000/api/getprofile/', { user_id:  this.$store.state.registrationData.user_id})
+      axios.post('http://sked.online/api/getprofile/', { user_id:  this.$store.state.registrationData.user_id})
       .then(response => {
 
         this.link = 'http://localhost:8080/#/widget/' + response.data.profile.company_name + '/' + this.widgetData.name 

@@ -128,7 +128,7 @@ export default {
           this.PasswordError = true;
         }else{
           try {
-            const response = await axios.post('http://127.0.0.1:8000/api/reg/', {
+            const response = await axios.post('http://sked.online/api/reg/', {
               password: this.passwordValue,
               phone: this.value,
               email: this.email

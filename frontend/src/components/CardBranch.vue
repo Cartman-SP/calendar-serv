@@ -97,7 +97,7 @@ export default {
     deleteService() {
         const formData = new FormData();
         formData.append('id', this.FilialData.id);
-        axios.post('http://127.0.0.1:8000/api/delete_branch/', formData)
+        axios.post('http://sked.online/api/delete_branch/', formData)
             .then(response => {
                 console.log('Service deleted:', response.data);
                 this.deleteAction = true;
@@ -112,9 +112,9 @@ export default {
             });
     },
     get_image(){
-      axios.get(`http://127.0.0.1:8000/api/get_image/?id=${this.FilialData.id}`)
+      axios.get(`http://sked.online/api/get_image/?id=${this.FilialData.id}`)
         .then(response => {
-          this.image = 'http://127.0.0.1:8000/' + response.data.image
+          this.image = 'http://sked.online/' + response.data.image
           console.log(response)
         })
         .catch(error => {

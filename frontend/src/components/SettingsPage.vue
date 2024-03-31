@@ -129,7 +129,7 @@ export default {
     },
 
     get_profile(){
-      axios.post('http://127.0.0.1:8000/api/getprofile/', { user_id:  this.$store.state.registrationData.user_id})
+      axios.post('http://sked.online/api/getprofile/', { user_id:  this.$store.state.registrationData.user_id})
       .then(response => {
         this.avatar = "http://127.0.0.1:8000" + response.data.profile.avatar
         this.User.name = response.data.profile.name
@@ -156,7 +156,7 @@ export default {
       });
     },
     saveName() {
-      axios.post('http://127.0.0.1:8000/api/change_name/', { 
+      axios.post('http://sked.online/api/change_name/', { 
           id: this.$store.state.registrationData.user_id,
           name: this.User.name 
         })
@@ -175,7 +175,7 @@ export default {
       formData.append('id', this.$store.state.registrationData.user_id);
       formData.append('avatar', this.$refs.fileInput.files[0]);
 
-      axios.post('http://127.0.0.1:8000/api/change_avatar/', formData, {
+      axios.post('http://sked.online/api/change_avatar/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

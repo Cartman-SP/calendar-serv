@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     send_email(){
-            const apiUrl = 'http://127.0.0.1:8000/api/pass_reset/';
+            const apiUrl = 'http://sked.online/api/pass_reset/';
 
             const data = {
             email: this.email,

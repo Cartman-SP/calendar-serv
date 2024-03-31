@@ -188,7 +188,7 @@ export default {
           formData.append('currency', this.selectedCurrency);
           formData.append('id', this.$store.state.registrationData.user_id);
           console.log(this.$store.state.registrationData.user_id)
-          axios.post('http://127.0.0.1:8000/api/profile/', formData)
+          axios.post('http://sked.online/api/profile/', formData)
             .then(response => {
               console.log('Profile created:', response.data);
               let projectId = response.data.project

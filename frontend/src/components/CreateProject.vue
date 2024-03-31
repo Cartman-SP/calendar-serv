@@ -107,7 +107,7 @@ export default {
     };
 
 // Выполняем POST запрос с использованием Axios
-axios.post('http://127.0.0.1:8000/api/create_project/', data)
+axios.post('http://sked.online/api/create_project/', data)
   .then(response => {
     console.log('Успешно отправлено на сервер:', response.data);
     this.$router.push('/lk/project')

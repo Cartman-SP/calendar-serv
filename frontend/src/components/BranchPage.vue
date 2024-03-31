@@ -46,7 +46,7 @@ export default {
       },
 
       getfilials(){
-        axios.get(`http://127.0.0.1:8000/api/get_branch/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`)
+        axios.get(`http://sked.online/api/get_branch/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`)
     .then(response => {
         this.filials = response.data;
         this.filials.reverse();

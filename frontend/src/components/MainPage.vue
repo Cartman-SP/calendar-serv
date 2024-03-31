@@ -22,7 +22,7 @@ export default {
   methods: {
     async checkUserProfile() {
       try {
-        const response = await axios.post('http://127.0.0.1:8000/api/checkprofile/' + this.$store.getters.getRegistrationData.user_id);
+        const response = await axios.post('http://sked.online/api/checkprofile/' + this.$store.getters.getRegistrationData.user_id);
         console.log(response.data)
         // Проверяем результат и показываем модальное окно при необходимости
         if (response.data == 0) {

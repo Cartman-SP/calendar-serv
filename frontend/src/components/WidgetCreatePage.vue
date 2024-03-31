@@ -234,7 +234,7 @@ export default {
   },
   methods: {
     getfilials(){
-        axios.get(`http://127.0.0.1:8000/api/get_branch/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`)
+        axios.get(`http://sked.online/api/get_branch/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`)
         .then(response => {
             this.filials = response.data;
             this.filials.reverse();
@@ -294,7 +294,7 @@ export default {
       formData.append('user', this.$store.state.registrationData.user_id);
       formData.append('project', this.$store.state.activeProjectId)      
       this.selectedImages.forEach(image => {formData.append('images[]', image);});
-      axios.post('http://127.0.0.1:8000/api/widget_create/', formData)
+      axios.post('http://sked.online/api/widget_create/', formData)
       .then(response => {
         this.$router.push('/lk/widgets/')
         console.log(response);

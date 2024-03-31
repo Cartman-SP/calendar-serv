@@ -65,7 +65,7 @@ export default {
   methods: {
     async loginUser() {
       try {
-        const response = await axios.post('http://127.0.0.1:8000/api/login/', {
+        const response = await axios.post('http://sked.online/api/login/', {
           username_or_email: this.usernameOrEmail,
           password: this.passwordValue,
         });

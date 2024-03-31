@@ -414,7 +414,7 @@ export default {
       formData.append('user', this.$store.state.registrationData.user_id);
       formData.append('serviceCover', this.serviceCover);
       formData.append('project', this.$store.state.activeProjectId)
-      axios.post('http://127.0.0.1:8000/api/uslugi/', formData)
+      axios.post('http://sked.online/api/uslugi/', formData)
         .then(response => {
           console.log('Service created:', response.data); // ЧИТАЙТЕ КОММЕНТАРИЙ ЗДЕСЬ ВОЗВРАЩАЕТСЯ True или False со значением надо ли показывать модалку о первом создании услуги!!!!!!!!!!!!!
           this.alertMessage = 'Настройки успешно сохранены'

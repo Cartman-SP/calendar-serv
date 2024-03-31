@@ -414,7 +414,7 @@ export default {
     },
 
     get_workers(){
-      axios.post('http://127.0.0.1:8000/api/getworkers/', { user_id:  this.$store.state.registrationData.user_id, project: this.$store.state.activeProjectId})
+      axios.post('http://sked.online/api/getworkers/', { user_id:  this.$store.state.registrationData.user_id, project: this.$store.state.activeProjectId})
       .then(response => {
         console.log(response.data)
         this.employees = response.data;
@@ -425,7 +425,7 @@ export default {
       });
     },
     get_buisnessTypes(){
-      axios.get('http://127.0.0.1:8000/api/get_buisnessTypes/')
+      axios.get('http://sked.online/api/get_buisnessTypes/')
       .then(response => {
         console.log(response.data)
         this.businessTypes = response.data
@@ -437,7 +437,7 @@ export default {
     },
 
     get_buisnesssphere(){
-      axios.get('http://127.0.0.1:8000/api/get_buisnessSphere/')
+      axios.get('http://sked.online/api/get_buisnessSphere/')
       .then(response => {
         console.log(response.data)
         this.spheres = response.data
@@ -598,7 +598,7 @@ export default {
       
         console.log(formData);
         // Отправка данных на сервер для создания филиала
-        axios.post('http://127.0.0.1:8000/api/createbranch/', formData, {
+        axios.post('http://sked.online/api/createbranch/', formData, {
           headers: {
             'Content-Type': 'multipart/form-data' // Указываем тип содержимого как multipart/form-data
           }

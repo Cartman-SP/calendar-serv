@@ -29,7 +29,7 @@ export default {
   },
   methods:{
     get_projects(){
-      axios.get('http://127.0.0.1:8000/api/create_project/', {
+      axios.get('http://sked.online/api/create_project/', {
         params: {
           user_id: this.$store.state.registrationData.user_id // Замените на нужный вам user_id
         }
