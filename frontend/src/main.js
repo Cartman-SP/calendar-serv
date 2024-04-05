@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
-import App from './App.vue';
+import App from '../src/components/App.vue';
 import router from './router';
 import PrimeVue from 'primevue/config';
 import Dropdown from 'primevue/dropdown';

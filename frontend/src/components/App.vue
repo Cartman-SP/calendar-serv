@@ -64,28 +64,28 @@ html *::-webkit-scrollbar-thumb {
 
 @font-face {
     font-family: 'TT Norms';
-    src: url('../static/fonts/TT\ Norms/TTNorms-Regular.eot'), url('../static/fonts/TT\ Norms/TTNorms-Regular.ttf') format('truetype');
+    src: url('static/viewapp/fonts/TT\ Norms/TTNorms-Regular.eot'), url('static/viewapp/fonts/TT\ Norms/TTNorms-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'TT Norms Bold';
-    src: url('../static/fonts/TT\ Norms/TTNorms-Bold.eot'), url('../static/fonts/TT\ Norms/TTNorms-Bold.ttf') format('truetype');
+    src: url('static/viewapp/fonts/TT\ Norms/TTNorms-Bold.eot'), url('static/viewapp/fonts/TT\ Norms/TTNorms-Bold.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'TT Norms Medium';
-    src: url('../static/fonts/TT\ Norms/TTNorms-Medium.eot'), url('../static/fonts/TT\ Norms/TTNorms-Medium.ttf') format('truetype');
+    src: url('static/viewapp/fonts/TT\ Norms/TTNorms-Medium.eot'), url('static/viewapp/fonts/TT\ Norms/TTNorms-Medium.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'TT Norms Light';
-    src: url('../static/fonts/TT\ Norms/TTNorms-Light.eot'), url('../static/fonts/TT\ Norms/TTNorms-Light.ttf') format('truetype');
+    src: url('static/viewapp/fonts/TT\ Norms/TTNorms-Light.eot'), url('static/viewapp/fonts/TT\ Norms/TTNorms-Light.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
