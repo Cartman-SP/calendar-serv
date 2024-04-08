@@ -130,7 +130,10 @@
               </div>
     
               <div class="form-group">
-                <label for="city">Перерыв</label>
+                <div class="usluga-head">
+                  <label for="city">Перерыв</label>
+                  <Tip :Tip="'Если время не задано,\nто филиал работает без перерыва'"/>
+                </div>
                 <SelectPage
                 :options="['9:00 — 19:00', '9:00 — 20:00', '9:00 — 21:00', '10:00 — 18:00','10:00 — 19:00','10:00 — 20:00', '10:00 — 22:00']"
                 class="select"
@@ -460,6 +463,7 @@ export default {
       return this.selectedDays.includes(day);
     },
     toggleBtn(day) {
+      event.preventDefault();
       if (this.isBtnActive(day)) {
         this.selectedDays = this.selectedDays.filter(activeDay => activeDay !== day);
       } else {

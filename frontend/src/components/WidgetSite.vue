@@ -977,16 +977,12 @@ html *::-webkit-scrollbar-thumb {
   border: 3px solid transparent;
 }
 
-
-
 .card-avatar{
   width: 54px;
   height: 54px;
   object-fit: cover;
   border-radius: 5px;
 }
-
-
 
 .card_back_btn-arrow{
   border: 1px solid var(--color-text);
