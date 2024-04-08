@@ -1,8 +1,12 @@
 <template>
     <header>
         <div class="buttons">
-            <a href="#/login"><button class="enter">Вход</button></a>
-            <a href="#/register"><button class="register">Регистрация</button></a>
+          <router-link :to="'/login'">
+             <button class="enter">Вход</button>
+          </router-link>
+          <router-link :to="'/register'">
+            <button class="register">Регистрация</button>
+          </router-link>
         </div>
     </header>
 </template>

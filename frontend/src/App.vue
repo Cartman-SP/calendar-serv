@@ -91,6 +91,7 @@ html *::-webkit-scrollbar-thumb {
 body{
   margin: 0;
   padding: 0;
+  font-family: 'TT Norms';
 }
 
 #app {

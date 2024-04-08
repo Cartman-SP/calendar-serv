@@ -1,47 +1,49 @@
 <template>
   <div class="login">
     <div class="container1">
-      <div class="Forma">
-        <div class="login-prompt">
-          Нет аккаунта? <router-link to="/register" class="login-link" style="text-decoration: none;">Зарегистрироваться</router-link>
-        </div>
-        <div class="registration-form">
-          <h2>Вход</h2>
-          <form @submit.prevent="loginUser">
-            <div class="form-group">
-              <label for="username">Почта или телефон</label>
-              <input v-model="usernameOrEmail" id="username" name="username" placeholder="Usermail@gmail.com" required >
-            </div>
-            <div class="form-group">
-              <label for="password">Пароль</label>
-              <PasswordComponent v-model="passwordValue" toggleMask :feedback="false"/>
-            </div>
-            <div class="reset">
-              <button type="submit">Войти</button>
-              <router-link to="/reset" class="ResetPassword">Восстановить пароль</router-link>
-            </div>
-            <div id="error">{{ errorMessage }}</div>  
-          </form>
-          <div class="social-icons">
-            <div class="google">
-              <img class="logo_auth" src="../../static/img/google.svg" alt="Google">
-              <p class="google_text">Войти с помощью Google</p>
-            </div>
-            <div class="yandex">
-              <img class="logo_auth" src="../../static/img/yandex.svg" alt="Twitter">
-            </div>
-            <div class="mailru">
-              <img class="logo_auth" src="../../static/img/mail.svg" alt="Mail.ru">
+      <div class="left-part">
+        <div class="Forma">
+          <div class="login-prompt">
+            Нет аккаунта? <router-link to="/register" class="login-link" style="text-decoration: none;">Зарегистрироваться</router-link>
+          </div>
+          <div class="registration-form">
+            <h2>Вход</h2>
+            <form @submit.prevent="loginUser">
+              <div class="form-group">
+                <label for="username">Почта или телефон</label>
+                <input v-model="usernameOrEmail" id="username" name="username" placeholder="Usermail@gmail.com" required >
+              </div>
+              <div class="form-group">
+                <label for="password">Пароль</label>
+                <PasswordComponent v-model="passwordValue" toggleMask :feedback="false"/>
+              </div>
+              <div class="reset">
+                <button type="submit">Войти</button>
+                <router-link to="/reset" class="ResetPassword">Восстановить пароль</router-link>
+              </div>
+              <div id="error">{{ errorMessage }}</div>  
+            </form>
+            <div class="social-icons">
+              <div class="google">
+                <img class="logo_auth" src="../../static/img/google.svg" alt="Google">
+                <p class="google_text">Войти с помощью Google</p>
+              </div>
+              <div class="yandex">
+                <img class="logo_auth" src="../../static/img/yandex.svg" alt="Twitter">
+              </div>
+              <div class="mailru">
+                <img class="logo_auth" src="../../static/img/mail.svg" alt="Mail.ru">
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div class="man">
-        <img src="../../static/img/Man.png" alt="">
+        <img src="../../static/img/Man.svg" alt="">
         <div class="man_head">
           <div class="man_header">Здравствуйте!</div>
           <div class="divider"></div>
-          <div class="man_subheader">Зарегистрируйтесь или войдите, чтобы <br>получить полный доступ к безграничному <br> функционалу Calendar</div>
+          <div class="man_subheader">Зарегистрируйтесь или войдите, чтобы <br>получить полный доступ к безграничному <br> функционалу <span>SKED</span></div>
           <div class="man_button-container">
             <router-link to="/register" class="man_button">Регистрация</router-link>
           </div>
@@ -96,9 +98,18 @@ export default {
 
   
   <style>
-  .container1{
+  .left-part{
+    width: 100%;
     height: 100vh;
-    padding: 0 0 0 30vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .container1{
+    font-family: 'TT Norms Medium';
+    height: 100vh;
+    padding: 0 0 0 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -264,7 +275,7 @@ export default {
 
   .man img{
     margin: 2vw;
-    width: 8vw;
+    width: 40%;
   }
 
   .man_head {
@@ -288,12 +299,17 @@ export default {
     text-align: center;
     font-size: 14px;
     font-style: normal;
-    font-weight: 300;
     line-height: normal;
     margin: 0 auto;
+    font-family: 'TT Norms light'
+  }
+
+  .man_subheader span{
+    font-family: 'TT Norms Bold'
   }
   .man_button {
     border: 1px solid #FAFAFA;
+    border-radius: 5px;
     padding: 15px 50px;
     cursor: pointer;
     transition: all .2s ease;
