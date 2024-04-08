@@ -54,12 +54,12 @@
         <div class="bottom">
           <p class="text-subheader">Последнее изменение: {{ ProjectData.editDate }} в {{ ProjectData.editTime }}</p>
           <div class="bottom_btns">
-            <router-link to="/lk/project/edit">
+            <router-link to="/dashboard/project/edit">
               <button class="functions">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256" width="20" height="20"><g fill="#535c69" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M18,2l-2.41406,2.41406l4,4l2.41406,-2.41406zM14.07617,5.92383l-11.07617,11.07617v4h4l11.07617,-11.07617z"></path></g></g></svg>
                 Редактировать</button>
             </router-link>
-            <router-link to="/lk/project/gates" style="width:65%">
+            <router-link to="/dashboard/project/gates" style="width:65%">
               <button class="functions">
                 <svg width="20" height="20" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7.7 3.15001C7.7 4.50311 8.7969 5.60001 10.15 5.60001C11.5031 5.60001 12.6 4.50311 12.6 3.15001C12.6 1.79691 11.5031 0.700012 10.15 0.700012C8.7969 0.700012 7.7 1.79691 7.7 3.15001Z" fill="#535C69"/>

@@ -5,7 +5,7 @@
       <ModalBranchPage/>
     </div>
     <div class="transition">
-      <router-link to="/lk/branch" class="employesss-link">Филиалы</router-link>
+      <router-link to="/dashboard/branch" class="employesss-link">Филиалы</router-link>
       <div class="arrow-container">
         <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
       </div>

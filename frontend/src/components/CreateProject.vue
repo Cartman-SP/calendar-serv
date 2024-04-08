@@ -2,7 +2,7 @@
   <div class="main">
     <div class="overlay" v-if="showModal"></div>
     <div class="transition">
-      <router-link to="/lk/project" class="eidt-link">Мои проекты</router-link>
+      <router-link to="/dashboard/project" class="eidt-link">Мои проекты</router-link>
       <div class="arrow-container">
         <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
       </div>
@@ -110,7 +110,7 @@ export default {
 axios.post('http://127.0.0.1:8000/api/create_project/', data)
   .then(response => {
     console.log('Успешно отправлено на сервер:', response.data);
-    this.$router.push('/lk/project')
+    this.$router.push('/dashboard/project')
   })
   .catch(error => {
     console.error('Ошибка при отправке на сервер:', error);

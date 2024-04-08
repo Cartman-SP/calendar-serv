@@ -1,7 +1,7 @@
 <template>
     <div class="main">
       <div class="content" v-if="employees.length>0 && employees_load">
-        <router-link to="/lk/personal/employees" class="add">
+        <router-link to="/dashboard/personal/employees" class="add">
           <div class="svg-plus">
             <svg width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="0" xmlns="http://www.w3.org/2000/svg">
               <path d="M9.00006 11V17H11.0001V11H17V9H11.0001V3H9.00006V9H3V11H9.00006Z"/>
@@ -19,8 +19,8 @@
         <p class="header">Вот это скорость!</p>
         <p class="subheader">Мы видим, что вы завершили создание услуг. В этом разделе,предлагаем добавить ваших сотрудников и назначить им ранее созданные услуги. Если, у вас нет сотрудников, вы можете пропустить этот шаг и перейти к созданию своего филиала/компании.</p>
         <div class="pernosal_btns">
-          <a href="#/lk" style="text-decoration:none"><button class="personal_btn skip-btn">Пропустить</button></a>
-          <a href="#/lk/personal/employees" style="text-decoration:none"><button class="personal_btn"> + Добавить сотрудника</button></a>
+          <a href="#/dashboard" style="text-decoration:none"><button class="personal_btn skip-btn">Пропустить</button></a>
+          <a href="#/dashboard/personal/employees" style="text-decoration:none"><button class="personal_btn"> + Добавить сотрудника</button></a>
         </div>
       </div>
       <div v-else style="padding-top: 200px;">

@@ -20,7 +20,7 @@ import Tooltip from 'primevue/tooltip';
 
 store.commit('restoreRegistrationData');
 const app = createApp(App).use(store);
-app.config.globalProperties.$axios = axios
+app.config.globalProperties.$axios = axios;
 app.use(router).use(PrimeVue).mount('#app');
 app.component('DropdownComponent', Dropdown);
 app.component('InputMaskComponent', InputMask);

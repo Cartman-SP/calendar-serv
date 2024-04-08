@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import HelloPage from '../components/HelloPage.vue'
 import RegPage from '../components/RegPage.vue'
 import EnterPage from '../components/EnterPage.vue'
@@ -24,146 +24,154 @@ import AccessesPage from '../components/AccessesPage.vue';
 import LockedPage from '../components/LockedPage.vue';
 import WidgetCreatePage from '../components/WidgetCreatePage.vue';
 import store from '../store';
-import WidgetSite from '@/components/WidgetSite.vue'
+import WidgetSite from '@/components/WidgetSite.vue';
+import NProgress from 'nprogress'; // Импортируйте nprogress
+import 'nprogress/nprogress.css'; // Импортируйте стили nprogress
 
 const routes = [
  {
    path: '/',
    name: 'hello',
-   component: HelloPage
+   component: HelloPage,
+   meta: { title: 'Sked.Online - Hello' },
  },
  {
    path: '/login',
    name: 'login',  
    component: EnterPage,
+   meta: { title: 'Sked.Online - Login' },
  },
  {
    path: '/register',
    name: 'register',
    component: RegPage,
+   meta: { title: 'Sked.Online - Register' },
  },
  {
    path: '/reset',
    name: 'reset',
    component: ResetPage,
+   meta: { title: 'Sked.Online - Reset' },
  },
  {
    path: '/resetpassword',
    name: 'resetpassword',
    component: ResetPasswordPage,
+   meta: { title: 'Sked.Online - Reset password' },
  },
  {
    path: '/recovery',
    name: 'recovery',
    component: RecoveryPage,
+   meta: { title: 'Sked.Online - Recovery' },
  },
   {
-    path: '/lk',
-    name: 'lk',
+    path: '/dashboard',
+    name: 'dashboard',
     component: LichniyCabinet,
     meta: { requiresAuth: true },
     children: [
       {
-        path: '/lk/widgets',
+        path: '/dashboard/widgets',
         name: 'widgets',
         component: WidgetsPage,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, title: 'Sked.Online - Widgets' },
       },
       {
-        path: '/lk/widgets/settings',
+        path: '/dashboard/widgets/settings',
         name: 'widgetsSettings',
         component: WidgetsSettingsPage,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, title: 'Sked.Online - Widgets settings' },
       },
       {
-        path: '/lk/main',
+        path: '/dashboard/main',
         name: 'main',
         component: MainPage,
-        meta: { requiresAuth: true }
+        meta: { requiresAuth: true, title: 'Sked.Online - Main' }
       },
       {
-        path:'/lk/service',
+        path:'/dashboard/service',
         name: 'service',
         component: ServicePage,
-        meta: { requiresAuth: true }
+        meta: { requiresAuth: true, title: 'Sked.Online - Service' }
       },
       {
-        path:'/lk/service/create',
+        path:'/dashboard/service/create',
         name: 'create',
         component: CreatePage,
-        meta: { requiresAuth: true }
+        meta: { requiresAuth: true, title: 'Sked.Online - Create service' }
       },
       {
-        path: '/lk/personal',
+        path: '/dashboard/personal',
         name: 'personal',
         component: PersonalPage,
-        meta: { requiresAuth: true }
+        meta: { requiresAuth: true, title: 'Sked.Online - Personal' }
       },
       {
-        path: '/lk/branch',
+        path: '/dashboard/branch',
         name: 'branch',
         component: BranchPage,
-        meta: { requiresAuth: true }
+        meta: { requiresAuth: true, title: 'Sked.Online - Branch' }
       },
       {
-        path: '/lk/personal/employees',
+        path: '/dashboard/personal/employees',
         name: 'employees',
         component: EmployeesPage,
-        meta: { requiresAuth: true }
+        meta: { requiresAuth: true, title: 'Sked.Online - Create personal' }
       },
       {
-        path: '/lk/settings',
+        path: '/dashboard/settings',
         name: 'settings',
         component: SettingsPage,
-        meta: { requiresAuth: true }
+        meta: { requiresAuth: true, title: 'Sked.Online - Settings' }
       },
       {
-        path: '/lk/branch/createbranch',
+        path: '/dashboard/branch/createbranch',
         name: 'createbranch',
         component: CreateBranchPage,
-        meta: { requiresAuth: true }
+        meta: { requiresAuth: true, title: 'Sked.Online - Create branch' }
       },
       {
-        path: '/lk/project',
+        path: '/dashboard/project',
         name: 'project',
         component: ProjectPage,
-        meta: { requiresAuth: true }
+        meta: { requiresAuth: true, title: 'Sked.Online - Projects' }
       },
       {
-        path: '/lk/project/edit',
+        path: '/dashboard/project/edit',
         name: 'edit',
         component: ProjectEditPage,
-        meta: { requiresAuth: true }
+        meta: { requiresAuth: true, title: 'Sked.Online - Edit project' }
       },
       {
-        path: '/lk/project/gates',
+        path: '/dashboard/project/gates',
         name: 'gate',
         component: ProjectGatesPage,
-        meta: { requiresAuth: true }
+        meta: { requiresAuth: true, title: 'Sked.Online - Gates' }
       },
       {
-        path: '/lk/project/new',
+        path: '/dashboard/project/new',
         name: 'new',
         component: CreateProject,
-        meta: { requiresAuth: true }
+        meta: { requiresAuth: true, title: 'Sked.Online - New project' }
       },
       {
-        path: '/lk/project/accesses',
+        path: '/dashboard/project/accesses',
         name: 'accesses',
         component: AccessesPage,
-        meta: { requiresAuth: true }
+        meta: { requiresAuth: true, title: 'Sked.Online - Accesses' }
       },
       {
-        path: '/lk/locked',
+        path: '/dashboard/locked',
         name: 'locked',
         component: LockedPage,
-        meta: { requiresAuth: true }
+        meta: { requiresAuth: true, title: 'Sked.Online - Locked' }
       },
       {
-        path: '/lk/widgets/create',
+        path: '/dashboard/widgets/create',
         name: 'widget_create',
         component: WidgetCreatePage,
-        meta: { requiresAuth: true }
+        meta: { requiresAuth: true, title: 'Sked.Online - Create widget ' }
       }
     ]
   },
@@ -183,8 +191,8 @@ const routes = [
     redirect: to => {
       // Проверяем, авторизован ли пользователь
       if (store.getters.getRegistrationData.user_id) {
-        // Если авторизован, перенаправляем на страницу /lk
-        return '/lk';
+        // Если авторизован, перенаправляем на страницу /dashboard
+        return '/dashboard';
       } else {
         // В противном случае, возвращаем изначальный путь
         return to.path;
@@ -193,7 +201,7 @@ const routes = [
   },
 ]
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes
 })
 
@@ -213,7 +221,7 @@ router.beforeEach(async (to, from, next) => {
     // Если маршрут - страница hello, login, register, reset, resetpassword, recovery,
     // и пользователь авторизован, перенаправляем на /main
     if (store.getters.getRegistrationData.user_id) {
-      next('/lk');
+      next('/dashboard');
     } else {
       // Если пользователь не авторизован, разрешаем доступ
       next();
@@ -226,8 +234,23 @@ router.beforeEach(async (to, from, next) => {
 });
 
 
+router.beforeEach((to) => {
+  document.title = to.meta?.title ?? 'Sked.Online'
+})
 
+router.beforeEach((to, from, next) => {
+  // Запуск индикатора прогресса
+  NProgress.start();
+  NProgress.configure({ easing: 'ease', speed: 400 });
+  NProgress.configure({ showSpinner: false });
+  setTimeout(() => {
+    next(); // Переход к следующему роуту после задержки
+  }, 300);
+});
 
-
+router.afterEach(() => {
+  // Завершение индикатора прогресса
+  NProgress.done();
+});
 
 export default router

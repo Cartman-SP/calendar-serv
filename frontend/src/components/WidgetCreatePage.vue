@@ -2,7 +2,7 @@
   <div style="display: flex;">
     <div class="main">
       <div class="transition">
-        <router-link to="/lk/widgets" class="employesss-link">Виджеты</router-link>
+        <router-link to="/dashboard/widgets" class="employesss-link">Виджеты</router-link>
         <div class="arrow-container">
           <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
         </div>
@@ -296,7 +296,7 @@ export default {
       this.selectedImages.forEach(image => {formData.append('images[]', image);});
       axios.post('http://127.0.0.1:8000/api/widget_create/', formData)
       .then(response => {
-        this.$router.push('/lk/widgets/')
+        this.$router.push('/dashboard/widgets/')
         console.log(response);
       })
       .catch(error => {

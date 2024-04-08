@@ -77,7 +77,7 @@ export default {
         this.errorMessage = '';
 
         // Переход на другую страницу (например, после успешной авторизации)
-        this.$router.push('/lk');
+        this.$router.push('/dashboard');
       } catch (error) {
         console.error('Ошибка входа', error);
 

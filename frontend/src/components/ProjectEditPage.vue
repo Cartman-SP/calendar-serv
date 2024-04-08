@@ -2,7 +2,7 @@
   <div class="main">
     <div class="overlay" v-if="showModal"></div>
     <div class="transition">
-      <router-link to="/lk/project" class="eidt-link">Мои проекты</router-link>
+      <router-link to="/dashboard/project" class="eidt-link">Мои проекты</router-link>
       <div class="arrow-container">
         <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
       </div>

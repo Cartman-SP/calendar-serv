@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="transition">
-      <router-link to="/lk/widgets" class="employesss-link">Виджеты</router-link>
+      <router-link to="/dashboard/widgets" class="employesss-link">Виджеты</router-link>
       <div class="arrow-container">
         <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
       </div>

@@ -4,7 +4,7 @@
           <ModalEmployeesPage/>
         </div>
         <div class="transition">
-          <router-link to="/lk/personal" class="employesss-link">Сотрудники</router-link>
+          <router-link to="/dashboard/personal" class="employesss-link">Сотрудники</router-link>
           <div class="arrow-container">
             <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
           </div>
@@ -169,7 +169,7 @@
             <!-- Buttons -->
             <div class="button-container">
               <button @click="saveAndExit" class="save-and-exit-button">Сохранить и выйти</button>
-              <button @click="this.$router.push('/lk/personal')" class="cancel-button">Отмена</button>
+              <button @click="this.$router.push('/dashboard/personal')" class="cancel-button">Отмена</button>
             </div>
           </div>
           <div class="adaptive_window">

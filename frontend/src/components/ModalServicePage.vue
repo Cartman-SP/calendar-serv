@@ -31,8 +31,8 @@
           </div>
         </div>
         <div class="btn-wrapper">
-          <button class="add-btn" @click="this.$router.push('/lk/service')">Добавить еще услуги</button>
-          <button class="add-employees" @click="this.$router.push('/lk/personal/employees')">Добавить сотрудника</button>
+          <button class="add-btn" @click="this.$router.push('/dashboard/service')">Добавить еще услуги</button>
+          <button class="add-employees" @click="this.$router.push('/dashboard/personal/employees')">Добавить сотрудника</button>
         </div>
       </div>
     </div>

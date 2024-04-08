@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="content" v-if="uslugiLoaded && uslugi.length > 0">
-      <router-link to="/lk/service/create" class="add">
+      <router-link to="/dashboard/service/create" class="add">
         <div class="svg-plus">
           <svg width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="0" xmlns="http://www.w3.org/2000/svg">
             <path d="M9.00006 11V17H11.0001V11H17V9H11.0001V3H9.00006V9H3V11H9.00006Z"/>
@@ -16,7 +16,9 @@
         <img src="../../static/img/flag.svg" alt="" class="img_service">
         <p class="header">Поздравляем с регистрацией!</p>
         <p class="subheader">Предлагаем вам перейти к созданию услуги, после чего у вас появится возможность прикрепить созданные услуги к вашим специалистам и добавить филиал.</p>
-        <a href="#/lk/service/create" style="text-decoration:none"><button class="service_btn"> + Добавить услуги</button></a>
+        <router-link :to="'/dashboard/service/create'" style="text-decoration:none">
+          <button class="service_btn"> + Добавить услуги</button>
+        </router-link>
       </div>
     </div>
     <div v-else style="padding-top: 200px;">

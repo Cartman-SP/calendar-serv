@@ -1,7 +1,7 @@
 <template>
     <div class="main">
       <div v-if=" branchLoaded && filials.length > 0" class="filials">
-        <router-link to="/lk/branch/createbranch" class="add">
+        <router-link to="/dashboard/branch/createbranch" class="add">
           <div class="svg-plus">
             <svg width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="0" xmlns="http://www.w3.org/2000/svg">
               <path d="M9.00006 11V17H11.0001V11H17V9H11.0001V3H9.00006V9H3V11H9.00006Z"/>
@@ -17,7 +17,7 @@
         <img src="../../static/img/filial-create.svg" alt="" class="img_branch">
         <p class="header">Здесь будет ваш филиал. Будет же?</p>
         <p class="subheader">Теперь нам осталось добавить информацию о своей компании\филиале, добавить местоположение, контакты для связи и прочее</p>
-        <a class="button_a" href="#/lk/branch/createbranch" style="text-decoration:none"><button class="branch_btn"> + Добавить филиал</button></a>
+        <a class="button_a" href="#/dashboard/branch/createbranch" style="text-decoration:none"><button class="branch_btn"> + Добавить филиал</button></a>
       </div>
       <div v-else style="padding-top: 200px;">
       <!-- Показываем значок загрузки -->

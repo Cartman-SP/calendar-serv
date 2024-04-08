@@ -32,8 +32,8 @@
           </div>
         </div>
         <div class="btn-wrapper">
-          <button class="add-btn" @click="this.$router.push('/lk/personal')">Добавить еще сотрудника</button>
-          <button class="add-branch" @click="this.$router.push('/lk/branch/createbranch')">Добавить филиал</button>
+          <button class="add-btn" @click="this.$router.push('/dashboard/personal')">Добавить еще сотрудника</button>
+          <button class="add-branch" @click="this.$router.push('/dashboard/branch/createbranch')">Добавить филиал</button>
         </div>
       </div>
     </div>

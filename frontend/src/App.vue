@@ -1,15 +1,13 @@
 <template>
   <div>
+    
     <router-view/>
-    <!-- <MessageAlert :message="'Тестовое уведомление'" :color="'#0BB6A1'"/> -->
+    <nprogress-container></nprogress-container>
+
   </div>
 </template>
 
 <script>
-
-export default {
-  
-}
 </script>
 
 <style>

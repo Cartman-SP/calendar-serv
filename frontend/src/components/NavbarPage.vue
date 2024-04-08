@@ -66,7 +66,7 @@
                           </div>
                         </div>
                       </div>
-                      <router-link to="/lk/project" style="text-decoration:none; width: fit-content; margin: 15px 0 0 0; height: fit-content;">
+                      <router-link to="/dashboard/project" style="text-decoration:none; width: fit-content; margin: 15px 0 0 0; height: fit-content;">
                         <div class="bottom">
                           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g opacity="0.6" clip-path="url(#clip0_4163_7512)">
@@ -102,7 +102,7 @@
                       <p>Быстрое создание</p>
                       <Tip :Width="'308px'" :Tip="'Удобно, если заказ был принят по телефону \n и нужно добавить клиента в общую базу'"/>
                     </div>
-                    <router-link to="/lk/" style="text-decoration:none" id="drop-menu-href">
+                    <router-link to="/dashboard/" style="text-decoration:none" id="drop-menu-href">
                       <div class="create">
                         <svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M0.600098 10.8626C0.600098 11.5859 1.34428 12.07 2.00548 11.7768L15.0001 6.01429L2.00699 0.226662C1.34562 -0.0679383 0.600098 0.416118 0.600098 1.14013V3.35045C0.600098 4.39447 1.40314 5.26285 2.44398 5.34435L11.0001 6.01429L2.44944 6.66026C1.40628 6.73907 0.600098 7.60846 0.600098 8.65458V10.8626Z" fill="#6266EA"/>
@@ -110,7 +110,7 @@
                         <p class="subheader">Заявки</p>
                       </div>
                     </router-link>
-                    <router-link to="/lk/service/create" style="text-decoration:none" id="drop-menu-href">
+                    <router-link to="/dashboard/service/create" style="text-decoration:none" id="drop-menu-href">
                       <div class="create">
                         <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M7.9998 9.10005H15.1998V10.7H7.9998V9.10005Z" fill="#464AD9"/>
@@ -123,7 +123,7 @@
                         <p class="subheader">Услуги</p>
                       </div>
                     </router-link>
-                    <router-link to="/lk/personal/employees" style="text-decoration:none" id="drop-menu-href">
+                    <router-link to="/dashboard/personal/employees" style="text-decoration:none" id="drop-menu-href">
                       <div class="create">
                         <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M12.8 3.69998C12.8 4.80454 11.9046 5.69998 10.8 5.69998C9.69543 5.69998 8.8 4.80454 8.8 3.69998C8.8 2.59541 9.69543 1.69998 10.8 1.69998C11.9046 1.69998 12.8 2.59541 12.8 3.69998Z" fill="#6266EA"/>
@@ -134,7 +134,7 @@
                         <p class="subheader">Сотрудника</p>
                       </div>
                     </router-link>
-                    <router-link to="/lk/branch/createbranch" style="text-decoration:none" id="drop-menu-href">
+                    <router-link to="/dashboard/branch/createbranch" style="text-decoration:none" id="drop-menu-href">
                       <div class="create">
                         <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path fill-rule="evenodd" clip-rule="evenodd" d="M4 3.70002V3.30002C4 1.97454 5.07452 0.900024 6.4 0.900024H9.6C10.9255 0.900024 12 1.97454 12 3.30002V3.70002H14.4C15.2837 3.70002 16 4.41637 16 5.30002V13.3C16 14.1837 15.2837 14.9 14.4 14.9H1.6C0.716344 14.9 0 14.1837 0 13.3V5.30002C0 4.41637 0.716344 3.70002 1.6 3.70002H4ZM5.6 3.30002C5.6 2.8582 5.95817 2.50002 6.4 2.50002H9.6C10.0418 2.50002 10.4 2.8582 10.4 3.30002V3.70002H5.6V3.30002ZM8 8.50002C8.66274 8.50002 9.2 7.96277 9.2 7.30002C9.2 6.63728 8.66274 6.10002 8 6.10002C7.33726 6.10002 6.8 6.63728 6.8 7.30002C6.8 7.96277 7.33726 8.50002 8 8.50002Z" fill="#6266EA"/>

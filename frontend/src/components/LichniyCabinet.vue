@@ -40,7 +40,7 @@ export default {
           console.log('окно показанно')
         } else {
           this.modalResult = 1;
-          this.$router.push('/lk/service');
+          this.$router.push('/dashboard/service');
         }
       } catch (error) {
         console.error('Ошибка при выполнении запроса:', error);

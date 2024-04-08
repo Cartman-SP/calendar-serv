@@ -1,18 +1,18 @@
 <template>
   <div class="sidebar">
     <div class="main_side">
-      <router-link to="/lk/service">
+      <router-link to="/dashboard/service">
         <img src="../../static/img/logo.svg"  id="desktopLink" alt="" class="logotype">
       </router-link>
       <div class="mobile-logo">
-        <router-link to="/lk/service">
+        <router-link to="/dashboard/service">
           <img src="../../static/img/LogoMobile.svg" id="mobileLogo" alt="" class="logotype">
         </router-link>
       </div>
       <div class="content">
         <div class="top-group">
           <div class="cards-group">
-            <router-link to="/lk/service" class="main_text" :class="{ active: $route.path === '/lk/service'}">
+            <router-link to="/dashboard/service" class="main_text" :class="{ active: $route.path === '/dashboard/service'}">
               <div class="main_menu">
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M10 12H19V14H10V12Z" fill="#6266EA"/>
@@ -26,7 +26,7 @@
                 <p class="main_text">Услуги</p>
               </div>
             </router-link>
-            <router-link :to="!uslugi.length > 0 ? '/lk/locked' : '/lk/personal'" class="main_text" :class="{ active: $route.path === '/lk/personal' }">
+            <router-link :to="!uslugi.length > 0 ? '/dashboard/locked' : '/dashboard/personal'" class="main_text" :class="{ active: $route.path === '/dashboard/personal' }">
               <div :class="{'disabled-menu' : !uslugi.length > 0, 'main_menu' : uslugi.length > 0}">
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M16 6.5C16 7.88071 14.8807 9 13.5 9C12.1193 9 11 7.88071 11 6.5C11 5.11929 12.1193 4 13.5 4C14.8807 4 16 5.11929 16 6.5Z" fill="#6266EA"/>
@@ -37,7 +37,7 @@
                 <p class="main_text">Сотрудники</p>
               </div>
             </router-link>
-            <router-link :to="!employees.length > 0 || !uslugi.length > 0 ? '/lk/locked' : '/lk/branch'" class="main_text" :class="{ active: $route.path === '/lk/branch' }">
+            <router-link :to="!employees.length > 0 || !uslugi.length > 0 ? '/dashboard/locked' : '/dashboard/branch'" class="main_text" :class="{ active: $route.path === '/dashboard/branch' }">
               <div :class="{'disabled-menu' : !employees.length > 0, 'main_menu' : employees.length > 0}">
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4V3.5C5 1.84315 6.34315 0.5 8 0.5H12C13.6569 0.5 15 1.84315 15 3.5V4H18C19.1046 4 20 4.89543 20 6V16C20 17.1046 19.1046 18 18 18H2C0.895431 18 0 17.1046 0 16V6C0 4.89543 0.895431 4 2 4H5ZM7 3.5C7 2.94772 7.44772 2.5 8 2.5H12C12.5523 2.5 13 2.94772 13 3.5V4H7V3.5ZM10 10C10.8284 10 11.5 9.32843 11.5 8.5C11.5 7.67157 10.8284 7 10 7C9.17157 7 8.5 7.67157 8.5 8.5C8.5 9.32843 9.17157 10 10 10Z" fill="#6266EA"/>
@@ -48,7 +48,7 @@
           </div>
           <div class="line"></div>
           <div class="cards-group">
-            <router-link  :to="!employees.length > 0 || !uslugi.length > 0 || !filials.length > 0 ? '/lk/locked' : '/lk/widgets'" class="main_text" :class="{ active: $route.path === '/lk/widgets' }">
+            <router-link  :to="!employees.length > 0 || !uslugi.length > 0 || !filials.length > 0 ? '/dashboard/locked' : '/dashboard/widgets'" class="main_text" :class="{ active: $route.path === '/dashboard/widgets' }">
               <div :class="{'disabled-menu' : !filials.length > 0, 'main_menu' : filials.length > 0}">
                 <svg width="16" height="16" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M8 2.1C4.48183 2.1 1.6 4.98183 1.6 8.5C1.6 12.0182 4.48183 14.9 8 14.9V16.5C3.59817 16.5 0 12.9018 0 8.5C0 4.09817 3.59817 0.5 8 0.5C12.4018 0.5 16 4.09817 16 8.5C16 12.7506 14 15.7 11.2 15.7C8.8 15.7 7.2 13.46 7.2 10.9H6.39998C5.51632 10.9 4.79998 10.1836 4.79998 9.29997L4.79999 6.89998H5.93488V4.66746C5.93488 4.31809 6.21808 4.03489 6.56744 4.03489C6.91679 4.03489 7.19999 4.31809 7.19999 4.66746V6.89998H8.79999V4.66746C8.79999 4.31809 9.08319 4.03489 9.43256 4.03489C9.7819 4.03489 10.0651 4.31809 10.0651 4.66746V6.89998H11.2V9.29998C11.2 10.1836 10.4836 10.9 9.59999 10.9H8.8C8.8 13.3 10 14.1 11.2 14.1C12.8 14.1 14.4 12.3854 14.4 8.5C14.4 4.98183 11.5182 2.1 8 2.1Z" fill="#6266EA"/>
@@ -56,7 +56,7 @@
                 <p class="main_text">Виджеты</p>
               </div>
             </router-link>
-            <router-link to="/lk/calendar" class="main_text" :class="{ active: $route.path === '/main/calendar' }">
+            <router-link to="/dashboard/calendar" class="main_text" :class="{ active: $route.path === '/main/calendar' }">
               <div class="main_menu">
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M5 5V0H7V5H5Z" fill="#6266EA"/>
@@ -66,7 +66,7 @@
                 <p class="main_text">Календарь</p>
               </div>
             </router-link>
-            <router-link to="/lk/clients" class="main_text" :class="{ active: $route.path === '/main/clients' }">
+            <router-link to="/dashboard/clients" class="main_text" :class="{ active: $route.path === '/main/clients' }">
               <div class="main_menu">
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M16 6.5C16 7.88071 14.8807 9 13.5 9C12.1193 9 11 7.88071 11 6.5C11 5.11929 12.1193 4 13.5 4C14.8807 4 16 5.11929 16 6.5Z" fill="#6266EA"/>
@@ -77,7 +77,7 @@
                 <p class="main_text">Клиенты</p>
               </div>
             </router-link>
-            <router-link to="/lk/statistics" class="main_text" :class="{ active: $route.path === '/main/statistics' }">
+            <router-link to="/dashboard/statistics" class="main_text" :class="{ active: $route.path === '/main/statistics' }">
               <div class="main_menu">
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M15.9667 1L9.00006 1.03317L11.783 3.8029L7.00008 8.5858V13.5858L2.29297 18.2929L3.70718 19.7071L9.00008 14.4142V9.41423L13.2006 5.21375L16.0001 8L15.9667 1Z" fill="#6266EA"/>
@@ -112,7 +112,7 @@
                       <img v-if="showDropdown" src="../../static/img/x.svg" alt="Close" style="width: 12px; height: 12px;">
                     </button>
                     <div :class="{'dropdown-menu-show' : showDropdown, 'dropdown-menu-hide' : !showDropdown}" @click="closeDropdown">
-                    <router-link to="/lk/settings" style="text-decoration:none" class="dropdown-link">
+                    <router-link to="/dashboard/settings" style="text-decoration:none" class="dropdown-link">
                       <div class="dropdown-item">
                         <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path fill-rule="evenodd" clip-rule="evenodd" d="M8.82231 0.5C8.56215 0.5 8.35124 0.710907 8.35124 0.971074V2.74768C7.61716 2.92912 6.91437 3.2195 6.26632 3.60914L5.01431 2.3539C4.92601 2.26537 4.80613 2.21558 4.68109 2.2155C4.55605 2.21542 4.4361 2.26505 4.34769 2.35347L2.35347 4.34769C2.26505 4.4361 2.21542 4.55605 2.2155 4.68109C2.21558 4.80613 2.26537 4.92601 2.3539 5.01431L3.60914 6.26632C3.2195 6.91437 2.92912 7.61716 2.74768 8.35124H0.971074C0.710907 8.35124 0.5 8.56215 0.5 8.82231V11.1777C0.5 11.4379 0.710907 11.6488 0.971074 11.6488H2.74768C2.92912 12.3828 3.2195 13.0856 3.60914 13.7337L2.3539 14.9857C2.26537 15.074 2.21558 15.1939 2.2155 15.3189C2.21542 15.444 2.26505 15.5639 2.35347 15.6523L4.34769 17.6465C4.4361 17.7349 4.55605 17.7846 4.68109 17.7845C4.80613 17.7844 4.92601 17.7346 5.01431 17.6461L6.26632 16.3909C6.91437 16.7805 7.61716 17.0709 8.35124 17.2523V19.0289C8.35124 19.2891 8.56215 19.5 8.82231 19.5H11.1777C11.4379 19.5 11.6488 19.2891 11.6488 19.0289V17.2523C12.3828 17.0709 13.0856 16.7805 13.7337 16.3909L14.9857 17.6461C15.074 17.7346 15.1939 17.7844 15.3189 17.7845C15.444 17.7846 15.5639 17.7349 15.6523 17.6465L17.6465 15.6523C17.7349 15.5639 17.7846 15.444 17.7845 15.3189C17.7844 15.1939 17.7346 15.074 17.6461 14.9857L16.3909 13.7337C16.7805 13.0856 17.0709 12.3828 17.2523 11.6488H19.0289C19.2891 11.6488 19.5 11.4379 19.5 11.1777V8.82231C19.5 8.56215 19.2891 8.35124 19.0289 8.35124H17.2523C17.0709 7.61716 16.7805 6.91437 16.3909 6.26632L17.6461 5.01431C17.7346 4.92601 17.7844 4.80613 17.7845 4.68109C17.7846 4.55605 17.7349 4.4361 17.6465 4.34769L15.6523 2.35347C15.5639 2.26505 15.444 2.21542 15.3189 2.2155C15.1939 2.21558 15.074 2.26537 14.9857 2.3539L13.7337 3.60914C13.0856 3.2195 12.3828 2.92912 11.6488 2.74768V0.971074C11.6488 0.710907 11.4379 0.5 11.1777 0.5H8.82231ZM6.70248 10C6.70248 8.17883 8.17883 6.70248 10 6.70248C11.8212 6.70248 13.2975 8.17883 13.2975 10C13.2975 11.8212 11.8212 13.2975 10 13.2975C8.17883 13.2975 6.70248 11.8212 6.70248 10Z" fill="#AFB6C1"/>

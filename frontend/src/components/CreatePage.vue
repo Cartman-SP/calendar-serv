@@ -2,7 +2,7 @@
   <div class="main">
     <ModalServicePage v-if="first"/>
     <div class="transition">
-      <router-link to="/lk/service" class="employesss-link">Услуги</router-link>
+      <router-link to="/dashboard/service" class="employesss-link">Услуги</router-link>
       <div class="arrow-container">
         <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
       </div>
@@ -423,7 +423,7 @@ export default {
           this.first = response.data
           }else{
           setTimeout(() => {
-            this.$router.push('/lk/service');
+            this.$router.push('/dashboard/service');
           }, 2000)}
         })
         .catch(error => {

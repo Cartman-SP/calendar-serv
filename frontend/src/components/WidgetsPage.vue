@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="content">
-      <router-link to="/lk/widgets/create" class="add">
+      <router-link to="/dashboard/widgets/create" class="add">
         <div class="svg-plus">
           <svg width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="0" xmlns="http://www.w3.org/2000/svg">
             <path d="M9.00006 11V17H11.0001V11H17V9H11.0001V3H9.00006V9H3V11H9.00006Z"/>
@@ -15,7 +15,7 @@
         <img src="../../static/img/big_flag.png" alt="" class="img_widgets">
         <p class="header">Последний рывок</p>
         <p class="subheader">Осталось только создать виджет, выбрать его оформление<br> и разместить его на сайте или в социальных сетях. После<br> чего ваши клиенты смогут записываться к вам онлайн.</p>
-        <router-link to="/lk/widgets/create" style="text-decoration:none">
+        <router-link to="/dashboard/widgets/create" style="text-decoration:none">
           <button class="widgets_btn"> + Добавить услуги</button>
         </router-link>
     </div>
