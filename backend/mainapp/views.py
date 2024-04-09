@@ -44,8 +44,11 @@ from rest_framework import status
 from django.contrib.auth.hashers import check_password, make_password
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
-
-
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.renderers import JSONRenderer
+from rest_framework.response import Response
+from django.http import JsonResponse
 
 @csrf_exempt
 @require_POST
@@ -115,9 +118,11 @@ def update_profile(request):
         project.colour = "#F3F5F6"
         project.save()
         print('ZhopaZhopaZhopa', project.id)
-        return JsonResponse({'message': 'Профиль успешно обновлен','project':project.id}, status=200)
-    except User.DoesNotExist:
+        return JsonResponse({'message': 'Профиль успешно обновлен', 'project': project.id}, status=200)
+    except ObjectDoesNotExist:
         return JsonResponse({'error': 'Пользователь не найден'}, status=400)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
 
 
 @csrf_exempt
@@ -199,32 +204,39 @@ def check_profile(request, user_id):
 
 
 
-class UslugaList(APIView):
-    parser_classes = [MultiPartParser, FormParser]
+from django.http import JsonResponse
+from rest_framework.parsers import MultiPartParser, FormParser
 
-    def get(self, request):
-        user_id = request.GET.get('variable')
-        project = request.GET.get('project')
-        print(project,'---------')
-        uslugi = Usluga.objects.filter(user = User.objects.get(id=user_id),project = Project.objects.get(id=project))
-        serializer = UslugaSerializer(uslugi, many=True)
-        return Response(serializer.data)
-
-    def post(self, request):
-        print(request.data)
-        user = User.objects.get(id=request.data['user'])
-        profile = Profile.objects.get(user=user)
-        serializer = UslugaSerializer(data=request.data)
-        if(profile.first_usluga==False):
+@csrf_exempt
+@parser_classes([MultiPartParser, FormParser])
+def uslugas(request):
+    try:
+        if request.method == 'GET':
+            user_id = request.GET.get('variable')
+            project = request.GET.get('project')
+            print(project, '---------')
+            uslugi = Usluga.objects.filter(user=User.objects.get(id=user_id), project=Project.objects.get(id=project))
+            serializer = UslugaSerializer(uslugi, many=True)
+            return JsonResponse(serializer.data, safe=False)  # Установите safe=False здесь
+        elif request.method == 'POST':
+            print(request.POST)
+            user = User.objects.get(id=request.POST['user'])
+            profile = Profile.objects.get(user=user)
+            serializer = UslugaSerializer(data=request.POST)
+            if not profile.first_usluga:
+                if serializer.is_valid():
+                    serializer.save()
+                    profile.first_usluga = True
+                    profile.save()
+                    return JsonResponse(True, status=201, safe=False)  # Установите safe=False здесь
             if serializer.is_valid():
                 serializer.save()
-                profile.first_usluga = True
-                profile.save()
-                return Response(True, status=201)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(False, status=201)
-        return Response(serializer.errors, status=400)
+                return JsonResponse(False, status=201, safe=False)  # Установите safe=False здесь
+            return JsonResponse(serializer.errors, status=400, safe=False)  # Установите safe=False здесь
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500, safe=False)  # Установите safe=False здесь
+
+
     
 @csrf_exempt    
 def path_reset(request):
@@ -305,40 +317,49 @@ def usluga_delete(request):
     else:
         return JsonResponse({'error': 'Метод не разрешен'}, status=405)
     
-def add_employee_to_serviece(string, employee_id):
-        usluga_ids = string.split(',')
-        usluga_ids = list(filter(bool, usluga_ids))
-        for i in usluga_ids:
-            usluga = Usluga.objects.get(id=i)
-            usluga.employees = usluga.employees + ","+str(employee_id)
-            usluga.save()
 
-@api_view(['POST'])
+
+def add_employee_to_service(string, employee_id):
+    usluga_ids = string.split(',')
+    usluga_ids = list(filter(bool, usluga_ids))
+    for i in usluga_ids:
+        usluga = Usluga.objects.get(id=i)
+        usluga.employees = usluga.employees + ","+str(employee_id)
+        usluga.save() 
+
+@csrf_exempt
 def create_employee(request):
     if request.method == 'POST':
-        print(request.data )
-        user_id = request.data.get('user_id')  # Получаем id пользователя из запроса
         try:
-            print()
+            post_data = request.POST.dict()  # конвертируем QueryDict в словарь
+            print(post_data)
+            user_id = post_data.get('user_id')  # Получаем id пользователя из запроса
             user = User.objects.get(id=user_id)  # Получаем объект пользователя по id
-            request.data['user'] = user.id  
-            serializer = EmployeeSerializer(data=request.data)
-            profile = Profile.objects.get(user = user)
-
-            if(profile.first_sotrudnik==False):
+            post_data['user'] = user.id  
+            serializer = EmployeeSerializer(data=post_data)
+            profile = Profile.objects.get(user=user)
+            
+            if not profile.first_sotrudnik:
                 if serializer.is_valid():
                     serializer.save()
                     profile.first_sotrudnik = True
                     profile.save()
-                    add_employee_to_serviece(request.data.get('serviceid'),serializer.instance.id)
-                    return Response(True, status=201)
-            if serializer.is_valid():
+                    add_employee_to_service(post_data.get('serviceid'), serializer.instance.id)
+                    return JsonResponse(True, status=status.HTTP_201_CREATED, safe=False)
+            elif serializer.is_valid():
                 serializer.save()
-                add_employee_to_serviece(request.data.get('serviceid'),serializer.instance.id)
-                return Response(False, status=status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                add_employee_to_service(post_data.get('serviceid'), serializer.instance.id)
+                return JsonResponse(False, status=status.HTTP_201_CREATED, safe=False)
+            return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except User.DoesNotExist:
-            return Response({'message': 'User does not exist'}, status=status.HTTP_404_NOT_FOUND)
+            return JsonResponse({'message': 'User does not exist'}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return JsonResponse({'message': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+
+
 
 @api_view(['GET'])
 def get_employees_by_user(request):
@@ -597,16 +618,17 @@ def employee_delete(request):
     else:
         return JsonResponse({'error': 'Метод не разрешен'}, status=405)
     
-@api_view(['POST'])
+@csrf_exempt
 def create_widget(request):
     if request.method == 'POST':
-        serializer = WidgetSerializer(data=request.data, context={'request': request})
+        post_data = request.POST.dict()
+        serializer = WidgetSerializer(data=post_data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
         else:
             print(serializer.errors)  # Печать ошибок сериализатора в консоль
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 def get_uslugi_fromfilials(request):
     pass
