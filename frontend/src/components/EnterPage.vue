@@ -110,7 +110,7 @@ export default {
     align-items: center;
     justify-content: center;
   }
-  .container1{
+  .container1{ 
     font-family: 'TT Norms Medium';
     height: 100vh;
     padding: 0 0 0 0;

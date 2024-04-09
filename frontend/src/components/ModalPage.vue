@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="{'modal-show' : isModalVisible, 'modal-hide' : !isModalVisible}">
     <div class="overlay"></div>
     <div class="modal-container">
       <div class="image-container">
@@ -121,7 +121,12 @@ export default {
       companyNameError: false,
       selectedTimeZoneError: false,
       selectedCurrencyError: false,
+
+      isModalVisible: false,
     };
+  },
+  mounted(){
+    this.opacityAnimation()
   },
   computed: {
     remainingCharacters() {
@@ -148,6 +153,13 @@ export default {
     }
   },
   methods: {
+    opacityAnimation(){
+      this.isModalVisible = false;
+      setTimeout(() => {
+        this.isModalVisible = true;
+      }, 200);
+    },
+
     handleFileUpload(event) {
       this.avatar = event.target.files[0];
       const file = event.target.files[0];
@@ -244,6 +256,17 @@ export default {
 
 
   <style scoped>
+  .modal-show{
+    opacity: 1;
+    transition: all .2s ease;
+  }
+
+  .modal-hide{
+    opacity: 0;
+    transition: all .2s ease;
+  }
+
+
   .select-error >>> .selected{
     border: solid 1px #F97F7F !important;
   }

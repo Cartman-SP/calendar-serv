@@ -1,5 +1,5 @@
 <template>
-    <div class="nav">
+    <div class="nav" :class="{'modal-show' : isModalVisible, 'modal-hide' : !isModalVisible}">
         <div class="search">
             <input type="text" placeholder="Найти">
         </div>
@@ -305,9 +305,17 @@ export default {
                 color: '#6266EA',
               },
             ],
+            isModalVisible: false,
         };
     },
     methods: {
+        opacityAnimation(){
+          this.isModalVisible = false;
+          setTimeout(() => {
+            this.isModalVisible = true;
+          }, 200);
+        },
+
         toggleSidebarMobile() {
           this.showSidebarMobile = !this.showSidebarMobile;
         },
@@ -334,10 +342,23 @@ export default {
             .join('');
         },
     },
+    mounted(){
+      this.opacityAnimation();
+    }
 };
 </script>
 
 <style scoped>
+.modal-show{
+    transform: translateY(0px);
+    transition: all .4s ease;
+  }
+
+  .modal-hide{
+    transform: translateY(-300px);
+    transition: all .4s ease;
+  }
+
 .tip-show{
   font-size: 15px;
   font-family: 'TT Norms Medium';

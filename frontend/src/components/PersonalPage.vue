@@ -19,12 +19,15 @@
         <p class="header">Вот это скорость!</p>
         <p class="subheader">Мы видим, что вы завершили создание услуг. В этом разделе,предлагаем добавить ваших сотрудников и назначить им ранее созданные услуги. Если, у вас нет сотрудников, вы можете пропустить этот шаг и перейти к созданию своего филиала/компании.</p>
         <div class="pernosal_btns">
-          <a href="#/dashboard" style="text-decoration:none"><button class="personal_btn skip-btn">Пропустить</button></a>
-          <a href="#/dashboard/personal/employees" style="text-decoration:none"><button class="personal_btn"> + Добавить сотрудника</button></a>
+          <!-- <router-link :to="'/dashboard'" style="text-decoration:none">
+            <button class="personal_btn skip-btn">Пропустить</button>
+          </router-link> -->
+          <router-link :to="'/dashboard/personal/employees'" style="text-decoration:none">
+            <button class="personal_btn"> + Добавить сотрудника</button>
+          </router-link>
         </div>
       </div>
       <div v-else style="padding-top: 200px;">
-      <!-- Показываем значок загрузки -->
         <i class="pi pi-spin pi-spinner" style="font-size: 2rem;  color: #6266EA"></i>
       </div>
     </div>

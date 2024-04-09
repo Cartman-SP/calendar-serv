@@ -75,73 +75,73 @@ const routes = [
         path: '/dashboard/widgets',
         name: 'widgets',
         component: WidgetsPage,
-        meta: { requiresAuth: true, title: 'Sked.Online - Widgets' },
+        meta: { requiresAuth: true, title: 'Sked.Online - Виджеты' },
       },
       {
         path: '/dashboard/widgets/settings',
         name: 'widgetsSettings',
         component: WidgetsSettingsPage,
-        meta: { requiresAuth: true, title: 'Sked.Online - Widgets settings' },
+        meta: { requiresAuth: true, title: 'Sked.Online - Настройка виджета' },
       },
       {
         path: '/dashboard/main',
         name: 'main',
         component: MainPage,
-        meta: { requiresAuth: true, title: 'Sked.Online - Main' }
+        meta: { requiresAuth: true, title: 'Sked.Online - Главная' }
       },
       {
         path:'/dashboard/service',
         name: 'service',
         component: ServicePage,
-        meta: { requiresAuth: true, title: 'Sked.Online - Service' }
+        meta: { requiresAuth: true, title: 'Sked.Online - Услуги' }
       },
       {
         path:'/dashboard/service/create',
         name: 'create',
         component: CreatePage,
-        meta: { requiresAuth: true, title: 'Sked.Online - Create service' }
+        meta: { requiresAuth: true, title: 'Sked.Online - Создание новой услуги' }
       },
       {
         path: '/dashboard/personal',
         name: 'personal',
         component: PersonalPage,
-        meta: { requiresAuth: true, title: 'Sked.Online - Personal' }
+        meta: { requiresAuth: true, title: 'Sked.Online - Сотрудники' }
       },
       {
         path: '/dashboard/branch',
         name: 'branch',
         component: BranchPage,
-        meta: { requiresAuth: true, title: 'Sked.Online - Branch' }
+        meta: { requiresAuth: true, title: 'Sked.Online - Филиалы' }
       },
       {
         path: '/dashboard/personal/employees',
         name: 'employees',
         component: EmployeesPage,
-        meta: { requiresAuth: true, title: 'Sked.Online - Create personal' }
+        meta: { requiresAuth: true, title: 'Sked.Online - Создание нового сотрудника' }
       },
       {
         path: '/dashboard/settings',
         name: 'settings',
         component: SettingsPage,
-        meta: { requiresAuth: true, title: 'Sked.Online - Settings' }
+        meta: { requiresAuth: true, title: 'Sked.Online - Настройки профиля' }
       },
       {
         path: '/dashboard/branch/createbranch',
         name: 'createbranch',
         component: CreateBranchPage,
-        meta: { requiresAuth: true, title: 'Sked.Online - Create branch' }
+        meta: { requiresAuth: true, title: 'Sked.Online - Создание нового филиала' }
       },
       {
         path: '/dashboard/project',
         name: 'project',
         component: ProjectPage,
-        meta: { requiresAuth: true, title: 'Sked.Online - Projects' }
+        meta: { requiresAuth: true, title: 'Sked.Online - Мои проекты' }
       },
       {
         path: '/dashboard/project/edit',
         name: 'edit',
         component: ProjectEditPage,
-        meta: { requiresAuth: true, title: 'Sked.Online - Edit project' }
+        meta: { requiresAuth: true, title: 'Sked.Online - Редиктирование проекта' }
       },
       {
         path: '/dashboard/project/gates',
@@ -153,25 +153,25 @@ const routes = [
         path: '/dashboard/project/new',
         name: 'new',
         component: CreateProject,
-        meta: { requiresAuth: true, title: 'Sked.Online - New project' }
+        meta: { requiresAuth: true, title: 'Sked.Online - Новый проект' }
       },
       {
         path: '/dashboard/project/accesses',
         name: 'accesses',
         component: AccessesPage,
-        meta: { requiresAuth: true, title: 'Sked.Online - Accesses' }
+        meta: { requiresAuth: true, title: 'Sked.Online - Доступы' }
       },
       {
         path: '/dashboard/locked',
         name: 'locked',
         component: LockedPage,
-        meta: { requiresAuth: true, title: 'Sked.Online - Locked' }
+        meta: { requiresAuth: true, title: 'Sked.Online - В этот раздел доступ закрыт' }
       },
       {
         path: '/dashboard/widgets/create',
         name: 'widget_create',
         component: WidgetCreatePage,
-        meta: { requiresAuth: true, title: 'Sked.Online - Create widget ' }
+        meta: { requiresAuth: true, title: 'Sked.Online - Создание виджета' }
       }
     ]
   },

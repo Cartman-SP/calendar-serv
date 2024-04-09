@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar">
+  <div class="sidebar" :class="{'modal-show' : isModalVisible, 'modal-hide' : !isModalVisible}">
     <div class="main_side">
       <router-link to="/dashboard/service">
         <img src="../../static/img/logo.svg"  id="desktopLink" alt="" class="logotype">
@@ -177,6 +177,8 @@ export default {
       uslugi: [],
       employees: [],
       filials: [],
+
+      isModalVisible: false,
     };
   },
   computed: {
@@ -194,7 +196,13 @@ export default {
       },
     },
   methods: {
-
+    opacityAnimation(){
+        this.isModalVisible = false;
+        setTimeout(() => {
+          this.isModalVisible = true;
+        }, 200);
+      },
+    
     async getfilials(){
       axios.get(`http://127.0.0.1:8000/api/get_branch/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`)
         .then(response => {
@@ -264,11 +272,22 @@ export default {
     this.get_uslugi();
     this.get_employee();
     this.getfilials();
+    this.opacityAnimation();
   }
 };
 </script>
 
 <style scoped>
+ .modal-show{
+    transform: translateX(0px);
+    transition: all .4s ease;
+  }
+
+  .modal-hide{
+    transform: translateX(-300px);
+    transition: all .4s ease;
+  }
+
 .disabled-menu{
     text-align: left;
     display: flex;

@@ -62,7 +62,6 @@
                   <p>{{ chip.name }}</p>
                 </div>
               </div>
-  
               <div class="form-row">
                 <div class="dropdown-container">
                   <div class="usluga-head" v-if="selectedRecordType !== ''">
