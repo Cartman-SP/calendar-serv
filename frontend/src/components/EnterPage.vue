@@ -85,7 +85,11 @@ export default {
 
         if (error.response && error.response.data && error.response.data.error) {
           // Если есть информация об ошибке в ответе сервера, устанавливаем её
-          this.errorMessage = 'Ошибка входа: ' + error.response.data.error;
+          if(error.response.data.error=="'NoneType' object has no attribute 'username'"){
+            this.errorMessage = 'Ошибка входа: "Такой почтовый ящик  у нас не зарегистрирован"';
+          }else{
+          this.errorMessage = 'Ошибка входа: ' + '"'+error.response.data.error+'"';
+          }
         } else {
           // Если нет информации об ошибке, устанавливаем общее сообщение
           this.errorMessage = 'Ошибка входа: произошла непредвиденная ошибка';

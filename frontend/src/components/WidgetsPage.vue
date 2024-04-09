@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <div class="content">
+    <div class="content" v-if="uslugiLoaded && allwidgets.length > 0">
       <router-link to="/dashboard/widgets/create" class="add">
         <div class="svg-plus">
           <svg width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="0" xmlns="http://www.w3.org/2000/svg">
@@ -11,13 +11,17 @@
       </router-link>
       <CardWidget v-for="Widget in allwidgets" :key="Widget.id" :widgetData="Widget"/>
     </div>
-    <div class="widgets" v-if="!allwidgets">
+    <div class="widgets" v-else-if="uslugiLoaded && allwidgets.length == 0">
         <img src="../../static/img/big_flag.png" alt="" class="img_widgets">
         <p class="header">Последний рывок</p>
         <p class="subheader">Осталось только создать виджет, выбрать его оформление<br> и разместить его на сайте или в социальных сетях. После<br> чего ваши клиенты смогут записываться к вам онлайн.</p>
         <router-link to="/dashboard/widgets/create" style="text-decoration:none">
-          <button class="widgets_btn"> + Добавить услуги</button>
+          <button class="widgets_btn"> + Добавить виджет</button>
         </router-link>
+    </div>
+    <div v-else style="padding-top: 200px;">
+      <!-- Показываем значок загрузки -->
+      <i class="pi pi-spin pi-spinner" style="font-size: 2rem;  color: #6266EA"></i>
     </div>
   </div>
   </template>
@@ -30,26 +34,8 @@ export default {
     data() {
       return{
         link:'',
-        allwidgets:[
-          {
-            name: 'qwdqwd',
-            link: 'qxcvdbtbqwd.com',
-            date: '12.02.24',
-            id: '237465',
-          },
-          {
-            name: 'fdgdfg',
-            link: 'qxcvdbtbqwd.com',
-            date: '12.02.24',
-            id: '237465',
-          },
-          {
-            name: '568',
-            link: 'qxcvdbtbqwd.com',
-            date: '12.02.24',
-            id: '237465',
-          },
-        ]
+        allwidgets:[],
+        uslugiLoaded: false
       };
     },
     methods:{
@@ -58,6 +44,7 @@ export default {
     .then(response => {
         this.allwidgets = response.data;
         this.allwidgets.reverse();
+        this.uslugiLoaded = true;
 
     })
     .catch(error => {

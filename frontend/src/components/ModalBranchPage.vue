@@ -32,7 +32,7 @@
           </div>
         </div>
         <div class="btn-wrapper">
-          <router-link to="/dashboard/widgets/settings" style="text-decoration:none">
+          <router-link to="/dashboard/widgets/create" style="text-decoration:none">
             <button class="add-widget" >Создать виджет</button>
           </router-link>
           <router-link to="/dashboard/branch" style="text-decoration:none">
