@@ -7,9 +7,9 @@
       </div>
       <div class="Forma1">
         <div class="login-prompt">
-          Уже есть аккаунт? <a class="login-link" href="#/login" style="text-decoration:none">Войти</a>
+          Уже есть аккаунт? <a class="login-link" href="/login" style="text-decoration:none">Войти</a>
         </div>
-        <div class="registration-form1">
+        <div class="registration-form1" :class="{'modal-show' : isModalVisible, 'modal-hide' : !isModalVisible}">
           <div class="registers">
             <h2>Регистрация</h2>
           </div>
@@ -88,6 +88,8 @@ export default {
       email: '',
       error: '',
       PasswordError: false,
+
+      isModalVisible: false,
     };
   },
   computed: {
@@ -117,7 +119,17 @@ export default {
       this.PasswordError = false;
     }
   },
+  mounted(){
+    this.opacityAnimation()
+  },
   methods: {
+    opacityAnimation(){
+      this.isModalVisible = false;
+      setTimeout(() => {
+        this.isModalVisible = true;
+      }, 200);
+    },
+
     handleInput() {
       const countryCode = this.selectedCountry ? this.selectedCountry.code : '';
       this.value = countryCode + ' ' + this.value.replace(/^\s*\+\d\s*\|\s*/, '');
@@ -156,6 +168,18 @@ export default {
 
   
   <style>
+  .modal-show{
+    opacity: 1;
+    transform: translateX(0);
+    transition: all .8s ease;
+  }
+
+  .modal-hide{
+    transform: translateX(-20px);
+    opacity: 0;
+    transition: all .8s ease;
+  }
+
   .p-password{
     display: block;
   }

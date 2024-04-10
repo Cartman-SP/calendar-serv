@@ -1,5 +1,5 @@
 <template>
-  <div :class="{'modal-show' : isModalVisible, 'modal-hide' : !isModalVisible}">
+  <div :class="{'dialog-show' : isModalVisible, 'dialog-hide' : !isModalVisible}">
     <div class="overlay"></div>
     <div class="modal-container">
       <div class="image-container">
@@ -256,12 +256,12 @@ export default {
 
 
   <style scoped>
-  .modal-show{
+  .dialog-show{
     opacity: 1;
     transition: all .2s ease;
   }
 
-  .modal-hide{
+  .dialog-hide{
     opacity: 0;
     transition: all .2s ease;
   }
@@ -292,7 +292,7 @@ export default {
       display: flex;
       gap: 40px;
       align-items: center;
-      width: 932px;
+      width: 930px;
       height: 560px;
       background-color: #FAFAFA;
       border-radius: 25px;
