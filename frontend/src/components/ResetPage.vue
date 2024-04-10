@@ -111,16 +111,11 @@ export default {
     }
 
     .modal-hide{
-      transform: translateX(-20px);
       opacity: 0;
+      transform: translateX(-20px);
       transition: all .8s ease;
     }
 
-    .modal-go{
-      opacity: 0;
-      transform: translateX(20px);
-      transition: all .8s ease;
-    }
     .container3 {
       font-family: "TT Norms Medium";
       height: 100vh;
@@ -194,12 +189,11 @@ export default {
     .reset-form {
       background: #fff;
       width: 340px;
-      max-height: fit-content;
+      height: fit-content;
       margin: 0 auto;
       padding: 40px;
       border-radius: 5px;
       box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.10);
-      transition: max-height 0.25s ease-in;
     }
     
     .form-group {
