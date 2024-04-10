@@ -23,12 +23,19 @@ import CreateProject from '../components/CreateProject.vue';
 import AccessesPage from '../components/AccessesPage.vue';
 import LockedPage from '../components/LockedPage.vue';
 import WidgetCreatePage from '../components/WidgetCreatePage.vue';
+import NotFoundPage from '../components/NotFoundPage.vue';
 import store from '../store';
 import WidgetSite from '@/components/WidgetSite.vue';
 import NProgress from 'nprogress'; // Импортируйте nprogress
 import 'nprogress/nprogress.css'; // Импортируйте стили nprogress
 
 const routes = [
+  {
+    path: "/:catchAll(.*)",
+    name: 'NotFound',
+    component: NotFoundPage,
+    meta: { title: 'Sked.Online - Not Found' },
+  },
  {
    path: '/',
    name: 'hello',

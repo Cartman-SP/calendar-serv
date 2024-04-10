@@ -24,6 +24,7 @@ button {
   gap: 5px;
   border-radius: 3px;
   transition: all .2s ease;
+  font-family: "TT Norms Medium";
 }
 input[type="number"] {
     -moz-appearance: textfield;
