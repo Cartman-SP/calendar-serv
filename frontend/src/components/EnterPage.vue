@@ -387,12 +387,12 @@ export default {
   }
    @media (max-width: 768px){
     .container1{
-      padding: 0 0 0 20vw;
+      padding: 0 0 0 0vw;
     }
   }
   @media (max-width: 576px){
     .container1{
-      padding: 0 0 0 15vw;
+      padding: 0 0 0 0vw;
     }
   }
   </style>

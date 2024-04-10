@@ -201,7 +201,7 @@ export default {
   .subheader1 {
     text-align: left;
     color: #FFF;
-    font-family: TT Norms Medium;
+    font-family: TT Norms Bold;
     font-size: 64px;
     font-style: normal;
     line-height: normal;

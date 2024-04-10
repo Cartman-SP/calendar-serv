@@ -9,22 +9,39 @@
         <div class="reset-prompt">
           Нет аккаунта? <router-link to="/register" class="login-link" style="text-decoration: none;">Зарегистрироваться</router-link>
         </div>
-        <div class="reset-form">
+
+
+        <div class="reset-form" :class="{'modal-show' : isModalVisible, 'modal-hide' : !isModalVisible}">
           <h2>Восстановление<br>пароля</h2>
-          <form @submit.prevent="resetPassword">
+          <form v-if="step === 1" @submit.prevent="resetPassword">
             <div class="form-group">
-              <p class="mail">Мы отправим код подтверждения<br>на указанную почту или номер</p>
+              <p class="mail">Мы отправим код подтверждения<br>на указанную почту</p>
               <label for="username">Почта</label>
-              <input v-model="email" type="email" id="username" name="username" placeholder="Usermail@gmail.com" required>
+              <input v-model="email" autocomplete="new-password"  type="email" id="username" name="username" placeholder="Usermail@gmail.com" required>
             </div>
             <div class="reset-btn">
-              <button type="submit" @click="send_email">Восстановить пароль</button>
+              <button type="submit" @click="send_email, step = 2">Восстановить пароль</button>
+              <p class="error-btn" v-if="error">{{ error }}</p>
+            </div>
+          </form>
+
+          <form v-if="step === 2" @submit.prevent="resetPassword">
+            <div class="form-group">
+              <p class="mail">Мы отправили код подтверждения<br>на указанную почту</p>
+              <label for="username">Код подтверждения</label>
+              <input v-model="code" autocomplete="new-password" type="text" id="code" name="code" placeholder="Введите код подтверждения" required>
+            </div>
+            <div class="form-group">
+              <label for="username">Новый пароль</label>
+              <input v-model="newPassword" autocomplete="new-password" type="password" id="newPassword" name="newPassword" placeholder="Введите код подтверждения" required>
+            </div>
+            <div class="reset-btn">
+              <button type="submit" @click="newPass">Сменить пароль</button>
               <p class="error-btn" v-if="error">{{ error }}</p>
             </div>
           </form>
         </div>
       </div>
-
     </div>
     <RecoveryPage v-else :email="email"/>
   </div>
@@ -40,33 +57,72 @@ export default {
       email: '',
       reset_page: true,
       error: '',
+
+      isModalVisible: false,
+      step: 1,
     };
   },
+  mounted(){
+    this.opacityAnimation()
+  },
+  watch: {
+    email(){
+      this.error = ''
+    },
+  },
   methods: {
+    opacityAnimation(){
+      this.isModalVisible = false;
+      setTimeout(() => {
+        this.isModalVisible = true;
+      }, 200);
+    },
     send_email(){
-            const apiUrl = 'http://127.0.0.1:8000/api/pass_reset/';
+            if (this.email.length === 0) {
+              this.error = 'Пожалуйста, введите почту'
+            } else{
+              const apiUrl = 'http://127.0.0.1:8000/api/pass_reset/';
 
-            const data = {
-            email: this.email,
-            };
+              const data = {
+              email: this.email,
+              };
 
-            axios.post(apiUrl, data)
-            .then(response => {
-                // Обработка успешного ответа от сервера
-                console.log('Ответ от сервера:', response.data);
-                this.reset_page = false
-            })
-            .catch(error => {
-                this.error = 'Аккаунта с такой почтой не существует'
-                console.error('Произошла ошибка при отправке запроса:', error);
-            });
+              axios.post(apiUrl, data)
+              .then(response => {
+                  // Обработка успешного ответа от сервера
+                  console.log('Ответ от сервера:', response.data);
+                  this.reset_page = false
+              })
+              .catch(error => {
+                  this.error = 'Аккаунта с такой почтой не существует'
+                  console.error('Произошла ошибка при отправке запроса:', error);
+              });
+            }
         },
   },
 };
 </script>
 
-    <style>
+    <style scoped>
+    .modal-show{
+      opacity: 1;
+      transform: translateX(0);
+      transition: all .8s ease;
+    }
+
+    .modal-hide{
+      transform: translateX(-20px);
+      opacity: 0;
+      transition: all .8s ease;
+    }
+
+    .modal-go{
+      opacity: 0;
+      transform: translateX(20px);
+      transition: all .8s ease;
+    }
     .container3 {
+      font-family: "TT Norms Medium";
       height: 100vh;
       padding: 0 30vw;
       display: flex;
@@ -81,7 +137,7 @@ export default {
       text-align: left;
     }
     
-    .subheader {
+    .subheader2 {
       text-align: left;
       color: #FFF;
       font-family: "TT Norms Bold";
@@ -92,7 +148,7 @@ export default {
     
     .subtext {
       color: #FFF;
-      font-family: "TT Norms";
+      font-family: "TT Norms Medium";
       font-size: 28px;
       font-style: normal;
       font-weight: 500;
@@ -121,7 +177,7 @@ export default {
       text-align: left;
       width: 340px;
       color: var(--cold-text-ghost-500, #DDE1E5);
-      font-family: "TT Norms";
+      font-family: "TT Norms Medium";
       font-size: 13px;
       font-style: normal;
       font-weight: 500;
@@ -138,11 +194,12 @@ export default {
     .reset-form {
       background: #fff;
       width: 340px;
-      height: 350px;
+      max-height: fit-content;
       margin: 0 auto;
       padding: 40px;
       border-radius: 5px;
       box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.10);
+      transition: max-height 0.25s ease-in;
     }
     
     .form-group {
@@ -156,6 +213,10 @@ export default {
       display: flex;
       flex-direction: column;
       gap: 5px;
+    }
+    .reset-btn button{
+      font-family: "TT Norms Medium";
+      width: fit-content;
     }
     .error-btn{
       margin: 0;
