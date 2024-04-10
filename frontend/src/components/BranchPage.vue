@@ -17,7 +17,9 @@
         <img src="../../static/img/filial-create.svg" alt="" class="img_branch">
         <p class="header">Здесь будет ваш филиал. Будет же?</p>
         <p class="subheader">Теперь нам осталось добавить информацию о своей компании\филиале, добавить местоположение, контакты для связи и прочее</p>
-        <a class="button_a" href="#/dashboard/branch/createbranch" style="text-decoration:none"><button class="branch_btn"> + Добавить филиал</button></a>
+        <router-link style="text-decoration: none;" class="button_a" :to="'/dashboard/branch/createbranch'">
+          <button class="branch_btn"> + Добавить филиал</button>
+        </router-link>
       </div>
       <div v-else style="padding-top: 200px;">
       <!-- Показываем значок загрузки -->
