@@ -261,6 +261,7 @@ export default {
 </script>
 
 <style scoped>
+
 .disabled-menu{
     text-align: left;
     display: flex;
@@ -572,5 +573,46 @@ export default {
 #mobileLogo {
     display: none;
 }
+
+@media (max-width: 768px){
+  .dropdown-menu-show {
+    width: 170px;
+    height: auto;
+    background-color: white;
+    position: absolute;
+    transform: translate(-70px, -180px);
+    bottom: 0;
+    border: 1px solid #E4EAEF;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+
+    opacity: 1;
+    visibility: visible;
+    transition: all .2s ease;
+  }
+
+  .dropdown-menu-hide {
+    width: 170px;
+    height: auto;
+    background-color: white;
+    position: absolute;
+    transform: translate(-70px, -170px);
+    bottom: 0;
+    border: 1px solid #E4EAEF;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: all .2s ease;
+  }
+}
+
 
 </style>

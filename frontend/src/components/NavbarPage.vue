@@ -175,7 +175,11 @@
                     <Sidebar style="background-color: #F3F6F8; width: 260px;" v-model:visible="visible">
                       <SidebarMobilePage/>
                       <template #closeicon>
-                        
+                        <button style="background-color: #F3F6F8; color: gray; border: none;">
+                          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M8.58578 10L4.29288 14.2929L5.70709 15.7071L10 11.4142L14.2929 15.7071L15.7071 14.2929L11.4142 10L15.7071 5.70712L14.2929 4.29291L10 8.58579L5.70712 4.29291L4.29291 5.70712L8.58578 10Z" fill="#AFB6C1"/>
+                          </svg>
+                        </button>
                       </template>
                       <template #header>
                         <div class="flex align-items-center gap-2">
@@ -873,6 +877,54 @@ input{
   }
 }
 @media (max-width: 768px){
+  .navbar-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #ffffff;
+    top: -9px;
+    left: 69.5%;
+    transform: translateX(0%);
+}
+
+  .notification-panel-show {
+    transform: translateY(0px);
+    transition: all .2s ease;
+    opacity: 100%;
+    visibility: visible;
+    z-index: 99;
+    width: 260px;
+    height: fit-content;
+    right: -40px;
+    top: 50px;
+    background-color: #ffffff;
+    position: absolute;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    filter: drop-shadow(0 0 10px rgb(228, 228, 228));
+  }
+
+  .notification-panel-hide {
+    visibility: hidden;
+    transform: translateY(10px);
+    opacity: 0;
+    transition: all .2s ease;
+    z-index: 99;
+    width: 260px;
+    height: fit-content;
+    right: -40px;
+    top: 50px;
+    background-color: #ffffff;
+    position: absolute;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    filter: drop-shadow(0 0 10px rgb(228, 228, 228));
+  }
+
   .buttons-menu{
     margin: 0;
   }

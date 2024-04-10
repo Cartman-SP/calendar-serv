@@ -144,7 +144,7 @@
                           :class="{ 'select-error': chill_timeError }"
                           />
                         </div>
-                      </div>
+                      </div>  
                     </div>
                   </div>
                   <div class="replaceable" v-show="isGrafficActive('replaceable')">
