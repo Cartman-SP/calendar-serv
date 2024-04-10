@@ -655,7 +655,7 @@ export default {
       selectedDay: [],
       selectedTime: '',
 
-      theme: true,//по дефолту false - это светлая; true - темная
+      theme: false,//по дефолту false - это светлая; true - темная
       colortheme: '',
       MainColor: '#9BDEAC', // акцентный цвет виджета
       WidgetColor: '', // цвет у фона
