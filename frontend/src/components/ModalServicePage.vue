@@ -65,11 +65,13 @@
  .modal-show{
     opacity: 1;
     transition: all .2s ease;
+    transform: none;
   }
 
   .modal-hide{
     opacity: 0;
     transition: all .2s ease;
+    transform: none;
   }
 
 .overlay {

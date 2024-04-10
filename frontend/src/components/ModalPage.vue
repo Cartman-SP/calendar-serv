@@ -214,6 +214,7 @@ export default {
                 this.alertColor = '#0BB6A1';
               }, 100);
               setTimeout(() => {
+                this.isModalVisible = false;
                 window.location.reload();
               }, 3000);
             })

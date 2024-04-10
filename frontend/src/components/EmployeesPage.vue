@@ -124,7 +124,7 @@
                   <div v-if="selectedDays.length > 0" class="form-column">
                     <div class="form-row">
                       <div class="dropdown-container">
-                        <label>Рабочие часы - {{ timeAreaDay }}</label>
+                        <label>Рабочие часы - {{ timeAreaDay || selectedDays[0] }}</label>
                         <div class="dropdown-container">
                           <SelectPage
                           :options="['9:00 — 19:00', '9:00 — 20:00', '9:00 — 21:00', '10:00 — 18:00','10:00 — 19:00','10:00 — 20:00', '10:00 — 22:00']"

@@ -107,7 +107,7 @@
                     </div>
                   </div>  
                   <div class="dropdown_btn">
-                    <button @click="toggleDropdown" class="dropdown" :style="{ 'background-color': showDropdown ? '#F3F6F8' : 'transparent' }">
+                    <button @blur="toggleDropdown" @click="toggleDropdown" class="dropdown" :style="{ 'background-color': showDropdown ? '#F3F6F8' : 'transparent' }">
                       <img v-if="!showDropdown" src="../../static/img/kebab.svg" alt="Open">
                       <img v-if="showDropdown" src="../../static/img/x.svg" alt="Close" style="width: 12px; height: 12px;">
                     </button>

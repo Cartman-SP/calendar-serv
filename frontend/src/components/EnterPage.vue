@@ -6,7 +6,7 @@
           <div class="login-prompt">
             Нет аккаунта? <router-link to="/register" class="login-link" style="text-decoration: none;">Зарегистрироваться</router-link>
           </div>
-          <div class="registration-form">
+          <div class="registration-form" :class="{'form-show' : isFormVisible, 'form-hide' : !isFormVisible}">
             <h2>Вход</h2>
             <form @submit.prevent="loginUser">
               <div class="form-group">
@@ -62,9 +62,21 @@ export default {
       usernameOrEmail: '',
       passwordValue: '',
       errorMessage: '', // Обновленное имя переменной для ошибки
+
+      isFormVisible: false,
     };
   },
+  mounted(){
+    this.opacityAnimation()
+  },
   methods: {
+    opacityAnimation(){
+      this.isFormVisible = false;
+      setTimeout(() => {
+        this.isFormVisible = true;
+      }, 200);
+    },
+
     async loginUser() {
       try {
         const response = await axios.post('http://127.0.0.1:8000/api/login/', {
@@ -86,7 +98,7 @@ export default {
         if (error.response && error.response.data && error.response.data.error) {
           // Если есть информация об ошибке в ответе сервера, устанавливаем её
           if(error.response.data.error=="'NoneType' object has no attribute 'username'"){
-            this.errorMessage = 'Ошибка входа: "Такой почтовый ящик  у нас не зарегистрирован"';
+            this.errorMessage = 'Ошибка входа: "Такой почтовый ящик у нас не зарегистрирован"';
           }else{
           this.errorMessage = 'Ошибка входа: ' + '"'+error.response.data.error+'"';
           }
@@ -102,6 +114,18 @@ export default {
 
   
   <style>
+  .form-show{
+    opacity: 1;
+    transform: translateX(0);
+    transition: all .8s ease;
+  }
+
+  .form-hide{
+    transform: translateX(-20px);
+    opacity: 0;
+    transition: all .8s ease;
+  }
+
   .left-part{
     width: 100%;
     height: 100vh;

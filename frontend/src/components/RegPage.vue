@@ -7,7 +7,7 @@
       </div>
       <div class="Forma1">
         <div class="login-prompt">
-          Уже есть аккаунт? <a class="login-link" href="/login" style="text-decoration:none">Войти</a>
+          Уже есть аккаунт? <router-link class="login-link" :to="'/login'" style="text-decoration:none">Войти</router-link>
         </div>
         <div class="registration-form1" :class="{'modal-show' : isModalVisible, 'modal-hide' : !isModalVisible}">
           <div class="registers">

@@ -111,16 +111,16 @@
             </div>
             <div class="group-buttons">
               <div class="group-counter" :class="{'group-counter-error': GroupCapacityError}">
-                <button @click="decreaseGroupCapacity">-</button>
+                <button @click="decreaseGroupCapacity" id="decrease">-</button>
                 <input type="text" v-if="groupCapacity === 0" placeholder="От" :value="''">
                 <input type="text" v-else placeholder="" :value="groupCapacity">
-                <button @click="increaseGroupCapacity">+</button>
+                <button @click="increaseGroupCapacity" id="increase">+</button>
               </div>
               <div class="group-counter" :class="{'group-counter-error': MaxGroupCapacityError}">
-                <button @click="decreaseMaxGroupCapacity">-</button>
+                <button @click="decreaseMaxGroupCapacity" id="decrease">-</button>
                 <input type="text" v-if="maxGroupCapacity === 0" placeholder="До" :value="''">
                 <input type="text" v-else placeholder="" :value="maxGroupCapacity">
-                <button @click="increaseMaxGroupCapacity">+</button>
+                <button @click="increaseMaxGroupCapacity" id="increase">+</button>
               </div>
             </div>
           </div>      

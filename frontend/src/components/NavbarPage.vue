@@ -6,11 +6,11 @@
         <div class="actions">
             <div class="buttons-menu">
                 <div class="showGatesNotifications">
-                  <a @click="showGatesNotifications" @mouseover="showGatesNotifications_tip = true" @mouseleave="showGatesNotifications_tip = false">
-                    <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <button @blur="showGatesNotifications" @click="showGatesNotifications" @mouseover="showGatesNotifications_tip = true" @mouseleave="showGatesNotifications_tip = false">
+                    <svg width="16" height="16" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M1.8998 0.299988C1.01615 0.299988 0.299805 1.01633 0.299805 1.89999V12.3C0.299805 13.1836 1.01615 13.9 1.8998 13.9H13.0998C13.9835 13.9 14.6998 13.1836 14.6998 12.3V3.49999C14.6998 2.61633 13.9835 1.89999 13.0998 1.89999H5.8998C5.8998 1.01633 5.18346 0.299988 4.2998 0.299988H1.8998Z" fill="#6266EA"/>
                     </svg>
-                  </a>
+                  </button>
                   <div :class="{'tip-show' : showGatesNotifications_tip, 'tip-hide' : !showGatesNotifications_tip,}" v-if="!showGatesNotificationPanel">
                     <div class="tooltip-arrow"></div>
                     <p>Проекты</p>
@@ -68,7 +68,7 @@
                       </div>
                       <router-link to="/dashboard/project" style="text-decoration:none; width: fit-content; margin: 15px 0 0 0; height: fit-content;">
                         <div class="bottom">
-                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <svg width="16" height="16" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g opacity="0.6" clip-path="url(#clip0_4163_7512)">
                             <path d="M13.8366 6.52116C13.6239 6.17809 13.2479 5.97301 12.8309 5.97301H3.54598C3.08573 5.97301 2.66713 6.23245 2.47925 6.63417L0.0234375 11.7832C0.11615 12.1603 0.468308 12.4419 0.887757 12.4419H10.7662C11.1886 12.4419 11.5746 12.2031 11.7632 11.8252L13.8859 7.57069C14.0535 7.23402 14.0349 6.84171 13.8366 6.52116Z" fill="#7D8790" fill-opacity="0.6"/>
                             <path d="M1.97975 5.84217C2.16742 5.44056 2.58612 5.18101 3.04648 5.18101H11.7898V4.06269C11.7898 3.60169 11.4009 3.22657 10.9229 3.22657H5.82476C5.81728 3.22657 5.81215 3.22464 5.81023 3.22326L4.89774 1.94739C4.73613 1.72106 4.46921 1.58594 4.18402 1.58594H0.867096C0.388901 1.58594 0 1.96106 0 2.42206V9.99287L1.97975 5.84217Z" fill="#7D8790" fill-opacity="0.6"/>
@@ -87,11 +87,11 @@
                 </div>
                 
                 <div class="showPlusNotifications">
-                  <a @click="showPlusNotifications" @mouseover="showPlusNotifications_tip = true" @mouseleave="showPlusNotifications_tip = false">
-                    <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <button @blur="showPlusNotifications" @click="showPlusNotifications" @mouseover="showPlusNotifications_tip = true" @mouseleave="showPlusNotifications_tip = false">
+                    <svg width="16" height="16" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M8.83301 5.16667V0.806667C9.44971 1.03956 10.0099 1.40087 10.4763 1.86667L12.799 4.19067C13.2653 4.65659 13.6269 5.2166 13.8597 5.83333H9.49967C9.32286 5.83333 9.15329 5.7631 9.02827 5.63807C8.90325 5.51305 8.83301 5.34348 8.83301 5.16667ZM14.1663 7.49V13.1667C14.1653 14.0504 13.8138 14.8976 13.1889 15.5225C12.564 16.1474 11.7167 16.4989 10.833 16.5H4.16634C3.28261 16.4989 2.43538 16.1474 1.81049 15.5225C1.1856 14.8976 0.834066 14.0504 0.833008 13.1667V3.83333C0.834066 2.9496 1.1856 2.10237 1.81049 1.47748C2.43538 0.852588 3.28261 0.501059 4.16634 0.5L7.17634 0.5C7.28501 0.5 7.39234 0.508667 7.49967 0.516V5.16667C7.49967 5.6971 7.71039 6.20581 8.08546 6.58088C8.46053 6.95595 8.96924 7.16667 9.49967 7.16667H14.1503C14.1577 7.274 14.1663 7.38133 14.1663 7.49ZM10.1663 11.8333C10.1663 11.6565 10.0961 11.487 9.97108 11.3619C9.84606 11.2369 9.67649 11.1667 9.49967 11.1667H8.16634V9.83333C8.16634 9.65652 8.0961 9.48695 7.97108 9.36193C7.84606 9.23691 7.67649 9.16667 7.49967 9.16667C7.32286 9.16667 7.15329 9.23691 7.02827 9.36193C6.90325 9.48695 6.83301 9.65652 6.83301 9.83333V11.1667H5.49967C5.32286 11.1667 5.15329 11.2369 5.02827 11.3619C4.90325 11.487 4.83301 11.6565 4.83301 11.8333C4.83301 12.0101 4.90325 12.1797 5.02827 12.3047C5.15329 12.4298 5.32286 12.5 5.49967 12.5H6.83301V13.8333C6.83301 14.0101 6.90325 14.1797 7.02827 14.3047C7.15329 14.4298 7.32286 14.5 7.49967 14.5C7.67649 14.5 7.84606 14.4298 7.97108 14.3047C8.0961 14.1797 8.16634 14.0101 8.16634 13.8333V12.5H9.49967C9.67649 12.5 9.84606 12.4298 9.97108 12.3047C10.0961 12.1797 10.1663 12.0101 10.1663 11.8333Z" fill="#6266EA"/>
                     </svg>
-                  </a>
+                  </button>
                   <div :class="{'tip-show' : showPlusNotifications_tip, 'tip-hide' : !showPlusNotifications_tip,}" v-if="!showPlusNotificationPanel">
                     <div class="tooltip-arrow"></div>
                     <p>Создать</p>
@@ -145,7 +145,7 @@
                   </div>
                 </div>
                 <div class="none">
-                  <a href="">
+                  <button @click="$router.push('/dashboard/service');">
                     <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g clip-path="url(#clip0_4153_4007)">
                       <path d="M6.66225 5.71998C7.20707 5.35912 7.84609 5.16669 8.49958 5.16669C9.15307 5.16669 9.79209 5.35912 10.3369 5.71998L13.6622 2.39464C12.2201 1.17147 10.3906 0.500061 8.49958 0.500061C6.60859 0.500061 4.77903 1.17147 3.33691 2.39464L6.66225 5.71998Z" fill="#6266EA"/>
@@ -159,7 +159,7 @@
                       </clipPath>
                       </defs>
                     </svg>
-                  </a>
+                  </button>
                 </div>
                 <div class="hamburger" @click="visible = !visible">
 
@@ -190,17 +190,17 @@
                 </div>
                 
                 <div class="showNotifications">
-                  <a @click="showNotifications" @mouseover="showNotifications_tip = true" @mouseleave="showNotifications_tip = false">
-                    <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <div :class="{'tip-show' : showNotifications_tip, 'tip-hide' : !showNotifications_tip,}" v-if="!showNotificationPanel">
+                      <div class="tooltip-arrow"></div>
+                      <p>Уведомления</p>
+                    </div>
+                  <button @blur="showNotifications" @click="showNotifications" @mouseover="showNotifications_tip = true" @mouseleave="showNotifications_tip = false">
+                    <svg width="20" height="20" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M13.2998 6.9C13.2998 4.20278 12.1067 2.1508 9.98838 1.51001C9.75722 0.922564 9.18914 0.5 8.4998 0.5C7.81423 0.5 7.24859 0.917967 7.01504 1.50041C4.85022 2.1301 3.69981 4.18917 3.69981 6.9C3.69981 8.09303 3.69981 12.5 1.2998 12.5L1.29981 13.3H15.6998V12.5C13.2998 12.5 13.2998 8.1 13.2998 6.9Z" fill="#464AD9"/>
                       <path d="M10.0998 14.9C10.0998 15.7837 9.38346 16.5 8.4998 16.5C7.61615 16.5 6.89981 15.7837 6.89981 14.9H10.0998Z" fill="#464AD9"/>
                     </svg>
                     <div v-if="notifications.length > 0" class="chip"></div>
-                    <div :class="{'tip-show' : showNotifications_tip, 'tip-hide' : !showNotifications_tip,}" v-if="!showNotificationPanel">
-                      <div class="tooltip-arrow"></div>
-                      <p>Уведомления</p>
-                    </div>
-                  </a>
+                  </button>
                   <div :class="{'notification-panel-show' : showNotificationPanel, 'notification-panel-hide' : !showNotificationPanel}">
                     <div class="navbar-arrow"></div>
                     <div class="header">
@@ -317,7 +317,7 @@ export default {
           this.isModalVisible = false;
           setTimeout(() => {
             this.isModalVisible = true;
-          }, 200);
+          }, 400);
         },
 
         toggleSidebarMobile() {
@@ -348,7 +348,7 @@ export default {
     },
     mounted(){
       this.opacityAnimation();
-    }
+    },
 };
 </script>
 
@@ -553,7 +553,7 @@ img{
   margin-right: 20px;
 }
 
-.buttons-menu a{
+.buttons-menu button{
     position: relative;
     background-color: white;
     width: 40px;
@@ -565,7 +565,7 @@ img{
     justify-content: center;
 }
 
-.buttons-menu a:hover svg path{
+.buttons-menu button:hover svg path{
   fill: #3f43c1;
 }
 
@@ -656,7 +656,7 @@ img{
   opacity: 0;
   transition: all .2s ease;
   width: 260px;
-  height: 230px;
+  height: fit-content;
   background-color: #ffffff;
   position: absolute;
   z-index: 99;
@@ -674,7 +674,7 @@ img{
   opacity: 100%;
   visibility: visible;
   width: 260px;
-  height: 230px;
+  height: fit-content;
   background-color: #ffffff;
   position: absolute;
   z-index: 99;
@@ -830,7 +830,7 @@ input{
   display: flex;
   gap: 5px;
   justify-content: start;
-  padding: 0 0 0 10px;
+  padding: 20px 0 0 10px;
 }
 
 .bottom:hover p{
