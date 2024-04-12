@@ -71,7 +71,10 @@
                   </div>
                 </div>
                 <div class="color">
-                  <p class="header">Основной</p>
+                  <div class="color-text-container">
+                    <p class="header">Основной</p>
+                    <Tip :Tip="'Основной цвет виджета'"/>
+                  </div>
                   <div class="rgb" @click="toggleSelection(1)">
                     <p class="rgb_color">{{ widget.Main }}</p>
                     <div class="rgb_choise" :style="{ backgroundColor: widget.Main }"></div>
@@ -79,7 +82,10 @@
                   </div>
                 </div>
                 <div class="color">
-                  <p class="header">Фон виджета</p>
+                  <div class="color-text-container">
+                    <p class="header">Фон виджета</p>
+                    <Tip :Tip="'Цвет фона виджета'"/>
+                  </div>
                   <div class="rgb" @click="toggleSelection(2)">
                     <p class="rgb_color">{{ widget.Back }}</p>
                     <div class="rgb_choise" :style="{ backgroundColor: widget.Back }"></div>
@@ -87,7 +93,10 @@
                   </div>
                 </div>
                 <div class="color">
-                  <p class="header">Фон плашка</p>
+                  <div class="color-text-container">
+                    <p class="header">Фон плашка</p>
+                    <Tip :Tip="'Цвет плашки виджета'"/>
+                  </div>
                   <div class="rgb" @click="toggleSelection(3)">
                     <p class="rgb_color">{{ widget.Plashka }}</p>
                     <div class="rgb_choise" :style="{ backgroundColor: widget.Plashka }"></div>
@@ -95,7 +104,10 @@
                   </div>
                 </div>
                 <div class="color">
-                  <p class="header">Цвет текста</p>
+                  <div class="color-text-container">
+                    <p class="header">Цвет текста</p>
+                    <Tip :Tip="'Цвет текста виджета'"/>
+                  </div>
                   <div class="rgb" @click="toggleSelection(4)">
                     <p class="rgb_color">{{ widget.Text }}</p>
                     <div class="rgb_choise" :style="{ backgroundColor: widget.Text }"></div>
@@ -177,7 +189,7 @@
         </div>
       </div>
     </div>
-    <div>
+    <div style="margin-top: 45px;">
       <WidgetConstructor :theme="switches.theme" :MainColor="widget.Main" :WidgetColor="widget.Back" :BakcgroundColor="widget.Plashka" :TextColor="widget.Text" :Filials_ids="this.chips.map(chip => chip.id)"/>  
     </div>
   </div>
@@ -380,6 +392,12 @@ export default {
 </script>
   
 <style scoped>
+.color-text-container{
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 5px;
+}
 .label_container{
   display: flex;
   gap: 5px;
@@ -476,7 +494,7 @@ export default {
   margin-top: 0;
 }
 .header, .subheader{
-  width: 100%;
+  width: fit-content;
 }
 .name-container{
   display: grid;
