@@ -122,43 +122,47 @@
                     </div>
                   </div>
                   <div v-if="selectedDays.length > 0" class="form-column">
-                    <div class="form-row">
+                    <div class="form-row" style="margin-top: 10px;">
                       <div class="dropdown-container">
                         <label>Рабочие часы - {{ timeAreaDay || selectedDays[0] }}</label>
                         <div class="dropdown-container">
                           <SelectPage
-                          :options="['9:00 — 19:00', '9:00 — 20:00', '9:00 — 21:00', '10:00 — 18:00','10:00 — 19:00','10:00 — 20:00', '10:00 — 22:00']"
-                          @input="option => work_time = option"
-                          :placeholderdata="'Выберите время'"
-                          :class="{ 'select-error': work_timeError }"
-                          />    
+                            :options="['9:00 — 19:00', '9:00 — 20:00', '9:00 — 21:00', '10:00 — 18:00','10:00 — 19:00','10:00 — 20:00', '10:00 — 22:00']"
+                            @input="option => setWorkTime(timeAreaDay || selectedDays[0], option)"
+                            :placeholderdata="'Выберите время'"
+                            :class="{ 'select-error': work_timeError }"
+                            :value="timeAreaDay ? days[timeAreaDay].work_time : days[selectedDays[0]].work_time"
+                          />  
                         </div>
                       </div>
                       <div class="dropdown-container">
                         <label for="break">Перерыв - {{ timeAreaDay || selectedDays[0] }}</label>
                         <div class="dropdown-container">
                           <SelectPage
-                          :options="['13:00 — 14:00', '13:00 — 14:00', '13:00 — 14:00']"
-                          @input="option => chill_time = option"
-                          :placeholderdata="'Выберите время'"
-                          :class="{ 'select-error': chill_timeError }"
+                            :options="['13:00 — 14:00', '14:00 — 15:00', '15:00 — 16:00']"
+                            @input="option => setChillTime(timeAreaDay || selectedDays[0], option)"
+                            :placeholderdata="'Выберите время'"
+                            :class="{ 'select-error': chill_timeError }"
+                            :value="timeAreaDay ? days[timeAreaDay].chill_time : days[selectedDays[0]].chill_time"
                           />
                         </div>
                       </div>  
                     </div>
                   </div>
+                  <button @click="console.log(days)" style="background-color: #F97F7F;">test --> console.log days</button>
+                  <button @click="console.log(schedule)" style="background-color: #F7D37D;">test --> console.log schedule</button>
                   <div class="replaceable" v-show="isGrafficActive('replaceable')">
                     <p class="graffic_text">
                       Сменный график (Рабочий день х Выходной день):
                     </p>
                     <div class="days-buttons">
-                      <button :class="{ 'form-btn-active': isDaySelected('1x1'), 'form-btn': !isDaySelected('1x1'), 'button-days-error' : selectedDaysError }" @click="toggleDay('1x1')">1x1</button>
-                      <button :class="{ 'form-btn-active': isDaySelected('2х2'), 'form-btn': !isDaySelected('2х2'), 'button-days-error' : selectedDaysError }" @click="toggleDay('2х2')">2х2</button>
-                      <button :class="{ 'form-btn-active': isDaySelected('3х3'), 'form-btn': !isDaySelected('3х3'), 'button-days-error' : selectedDaysError }" @click="toggleDay('3х3')">3х3</button>
-                      <button :class="{ 'form-btn-active': isDaySelected('7х7'), 'form-btn': !isDaySelected('7х7'), 'button-days-error' : selectedDaysError }" @click="toggleDay('7х7')">7х7</button>
-                      <button :class="{ 'form-btn-active': isDaySelected('1х2'), 'form-btn': !isDaySelected('1х2'), 'button-days-error' : selectedDaysError }" @click="toggleDay('1х2')">1х2</button>
-                      <button :class="{ 'form-btn-active': isDaySelected('2х1'), 'form-btn': !isDaySelected('2х1'), 'button-days-error' : selectedDaysError }" @click="toggleDay('2х1')">2х1</button>
-                      <button :class="{ 'form-btn-active': isDaySelected('15х15'), 'form-btn': !isDaySelected('15х15'), 'button-days-error' : selectedDaysError }" @click="toggleDay('15х15')">15х15</button>
+                      <button :class="{ 'form-btn-active': isScheduleSelected('1x1'), 'form-btn': !isScheduleSelected('1x1'), 'button-days-error' : selectedDaysError }" @click="toggleSchedule('1x1')">1x1</button>
+                      <button :class="{ 'form-btn-active': isScheduleSelected('2х2'), 'form-btn': !isScheduleSelected('2х2'), 'button-days-error' : selectedDaysError }" @click="toggleSchedule('2х2')">2х2</button>
+                      <button :class="{ 'form-btn-active': isScheduleSelected('3х3'), 'form-btn': !isScheduleSelected('3х3'), 'button-days-error' : selectedDaysError }" @click="toggleSchedule('3х3')">3х3</button>
+                      <button :class="{ 'form-btn-active': isScheduleSelected('7х7'), 'form-btn': !isScheduleSelected('7х7'), 'button-days-error' : selectedDaysError }" @click="toggleSchedule('7х7')">7х7</button>
+                      <button :class="{ 'form-btn-active': isScheduleSelected('1х2'), 'form-btn': !isScheduleSelected('1х2'), 'button-days-error' : selectedDaysError }" @click="toggleSchedule('1х2')">1х2</button>
+                      <button :class="{ 'form-btn-active': isScheduleSelected('2х1'), 'form-btn': !isScheduleSelected('2х1'), 'button-days-error' : selectedDaysError }" @click="toggleSchedule('2х1')">2х1</button>
+                      <button :class="{ 'form-btn-active': isScheduleSelected('15х15'), 'form-btn': !isScheduleSelected('15х15'), 'button-days-error' : selectedDaysError }" @click="toggleSchedule('15х15')">15х15</button>
                     </div>
                   </div>
                 </div>
@@ -241,10 +245,26 @@
     export default {
       components: { Tip, SelectPage, MessageAlert, ModalEmployeesPage },
       data() {
-        return {
+        return { 
           timeAreaDay: '',
           firstemployye: false,
+
+
+
           selectedDays: [],
+          days: {
+            'Пн': { work_time: '', chill_time: '' },
+            'Вт': { work_time: '', chill_time: '' },
+            'Ср': { work_time: '', chill_time: '' },
+            'Чт': { work_time: '', chill_time: '' },
+            'Пт': { work_time: '', chill_time: '' },
+            'Сб': { work_time: '', chill_time: '' },
+            'Вс': { work_time: '', chill_time: '' },
+          },
+          schedule: '',
+
+
+
           selectedPaymentFormat: 'sessionPayment',
           uploadedFile: null,
           groupCapacity: 0,
@@ -279,11 +299,6 @@
       },
     
       methods: {
-        toggleTimeArea(day){
-          if (this.selectedDays.includes(day)) {
-            this.timeAreaDay = day;
-          }
-        },
         
         handleFileUpload(event) {
           const file = event.target.files[0];
@@ -333,21 +348,41 @@
     isDaySelected(day) {
       return this.selectedDays.includes(day);
     },
-    toggleDay(day) {
-      if (this.selectedSchedule && this.selectedDays.length > 0) {
-        // Сбрасываем выбранные дни и график, если график был выбран
-        this.selectedDays = [];
-        this.selectedSchedule = null;
-      }
 
-          if (!this.selectedDays.includes(day)) {
-            this.selectedDays.push(day);
-            const dayOrder = { "Пн": 1, "Вт": 2, "Ср": 3, "Чт": 4, "Пт": 5, "Сб": 6, "Вс": 7 };
-            this.selectedDays = this.selectedDays.slice().sort((a, b) => dayOrder[a] - dayOrder[b]);
-          } else {
-            this.selectedDays = this.selectedDays.filter(selectedDay => selectedDay !== day);
+    isScheduleSelected(s) {
+      if (this.schedule === s) {
+        return this.schedule;
+      }
+    },
+
+    toggleSchedule(s){
+      this.schedule = s;
+    },
+
+    toggleTimeArea(day){
+          if (this.selectedDays.includes(day)) {
+            this.timeAreaDay = day;
           }
-        },
+    },
+
+    toggleDay(day) {
+      this.selectedDays.includes(day) ? this.selectedDays = this.selectedDays.filter(d => d !== day) : this.selectedDays.push(day);
+      
+      if (this.selectedDays.includes(day)) {
+        this.days[day].work_time = '9:00 — 19:00';
+        this.days[day].chill_time = '13:00 — 14:00';
+      }
+    },
+
+
+    setWorkTime(day, time) {
+      this.days[day].work_time = time;
+    },
+    setChillTime(day, time) {
+      this.days[day].chill_time = time;
+    },
+
+
         isGrafficActive(type) {
           return this.selectedRecordType === type;
         },

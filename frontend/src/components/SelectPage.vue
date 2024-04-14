@@ -31,10 +31,19 @@ export default {
     placeholderdata: {
       type: String,
     },
+    value: {
+      default: null,
+      required: false,
+    },
+  },
+  watch: {
+    value(newValue) {
+      this.selected = newValue;
+    },
   },
   data() {
     return {
-      selected: {},
+      selected: this.value || {},
       open: false,
     };
   },
@@ -71,6 +80,7 @@ export default {
   },
 };
 </script>
+
 
 
 <style scoped>
