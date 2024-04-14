@@ -531,6 +531,10 @@
 </script>
   
   <style scoped>
+  button:hover{
+    filter: brightness(85%);
+  }
+
   .button-days-error{
     border: 1px solid #F97F7F !important;
     border-radius: 3px;
