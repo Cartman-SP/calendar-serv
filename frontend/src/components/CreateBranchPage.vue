@@ -219,7 +219,6 @@
         <div class="img_container" v-else>
           <img class="img_window"  src="../../static/img/service.svg" alt="">
         </div>
-        <button @click="console.log(uploadedImages[0].url)">image show</button>
         <div v-if="selectedAdress">
           <p class="header">{{selectedAdress}}</p>
           <p class="descr">Адрес</p>
