@@ -149,8 +149,6 @@
                       </div>  
                     </div>
                   </div>
-                  <button @click="console.log(days)" style="background-color: #F97F7F;">test --> console.log days</button>
-                  <button @click="console.log(schedule)" style="background-color: #F7D37D;">test --> console.log schedule</button>
                   <div class="replaceable" v-show="isGrafficActive('replaceable')">
                     <p class="graffic_text">
                       Сменный график (Рабочий день х Выходной день):
@@ -165,6 +163,18 @@
                       <button :class="{ 'form-btn-active': isScheduleSelected('15х15'), 'form-btn': !isScheduleSelected('15х15'), 'button-days-error' : selectedDaysError }" @click="toggleSchedule('15х15')">15х15</button>
                     </div>
                   </div>
+                  <div class="dropdown-container" v-show="selectedRecordType === 'replaceable'">
+                    <label for="break">Первый рабочий день</label>
+                    <div class="dropdown-container">
+                      <SelectPage
+                        :options="['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']"
+                        @input="option => startDay = option"
+                        :placeholderdata="'Выберите время'"
+                        :class="{ 'select-error': chill_timeError }"
+                        :value="startDay"
+                      />
+                    </div>
+                  </div> 
                 </div>
               </div>
             </div>
@@ -262,6 +272,7 @@
             'Вс': { work_time: '', chill_time: '' },
           },
           schedule: '',
+          startDay: '',
 
 
 
