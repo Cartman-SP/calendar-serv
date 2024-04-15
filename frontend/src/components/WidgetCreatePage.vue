@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex;">
+  <div style="display: flex; overflow-y: scroll; height: 86vh;">
     <div class="main">
       <div class="transition">
         <router-link to="/dashboard/widgets" class="employesss-link">Виджеты</router-link>
@@ -521,8 +521,7 @@ export default {
 .settings {
   width: 100%;
   text-align: center;
-  height: 78vh;
-  overflow: scroll;
+  height: auto;
   background-color: #FFFFFF;
   padding: 20px;
   border-radius: 5px;
