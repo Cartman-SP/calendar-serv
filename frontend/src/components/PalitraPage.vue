@@ -7,15 +7,16 @@
           <path fill-rule="evenodd" clip-rule="evenodd" d="M0 11.6739C6.30924e-05 11.8455 0.0394801 12.0171 0.118251 12.1735C0.168734 12.2738 0.235381 12.3679 0.318191 12.4518L6.46364 18.6776C6.88789 19.1075 7.57575 19.1075 8 18.6776L15.6818 10.8953C16.1061 10.4655 16.1061 9.76863 15.6818 9.33882L6.46364 0L5.69546 0.665295L8 3L0.318191 10.8953C0.23538 10.9792 0.168733 11.0733 0.11825 11.1735C0.0394799 11.33 6.30922e-05 11.5024 0 11.6739ZM1.44866 12.1735L7.17533 17.9751C7.20803 18.0083 7.25561 18.0083 7.28831 17.9751L13.015 12.1735H1.44866ZM14.0021 11.1735H1.4427L8.71245 3.70175L14.9701 10.0413C14.9888 10.0602 15 10.0857 15 10.1171C15 10.1484 14.9888 10.1739 14.9701 10.1928L14.0021 11.1735Z" fill="white"/>
         </svg>  
       </div>
-      <p style="width: auto;">Основной цвет</p>
+      <p style="width: auto;">Выберите цвет</p>
       <div class="circle_container">
-        <div class="palitra_circle" @click="this.$parent.closeall">
+        <div class="palitra_circle" @click="this.$emit('close')">
           <svg width="12" height="12" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8.58578 10L4.29288 14.2929L5.70709 15.7071L10 11.4142L14.2929 15.7071L15.7071 14.2929L11.4142 10L15.7071 5.70712L14.2929 4.29291L10 8.58579L5.70712 4.29291L4.29291 5.70712L8.58578 10Z" fill="#AFB6C1"/>
           </svg>
         </div>
       </div>
     </div>
+
     <div class="palette">
       <div class="main_color" style="background:#FEFFFE" @click="selectedColor = '#FEFFFE'; selectColor()"></div>
       <div class="main_color" style="background:#EBEBEB" @click="selectedColor = '#EBEBEB'; selectColor()"></div>
@@ -163,6 +164,9 @@
           </svg>
         </div>
       </div>
+      <div class="submit">
+        <button @click="submit">Готово</button>
+      </div>
     </div>
   </div>
   
@@ -177,6 +181,9 @@ export default {
   },
   methods: {
     selectColor() {
+      console.log(this.selectedColor)
+    },
+    submit(){
       this.$emit('updateColor', this.selectedColor);
     }
   }
@@ -190,8 +197,9 @@ export default {
   background: #212326;
   border-radius: 5px;
   position: absolute;
-  right: -100px;
-  top: 40px;
+  bottom: 60px;
+  right: -60px;
+  z-index: 90;
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -215,9 +223,13 @@ export default {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: all .2s ease;
+}
+.palitra_circle:hover{
+  background: #585f6a;
 }
 p{
-  font-family: TT Norms;
+  font-family:rgb(28, 31, 35)ms;
   font-size: 12px;
   font-weight: 500;
   line-height: 10px;

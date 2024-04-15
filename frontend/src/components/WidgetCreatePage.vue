@@ -78,8 +78,8 @@
                   <div class="rgb" @click="toggleSelection(1)">
                     <p class="rgb_color">{{ widget.Main }}</p>
                     <div class="rgb_choise" :style="{ backgroundColor: widget.Main }"></div>
-                    <PalitraPage v-if="isCircleShown1" class="show" @updateColor="color => handleColorUpdate(color, 1)"></PalitraPage>
                   </div>
+                  <PalitraPage v-if="isCircleShown1" class="show" @close="closeall" @updateColor="color => handleColorUpdate(color, 1)"></PalitraPage>
                 </div>
                 <div class="color">
                   <div class="color-text-container">
@@ -89,8 +89,8 @@
                   <div class="rgb" @click="toggleSelection(2)">
                     <p class="rgb_color">{{ widget.Back }}</p>
                     <div class="rgb_choise" :style="{ backgroundColor: widget.Back }"></div>
-                    <PalitraPage v-if="isCircleShown2" class="show" @updateColor="color => handleColorUpdate(color, 2)"></PalitraPage>
                   </div>
+                  <PalitraPage v-if="isCircleShown2" class="show" @close="closeall" @updateColor="color => handleColorUpdate(color, 2)"></PalitraPage>
                 </div>
                 <div class="color">
                   <div class="color-text-container">
@@ -100,8 +100,8 @@
                   <div class="rgb" @click="toggleSelection(3)">
                     <p class="rgb_color">{{ widget.Plashka }}</p>
                     <div class="rgb_choise" :style="{ backgroundColor: widget.Plashka }"></div>
-                    <PalitraPage v-if="isCircleShown3" class="show" @updateColor="color => handleColorUpdate(color, 3)"></PalitraPage>
                   </div>
+                  <PalitraPage v-if="isCircleShown3" class="show" @close="closeall" @updateColor="color => handleColorUpdate(color, 3)"></PalitraPage>
                 </div>
                 <div class="color">
                   <div class="color-text-container">
@@ -111,8 +111,8 @@
                   <div class="rgb" @click="toggleSelection(4)">
                     <p class="rgb_color">{{ widget.Text }}</p>
                     <div class="rgb_choise" :style="{ backgroundColor: widget.Text }"></div>
-                    <PalitraPage v-if="isCircleShown4" class="show" @updateColor="color => handleColorUpdate(color, 4)"></PalitraPage>
                   </div>
+                  <PalitraPage v-if="isCircleShown4" class="show" @close="closeall" @updateColor="color => handleColorUpdate(color, 4)"></PalitraPage>
                 </div>
               </div>
               <div class="window_wrapper">
@@ -521,7 +521,8 @@ export default {
 .settings {
   width: 100%;
   text-align: center;
-  height: auto;
+  height: 78vh;
+  overflow: scroll;
   background-color: #FFFFFF;
   padding: 20px;
   border-radius: 5px;
@@ -681,6 +682,7 @@ select option {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  position: relative;
 }
 .rgb{
   height: auto;

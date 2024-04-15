@@ -713,12 +713,10 @@ export default {
       this.updateColors()
     },
     Filials_ids(){
-      console.log('Filials_ids changed')
       this.filialsAddToArray()
     }
   },
   mounted() {
-    // Запускаем функцию для автоматического переключения изображений
     this.startImageSlider();
     this.updateColors();
     this.filialsAddToArray()
