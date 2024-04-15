@@ -56,8 +56,8 @@
                 <p class="main_text">Виджеты</p>
               </div>
             </router-link>
-            <router-link to="/dashboard/calendar" class="main_text" :class="{ active: $route.path === '/main/calendar' }">
-              <div class="main_menu">
+            <router-link to="!employees.length > 0 || !uslugi.length > 0 || !filials.length > 0 ? '/dashboard/locked' : '/dashboard/calendar'" class="main_text" :class="{ active: $route.path === '/main/calendar' }">
+              <div :class="{'disabled-menu' : !filials.length > 0, 'main_menu' : filials.length > 0}">
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M5 5V0H7V5H5Z" fill="#6266EA"/>
                   <path d="M13 5V0H15V5H13Z" fill="#6266EA"/>
@@ -66,8 +66,8 @@
                 <p class="main_text">Календарь</p>
               </div>
             </router-link>
-            <router-link to="/dashboard/clients" class="main_text" :class="{ active: $route.path === '/main/clients' }">
-              <div class="main_menu">
+            <router-link to="!employees.length > 0 || !uslugi.length > 0 || !filials.length > 0 ? '/dashboard/locked' : '/dashboard/clients'" class="main_text" :class="{ active: $route.path === '/main/clients' }">
+              <div :class="{'disabled-menu' : !filials.length > 0, 'main_menu' : filials.length > 0}">
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M16 6.5C16 7.88071 14.8807 9 13.5 9C12.1193 9 11 7.88071 11 6.5C11 5.11929 12.1193 4 13.5 4C14.8807 4 16 5.11929 16 6.5Z" fill="#6266EA"/>
                   <path d="M7 11H2C0.895431 11 0 11.8954 0 13V18H13V17C13 13.6863 10.3137 11 7 11Z" fill="#6266EA"/>
@@ -77,8 +77,8 @@
                 <p class="main_text">Клиенты</p>
               </div>
             </router-link>
-            <router-link to="/dashboard/statistics" class="main_text" :class="{ active: $route.path === '/main/statistics' }">
-              <div class="main_menu">
+            <router-link to="!employees.length > 0 || !uslugi.length > 0 || !filials.length > 0 ? '/dashboard/locked' : '/dashboard/statistics'" class="main_text" :class="{ active: $route.path === '/main/statistics' }">
+              <div :class="{'disabled-menu' : !filials.length > 0, 'main_menu' : filials.length > 0}">
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M15.9667 1L9.00006 1.03317L11.783 3.8029L7.00008 8.5858V13.5858L2.29297 18.2929L3.70718 19.7071L9.00008 14.4142V9.41423L13.2006 5.21375L16.0001 8L15.9667 1Z" fill="#6266EA"/>
                 </svg> 

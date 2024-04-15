@@ -139,7 +139,7 @@
                         <label for="break">Перерыв - {{ timeAreaDay || selectedDays[0] }}</label>
                         <div class="dropdown-container">
                           <SelectPage
-                            :options="['13:00 — 14:00', '14:00 — 15:00', '15:00 — 16:00']"
+                            :options="['13:00 — 14:00', '14:00 — 15:00', '15:00 — 16:00', 'Без перерыва']"
                             @input="option => setChillTime(timeAreaDay || selectedDays[0], option)"
                             :placeholderdata="'Выберите время'"
                             :class="{ 'select-error': chill_timeError }"

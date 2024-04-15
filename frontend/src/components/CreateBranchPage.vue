@@ -215,10 +215,11 @@
           <div class="stripe" style="width: 109px;"></div>
           <div class="stripe" style="width: 63px;"></div>
         </div>
-        <img v-if="serviceCover" :src="coverDataUrl" alt="" style="width:auto;height:200px;border-radius:2px;">
+        <img v-if="serviceCover" :src="uploadedImages[0].url" alt="" style="width:auto;height:200px;border-radius:2px;">
         <div class="img_container" v-else>
           <img class="img_window"  src="../../static/img/service.svg" alt="">
         </div>
+        <button @click="console.log(uploadedImages[0].url)">image show</button>
         <div v-if="selectedAdress">
           <p class="header">{{selectedAdress}}</p>
           <p class="descr">Адрес</p>
@@ -309,6 +310,8 @@ export default {
       selectedBusinessError: false,
       PhoneError: false,
       imagesError: false,
+
+      imageURL: null,
     }
   },
   mounted(){
@@ -404,6 +407,7 @@ export default {
 
     handleImageUpload(event) {
       const files = event.target.files;
+      this.serviceCover = files;
       for (let i = 0; i < files.length; i++) {
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -1129,6 +1133,11 @@ dataURItoBlob(dataURI) {
     height: 100%;
     object-fit: cover;
   }
+  .upl_img:hover {
+    cursor: pointer;
+    filter: brightness(50%);
+  }
+
   .graffic_label{
     margin: 0;
   }
