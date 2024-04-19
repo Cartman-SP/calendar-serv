@@ -48,8 +48,8 @@
           </div>
           <div class="line"></div>
           <div class="cards-group">
-            <router-link  :to="!employees.length > 0 || !uslugi.length > 0 || !filials.length > 0 ? '/dashboard/locked' : '/dashboard/widgets'" class="main_text" :class="{ active: $route.path === '/dashboard/widgets' }">
-              <div :class="{'disabled-menu' : !filials.length > 0, 'main_menu' : filials.length > 0}">
+            <router-link  :to="!employees.length > 0 && !uslugi.length > 0 && !filials.length > 0 ? '/dashboard/locked' : '/dashboard/widgets'" class="main_text" :class="{ active: $route.path === '/dashboard/widgets' }">
+              <div :class="{'disabled-menu' : !employees.length > 0 || !uslugi.length > 0 || !filials.length > 0, 'main_menu' : employees.length > 0 && uslugi.length > 0 && filials.length > 0}">
                 <svg width="16" height="16" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M8 2.1C4.48183 2.1 1.6 4.98183 1.6 8.5C1.6 12.0182 4.48183 14.9 8 14.9V16.5C3.59817 16.5 0 12.9018 0 8.5C0 4.09817 3.59817 0.5 8 0.5C12.4018 0.5 16 4.09817 16 8.5C16 12.7506 14 15.7 11.2 15.7C8.8 15.7 7.2 13.46 7.2 10.9H6.39998C5.51632 10.9 4.79998 10.1836 4.79998 9.29997L4.79999 6.89998H5.93488V4.66746C5.93488 4.31809 6.21808 4.03489 6.56744 4.03489C6.91679 4.03489 7.19999 4.31809 7.19999 4.66746V6.89998H8.79999V4.66746C8.79999 4.31809 9.08319 4.03489 9.43256 4.03489C9.7819 4.03489 10.0651 4.31809 10.0651 4.66746V6.89998H11.2V9.29998C11.2 10.1836 10.4836 10.9 9.59999 10.9H8.8C8.8 13.3 10 14.1 11.2 14.1C12.8 14.1 14.4 12.3854 14.4 8.5C14.4 4.98183 11.5182 2.1 8 2.1Z" fill="#6266EA"/>
                 </svg>
@@ -57,7 +57,7 @@
               </div>
             </router-link>
             <router-link to="!employees.length > 0 || !uslugi.length > 0 || !filials.length > 0 ? '/dashboard/locked' : '/dashboard/calendar'" class="main_text" :class="{ active: $route.path === '/main/calendar' }">
-              <div :class="{'disabled-menu' : !filials.length > 0, 'main_menu' : filials.length > 0}">
+              <div :class="{'disabled-menu' : !employees.length > 0 || !uslugi.length > 0 || !filials.length > 0, 'main_menu' : employees.length > 0 && uslugi.length > 0 && filials.length > 0}">
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M5 5V0H7V5H5Z" fill="#6266EA"/>
                   <path d="M13 5V0H15V5H13Z" fill="#6266EA"/>
@@ -67,7 +67,7 @@
               </div>
             </router-link>
             <router-link to="!employees.length > 0 || !uslugi.length > 0 || !filials.length > 0 ? '/dashboard/locked' : '/dashboard/clients'" class="main_text" :class="{ active: $route.path === '/main/clients' }">
-              <div :class="{'disabled-menu' : !filials.length > 0, 'main_menu' : filials.length > 0}">
+              <div :class="{'disabled-menu' : !employees.length > 0 || !uslugi.length > 0 || !filials.length > 0, 'main_menu' : employees.length > 0 && uslugi.length > 0 && filials.length > 0}">
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M16 6.5C16 7.88071 14.8807 9 13.5 9C12.1193 9 11 7.88071 11 6.5C11 5.11929 12.1193 4 13.5 4C14.8807 4 16 5.11929 16 6.5Z" fill="#6266EA"/>
                   <path d="M7 11H2C0.895431 11 0 11.8954 0 13V18H13V17C13 13.6863 10.3137 11 7 11Z" fill="#6266EA"/>
@@ -78,7 +78,7 @@
               </div>
             </router-link>
             <router-link to="!employees.length > 0 || !uslugi.length > 0 || !filials.length > 0 ? '/dashboard/locked' : '/dashboard/statistics'" class="main_text" :class="{ active: $route.path === '/main/statistics' }">
-              <div :class="{'disabled-menu' : !filials.length > 0, 'main_menu' : filials.length > 0}">
+              <div :class="{'disabled-menu' : !employees.length > 0 || !uslugi.length > 0 || !filials.length > 0, 'main_menu' : employees.length > 0 && uslugi.length > 0 && filials.length > 0}">
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M15.9667 1L9.00006 1.03317L11.783 3.8029L7.00008 8.5858V13.5858L2.29297 18.2929L3.70718 19.7071L9.00008 14.4142V9.41423L13.2006 5.21375L16.0001 8L15.9667 1Z" fill="#6266EA"/>
                 </svg> 
