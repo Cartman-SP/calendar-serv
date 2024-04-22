@@ -252,7 +252,7 @@ router.beforeEach((to, from, next) => {
   NProgress.configure({ showSpinner: false });
   setTimeout(() => {
     next(); // Переход к следующему роуту после задержки
-  }, 300);
+  }, 300)
 });
 
 router.afterEach(() => {

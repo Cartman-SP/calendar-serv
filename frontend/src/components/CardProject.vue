@@ -1,4 +1,5 @@
 <template>
+  <div>
     <div class="service_card">
       <div class="card-container">
         <div class="main_container">
@@ -16,7 +17,7 @@
               <p class="main_subheader">ID {{ ProjectData.id || 'NaN' }}</p>
             </div>
           </div>
-          <div class="checkmark" v-if="!isActive" @click="setActiveProject(ProjectData.id)">
+          <div class="checkmark" v-if="!isActive" @click="toggleModal(ProjectData)">
             <svg width="15" height="15" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2556 6.15492L9.05226 14.4665L4.29285 9.7071L5.70706 8.29289L8.94764 11.5335L14.7443 4.84506L16.2556 6.15492Z" fill="white"/>
             </svg>
@@ -72,14 +73,32 @@
         </div>
       </div>
     </div>
+    <div :class="{'overlay-show' : showModal, 'overlay-hide' : !showModal}"></div>
+      <div :class="{'modal-show' : showModal, 'modal-hide' : !showModal}">
+            <div class="modal-content">
+              <p class="text-header">Смена проекта</p>
+              <p class="modal-subtext">Вы действительно хотите сменить <br> проект на <span>"{{ selectedProjectToChange.name }}"</span>?</p>
+              <div class="btn_container">
+                <button class="delete" @click="setActiveProject(selectedProjectToChange.id)">Да, сменить</button>
+                <button class="exit" @click="toggleModal">Отмена</button>
+              </div>
+            </div>
+      </div>
+      <MessageAlert :message="alertMessage" :color="alertColor"/>
+  </div>
   </template>
   
   <script>
+  import MessageAlert from "../components/MessageAlert.vue";
   export default {
+    components: {MessageAlert},
     props:['ProjectData'],
     data() {
       return {
-        showDropdown: false,
+        alertMessage: null,
+        alertColor: '',
+        selectedProjectToChange: '',
+
         showModal: false,
       };
     },
@@ -95,16 +114,20 @@
     },
     methods: {
       setActiveProject(projectId) {
+        this.showModal = !this.showModal;
         this.$store.commit('setActiveProject', projectId);
+        this.alertMessage = null;
+        setTimeout(() => {
+          this.alertMessage = 'Проект успешно изменен';
+          this.alertColor = '#0BB6A1';
+        }, 100);
       },
       deactivateProject() {
         this.$store.commit('deactivateProject');
       },
 
-      toggleDropdown() {
-        this.showDropdown = !this.showDropdown;
-      },
-      toggleModal() { // добавлено
+      toggleModal(project) {
+        this.selectedProjectToChange = project;
         this.showModal = !this.showModal;
       },
 
@@ -120,6 +143,97 @@
   
   
   <style scoped>
+  .modal-subtext{
+    font-family: TT Norms Medium;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #AFB6C1;
+    margin: 0;
+    margin-top: 10px;
+  }
+  .btn_container{
+    margin-top: 30px;
+    display: flex;
+    gap: 10px;
+  }
+  span{
+    color: #7D838C;
+  }
+  .delete{
+    color: #6266EA;
+    background-color: #EFEFFF;
+  }
+  .delete:hover{
+    background: #DBEAFF;
+    color: #6266EA;
+  }
+  .exit{
+    color: #535C69;
+    border: 1px solid #DDE1E5;
+    background: #FFFFFF;  
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+  }
+  .exit:hover{
+    border: 1px solid #AFB6C1;
+    background: #F5F5F5;
+  }
+  .modal-show{
+    width: auto;
+    height: auto;
+    position: absolute;
+    padding: 40px;
+    border-radius: 10px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    z-index: 99;
+    opacity: 1;
+    visibility: visible;
+    transition: all .1s ease;
+  }
+  .modal-hide{
+    width: auto;
+    height: auto;
+    position: absolute;
+    padding: 40px;
+    border-radius: 10px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .1s ease;
+  }
+  .overlay-show {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Задний фон с прозрачностью 60% */
+    z-index: 98;
+    opacity: 1;
+    visibility: visible;
+    transition: all .1s ease;
+  }
+  .overlay-hide {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Задний фон с прозрачностью 60% */
+    z-index: 98;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .1s ease;
+  }
   .avatar{
     height: 32px;
     width: 32px;
@@ -264,9 +378,6 @@
       gap: 10px;
     }
     .checkmark{
-      position: absolute;
-      top: 10px;
-      right: 10px;
       width: 18px;
       height: 18px;
       background: #F3F5F6;
@@ -278,6 +389,7 @@
     }
     .checkmark:hover{
       background: #04C562;
+      cursor: pointer;
     }
 
     .active-checkmark{
@@ -288,6 +400,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
       transition: all 0.2s ease
     }
   </style>  

@@ -67,15 +67,14 @@ export default {
     };
   },
 
-  props: ['usluga'], // Принимаем объект Usluga через пропс
+  props: ['usluga'],
 
   methods: {
     toggleModal() { // добавлено
       this.showModal = !this.showModal;
     },
     deleteService() {
-    const serviceId = this.usluga.id; // Получаем идентификатор услуги
-    console.log(this.usluga)
+    const serviceId = this.usluga.id;
     const formData = new FormData();
     formData.append('id', serviceId);
     axios.post('http://127.0.0.1:8000/api/delete/', formData)
