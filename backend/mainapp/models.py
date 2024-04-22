@@ -64,13 +64,9 @@ class Employee(models.Model):
     rank = models.CharField(max_length=100)
     avatar = models.ImageField(upload_to='employees/', null=True, blank=True)
     serviceid = models.CharField(max_length=256)  # Предположим, что это внешний ключ к модели услуги
-    worktime = models.CharField(max_length=20)
-    timetable = models.CharField(max_length=10)
-    chilltime = models.CharField(max_length=20)
-    days = models.CharField(max_length = 100)
     project = models.ForeignKey(Project,on_delete = models.CASCADE)
     daystime = models.JSONField(default=dict)
-    
+
 class Branch(models.Model):
     country = models.CharField(max_length=100)
     city = models.CharField(max_length=100)

@@ -26,14 +26,14 @@
           </div>
           <div class="cards">
             <div class="text-container">
-              <p class="text-header">{{ employeeData.worktime }}</p>
+              <p class="text-header">{{ employeeData.daystime }}</p>
               <p class="text-subheader">Рабочие часы</p>
             </div>
           </div>
           <div class="cards">
             <div class="text-container">
-              <p v-if="employeeData.timetable!='undefined'" class="text-header">{{employeeData.timetable.replace('x','/')}}</p>
-              <p v-else class="text-header">{{employeeData.days}}</p>
+              <p v-if="employeeData.daystime!='undefined'" class="text-header">{{employeeData.daystime}}</p>
+              <p v-else class="text-header">{{employeeData.daystime}}</p>
               <p class="text-subheader">График работы</p>
             </div>
           </div>
