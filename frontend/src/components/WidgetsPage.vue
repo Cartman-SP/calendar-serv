@@ -66,11 +66,12 @@ export default {
   }
   .widgets {
     text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 85%;
+    width: 100%;
   }
   .img_widgets {
     margin-bottom: 10px;
@@ -79,7 +80,7 @@ export default {
   
   .header {
     color: #535C69;
-    font-family: "TT Norms";
+    font-family: "TT Norms Medium";
     font-size: 20px;
     font-weight: 500;
     line-height: 15px;
@@ -99,7 +100,7 @@ export default {
   
   }
   .widgets_btn{
-    margin: 0 auto;
+    margin: 20px auto;
   }
   .content{
     display: flex;

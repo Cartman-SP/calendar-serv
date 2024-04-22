@@ -31,7 +31,7 @@ export default {
       this.isVisible = true;
       setTimeout(() => {
         this.hideNotification();
-      }, 5000); // 5 секунд
+      }, 3000);
     },
     hideNotification() {
       this.isVisible = false;

@@ -77,7 +77,7 @@
                   </div>
                 </div>
                 <div class="dropdown-container">
-                  <label for="break">Общие перерыв</label>
+                  <label for="break">Общий перерыв</label>
                   <div class="dropdown-container">
                     <SelectPage
                       :options="['13:00 — 14:00', '14:00 — 15:00', '15:00 — 16:00', 'Без перерыва']"

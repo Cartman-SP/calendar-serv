@@ -129,7 +129,7 @@
                         <p class="dropdown-header">Тарифный план</p>
                       </div>
                     </router-link>
-                    <router-link to="'/'" style="text-decoration:none" class="dropdown-link">
+                    <router-link to="/" style="text-decoration:none" class="dropdown-link">
                       <div class="dropdown-item" id="logout">
                         <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <g clip-path="url(#clip0_767_17838)">
