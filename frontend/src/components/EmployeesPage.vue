@@ -51,6 +51,7 @@
                   @input="handleSelectInput"
                   :placeholderdata="'Выберите услугу'"
                   :class="{ 'select-error': chipsError }"
+                  :searchable=true
                 />
               </div>
   
