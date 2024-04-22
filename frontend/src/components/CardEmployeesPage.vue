@@ -129,6 +129,9 @@ export default {
     }
   },
   mounted() {
+    console.log('111111111111111111111111111',this.employeeData)
+    const jsonData = JSON.parse(this.employeeData.daystime);
+    console.log(jsonData)
     this.get_usluga();
   },
 
