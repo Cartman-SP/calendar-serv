@@ -247,7 +247,7 @@
           <div class="stripe" style="width: 97px;"></div>
         </div>
         <div v-if="selectedDays">
-          <p class="header">{{selectedDays.toString()}}</p>
+          <p class="header">{{sortedDays()}}</p>
           <p class="descr">График работы</p>
         </div>
         <div v-else class="first">
@@ -397,6 +397,21 @@ export default {
     },
   },
   methods: {
+    sortedDays() {
+          const order = {
+            "Пн": 1,
+            "Вт": 2,
+            "Ср": 3,
+            "Чт": 4,
+            "Пт": 5,
+            "Сб": 6,
+            "Вс": 7
+          };
+
+          const sorted = this.selectedDays.sort((a, b) => order[a] - order[b]);
+          return sorted.join(", ");
+        },
+
     deleteChip(chip){
       let indexToRemove = this.chips.indexOf(chip);
       if (indexToRemove !== -1) {

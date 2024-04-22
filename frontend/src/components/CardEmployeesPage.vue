@@ -32,7 +32,7 @@
           </div>
           <div class="cards">
             <div class="text-container">
-              <p v-if="employeeData.daystime!='undefined'" class="text-header">{{employeeData.daystime}}</p>
+              <p v-if="employeeData.daystime!='undefined'" class="text-header">{{ getDaysString() }}</p>
               <p v-else class="text-header">{{employeeData.daystime}}</p>
               <p class="text-subheader">График работы</p>
             </div>
@@ -44,8 +44,6 @@
           </div>
         </div>
       </div>
-      <button @click="console.log(employeeData.daystime)">employeeData.daystime</button>
-            <button @click="console.log(employeeData)">employeeData</button>
     </div>
     <div :class="{'overlay-show' : showModal, 'overlay-hide' : !showModal}"></div>
     <div :class="{'modal-show' : showModal, 'modal-hide' : !showModal}">
@@ -85,6 +83,13 @@ export default {
   },
 
   methods: {
+    getDaysString() {
+      const schedule = JSON.parse(this.employeeData.daystime);
+      const days = Object.keys(schedule);
+      const daysWithTime = days.filter(day => schedule[day].work_time !== "" || schedule[day].chill_time !== "");
+      return daysWithTime.join(", ");
+    },
+
     deleteEmployee() {
     const serviceId = this.employeeData.id // Получаем идентификатор услуги
     const formData = new FormData();

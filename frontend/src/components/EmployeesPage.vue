@@ -63,6 +63,32 @@
                   <p>{{ chip.name }}</p>
                 </div>
               </div>
+              <div class="form-row" style="margin-top: 10px;">
+                <div class="dropdown-container">
+                  <label>Общие рабочие часы</label>
+                  <div class="dropdown-container">
+                    <SelectPage
+                      :options="['9:00 — 19:00', '9:00 — 20:00', '9:00 — 21:00', '10:00 — 18:00','10:00 — 19:00','10:00 — 20:00', '10:00 — 22:00']"
+                      @input="option => defaultWorktime = option"
+                      :placeholderdata="'Выберите время'"
+                      :class="{ 'select-error': work_timeError }"
+                      :value="defaultWorktime"
+                    />  
+                  </div>
+                </div>
+                <div class="dropdown-container">
+                  <label for="break">Общие перерыв</label>
+                  <div class="dropdown-container">
+                    <SelectPage
+                      :options="['13:00 — 14:00', '14:00 — 15:00', '15:00 — 16:00', 'Без перерыва']"
+                      @input="option => defaultChilltime = option"
+                      :placeholderdata="'Выберите время'"
+                      :class="{ 'select-error': chill_timeError }"
+                      :value="defaultChilltime"
+                    />
+                  </div>
+                </div>  
+              </div>
               <div class="form-row">
                 <div class="dropdown-container">
                   <div class="usluga-head" v-if="selectedRecordType !== ''">
@@ -132,7 +158,7 @@
                             @input="option => setWorkTime(timeAreaDay || selectedDays[0], option)"
                             :placeholderdata="'Выберите время'"
                             :class="{ 'select-error': work_timeError }"
-                            :value="timeAreaDay ? days[timeAreaDay].work_time : days[selectedDays[0]].work_time"
+                            :value="timeAreaDay ? days[timeAreaDay].work_time : defaultWorktime"
                           />  
                         </div>
                       </div>
@@ -144,7 +170,7 @@
                             @input="option => setChillTime(timeAreaDay || selectedDays[0], option)"
                             :placeholderdata="'Выберите время'"
                             :class="{ 'select-error': chill_timeError }"
-                            :value="timeAreaDay ? days[timeAreaDay].chill_time : days[selectedDays[0]].chill_time"
+                            :value="timeAreaDay ? days[timeAreaDay].chill_time : defaultChilltime"
                           />
                         </div>
                       </div>  
@@ -225,16 +251,16 @@
               <div class="stripe" style="width: 143px;"></div>
               <div class="stripe" style="width: 97px;"></div>
             </div>
-            <div v-if="work_time" >
-              <p class="header">{{work_time}}</p>
-              <p class="descr">Рабочие часы</p>
+            <div v-if="defaultWorktime" >
+              <p class="header">{{defaultWorktime}}</p>
+              <p class="descr">Общие рабочие часы</p>
             </div>
             <div v-else class="first">
               <div class="stripe" style="width: 143px;"></div>
               <div class="stripe" style="width: 97px;"></div>
             </div>
             <div v-if="selectedDays.length > 0">
-              <p class="header">{{selectedDays.toString()}}</p>
+              <p class="header">{{sortedDays()}}</p>
               <p class="descr">График работы</p>
             </div>
             <div v-else class="first">
@@ -261,7 +287,8 @@
           firstemployye: false,
 
 
-
+          defaultWorktime: '9:00 — 19:00',
+          defaultChilltime: '13:00 — 14:00',
           selectedDays: [],
           days: {
             'Пн': { work_time: '', chill_time: '' },
@@ -311,6 +338,20 @@
       },
     
       methods: {
+        sortedDays() {
+          const order = {
+            "Пн": 1,
+            "Вт": 2,
+            "Ср": 3,
+            "Чт": 4,
+            "Пт": 5,
+            "Сб": 6,
+            "Вс": 7
+          };
+
+          const sorted = this.selectedDays.sort((a, b) => order[a] - order[b]);
+          return sorted.join(", ");
+        },
         
         handleFileUpload(event) {
           const file = event.target.files[0];
@@ -381,8 +422,8 @@
       this.selectedDays.includes(day) ? this.selectedDays = this.selectedDays.filter(d => d !== day) : this.selectedDays.push(day);
       
       if (this.selectedDays.includes(day)) {
-        this.days[day].work_time = '9:00 — 19:00';
-        this.days[day].chill_time = '13:00 — 14:00';
+        this.days[day].work_time = this.defaultWorktime;
+        this.days[day].chill_time = this.defaultChilltime;
       }
     },
 
