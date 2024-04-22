@@ -436,26 +436,26 @@
             }else{
               this.chipsError = false;
             }
-            if (!this.selectedRecordType) {
-              this.selectedRecordTypeError = true;
-            }else{
-              this.selectedRecordTypeError = false;
-            }
-            if (this.selectedDays.length === 0) {
-              this.selectedDaysError = true;
-            }else{
-              this.selectedDaysError = false;
-            }
-            if (!this.work_time.length > 0) {
-              this.work_timeError = true;
-            }else{
-              this.work_timeError = false;
-            }
-            if (!this.chill_time.length > 0) {
-              this.chill_timeError = true;
-            }else{
-              this.chill_timeError = false;
-            }
+            // if (!this.selectedRecordType) {
+            //   this.selectedRecordTypeError = true;
+            // }else{
+            //   this.selectedRecordTypeError = false;
+            // }
+            // if (this.selectedDays.length === 0) {
+            //   this.selectedDaysError = true;
+            // }else{
+            //   this.selectedDaysError = false;
+            // }
+            // if (!this.work_time.length > 0) {
+            //   this.work_timeError = true;
+            // }else{
+            //   this.work_timeError = false;
+            // }
+            // if (!this.chill_time.length > 0) {
+            //   this.chill_timeError = true;
+            // }else{
+            //   this.chill_timeError = false;
+            // }
           }
 
 
