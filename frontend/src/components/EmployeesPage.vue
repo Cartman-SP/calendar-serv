@@ -463,6 +463,18 @@
           for(let i=0;i<this.chips.length;i++){
             usl+=this.chips[i].id + ','
           }
+          // Извлечение данных из Proxy и преобразование в объект
+          const daysData = {};
+          for (const day in this.days) {
+              daysData[day] = {
+                  work_time: this.days[day].work_time,
+                  chill_time: this.days[day].chill_time
+              };
+          }
+
+          // Преобразование объекта в JSON строку
+          const daysString = JSON.stringify(daysData);
+
           const formData = new FormData();
           formData.append('firstname', this.firstname);
           formData.append('secondname',this.secondname);
@@ -472,7 +484,8 @@
           formData.append('avatar', this.avatar);
           formData.append('user_id', this.$store.state.registrationData.user_id)
           formData.append('project',this.$store.state.activeProjectId)
-          formData.append('daystime', this.days)
+          formData.append('daystime', daysString)
+          console.log(this.days)
           axios.post('http://127.0.0.1:8000/api/employee/', formData)
             .then(response => {
               console.log('Employee created:', response.data);
