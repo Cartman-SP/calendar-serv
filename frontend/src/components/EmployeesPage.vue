@@ -198,7 +198,6 @@
                         @input="option => startDay = option"
                         :placeholderdata="'Выберите время'"
                         :class="{ 'select-error': chill_timeError }"
-                        :value="startDay"
                       />
                     </div>
                   </div> 
@@ -299,8 +298,8 @@
             'Сб': { work_time: '', chill_time: '' },
             'Вс': { work_time: '', chill_time: '' },
           },
-          schedule: '',
-          startDay: '',
+          schedule: 'NaN',
+          startDay: 'NaN',
 
 
 
