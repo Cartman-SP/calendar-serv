@@ -23,6 +23,7 @@
               @input="option => selectedCountry = option"
               :placeholderdata="'Выберите страну'"
               :class="{ 'select-error': selectedCountryError }"
+              :searchable=true
               />
             </div>
   
@@ -161,6 +162,7 @@
               :class="{'select-error' : selectedBusinessError}"
               @input="option => selectedBusiness = option"
               :placeholderdata="'Выберите сферу бизнеса'"
+              :searchable=true
               />
             </div>
             <div class="dropdown-container">
@@ -174,6 +176,7 @@
               @input="handleSelectInput"
               :placeholderdata="'Выберите сотрудников'"
               :class="{ 'select-error': chipsError }"
+              :searchable=true
               />
             </div>
             <div class="chips-block">

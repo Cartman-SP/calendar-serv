@@ -69,7 +69,7 @@ class Employee(models.Model):
     chilltime = models.CharField(max_length=20)
     days = models.CharField(max_length = 100)
     project = models.ForeignKey(Project,on_delete = models.CASCADE)
-
+    days = models.JSONField(default=dict)
 class Branch(models.Model):
     country = models.CharField(max_length=100)
     city = models.CharField(max_length=100)

@@ -331,14 +331,13 @@ def add_employee_to_service(string, employee_id):
 def create_employee(request):
     if request.method == 'POST':
         try:
-            post_data = request.POST.dict()  # конвертируем QueryDict в словарь
-            print(post_data)
-            user_id = post_data.get('user_id')  # Получаем id пользователя из запроса
-            user = User.objects.get(id=user_id)  # Получаем объект пользователя по id
-            post_data['user'] = user.id  
+            post_data = request.POST.dict()
+            user_id = post_data.get('user_id')
+            user = User.objects.get(id=user_id)
+            post_data['user'] = user.id
             serializer = EmployeeSerializer(data=post_data)
             profile = Profile.objects.get(user=user)
-            
+
             if not profile.first_sotrudnik:
                 if serializer.is_valid():
                     serializer.save()
