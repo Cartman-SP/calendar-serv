@@ -403,7 +403,7 @@
           this.selectedDays = []
         },
         saveAndExit() {
-          if (!this.firstname || !this.secondname || !this.rank || !this.avatar || !this.chips.length || !this.selectedRecordType || !this.selectedDays.length || !this.work_time || !this.chill_time) {
+          if (!this.firstname || !this.secondname || !this.rank || !this.avatar || !this.chips.length ) {
             this.alertMessage = null;
             console.log(this.selectedDays.length, this.work_time, this.chill_time)
             setTimeout(() => {
@@ -464,16 +464,11 @@
             usl+=this.chips[i].id + ','
           }
           const formData = new FormData();
-          const selectedDaysString = this.selectedDays.join(',');
           formData.append('firstname', this.firstname);
           formData.append('secondname',this.secondname);
           formData.append('rank',this.rank);
           formData.append('avatar',this.avatar)
           formData.append('serviceid', usl)
-          formData.append('worktime',this.work_time);
-          formData.append('timetable',this.selectedSchedule)
-          formData.append('chilltime',this.chill_time);
-          formData.append('days',selectedDaysString)
           formData.append('avatar', this.avatar);
           formData.append('user_id', this.$store.state.registrationData.user_id)
           formData.append('project',this.$store.state.activeProjectId)
@@ -493,6 +488,8 @@
             })
             .catch(error => {
               console.error('Error creating service:', error);
+              this.alertMessage = error
+              this.alertColor = '#F97F7F'
             });
         },
     cancel() {
