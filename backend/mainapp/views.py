@@ -50,6 +50,8 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from django.http import JsonResponse
 
+import json
+
 @csrf_exempt
 @require_POST
 def register_user(request):
@@ -335,6 +337,11 @@ def create_employee(request):
             user_id = post_data.get('user_id')
             user = User.objects.get(id=user_id)
             post_data['user'] = user.id
+
+            # Сериализуем данные расписания недели в формат JSON перед сохранением
+            days = json.loads(post_data['daystime'])
+            post_data['days'] = days
+
             serializer = EmployeeSerializer(data=post_data)
             profile = Profile.objects.get(user=user)
 
@@ -354,7 +361,6 @@ def create_employee(request):
             return JsonResponse({'message': 'User does not exist'}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return JsonResponse({'message': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
 
 
 

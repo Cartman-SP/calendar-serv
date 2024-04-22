@@ -44,6 +44,8 @@
           </div>
         </div>
       </div>
+      <button @click="console.log(employeeData.daystime)">employeeData.daystime</button>
+            <button @click="console.log(employeeData)">employeeData</button>
     </div>
     <div :class="{'overlay-show' : showModal, 'overlay-hide' : !showModal}"></div>
     <div :class="{'modal-show' : showModal, 'modal-hide' : !showModal}">
