@@ -4,7 +4,7 @@
       {{ getOptionName(selected).length > 0 ? getOptionName(selected) : this.placeholderdata || options[0] }}
     </div>
 
-    <div :class="{ selectHide: !open, items: open }">
+    <div :class="{ selectHide: !open, items: open, dropdownUp: dropdownUp }" ref="dropdown">
       <div class="search" v-if="searchable" @click="open = true">
         <input type="search" placeholder="Поиск" v-model="searchTerm">
       </div>
@@ -43,6 +43,7 @@ export default {
       selected: this.value || {},
       open: false,
       searchTerm: '',
+      dropdownUp: false,
     };
   },
   computed: {
@@ -68,6 +69,19 @@ export default {
     },
   },
   methods: {
+    checkDropdownDirection() {
+      const dropdown = this.$refs.dropdown; // получаем ссылку на выпадающий список
+      const dropdownRect = dropdown.getBoundingClientRect(); // получаем его размеры и позицию
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight; // высота окна браузера
+      const dropdownHeight = dropdownRect.height; // высота выпадающего списка
+
+      // Проверяем, достаточно ли места снизу для открытия списка вниз
+      if (dropdownRect.bottom + dropdownHeight > windowHeight) {
+        this.dropdownUp = true; // устанавливаем флаг, если места недостаточно
+      } else {
+        this.dropdownUp = false; // сбрасываем флаг, если места достаточно
+      }
+    },
     handleOptionClick(option) {
       this.selected = option;
       this.open = false;
@@ -93,6 +107,7 @@ export default {
     if (this.optionsList.length > 0) {
       this.$emit("input", this.selected);
     }
+    this.checkDropdownDirection();
   },
 };
 </script>
@@ -102,6 +117,10 @@ export default {
 
 
 <style scoped>
+.items.dropdownUp {
+  bottom: 120%;
+}
+
 .search input{
   background-image: url(../../static/img/search.svg);
   background-repeat: no-repeat;

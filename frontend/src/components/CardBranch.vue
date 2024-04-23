@@ -53,14 +53,15 @@
     <div :class="{'overlay-show' : showModal, 'overlay-hide' : !showModal}"></div>
     <div :class="{'modal-show' : showModal, 'modal-hide' : !showModal}">
               <div class="modal-content">
-                <p class="text-header">Удаление услуги</p>
-                <p class="modal-subtext">Вы действительно хотите удалить услугу<br><span>{{FilialData.name}}</span>?</p>
+                <p class="text-header">Удаление филиала</p>
+                <p class="modal-subtext">Вы действительно хотите удалить филиал<br><span>{{FilialData.name}}</span>?</p>
                 <div class="btn_container">
                   <button class="delete" @click="deleteService">Удалить</button>
                   <button class="exit" @click="toggleModal">Отмена</button>
                 </div>
               </div>
     </div>
+    <MessageAlert :message="alertMessage" :color="alertColor"/>
   </div>
 
   
@@ -69,10 +70,11 @@
 <script>
 import Kebab from '../components/DropdownKebab.vue';
 import axios from 'axios';
+import MessageAlert from "../components/MessageAlert.vue";
 
 export default {
   props:['FilialData'],
-  components: { Kebab },
+  components: { Kebab, MessageAlert },
   data() {
     return {
       deleteAction: false,
@@ -81,18 +83,25 @@ export default {
       ],
       image: '',
       showModal: false,
+
+      alertMessage: null,
+      alertColor: null,
     };
   },
   methods: {
     copyPhoneNumber() {
-      // Ваша функция для копирования в буфер обмена
       var tempInput = document.createElement("input");
       tempInput.value = this.FilialData.phone;
       document.body.appendChild(tempInput);
       tempInput.select();
       document.execCommand("copy");
       document.body.removeChild(tempInput);
-      alert("Номер телефона скопирован в буфер обмена: " + this.FilialData.phone);
+      this.alertMessage = 'Номер телефона скопирован в буфер обмена';
+      this.alertColor = '#0BB6A1';
+      setTimeout(() => {
+        this.alertMessage = '';
+        this.alertColor = '';
+      }, 6000);
     },
     deleteService() {
         const formData = new FormData();
