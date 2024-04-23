@@ -262,6 +262,10 @@
               <p class="header">{{sortedDays()}}</p>
               <p class="descr">График работы</p>
             </div>
+            <div v-else-if="schedule != 'NaN'">
+              <p class="header">{{schedule}}</p>
+              <p class="descr">График работы</p>
+            </div>
             <div v-else class="first">
               <div class="stripe" style="width: 143px;"></div>
               <div class="stripe" style="width: 97px;"></div>
@@ -441,6 +445,8 @@
         toggleGraffic(type) {
           this.selectedRecordType = type;
           this.selectedDays = []
+          this.schedule = 'NaN'
+          this.startDay = 'NaN'
         },
         saveAndExit() {
           if (!this.firstname || !this.secondname || !this.rank || !this.avatar || !this.chips.length ) {
@@ -524,7 +530,17 @@
           formData.append('avatar', this.avatar);
           formData.append('user_id', this.$store.state.registrationData.user_id)
           formData.append('project',this.$store.state.activeProjectId)
-          formData.append('daystime', daysString)
+
+
+
+          if (this.selectedDays.length > 0) {
+            formData.append('daystime', daysString)
+          }else{
+            formData.append('daystime', this.schedule, this.startDay)
+          }
+          
+
+
           console.log(this.days)
           axios.post('http://127.0.0.1:8000/api/employee/', formData)
             .then(response => {

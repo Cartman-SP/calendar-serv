@@ -32,8 +32,8 @@
           </div>
           <div class="cards">
             <div class="text-container">
-              <p v-if="employeeData.daystime!='undefined'" class="text-header">{{ getDaysString() }}</p>
-              <p v-else class="text-header">{{employeeData.daystime}}</p>
+              <p v-if="getDaysString()!='Пн, Вт, Ср, Чт, Пт, Сб, Вс'" class="text-header">{{ getDaysString() }}</p>
+              <p v-else class="text-header">Все дни недели</p>
               <p class="text-subheader">График работы</p>
             </div>
           </div>

@@ -218,7 +218,7 @@
           <div class="stripe" style="width: 109px;"></div>
           <div class="stripe" style="width: 63px;"></div>
         </div>
-        <img v-if="serviceCover" :src="uploadedImages[0].url" alt="" style="width:auto;height:200px;border-radius:2px;">
+        <img v-if="serviceCover && uploadedImages && uploadedImages.length > 0 && uploadedImages[0].url" :src="uploadedImages[0].url" alt="Branch Photo" style="width:auto;height:200px;border-radius:2px;">
         <div class="img_container" v-else>
           <img class="img_window"  src="../../static/img/service.svg" alt="">
         </div>
@@ -246,7 +246,7 @@
           <div class="stripe" style="width: 143px;"></div>
           <div class="stripe" style="width: 97px;"></div>
         </div>
-        <div v-if="selectedDays">
+        <div v-if="selectedDays.length>0">
           <p class="header">{{sortedDays()}}</p>
           <p class="descr">График работы</p>
         </div>
