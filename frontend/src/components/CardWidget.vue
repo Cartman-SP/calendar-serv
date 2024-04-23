@@ -95,7 +95,7 @@ export default {
       axios.post('http://127.0.0.1:8000/api/getprofile/', { user_id:  this.$store.state.registrationData.user_id})
       .then(response => {
 
-        this.link = 'http://localhost:8080/#/widget/' + response.data.profile.company_name + '/' + this.widgetData.name 
+        this.link = 'http://localhost:8080/widget/' + response.data.profile.company_name + '/' + this.widgetData.name 
 
       })
       .catch(error => {

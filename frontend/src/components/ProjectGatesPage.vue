@@ -5,7 +5,7 @@
         <div class="arrow-container">
           <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
         </div>
-        <router-link to="/dashboard/project" class="eidt-link">Барбершоп на Сатпаева</router-link>
+        <router-link to="/dashboard/project" class="eidt-link">{{ project }}</router-link>
         <div class="arrow-container">
           <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
         </div>  
@@ -82,6 +82,7 @@
 
   export default { 
     components: { SelectPage},
+    props: ['project'],
     data() {
       return {
          selectedEmployees: false,

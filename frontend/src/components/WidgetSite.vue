@@ -615,6 +615,7 @@
 </template>
 
 <script>
+
 import SelectWidget from '../components/SelectWidget.vue';
 import axios from 'axios'
 export default {
