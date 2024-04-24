@@ -21,7 +21,7 @@
           </div>
           <div class="main_text">
             <p class="main_header">Барбершоп на Сатпаева</p>
-            <p class="main_subheader">ID 124568</p>
+            <p class="main_subheader">ID {{ project }}</p>
           </div>
         </div>
         <div class="divider"></div>
@@ -72,6 +72,7 @@
           :placeholderdata="'Выберите сотрудников'"
           @input="option => selectedEmployees = option"
           :class="{ 'select-error': selectedEmployeesError }"
+          :searchable="true"
           />
         </div>
         <div class="send">
