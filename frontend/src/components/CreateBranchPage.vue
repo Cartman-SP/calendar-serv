@@ -238,8 +238,8 @@
           <div class="stripe" style="width: 143px;"></div>
           <div class="stripe" style="width: 97px;"></div>
         </div>
-        <div v-if="selectedRecordText">
-          <p class="header">{{selectedRecordText}}</p>
+        <div v-if="selectedWorkHours">
+          <p class="header">{{selectedWorkHours}}</p>
           <p class="descr">Рабочие часы</p>
         </div>
         <div v-else class="first">
