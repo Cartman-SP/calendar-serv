@@ -151,10 +151,13 @@ const routes = [
         meta: { requiresAuth: true, title: 'Sked.Online - Редиктирование проекта' }
       },
       {
-        path: '/dashboard/project/gates',
+        path: '/dashboard/project/gates/:project',
         name: 'gate',
         component: ProjectGatesPage,
-        meta: { requiresAuth: true, title: 'Sked.Online - Gates' }
+        props: route => ({
+          project: route.params.project,
+        }),
+        meta: { requiresAuth: true, title: 'Sked.Online - Доступы' }
       },
       {
         path: '/dashboard/project/new',

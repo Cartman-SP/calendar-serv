@@ -5,7 +5,7 @@
         <div class="arrow-container">
           <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
         </div>
-        <router-link to="/dashboard/project" class="eidt-link">Барбершоп на Сатпаева</router-link>
+        <router-link to="/dashboard/project" class="eidt-link">{{ project }}</router-link>
         <div class="arrow-container">
           <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
         </div>  
@@ -21,7 +21,7 @@
           </div>
           <div class="main_text">
             <p class="main_header">Барбершоп на Сатпаева</p>
-            <p class="main_subheader">ID 124568</p>
+            <p class="main_subheader">ID {{ project }}</p>
           </div>
         </div>
         <div class="divider"></div>
@@ -38,12 +38,14 @@
                 <div class="second_circle"></div>
               </div>
               <p class="pick_text">Владелец</p>
+              <Tip :Tip="'Владелец — полная передача прав на проект'"/>
             </div>
             <div class="choice_pick" @click="activateChoice">
               <div class="circle">
                 <div class="second_circle"></div>
               </div>
               <p class="pick_text">Администратор</p>
+              <Tip :Tip="'Администратор — есть доступ ко всем разделам \n и может редактировать любые разделы'"/>
             </div>
           </div>
           <div class="choice_container">
@@ -52,12 +54,14 @@
                 <div class="second_circle"></div>
               </div>
               <p class="pick_text">Менеджер</p>
+              <Tip :Tip="'Менеджер — доступ к заявкам, календарю, \n статистики, клиентам'"/>
             </div>
             <div class="choice_pick" @click="activateChoice">
               <div class="circle">
                 <div class="second_circle"></div>
               </div>
               <p class="pick_text">Сотрудник</p>
+              <Tip :Tip="'Сотрудник — когда выбирают права сотрудник, \n то выбирают какой именно сотрудник'"/>
             </div>
           </div>
         </div>
@@ -68,6 +72,7 @@
           :placeholderdata="'Выберите сотрудников'"
           @input="option => selectedEmployees = option"
           :class="{ 'select-error': selectedEmployeesError }"
+          :searchable="true"
           />
         </div>
         <div class="send">
@@ -79,9 +84,11 @@
   
   <script>
   import SelectPage from '../components/SelectPage.vue';
+  import Tip from '../components/TipComponent.vue';
 
   export default { 
-    components: { SelectPage},
+    components: { SelectPage,Tip },
+    props: ['project'],
     data() {
       return {
          selectedEmployees: false,
@@ -92,6 +99,7 @@
       activateChoice(event) {
         // Получите ссылку на текущий выбор
         const choice = event.currentTarget;
+
 
         // Удалите `active` класс из всех choice
         document.querySelectorAll('.choice_pick').forEach(choice => {
@@ -228,6 +236,7 @@
   .choice_pick{
     width: 100%;
     display: flex;
+    align-items: center;
     gap: 5px;
   }
   .circle{
