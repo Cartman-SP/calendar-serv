@@ -24,6 +24,7 @@ import AccessesPage from '../components/AccessesPage.vue';
 import LockedPage from '../components/LockedPage.vue';
 import WidgetCreatePage from '../components/WidgetCreatePage.vue';
 import RequestsPage from '../components/RequestsPage.vue';
+import ClientsPage from '../components/ClientsPage.vue';
 import NotFoundPage from '../components/NotFoundPage.vue';
 import store from '../store';
 import WidgetSite from '@/components/WidgetSite.vue';
@@ -189,6 +190,12 @@ const routes = [
         name: 'requests',
         component: RequestsPage,
         meta: { requiresAuth: true, title: 'Sked.Online - Заявки' }
+      },
+      {
+        path: '/dashboard/clients',
+        name: 'clients',
+        component: ClientsPage,
+        meta: { requiresAuth: true, title: 'Sked.Online - Клиенты' }
       },
     ]
   },
