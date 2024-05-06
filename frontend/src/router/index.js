@@ -188,7 +188,7 @@ const routes = [
         path: '/dashboard/requests',
         name: 'requests',
         component: RequestsPage,
-        meta: { requiresAuth: true, title: 'Sked.Online - В этот раздел доступ закрыт' }
+        meta: { requiresAuth: true, title: 'Sked.Online - Заявки' }
       },
     ]
   },

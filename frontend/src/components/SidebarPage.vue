@@ -88,17 +88,18 @@
           </div>
         </div>
             <div class="cards-group">
-              <div class="bottom_menu" id="zayavki" style="cursor:pointer">
-                <div class="left">
-                  <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M2 16.4627C2 17.186 2.74418 17.67 3.40538 17.3768L20 10.0179L3.4069 2.6267C2.74553 2.3321 2 2.81616 2 3.54018V7.15049C2 8.19451 2.80304 9.06289 3.84388 9.14439L15 10.0179L3.84934 10.8603C2.80618 10.9391 2 11.8085 2 12.8546V16.4627Z" fill="#6266EA"/>
-                  </svg>
-                  <router-link to="/dashboard/requests" class="main_text">
+              <router-link to="/dashboard/requests" style="text-decoration: none;">
+                <div class="bottom_menu" id="zayavki" style="cursor:pointer">
+                  <div class="left">
+                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M2 16.4627C2 17.186 2.74418 17.67 3.40538 17.3768L20 10.0179L3.4069 2.6267C2.74553 2.3321 2 2.81616 2 3.54018V7.15049C2 8.19451 2.80304 9.06289 3.84388 9.14439L15 10.0179L3.84934 10.8603C2.80618 10.9391 2 11.8085 2 12.8546V16.4627Z" fill="#6266EA"/>
+                    </svg>
                     <p class="main_text">Заявки</p>
-                  </router-link>
+                  </div>
+                  <p class="number">{{ zayavki }}</p>
                 </div>
-                <p class="number">{{ zayavki }}</p>
-              </div>
+              </router-link>
+
               <div class="bottom_menu" id="bottom_avatar" style="display: block;">
                 <div class="avatar-top">
                   <div class="left-container" style="display: flex; align-items: center;">
@@ -174,7 +175,7 @@ export default {
       position: '',
       avatar: "",
       company:"",
-      zayavki: '2', // сделать кол-во заявок
+      zayavki: 'NaN', // сделать кол-во заявок
 
       uslugi: [],
       employees: [],

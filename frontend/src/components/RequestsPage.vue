@@ -7,24 +7,24 @@
     <div class="nav">
       <div class="nav_left">
         <SelectPage
-        :options="['123']"
+        :options="['Пушкинский', 'Новый', 'Я люблю пельмени', 'Тест']"
+        :searchable="true"
         :placeholderdata="'Выбрать филиал'"
-        @input="option => selectedCurrency = option"
-        :class="{ 'select-error': selectedCurrencyError }"
+        @input="option => selectedBranch = option"
         />
     
         <SelectPage
-        :options="['123']"
+        :options="['Кологривый','РЫНДЫЧ','влади дади','Шишадмин' ]"
         :placeholderdata="'Выбрать Сотрудника'"
-        @input="option => selectedCurrency = option"
-        :class="{ 'select-error': selectedCurrencyError }"
+        :searchable="true"
+        @input="option => selectedEmployee = option"
         />
       </div>
 
       <div class="nav_center">
         <div class="nav_btn_container">
-          <button class="request_btn">Неделя</button>
-          <button class="request_btn_unactive">Месяц</button>
+          <button :class="{'request_btn' : timeRange === 'week', 'request_btn_unactive' : timeRange === 'month'}" @click="timeRange = 'week'">Неделя</button>
+          <button :class="{'request_btn' : timeRange === 'month', 'request_btn_unactive' : timeRange === 'week'}" @click="timeRange = 'month'">Месяц</button>
         </div>
         <input type="date" style="width:160px">
       </div>
@@ -38,51 +38,53 @@
       <div class="subnav_left_container">
         <div class="container" @click="changeTab('all')" :class="{ active: activeTab === 'all' }">
           <p class="nav_text">Все</p>
-          <p class="nav_subtext">432</p>
+          <p class="nav_subtext">{{ allRequests }}</p>
         </div>
         <div class="container" @click="changeTab('new')" :class="{ active: activeTab === 'new' }">
           <div class="circle_accepted"></div>
           <p class="nav_text">Новые</p>
-          <p class="nav_subtext">128</p>
+          <p class="nav_subtext">{{ newRequests }}</p>
         </div>
         <div class="container" @click="changeTab('accepted')" :class="{ active: activeTab === 'accepted' }">
           <div class="circle_taken"></div>
           <p class="nav_text">Принят</p>
-          <p class="nav_subtext">23</p>
+          <p class="nav_subtext">{{ acceptedRequests }}</p>
         </div>
         <div class="container" @click="changeTab('completed')" :class="{ active: activeTab === 'completed' }">
           <div class="circle_completed"></div>
           <p class="nav_text">Завершен</p>
-          <p class="nav_subtext">23</p>
+          <p class="nav_subtext">{{ finishedRequests }}</p>
         </div>
         <div class="container" @click="changeTab('canceled')" :class="{ active: activeTab === 'canceled' }">
           <div class="circle_cancelation"></div>
           <p class="nav_text">Отмен</p>
-          <p class="nav_subtext">9</p>
+          <p class="nav_subtext">{{ canceledRequests }}</p>
         </div>
       </div>
 
-      <div class="subnav_page">
-        <img src="../../static/img/arrow-left.svg" alt="">
-        <div class="pages">
-          <div class="number">
-            <p class="page_text">1</p>
-            <p class="page_text">2</p>
-            <p class="page_text">3</p>
+      <div style="display: flex; align-items: center; gap: 20px;">
+        <div class="subnav_page">
+          <img src="../../static/img/arrow-left.svg" alt="<">
+          <div class="pages">
+            <div class="number">
+              <p class="page_text">1</p>
+              <p class="page_text">2</p>
+              <p class="page_text">3</p>
+            </div>
+            <p class="page_text">...</p>
+            <div class="number">
+              <p class="page_text">56</p>
+              <p class="page_text">57</p>
+              <p class="page_text">58</p>
+            </div>
           </div>
-          <p class="page_text">...</p>
-          <div class="number">
-            <p class="page_text">56</p>
-            <p class="page_text">57</p>
-            <p class="page_text">58</p>
-          </div>
+          <img src="../../static/img/arrow-right.svg" alt=">">
         </div>
-        <img src="../../static/img/arrow-right.svg" alt="">
-      </div>
 
-      <div class="xls">
-        <img src="../../static/img/download.svg" alt="">
-        <p class="xls_text">XLS</p>
+        <div class="xls" id="excel_download" >
+          <img src="../../static/img/download.svg" alt="downloadArrow">
+          <p class="xls_text">XLS</p>
+        </div>
       </div>
     </div>
 
@@ -116,9 +118,14 @@ export default {
   data() {
     return {
       Mark: false,
-      activeTab: 'all', // По умолчанию активная вкладка "Все"
-      selectedCurrency: '',
-      selectedCurrencyError: false
+      activeTab: 'all',
+      timeRange: 'week',
+
+      allRequests: 'NaN123123123',
+      newRequests: 'NaN',
+      acceptedRequests: 'NaN',
+      finishedRequests: 'NaN',
+      canceledRequests: 'NaN',
     };
   },
   methods: {
@@ -151,8 +158,8 @@ export default {
   color: #535C69;
 }
 .nav{
-  width: 960px;
   display: flex;
+  justify-content: start;
   gap: 40px;
   margin-bottom: 20px;
 }
@@ -167,6 +174,10 @@ export default {
   height: 36px;
   border-radius: 3px;
   padding: 3px;
+}
+
+.nav_btn_container button:hover{
+  color: #6266EA;
 }
 .request_btn{
   padding: 10px 14px 10px 14px;
@@ -207,9 +218,10 @@ export default {
   background-position: 15px;
 }
 .subnav{
-  width: 960px;
+  width: 70%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding-bottom: 10px;
   gap: 105px;
   margin-bottom: 25px;
@@ -328,6 +340,16 @@ p {
   gap: 5px;
   align-items: center;
   justify-content: center;
+  transition: all .2s ease;
+}
+
+.xls:hover{
+  background-color: #F3F5F6;
+  cursor: pointer;
+}
+
+.xls:hover .xls_text{
+  color: #00A490;
 }
 .xls_text{
   font-family: TT Norms Medium;
@@ -335,10 +357,12 @@ p {
   line-height: 16.52px;
   text-align: center;
   color: #535C69;
+  transition: all .2s ease;
 }
 .primary{
-  width: 960px;
-  height: 468px;
+  width: 70%;
+  min-height: 468px;
+  height: fit-content;
   gap: 10px;
   border-radius: 5px;
   background: #FFFFFF;
