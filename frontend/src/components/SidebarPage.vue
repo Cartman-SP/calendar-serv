@@ -12,6 +12,16 @@
       <div class="content">
         <div class="top-group">
           <div class="cards-group">
+            <router-link :to="!employees.length > 0 || !uslugi.length > 0 || !filials.length > 0 ? '/dashboard/locked' : '/dashboard/home'" class="main_text" :class="{ active: $route.path === '/dashboard/home' }">
+              <div class="main_menu">
+                <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.00024 0.174316L15.727 6.23527L14.6734 7.43939L8.00024 2.30035L1.32704 7.43939L0.273438 6.23527L8.00024 0.174316Z" fill="#6266EA"/>
+                <path d="M8.00024 0.174316L14.4574 5.23934V13.9003H9.60024V9.90035H6.40024V13.9003H1.60024V5.19452L8.00024 0.174316Z" fill="#6266EA"/>
+                </svg>
+                  
+                <p class="main_text">Главная</p>
+              </div>
+            </router-link>
             <router-link to="/dashboard/service" class="main_text" :class="{ active: $route.path === '/dashboard/service'}">
               <div class="main_menu">
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -56,7 +66,7 @@
                 <p class="main_text">Виджеты</p>
               </div>
             </router-link>
-            <router-link :to="!employees.length > 0 || !uslugi.length > 0 || !filials.length > 0 ? '/dashboard/locked' : '/dashboard/calendar'" class="main_text" :class="{ active: $route.path === '/main/calendar' }">
+            <router-link :to="!employees.length > 0 || !uslugi.length > 0 || !filials.length > 0 ? '/dashboard/locked' : '/dashboard/calendar'" class="main_text" :class="{ active: $route.path === '/dashboard/calendar' }">
               <div :class="{'disabled-menu' : !employees.length > 0 || !uslugi.length > 0 || !filials.length > 0, 'main_menu' : employees.length > 0 && uslugi.length > 0 && filials.length > 0}">
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M5 5V0H7V5H5Z" fill="#6266EA"/>
@@ -77,12 +87,13 @@
                 <p class="main_text">Клиенты</p>
               </div>
             </router-link>
-            <router-link :to="!employees.length > 0 || !uslugi.length > 0 || !filials.length > 0 ? '/dashboard/locked' : '/dashboard/statistics'" class="main_text" :class="{ active: $route.path === '/main/statistics' }">
+            <router-link :to="'/dashboard/help'" class="main_text" :class="{ active: $route.path === '/dashboard/help' }">
               <div :class="{'disabled-menu' : !employees.length > 0 || !uslugi.length > 0 || !filials.length > 0, 'main_menu' : employees.length > 0 && uslugi.length > 0 && filials.length > 0}">
-                <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M15.9667 1L9.00006 1.03317L11.783 3.8029L7.00008 8.5858V13.5858L2.29297 18.2929L3.70718 19.7071L9.00008 14.4142V9.41423L13.2006 5.21375L16.0001 8L15.9667 1Z" fill="#6266EA"/>
-                </svg> 
-                <p class="main_text">Статистика</p>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0.799805 1.90005C0.799805 1.01636 1.51615 0.300049 2.3998 0.300049H8.7998C9.68346 0.300049 10.3998 1.01636 10.3998 1.90005V6.70005C10.3998 7.58374 9.68346 8.30005 8.7998 8.30005H6.3998L2.3998 11.5L3.1998 8.30005H2.3998C1.51615 8.30005 0.799805 7.58374 0.799805 6.70005V1.90005Z" fill="#6266EA"/>
+                <path d="M5.5998 10.7V9.90005H8.7998C10.3998 9.90005 11.9998 9.10005 11.9998 7.50005V4.30005H13.5998C14.4835 4.30005 15.1998 5.01636 15.1998 5.90005V10.7C15.1998 11.5837 14.4835 12.3 13.5998 12.3H12.7998L13.5998 15.5L9.5998 12.3H7.1998C6.31615 12.3 5.5998 11.5837 5.5998 10.7Z" fill="#6266EA"/>
+                </svg>
+                <p class="main_text">Помощь</p>
               </div>
             </router-link>
           </div>

@@ -25,6 +25,8 @@ import LockedPage from '../components/LockedPage.vue';
 import WidgetCreatePage from '../components/WidgetCreatePage.vue';
 import RequestsPage from '../components/RequestsPage.vue';
 import NotFoundPage from '../components/NotFoundPage.vue';
+import CalendarPage from '../components/CalendarPage.vue';
+import HomeStatisticsPage from '../components/HomeStatisticsPage.vue';
 import store from '../store';
 import WidgetSite from '@/components/WidgetSite.vue';
 import NProgress from 'nprogress'; // Импортируйте nprogress
@@ -189,6 +191,18 @@ const routes = [
         name: 'requests',
         component: RequestsPage,
         meta: { requiresAuth: true, title: 'Sked.Online - Заявки' }
+      },
+      {
+        path: '/dashboard/calendar',
+        name: 'calendar',
+        component: CalendarPage,
+        meta: { requiresAuth: true, title: 'Sked.Online - Календарь' }
+      },
+      {
+        path: '/dashboard/home',
+        name: 'home',
+        component: HomeStatisticsPage,
+        meta: { requiresAuth: true, title: 'Sked.Online - Главная' }
       },
     ]
   },
