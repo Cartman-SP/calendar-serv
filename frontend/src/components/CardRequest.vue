@@ -22,15 +22,15 @@
       </div>
     </div>
     <div class="container">
-      <div class="client_container">
+      <div class="client_wrapper">
         <p class="client_subtext">Сотрудник</p>
         <p class="client_text">Егор Барбержопер</p>
       </div>
-      <div class="client_container">
+      <div class="client_wrapper">
         <p class="client_subtext">Название услуги</p>
         <p class="client_text">Стрижка и оформление бороды</p>
       </div>
-      <div class="client_container">
+      <div class="client_wrapper">
         <p class="client_subtext">Стоимость</p>
         <p class="client_text">8000 ₸</p>
       </div>
@@ -54,6 +54,10 @@ export default {
 </script>
 
 <style scoped>
+.client_container{
+  display: flex;
+  gap: 5px;
+}
 .main_card{
     width: 100%;
     padding: 20px 10px;
