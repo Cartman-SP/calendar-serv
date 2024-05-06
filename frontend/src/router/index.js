@@ -23,6 +23,7 @@ import CreateProject from '../components/CreateProject.vue';
 import AccessesPage from '../components/AccessesPage.vue';
 import LockedPage from '../components/LockedPage.vue';
 import WidgetCreatePage from '../components/WidgetCreatePage.vue';
+import RequestsPage from '../components/RequestsPage.vue';
 import NotFoundPage from '../components/NotFoundPage.vue';
 import store from '../store';
 import WidgetSite from '@/components/WidgetSite.vue';
@@ -182,7 +183,13 @@ const routes = [
         name: 'widget_create',
         component: WidgetCreatePage,
         meta: { requiresAuth: true, title: 'Sked.Online - Создание виджета' }
-      }
+      },
+      {
+        path: '/dashboard/requests',
+        name: 'requests',
+        component: RequestsPage,
+        meta: { requiresAuth: true, title: 'Sked.Online - В этот раздел доступ закрыт' }
+      },
     ]
   },
   {
