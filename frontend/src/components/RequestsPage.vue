@@ -105,16 +105,20 @@
       <div class="divider"></div>
       <p class="primary_new">Выберите филиал и сотрудника,<br>чтобы посмотреть список заявок</p>
       <img src="../../static/img/request.svg" alt="" draggable="false">
+      <CardRequest></CardRequest>
     </div>
+
+
 
   </div>
 </template>
 
 <script>
 import SelectPage from '../components/SelectPage.vue';
+import CardRequest from '../components/CardRequest.vue';
 
 export default {
-  components: { SelectPage },
+  components: { SelectPage, CardRequest },
   data() {
     return {
       Mark: false,
