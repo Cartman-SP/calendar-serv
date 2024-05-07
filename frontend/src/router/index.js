@@ -27,6 +27,7 @@ import RequestsPage from '../components/RequestsPage.vue';
 import ClientsPage from '../components/ClientsPage.vue';
 import NotFoundPage from '../components/NotFoundPage.vue';
 import CalendarPage from '../components/CalendarPage.vue';
+import HomePage from '../components/HomePage.vue';
 import store from '../store';
 import WidgetSite from '@/components/WidgetSite.vue';
 import NProgress from 'nprogress'; // Импортируйте nprogress
@@ -203,6 +204,12 @@ const routes = [
         name: 'calendar',
         component: CalendarPage,
         meta: { requiresAuth: true, title: 'Sked.Online - Календарь' }
+      },
+      {
+        path: '/dashboard/home',
+        name: 'home',
+        component: HomePage,
+        meta: { requiresAuth: true, title: 'Sked.Online - Главная' }
       },
     ]
   },
