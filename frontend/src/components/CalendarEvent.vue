@@ -24,6 +24,8 @@ export default {
   cursor: pointer;
 }
 
+
+
 .event:hover{
     filter: drop-shadow(0 0 10px rgb(233, 233, 233));
 }
