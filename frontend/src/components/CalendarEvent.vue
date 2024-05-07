@@ -1,6 +1,6 @@
 <template>
     <div class="event" :style="{ borderColor: color }">
-        <p class="event-name">Стрижка бороды</p>
+        <p class="event-name">Стрижка</p>
         <p class="event-time">7:30</p>
     </div>
 </template>
@@ -12,9 +12,6 @@ export default {
 </script>
 
 <style scoped>
-
-
-
 .event{
   margin: 5px;
   padding: 10px;
@@ -33,6 +30,8 @@ export default {
 }
 
 .event-name, .event-time{
+  overflow: hidden;
+  white-space: nowrap;
   font-family: TT Norms Medium;
   font-size: 14px;
   line-height: 16px;

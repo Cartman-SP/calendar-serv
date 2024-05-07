@@ -79,26 +79,50 @@
         </div>
       </div>
       <div class="empty-row-up"></div>
-      <div class="table">
-        <div class="cell" v-for="i in 7" :key="i">
-          <CalendarEvent :color="'#FFCF7D'"/>
+      <div class="table-container">
+        <div class="table-full">
+          <div class="time-table">
+            <p>06:00</p>
+            <p>07:00</p>
+            <p>08:00</p>
+            <p>09:00</p>
+            <p>10:00</p>
+            <p>11:00</p>
+            <p>12:00</p>
+            <p>13:00</p>
+            <p>14:00</p>
+            <p>15:00</p>
+            <p>16:00</p>
+            <p>17:00</p>
+            <p>18:00</p>
+            <p>19:00</p>
+            <p>20:00</p>
+            <p>21:00</p>
+            <!-- <p>22:00</p> -->
+          </div>
+          <div class="table">
+            <div class="cell" v-for="i in 7" :key="i">
+              <CalendarEvent :color="'#FFCF7D'"/>
+            </div>
+            <div class="cell" v-for="i in 7" :key="i"></div>
+            <div class="cell" v-for="i in 7" :key="i"></div>
+            <div class="cell" v-for="i in 7" :key="i"></div>
+            <div class="cell" v-for="i in 7" :key="i"></div>
+            <div class="cell" v-for="i in 7" :key="i"></div>
+            <div class="cell" v-for="i in 7" :key="i"></div>
+            <div class="cell" v-for="i in 7" :key="i"></div>
+            <div class="cell" v-for="i in 7" :key="i"></div>
+            <div class="cell" v-for="i in 7" :key="i"></div>
+            <div class="cell" v-for="i in 7" :key="i"></div>
+            <div class="cell" v-for="i in 7" :key="i"></div>
+            <div class="cell" v-for="i in 7" :key="i"></div>
+            <div class="cell" v-for="i in 7" :key="i"></div>
+            <div class="cell" v-for="i in 7" :key="i"></div>
+            <div class="cell" v-for="i in 7" :key="i"></div>
+          </div>
         </div>
-        <div class="cell" v-for="i in 7" :key="i"></div>
-        <div class="cell" v-for="i in 7" :key="i"></div>
-        <div class="cell" v-for="i in 7" :key="i"></div>
-        <div class="cell" v-for="i in 7" :key="i"></div>
-        <div class="cell" v-for="i in 7" :key="i"></div>
-        <div class="cell" v-for="i in 7" :key="i"></div>
-        <div class="cell" v-for="i in 7" :key="i"></div>
-        <div class="cell" v-for="i in 7" :key="i"></div>
-        <div class="cell" v-for="i in 7" :key="i"></div>
-        <div class="cell" v-for="i in 7" :key="i"></div>
-        <div class="cell" v-for="i in 7" :key="i"></div>
-        <div class="cell" v-for="i in 7" :key="i"></div>
-        <div class="cell" v-for="i in 7" :key="i"></div>
-        <div class="cell" v-for="i in 7" :key="i"></div>
-        <div class="cell" v-for="i in 7" :key="i"></div>
       </div>
+      <div class="empty-row-down"></div>
     </div>
   </div>
 </template>
@@ -159,7 +183,6 @@ export default{
 }
 
 .day{
-  min-width: 150px;
   max-width: 200px;
   display: flex;
   align-items: start;
@@ -189,6 +212,10 @@ export default{
   margin-left: 20px;
 }
 
+.dates{
+  margin-left: 50px;
+}
+
 .date-block{
   background-color: white;
   padding: 20px;
@@ -203,31 +230,65 @@ export default{
 .table{
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(16, 1fr);
-  background-color: white;
-  max-height: 80vh;
+  grid-template-rows: repeat(16, 60px);
   width: 100%;
-  overflow: scroll;
+  
+}
+
+.table-container{
+  display: flex;
+  overflow-y: scroll;
+  height: 70vh;
+}
+
+.table-full{
+  width: 100%;
+  display: flex;
+}
+
+.time-table{
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(16, 1fr);
+}
+
+.time-table p{
+  font-family: TT Norms Medium;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 10px;
+  text-align: center;
+  color: #AFB6C1;
+  height: 60px;
+  margin: 0;
+  width: 50px;
 }
 .empty-row-up{
+  margin-left: 50px;
   border: 1px solid #e7eaee;
-  width: 100%;
   height: 20px;
   border-radius: 5px 5px 0 0;
+  background-color: white;
+}
+
+.empty-row-down{
+  margin-left: 50px;
+  border: 1px solid #e7eaee;
+  height: 20px;
+  border-radius: 0 0 5px 5px;
   background-color: white;
 }
 
 .table > * {
   border: 1px solid #e7eaee;
   width: 100%;
-  height: 70px;
+  background-color: white;
 }
 
 .cell{
   align-items: center;
   display: flex;
   width: 100%;
-  height: 100%;
 }
 
 </style>
