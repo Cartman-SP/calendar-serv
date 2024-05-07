@@ -1,6 +1,6 @@
 <template>
     <div class="event" :style="{ borderColor: color }">
-        <p class="event-name">Стрижка</p>
+        <p class="event-name">Стрижка бороды</p>
         <p class="event-time">7:30</p>
     </div>
 </template>
@@ -23,8 +23,6 @@ export default {
   transition: all .2s ease;
   cursor: pointer;
 }
-
-
 
 .event:hover{
     filter: drop-shadow(0 0 10px rgb(233, 233, 233));
