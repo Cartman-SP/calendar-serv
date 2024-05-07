@@ -23,12 +23,14 @@
             </div>
           </template>
         </CalendarDisplay>
+
+
       </div>
       <div class="chooses">
         <div class="choose-block">
           <p class="header">Выбрать филиал</p>
           <SelectPage
-          :options="['Пушкинский', 'Новый', 'Я люблю пельмени', 'Тест']"
+          :options="['Пушкинский', 'Новый', 'Я люблю пельмени', 'Тест 2']"
           :searchable="true"
           :placeholderdata="'Выбрать филиал'"
           @input="option => selectedBranch = option"
