@@ -13,6 +13,8 @@ export default {
 
 <style scoped>
 
+
+
 .event{
   margin: 5px;
   padding: 10px;
