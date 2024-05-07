@@ -154,7 +154,7 @@ export default {
 
 .about-subHeader{
   font-family: TT Norms Medium;
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 500;
   line-height: 10px;
   text-align: left;
@@ -163,7 +163,7 @@ export default {
 }
 .about-header{
   font-family: TT Norms Medium;
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 500;
   line-height: 10px;
   text-align: left;
