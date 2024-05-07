@@ -1,6 +1,6 @@
 <template>
     <div class="event" :style="{ borderColor: color }">
-        <p class="event-name">Стрижка</p>
+        <p class="event-name">Стрижка бороды</p>
         <p class="event-time">7:30</p>
     </div>
 </template>
