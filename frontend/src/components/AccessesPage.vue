@@ -11,6 +11,7 @@
         </div>  
         <p class="creation_text">Доступы</p>
       </div>
+      
       <div class="edit">
         <div class="edit_top">
             <button class="basket">
