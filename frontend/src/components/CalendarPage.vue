@@ -98,7 +98,6 @@
             <p>19:00</p>
             <p>20:00</p>
             <p>21:00</p>
-            <!-- <p>22:00</p> -->
           </div>
           <div class="table">
             <div class="cell" v-for="i in 7" :key="i">
