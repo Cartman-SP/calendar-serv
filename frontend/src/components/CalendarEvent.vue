@@ -1,9 +1,10 @@
 <template>
   <div class="event-container">
-    <div class="event" :style="{ borderColor: color }" @blur="about = false" @click="about = true" tabindex="1">
+    <div class="event" :style="{ borderColor: color }" @blur="about = false, colorEditor = false" @click="about = true, colorEditor = false" tabindex="1"  @contextmenu.prevent="colorEditor = true, about = false">
         <p class="event-name">Стрижка1231231231231212123</p>
         <p class="event-time">7:30</p>
     </div>
+
     <div v-if="about" class="about">
       <div class="left">
         <div class="text-block">
@@ -33,6 +34,27 @@
         </svg>
       </div>
     </div>
+
+    <div v-if="colorEditor" class="color-editor">
+      <button class="deleteBtn">
+        <svg data-v-62f0bed8="" style="margin-right: 5px;" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path data-v-62f0bed8="" fill-rule="evenodd" clip-rule="evenodd" d="M3.44318 2.05556C3.44318 1.6797 3.7637 1.375 4.15909 1.375H10.8409C11.2363 1.375 11.5568 1.6797 11.5568 2.05556C11.5568 2.43142 11.2363 2.73611 10.8409 2.73611H4.15909C3.7637 2.73611 3.44318 2.43142 3.44318 2.05556ZM2.96591 5.45833H2.25V4.09722H12.75V5.45833H12.0341V11.1296C12.0341 12.5078 10.8589 13.625 9.4091 13.625H5.59091C4.14116 13.625 2.96591 12.5078 2.96591 11.1296V5.45833ZM10.6023 5.45833H4.39773V11.1296C4.39773 11.7561 4.93194 12.2639 5.59091 12.2639H9.4091C10.0681 12.2639 10.6023 11.7561 10.6023 11.1296V5.45833Z" fill="#F97F7F"></path></svg>
+        Удалить
+      </button>
+      <div class="colors-row">
+        <div class="color-circle" style="background-color: #F97F7F;"></div>
+        <div class="color-circle" style="background-color: #F4511E;"></div>
+        <div class="color-circle" style="background-color: #FFCF7D;"></div>
+        <div class="color-circle" style="background-color: #33B679;"></div>
+        <div class="color-circle" style="background-color: #158048;"></div>
+      </div>
+      <div class="colors-row" style="margin-top: 10px;">
+        <div class="color-circle" style="background-color: #3DB4EE;"></div>
+        <div class="color-circle" style="background-color: #5062C7;"></div>
+        <div class="color-circle" style="background-color: #7986CB;"></div>
+        <div class="color-circle" style="background-color: #B24ECD;"></div>
+        <div class="color-circle" style="background-color: #616161;"></div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -42,12 +64,39 @@ export default {
     data() {
         return {
           about: false,
+          colorEditor: false,
         };
     },
 }
 </script>
 
 <style scoped>
+.color-circle{
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+.colors-row{
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: space-between;
+}
+.deleteBtn{
+  background-color: white;
+  font-family: TT Norms Medium;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 10px;
+  text-align: left;
+  color: #AFB6C1;
+}
+.color-editor{
+  position: absolute;
+  background-color: white;
+  padding: 20px;
+}
 .about{
   position: absolute;
   background-color: white;
@@ -55,16 +104,19 @@ export default {
 }
 .event-container{
   position: relative;
+  width: 100%;
 }
 .event{
   margin: 5px;
-  padding: 10px;
+  padding: 15px;
   border: solid 1px #FFCF7D;
   border-radius: 5px;
-  width: 100%;
   background-color: white;
   transition: all .2s ease;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 
@@ -81,7 +133,7 @@ export default {
   white-space: nowrap;
   text-overflow: ellipsis;
   font-family: TT Norms Medium;
-  font-size: 14px;
+  font-size: 18px;
   line-height: 16px;
   text-align: left;
   margin: 0;

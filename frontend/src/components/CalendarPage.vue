@@ -100,24 +100,24 @@
             <p>21:00</p>
           </div>
           <div class="table">
-            <div class="cell" v-for="i in 7" :key="i">
+            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }">
               <CalendarEvent :color="'#FFCF7D'"/>
             </div>
-            <div class="cell" v-for="i in 7" :key="i"></div>
-            <div class="cell" v-for="i in 7" :key="i"></div>
-            <div class="cell" v-for="i in 7" :key="i"></div>
-            <div class="cell" v-for="i in 7" :key="i"></div>
-            <div class="cell" v-for="i in 7" :key="i"></div>
-            <div class="cell" v-for="i in 7" :key="i"></div>
-            <div class="cell" v-for="i in 7" :key="i"></div>
-            <div class="cell" v-for="i in 7" :key="i"></div>
-            <div class="cell" v-for="i in 7" :key="i"></div>
-            <div class="cell" v-for="i in 7" :key="i"></div>
-            <div class="cell" v-for="i in 7" :key="i"></div>
-            <div class="cell" v-for="i in 7" :key="i"></div>
-            <div class="cell" v-for="i in 7" :key="i"></div>
-            <div class="cell" v-for="i in 7" :key="i"></div>
-            <div class="cell" v-for="i in 7" :key="i"></div>
+            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
+            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
+            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
+            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
+            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
+            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
+            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
+            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
+            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
+            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
+            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
+            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
+            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
+            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
+            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
           </div>
         </div>
       </div>
@@ -190,7 +190,7 @@ export default{
 
 .day-num{
   font-family: TT Norms Medium;
-  font-size: 28px;
+  font-size: 40px;
   font-weight: 500;
   line-height: 28px;
   text-align: center;
@@ -199,7 +199,7 @@ export default{
 
 .day-name{
   font-family: TT Norms Medium;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 500;
   line-height: 16px;
   text-align: center;
@@ -229,7 +229,7 @@ export default{
 .table{
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(16, 60px);
+  grid-template-rows: repeat(16, 90px);
   width: 100%;
   
 }
@@ -253,12 +253,12 @@ export default{
 
 .time-table p{
   font-family: TT Norms Medium;
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 500;
   line-height: 10px;
   text-align: center;
   color: #AFB6C1;
-  height: 60px;
+  height: 90px;
   margin: 0;
   width: 50px;
 }
