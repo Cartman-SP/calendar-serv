@@ -93,7 +93,9 @@
         <div class="status">
           <div class="mark" v-if="!Mark" @click="Mark = true"></div>
           <div class="mark_active" v-else @click="Mark = false">
-            <img src="../../static/img/checkmark.svg" alt="">
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2556 6.15492L9.05226 14.4665L4.29285 9.7071L5.70706 8.29289L8.94764 11.5335L14.7443 4.84506L16.2556 6.15492Z" fill="#FFFFFF"/>
+            </svg>
           </div>
           <p class="primary_nav_text">Статус</p>
         </div>
@@ -383,6 +385,7 @@ p {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: 1fr;
+  gap: 10px;
 }
 .mark{
   width: 16px;
@@ -401,7 +404,7 @@ p {
   border-radius: 3px;
   border: 1px solid #C6CBD2;
   cursor: pointer;
-  background: var(--color-global);
+  background: #6266EA;
   user-select:none;
 }
 .status{
