@@ -1,7 +1,7 @@
 <template>
   <div class="event-container">
     <div class="event" :style="{ borderColor: color }" @blur="about = false, colorEditor = false" @click="about = true, colorEditor = false" tabindex="1"  @contextmenu.prevent="colorEditor = true, about = false">
-        <p class="event-name">Стрижка1231231231231212123</p>
+        <p class="event-name" v-text-ellipsis="eventName">{{ eventName }}</p>
         <p class="event-time">7:30</p>
     </div>
 
@@ -65,8 +65,30 @@ export default {
         return {
           about: false,
           colorEditor: false,
+
+          eventName: 'q24432wd',
         };
     },
+    methods: {
+      adjustText() {
+        const containerWidth = document.querySelector('.event').clientWidth;
+        const eventName = this.eventName;
+        const eventNameElement = document.querySelector('.event-name');
+
+        if (eventNameElement.scrollWidth > containerWidth) {
+          eventNameElement.innerHTML = eventName + '...'; // Добавим многоточие, если текст не помещается
+        } else {
+          eventNameElement.innerHTML = eventName; // Оставим текст без изменений
+        }
+      }
+    },
+    mounted() {
+      this.adjustText();
+      window.addEventListener('resize', this.adjustText);
+    },
+    beforeUnmount() {
+      window.removeEventListener('resize', this.adjustText);
+    }
 }
 </script>
 
@@ -119,13 +141,14 @@ export default {
   gap: 10px;
 }
 
-
-
 .event:hover{
     filter: drop-shadow(0 0 10px rgb(233, 233, 233));
 }
 .event-name{
-  max-width: 6vw;
+  overflow: hidden;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .event-name, .event-time{

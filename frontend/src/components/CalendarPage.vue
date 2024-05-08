@@ -139,6 +139,8 @@ export default{
   display: flex;
   justify-content: start;
   align-items: start;
+  gap: 20px;
+  width: 100%;
 }
 .chooses{
   background-color: white;
@@ -208,7 +210,6 @@ export default{
 
 .schedule{
   width: 100%;
-  margin-left: 20px;
 }
 
 .dates{
@@ -224,6 +225,7 @@ export default{
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: fit-content;
 }
 
 .table{
@@ -231,7 +233,7 @@ export default{
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(16, 90px);
   width: 100%;
-  
+  /* overflow-x: scroll; */
 }
 
 .table-container{
@@ -287,7 +289,12 @@ export default{
 .cell{
   align-items: center;
   display: flex;
-  width: 100%;
+  max-width: 200px;
 }
 
+@media (max-width: 1641px){
+  .calendar-block{
+    display: none;
+  }
+}
 </style>
