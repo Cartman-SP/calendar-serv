@@ -129,7 +129,6 @@ export default {
   width: 100%;
 }
 .event{
-  margin: 5px;
   padding: 15px;
   border: solid 1px #FFCF7D;
   border-radius: 5px;

@@ -40,7 +40,7 @@
           <p class="header">Выбрать сотрудника</p>
           <SelectPage
         :options="['Кологривый','РЫНДЫЧ','влади дади','Шишадмин' ]"
-        :placeholderdata="'Выбрать Сотрудника'"
+        :placeholderdata="'Выбрать cотрудника'"
         :searchable="true"
         @input="option => selectedEmployee = option"
         />
@@ -141,6 +141,7 @@ export default{
   align-items: start;
   gap: 20px;
   width: 100%;
+  overflow-x: scroll;
 }
 .chooses{
   background-color: white;
@@ -239,6 +240,7 @@ export default{
 .table-container{
   display: flex;
   overflow-y: scroll;
+  overflow-x: hidden;
   height: 70vh;
 }
 
@@ -289,7 +291,9 @@ export default{
 .cell{
   align-items: center;
   display: flex;
-  max-width: 200px;
+  /* max-width: 200px; */
+  padding: 5px;
+  gap: 5px;
 }
 
 @media (max-width: 1641px){
