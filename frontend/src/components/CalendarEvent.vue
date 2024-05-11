@@ -137,8 +137,8 @@ export default {
   background-color: white;
   transition: all .2s ease;
   cursor: pointer;
-  /* display: flex;
-  flex-direction: column; */
+  display: flex;
+  flex-direction: column;
   gap: 10px;
   min-width: 150px;
 }
