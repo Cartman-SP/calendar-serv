@@ -98,30 +98,21 @@
             <p>19:00</p>
             <p>20:00</p>
             <p>21:00</p>
+            <p>22:00</p>
           </div>
           <div class="table">
-            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }">
-              <CalendarEvent :color="'#FFCF7D'"/>
+            <div v-for="i in timeSlots" :key="i" class="table-row">
+              <div class="cell" v-for="j in ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']" :key="j" :style="{ 'background-color': i === 'Сб' || i === 'Вс' ? 'rgba(98, 102, 234, 0.02)' : 'white' }">
+                <div v-for="e in events" :key="e.id" v-show="j === e.day">
+                  <CalendarEvent :eventData="e" :color="'#FFCF7D'" v-if="j === e.day && i === e.time"/>
+                </div>
+              </div>
             </div>
-            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
-            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
-            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
-            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
-            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
-            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
-            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
-            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
-            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
-            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
-            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
-            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
-            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
-            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
-            <div class="cell" v-for="i in 7" :key="i" :style="{ 'background-color': i === 6 || i === 7 ? 'rgba(98, 102, 234, 0.02)' : 'white' }"></div>
           </div>
         </div>
       </div>
       <div class="empty-row-down"></div>
+      <button @click="console.log(timeSlots)">log slots</button>
     </div>
   </div>
 </template>
@@ -129,8 +120,47 @@
 <script>
 import SelectPage from '../components/SelectPage.vue';
 import CalendarEvent from '../components/CalendarEvent.vue';
+
 export default{
-  components: {SelectPage, CalendarEvent}
+  components: {SelectPage, CalendarEvent},
+  data(){
+    return{
+      events:[
+        {
+            id: '1',
+            name: 'Ноготочки',
+            day: 'Пн',
+            time: '13:00 - 14:00',
+            color: '#33B679',
+          },
+          {
+            id: '2',
+            name: 'Прическа XXL',
+            day: 'Ср',
+            time: '15:00 - 16:00',
+            color: '#3DB4EE',
+          },
+          {
+            id: '3',
+            name: 'Прическа M',
+            day: 'Вт',
+            time: '11:00 - 12:00',
+            color: '#B24ECD',
+          }
+        ]
+    }
+  },
+  computed: {
+    timeSlots() {
+        const slots = [];
+        for (let i = 6; i <= 22; i++) {
+            const startTime = `${i < 10 ? '0' : ''}${i}:00`;
+            const endTime = `${i + 1 < 10 ? '0' : ''}${i + 1}:00`;
+            slots.push(`${startTime} - ${endTime}`);
+        }
+        return slots;
+    }
+  }
 }
 </script>
 
@@ -231,11 +261,19 @@ export default{
 
 .table{
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(16, 90px);
+  grid-template-rows: repeat(1, 90px);
   width: 100%;
-  /* overflow-x: scroll; */
 }
+
+.table-row{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  width: 100%;
+}
+
+/* .table-row:nth-child(even){
+  filter: brightness(97%);
+} */
 
 .table-container{
   display: flex;
@@ -282,7 +320,7 @@ export default{
   background-color: white;
 }
 
-.table > * {
+.table-row > * {
   border: 1px solid #e7eaee;
   width: 100%;
   background-color: white;
@@ -290,10 +328,11 @@ export default{
 
 .cell{
   align-items: center;
-  display: flex;
-  /* max-width: 200px; */
+  display: grid; /* Используем display: grid */
+  grid-template-columns: 1fr; /* Одна колонка */
+  height: 90px;
+  min-width: 150px;
   padding: 5px;
-  gap: 5px;
 }
 
 @media (max-width: 1641px){

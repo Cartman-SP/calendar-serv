@@ -1,8 +1,8 @@
 <template>
   <div class="event-container">
-    <div class="event" :style="{ borderColor: color }" @blur="about = false, colorEditor = false" @click="about = true, colorEditor = false" tabindex="1"  @contextmenu.prevent="colorEditor = true, about = false">
-        <p class="event-name" v-text-ellipsis="eventName">{{ eventName }}</p>
-        <p class="event-time">7:30</p>
+    <div class="event" :style="{ borderColor: eventData.color }" @blur="about = false, colorEditor = false" @click="about = true, colorEditor = false" tabindex="1"  @contextmenu.prevent="colorEditor = true, about = false">
+        <p class="event-name" v-text-ellipsis="eventData.name">{{ eventData.name }}</p>
+        <p class="event-time">{{ eventData.time }}</p>
     </div>
 
     <div v-if="about" class="about">
@@ -41,7 +41,7 @@
         Удалить
       </button>
       <div class="colors-row">
-        <div class="color-circle" style="background-color: #F97F7F;"></div>
+        <div class="color-circle" style="background-color: #F97F7F;" @click="changeEventColor('1', '#F97F7F')"></div>
         <div class="color-circle" style="background-color: #F4511E;"></div>
         <div class="color-circle" style="background-color: #FFCF7D;"></div>
         <div class="color-circle" style="background-color: #33B679;"></div>
@@ -60,19 +60,21 @@
 
 <script>
 export default {
-    props:['color', 'eventData'],
+    props:['eventData'],
     data() {
         return {
           about: false,
           colorEditor: false,
-
-          eventName: 'q24432wd',
         };
     },
     methods: {
+      changeEventColor(id, color){
+        console.log(id, color)
+      },
+
       adjustText() {
         const containerWidth = document.querySelector('.event').clientWidth;
-        const eventName = this.eventName;
+        const eventName = this.eventData.name;
         const eventNameElement = document.querySelector('.event-name');
 
         if (eventNameElement.scrollWidth > containerWidth) {
@@ -135,9 +137,10 @@ export default {
   background-color: white;
   transition: all .2s ease;
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
   gap: 10px;
+  min-width: 150px;
 }
 
 .event:hover{
