@@ -27,6 +27,8 @@ import RequestsPage from '../components/RequestsPage.vue';
 import ClientsPage from '../components/ClientsPage.vue';
 import NotFoundPage from '../components/NotFoundPage.vue';
 import CalendarPage from '../components/CalendarPage.vue';
+import ClientsEditPage from '../components/ClientsEditPage.vue';
+import ClientsCreatePage from '../components/ClientsCreatePage.vue';
 import HomePage from '../components/HomePage.vue';
 import store from '../store';
 import WidgetSite from '@/components/WidgetSite.vue';
@@ -210,6 +212,18 @@ const routes = [
         name: 'home',
         component: HomePage,
         meta: { requiresAuth: true, title: 'Sked.Online - Главная' }
+      },
+      {
+        path: '/dashboard/clients/edit',
+        name: 'edit',
+        component: ClientsEditPage,
+        meta: { requiresAuth: true, title: 'Sked.Online - Редактирование' }
+      },
+      {
+        path: '/dashboard/clients/create',
+        name: 'create',
+        component: ClientsCreatePage,
+        meta: { requiresAuth: true, title: 'Sked.Online - Создание клиента' }
       },
     ]
   },

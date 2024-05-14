@@ -6,7 +6,7 @@
         <div class="delete">
           <img src="../../static/img/dell.svg" alt="">
         </div>
-        <button class="client_add">
+        <button class="client_add" @click="this.$router.push('/dashboard/clients/create')">
           <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M9.00006 11V17H11.0001V11H17V9H11.0001V3H9.00006V9H3V11H9.00006Z" fill="#6266EA"/>
           </svg>
@@ -40,10 +40,10 @@
               <img src="../../static/img/data.png" alt="" class="circle">
               <div class="cont">
                 <div class="wrapper">
-                  <p class="people_head">Никита Половинко</p>
-                  <img src="../../static/img/discover.svg" alt="">
+                  <p class="people_head" @click="this.$router.push('/dashboard/clients/edit')">Никита Половинко</p>
+                  <img class="edit" src="../../static/img/discover.svg" alt="" @click="this.$router.push('/dashboard/clients/edit')">
                 </div>
-                <p class="people_nav_text">nikitapolovinko@gmail.com</p>
+                <p class="people_nav_texts" @click="this.$router.push('/dashboard/clients/edit')">nikitapolovinko@gmail.com</p>
               </div>
             </div>
           </div>
@@ -152,6 +152,17 @@ export default {
   align-items: center;
   justify-content: center;
 }
+.people_nav_texts{
+  font-family: TT Norms Medium;
+  font-size: 14px;
+  line-height: 16.52px;
+  text-align: left;
+  color: #7D838C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
 .people_nav{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -189,6 +200,7 @@ p{
   line-height: 16.52px;
   text-align: left;
   color: #535C69;
+  cursor: pointer;
 }
 .checkmark{
   display: flex;
@@ -220,5 +232,7 @@ p{
   justify-content: center;
   align-items: center;
 }
-
+.edit{
+  cursor: pointer;
+}
 </style>
