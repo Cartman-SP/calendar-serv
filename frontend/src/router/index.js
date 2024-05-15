@@ -29,6 +29,7 @@ import NotFoundPage from '../components/NotFoundPage.vue';
 import CalendarPage from '../components/CalendarPage.vue';
 import ClientsEditPage from '../components/ClientsEditPage.vue';
 import ClientsCreatePage from '../components/ClientsCreatePage.vue';
+import ClientsInfoPage from '../components/ClientsInfoPage.vue';
 import HomePage from '../components/HomePage.vue';
 import store from '../store';
 import WidgetSite from '@/components/WidgetSite.vue';
@@ -221,9 +222,15 @@ const routes = [
       },
       {
         path: '/dashboard/clients/create',
-        name: 'create',
+        name: 'createe',
         component: ClientsCreatePage,
         meta: { requiresAuth: true, title: 'Sked.Online - Создание клиента' }
+      },
+      {
+        path: '/dashboard/clients/info',
+        name: 'info',
+        component: ClientsInfoPage,
+        meta: { requiresAuth: true, title: 'Sked.Online - Информация о клиенте' }
       },
     ]
   },

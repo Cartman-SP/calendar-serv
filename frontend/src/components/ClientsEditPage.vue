@@ -5,98 +5,75 @@
       <div class="arrow-container">
         <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
       </div>
-      <p class="creation_text">Имя Фамилия</p>
+      <p class="creation_text">ИМЯ ФАМИЛИЯ</p>
     </div>
 
-    <div class="clients_header">
-      <div class="info">
-        <img class="info_img" src="../../static/img/clients.png" alt="">
-        <div class="info_container">
-          <div class="name">
-            <p class="text">Имя</p>
-            <p class="subtext">Никита Половинко</p>
-          </div>
-          <div class="status">
-            <p class="text">Последний заказ(статус)</p>
-            <p class="accepted">Принят</p>
-          </div>
-        </div>
-      </div>
-      <div class="contact">
-        <div class="number">
-          <p class="text">Контакты</p>
-          <p class="subtext">+7 705 555 75 55</p>
-        </div>
-        <div class="income">
-          <p class="text">Доход от клиента</p>
-          <p class="subtext">150 000 ₸</p>
-        </div>
-      </div>
-      <div class="date">
-        <p class="text">Дата регистрации</p>
-        <p class="subtext">03.05.2024</p>
-      </div>
-      <div class="total">
-        <p class="text">Всего записей</p>
-        <p class="subtext">24</p>
-      </div>
-    </div>
-    <div class="history">
-      <div class="pages">
-        <p class="history_text">История записей клиента</p>
-        <div class="subnav_page">
-          <img src="../../static/img/arrow-left.svg" alt="<">
-          <div class="list">
-            <div class="number_page">
-              <p class="page_text">1</p>
-              <p class="page_text">2</p>
-              <p class="page_text">3</p>
+    <div class="settings">
+      <div class="forms">
+        <div class="name">
+          <div class="name-container">
+            <label for="userName">Имя</label>
+            <div class="input_container_top">
+              <input type="text" placeholder="Введите имя">
             </div>
           </div>
-          <img src="../../static/img/arrow-right.svg" alt=">">
+        </div>
+        <div class="second_name">
+          <div class="name-container">
+            <label for="">Фамилия</label>
+            <div class="input_container_top">
+              <input type="text" placeholder="Введите фамилию">
+            </div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="photo">
+          <div class="photo-container">
+            <label for="userPhoto">Фотография</label>
+            <div class="input_container">
+              <label class="custom-file-upload">
+                <input type="file" accept="image/*" ref="fileInput" @change="handleFileUpload($event)"/><span :class="{'inputFile-empty' : !fileNameVariable, 'inputFile-file' : fileNameVariable}">{{ fileNameVariable || 'Нажмите, чтобы загрузить' }}</span>
+              </label>
+            </div>
+            <p class="photo-info">до 5 МБ, PNG, JPG, JPEG. Для замены - загрузите заново</p>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="email">
+          <div class="email-container">
+            <label for="userMail">Email (необязательно)</label>
+            <input type="mail" placeholder="client@mail.ru">
+            <p class="email-header">Клиент еще не подтвердил свою почту</p>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="phone">
+          <div class="phone-container">
+            <label for="userPhone">Телефон</label>
+            <input id="userphone" disabled placeholder="+7">
+            <p class="email-header">Клиент еще не подтвердил свой номер телефона</p>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="change">
+          <button type="button" class="button-change">Добавить клиента</button>
+          <button type="button" class="button-back">Вернуться назад</button>
         </div>
       </div>
-      <div class="divider"></div>
-      <div class="history_nav">
-        <p class="text">Сотрудник</p>
-        <p class="text">Услуга</p>
-        <p class="text">Дата</p>
-        <p class="text">Филиал</p>
-      </div>
-      <div class="clients_info">
-        <p class="clients_text">Кирилл Иванов</p>
-        <p class="clients_text">Стрижка + оформление бор...</p>
-        <p class="clients_text">08.05.2024</p>
-        <p class="clients_text">Академика Кутузова 245</p>
-      </div>
-      <div class="clients_divider"></div>
-      <div class="clients_info">
-        <p class="clients_text">Кирилл Иванов</p>
-        <p class="clients_text">Стрижка + оформление бор...</p>
-        <p class="clients_text">08.05.2024</p>
-        <p class="clients_text">Академика Кутузова 245</p>
-      </div>
-      <div class="clients_divider"></div>
-      <div class="clients_info">
-        <p class="clients_text">Кирилл Иванов</p>
-        <p class="clients_text">Стрижка + оформление бор...</p>
-        <p class="clients_text">08.05.2024</p>
-        <p class="clients_text">Академика Кутузова 245</p>
-      </div>
-      <div class="clients_divider"></div>
-      <div class="clients_info">
-        <p class="clients_text">Кирилл Иванов</p>
-        <p class="clients_text">Стрижка + оформление бор...</p>
-        <p class="clients_text">08.05.2024</p>
-        <p class="clients_text">Академика Кутузова 245</p>
-      </div>
-      <div class="clients_divider"></div>
     </div>
+    <MessageAlert :message="alertMessage" :color="alertColor"/>
   </div>
 </template>
 
 <script>
+import MessageAlert from "../components/MessageAlert.vue";
 export default {
+  components: { MessageAlert },
+  data() {
+    return {
+      
+    }
+  },
 
 }
 </script>
@@ -137,161 +114,193 @@ export default {
 .arrow-icon {
   height: 50%;
 }
-.clients_header{
-  display: flex;
-  background: #FFFFFF;
-  gap: 90px;
-  width: 60%;
-  border-radius: 5px;
-  padding: 20px;
+.inputFile-empty{
+  font-family: TT Norms;
+  color: #D2D8DE;
 }
-.number{
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-.income{
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-.date{
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-.total{
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-.name{
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-.status{
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-.contact{
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.text{
-  font-family: TT Norms Medium;
-  font-size: 14px;
-  line-height: 16.52px;
-  text-align: left;
-  color: #AFB6C1;
-}
-.subtext{
-  font-family: TT Norms Medium;
-  font-size: 16px;
-  line-height: 18.88px;
-  text-align: left;
+
+.inputFile-file{
+  font-family: TT Norms;
   color: #535C69;
 }
-p{
-  margin: 0;
-}
-.info{
-  display: flex;
-  gap: 20px;
-}
-.info_img{
-  border-radius: 10px;
-  width: 100px;
-  height: 100px;
-}
-.accepted{
-  font-family: TT Norms Medium;
-  font-size: 12px;
-  line-height: 14.16px;
-  text-align: left;
-  color: #FFFFFF;
-  background: #F7D37D;
-  padding: 2px 10px;
-  width: 66px;
-  border-radius: 3px;
-}
-.info_container{
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.history{
-  width: 60%;
-  background: #FFFFFF;
-  padding: 20px;
-}
-.history_text{
-  font-family: TT Norms Medium;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 18.88px;
-  text-align: left;
-  color: #535C69;
-}
-.page_text{
-  font-family: TT Norms Medium;
-  font-size: 14px;
-  line-height: 16.52px;
+.settings {
   text-align: center;
-  color: #B7C0C8;
-  cursor: pointer;
+  width: fit-content;
+  height: auto;
+  background-color: #FFFFFF;
+  padding: 20px;
+  border-radius: 5px;
 }
-.page_text:hover{
-  color: #6266EA;
-}
-.page_text.active {
-  color: #6266EA;
-}
-.pages{
+
+.name-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
 }
-.number_page{
+
+label {
+  margin-bottom: 5px;
+  font-family: TT Norms Medium;
+  font-size: 13px;
+  line-height: 15px;
+  letter-spacing: 0em;
+}
+
+.input_container {
   display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+.input_container_mail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+.input_container_phone {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+.input_container_top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+input {
+  margin-bottom: 0;
+  width: 100%;
+}
+
+.email-btn{
+  display: flex;
+  flex-direction: row;
   gap: 10px;
 }
-.list{
+
+p{
+  text-align: left;
+  margin: 10px 0;
+  width: 450px;
+  font-family: TT Norms Medium;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0em;
+  color: rgba(83, 92, 105, 0.7);
+}
+
+.email-header{
+  font-family: TT Norms Medium;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14.16px;
+  text-align: left;
+  color: #7D838C;
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+.phone-btn{
   display: flex;
-  gap: 15px;
-  align-items: end;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.button-save {
+  background-color: #EFEFFF;
+  color: #6266EA;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+.button-save:hover {
+  background-color: #DBDDFF;
+  color: #6266EA;
+}
+.button-change {
+  background-color: #EFEFFF;
+  color: #6266EA;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.button-change:hover {
+  background-color: #DBDDFF;
+  color: #6266EA;
 }
 .divider {
   border-bottom: 1px solid rgba(50, 56, 74, 0.1); 
   width: auto;
   margin: 20px 0;
 }
-.history_nav{
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 1fr;
-  margin-bottom: 20px;
+.custom-file-upload {
+  width: 100%;
+  height: 36px;
+  display: flex;
+  padding: 8px 10px;
+  cursor: pointer;
+  background-color: #F3F5F6;
+  color: #D2D8DE;
+  align-items: center;
+  margin-bottom: 0;
+  font-weight: 500;
+  background-image: url(../../static/img/paperclip.svg);
+  background-repeat: no-repeat;
+  background-position: calc(100% - 15px) center;
 }
-.clients_info{
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 1fr;
+
+.custom-file-upload input[type="file"] {
+  display: none;
 }
-.clients_text{
+.password{
+  color: #7D838C;
   font-family: TT Norms Medium;
   font-size: 14px;
-  line-height: 16.52px;
-  text-align: left;
+  font-weight: 500;
+  line-height: 17px;
+  letter-spacing: 0em;
+}
+h2{
+  font-family: TT Norms Medium;
+  margin: 0;
+  padding-bottom: 20px;
   color: #535C69;
 }
-.clients_divider{
-  border-bottom: 1px solid rgba(50, 56, 74, 0.1); 
-  width: auto;
-  margin: 10px 0;
+.photo-info{
+  color: #D2D8DE;
+  font-family: TT Norms Medium;
+  font-size: 12px;
+  line-height: 14.16px;
+  text-align: left;
+  
+  margin: 5px 0;
 }
-.subnav_page{
+span{
+  font-weight: bold;
+}
+input::placeholder {
+  font-family: 'TT Norms Medium';
+  font-size: 13px;
+  line-height: 17px;
+  letter-spacing: 0em;
+  color: #D2D8DE;
+}
+.name{
+  margin-bottom: 20px;
+}
+.change{
+  justify-content: end;
   display: flex;
-  gap: 20px;
+  gap: 10px;
+}
+.button-back{
+  background: #FFFFFF;
+  border: 1px solid #DDE1E5;
+  color: #535C69;
+}
+.button-back:hover{
+  color: #6266EA;
 }
 </style>

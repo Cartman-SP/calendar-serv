@@ -41,7 +41,7 @@
               <div class="cont">
                 <div class="wrapper">
                   <p class="people_head" @click="this.$router.push('/dashboard/clients/edit')">Никита Половинко</p>
-                  <img class="edit" src="../../static/img/discover.svg" alt="" @click="this.$router.push('/dashboard/clients/edit')">
+                  <img class="edit" src="../../static/img/discover.svg" alt="" @click="this.$router.push('/dashboard/clients/info')">
                 </div>
                 <p class="people_nav_texts" @click="this.$router.push('/dashboard/clients/edit')">nikitapolovinko@gmail.com</p>
               </div>
@@ -53,7 +53,7 @@
             <img src="../../static/img/copy.svg" alt="">
           </div>
           <div class="keys">
-            <img src="../../static/img/cog.svg" alt="" class="">
+            <img src="../../static/img/cog.svg" alt="" class="" @click="this.$router.push('/dashboard/clients/edit')">
             <img src="../../static/img/delete.svg" alt="" class="">
           </div>
         </div>
