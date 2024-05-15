@@ -92,9 +92,12 @@ const routes = [
         meta: { requiresAuth: true, title: 'Sked.Online - Виджеты' },
       },
       {
-        path: '/dashboard/widgets/settings',
+        path: '/dashboard/widgets/settings/:widgetId',
         name: 'widgetsSettings',
         component: WidgetsSettingsPage,
+        props: route => ({
+          widgetId: route.params.widgetId,
+        }),
         meta: { requiresAuth: true, title: 'Sked.Online - Настройка виджета' },
       },
       {

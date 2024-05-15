@@ -726,11 +726,14 @@ export default {
       while (this.Filials.length > 0){
         this.Filials.pop(); 
       }
-      for (let index of this.Filials_ids) {
-        let f = await this.getfilial(index);
-        this.Filials.push(f);
-        console.log('Filails:' + this.Filials)
+      if (this.Filials_ids) {
+        for (let index of this.Filials_ids) {
+          let f = await this.getfilial(index);
+          this.Filials.push(f);
+          console.log('Filails:' + this.Filials)
+        }
       }
+      
     },
 
     async getfilial(i) {
