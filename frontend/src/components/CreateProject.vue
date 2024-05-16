@@ -356,4 +356,7 @@ label{
   background-color: rgba(0, 0, 0, 0.6); /* Задний фон с прозрачностью 60% */
   z-index: 98;
 }
+.back:hover{
+  color: #6266EA;
+}
 </style>

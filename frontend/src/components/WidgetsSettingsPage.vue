@@ -278,8 +278,33 @@
       <div v-if="selectedTab === 'discounts'">
         <!-- Содержимое для скидок и промокодов -->
       </div>
-      <div v-if="selectedTab === 'custom'">
-        <!-- Содержимое для своего кода -->
+      <div class="custom" v-if="selectedTab === 'custom'">
+        <div class="custom_head">
+          <p class="custom_text">Код перед &lt;/head&gt; </p>
+          <textarea class="custom_input" name="" id="" cols="30" rows="10" v-model="symbols2" maxlength="2000"></textarea>
+          <p class="custom_subtext">{{ symbols2.length }} / 2000</p>
+        </div>
+        <div class="custom_head">
+          <p class="custom_text">Код перед &lt;/body&gt; </p>
+          <textarea class="custom_input" name="" id="" cols="30" rows="10" v-model="symbols" maxlength="2000"></textarea>
+          <p class="custom_subtext"> {{ symbols.length }} / 2000</p>
+        </div>
+        <HighCode
+        ref="H"
+        class="code"
+        :codeValue="value"
+        theme="light"
+        :nameShow="false"
+        :copy="false"
+        :lang="HTML"
+        :textEditor="true"
+        v-model="symbols"
+        maxlength="2000"></HighCode>
+        <div class="custom_btn">
+          <button class="custom_save">Сохранить</button>
+          <button class="custom_exit">Отмена</button>
+        </div>
+
       </div>
       <WidgetConstructor v-bind:theme="switches.theme" :MainColor="widget.Main" :WidgetColor="widget.Back" :BakcgroundColor="widget.Plashka" :TextColor="widget.Text"/>
     </div>
@@ -291,10 +316,12 @@
 import WidgetConstructor from './WidgetConstructor.vue';
 import PalitraPage from './PalitraPage.vue';
 import SelectPage from '../components/SelectPage.vue';
+import { HighCode } from 'vue-highlight-code';
+import 'vue-highlight-code/dist/style.css';
 import axios from 'axios';
 
 export default {
-  components: { WidgetConstructor , PalitraPage, SelectPage } ,
+  components: { WidgetConstructor , PalitraPage, SelectPage, HighCode} ,
   data() {
     return {
       selectedImages: [],
@@ -310,6 +337,8 @@ export default {
         cancellation: false,
         theme: false,
       },
+      symbols: "",
+      symbols2: "",
       selectedChoice: null, 
       isCircleShown1: false,
       isCircleShown2: false, 
@@ -946,6 +975,63 @@ export default {
   }
   .choice.active .circle_bottom {
     border-color: #6266EA; /* добавили изменение цвета границы для активного choice */
+  }
+  .custom{
+    padding: 30px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .custom_head{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .custom_text{
+    font-family: TT Norms Medium;
+    font-size: 14px;
+    line-height: 16.52px;
+    text-align: left;
+    color: #535C69;
+    margin: 0;
+  }
+  .custom_input{
+    border-radius: 3px;
+    border: 1px solid #C6CBD2;
+    background: #FFFFFF;
+    height: 138px;
+    width: 100%;
+    resize: none;
+    outline: none;
+  }
+  .custom_subtext{
+    font-family: TT Norms Medium;
+    font-size: 14px;
+    line-height: 16.52px;
+    text-align: left;
+    color: #AFB6C1;
+    margin: 0;
+  }
+  .custom_btn{
+    display: flex;
+    gap: 20px;
+  }
+  .custom_save{
+    color: #6266EA;
+    background: #EFEFFF;
+  }
+  .custom_save:hover{
+    color: #6266EA;
+    background: #DBEAFF;
+  }
+  .custom_exit{
+    color: #535C69;
+    background: #FFFFFF;
+    border: 1px solid #DDE1E5;
+  }
+  .custom_exit:hover{
+    color: #6266EA;
   }
   @media (max-width: 768px){
     .main{

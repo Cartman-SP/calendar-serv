@@ -156,7 +156,7 @@ const routes = [
       },
       {
         path: '/dashboard/project/edit',
-        name: 'edit',
+        name: 'edits',
         component: ProjectEditPage,
         meta: { requiresAuth: true, title: 'Sked.Online - Редиктирование проекта' }
       },
