@@ -269,8 +269,15 @@
       <div v-if="selectedTab === 'notifications'">
         <!-- Содержимое для уведомлений -->
       </div>
-      <div v-if="selectedTab === 'telegram'">
-        <!-- Содержимое для Telegram-бота -->
+      <div class="telegram" v-if="selectedTab === 'telegram'">
+        <div class="telegram_main">
+          <div class="telegram_header">
+            <p class="telegram_label">Telegram-токен бота</p>
+            <input type="text" placeholder="123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11">
+            <button class="telegram_button">Подключить</button>
+          </div>
+        </div>
+        <img src="../../static/img/bot.svg" alt="">
       </div>
       <div v-if="selectedTab === 'integrations'">
         <!-- Содержимое для интеграций и оплат -->
@@ -1032,6 +1039,36 @@ export default {
   }
   .custom_exit:hover{
     color: #6266EA;
+  }
+  .telegram{
+    display: flex;
+    gap: 20px;
+  }
+  .telegram_main{
+    width: 405px;
+    padding: 20px;
+    background: #FFFFFF;
+  }
+  .telegram_header{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .telegram_button{
+    background: #FAFAFA;
+    font-family: TT Norms Medium;
+    font-size: 13px;
+    line-height: 16.9px;
+    text-align: left;
+    color: #D2D8DE;
+  }
+  .telegram_label{
+    font-family: TT Norms Medium;
+    font-size: 13px;
+    line-height: 15.34px;
+    text-align: left;
+    color: #535C69;
+    margin-bottom: 5px;
   }
   @media (max-width: 768px){
     .main{
