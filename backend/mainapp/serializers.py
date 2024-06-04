@@ -111,3 +111,13 @@ class ApplicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Application
         fields = '__all__'
+
+class IntegrationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Integration
+        fields = '__all__'
+
+class IntegrationLinkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = IntegrationLink
+        fields = '__all__'

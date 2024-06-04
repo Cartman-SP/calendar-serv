@@ -119,7 +119,9 @@ class Widget(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     branches = models.CharField(max_length=10000)
-
+    telegramtoken = models.CharField(max_length=5000)
+    buttonname = models.CharField(max_length=25)
+    hellomessage = models.CharField(max_length=250)
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['user', 'name'], name='unique_user_widget_name')
@@ -134,10 +136,9 @@ class Client(models.Model):
     firstname = models.CharField(max_length=128)
     secondname = models.CharField(max_length=128)
     mail = models.CharField(max_length=128)
-    img = models.ImageField(upload_to='clients/')
     phone = models.CharField(max_length=128)
     date = models.CharField(max_length=128)
-
+    project = models.ForeignKey(Project,on_delete=models.CASCADE)
 
 class Application(models.Model):
     status = models.CharField(max_length=128)
@@ -147,6 +148,32 @@ class Application(models.Model):
     client = models.ForeignKey(Client,on_delete=models.CASCADE)
     project = models.ForeignKey(Project,on_delete=models.CASCADE)
 
+class Integration(models.Model):
+    name = models.CharField(max_length=128)
+    type = models.CharField(max_length=128)
+    description = models.CharField(max_length=2000)
+    status = models.BooleanField(default=False)
+    date = models.CharField(max_length=2000)
+
+class IntegrationLink(models.Model):
+    integration = models.ForeignKey(Integration,on_delete = models.CASCADE)
+    widget = models.ForeignKey(Widget,on_delete = models.CASCADE)
+
+class Promo(models.Model):
+    admin_name = models.CharField(max_length=250)
+    client_name = models.CharField(max_length=250)
+    start_date = models.CharField(max_length=250)
+    end_date = models.CharField(max_length=250)
+    promo_text = models.CharField(max_length=16)
+    sale = models.IntegerField()
+    activate = models.IntegerField()
+
+class UCode(models.Model):
+    widget = models.ForeignKey(Widget,on_delete=models.CASCADE)
+    before_head = models.CharField(max_length=2000)
+    before_body = models.CharField(max_length=2000)
+
+admin.site.register(Integration)
 admin.site.register(Buisness_Type)
 admin.site.register(Buisness_sphere)
 

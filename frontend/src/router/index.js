@@ -25,7 +25,7 @@ import LockedPage from '../components/LockedPage.vue';
 import WidgetCreatePage from '../components/WidgetCreatePage.vue';
 import RequestsPage from '../components/RequestsPage.vue';
 import ClientsPage from '../components/ClientsPage.vue';
-import NotFoundPage from '../components/NotFoundPage.vue';
+///import NotFoundPage from '../components/NotFoundPage.vue';
 import CalendarPage from '../components/CalendarPage.vue';
 import ClientsEditPage from '../components/ClientsEditPage.vue';
 import ClientsCreatePage from '../components/ClientsCreatePage.vue';
@@ -35,12 +35,12 @@ import store from '../store';
 import WidgetSite from '@/components/WidgetSite.vue';
 import NProgress from 'nprogress'; // Импортируйте nprogress
 import 'nprogress/nprogress.css'; // Импортируйте стили nprogress
-
+import TestPage from '@/components/TestPage.vue'
 const routes = [
   {
     path: "/:catchAll(.*)",
     name: 'NotFound',
-    component: NotFoundPage,
+    component: TestPage,
     meta: { title: 'Sked.Online - Not Found' },
   },
  {

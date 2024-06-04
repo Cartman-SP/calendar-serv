@@ -440,6 +440,10 @@ export default {
       formData.append('telegramlink', this.widgetLinkTelegram);
       formData.append('istelegram', this.switches.telegram);
       formData.append('name', this.widgetName);      
+      formData.append('buttonname', this.widgetName) ///ОТРЕДАЧИТЬ
+      formData.append('telegramtoken', this.widgetName) ///ОТРЕДАЧИТЬ
+      formData.append('hellomessage', this.widgetName) ///ОТРЕДАЧИТЬ
+
       this.selectedImages.forEach(image => {formData.append('images[]', image);});
       axios.post('http://127.0.0.1:8000/api/widget_create/', formData)
       .then(response => {
