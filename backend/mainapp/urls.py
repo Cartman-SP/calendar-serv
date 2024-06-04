@@ -33,4 +33,8 @@ urlpatterns = [
     path('getspecialist_by_usluga/',getspecialist_by_usluga,name='getspecialist_by_usluga'),
     path('get_widget/', get_widget, name = 'get_widget'),
     path('get_branch_bylink/', get_branch_bylink, name='get_branch_bylink'),
+    path('create_client/',create_client),
+    path('create_applications',create_applications),
+    path('get_applications/',get_applications),
+    path('get_client',get_client)
 ]

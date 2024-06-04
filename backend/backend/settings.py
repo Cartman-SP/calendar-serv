@@ -145,3 +145,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # URL-префикс для медиа-файлов
 MEDIA_URL = '/media/'
+ 

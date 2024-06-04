@@ -49,7 +49,6 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from django.http import JsonResponse
-
 import json
 
 @csrf_exempt
@@ -752,4 +751,52 @@ def get_branch_bylink(request):
         ids = widget.branches.split(',')
         branches = Branch.objects.filter(id__in=ids)
         serializer = BranchSerializer(branches, many=True)
+        return Response(serializer.data)
+
+@csrf_exempt
+@parser_classes([MultiPartParser, FormParser])
+def create_client(request):
+    try:
+        if request.method == 'POST':
+            serializer = ClientSerializer(data=request.POST)
+            if serializer.is_valid():
+                serializer.save()
+                return JsonResponse(True, status=201, safe=False)  
+            else:
+                return JsonResponse({'error': 'invalid data'}, status=500, safe=False) 
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500, safe=False) 
+
+
+
+@csrf_exempt
+@parser_classes([MultiPartParser, FormParser])
+def create_applications(request):
+    try:
+        if request.method == 'POST':
+            serializer = ApplicationSerializer(data=request.POST)
+            if serializer.is_valid():
+                serializer.save()
+                return JsonResponse(True, status=201, safe=False)  
+            else:
+                return JsonResponse({'error': 'invalid data'}, status=500, safe=False) 
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500, safe=False) 
+
+
+
+@api_view(['GET'])
+def get_applications(request):
+    if request.method == 'GET':
+        project = request.GET.get('project')
+        applications = Application.objects.filter(project=project)
+        serializer = ApplicationSerializer(applications, many=True)
+        return Response(serializer.data)
+    
+@api_view(['GET'])
+def get_client(request):
+    if request.method == 'GET':
+        project = request.GET.get('project')
+        clients = Client.objects.filter(project=project)
+        serializer = ClientSerializer(clients, many=True)
         return Response(serializer.data)

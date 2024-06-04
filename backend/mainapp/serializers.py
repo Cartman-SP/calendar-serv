@@ -101,3 +101,13 @@ class WidgetSerializer(serializers.ModelSerializer):
         for image_data in images_data:
             WidgetImage.objects.create(widget=widget, image=image_data)
         return widget
+    
+class ClientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Client
+        fields = '__all__'
+
+class ApplicationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Application
+        fields = '__all__'

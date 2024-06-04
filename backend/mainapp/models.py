@@ -129,5 +129,25 @@ class WidgetImage(models.Model):
     widget = models.ForeignKey(Widget, related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='widget_images')
 
+
+class Client(models.Model):
+    firstname = models.CharField(max_length=128)
+    secondname = models.CharField(max_length=128)
+    mail = models.CharField(max_length=128)
+    img = models.ImageField(upload_to='clients/')
+    phone = models.CharField(max_length=128)
+    date = models.CharField(max_length=128)
+
+
+class Application(models.Model):
+    status = models.CharField(max_length=128)
+    data = models.CharField(max_length=256)
+    usluga = models.ForeignKey(Usluga,on_delete=models.CASCADE)
+    employee = models.ForeignKey(Employee,on_delete=models.CASCADE)
+    client = models.ForeignKey(Client,on_delete=models.CASCADE)
+    project = models.ForeignKey(Project,on_delete=models.CASCADE)
+
 admin.site.register(Buisness_Type)
 admin.site.register(Buisness_sphere)
+
+
