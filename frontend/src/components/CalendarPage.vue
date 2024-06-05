@@ -328,7 +328,7 @@ export default{
 
 .cell{
   align-items: center;
-  display: grid; /* Используем display: grid */
+  display: grid;
   grid-template-columns: 1fr; /* Одна колонка */
   height: 90px;
   min-width: 150px;

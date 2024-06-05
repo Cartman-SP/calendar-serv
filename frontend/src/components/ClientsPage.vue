@@ -14,47 +14,49 @@
       </div>
       <div class="people">
         <div class="people_nav">
-          <div class="status">
-            <div class="mark" v-if="!Mark" @click="Mark = true"></div>
-            <div class="mark_active" v-else @click="Mark = false">
-              <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2556 6.15492L9.05226 14.4665L4.29285 9.7071L5.70706 8.29289L8.94764 11.5335L14.7443 4.84506L16.2556 6.15492Z" fill="#FFFFFF"/>
-              </svg>
-            </div>
-            <p class="people_nav_text">Email</p>
+          <div class="mark" v-if="!Mark" @click="Mark = true"></div>
+          <div class="mark_active" v-else @click="Mark = false">
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2556 6.15492L9.05226 14.4665L4.29285 9.7071L5.70706 8.29289L8.94764 11.5335L14.7443 4.84506L16.2556 6.15492Z" fill="#FFFFFF"/>
+            </svg>
           </div>
+          <p class="people_nav_text">Email</p>
           <p class="people_nav_text">Добавлен</p>
           <p class="people_nav_text">Телефон</p>
           <p class="people_nav_text">Действия</p>
         </div>
-        <div class="divider"></div>
-        <div class="people_main">
-          <div class="checkmark">
+        <div class="divider" style="margin-bottom: 30px;"></div>
+        <div class="client-row">
+          <div class="people_main">
             <div class="mark" v-if="!Mark" @click="Mark = true"></div>
             <div class="checkmark_active" v-else @click="Mark = false">
               <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2556 6.15492L9.05226 14.4665L4.29285 9.7071L5.70706 8.29289L8.94764 11.5335L14.7443 4.84506L16.2556 6.15492Z" fill="#FFFFFF"/>
               </svg>
             </div>
-            <div class="people_container">
+            <div class="people_container" @click="this.$router.push('/dashboard/clients/edit')">
               <img src="../../static/img/data.png" alt="" class="circle">
               <div class="cont">
                 <div class="wrapper">
-                  <p class="people_head" @click="this.$router.push('/dashboard/clients/edit')">Никита Половинко</p>
-                  <img class="edit" src="../../static/img/discover.svg" alt="" @click="this.$router.push('/dashboard/clients/info')">
+                  <p class="people_head">Никита Половинко</p>
+                  <img class="edit" src="../../static/img/discover.svg" alt="">
                 </div>
-                <p class="people_nav_texts" @click="this.$router.push('/dashboard/clients/edit')">nikitapolovinko@gmail.com</p>
+                <p class="people_nav_texts">nikitapolovinko@gmail.com</p>
               </div>
             </div>
-          </div>
-          <p class="people_nav_text">29.04.2024 , 10:49</p>
-          <div class="copy">
-            <p class="people_nav_text">+7 707 877 35 78</p>
-            <img src="../../static/img/copy.svg" alt="">
-          </div>
-          <div class="keys">
-            <img src="../../static/img/cog.svg" alt="" class="" @click="this.$router.push('/dashboard/clients/edit')">
-            <img src="../../static/img/delete.svg" alt="" class="">
+            <p class="people_nav_text">29.04.2024 , 10:49</p>
+            <div class="people_nav_text">
+              <div class="copy">
+                <p>+7 707 877 35 78</p>
+                <img src="../../static/img/copy.svg" alt="">
+              </div>
+            </div>
+            <div class="people_nav_text">
+              <div class="keys">
+                <img src="../../static/img/cog.svg" alt="" @click="this.$router.push('/dashboard/clients/edit')">
+                <img src="../../static/img/delete.svg" alt="">
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -69,7 +71,6 @@ export default {
       Mark: false,
     }
   },
-
 }
 </script>
 
@@ -91,7 +92,7 @@ export default {
   background: #FFFFFF;
   padding: 20px;
   border-radius: 5px;
-  width: 70%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -147,40 +148,48 @@ export default {
   font-size: 14px;
   line-height: 16.52px;
   text-align: left;
-  color: #7D838C;
+  color: #AFB6C1;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
 }
 .people_nav_texts{
   font-family: TT Norms Medium;
   font-size: 14px;
   line-height: 16.52px;
   text-align: left;
-  color: #7D838C;
+  color: #AFB6C1;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
 }
 .people_nav{
+  align-items: center;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: .2fr repeat(3, 1fr) .2fr;  
   grid-template-rows: 1fr;
+  padding: 0 10px;
+  margin-bottom: 10px;
 }
 .people_main{
+  align-items: center;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 1fr;  
+  grid-template-columns: .2fr repeat(3, 1fr) .2fr; 
+  grid-template-rows: 1fr;
+  padding: 10px;
+  border-bottom: 1px solid #F5F5F5;
+}
+.people_main:hover{
+  background-color: #FAFAFA;
 }
 p{
   margin: 0;
 }
 .divider {
-  border-bottom: 1px solid rgba(50, 56, 74, 0.1); 
+  border-bottom: 1px solid #F5F5F5; 
   width: auto;
-  margin: 10px 0;
-  margin-bottom: 40px;
+  margin: 0;
 }
 .checkmark_active{
   display: flex;
