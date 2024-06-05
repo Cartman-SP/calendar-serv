@@ -12,7 +12,7 @@
       <div class="forms">
         <div class="name">
           <div class="name-container">
-            <label for="userName">Имя</label>
+            <label for="userName">{{clientData.firstname}}</label>
             <div class="input_container_top">
               <input type="text" placeholder="Введите имя">
             </div>
@@ -56,7 +56,7 @@
         </div>
         <div class="divider"></div>
         <div class="change">
-          <button type="button" class="button-change">Добавить клиента</button>
+          <button type="button" class="button-change">Сохранить</button>
           <button type="button" class="button-back">Вернуться назад</button>
         </div>
       </div>
@@ -71,9 +71,18 @@ export default {
   components: { MessageAlert },
   data() {
     return {
-      
+      clientData: {},
     }
   },
+  methods:{
+    getClientDataById(){ //Функция для получения данных о клиенте по id
+      const id = this.$route.params.clientId;
+      console.log('kek', id)
+    }
+  },
+  mounted(){
+    this.getClientData();
+  }
 
 }
 </script>

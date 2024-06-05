@@ -218,7 +218,10 @@ const routes = [
         meta: { requiresAuth: true, title: 'Sked.Online - Главная' }
       },
       {
-        path: '/dashboard/clients/edit',
+        path: '/dashboard/clients/:clientId/edit',
+        props: route => ({
+          clientId: route.params.clientId,
+        }),
         name: 'edit',
         component: ClientsEditPage,
         meta: { requiresAuth: true, title: 'Sked.Online - Редактирование' }

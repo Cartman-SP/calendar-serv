@@ -13,6 +13,8 @@
           Добавить клиента</button>
       </div>
       <div class="people">
+
+
         <div class="people_nav">
           <div class="mark" v-if="!Mark" @click="Mark = true"></div>
           <div class="mark_active" v-else @click="Mark = false">
@@ -27,27 +29,27 @@
         </div>
         <div class="divider" style="margin-bottom: 30px;"></div>
         <div class="client-row">
-          <div class="people_main">
+          <div class="people_main" v-for="human in clients" :key="human.id">
             <div class="mark" v-if="!Mark" @click="Mark = true"></div>
             <div class="checkmark_active" v-else @click="Mark = false">
               <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2556 6.15492L9.05226 14.4665L4.29285 9.7071L5.70706 8.29289L8.94764 11.5335L14.7443 4.84506L16.2556 6.15492Z" fill="#FFFFFF"/>
               </svg>
             </div>
-            <div class="people_container" @click="this.$router.push('/dashboard/clients/edit')">
+            <div class="people_container" @click="this.$router.push({ path: `/dashboard/clients/${human.id}/edit`, params: { clientId: human.id, clientDataToEdit: human }})">
               <img src="../../static/img/data.png" alt="" class="circle">
               <div class="cont">
                 <div class="wrapper">
-                  <p class="people_head">Никита Половинко</p>
+                  <p class="people_head">{{ human.firstname + ' ' + human.secondname }}</p>
                   <img class="edit" src="../../static/img/discover.svg" alt="">
                 </div>
-                <p class="people_nav_texts">nikitapolovinko@gmail.com</p>
+                <p class="people_nav_texts">{{ human.mail }}</p>
               </div>
             </div>
-            <p class="people_nav_text">29.04.2024 , 10:49</p>
+            <p class="people_nav_text">{{ human.date }}</p>
             <div class="people_nav_text">
               <div class="copy">
-                <p>+7 707 877 35 78</p>
+                <p>{{ human.phone }}</p>
                 <img src="../../static/img/copy.svg" alt="">
               </div>
             </div>
@@ -65,12 +67,31 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   data() {
     return {
       Mark: false,
+      
+      clients: {},
     }
   },
+  methods:{
+    goToEdit(){
+
+    },
+    async get_client(){
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/get_client/?project=${this.$store.state.activeProjectId}`);
+        this.clients = response.data
+      } catch (error) {
+        console.error('Error fetching clients:', error);
+      }
+    },
+  },
+  mounted(){
+    this.get_client();
+  }
 }
 </script>
 
