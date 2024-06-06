@@ -36,7 +36,7 @@
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2556 6.15492L9.05226 14.4665L4.29285 9.7071L5.70706 8.29289L8.94764 11.5335L14.7443 4.84506L16.2556 6.15492Z" fill="#FFFFFF"/>
               </svg>
             </div>
-            <div class="people_container" @click="this.$router.push({ path: `/dashboard/clients/${human.id}/edit`, params: { clientId: human.id, clientDataToEdit: human }})">
+            <div class="people_container" @click="this.$router.push({ path: `/dashboard/clients/${human.id}/info`, params: { clientId: human.id, clientDataToEdit: human }})">
               <img src="../../static/img/data.png" alt="" class="circle">
               <div class="cont">
                 <div class="wrapper">
@@ -55,7 +55,7 @@
             </div>
             <div class="people_nav_text">
               <div class="keys">
-                <img src="../../static/img/cog.svg" alt="" @click="this.$router.push('/dashboard/clients/edit')">
+                <img src="../../static/img/cog.svg" alt=""  @click="this.$router.push({ path: `/dashboard/clients/${human.id}/edit`, params: { clientId: human.id, clientDataToEdit: human }})">
                 <img src="../../static/img/delete.svg" alt="">
               </div>
             </div>
@@ -83,7 +83,8 @@ export default {
     async get_client(){
       try {
         const response = await axios.get(`http://127.0.0.1:8000/api/get_client/?project=${this.$store.state.activeProjectId}`);
-        this.clients = response.data
+        this.clients = response.data;
+        this.$store.commit('addClients', response.data)
       } catch (error) {
         console.error('Error fetching clients:', error);
       }

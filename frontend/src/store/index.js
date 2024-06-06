@@ -15,8 +15,13 @@ export default createStore({
     isActive: false,
 
     updateSidebar: false,
+
+    clients: {},
   },
   mutations: {
+    addClients(state, data){
+      state.clients = data;
+    },
 
     setUpdateSidebar(state) {
       state.updateSidebar = !state.updateSidebar;

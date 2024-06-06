@@ -71,19 +71,28 @@ export default {
   components: { MessageAlert },
   data() {
     return {
-      clientData: {},
+      clientData: null,
     }
   },
   methods:{
-    getClientDataById(){ //Функция для получения данных о клиенте по id
-      const id = this.$route.params.clientId;
-      console.log('kek', id)
+    getObjectById() {
+      console.log(this.clients)
+      for (let obj of this.clients) {
+          if (obj.id === this.$route.params.clientId) {
+              this.clientData = obj;
+          }
+      }
+      return null;
+    }
+  },
+  computed:{
+    clients(){
+      return this.$store.state.clients;
     }
   },
   mounted(){
-    this.getClientData();
+    this.getObjectById();
   }
-
 }
 </script>
 

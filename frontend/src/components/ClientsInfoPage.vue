@@ -141,7 +141,7 @@ export default {
   display: flex;
   background: #FFFFFF;
   gap: 90px;
-  width: 60%;
+  width: 100%;
   border-radius: 5px;
   padding: 20px;
 }
@@ -214,7 +214,8 @@ p{
   color: #FFFFFF;
   background: #F7D37D;
   padding: 2px 10px;
-  width: 66px;
+  width: fit-content;
+  text-align: center;
   border-radius: 3px;
 }
 .info_container{
@@ -223,7 +224,7 @@ p{
   gap: 20px;
 }
 .history{
-  width: 60%;
+  width: 100%;
   background: #FFFFFF;
   padding: 20px;
 }
