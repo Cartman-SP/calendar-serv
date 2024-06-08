@@ -3,8 +3,11 @@
     <p class="head">Клиенты</p>
     <div class="clients_main">
       <div class="add">
-        <div class="delete">
-          <img src="../../static/img/dell.svg" alt="">
+        <div class="delete" :class="{'delete-active' : clientsToDelete.length>0}" @click="deleteSelectedClients">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11.2 11.9V4.9H2.80002V11.9C2.80002 12.6732 3.42683 13.3 4.20002 13.3H9.80002C10.5732 13.3 11.2 12.6732 11.2 11.9Z" fill="#4C5D6E33" fill-opacity="1"/>
+          <path d="M5.21307 0.773901L4.55002 2.1H1.40002V3.5H12.6V2.1H9.45002L8.78698 0.7739C8.54983 0.299603 8.06506 0 7.53478 0H6.46527C5.93499 0 5.45022 0.299604 5.21307 0.773901Z" fill="#4C5D6E33" fill-opacity="1"/>
+          </svg>
         </div>
         <button class="client_add" @click="this.$router.push('/dashboard/clients/create')">
           <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -13,7 +16,6 @@
           Добавить клиента</button>
       </div>
       <div class="people">
-
 
         <div class="people_nav">
           <div class="mark" v-if="!Mark" @click="toggleAllClients"></div>
@@ -107,6 +109,11 @@ export default {
         this.Mark = true;
       }
     },
+    deleteSelectedClients(){
+      if (this.clientsToDelete.length>0) {
+        console.log(this.clientsToDelete) // тут все id клиентов, которых надо удалить
+      }
+    },
   },
   mounted(){
     this.get_client();
@@ -155,6 +162,21 @@ export default {
   height: 34px;
   border-radius: 3px;
   border: 1px solid #F3F5F6;
+}
+
+.delete-active{
+  cursor: pointer;
+  border: 1px solid #D2D8DE;
+  transition: all .2s ease;
+}
+
+.delete svg path{
+  fill: #4C5D6E33;
+  transition: all .2s ease;
+}
+
+.delete-active svg path{
+  fill: #F97F7F;
 }
 .add{
   display: flex;
