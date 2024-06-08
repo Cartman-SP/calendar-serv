@@ -5,7 +5,7 @@
       <div class="arrow-container">
         <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
       </div>
-      <p class="creation_text">Имя Фамилия</p>
+      <p class="creation_text">{{ clientData.firstname + ' ' + clientData.secondname }}</p>
     </div>
 
     <div class="clients_header">
@@ -13,32 +13,32 @@
         <img class="info_img" src="../../static/img/clients.png" alt="">
         <div class="info_container">
           <div class="name">
-            <p class="text">Имя</p>
-            <p class="subtext">Никита Половинко</p>
+            <p class="text">Клиент</p>
+            <p class="subtext">{{ clientData.firstname + ' ' + clientData.secondname }}</p>
           </div>
           <div class="status">
             <p class="text">Последний заказ(статус)</p>
-            <p class="accepted">Принят</p>
+            <p class="accepted">NaN</p>
           </div>
         </div>
       </div>
       <div class="contact">
         <div class="number">
           <p class="text">Контакты</p>
-          <p class="subtext">+7 705 555 75 55</p>
+          <p class="subtext">{{ clientData.phone }}</p>
         </div>
         <div class="income">
           <p class="text">Доход от клиента</p>
-          <p class="subtext">150 000 ₸</p>
+          <p class="subtext">NaN ₸</p>
         </div>
       </div>
       <div class="date">
         <p class="text">Дата регистрации</p>
-        <p class="subtext">03.05.2024</p>
+        <p class="subtext">{{ clientData.date }}</p>
       </div>
       <div class="total">
         <p class="text">Всего записей</p>
-        <p class="subtext">24</p>
+        <p class="subtext">NaN</p>
       </div>
     </div>
     <div class="history">
@@ -97,7 +97,31 @@
 
 <script>
 export default {
-
+  data() {
+    return {
+      clientData: {},
+    }
+  },
+  methods:{
+    getObjectById() {
+      for (let obj of this.clients) {
+        console.log(obj)
+          if (obj.id === parseInt(this.$route.params.clientId)) {
+              this.clientData = obj;
+              console.log(obj)
+          }
+      }
+      return null;
+    }
+  },
+  computed:{
+    clients(){
+      return this.$store.state.clients;
+    }
+  },
+  mounted(){
+    this.getObjectById();
+  }
 }
 </script>
 

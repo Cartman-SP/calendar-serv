@@ -16,8 +16,8 @@
 
 
         <div class="people_nav">
-          <div class="mark" v-if="!Mark" @click="Mark = true"></div>
-          <div class="mark_active" v-else @click="Mark = false">
+          <div class="mark" v-if="!Mark" @click="toggleAllClients"></div>
+          <div class="mark_active" v-else @click="toggleAllClients">
             <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2556 6.15492L9.05226 14.4665L4.29285 9.7071L5.70706 8.29289L8.94764 11.5335L14.7443 4.84506L16.2556 6.15492Z" fill="#FFFFFF"/>
             </svg>
@@ -27,11 +27,11 @@
           <p class="people_nav_text">Телефон</p>
           <p class="people_nav_text">Действия</p>
         </div>
-        <div class="divider" style="margin-bottom: 30px;"></div>
-        <div class="client-row">
+        <div class="divider"></div>
+        <div class="client-table" style="padding-top: 10px;">
           <div class="people_main" v-for="human in clients" :key="human.id">
-            <div class="mark" v-if="!Mark" @click="Mark = true"></div>
-            <div class="checkmark_active" v-else @click="Mark = false">
+            <div class="mark" v-if="!(clientsToDelete.includes(human.id))" @click="addToDel(human.id)"></div>
+            <div class="checkmark_active" v-else @click="addToDel(human.id)">
               <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2556 6.15492L9.05226 14.4665L4.29285 9.7071L5.70706 8.29289L8.94764 11.5335L14.7443 4.84506L16.2556 6.15492Z" fill="#FFFFFF"/>
               </svg>
@@ -55,7 +55,7 @@
             </div>
             <div class="people_nav_text">
               <div class="keys">
-                <img src="../../static/img/cog.svg" alt=""  @click="this.$router.push({ path: `/dashboard/clients/${human.id}/edit`, params: { clientId: human.id, clientDataToEdit: human }})">
+                <img src="../../static/img/cog.svg" alt=""  @click="this.$router.push({ name: `edit`, params: { clientId: human.id, clientDataToEdit: human }})">
                 <img src="../../static/img/delete.svg" alt="">
               </div>
             </div>
@@ -74,12 +74,10 @@ export default {
       Mark: false,
       
       clients: {},
+      clientsToDelete: [],
     }
   },
   methods:{
-    goToEdit(){
-
-    },
     async get_client(){
       try {
         const response = await axios.get(`http://127.0.0.1:8000/api/get_client/?project=${this.$store.state.activeProjectId}`);
@@ -87,6 +85,26 @@ export default {
         this.$store.commit('addClients', response.data)
       } catch (error) {
         console.error('Error fetching clients:', error);
+      }
+    },
+    addToDel(id) {
+      const index = this.clientsToDelete.indexOf(id);
+      if (index === -1) {
+        this.clientsToDelete.push(id);
+      } else {
+        this.clientsToDelete.splice(index, 1);
+      }
+    },
+    toggleAllClients() {
+      const clientIds = Object.keys(this.clients).map(Number);
+      const allClientsSelected = clientIds.every(id => this.clientsToDelete.includes(id));
+
+      if (allClientsSelected) {
+        this.clientsToDelete = [];
+        this.Mark = false;
+      } else {
+        this.clientsToDelete = [...new Set([...this.clientsToDelete, ...clientIds])];
+        this.Mark = true;
       }
     },
   },
@@ -97,6 +115,15 @@ export default {
 </script>
 
 <style scoped>
+.client-table{
+  height: max-content;
+  overflow-y: scroll;
+  height: 65vh;
+}
+.keys img:hover{
+  cursor: pointer;
+  filter: brightness(70%);
+}
 .head{
   font-family: TT Norms Medium;
   font-size: 20px;
@@ -111,6 +138,7 @@ export default {
 }
 .clients_main{
   height: auto;
+  max-height: 100%;
   background: #FFFFFF;
   padding: 20px;
   border-radius: 5px;
