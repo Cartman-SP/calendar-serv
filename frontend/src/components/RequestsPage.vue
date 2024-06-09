@@ -34,6 +34,7 @@
       </div>
     </div>
 
+
     <div class="subnav">
       <div class="subnav_left_container">
         <div class="container" @click="changeTab('all')" :class="{ active: activeTab === 'all' }">
@@ -116,6 +117,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import SelectPage from '../components/SelectPage.vue';
 import CardRequest from '../components/CardRequest.vue';
 
@@ -127,17 +129,21 @@ export default {
       activeTab: 'all',
       timeRange: 'week',
 
-      allRequests: 'NaN123123123',
-      newRequests: 'NaN',
-      acceptedRequests: 'NaN',
-      finishedRequests: 'NaN',
-      canceledRequests: 'NaN',
+      applications: [],
     };
   },
   methods: {
     changeTab(tab) {
       this.activeTab = tab;
-      // Здесь вы можете добавить логику для обновления содержимого компонента в соответствии с выбранной вкладкой
+    },
+    async fetchApplications() {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/applications/`);
+        this.applications = response.data;
+      }
+      catch (error) {
+        console.error("There was an error fetching the applications:", error);
+      }
     }
   },
   mounted() {
@@ -366,7 +372,7 @@ p {
   transition: all .2s ease;
 }
 .primary{
-  width: 70%;
+  width: 100%;
   min-height: 468px;
   height: fit-content;
   gap: 10px;

@@ -866,3 +866,14 @@ def client_delete(request):
             return JsonResponse({'error': f'Произошла ошибка при удалении клиента: {str(e)}'}, status=500)
     else:
         return JsonResponse({'error': 'Метод не разрешен'}, status=405)
+    
+@api_view(['GET'])
+def get_all_applications(request, employee_id, filial_id):
+    try:
+        applications = Application.objects.filter(employee_id = employee_id)
+        if not applications.exists():
+            return Response(status=404, data={"message": "No applications found"})
+        serializer = ApplicationSerializer(applications, many=True)
+        return Response(serializer.data)
+    except Exception as e:
+        return Response(status=500, data={"message": str(e)})
