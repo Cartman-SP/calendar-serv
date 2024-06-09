@@ -110,10 +110,24 @@ export default {
       }
     },
     deleteSelectedClients(){
-      if (this.clientsToDelete.length>0) {
-        console.log(this.clientsToDelete) // тут все id клиентов, которых надо удалить
+      for(let i of this.clientsToDelete){
+        this.deleteClient(i)
       }
     },
+    async deleteClient(clientId) {
+      try {
+        const response = await axios.post('http://127.0.0.1:8000/api/client/delete/', {
+          id: clientId
+        }, {
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        });
+        if (response.data.message) {
+          this.get_client();
+        }
+      } catch (error) {
+        console.error('Произошла ошибка при удалении клиента:', error);
+      }
+    }
   },
   mounted(){
     this.get_client();

@@ -850,3 +850,19 @@ def get_usluga_byId(request, usluga_id):
         return Response(serializer.data)
     except Usluga.DoesNotExist:
         return Response(status=404, data={"message": "Услуга не найдена"})
+
+
+@csrf_exempt
+def client_delete(request):
+    if request.method == 'POST':
+        client_id = request.POST.get('id')
+        try:
+            client = Client.objects.get(id=client_id)
+            client.delete()
+            return JsonResponse({'message': 'Клиент успешно удален'})
+        except Client.DoesNotExist:
+            return JsonResponse({'error': 'Клиент с указанным идентификатором не найден'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': f'Произошла ошибка при удалении клиента: {str(e)}'}, status=500)
+    else:
+        return JsonResponse({'error': 'Метод не разрешен'}, status=405)

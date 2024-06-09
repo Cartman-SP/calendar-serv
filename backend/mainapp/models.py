@@ -138,7 +138,7 @@ class Client(models.Model):
     mail = models.CharField(max_length=128)
     phone = models.CharField(max_length=128)
     date = models.CharField(max_length=128)
-    project = models.ForeignKey(Project,on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
 
 class Application(models.Model):
     status = models.CharField(max_length=128)
@@ -172,6 +172,7 @@ class UCode(models.Model):
     widget = models.ForeignKey(Widget,on_delete=models.CASCADE)
     before_head = models.CharField(max_length=2000)
     before_body = models.CharField(max_length=2000)
+
 
 admin.site.register(Integration)
 admin.site.register(Buisness_Type)

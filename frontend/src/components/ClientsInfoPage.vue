@@ -18,7 +18,10 @@
           </div>
           <div class="status">
             <p class="text">Последний заказ(статус)</p>
-            <p class="accepted">NaN</p>
+            <p class="accepted" v-if="lastAppStatus === 'New'" style="background-color: #28CCF0;">Новые</p>
+            <p class="accepted" v-else-if="lastAppStatus === 'Adopted'" style="background-color: #F7D37D;">Принят</p>
+            <p class="accepted" v-else-if="lastAppStatus === 'Canceled'" style="background-color: #F97F7F;">Отменен</p>
+            <p class="accepted" v-else-if="lastAppStatus === 'Done'" style="background-color: #00A490;">Завершен</p>
           </div>
         </div>
       </div>
@@ -38,7 +41,7 @@
       </div>
       <div class="total">
         <p class="text">Всего записей</p>
-        <p class="subtext">NaN</p>
+        <p class="subtext">{{ applications.length }}</p>
       </div>
     </div>
     <div class="history">
@@ -63,15 +66,22 @@
         <p class="text">Дата</p>
         <p class="text">Филиал</p>
       </div>
-      <div v-for="a in applications" :key="a.id">
-        <div class="clients_info">
-          <p class="clients_text">{{ a.employee }}</p>
-          <p class="clients_text">{{ a.usluga }}</p>
-          <p class="clients_text">{{ a.data }}</p>
-          <p class="clients_text">Adress Adress</p>
+      <div  v-if="applications.length > 0">
+        <div v-for="a in applications" :key="a.id">
+          <div class="clients_info">
+            <p class="clients_text">{{ a.employee }}</p>
+            <p class="clients_text">{{ a.usluga }}</p>
+            <p class="clients_text">{{ a.data }}</p>
+            <p class="clients_text">Adress Adress</p>
+          </div>
+          <div class="clients_divider"></div>
         </div>
-        <div class="clients_divider"></div>
       </div>
+      <div v-else>
+        <p class="clients_text">Пока не было записей :(</p>
+    
+      </div>
+      
       
     </div>
   </div>
@@ -84,7 +94,8 @@ export default {
   data() {
     return {
       clientData: {},
-      applications: []
+      applications: [],
+      lastAppStatus: '',
     }
   },
   methods:{
@@ -113,7 +124,7 @@ export default {
         }));
 
         this.applications = updatedApplications;
-        console.log(this.applications);
+        this.lastAppStatus = this.applications[0].status
       } catch (error) {
         console.error("There was an error fetching the applications:", error);
       }
@@ -125,7 +136,7 @@ export default {
     async getUsluga(id) {
       const response = await axios.get(`http://127.0.0.1:8000/api/usluga/${id}/`);
       return response;
-    }
+    },
   },
   computed: {
     clients() {
