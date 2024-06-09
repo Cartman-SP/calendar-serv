@@ -51,6 +51,7 @@ from rest_framework.response import Response
 from django.http import JsonResponse
 import json
 
+
 @csrf_exempt
 @require_POST
 def register_user(request):
@@ -820,3 +821,32 @@ def get_integration(request):
         integration = Integration.objects.filter()
         serializer = IntegrationSerializer(integration, many=True)
         return Response(serializer.data)
+
+@api_view(['GET'])
+def get_client_applications(request, client_id):
+    try:
+        applications = Application.objects.filter(client_id=client_id)
+        if not applications.exists():
+            return Response(status=404, data={"message": "No applications found for this client"})
+        serializer = ApplicationSerializer(applications, many=True)
+        return Response(serializer.data)
+    except Exception as e:
+        return Response(status=500, data={"message": str(e)})
+
+@api_view(['GET'])
+def get_employee_byId(request, employee_id):
+    try:
+        employee = Employee.objects.get(id=employee_id)
+        serializer = EmployeeSerializer(employee)
+        return Response(serializer.data)
+    except Employee.DoesNotExist:
+        return Response(status=404, data={"message": "Сотрудник не найден"})
+
+@api_view(['GET'])
+def get_usluga_byId(request, usluga_id):
+    try:
+        usluga = Usluga.objects.get(id=usluga_id)
+        serializer = UslugaSerializer(usluga)
+        return Response(serializer.data)
+    except Usluga.DoesNotExist:
+        return Response(status=404, data={"message": "Услуга не найдена"})

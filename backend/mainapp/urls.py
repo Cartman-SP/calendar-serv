@@ -38,4 +38,7 @@ urlpatterns = [
     path('get_applications/',get_applications),
     path('get_client/',get_client),
     path('get_integration/',get_integration),
+    path('client/<int:client_id>/applications/', get_client_applications, name='client-applications'),
+    path('employee/<int:employee_id>/', get_employee_byId, name='get_employeeById'),
+    path('usluga/<int:usluga_id>/', get_usluga_byId, name='get_uslugaById'),
 ]

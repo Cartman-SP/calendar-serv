@@ -63,64 +63,78 @@
         <p class="text">Дата</p>
         <p class="text">Филиал</p>
       </div>
-      <div class="clients_info">
-        <p class="clients_text">Кирилл Иванов</p>
-        <p class="clients_text">Стрижка + оформление бор...</p>
-        <p class="clients_text">08.05.2024</p>
-        <p class="clients_text">Академика Кутузова 245</p>
+      <div v-for="a in applications" :key="a.id">
+        <div class="clients_info">
+          <p class="clients_text">{{ a.employee }}</p>
+          <p class="clients_text">{{ a.usluga }}</p>
+          <p class="clients_text">{{ a.data }}</p>
+          <p class="clients_text">Adress Adress</p>
+        </div>
+        <div class="clients_divider"></div>
       </div>
-      <div class="clients_divider"></div>
-      <div class="clients_info">
-        <p class="clients_text">Кирилл Иванов</p>
-        <p class="clients_text">Стрижка + оформление бор...</p>
-        <p class="clients_text">08.05.2024</p>
-        <p class="clients_text">Академика Кутузова 245</p>
-      </div>
-      <div class="clients_divider"></div>
-      <div class="clients_info">
-        <p class="clients_text">Кирилл Иванов</p>
-        <p class="clients_text">Стрижка + оформление бор...</p>
-        <p class="clients_text">08.05.2024</p>
-        <p class="clients_text">Академика Кутузова 245</p>
-      </div>
-      <div class="clients_divider"></div>
-      <div class="clients_info">
-        <p class="clients_text">Кирилл Иванов</p>
-        <p class="clients_text">Стрижка + оформление бор...</p>
-        <p class="clients_text">08.05.2024</p>
-        <p class="clients_text">Академика Кутузова 245</p>
-      </div>
-      <div class="clients_divider"></div>
+      
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
       clientData: {},
+      applications: []
     }
   },
   methods:{
     getObjectById() {
       for (let obj of this.clients) {
-        console.log(obj)
-          if (obj.id === parseInt(this.$route.params.clientId)) {
-              this.clientData = obj;
-              console.log(obj)
-          }
+        if (obj.id === parseInt(this.$route.params.clientId)) {
+          this.clientData = obj;
+          break;
+        }
       }
-      return null;
+    },
+    async fetchApplications() {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/client/${this.clientData.id}/applications/`);
+        const applications = response.data;
+
+        const updatedApplications = await Promise.all(applications.map(async application => {
+          const employeeResponse = await this.getEmployee(application.employee);
+          const uslugaResponse = await this.getUsluga(application.usluga);
+
+          return {
+            ...application,
+            employee: employeeResponse.data.firstname + ' ' + employeeResponse.data.secondname,
+            usluga: uslugaResponse.data.name
+          };
+        }));
+
+        this.applications = updatedApplications;
+        console.log(this.applications);
+      } catch (error) {
+        console.error("There was an error fetching the applications:", error);
+      }
+    },
+    async getEmployee(id) {
+      const response = await axios.get(`http://127.0.0.1:8000/api/employee/${id}/`);
+      return response;
+    },
+    async getUsluga(id) {
+      const response = await axios.get(`http://127.0.0.1:8000/api/usluga/${id}/`);
+      return response;
     }
   },
-  computed:{
-    clients(){
+  computed: {
+    clients() {
       return this.$store.state.clients;
     }
   },
-  mounted(){
+  async mounted() {
     this.getObjectById();
+    await this.fetchApplications();
   }
 }
 </script>
