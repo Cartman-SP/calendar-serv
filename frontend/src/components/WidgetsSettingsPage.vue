@@ -289,6 +289,24 @@
             </ol>
           </div>
         </div>
+        <div class="telegram_main">
+          <section>
+            <p class="telegram_label">Приветственное сообщение</p>
+            <textarea placeholder="Введите текст для приветственного сообщения" class="custom_input" v-model="symbols3" name="helloMsg" rows="5"></textarea>
+            <div class="tg-row">
+              <p class="textarea_subtitle">Это сообщение увидят новые клиенты</p>
+              <p class="symbols_counter">{{symbols3.length}}/200</p>
+            </div>
+          </section>
+          <section>
+            <p class="telegram_label">Название кнопки открытия бота</p>
+            <textarea placeholder="Например: Записаться сейчас" class="custom_input" v-model="symbols4" name="btnName" rows="1"></textarea>
+            <div class="tg-row">
+              <p class="textarea_subtitle">Не длиннее указанного количества символов</p>
+              <p class="symbols_counter">{{symbols4.length}}/25</p>
+            </div>
+          </section>
+        </div>
         <img v-show="false" src="../../static/img/bot.svg" alt="">
       </div>
       <div v-if="selectedTab === 'integrations'">
@@ -359,6 +377,8 @@ export default {
       },
       symbols: "",
       symbols2: "",
+      symbols3: "",
+      symbols4: "",
       selectedChoice: null, 
       isCircleShown1: false,
       isCircleShown2: false, 
@@ -547,6 +567,22 @@ export default {
 </script>
   
   <style scoped>
+.tg-row{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.textarea_subtitle{
+  color: #AFB6C1;
+  font-size: 14px;
+  margin-top: 0;
+}
+.symbols_counter{
+  color: #AFB6C1;
+  font-size: 14px;
+}
+
+
     .chip svg:hover path{
     fill: rgb(250, 148, 148);
   }
@@ -1020,11 +1056,19 @@ export default {
     color: #535C69;
     margin: 0;
   }
+  .custom_input::placeholder{
+    color: #AFB6C1;
+    font-family: TT Norms Medium;
+    font-size: 14px;
+  }
   .custom_input{
+    font-size: 14px;
+    font-family: TT Norms Medium;
+    color: #535C69;
+    padding: 10px;
     border-radius: 3px;
     border: 1px solid #C6CBD2;
     background: #FFFFFF;
-    height: 138px;
     width: 100%;
     resize: none;
     outline: none;
@@ -1059,6 +1103,7 @@ export default {
   }
   .telegram{
     display: flex;
+    flex-direction: column;
     gap: 20px;
   }
   .telegram_description{
