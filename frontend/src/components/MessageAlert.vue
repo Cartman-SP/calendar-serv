@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ 'alert': true, 'show': isVisible, 'hide': !isVisible}" :style="{ backgroundColor: color }">
+  <div class="alert" :class="{ 'show': isVisible, 'hide': !isVisible}" :style="{ backgroundColor: color }">
     <p>{{ m }}</p>
     <svg @click="hideNotification" width="8" height="8" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M2.29294 3.00003L0.146484 5.14648L0.853591 5.85359L3.00004 3.70714L5.1465 5.85359L5.85361 5.14648L3.70715 3.00003L5.85359 0.853591L5.14648 0.146484L3.00004 2.29292L0.853605 0.146484L0.146499 0.853591L2.29294 3.00003Z" fill="white"/>
@@ -14,34 +14,38 @@ export default {
     return {
       isVisible: false,
       m: '',
+      timeoutId: null
     };
   },
   watch: {
-    message() {
-      if (this.message !== null) {
-        this.showNotification();
-      } else {
-        this.hideNotification();
+    message(newMessage) {
+      if (newMessage) {
+        this.showNotification(newMessage);
       }
-    },
+    }
   },
   methods: {
-    showNotification() {
-      this.m = this.message;
+    showNotification(newMessage) {
+      this.m = newMessage;
       this.isVisible = true;
-      setTimeout(() => {
+
+      // Clear previous timeout if any
+      if (this.timeoutId) {
+        clearTimeout(this.timeoutId);
+      }
+
+      // Hide notification after 3 seconds
+      this.timeoutId = setTimeout(() => {
         this.hideNotification();
       }, 3000);
     },
     hideNotification() {
       this.isVisible = false;
-    },
-  },
+      this.timeoutId = null;
+    }
+  }
 };
 </script>
-
-  
-  
 
 <style scoped>
 .show {
@@ -62,7 +66,6 @@ svg:hover path{
 }
 .alert{
   z-index: 100;
-    /* background-color: #0BB6A1; */
     padding: 10px 15px;
     position: absolute;
     width: fit-content;

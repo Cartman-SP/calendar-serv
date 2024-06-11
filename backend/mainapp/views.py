@@ -51,6 +51,7 @@ from rest_framework.response import Response
 from django.http import JsonResponse
 import json
 
+
 @csrf_exempt
 @require_POST
 def register_user(request):
@@ -820,3 +821,59 @@ def get_integration(request):
         integration = Integration.objects.filter()
         serializer = IntegrationSerializer(integration, many=True)
         return Response(serializer.data)
+
+@api_view(['GET'])
+def get_client_applications(request, client_id):
+    try:
+        applications = Application.objects.filter(client_id=client_id)
+        if not applications.exists():
+            return Response(status=404, data={"message": "No applications found for this client"})
+        serializer = ApplicationSerializer(applications, many=True)
+        return Response(serializer.data)
+    except Exception as e:
+        return Response(status=500, data={"message": str(e)})
+
+@api_view(['GET'])
+def get_employee_byId(request, employee_id):
+    try:
+        employee = Employee.objects.get(id=employee_id)
+        serializer = EmployeeSerializer(employee)
+        return Response(serializer.data)
+    except Employee.DoesNotExist:
+        return Response(status=404, data={"message": "Сотрудник не найден"})
+
+@api_view(['GET'])
+def get_usluga_byId(request, usluga_id):
+    try:
+        usluga = Usluga.objects.get(id=usluga_id)
+        serializer = UslugaSerializer(usluga)
+        return Response(serializer.data)
+    except Usluga.DoesNotExist:
+        return Response(status=404, data={"message": "Услуга не найдена"})
+
+
+@csrf_exempt
+def client_delete(request):
+    if request.method == 'POST':
+        client_id = request.POST.get('id')
+        try:
+            client = Client.objects.get(id=client_id)
+            client.delete()
+            return JsonResponse({'message': 'Клиент успешно удален'})
+        except Client.DoesNotExist:
+            return JsonResponse({'error': 'Клиент с указанным идентификатором не найден'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': f'Произошла ошибка при удалении клиента: {str(e)}'}, status=500)
+    else:
+        return JsonResponse({'error': 'Метод не разрешен'}, status=405)
+    
+@api_view(['GET'])
+def get_all_applications(request, employee_id, filial_id):
+    try:
+        applications = Application.objects.filter(employee_id = employee_id)
+        if not applications.exists():
+            return Response(status=404, data={"message": "No applications found"})
+        serializer = ApplicationSerializer(applications, many=True)
+        return Response(serializer.data)
+    except Exception as e:
+        return Response(status=500, data={"message": str(e)})

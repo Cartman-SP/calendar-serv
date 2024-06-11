@@ -5,7 +5,7 @@
       <div class="arrow-container">
         <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
       </div>
-      <p class="creation_text">ИМЯ ФАМИЛИЯ</p>
+      <p class="creation_text">{{ clientData.firstname + ' ' + clientData.secondname }}</p>
     </div>
 
     <div class="settings">
@@ -14,7 +14,7 @@
           <div class="name-container">
             <label for="userName">Имя</label>
             <div class="input_container_top">
-              <input type="text" placeholder="Введите имя">
+              <input type="text" :value="clientData.firstname" placeholder="Введите имя">
             </div>
           </div>
         </div>
@@ -22,7 +22,7 @@
           <div class="name-container">
             <label for="">Фамилия</label>
             <div class="input_container_top">
-              <input type="text" placeholder="Введите фамилию">
+              <input type="text" :value="clientData.secondname" placeholder="Введите фамилию">
             </div>
           </div>
         </div>
@@ -41,8 +41,8 @@
         <div class="divider"></div>
         <div class="email">
           <div class="email-container">
-            <label for="userMail">Email (необязательно)</label>
-            <input type="mail" placeholder="client@mail.ru">
+            <label for="userMail">Email</label>
+            <input type="mail" :value="clientData.mail" placeholder="client@mail.ru">
             <p class="email-header">Клиент еще не подтвердил свою почту</p>
           </div>
         </div>
@@ -50,13 +50,13 @@
         <div class="phone">
           <div class="phone-container">
             <label for="userPhone">Телефон</label>
-            <input id="userphone" disabled placeholder="+7">
+            <input id="userphone" :value="clientData.phone" placeholder="+7">
             <p class="email-header">Клиент еще не подтвердил свой номер телефона</p>
           </div>
         </div>
         <div class="divider"></div>
         <div class="change">
-          <button type="button" class="button-change">Добавить клиента</button>
+          <button type="button" class="button-change">Сохранить</button>
           <button type="button" class="button-back">Вернуться назад</button>
         </div>
       </div>
@@ -71,10 +71,29 @@ export default {
   components: { MessageAlert },
   data() {
     return {
-      
+      clientData: {},
     }
   },
-
+  methods:{
+    getObjectById() {
+      for (let obj of this.clients) {
+        console.log(obj)
+          if (obj.id === parseInt(this.$route.params.clientId)) {
+              this.clientData = obj;
+              console.log(obj)
+          }
+      }
+      return null;
+    }
+  },
+  computed:{
+    clients(){
+      return this.$store.state.clients;
+    }
+  },
+  mounted(){
+    this.getObjectById();
+  }
 }
 </script>
 
