@@ -137,9 +137,9 @@ export default {
 
 <style scoped>
 .client-table{
-  height: max-content;
+  height: fit-content;
   overflow-y: scroll;
-  height: 65vh;
+  max-height: 65vh;
 }
 .keys img:hover{
   cursor: pointer;
@@ -158,7 +158,7 @@ export default {
   gap: 15px;
 }
 .clients_main{
-  height: auto;
+  height: fit-content;
   max-height: 100%;
   background: #FFFFFF;
   padding: 20px;
