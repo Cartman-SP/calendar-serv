@@ -272,12 +272,24 @@
       <div class="telegram" v-if="selectedTab === 'telegram'">
         <div class="telegram_main">
           <div class="telegram_header">
-            <p class="telegram_label">Telegram-токен бота</p>
-            <input type="text" placeholder="123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11">
-            <button class="telegram_button">Подключить</button>
+            <div>
+              <p class="telegram_label">Telegram-токен бота</p>
+              <input v-model="telegramToken" style="width: 100%;" type="text" placeholder="123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11">
+            </div>
+            <button :class="{'telegram_button-active' : telegramToken, 'telegram_button-disabled' : !telegramToken}">Подключить</button>
+          </div>
+          <div class="telegram_description">
+            <p class="telegram_label">Где взять Telegram-токен?</p>
+            <ol>
+              <li>Перейдите в чат с ботом <span style="color: #535C69; text-decoration: underline;">@BotFather</span> в Telegram</li>
+              <li>Отправьте команду /newbot , чтобы создать нового бота</li>
+              <li>Укажите name и username</li>
+              <li>В ответ @BotFather пришлет токен вашего бота <br> в формате: 123456:ABC-DEF1234ghIkl-<br>zyx57W2v1u123ew11</li>
+              <li>Укажите его в поле Telegram-токен бота</li>
+            </ol>
           </div>
         </div>
-        <img src="../../static/img/bot.svg" alt="">
+        <img v-show="false" src="../../static/img/bot.svg" alt="">
       </div>
       <div v-if="selectedTab === 'integrations'">
         <!-- Содержимое для интеграций и оплат -->
@@ -313,7 +325,7 @@
         </div>
 
       </div>
-      <WidgetConstructor v-bind:theme="switches.theme" :MainColor="widget.Main" :WidgetColor="widget.Back" :BakcgroundColor="widget.Plashka" :TextColor="widget.Text"/>
+      <WidgetConstructor v-if="selectedTab != 'telegram'" v-bind:theme="switches.theme" :MainColor="widget.Main" :WidgetColor="widget.Back" :BakcgroundColor="widget.Plashka" :TextColor="widget.Text"/>
     </div>
     
   </div>
@@ -331,6 +343,7 @@ export default {
   components: { WidgetConstructor , PalitraPage, SelectPage, HighCode} ,
   data() {
     return {
+      telegramToken: '',
       selectedImages: [],
       selectedTab: 'general',
       switches: {
@@ -1048,9 +1061,21 @@ export default {
     display: flex;
     gap: 20px;
   }
+  .telegram_description{
+    margin-top: 30px;
+  }
+  .telegram_description ol{
+    text-align: left;
+    color: #AFB6C1;
+    font-family: TT Norms Medium;
+    padding-left: 1em;
+    font-size: 13px;
+  }
   .telegram_main{
-    width: 405px;
+    border-radius: 5px;
+    width: 100%;
     padding: 20px;
+    height: fit-content;
     background: #FFFFFF;
   }
   .telegram_header{
@@ -1058,13 +1083,25 @@ export default {
     flex-direction: column;
     gap: 10px;
   }
-  .telegram_button{
+  .telegram_button-disabled{
     background: #FAFAFA;
     font-family: TT Norms Medium;
     font-size: 13px;
     line-height: 16.9px;
     text-align: left;
     color: #D2D8DE;
+    width: fit-content;
+    cursor: default;
+  }
+  .telegram_button-active{
+    background: #EFEFFF;
+    font-family: TT Norms Medium;
+    font-size: 13px;
+    line-height: 16.9px;
+    text-align: left;
+    color: #6266EA;
+    width: fit-content;
+    cursor: pointer;
   }
   .telegram_label{
     font-family: TT Norms Medium;
