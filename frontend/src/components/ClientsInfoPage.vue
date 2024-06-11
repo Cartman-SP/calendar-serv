@@ -5,7 +5,7 @@
       <div class="arrow-container">
         <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
       </div>
-      <p class="creation_text">Имя Фамилия</p>
+      <p class="creation_text">{{ clientData.firstname + ' ' + clientData.secondname }}</p>
     </div>
 
     <div class="clients_header">
@@ -13,32 +13,35 @@
         <img class="info_img" src="../../static/img/clients.png" alt="">
         <div class="info_container">
           <div class="name">
-            <p class="text">Имя</p>
-            <p class="subtext">Никита Половинко</p>
+            <p class="text">Клиент</p>
+            <p class="subtext">{{ clientData.firstname + ' ' + clientData.secondname }}</p>
           </div>
           <div class="status">
             <p class="text">Последний заказ(статус)</p>
-            <p class="accepted">Принят</p>
+            <p class="accepted" v-if="lastAppStatus === 'New'" style="background-color: #28CCF0;">Новые</p>
+            <p class="accepted" v-else-if="lastAppStatus === 'Adopted'" style="background-color: #F7D37D;">Принят</p>
+            <p class="accepted" v-else-if="lastAppStatus === 'Canceled'" style="background-color: #F97F7F;">Отменен</p>
+            <p class="accepted" v-else-if="lastAppStatus === 'Done'" style="background-color: #00A490;">Завершен</p>
           </div>
         </div>
       </div>
       <div class="contact">
         <div class="number">
           <p class="text">Контакты</p>
-          <p class="subtext">+7 705 555 75 55</p>
+          <p class="subtext">{{ clientData.phone }}</p>
         </div>
         <div class="income">
           <p class="text">Доход от клиента</p>
-          <p class="subtext">150 000 ₸</p>
+          <p class="subtext">NaN ₸</p>
         </div>
       </div>
       <div class="date">
         <p class="text">Дата регистрации</p>
-        <p class="subtext">03.05.2024</p>
+        <p class="subtext">{{ clientData.date }}</p>
       </div>
       <div class="total">
         <p class="text">Всего записей</p>
-        <p class="subtext">24</p>
+        <p class="subtext">{{ applications.length }}</p>
       </div>
     </div>
     <div class="history">
@@ -63,41 +66,87 @@
         <p class="text">Дата</p>
         <p class="text">Филиал</p>
       </div>
-      <div class="clients_info">
-        <p class="clients_text">Кирилл Иванов</p>
-        <p class="clients_text">Стрижка + оформление бор...</p>
-        <p class="clients_text">08.05.2024</p>
-        <p class="clients_text">Академика Кутузова 245</p>
+      <div  v-if="applications.length > 0">
+        <div v-for="a in applications" :key="a.id">
+          <div class="clients_info">
+            <p class="clients_text">{{ a.employee }}</p>
+            <p class="clients_text">{{ a.usluga }}</p>
+            <p class="clients_text">{{ a.data }}</p>
+            <p class="clients_text">Adress Adress</p>
+          </div>
+          <div class="clients_divider"></div>
+        </div>
       </div>
-      <div class="clients_divider"></div>
-      <div class="clients_info">
-        <p class="clients_text">Кирилл Иванов</p>
-        <p class="clients_text">Стрижка + оформление бор...</p>
-        <p class="clients_text">08.05.2024</p>
-        <p class="clients_text">Академика Кутузова 245</p>
+      <div v-else>
+        <p class="clients_text">Пока не было записей :(</p>
+    
       </div>
-      <div class="clients_divider"></div>
-      <div class="clients_info">
-        <p class="clients_text">Кирилл Иванов</p>
-        <p class="clients_text">Стрижка + оформление бор...</p>
-        <p class="clients_text">08.05.2024</p>
-        <p class="clients_text">Академика Кутузова 245</p>
-      </div>
-      <div class="clients_divider"></div>
-      <div class="clients_info">
-        <p class="clients_text">Кирилл Иванов</p>
-        <p class="clients_text">Стрижка + оформление бор...</p>
-        <p class="clients_text">08.05.2024</p>
-        <p class="clients_text">Академика Кутузова 245</p>
-      </div>
-      <div class="clients_divider"></div>
+      
+      
     </div>
   </div>
 </template>
 
 <script>
-export default {
+import axios from 'axios';
 
+export default {
+  data() {
+    return {
+      clientData: {},
+      applications: [],
+      lastAppStatus: '',
+    }
+  },
+  methods:{
+    getObjectById() {
+      for (let obj of this.clients) {
+        if (obj.id === parseInt(this.$route.params.clientId)) {
+          this.clientData = obj;
+          break;
+        }
+      }
+    },
+    async fetchApplications() {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/client/${this.clientData.id}/applications/`);
+        const applications = response.data;
+
+        const updatedApplications = await Promise.all(applications.map(async application => {
+          const employeeResponse = await this.getEmployee(application.employee);
+          const uslugaResponse = await this.getUsluga(application.usluga);
+
+          return {
+            ...application,
+            employee: employeeResponse.data.firstname + ' ' + employeeResponse.data.secondname,
+            usluga: uslugaResponse.data.name
+          };
+        }));
+
+        this.applications = updatedApplications;
+        this.lastAppStatus = this.applications[0].status
+      } catch (error) {
+        console.error("There was an error fetching the applications:", error);
+      }
+    },
+    async getEmployee(id) {
+      const response = await axios.get(`http://127.0.0.1:8000/api/employee/${id}/`);
+      return response;
+    },
+    async getUsluga(id) {
+      const response = await axios.get(`http://127.0.0.1:8000/api/usluga/${id}/`);
+      return response;
+    },
+  },
+  computed: {
+    clients() {
+      return this.$store.state.clients;
+    }
+  },
+  async mounted() {
+    this.getObjectById();
+    await this.fetchApplications();
+  }
 }
 </script>
 
@@ -141,7 +190,7 @@ export default {
   display: flex;
   background: #FFFFFF;
   gap: 90px;
-  width: 60%;
+  width: 100%;
   border-radius: 5px;
   padding: 20px;
 }
@@ -214,7 +263,8 @@ p{
   color: #FFFFFF;
   background: #F7D37D;
   padding: 2px 10px;
-  width: 66px;
+  width: fit-content;
+  text-align: center;
   border-radius: 3px;
 }
 .info_container{
@@ -223,7 +273,7 @@ p{
   gap: 20px;
 }
 .history{
-  width: 60%;
+  width: 100%;
   background: #FFFFFF;
   padding: 20px;
 }
