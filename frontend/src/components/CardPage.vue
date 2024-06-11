@@ -99,8 +99,8 @@ export default {
 <style scoped>
 .text-header{
     font-family: TT Norms Medium;
-    font-size: 14px;
-    line-height: 14px;
+    font-size: 18px;
+    line-height: 18px;
     letter-spacing: 0em;
     color: #535C69;
     margin: 0;
