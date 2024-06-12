@@ -7,14 +7,14 @@
     <div class="nav">
       <div class="nav_left">
         <SelectPage
-        :options="['Пушкинский', 'Новый', 'Я люблю пельмени', 'Тест']"
+        :options="filials"
         :searchable="true"
         :placeholderdata="'Выбрать филиал'"
         @input="option => selectedBranch = option"
         />
     
         <SelectPage
-        :options="['Кологривый','РЫНДЫЧ','влади дади','Шишадмин' ]"
+        :options="employees"
         :placeholderdata="'Выбрать Сотрудника'"
         :searchable="true"
         @input="option => selectedEmployee = option"
@@ -106,9 +106,13 @@
         <p class="primary_nav_text">Действия</p>
       </div>
       <div class="divider"></div>
-      <p class="primary_new">Выберите филиал и сотрудника,<br>чтобы посмотреть список заявок</p>
-      <img src="../../static/img/request.svg" alt="" draggable="false">
-      <CardRequest></CardRequest>
+      <div v-if="!(applications.length>0)">
+        <p class="primary_new">Выберите филиал и сотрудника,<br>чтобы посмотреть список заявок</p>
+        <img src="../../static/img/request.svg" alt="" draggable="false">
+      </div>
+      <div v-else>
+        <CardRequest v-for="a in applications" :key="a.id" :requestData="a"/>
+      </div>
     </div>
 
 
@@ -129,25 +133,58 @@ export default {
       activeTab: 'all',
       timeRange: 'week',
 
+      selectedBranch: null,
+      selectedEmployee: null,
+
       applications: [],
+      filials: [],
+      employees: [],
     };
+  },
+  watch: {
+    selectedBranch(newBranch) {
+      this.get_request(newBranch, this.selectedEmployee);
+      this.getspecialist_by_usluga();
+    },
+    selectedEmployee(newEmployee) {
+      this.get_request(this.selectedBranch, newEmployee)
+    },
   },
   methods: {
     changeTab(tab) {
       this.activeTab = tab;
     },
-    async fetchApplications() {
+    async getfilials(){
+        axios.get(`http://127.0.0.1:8000/api/get_branch/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`)
+        .then(response => {
+            this.filials = response.data;
+        })
+        .catch(error => {
+            console.error('Ошибка при получении данных о филиалах:', error);
+        });
+      },
+    async get_request(filial_id, employee_id){
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/applications/`);
+        const response = await axios.get(`http://127.0.0.1:8000/api/get_request/?filial=${filial_id}&employee=${employee_id}`);
         this.applications = response.data;
+      } catch (error) {
+        console.error('Ошибка при получении данных о заявках:', error);
       }
-      catch (error) {
-        console.error("There was an error fetching the applications:", error);
-      }
-    }
+    },
+    async get_employee(){
+      const user_id =  this.$store.state.registrationData.user_id;
+      axios.get(`http://127.0.0.1:8000/api/get_employees/?user_id=${user_id}&project=${this.$store.state.activeProjectId}`)
+        .then(response => {
+          this.employees = response.data;
+        })
+        .catch(error => {
+          console.error('Error fetching employees:', error);
+        });
+      },
   },
   mounted() {
-    // При загрузке страницы добавляем класс active к контейнеру с текстом "Все 432"
+    this.getfilials();
+    this.get_employee();
     document.querySelector('.container').classList.add('active');
     document.querySelector('.page_text:first-child').classList.add('active');
   }
@@ -170,9 +207,10 @@ export default {
   color: #535C69;
 }
 .nav{
+  width: 100%;
   display: flex;
   justify-content: start;
-  gap: 40px;
+  gap: 10px;
   margin-bottom: 20px;
 }
 .nav_left{
@@ -230,7 +268,7 @@ export default {
   background-position: 15px;
 }
 .subnav{
-  width: 70%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;

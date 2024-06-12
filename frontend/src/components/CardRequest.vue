@@ -8,7 +8,7 @@
         </svg>
       </div>
       <div class="text_container">
-        <p class="mark_text">Завершен</p>
+        <p class="mark_text">{{ requestData.status }}</p>
       </div>
     </div>
     <p class="date_text">29.04.2024 , 10:49</p>
@@ -47,6 +47,7 @@
 
 <script>
 export default {
+  props: ['requestData'],
   data() {
       return {
         Mark: false,

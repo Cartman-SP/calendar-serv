@@ -734,7 +734,7 @@ export default {
             console.log(response)
             return response.data;
         } catch (error) {
-            console.error('Ошибка при получении данных о Филиале:', error);
+            console.error('Ошибка при получении данных о филиалах:', error);
             throw error; // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
         }
     },
