@@ -25,6 +25,9 @@ import LockedPage from '../components/LockedPage.vue';
 import WidgetCreatePage from '../components/WidgetCreatePage.vue';
 import RequestsPage from '../components/RequestsPage.vue';
 import ClientsPage from '../components/ClientsPage.vue';
+import ServiceEdit from '../components/ServiceEdit.vue';
+import EmployeesEdit from '../components/EmployeesEdit.vue';
+import BranchEdit from '../components/BranchEdit.vue';
 ///import NotFoundPage from '../components/NotFoundPage.vue';
 import CalendarPage from '../components/CalendarPage.vue';
 import ClientsEditPage from '../components/ClientsEditPage.vue';
@@ -240,6 +243,24 @@ const routes = [
         name: 'info',
         component: ClientsInfoPage,
         meta: { requiresAuth: true, title: 'Sked.Online - Информация о клиенте' }
+      },
+      {
+        path: '/dashboard/service/edit',
+        name: 'ServiceEdit',
+        component: ServiceEdit,
+        meta: { requiresAuth: true, title: 'Sked.Online - Редактирование услуги' }
+      },
+      {
+        path: '/dashboard/personal/edit',
+        name: 'EmployeesEdit',
+        component: EmployeesEdit,
+        meta: { requiresAuth: true, title: 'Sked.Online - Редактирование сотрудника' }
+      },
+      {
+        path: '/dashboard/branch/edit',
+        name: 'BranchEdit',
+        component: BranchEdit,
+        meta: { requiresAuth: true, title: 'Sked.Online - Редактирование филиала' }
       },
     ]
   },
