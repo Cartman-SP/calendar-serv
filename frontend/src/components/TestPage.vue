@@ -22,6 +22,9 @@
         employee_id: 1,
         client_id: 1,
         project_id: 1,
+        branch_id: 1,
+        request_id:2,
+        status: 'Declined'
       };
     },
     methods: {
@@ -49,6 +52,8 @@
         formData.append('employee', this.employee_id);
         formData.append('client', this.client_id);
         formData.append('project', this.project_id);
+        formData.append('branch',this.branch_id);
+
         axios.post('http://127.0.0.1:8000/api/create_applications/', formData)
           .then(response => {
             console.log('Service created:', response.data);
@@ -84,11 +89,46 @@
       }
     },
 
+    async get_request(filial_id, employee_id){
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/get_request/?filial=${filial_id}&employee=${employee_id}`);
+        console.log(response.data,123)
+      } catch (error) {
+        console.error('Error fetching uslugi:', error);
+      }
+    },
+
+    async delete_request() {
+        const formData = new FormData();
+        formData.append('id', this.request_id);
+        axios.post('http://127.0.0.1:8000/api/delete_request/', formData)
+          .then(response => {
+            console.log('Service deleted:', response.data);
+          })
+          .catch(error => {
+            console.error('Error creating service:', error);
+          });
+      },
+
+      async set_status() {
+        const formData = new FormData();
+        formData.append('id', this.request_id);
+        formData.append('status',this.status)
+        axios.post('http://127.0.0.1:8000/api/set_status/', formData)
+          .then(response => {
+            console.log('Service deleted:', response.data);
+          })
+          .catch(error => {
+            console.error('Error creating service:', error);
+          });
+      },
     },
     mounted() {
-        this.create_client()
-
-        console.log('Component mounted');
+      this.create_application()
+      this.get_request(1,1)
+      this.delete_request()
+        console.log('Component mounted')
+      this.get_applications();
     }
   };
   </script>

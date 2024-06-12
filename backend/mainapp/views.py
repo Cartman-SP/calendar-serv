@@ -776,10 +776,10 @@ def create_applications(request):
                 serializer.save()
                 return JsonResponse(True, status=201, safe=False)  
             else:
-                return JsonResponse({'error': 'invalid data'}, status=500, safe=False) 
+                print("Serializer errors: ", serializer.errors)  # Добавлен вывод ошибок сериализатора
+                return JsonResponse({'error': 'invalid data', 'details': serializer.errors}, status=500, safe=False) 
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500, safe=False) 
-
 
 
 @api_view(['GET'])
@@ -860,3 +860,31 @@ def get_all_applications(request, employee_id, filial_id):
         return Response(serializer.data)
     except Exception as e:
         return Response(status=500, data={"message": str(e)})
+    
+@api_view(['GET'])
+def get_request(request):
+    if request.method == 'GET':
+        filial = request.GET.get('filial')
+        employee = request.GET.get('employee')
+        application = Application.objects.filter(branch = filial, employee = employee).last()
+        serializer = ApplicationSerializer(application)
+        return Response(serializer.data)
+
+
+@csrf_exempt
+def delete_request(request):
+    if request.method == 'POST':
+        request_id = request.POST.get('id')
+        application = Application.objects.get(id=request_id)
+        application.delete()
+        return JsonResponse({'message': 'Клиент успешно удален'})
+    
+@csrf_exempt
+def set_status(request):
+    if request.method == 'POST':
+        request_id = request.POST.get('id')
+        application = Application.objects.get(id=request_id)
+        application.status = request.POST.get('status')
+        application.save()
+        return JsonResponse({'message': 'Клиент успешно удален'})
+    

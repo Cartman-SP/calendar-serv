@@ -43,4 +43,7 @@ urlpatterns = [
     path('employee/<int:employee_id>/', get_employee_byId, name='get_employeeById'),
     path('usluga/<int:usluga_id>/', get_usluga_byId, name='get_uslugaById'),
     path('client/delete/', client_delete, name='client_delete'),
+    path('get_request/',get_request),
+    path('delete_request/',delete_request),
+    path('set_status/',set_status),
 ]
