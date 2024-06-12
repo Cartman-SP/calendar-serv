@@ -144,7 +144,6 @@ export default {
   watch: {
     selectedBranch(newBranch) {
       this.get_request(newBranch, this.selectedEmployee);
-      this.getspecialist_by_usluga();
     },
     selectedEmployee(newEmployee) {
       this.get_request(this.selectedBranch, newEmployee)
