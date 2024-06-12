@@ -755,32 +755,15 @@ def get_branch_bylink(request):
         return Response(serializer.data)
 
 @csrf_exempt
-@parser_classes([MultiPartParser, FormParser])
 def create_client(request):
     if request.method == 'POST':
         serializer = ClientSerializer(data=request.POST)
+        print(serializer)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse(True, status=201, safe=False)  
+            return JsonResponse(True, status=200, safe=False)  
         else:
             return JsonResponse({'error': 'invalid data'}, status=500, safe=False) 
-
-
-
-
-@csrf_exempt
-@parser_classes([MultiPartParser, FormParser])
-def create_applications(request):
-    try:
-        if request.method == 'POST':
-            serializer = ApplicationSerializer(data=request.POST)
-            if serializer.is_valid():
-                serializer.save()
-                return JsonResponse(True, status=201, safe=False)  
-            else:
-                return JsonResponse({'error': 'invalid data'}, status=500, safe=False) 
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=500, safe=False) 
 
 
 @csrf_exempt

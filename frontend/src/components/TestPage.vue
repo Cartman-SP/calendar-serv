@@ -32,6 +32,7 @@
         formData.append('mail', this.mail);
         formData.append('phone', this.phone);
         formData.append('date', this.date);
+        formData.append('project', this.project_id);
         axios.post('http://127.0.0.1:8000/api/create_client/', formData)
           .then(response => {
             console.log('Service created:', response.data);
@@ -86,10 +87,7 @@
     },
     mounted() {
         this.create_client()
-        this.create_application()
-        this.get_applications()
-        this.get_client()
-        this.get_integration()
+
         console.log('Component mounted');
     }
   };
