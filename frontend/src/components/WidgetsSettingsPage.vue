@@ -312,8 +312,63 @@
       <div v-if="selectedTab === 'integrations'">
         <!-- Содержимое для интеграций и оплат -->
       </div>
-      <div v-if="selectedTab === 'discounts'">
-        <!-- Содержимое для скидок и промокодов -->
+      <div v-if="selectedTab === 'discounts'" class="discounts">
+        <div class="discounts_header">
+          <button class="discounts_btn">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9.00006 11V17H11.0001V11H17V9H11.0001V3H9.00006V9H3V11H9.00006Z" fill="#D2D8DE"/>
+            </svg>    
+            Создать промокод</button>
+          <input type="text" placeholder="Найти промокод" class="discounts_input">
+        </div>
+        <div class="discounts_nav">
+          <div class="discounts_nav_container">
+            <p class="discounts_nav_text">ID</p>
+            <p class="discounts_nav_text">Название</p>
+            <p class="discounts_nav_text">Дата начала</p>
+            <p class="discounts_nav_text">Дата окончания</p>
+            <p class="discounts_nav_text">Количество кодов</p>
+          </div>
+          <div class="divider"></div>
+        </div>
+        <div class="discounts_new">
+          <div class="discounts_new_container">
+            <p class="discounts_new_header">Сейчас у вас нет созданных промо-акций для ваших клиентов, однако, вы легко это исправить :) </p>
+            <p class="krest">&times;</p>
+          </div>
+          <div class="discounts_new_btn">
+            <button>Создать промокод</button>
+            <button class="ponyatno">Ясно, понятно</button>
+          </div>
+        </div>
+        <div class="discounts_main">
+          <p class="discounts_main_text">1254654</p>
+          <p class="discounts_main_text">Скидка 50% клиен...</p>
+          <p class="discounts_main_text">28.04.2024</p>
+          <p class="discounts_main_text">1.05.2024</p>
+          <div class="discounts_main_items_container">
+            <p class="discounts_main_text">50</p>
+            <div class="discounts_main_items">
+            <svg id="edit" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="16" height="16" fill="white"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M7.05788 0.400024C6.84974 0.400024 6.68102 0.56875 6.68102 0.776884V2.19817C6.09375 2.34332 5.53152 2.57563 5.01308 2.88734L4.01148 1.88314C3.94083 1.81232 3.84493 1.77249 3.7449 1.77242C3.64486 1.77236 3.54891 1.81207 3.47817 1.8828L1.8828 3.47817C1.81207 3.54891 1.77236 3.64486 1.77242 3.7449C1.77249 3.84493 1.81232 3.94083 1.88314 4.01148L2.88734 5.01308C2.57563 5.53152 2.34332 6.09375 2.19817 6.68102H0.776884C0.56875 6.68102 0.400024 6.84974 0.400024 7.05788V8.94217C0.400024 9.15031 0.56875 9.31903 0.776884 9.31903H2.19817C2.34332 9.90629 2.57563 10.4685 2.88734 10.987L1.88314 11.9886C1.81232 12.0592 1.77249 12.1551 1.77242 12.2552C1.77236 12.3552 1.81207 12.4511 1.8828 12.5219L3.47817 14.1172C3.54891 14.188 3.64486 14.2277 3.7449 14.2276C3.84493 14.2276 3.94083 14.1877 4.01148 14.1169L5.01308 13.1127C5.53152 13.4244 6.09375 13.6567 6.68102 13.8019V15.2232C6.68102 15.4313 6.84974 15.6 7.05788 15.6H8.94217C9.15031 15.6 9.31903 15.4313 9.31903 15.2232V13.8019C9.90629 13.6567 10.4685 13.4244 10.987 13.1127L11.9886 14.1169C12.0592 14.1877 12.1551 14.2276 12.2552 14.2276C12.3552 14.2277 12.4511 14.188 12.5219 14.1172L14.1172 12.5219C14.188 12.4511 14.2277 12.3552 14.2276 12.2552C14.2276 12.1551 14.1877 12.0592 14.1169 11.9886L13.1127 10.987C13.4244 10.4685 13.6567 9.90629 13.8019 9.31903H15.2232C15.4313 9.31903 15.6 9.15031 15.6 8.94217V7.05788C15.6 6.84974 15.4313 6.68102 15.2232 6.68102H13.8019C13.6567 6.09375 13.4244 5.53152 13.1127 5.01308L14.1169 4.01148C14.1877 3.94083 14.2276 3.84493 14.2276 3.7449C14.2277 3.64486 14.188 3.54891 14.1172 3.47817L12.5219 1.8828C12.4511 1.81207 12.3552 1.77236 12.2552 1.77242C12.1551 1.77249 12.0592 1.81232 11.9886 1.88314L10.987 2.88734C10.4685 2.57563 9.90629 2.34332 9.31903 2.19817V0.776884C9.31903 0.56875 9.15031 0.400024 8.94217 0.400024H7.05788ZM5.36201 8.00002C5.36201 6.54309 6.54309 5.36201 8.00002 5.36201C9.45696 5.36201 10.638 6.54309 10.638 8.00002C10.638 9.45696 9.45696 10.638 8.00002 10.638C6.54309 10.638 5.36201 9.45696 5.36201 8.00002Z" fill="#D2D8DE"/>
+            </svg>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_5101_42260)">
+              <path d="M7.58329 11.6667C8.35656 11.6658 9.09789 11.3582 9.64467 10.8114C10.1914 10.2646 10.499 9.52327 10.5 8.75001V3.64176C10.5009 3.33514 10.4409 3.03138 10.3235 2.7481C10.2062 2.46483 10.0338 2.20766 9.81629 1.99151L8.50846 0.683677C8.29231 0.466195 8.03514 0.293778 7.75187 0.176422C7.46859 0.0590653 7.16483 -0.000897138 6.85821 1.01439e-05H4.08329C3.31003 0.000936394 2.5687 0.308525 2.02192 0.855305C1.47514 1.40209 1.16755 2.14341 1.16663 2.91668V8.75001C1.16755 9.52327 1.47514 10.2646 2.02192 10.8114C2.5687 11.3582 3.31003 11.6658 4.08329 11.6667H7.58329ZM2.33329 8.75001V2.91668C2.33329 2.45255 2.51767 2.00743 2.84586 1.67924C3.17404 1.35105 3.61916 1.16668 4.08329 1.16668C4.08329 1.16668 6.95271 1.17484 6.99996 1.18068V2.33334C6.99996 2.64276 7.12288 2.93951 7.34167 3.1583C7.56046 3.37709 7.85721 3.50001 8.16663 3.50001H9.31929C9.32513 3.54726 9.33329 8.75001 9.33329 8.75001C9.33329 9.21414 9.14892 9.65926 8.82073 9.98745C8.49254 10.3156 8.04742 10.5 7.58329 10.5H4.08329C3.61916 10.5 3.17404 10.3156 2.84586 9.98745C2.51767 9.65926 2.33329 9.21414 2.33329 8.75001ZM12.8333 4.66668V11.0833C12.8324 11.8566 12.5248 12.5979 11.978 13.1447C11.4312 13.6915 10.6899 13.9991 9.91663 14H4.66663C4.51192 14 4.36354 13.9386 4.25415 13.8292C4.14475 13.7198 4.08329 13.5714 4.08329 13.4167C4.08329 13.262 4.14475 13.1136 4.25415 13.0042C4.36354 12.8948 4.51192 12.8333 4.66663 12.8333H9.91663C10.3808 12.8333 10.8259 12.649 11.1541 12.3208C11.4823 11.9926 11.6666 11.5475 11.6666 11.0833V4.66668C11.6666 4.51197 11.7281 4.36359 11.8375 4.2542C11.9469 4.1448 12.0953 4.08334 12.25 4.08334C12.4047 4.08334 12.553 4.1448 12.6624 4.2542C12.7718 4.36359 12.8333 4.51197 12.8333 4.66668Z" fill="#AFB6C1"/>
+              </g>
+              <defs>
+              <clipPath id="clip0_5101_42260">
+              <rect width="14" height="14" fill="white"/>
+              </clipPath>
+              </defs>
+            </svg>
+            <svg id="delete" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M3.36363 1.77778C3.36363 1.34822 3.72994 1 4.18181 1H11.8182C12.2701 1 12.6364 1.34822 12.6364 1.77778C12.6364 2.20733 12.2701 2.55556 11.8182 2.55556H4.18181C3.72994 2.55556 3.36363 2.20733 3.36363 1.77778ZM2.81818 5.66667H2V4.11111H14V5.66667H13.1818V12.1481C13.1818 13.7232 11.8387 15 10.1818 15H5.81818C4.16132 15 2.81818 13.7232 2.81818 12.1481V5.66667ZM11.5455 5.66667H4.45455V12.1481C4.45455 12.8641 5.06508 13.4444 5.81818 13.4444H10.1818C10.9349 13.4444 11.5455 12.8641 11.5455 12.1481V5.66667Z" fill="#D2D8DE"/>
+            </svg>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="custom" v-if="selectedTab === 'custom'">
         <div class="custom_head">
@@ -343,7 +398,7 @@
         </div>
 
       </div>
-      <WidgetConstructor v-if="selectedTab != 'telegram'" v-bind:theme="switches.theme" :MainColor="widget.Main" :WidgetColor="widget.Back" :BakcgroundColor="widget.Plashka" :TextColor="widget.Text"/>
+      <WidgetConstructor v-if="selectedTab != 'telegram' && selectedTab != 'integrations' && selectedTab != 'discounts'" v-bind:theme="switches.theme" :MainColor="widget.Main" :WidgetColor="widget.Back" :BakcgroundColor="widget.Plashka" :TextColor="widget.Text"/>
     </div>
     
   </div>
@@ -1155,6 +1210,95 @@ export default {
     text-align: left;
     color: #535C69;
     margin-bottom: 5px;
+  }
+  .discounts{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 80%;
+    background: #FFFFFF;
+    padding: 30px;
+  }
+  .discounts_header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .discounts_input{
+    width: 30%;
+    border: 1px solid #C6CBD2;
+  }
+
+  .discounts_nav_container{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr;
+  }
+  .discounts_nav_text{
+    font-family: TT Norms Medium;
+    font-size: 14px;
+    line-height: 16.52px;
+    text-align: left;
+    color: #7D838C;
+  }
+  .divider {
+    border-bottom: 1px solid rgba(50, 56, 74, 0.1); 
+    width: auto;
+    margin: 0;
+  }
+  .discounts_new{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #EFEFFF;
+    border-radius: 5px;
+  }
+  .discounts_new_header{
+    font-family: TT Norms light;
+    font-size: 16px;
+    line-height: 22.4px;
+    text-align: left;
+    color: #000000;
+  }
+  .discounts_new_btn{
+    display: flex;
+  }
+  .ponyatno{
+    background: none;
+    color: #6266EA;
+    font-family: TT Norms Light;
+    font-size: 13px;
+    line-height: 15.34px;
+    text-align: left;
+  }
+  .discounts_new_container{
+    display: flex;
+    justify-content: space-between;
+  }
+  .krest{
+    font-size: 16px;
+  }
+  .discounts_main{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr;    
+  }
+  .discounts_main_text{
+    font-family: TT Norms light;
+    font-size: 14px;
+    line-height: 16.52px;
+    text-align: left;
+    color: #7D838C;
+  }
+  .discounts_main_items_container{
+    display: flex;
+    align-items: center;
+    gap: 25px;
+  }
+  .discounts_main_items{
+    display: flex;
+    gap: 10px;
   }
   @media (max-width: 768px){
     .main{
