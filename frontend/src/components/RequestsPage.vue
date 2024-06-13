@@ -7,14 +7,18 @@
     <div class="nav">
       <div class="nav_left">
         <SelectPage
-        :options="filials"
+        :options="this.filials.map(item => 
+                  ({name: item.name, 
+                    id: item.id}))"
         :searchable="true"
         :placeholderdata="'Выбрать филиал'"
         @input="option => selectedBranch = option"
         />
     
         <SelectPage
-        :options="employees"
+        :options="this.employees.map(item => 
+                  ({name: item.name, 
+                    id: item.id}))"
         :placeholderdata="'Выбрать Сотрудника'"
         :searchable="true"
         @input="option => selectedEmployee = option"
@@ -153,15 +157,6 @@ export default {
     changeTab(tab) {
       this.activeTab = tab;
     },
-    async getfilials(){
-        axios.get(`http://127.0.0.1:8000/api/get_branch/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`)
-        .then(response => {
-            this.filials = response.data;
-        })
-        .catch(error => {
-            console.error('Ошибка при получении данных о филиалах:', error);
-        });
-      },
     async get_request(filial_id, employee_id){
       try {
         const response = await axios.get(`http://127.0.0.1:8000/api/get_request/?filial=${filial_id}&employee=${employee_id}`);
@@ -170,16 +165,26 @@ export default {
         console.error('Ошибка при получении данных о заявках:', error);
       }
     },
-    async get_employee(){
-      const user_id =  this.$store.state.registrationData.user_id;
-      axios.get(`http://127.0.0.1:8000/api/get_employees/?user_id=${user_id}&project=${this.$store.state.activeProjectId}`)
-        .then(response => {
-          this.employees = response.data;
-        })
-        .catch(error => {
-          console.error('Error fetching employees:', error);
-        });
-      },
+    async getfilials() {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/get_branch/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`);
+        this.filials = response.data;
+        console.log(this.filials);
+      } catch (error) {
+        console.error('Ошибка при получении данных о филиалах:', error);
+      }
+    },
+
+    async get_employee() {
+      try {
+        const user_id = this.$store.state.registrationData.user_id;
+        const response = await axios.get(`http://127.0.0.1:8000/api/get_employees/?user_id=${user_id}&project=${this.$store.state.activeProjectId}`);
+        this.employees = response.data;
+        console.log(this.employees);
+      } catch (error) {
+        console.error('Ошибка при получении данных о сотрудниках:', error);
+      }
+    },
   },
   mounted() {
     this.getfilials();
