@@ -125,18 +125,20 @@ export default {
         this.clientsToDelete.splice(index, 1);
       }
     },
-    toggleAllClients() {
-      const clientIds = Object.keys(this.clients).map(Number);
-      const allClientsSelected = clientIds.every(id => this.clientsToDelete.includes(id));
 
-      if (allClientsSelected) {
+    toggleAllClients() {
+      if (this.clientsToDelete.length == 0) {
+        for (let i of this.clients) {
+          this.clientsToDelete.push(i.id)
+        }
+        this.Mark = true;
+        console.log(this.clientsToDelete)
+      }else{
         this.clientsToDelete = [];
         this.Mark = false;
-      } else {
-        this.clientsToDelete = [...new Set([...this.clientsToDelete, ...clientIds])];
-        this.Mark = true;
       }
     },
+
     deleteSelectedClients(){
       for(let i of this.clientsToDelete){
         console.log(i)
