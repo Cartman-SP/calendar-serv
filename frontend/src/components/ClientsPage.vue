@@ -127,7 +127,7 @@ export default {
     },
 
     toggleAllClients() {
-      if (this.clientsToDelete.length == 0) {
+      if (this.clientsToDelete.length == 0 && this.clients.length !== 0) {
         for (let i of this.clients) {
           this.clientsToDelete.push(i.id)
         }
@@ -145,7 +145,7 @@ export default {
         this.deleteClient(i)
       }
       this.clientsToDelete = [];
-      this.toggleModal();
+      this.showModal = !this.showModal
     },
     async deleteClient(clientId) {
       try {
