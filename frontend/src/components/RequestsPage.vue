@@ -7,18 +7,17 @@
     <div class="nav">
       <div class="nav_left">
         <SelectPage
-        :options="this.filials.map(item => 
-                  ({name: item.name, 
-                    id: item.id}))"
+        :options="filials"
         :searchable="true"
         :placeholderdata="'Выбрать филиал'"
         @input="option => selectedBranch = option"
         />
     
         <SelectPage
-        :options="this.employees.map(item => 
-                  ({name: item.name, 
-                    id: item.id}))"
+        :options="employees.map(item => ({
+                          name: item.firstname + ' ' + item.secondname,
+                          id: item.id,
+                        }))"
         :placeholderdata="'Выбрать Сотрудника'"
         :searchable="true"
         @input="option => selectedEmployee = option"
@@ -110,12 +109,12 @@
         <p class="primary_nav_text">Действия</p>
       </div>
       <div class="divider"></div>
-      <div v-if="!(applications.length>0)">
-        <p class="primary_new">Выберите филиал и сотрудника,<br>чтобы посмотреть список заявок</p>
-        <img src="../../static/img/request.svg" alt="" draggable="false">
+      <div v-if="applications.length>0">
+        <CardRequest v-for="a in applications" :key="a.id" :requestData="a"/>
       </div>
       <div v-else>
-        <CardRequest v-for="a in applications" :key="a.id" :requestData="a"/>
+        <p class="primary_new">Выберите филиал и сотрудника,<br>чтобы посмотреть список заявок</p>
+        <img src="../../static/img/request.svg" alt="" draggable="false">
       </div>
     </div>
 
@@ -137,8 +136,8 @@ export default {
       activeTab: 'all',
       timeRange: 'week',
 
-      selectedBranch: null,
-      selectedEmployee: null,
+      selectedBranch: {},
+      selectedEmployee: {},
 
       applications: [],
       filials: [],
@@ -146,11 +145,13 @@ export default {
     };
   },
   watch: {
-    selectedBranch(newBranch) {
-      this.get_request(newBranch, this.selectedEmployee);
+    selectedBranch() {
+      this.get_request(this.selectedBranch.id, this.selectedEmployee.id);
+      console.log('-----------')
     },
-    selectedEmployee(newEmployee) {
-      this.get_request(this.selectedBranch, newEmployee)
+    selectedEmployee() {
+      this.get_request(this.selectedBranch.id, this.selectedEmployee.id)
+      console.log('-----------')
     },
   },
   methods: {
@@ -161,6 +162,7 @@ export default {
       try {
         const response = await axios.get(`http://127.0.0.1:8000/api/get_request/?filial=${filial_id}&employee=${employee_id}`);
         this.applications = response.data;
+        console.log(this.applications)
       } catch (error) {
         console.error('Ошибка при получении данных о заявках:', error);
       }
