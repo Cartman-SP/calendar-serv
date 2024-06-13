@@ -49,16 +49,16 @@ export default {
 
       getfilials(){
         axios.get(`http://127.0.0.1:8000/api/get_branch/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`)
-    .then(response => {
-        this.filials = response.data;
-        this.filials.reverse();
-        console.log(response);
-        this.branchLoaded = true;
-        this.rerenderSidebar();
-    })
-    .catch(error => {
-        console.error('Ошибка при получении данных о пользователе:', error);
-    });
+        .then(response => {
+            this.filials = response.data;
+            this.filials.reverse();
+            console.log(response);
+            this.branchLoaded = true;
+            this.rerenderSidebar();
+        })
+        .catch(error => {
+            console.error('Ошибка при получении данных о пользователе:', error);
+        });
       },
     },
     mounted() {

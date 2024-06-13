@@ -16,7 +16,6 @@
         serviceCover: '',
         fileNameVariable: '',
         serviceCoverError: false,
-        status: 'Done',
         data: '24.06.2005',
         usluga_id: 1,
         employee_id: 1,
@@ -55,10 +54,10 @@
 
         axios.post('http://127.0.0.1:8000/api/create_applications/', formData)
           .then(response => {
-            console.log('Service created:', response.data);
+            console.log('application created:', response.data);
           })
           .catch(error => {
-            console.error('Error creating service:', error);
+            console.error('Error creating application:', error);
           });
       },
       async get_applications(){
@@ -67,7 +66,7 @@
         const response = await axios.get(`http://127.0.0.1:8000/api/get_applications/?project=${project_id}`);
         console.log(response.data)
       } catch (error) {
-        console.error('Error fetching uslugi:', error);
+        console.error('Error fetching applications:', error);
       }
     },
     async get_client(){
@@ -76,7 +75,7 @@
         const response = await axios.get(`http://127.0.0.1:8000/api/get_client/?project=${project_id}`);
         console.log(response.data)
       } catch (error) {
-        console.error('Error fetching uslugi:', error);
+        console.error('Error fetching clients:', error);
       }
     },
     async get_integration(){
@@ -84,16 +83,7 @@
         const response = await axios.get(`http://127.0.0.1:8000/api/get_integration/`);
         console.log(response.data)
       } catch (error) {
-        console.error('Error fetching uslugi:', error);
-      }
-    },
-
-    async get_request(filial_id, employee_id){
-      try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/get_request/?filial=${filial_id}&employee=${employee_id}`);
-        console.log(response.data,123)
-      } catch (error) {
-        console.error('Error fetching uslugi:', error);
+        console.error('Error fetching integrations:', error);
       }
     },
 
