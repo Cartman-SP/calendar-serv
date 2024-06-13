@@ -24,7 +24,6 @@
         project_id: 1,
         branch_id: 1,
         request_id:2,
-        status: 'Declined'
       };
     },
     methods: {
