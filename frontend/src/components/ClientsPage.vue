@@ -99,12 +99,14 @@ export default {
   },
   methods:{
     toggleModal() {
-      if (this.clientsToDelete.length == 1) {
-        this.target = this.clients[this.clientsToDelete].firstname + ' ' + this.clients[this.clientsToDelete].secondname
-      }
       if (this.clientsToDelete.length>0) {
-        this.showModal = !this.showModal;
+        this.showModal = !this.showModal
+        if (this.clientsToDelete.length == 1) {
+          let targetClient = this.clients.find(client => client.id === this.clientsToDelete[0]);
+          this.target = targetClient.firstname + ' ' + targetClient.secondname;
+        }
       }
+      
     },
     async get_client(){
       try {
@@ -137,8 +139,11 @@ export default {
     },
     deleteSelectedClients(){
       for(let i of this.clientsToDelete){
+        console.log(i)
         this.deleteClient(i)
       }
+      this.clientsToDelete = [];
+      this.toggleModal();
     },
     async deleteClient(clientId) {
       try {
