@@ -176,6 +176,15 @@ export default {
   height: 0;
   border: 3px solid transparent;
   border-color: #535C69 transparent transparent transparent;
+
+  rotate: 0deg;
+  transition: .3s ease all;
+}
+
+.selected.open:after{
+  top: 13px;
+  rotate: 180deg;
+  transition: .3s ease all;
 }
 
 .items {

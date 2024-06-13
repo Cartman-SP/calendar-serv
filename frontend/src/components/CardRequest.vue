@@ -10,14 +10,14 @@
             <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2556 6.15492L9.05226 14.4665L4.29285 9.7071L5.70706 8.29289L8.94764 11.5335L14.7443 4.84506L16.2556 6.15492Z" fill="#FFFFFF"/>
           </svg>
         </div>
-        <div class="status-select" @click="statusDrop = true" tabindex="1" @blur="toggleStatusDropdown">
+        <div class="status-select" @click="statusDrop = true">
           <div>
             <p class="text_container" v-if="requestData.status === 'New'" style="background-color: #28CCF0;">Новые</p>
             <p class="text_container" v-else-if="requestData.status === 'Adopted'" style="background-color: #F7D37D;">Принят</p>
             <p class="text_container" v-else-if="requestData.status === 'Canceled'" style="background-color: #F97F7F;">Отменен</p>
             <p class="text_container" v-else-if="requestData.status === 'Done'" style="background-color: #00A490;">Завершен</p>
           </div>
-          <img src="../../static/img/arrow-down.png" alt="">
+          <img :class="{'statusDropClosed' : !statusDrop, 'statusDropOpened' : statusDrop}" src="../../static/img/arrow-down.png" alt="">
           <div v-if="statusDrop" class="status-select_options">
             <p class="status-option" @click="set_status(requestData.id, 'Adopted')">Принят</p>
             <p class="status-option" @click="set_status(requestData.id, 'New')">Новые</p>
@@ -53,22 +53,38 @@
         </div>
       </div>
       <div class="keys">
-        <img src="../../static/img/cog.svg" alt="" class="">
-        <img src="../../static/img/copy_2.svg" alt="" class="">
-        <img src="../../static/img/delete.svg" alt="" class="">
+        <svg id="edit" @click="this.$router.push({ name: `edit`, params: { clientId: human.id, clientDataToEdit: human }})" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="16" height="16" fill="white"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M7.05788 0.400024C6.84974 0.400024 6.68102 0.56875 6.68102 0.776884V2.19817C6.09375 2.34332 5.53152 2.57563 5.01308 2.88734L4.01148 1.88314C3.94083 1.81232 3.84493 1.77249 3.7449 1.77242C3.64486 1.77236 3.54891 1.81207 3.47817 1.8828L1.8828 3.47817C1.81207 3.54891 1.77236 3.64486 1.77242 3.7449C1.77249 3.84493 1.81232 3.94083 1.88314 4.01148L2.88734 5.01308C2.57563 5.53152 2.34332 6.09375 2.19817 6.68102H0.776884C0.56875 6.68102 0.400024 6.84974 0.400024 7.05788V8.94217C0.400024 9.15031 0.56875 9.31903 0.776884 9.31903H2.19817C2.34332 9.90629 2.57563 10.4685 2.88734 10.987L1.88314 11.9886C1.81232 12.0592 1.77249 12.1551 1.77242 12.2552C1.77236 12.3552 1.81207 12.4511 1.8828 12.5219L3.47817 14.1172C3.54891 14.188 3.64486 14.2277 3.7449 14.2276C3.84493 14.2276 3.94083 14.1877 4.01148 14.1169L5.01308 13.1127C5.53152 13.4244 6.09375 13.6567 6.68102 13.8019V15.2232C6.68102 15.4313 6.84974 15.6 7.05788 15.6H8.94217C9.15031 15.6 9.31903 15.4313 9.31903 15.2232V13.8019C9.90629 13.6567 10.4685 13.4244 10.987 13.1127L11.9886 14.1169C12.0592 14.1877 12.1551 14.2276 12.2552 14.2276C12.3552 14.2277 12.4511 14.188 12.5219 14.1172L14.1172 12.5219C14.188 12.4511 14.2277 12.3552 14.2276 12.2552C14.2276 12.1551 14.1877 12.0592 14.1169 11.9886L13.1127 10.987C13.4244 10.4685 13.6567 9.90629 13.8019 9.31903H15.2232C15.4313 9.31903 15.6 9.15031 15.6 8.94217V7.05788C15.6 6.84974 15.4313 6.68102 15.2232 6.68102H13.8019C13.6567 6.09375 13.4244 5.53152 13.1127 5.01308L14.1169 4.01148C14.1877 3.94083 14.2276 3.84493 14.2276 3.7449C14.2277 3.64486 14.188 3.54891 14.1172 3.47817L12.5219 1.8828C12.4511 1.81207 12.3552 1.77236 12.2552 1.77242C12.1551 1.77249 12.0592 1.81232 11.9886 1.88314L10.987 2.88734C10.4685 2.57563 9.90629 2.34332 9.31903 2.19817V0.776884C9.31903 0.56875 9.15031 0.400024 8.94217 0.400024H7.05788ZM5.36201 8.00002C5.36201 6.54309 6.54309 5.36201 8.00002 5.36201C9.45696 5.36201 10.638 6.54309 10.638 8.00002C10.638 9.45696 9.45696 10.638 8.00002 10.638C6.54309 10.638 5.36201 9.45696 5.36201 8.00002Z" fill="#D2D8DE"/>
+        </svg>
+
+        <svg id="copy" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M9.33058 2.4H2.85124C2.59563 2.4 2.38843 2.60893 2.38843 2.86666V9.4C2.38843 9.65773 2.59563 9.86666 2.85124 9.86666H9.33058C9.58617 9.86666 9.79339 9.65773 9.79339 9.4V2.86666C9.79339 2.60893 9.58617 2.4 9.33058 2.4ZM2.85124 1C1.82883 1 1 1.83574 1 2.86666V9.4C1 10.4309 1.82883 11.2667 2.85124 11.2667H9.33058C10.353 11.2667 11.1818 10.4309 11.1818 9.4V2.86666C11.1818 1.83574 10.353 1 9.33058 1H2.85124Z" fill="#D2D8DE"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M4.81812 12.2001V13.1334C4.81812 14.1644 5.64695 15.0001 6.66936 15.0001H13.1487C14.1711 15.0001 14.9999 14.1644 14.9999 13.1334V6.60006C14.9999 5.56913 14.1711 4.7334 13.1487 4.7334H12.2231V6.1334H13.1487C13.4043 6.1334 13.6115 6.34233 13.6115 6.60006V13.1334C13.6115 13.3911 13.4043 13.6001 13.1487 13.6001H6.66936C6.41375 13.6001 6.20655 13.3911 6.20655 13.1334V12.2001H4.81812Z" fill="#D2D8DE"/>
+        </svg>
+
+        <svg id="delete" @click="addToDel(human.id), toggleModal()" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M3.36363 1.77778C3.36363 1.34822 3.72994 1 4.18181 1H11.8182C12.2701 1 12.6364 1.34822 12.6364 1.77778C12.6364 2.20733 12.2701 2.55556 11.8182 2.55556H4.18181C3.72994 2.55556 3.36363 2.20733 3.36363 1.77778ZM2.81818 5.66667H2V4.11111H14V5.66667H13.1818V12.1481C13.1818 13.7232 11.8387 15 10.1818 15H5.81818C4.16132 15 2.81818 13.7232 2.81818 12.1481V5.66667ZM11.5455 5.66667H4.45455V12.1481C4.45455 12.8641 5.06508 13.4444 5.81818 13.4444H10.1818C10.9349 13.4444 11.5455 12.8641 11.5455 12.1481V5.66667Z" fill="#D2D8DE"/>
+        </svg>
       </div>
     </div>
+    <MessageAlert :message="alertMessage" :color="alertColor"/>
   </div>
 </template>
 
 <script>
+import MessageAlert from "../components/MessageAlert.vue";
 import axios from 'axios';
 export default {
   props: ['requestData'],
+  components: { MessageAlert },
   data() {
       return {
         Mark: false,
         statusDrop: false,
+
+        alertColor: '',
+        alertMessage: '',
       }
   },
   methods:{
@@ -76,22 +92,33 @@ export default {
       this.statusDrop = !this.statusDrop;
     },
     async set_status(id, status) {
-      const formData = new FormData();
-      formData.append('id', id);
-      formData.append('status', status)
-      axios.post('http://127.0.0.1:8000/api/set_status/', formData)
-        .then(response => {
-          console.log('Service deleted:', response.data);
-        })
-        .catch(error => {
-          console.error('Error creating service:', error);
-        });
+      if (this.requestData.status === status) {
+        this.alertMessage = 'Данный статус уже установлен';
+        this.alertColor = '#F97F7F';
+        setTimeout(() => {
+          this.alertMessage = '';
+          this.alertColor = '#F97F7F';
+        }, 3000);
+      }else{
+        const formData = new FormData();
+        formData.append('id', id);
+        formData.append('status', status)
+        axios.post('http://127.0.0.1:8000/api/set_status/', formData)
+          .then(response => {
+            console.error(response);
+            this.$emit('changed', { id, status });
+            this.statusDrop = false;
+          })
+          .catch(error => {
+            console.error('Error creating service:', error);
+          });
+      }
+      
     },
   },
   computed: {
     statusClass() {
       return {
-        
         'done': this.requestData.status === 'Done',
         'new': this.requestData.status === 'New',
         'adopted': this.requestData.status === 'Adopted',
@@ -103,6 +130,29 @@ export default {
 </script>
 
 <style scoped>
+#edit path,#copy path,#delete path{
+  fill: #D2D8DE;
+  transition: all .2s ease;
+}
+
+#edit:hover path, #copy:hover path{
+  fill: #535C69;
+}
+
+#delete:hover path{
+  fill: #F97F7F;
+}
+.statusDropClosed{
+  filter: brightness(100%);
+  rotate: 0;
+  transition: .3s ease all;
+}
+
+.statusDropOpened{
+  filter: brightness(50%);
+  rotate: 180deg;
+  transition: .3s ease all;
+}
 .status-select_options{
   position: absolute;
   background-color: white;
@@ -166,7 +216,7 @@ export default {
     width: 100%;
     padding: 20px 10px;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr) 80px;
     grid-template-rows: 1fr;
     align-items: center;
     gap: 10px;
@@ -243,5 +293,6 @@ p {
 .keys{
   display: flex;
   gap: 10px;
+  cursor: pointer;
 }
 </style>
