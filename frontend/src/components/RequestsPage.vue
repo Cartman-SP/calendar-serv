@@ -32,7 +32,7 @@
         <input type="date" style="width:160px">
       </div>
 
-      <div class="search">
+      <div class="search" v-show="false">
         <input type="text" placeholder="Поиск по заявкам">
       </div>
     </div>
@@ -109,7 +109,7 @@
         <p class="primary_nav_text">Действия</p>
       </div>
       <div class="divider"></div>
-      <div v-if="applications.length>0">
+      <div v-if="applications.length>0" class="allAps">
         <CardRequest @changed="handleStatusChange" v-for="a in filteredApplications" :key="a.id" :requestData="a"/>
       </div>
       <div v-else style="margin: 50px 0;">
@@ -247,6 +247,11 @@ export default {
 </script>
 
 <style scoped>
+.allAps{
+  height: fit-content;
+  max-height: 500px;
+  overflow-y: scroll;
+}
 .main{
   display: flex;
   flex-direction: column;
@@ -466,7 +471,7 @@ p {
 }
 .primary{
   width: 100%;
-  height: fit-content;
+  height: 100%;
   gap: 10px;
   border-radius: 5px;
   background: #FFFFFF;
