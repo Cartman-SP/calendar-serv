@@ -391,12 +391,148 @@
             </div>
             <div class="divider"></div>
           </div>
+          <div class="integrations_second_card_container">
+            <div class="integrations_second_card">
+              <div class="integrations_second_card_header">
+                <div class="integrations_second_card_logo">
+                  <img src="../../static/img/AmoCRM.svg" alt="" class="">
+                </div>
+                <div class="integrations_second_card_wrapper">
+                  <p class="integrations_second_card_wrapper_text">AmoCRM</p>
+                  <p class="integrations_second_card_wrapper_subtext">CRM-система</p>
+                </div>
+              </div>
+              <p class="integrations_second_card_text">Гибкая, эффективная и интуитивно понятная система учёта потенциальных клиентов и сделок</p>
+              <div class="integrations_second_card_btn">
+                <button class="integrations_add">
+                  <img src="../../static/img/plus.svg" alt="" class="">
+                  Подключить
+                </button>
+                <button class="integrations_manual">
+                  <img src="../../static/img/note.svg" alt="" class="">
+                  Инструкция
+                </button>
+              </div>
+            </div>
+            <div class="integrations_second_card">
+              <div class="integrations_second_card_header">
+                <div class="integrations_second_card_logo">
+                  <img src="../../static/img/AmoCRM.svg" alt="" class="">
+                </div>
+                <div class="integrations_second_card_wrapper">
+                  <p class="integrations_second_card_wrapper_text">AmoCRM</p>
+                  <p class="integrations_second_card_wrapper_subtext">CRM-система</p>
+                </div>
+              </div>
+              <p class="integrations_second_card_text">Гибкая, эффективная и интуитивно понятная система учёта потенциальных клиентов и сделок</p>
+              <div class="integrations_second_card_btn">
+                <button class="integrations_add">
+                  <img src="../../static/img/plus.svg" alt="" class="">
+                  Подключить
+                </button>
+                <button class="integrations_manual">
+                  <img src="../../static/img/note.svg" alt="" class="">
+                  Инструкция
+                </button>
+              </div>
+            </div>
+            <div class="integrations_second_card">
+              <div class="integrations_second_card_header">
+                <div class="integrations_second_card_logo">
+                  <img src="../../static/img/AmoCRM.svg" alt="" class="">
+                </div>
+                <div class="integrations_second_card_wrapper">
+                  <p class="integrations_second_card_wrapper_text">AmoCRM</p>
+                  <p class="integrations_second_card_wrapper_subtext">CRM-система</p>
+                </div>
+              </div>
+              <p class="integrations_second_card_text">Гибкая, эффективная и интуитивно понятная система учёта потенциальных клиентов и сделок</p>
+              <div class="integrations_second_card_btn">
+                <button class="integrations_add">
+                  <img src="../../static/img/plus.svg" alt="" class="">
+                  Подключить
+                </button>
+                <button class="integrations_manual">
+                  <img src="../../static/img/note.svg" alt="" class="">
+                  Инструкция
+                </button>
+              </div>
+            </div>
+          </div>
           <div class="integrations_second_nav">
             <div class="integrations_second_nav_container">
               <img src="../../static/img/right-integrations.svg" alt="">
               <p class="integrations_second_nav_text">Сервисы рассылок</p>
             </div>
             <div class="divider"></div>
+          </div>
+          <div class="integrations_second_card_container">
+            <div class="integrations_second_card">
+              <div class="integrations_second_card_header">
+                <div class="integrations_second_card_logo">
+                  <img src="../../static/img/AmoCRM.svg" alt="" class="">
+                </div>
+                <div class="integrations_second_card_wrapper">
+                  <p class="integrations_second_card_wrapper_text">AmoCRM</p>
+                  <p class="integrations_second_card_wrapper_subtext">CRM-система</p>
+                </div>
+              </div>
+              <p class="integrations_second_card_text">Гибкая, эффективная и интуитивно понятная система учёта потенциальных клиентов и сделок</p>
+              <div class="integrations_second_card_btn">
+                <button class="integrations_add">
+                  <img src="../../static/img/plus.svg" alt="" class="">
+                  Подключить
+                </button>
+                <button class="integrations_manual">
+                  <img src="../../static/img/note.svg" alt="" class="">
+                  Инструкция
+                </button>
+              </div>
+            </div>
+            <div class="integrations_second_card">
+              <div class="integrations_second_card_header">
+                <div class="integrations_second_card_logo">
+                  <img src="../../static/img/AmoCRM.svg" alt="" class="">
+                </div>
+                <div class="integrations_second_card_wrapper">
+                  <p class="integrations_second_card_wrapper_text">AmoCRM</p>
+                  <p class="integrations_second_card_wrapper_subtext">CRM-система</p>
+                </div>
+              </div>
+              <p class="integrations_second_card_text">Гибкая, эффективная и интуитивно понятная система учёта потенциальных клиентов и сделок</p>
+              <div class="integrations_second_card_btn">
+                <button class="integrations_add">
+                  <img src="../../static/img/plus.svg" alt="" class="">
+                  Подключить
+                </button>
+                <button class="integrations_manual">
+                  <img src="../../static/img/note.svg" alt="" class="">
+                  Инструкция
+                </button>
+              </div>
+            </div>
+            <div class="integrations_second_card">
+              <div class="integrations_second_card_header">
+                <div class="integrations_second_card_logo">
+                  <img src="../../static/img/AmoCRM.svg" alt="" class="">
+                </div>
+                <div class="integrations_second_card_wrapper">
+                  <p class="integrations_second_card_wrapper_text">AmoCRM</p>
+                  <p class="integrations_second_card_wrapper_subtext">CRM-система</p>
+                </div>
+              </div>
+              <p class="integrations_second_card_text">Гибкая, эффективная и интуитивно понятная система учёта потенциальных клиентов и сделок</p>
+              <div class="integrations_second_card_btn">
+                <button class="integrations_add">
+                  <img src="../../static/img/plus.svg" alt="" class="">
+                  Подключить
+                </button>
+                <button class="integrations_manual">
+                  <img src="../../static/img/note.svg" alt="" class="">
+                  Инструкция
+                </button>
+              </div>
+            </div>
           </div>
           <div class="integrations_second_nav">
             <div class="integrations_second_nav_container">
@@ -405,12 +541,148 @@
             </div>
             <div class="divider"></div>
           </div>
+          <div class="integrations_second_card_container">
+            <div class="integrations_second_card">
+              <div class="integrations_second_card_header">
+                <div class="integrations_second_card_logo">
+                  <img src="../../static/img/AmoCRM.svg" alt="" class="">
+                </div>
+                <div class="integrations_second_card_wrapper">
+                  <p class="integrations_second_card_wrapper_text">AmoCRM</p>
+                  <p class="integrations_second_card_wrapper_subtext">CRM-система</p>
+                </div>
+              </div>
+              <p class="integrations_second_card_text">Гибкая, эффективная и интуитивно понятная система учёта потенциальных клиентов и сделок</p>
+              <div class="integrations_second_card_btn">
+                <button class="integrations_add">
+                  <img src="../../static/img/plus.svg" alt="" class="">
+                  Подключить
+                </button>
+                <button class="integrations_manual">
+                  <img src="../../static/img/note.svg" alt="" class="">
+                  Инструкция
+                </button>
+              </div>
+            </div>
+            <div class="integrations_second_card">
+              <div class="integrations_second_card_header">
+                <div class="integrations_second_card_logo">
+                  <img src="../../static/img/AmoCRM.svg" alt="" class="">
+                </div>
+                <div class="integrations_second_card_wrapper">
+                  <p class="integrations_second_card_wrapper_text">AmoCRM</p>
+                  <p class="integrations_second_card_wrapper_subtext">CRM-система</p>
+                </div>
+              </div>
+              <p class="integrations_second_card_text">Гибкая, эффективная и интуитивно понятная система учёта потенциальных клиентов и сделок</p>
+              <div class="integrations_second_card_btn">
+                <button class="integrations_add">
+                  <img src="../../static/img/plus.svg" alt="" class="">
+                  Подключить
+                </button>
+                <button class="integrations_manual">
+                  <img src="../../static/img/note.svg" alt="" class="">
+                  Инструкция
+                </button>
+              </div>
+            </div>
+            <div class="integrations_second_card">
+              <div class="integrations_second_card_header">
+                <div class="integrations_second_card_logo">
+                  <img src="../../static/img/AmoCRM.svg" alt="" class="">
+                </div>
+                <div class="integrations_second_card_wrapper">
+                  <p class="integrations_second_card_wrapper_text">AmoCRM</p>
+                  <p class="integrations_second_card_wrapper_subtext">CRM-система</p>
+                </div>
+              </div>
+              <p class="integrations_second_card_text">Гибкая, эффективная и интуитивно понятная система учёта потенциальных клиентов и сделок</p>
+              <div class="integrations_second_card_btn">
+                <button class="integrations_add">
+                  <img src="../../static/img/plus.svg" alt="" class="">
+                  Подключить
+                </button>
+                <button class="integrations_manual">
+                  <img src="../../static/img/note.svg" alt="" class="">
+                  Инструкция
+                </button>
+              </div>
+            </div>
+          </div>
           <div class="integrations_second_nav">
             <div class="integrations_second_nav_container">
               <img src="../../static/img/right-integrations.svg" alt="">
               <p class="integrations_second_nav_text">Платежные системы</p>
             </div>
             <div class="divider"></div>
+          </div>
+          <div class="integrations_second_card_container">
+            <div class="integrations_second_card">
+              <div class="integrations_second_card_header">
+                <div class="integrations_second_card_logo">
+                  <img src="../../static/img/AmoCRM.svg" alt="" class="">
+                </div>
+                <div class="integrations_second_card_wrapper">
+                  <p class="integrations_second_card_wrapper_text">AmoCRM</p>
+                  <p class="integrations_second_card_wrapper_subtext">CRM-система</p>
+                </div>
+              </div>
+              <p class="integrations_second_card_text">Гибкая, эффективная и интуитивно понятная система учёта потенциальных клиентов и сделок</p>
+              <div class="integrations_second_card_btn">
+                <button class="integrations_add">
+                  <img src="../../static/img/plus.svg" alt="" class="">
+                  Подключить
+                </button>
+                <button class="integrations_manual">
+                  <img src="../../static/img/note.svg" alt="" class="">
+                  Инструкция
+                </button>
+              </div>
+            </div>
+            <div class="integrations_second_card">
+              <div class="integrations_second_card_header">
+                <div class="integrations_second_card_logo">
+                  <img src="../../static/img/AmoCRM.svg" alt="" class="">
+                </div>
+                <div class="integrations_second_card_wrapper">
+                  <p class="integrations_second_card_wrapper_text">AmoCRM</p>
+                  <p class="integrations_second_card_wrapper_subtext">CRM-система</p>
+                </div>
+              </div>
+              <p class="integrations_second_card_text">Гибкая, эффективная и интуитивно понятная система учёта потенциальных клиентов и сделок</p>
+              <div class="integrations_second_card_btn">
+                <button class="integrations_add">
+                  <img src="../../static/img/plus.svg" alt="" class="">
+                  Подключить
+                </button>
+                <button class="integrations_manual">
+                  <img src="../../static/img/note.svg" alt="" class="">
+                  Инструкция
+                </button>
+              </div>
+            </div>
+            <div class="integrations_second_card">
+              <div class="integrations_second_card_header">
+                <div class="integrations_second_card_logo">
+                  <img src="../../static/img/AmoCRM.svg" alt="" class="">
+                </div>
+                <div class="integrations_second_card_wrapper">
+                  <p class="integrations_second_card_wrapper_text">AmoCRM</p>
+                  <p class="integrations_second_card_wrapper_subtext">CRM-система</p>
+                </div>
+              </div>
+              <p class="integrations_second_card_text">Гибкая, эффективная и интуитивно понятная система учёта потенциальных клиентов и сделок</p>
+              <div class="integrations_second_card_btn">
+                <button class="integrations_add">
+                  <img src="../../static/img/plus.svg" alt="" class="">
+                  Подключить
+                </button>
+                <button class="integrations_manual">
+                  <img src="../../static/img/note.svg" alt="" class="">
+                  Инструкция
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1712,7 +1984,7 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 60%;
+    width: 80%;
   }
   .integrations_second_main{
     display: flex;
@@ -1721,6 +1993,8 @@ export default {
     padding: 20px 30px;
     background: #FFFFFF;
     border-radius: 5px;
+    overflow: scroll;
+    height: 55%;
   }
   .integrations_second_header{
     display: flex;
@@ -1760,6 +2034,89 @@ export default {
   .integrations_second_nav_container{
     display: flex;
     gap: 5px;
+  }
+  .integrations_second_card_container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    gap: 25px;
+  }
+  .integrations_second_card{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 18px 20px;
+    border-radius: 5px;
+    border: 2px solid #F3F6F8;
+    background: #FFFFFF;
+  }
+  .integrations_second_card_btn{
+    display: flex;
+    gap: 10px;
+  }
+  .integrations_add{
+    background: #EFEFFF;
+    transition: all 0.3s ease;
+    color: #464AD9;
+  }
+  .integrations_add:hover{
+    background: #EFEFFF;
+    transition: all 0.3s ease;
+    background: #464AD9;
+    color: #FFFFFF;
+  }
+  .integrations_manual{
+    border: 1px solid #F3F5F6;
+    background: #FFFFFF;
+    color: #7D838C;
+    transition: all 0.3s ease;
+  }
+  .integrations_manual:hover{
+    border: 1px solid #F3F5F6;
+    background: #FFFFFF;
+    color:#535C69;
+  }
+  .integrations_second_card_text{
+    font-family: TT Norms Light;
+    font-size: 13px;
+    line-height: 16.9px;
+    text-align: left;
+    color: #7D838C;
+    margin: 0;
+  }
+  .integrations_second_card_logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 5px;
+    background: #F3F6F8;
+  }
+  .integrations_second_card_wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .integrations_second_card_header{
+    display: flex;
+    gap: 10px;
+  }
+  .integrations_second_card_wrapper_text{
+    font-family: TT Norms Medium;
+    font-size: 18px;
+    line-height: 21.24px;
+    text-align: left;
+    color: #535C69;
+    margin: 0;
+  }
+  .integrations_second_card_wrapper_subtext{
+    font-family: TT Norms Medium;
+    font-size: 14px;
+    line-height: 16.52px;
+    text-align: left;
+    color: #7D838C;
+    margin: 0;
   }
   @media (max-width: 768px){
     .main{
