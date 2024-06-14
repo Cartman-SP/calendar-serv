@@ -38,6 +38,7 @@
             class="select" @input="option => serviceDuration = option"
             :placeholderdata="'Выберите время'"
             :class="{ 'select-error': serviceDurationError }"
+            :value="serviceDuration"
           />
           </div>
         </div>
@@ -183,7 +184,7 @@
     
           <!-- 8. Кнопки -->
           <div class="button-container">
-            <button @click="saveAndExit" class="save-and-exit-button">Сохранить и выйти</button>
+            <button @click="saveAndExit" class="save-and-exit-button">Сохранить изменения</button>
             <button @click="cancel" class="cancel-button">Отмена</button>
           </div>
         </div>
@@ -414,7 +415,7 @@ export default {
       formData.append('type', this.selectedRecordType);
       formData.append('place_ammount', this.groupCapacity);
       formData.append('rent_ammount', this.maxGroupCapacity);
-      formData.append('pay_type', this.selectedPaymentText);
+      formData.append('pay_type', this.selectedPaymentType);
       formData.append('user', this.$store.state.registrationData.user_id);
       formData.append('serviceCover', this.serviceCover);
       formData.append('project', this.$store.state.activeProjectId)
@@ -460,12 +461,10 @@ export default {
           console.log(obj)
           this.serviceName = ServiceData.name
           this.serviceCost = ServiceData.cost
-          this.serviceDuration = ServiceData.time
           this.serviceCover = ServiceData.serviceCover
           this.selectedRecordType = ServiceData.type
           this.selectedPaymentFormat = ServiceData.pay_type
-
-
+          this.serviceDuration = ServiceData.time
           break;
         }
       }

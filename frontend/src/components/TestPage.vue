@@ -112,7 +112,7 @@
   };
   </script>
   
-  <style>
+  <style scoped>
   /* Your CSS styles */
   </style>
   
