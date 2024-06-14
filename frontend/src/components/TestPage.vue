@@ -88,17 +88,6 @@
       }
     },
 
-    async delete_request() {
-        const formData = new FormData();
-        formData.append('id', this.request_id);
-        axios.post('http://127.0.0.1:8000/api/delete_request/', formData)
-          .then(response => {
-            console.log('Service deleted:', response.data);
-          })
-          .catch(error => {
-            console.error('Error creating service:', error);
-          });
-      },
 
       
     },

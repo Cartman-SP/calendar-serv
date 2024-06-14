@@ -63,10 +63,21 @@
           <path fill-rule="evenodd" clip-rule="evenodd" d="M4.81812 12.2001V13.1334C4.81812 14.1644 5.64695 15.0001 6.66936 15.0001H13.1487C14.1711 15.0001 14.9999 14.1644 14.9999 13.1334V6.60006C14.9999 5.56913 14.1711 4.7334 13.1487 4.7334H12.2231V6.1334H13.1487C13.4043 6.1334 13.6115 6.34233 13.6115 6.60006V13.1334C13.6115 13.3911 13.4043 13.6001 13.1487 13.6001H6.66936C6.41375 13.6001 6.20655 13.3911 6.20655 13.1334V12.2001H4.81812Z" fill="#D2D8DE"/>
         </svg>
 
-        <svg id="delete" @click="addToDel(human.id), toggleModal()" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg id="delete" @click="toggleModal" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M3.36363 1.77778C3.36363 1.34822 3.72994 1 4.18181 1H11.8182C12.2701 1 12.6364 1.34822 12.6364 1.77778C12.6364 2.20733 12.2701 2.55556 11.8182 2.55556H4.18181C3.72994 2.55556 3.36363 2.20733 3.36363 1.77778ZM2.81818 5.66667H2V4.11111H14V5.66667H13.1818V12.1481C13.1818 13.7232 11.8387 15 10.1818 15H5.81818C4.16132 15 2.81818 13.7232 2.81818 12.1481V5.66667ZM11.5455 5.66667H4.45455V12.1481C4.45455 12.8641 5.06508 13.4444 5.81818 13.4444H10.1818C10.9349 13.4444 11.5455 12.8641 11.5455 12.1481V5.66667Z" fill="#D2D8DE"/>
         </svg>
       </div>
+    </div>
+    <div :class="{'overlay-show' : showModal, 'overlay-hide' : !showModal}"></div>
+    <div :class="{'modal-show' : showModal, 'modal-hide' : !showModal}">
+          <div class="modal-content">
+            <p class="text-header">Удалить заявку #{{ target }}?</p>
+            <p class="modal-subtext">Важно отметить, что заявку после <br> удаления невозможно восстановить</p>
+            <div class="btn_container">
+              <button class="btn-delete"  @click="delete_request(requestData.id)">Удалить</button>
+              <button class="btn-exit" @click="this.showModal = !this.showModal">Отмена</button>
+            </div>
+          </div>
     </div>
     <MessageAlert :message="alertMessage" :color="alertColor"/>
   </div>
@@ -82,12 +93,16 @@ export default {
       return {
         Mark: false,
         statusDrop: false,
-
+        showModal: false,
         alertColor: '',
         alertMessage: '',
       }
   },
   methods:{
+    toggleModal() {
+      this.showModal = !this.showModal
+      this.target = this.requestData.id;
+    },
     toggleStatusDropdown(){
       this.statusDrop = !this.statusDrop;
     },
@@ -115,6 +130,19 @@ export default {
       }
       
     },
+    async delete_request(id) {
+      const formData = new FormData();
+      formData.append('id', id);
+      axios.post('http://127.0.0.1:8000/api/delete_request/', formData)
+        .then(response => {
+          console.log('Request deleted:', response.data);
+          this.showModal = !this.showModal
+          this.$emit('deleted')
+        })
+        .catch(error => {
+          console.error('Error deleting request:', error);
+        });
+    },
   },
   computed: {
     statusClass() {
@@ -130,6 +158,105 @@ export default {
 </script>
 
 <style scoped>
+.text-header{
+    font-family: TT Norms Medium;
+    font-size: 18px;
+    line-height: 18px;
+    letter-spacing: 0em;
+    color: #535C69;
+    margin: 0;
+    text-align: left;
+  }
+.btn_container{
+    margin-top: 30px;
+    display: flex;
+    gap: 10px;
+  }
+.modal-subtext{
+    font-family: TT Norms Medium;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #AFB6C1;
+    margin: 0;
+    margin-top: 10px;
+  }
+  
+.btn-delete{
+  color: #F97F7F;
+  background-color: rgba(249, 127, 127, 0.2);
+}
+.btn-delete:hover{
+  background: #F97F7F;
+  color: #FFFFFF;
+}
+.btn-exit{
+  color: #535C69;
+  border: 1px solid #DDE1E5;
+  background: #FFFFFF;  
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+.btn-exit:hover{
+  border: 1px solid #AFB6C1;
+  background: #F5F5F5;
+}
+.modal-show{
+    width: auto;
+    height: auto;
+    position: absolute;
+    padding: 40px;
+    border-radius: 10px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    z-index: 99;
+    opacity: 1;
+    visibility: visible;
+    transition: all .1s ease;
+  }
+  .modal-hide{
+    width: auto;
+    height: auto;
+    position: absolute;
+    padding: 40px;
+    border-radius: 10px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .1s ease;
+  }
+  .overlay-show {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Задний фон с прозрачностью 60% */
+    z-index: 98;
+    opacity: 1;
+    visibility: visible;
+    transition: all .1s ease;
+  }
+  .overlay-hide {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Задний фон с прозрачностью 60% */
+    z-index: 98;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .1s ease;
+  }
+
 #edit path,#copy path,#delete path{
   fill: #D2D8DE;
   transition: all .2s ease;

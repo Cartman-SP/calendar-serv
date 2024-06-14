@@ -110,7 +110,7 @@
       </div>
       <div class="divider"></div>
       <div v-if="applications.length>0" class="allAps">
-        <CardRequest @changed="handleStatusChange" v-for="a in filteredApplications" :key="a.id" :requestData="a"/>
+        <CardRequest @deleted="this.get_request(this.selectedBranch.id, this.selectedEmployee.id)" @changed="handleStatusChange" v-for="a in filteredApplications" :key="a.id" :requestData="a"/>
       </div>
       <div v-else style="margin: 50px 0;">
         <p class="primary_new">Выберите филиал и сотрудника,<br>чтобы посмотреть список заявок</p>
