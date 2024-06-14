@@ -316,7 +316,7 @@
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M9.00006 11V17H11.0001V11H17V9H11.0001V3H9.00006V9H3V11H9.00006Z" fill="#D2D8DE"/>
               </svg>
-              Создать промокод
+              Добавить интеграцию
             </button>
             <input type="text" placeholder="Поиск" class="integrations_input">
           </div>
