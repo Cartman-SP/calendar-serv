@@ -376,5 +376,8 @@ p{
   display: flex;
   gap: 7px;
 }
+.static_date_text:hover{
+  color: #6266EA;
+}
 </style>
 
