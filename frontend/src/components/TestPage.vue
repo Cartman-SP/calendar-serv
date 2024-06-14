@@ -87,30 +87,8 @@
       }
     },
 
-    async delete_request() {
-        const formData = new FormData();
-        formData.append('id', this.request_id);
-        axios.post('http://127.0.0.1:8000/api/delete_request/', formData)
-          .then(response => {
-            console.log('Service deleted:', response.data);
-          })
-          .catch(error => {
-            console.error('Error creating service:', error);
-          });
-      },
 
-      async set_status() {
-        const formData = new FormData();
-        formData.append('id', this.request_id);
-        formData.append('status',this.status)
-        axios.post('http://127.0.0.1:8000/api/set_status/', formData)
-          .then(response => {
-            console.log('Service deleted:', response.data);
-          })
-          .catch(error => {
-            console.error('Error creating service:', error);
-          });
-      },
+      
     },
     mounted() {
       this.create_application()
@@ -122,7 +100,7 @@
   };
   </script>
   
-  <style>
+  <style scoped>
   /* Your CSS styles */
   </style>
   

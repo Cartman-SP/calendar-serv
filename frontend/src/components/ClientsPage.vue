@@ -99,12 +99,14 @@ export default {
   },
   methods:{
     toggleModal() {
-      if (this.clientsToDelete.length == 1) {
-        this.target = this.clients[this.clientsToDelete].firstname + ' ' + this.clients[this.clientsToDelete].secondname
-      }
       if (this.clientsToDelete.length>0) {
-        this.showModal = !this.showModal;
+        this.showModal = !this.showModal
+        if (this.clientsToDelete.length == 1) {
+          let targetClient = this.clients.find(client => client.id === this.clientsToDelete[0]);
+          this.target = targetClient.firstname + ' ' + targetClient.secondname;
+        }
       }
+      
     },
     async get_client(){
       try {
@@ -123,22 +125,27 @@ export default {
         this.clientsToDelete.splice(index, 1);
       }
     },
-    toggleAllClients() {
-      const clientIds = Object.keys(this.clients).map(Number);
-      const allClientsSelected = clientIds.every(id => this.clientsToDelete.includes(id));
 
-      if (allClientsSelected) {
+    toggleAllClients() {
+      if (this.clientsToDelete.length == 0 && this.clients.length !== 0) {
+        for (let i of this.clients) {
+          this.clientsToDelete.push(i.id)
+        }
+        this.Mark = true;
+        console.log(this.clientsToDelete)
+      }else{
         this.clientsToDelete = [];
         this.Mark = false;
-      } else {
-        this.clientsToDelete = [...new Set([...this.clientsToDelete, ...clientIds])];
-        this.Mark = true;
       }
     },
+
     deleteSelectedClients(){
       for(let i of this.clientsToDelete){
+        console.log(i)
         this.deleteClient(i)
       }
+      this.clientsToDelete = [];
+      this.showModal = !this.showModal
     },
     async deleteClient(clientId) {
       try {

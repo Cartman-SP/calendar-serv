@@ -16,11 +16,16 @@ export default createStore({
 
     updateSidebar: false,
 
-    clients: {},
+    clients: [],
+    uslugi: []
   },
   mutations: {
     addClients(state, data){
       state.clients = data;
+    },
+
+    addUslugi(state, data){
+      state.uslugi = data;
     },
 
     setUpdateSidebar(state) {

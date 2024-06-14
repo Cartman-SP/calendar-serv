@@ -56,6 +56,7 @@ export default {
         this.uslugi.reverse();
         this.uslugiLoaded = true; // Устанавливаем флаг загрузки в true sd
         this.rerenderSidebar();
+        this.$store.commit('addUslugi', response.data)
       } catch (error) {
         console.error('Error fetching uslugi:', error);
       }

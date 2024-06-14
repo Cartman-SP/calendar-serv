@@ -1,16 +1,16 @@
 <template>
     <div class="dropdown-container">
           <div class="dropdown_btn">
-            <button @blur="toggleDropdown" @click="toggleDropdown" class="dropdown" :style="{ 'background-color': showDropdown ? '#F3F6F8' : 'transparent' }">
+            <button @blur="showDropdown = false" @click="toggleDropdown" class="dropdown" :style="{ 'background-color': showDropdown ? '#F3F6F8' : 'transparent' }">
               <img v-if="!showDropdown" src="../../static/img/kebab.svg" alt="Open">
               <img v-if="showDropdown" src="../../static/img/x.svg" alt="Close">
             </button>
           </div>
           <div :class="{'dropdown-menu-show' : showDropdown, 'dropdown-menu-hide' : !showDropdown}">
-            <div v-for="button in buttons" :key="button" @click="button.action">
-              <div class="dropdown-item">
+            <div v-for="button in buttons" :key="button">
+              <div class="dropdown-item" @click="emitAction(button.action)">
                 <div v-html="button.svg" class="svg-icon">
-
+ 
                 </div>
                 <div>{{ button.btnname }}</div>
               </div>
@@ -36,13 +36,17 @@ export default {
         };
     },
     methods: {
-        toggleDropdown() {
-            this.showDropdown = !this.showDropdown;
-        },
+      emitAction(a){
+        this.$emit(a);
+      },
 
-        callDeleteFunction() {
-          this.$emit('Deleting')
-        }
+      toggleDropdown() {
+          this.showDropdown = !this.showDropdown;
+      },
+
+      callDeleteFunction() {
+        this.$emit('Deleting')
+      }
     }
 }
 </script>

@@ -6,7 +6,11 @@
       <div class="arrow-container">
         <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
       </div>
-      <p class="creation_text">Создание услуги</p>
+      <p class="creation_text" style="color: #AFB6C1;">{{ serviceName }}</p>
+      <div class="arrow-container">
+        <img src="../../static/img/arrow-right.png" alt="Стрелка вправо" class="arrow-icon">
+      </div>
+      <p class="creation_text">Редактирование</p>
     </div>
     <div class="main_group">
 
@@ -34,6 +38,7 @@
             class="select" @input="option => serviceDuration = option"
             :placeholderdata="'Выберите время'"
             :class="{ 'select-error': serviceDurationError }"
+            :value="serviceDuration"
           />
           </div>
         </div>
@@ -179,7 +184,7 @@
     
           <!-- 8. Кнопки -->
           <div class="button-container">
-            <button @click="saveAndExit" class="save-and-exit-button">Сохранить и выйти</button>
+            <button @click="saveAndExit" class="save-and-exit-button">Сохранить изменения</button>
             <button @click="cancel" class="cancel-button">Отмена</button>
           </div>
         </div>
@@ -410,13 +415,13 @@ export default {
       formData.append('type', this.selectedRecordType);
       formData.append('place_ammount', this.groupCapacity);
       formData.append('rent_ammount', this.maxGroupCapacity);
-      formData.append('pay_type', this.selectedPaymentText);
+      formData.append('pay_type', this.selectedPaymentType);
       formData.append('user', this.$store.state.registrationData.user_id);
       formData.append('serviceCover', this.serviceCover);
       formData.append('project', this.$store.state.activeProjectId)
       axios.post('http://127.0.0.1:8000/api/uslugi/', formData)
         .then(response => {
-          console.log('Service created:', response.data); // ЧИТАЙТЕ КОММЕНТАРИЙ ЗДЕСЬ ВОЗВРАЩАЕТСЯ True или False со значением надо ли показывать модалку о первом создании услуги!!!!!!!!!!!!!
+          console.log('Service created:', response.data);
           this.alertMessage = 'Настройки успешно сохранены'
           this.alertColor = '#0BB6A1'
           if(response.data){
@@ -449,7 +454,25 @@ export default {
     increaseMaxGroupCapacity() {
       this.maxGroupCapacity++;
     },
+    getObjectById() {
+      for (let obj of this.$store.state.uslugi) {
+        if (obj.id === parseInt(this.$route.params.serviceToEditId)) {
+          let ServiceData = obj;
+          console.log(obj)
+          this.serviceName = ServiceData.name
+          this.serviceCost = ServiceData.cost
+          this.serviceCover = ServiceData.serviceCover
+          this.selectedRecordType = ServiceData.type
+          this.selectedPaymentFormat = ServiceData.pay_type
+          this.serviceDuration = ServiceData.time
+          break;
+        }
+      }
+    },
   },
+  mounted(){
+    this.getObjectById();
+  }
 };
 
 </script>

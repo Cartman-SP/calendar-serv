@@ -7,18 +7,17 @@
     <div class="nav">
       <div class="nav_left">
         <SelectPage
-        :options="this.filials.map(item => 
-                  ({name: item.name, 
-                    id: item.id}))"
+        :options="filials"
         :searchable="true"
         :placeholderdata="'Выбрать филиал'"
         @input="option => selectedBranch = option"
         />
     
         <SelectPage
-        :options="this.employees.map(item => 
-                  ({name: item.name, 
-                    id: item.id}))"
+        :options="employees.map(item => ({
+            name: item.firstname + ' ' + item.secondname,
+            id: item.id,
+          }))"
         :placeholderdata="'Выбрать Сотрудника'"
         :searchable="true"
         @input="option => selectedEmployee = option"
@@ -33,7 +32,7 @@
         <input type="date" style="width:160px">
       </div>
 
-      <div class="search">
+      <div class="search" v-show="false">
         <input type="text" placeholder="Поиск по заявкам">
       </div>
     </div>
@@ -50,7 +49,7 @@
           <p class="nav_text">Новые</p>
           <p class="nav_subtext">{{ newRequests }}</p>
         </div>
-        <div class="container" @click="changeTab('accepted')" :class="{ active: activeTab === 'accepted' }">
+        <div class="container" @click="changeTab('adopted')" :class="{ active: activeTab === 'adopted' }">
           <div class="circle_taken"></div>
           <p class="nav_text">Принят</p>
           <p class="nav_subtext">{{ acceptedRequests }}</p>
@@ -110,17 +109,17 @@
         <p class="primary_nav_text">Действия</p>
       </div>
       <div class="divider"></div>
-      <div v-if="!(applications.length>0)">
+      <div v-if="applications.length>0" class="allAps">
+        <CardRequest @deleted="this.get_request(this.selectedBranch.id, this.selectedEmployee.id)" @changed="handleStatusChange" v-for="a in filteredApplications" :key="a.id" :requestData="a"/>
+      </div>
+      <div v-else style="margin: 50px 0;">
         <p class="primary_new">Выберите филиал и сотрудника,<br>чтобы посмотреть список заявок</p>
         <img src="../../static/img/request.svg" alt="" draggable="false">
-      </div>
-      <div v-else>
-        <CardRequest v-for="a in applications" :key="a.id" :requestData="a"/>
       </div>
     </div>
 
 
-
+    <MessageAlert :message="alertMessage" :color="alertColor"/>
   </div>
 </template>
 
@@ -128,17 +127,27 @@
 import axios from 'axios';
 import SelectPage from '../components/SelectPage.vue';
 import CardRequest from '../components/CardRequest.vue';
+import MessageAlert from "../components/MessageAlert.vue";
 
 export default {
-  components: { SelectPage, CardRequest },
+  components: { SelectPage, CardRequest, MessageAlert },
   data() {
     return {
       Mark: false,
       activeTab: 'all',
       timeRange: 'week',
 
-      selectedBranch: null,
-      selectedEmployee: null,
+      allRequests: 0,
+      newRequests: 0,
+      acceptedRequests: 0,
+      finishedRequests: 0,
+      canceledRequests: 0,
+
+      selectedBranch: {},
+      selectedEmployee: {},
+
+      alertColor: '',
+      alertMessage: '',
 
       applications: [],
       filials: [],
@@ -146,14 +155,34 @@ export default {
     };
   },
   watch: {
-    selectedBranch(newBranch) {
-      this.get_request(newBranch, this.selectedEmployee);
+    selectedBranch() {
+      this.get_request(this.selectedBranch.id, this.selectedEmployee.id);
     },
-    selectedEmployee(newEmployee) {
-      this.get_request(this.selectedBranch, newEmployee)
+    selectedEmployee() {
+      this.get_request(this.selectedBranch.id, this.selectedEmployee.id);
     },
   },
   methods: {
+    handleStatusChange({ id, status }){
+      switch (status) {
+        case 'New':
+          this.alertMessage = 'Статус заявки #' + id + ' изменен на «Новые»';
+          break;
+        case 'Adopted':
+          this.alertMessage = 'Статус заявки #' + id + ' изменен на «Принят»';
+          break;
+        case 'Canceled':
+          this.alertMessage = 'Статус заявки #' + id + ' изменен на «Отменен»';
+          break;
+        case 'Done':
+          this.alertMessage = 'Статус заявки #' + id + ' изменен на «Завершен»';
+          break;
+        default:
+          break;
+      }
+      this.alertColor = '#212326';
+      this.get_request(this.selectedBranch.id, this.selectedEmployee.id);
+    },
     changeTab(tab) {
       this.activeTab = tab;
     },
@@ -161,6 +190,11 @@ export default {
       try {
         const response = await axios.get(`http://127.0.0.1:8000/api/get_request/?filial=${filial_id}&employee=${employee_id}`);
         this.applications = response.data;
+        this.allRequests = this.applications.length;
+        this.newRequests = this.applications.filter(request => request.status === 'New').length;
+        this.acceptedRequests = this.applications.filter(request => request.status === 'Adopted').length;
+        this.finishedRequests = this.applications.filter(request => request.status === 'Done').length;
+        this.canceledRequests = this.applications.filter(request => request.status === 'Canceled').length;
       } catch (error) {
         console.error('Ошибка при получении данных о заявках:', error);
       }
@@ -186,16 +220,38 @@ export default {
       }
     },
   },
+  computed: {
+    filteredApplications() {
+      if (this.activeTab === 'all') {
+        return this.applications;
+      } else if (this.activeTab === 'new') {
+        return this.applications.filter(app => app.status === 'New');
+      } else if (this.activeTab === 'adopted') {
+        return this.applications.filter(app => app.status === 'Adopted');
+      } else if (this.activeTab === 'completed') {
+        return this.applications.filter(app => app.status === 'Done');
+      } else if (this.activeTab === 'canceled') {
+        return this.applications.filter(app => app.status === 'Canceled');
+      }
+      return 1;
+    }
+  },
   mounted() {
     this.getfilials();
     this.get_employee();
     document.querySelector('.container').classList.add('active');
     document.querySelector('.page_text:first-child').classList.add('active');
-  }
+  },
+  
 }
 </script>
 
 <style scoped>
+.allAps{
+  height: fit-content;
+  max-height: 500px;
+  overflow-y: scroll;
+}
 .main{
   display: flex;
   flex-direction: column;
@@ -349,7 +405,7 @@ p {
   width: 100%;
   height: 2px;
   background-color: transparent;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s ease;
 }
 
 .container:hover .nav_text::after {
@@ -415,8 +471,7 @@ p {
 }
 .primary{
   width: 100%;
-  min-height: 468px;
-  height: fit-content;
+  height: 100%;
   gap: 10px;
   border-radius: 5px;
   background: #FFFFFF;
@@ -431,7 +486,7 @@ p {
 }
 .primary_nav{
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr) 90px;
   grid-template-rows: 1fr;
   gap: 10px;
 }
@@ -463,7 +518,6 @@ p {
   border-bottom: 1px solid rgba(50, 56, 74, 0.1); 
   width: auto;
   margin: 10px 0;
-  margin-bottom: 65px;
 }
 .primary_new{
   font-family: TT Norms Medium;

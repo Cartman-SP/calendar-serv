@@ -866,8 +866,8 @@ def get_request(request):
     if request.method == 'GET':
         filial = request.GET.get('filial')
         employee = request.GET.get('employee')
-        application = Application.objects.filter(branch = filial, employee = employee).last()
-        serializer = ApplicationSerializer(application)
+        applications = Application.objects.filter(branch=filial, employee=employee)
+        serializer = ApplicationSerializer(applications, many=True)
         return Response(serializer.data)
 
 
