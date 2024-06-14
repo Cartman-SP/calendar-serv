@@ -309,10 +309,10 @@
         </div>
         <img v-show="false" src="../../static/img/bot.svg" alt="">
       </div>
-      <div v-if="selectedTab === 'integrations'" class="integrations">
+      <div v-if="selectedTab === 'integrations' && !isCreatingIntegrations" class="integrations">
         <div class="integrations_first">
           <div class="integrations_header">
-            <button class="integrations_btn" @click="startCreatingPromoCode">
+            <button class="integrations_btn" @click="startCreatingIntegrations">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M9.00006 11V17H11.0001V11H17V9H11.0001V3H9.00006V9H3V11H9.00006Z" fill="#D2D8DE"/>
               </svg>
@@ -368,6 +368,49 @@
                 </svg>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div v-else-if="selectedTab === 'integrations' && isCreatingIntegrations" class="integrations_second">
+        <div @click="cancelCreatingIntegrations" class="integrations_second_back">
+          <img src="../../static/img/back-arrow.svg" alt="">
+          <p class="integrations_second_back_text">Вернуться к настройке виджета</p>
+        </div>
+        <div class="integrations_second_main">
+          <div class="integrations_second_header">
+            <div class="integrations_second_header_container">
+              <p class="integrations_second_header_text">Каталог интеграций</p>
+              <p class="integrations_second_header_subtext">42 интеграции</p>
+            </div>
+            <input type="text" placeholder="Поиск по каталогу" class="integrations_second_input">
+          </div>
+          <div class="integrations_second_nav">
+            <div class="integrations_second_nav_container">
+              <img src="../../static/img/right-integrations.svg" alt="">
+              <p class="integrations_second_nav_text">CRM-системы</p>
+            </div>
+            <div class="divider"></div>
+          </div>
+          <div class="integrations_second_nav">
+            <div class="integrations_second_nav_container">
+              <img src="../../static/img/right-integrations.svg" alt="">
+              <p class="integrations_second_nav_text">Сервисы рассылок</p>
+            </div>
+            <div class="divider"></div>
+          </div>
+          <div class="integrations_second_nav">
+            <div class="integrations_second_nav_container">
+              <img src="../../static/img/right-integrations.svg" alt="">
+              <p class="integrations_second_nav_text">Карты</p>
+            </div>
+            <div class="divider"></div>
+          </div>
+          <div class="integrations_second_nav">
+            <div class="integrations_second_nav_container">
+              <img src="../../static/img/right-integrations.svg" alt="">
+              <p class="integrations_second_nav_text">Платежные системы</p>
+            </div>
+            <div class="divider"></div>
           </div>
         </div>
       </div>
@@ -542,6 +585,7 @@ export default {
       maxLength: 15,
       Mark: false,
       isCreatingPromoCode: false,
+        isCreatingIntegrations: false,
       telegramToken: '',
       selectedImages: [],
       selectedTab: 'general',
@@ -595,6 +639,12 @@ export default {
   methods: {
     toggleMark() {
       this.Mark = !this.Mark;
+    },
+    startCreatingIntegrations() {
+      this.isCreatingIntegrations = true;
+    },
+    cancelCreatingIntegrations() {
+      this.isCreatingIntegrations= false;
     },
     startCreatingPromoCode() {
       this.isCreatingPromoCode = true;
@@ -1639,6 +1689,77 @@ export default {
   .discounts_second_btn:hover{
     background: #464AD9;
     color: #FFFFFF;
+  }
+  .integrations_second_back{
+    display: flex;
+    gap: 5px;
+    cursor: pointer;
+    padding: 11px 14px;
+    background: #FFFFFF;
+    border-radius: 5px;
+    user-select: none;
+    max-width: 260px;
+  }
+  .integrations_second_back_text{
+    font-family: TT Norms Medium;
+    font-size: 14px;
+    line-height: 14px;
+    text-align: left;
+    color: #535C69;
+    margin: 0;
+  }
+  .integrations_second{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 60%;
+  }
+  .integrations_second_main{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 30px;
+    background: #FFFFFF;
+    border-radius: 5px;
+  }
+  .integrations_second_header{
+    display: flex;
+    justify-content: space-between;
+  }
+  .integrations_second_header_container{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .integrations_second_header_text{
+    font-family: TT Norms Medium;
+    font-size: 18px;
+    line-height: 21.24px;
+    text-align: left;
+    color: #7D838C;
+    margin: 0;
+  }
+  .integrations_second_header_subtext{
+    font-family: TT Norms Light;
+    font-size: 14px;;
+    line-height: 16.52px;
+    text-align: left;
+    color: #7D838C;
+    margin: 0;
+  }
+  .integrations_second_input{
+    width: 30%;
+  }
+  .integrations_second_nav_text{
+    font-family: TT Norms Light;
+    font-size: 14px;
+    line-height: 16.52px;
+    text-align: left;
+    color: #535C69;
+  }
+  .integrations_second_nav_container{
+    display: flex;
+    gap: 5px;
   }
   @media (max-width: 768px){
     .main{
