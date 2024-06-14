@@ -51,7 +51,7 @@
         formData.append('client', this.client_id);
         formData.append('project', this.project_id);
         formData.append('branch',this.branch_id);
-
+        formData.append('time', this.time) /// 2024-06-15T10:30:00.000Z
         axios.post('http://127.0.0.1:8000/api/create_applications/', formData)
           .then(response => {
             console.log('application created:', response.data);

@@ -148,6 +148,7 @@ class Application(models.Model):
     client = models.ForeignKey(Client,on_delete=models.CASCADE)
     project = models.ForeignKey(Project,on_delete=models.CASCADE)
     branch = models.ForeignKey(Branch,on_delete=models.CASCADE)
+    time = models.DateTimeField()
 class Integration(models.Model):
     name = models.CharField(max_length=128)
     type = models.CharField(max_length=128)

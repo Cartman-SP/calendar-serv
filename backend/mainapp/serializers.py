@@ -87,6 +87,7 @@ class WidgetSerializer(serializers.ModelSerializer):
         fields = '__all__'
         extra_kwargs = {
             'place_ammount': {'required': False},
+            'telegramtoken': {'required': False},
             'rent_ammount': {'required': False},
             'telegramlink':{'required': False},
             'instagramlink':{'required': False},
@@ -94,6 +95,8 @@ class WidgetSerializer(serializers.ModelSerializer):
             'vklink':{'required': False},
             'ogranichenie':{'required': False},
             'interval':{'required': False},
+            'buttonname':{'required': False},
+            'hellomessage':{'required': False},
         }
     def create(self, validated_data):
         images_data = self.context.get('request').FILES.getlist('images[]')
