@@ -543,7 +543,7 @@
                   <path d="M1.3999 6.96667L4.8999 3.5V6.3H13.2999V7.7H4.8999V10.5L1.3999 6.96667Z" fill="var(--color-text)"/>
                 </svg>
             </button>
-            <button :class="{'card_next_btn-disabled' : !clientFisrtName || !clientSecondName || !Mark || value.length < 6, 'card_next_btn-active' : clientFisrtName && clientSecondName && Mark && value.length > 6}" @click="showNotes">Записаться</button>
+            <button :class="{'card_next_btn-disabled' : !clientFisrtName || !clientSecondName || !Mark || value.length < 6, 'card_next_btn-active' : clientFisrtName && clientSecondName && Mark && value.length > 6}" @click="create_client(), showNotes()">Записаться</button>
           </div>
         </div> 
       </div>
@@ -662,6 +662,8 @@ export default {
       WidgetColor: '', // цвет у фона
       BakcgroundColor: '', // цвет у карточек
       TextColor: '', // цвет текста
+
+      clientID: Number,
     };
   },
   created() {
@@ -901,7 +903,32 @@ export default {
       if (this.clientFisrtName && this.clientSecondName && this.Mark && this.value.length > 6) {
         this.currentPage = 'notes';
       }
-      
+    },
+    create_client() {
+      const formData = new FormData();
+      formData.append('firstname', this.clientFisrtName);
+      formData.append('secondname', this.clientSecondName);
+      formData.append('mail', 'NaN');
+      formData.append('phone', this.value);
+
+      let currentDate = new Date();
+      let year = currentDate.getFullYear();
+      let month = currentDate.getMonth() + 1;
+      let day = currentDate.getDate();
+      let hours = currentDate.getHours();
+      let minutes = currentDate.getMinutes();
+
+      let formattedDate = `${day}/${month}/${year}, ${hours}:${minutes}:${seconds}`;
+
+      formData.append('date', formattedDate);
+      formData.append('project', this.project_id);
+      axios.post('http://127.0.0.1:8000/api/create_client/', formData)
+        .then(response => {
+          this.clientID = response.data.client_id
+        })
+        .catch(error => {
+          console.error('Error creating service:', error);
+        });
     },
     startImageSlider() {
       // Устанавливаем интервал для переключения изображений каждые 5 секунд
