@@ -254,13 +254,19 @@ const routes = [
         meta: { requiresAuth: true, title: 'Sked.Online - Редактирование услуги' }
       },
       {
-        path: '/dashboard/personal/edit',
+        path: '/dashboard/personal/:employeeToEditId/edit',
+        props: route => ({
+          employeeToEditId: route.params.employeeToEditId,
+        }),
         name: 'EmployeesEdit',
         component: EmployeesEdit,
         meta: { requiresAuth: true, title: 'Sked.Online - Редактирование сотрудника' }
       },
       {
-        path: '/dashboard/branch/edit',
+        path: '/dashboard/branch/:branchToEditId/edit',
+        props: route => ({
+          branchToEditId: route.params.branchToEditId,
+        }),
         name: 'BranchEdit',
         component: BranchEdit,
         meta: { requiresAuth: true, title: 'Sked.Online - Редактирование филиала' }
