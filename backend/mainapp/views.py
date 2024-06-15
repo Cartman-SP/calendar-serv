@@ -760,8 +760,8 @@ def create_client(request):
         serializer = ClientSerializer(data=request.POST)
         print(serializer)
         if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(True, status=200, safe=False)  
+            client = serializer.save()
+            return JsonResponse({'client_id': client.id}, status=200, safe=False)  
         else:
             return JsonResponse({'error': 'invalid data'}, status=500, safe=False) 
 

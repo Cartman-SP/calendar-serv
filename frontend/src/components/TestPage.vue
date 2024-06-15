@@ -69,6 +69,17 @@
         console.error('Error fetching applications:', error);
       }
     },
+
+    async get_applications(){
+      try {
+        let project_id = this.project_id 
+        const response = await axios.get(`http://127.0.0.1:8000/api/get_applications/?project=${project_id}`);
+        console.log(response.data)
+      } catch (error) {
+        console.error('Error fetching applications:', error);
+      }
+    },
+
     async get_client(){
       try {
         let project_id = this.project_id 
