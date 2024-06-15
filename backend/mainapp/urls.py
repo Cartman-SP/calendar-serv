@@ -46,4 +46,5 @@ urlpatterns = [
     path('get_request/',get_request),
     path('delete_request/',delete_request),
     path('set_status/',set_status),
+    path('get_widgetid/',get_widgetid),
 ]

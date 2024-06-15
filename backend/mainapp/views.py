@@ -888,3 +888,13 @@ def set_status(request):
         application.save()
         return JsonResponse({'message': 'Клиент успешно удален'})
     
+
+
+
+@api_view(['GET'])
+def get_widgetid(request):
+    if request.method == 'GET':
+        name = request.GET.get('widgetname')
+        widget = Widget.objects.get(name=name)
+        serializer = WidgetSerializer(widget)
+        return Response(serializer.data)
