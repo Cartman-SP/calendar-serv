@@ -1002,7 +1002,7 @@ export default {
       payments: false
     },
       chips: [],
-      showSection: null
+      sections: ['crm', 'mail', 'maps', 'payments']
     };
   },
   mounted() {
@@ -1021,9 +1021,14 @@ export default {
   methods: {
     toggleSection(section) {
         if (this.showSection === section) {
-          this.showSection = null;
+            this.showSection = null;
         } else {
-          this.showSection = section;
+            this.showSection = section;
+        }
+        for (let key in this.isActive) {
+            if (key !== section) {
+                this.isActive[key] = false;
+            }
         }
         this.isActive[section] = !this.isActive[section];
     },
@@ -1896,6 +1901,7 @@ export default {
   }
   .krest{
     font-size: 16px;
+    cursor: pointer;
   }
   .discounts_main{
     display: grid;
