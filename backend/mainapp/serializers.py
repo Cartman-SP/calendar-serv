@@ -124,3 +124,11 @@ class IntegrationLinkSerializer(serializers.ModelSerializer):
     class Meta:
         model = IntegrationLink
         fields = '__all__'
+
+
+class ApplicationTimeSerializer(serializers.ModelSerializer):
+    time = serializers.DateTimeField()
+
+    class Meta:
+        model = Application
+        fields = ['time']

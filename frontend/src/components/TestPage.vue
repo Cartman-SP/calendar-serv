@@ -96,6 +96,15 @@
         console.error('Error fetching applications:', error);
       }
     },
+    async get_busytime(){
+      try {
+        let employee_id = this.employee_id 
+        const response = await axios.get(`http://127.0.0.1:8000/api/get_widgetid/?employee_id=${employee_id}`);
+        console.log(response.data.id)
+      } catch (error) {
+        console.error('Error fetching applications:', error);
+      }
+    },
 
 
       

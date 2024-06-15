@@ -50,7 +50,7 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from django.http import JsonResponse
 import json
-
+from django.utils import timezone
 
 @csrf_exempt
 @require_POST
@@ -898,3 +898,14 @@ def get_widgetid(request):
         widget = Widget.objects.get(name=name)
         serializer = WidgetSerializer(widget)
         return Response(serializer.data)
+
+
+@api_view(['GET'])
+def get_busytime(request):
+    if request.method == 'GET':
+        employee_id = request.GET.get('employee_id')
+        current_datetime = timezone.now()
+        applications = Application.objects.filter(employee=employee_id, time__gt=current_datetime)
+        serializer = ApplicationTimeSerializer(applications, many=True)
+        times = [entry['time'] for entry in serializer.data]
+        return Response(times)
