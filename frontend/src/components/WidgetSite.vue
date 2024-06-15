@@ -543,7 +543,7 @@
                   <path d="M1.3999 6.96667L4.8999 3.5V6.3H13.2999V7.7H4.8999V10.5L1.3999 6.96667Z" fill="var(--color-text)"/>
                 </svg>
             </button>
-            <button :class="{'card_next_btn-disabled' : !clientFisrtName || !clientSecondName || !Mark || value.length < 6, 'card_next_btn-active' : clientFisrtName && clientSecondName && Mark && value.length > 6}" @click="create_client(), showNotes()">Записаться</button>
+            <button :class="{'card_next_btn-disabled' : !clientFisrtName || !clientSecondName || !Mark || value.length < 6, 'card_next_btn-active' : clientFisrtName && clientSecondName && Mark && value.length > 6}" @click="create_client(), showNotes(), create_application()">Записаться</button>
           </div>
         </div> 
       </div>
@@ -664,6 +664,8 @@ export default {
       TextColor: '', // цвет текста
 
       clientID: Number,
+      ProjectID: Number,
+
     };
   },
   created() {
@@ -702,11 +704,11 @@ export default {
 
   },
   mounted() {
-    // Запускаем функцию для автоматического переключения изображений
     this.startImageSlider();
     this.updateColors();
-    this.getfilial()
-    this.filialsAddToArray()
+    this.getfilial();
+    this.filialsAddToArray();
+    this.get_widgetid();
   },
   methods: {
     async filialsAddToArray(){
@@ -904,6 +906,41 @@ export default {
         this.currentPage = 'notes';
       }
     },
+    create_application() {
+      const formData = new FormData();
+      let currentDate = new Date();
+      let year = currentDate.getFullYear();
+      let month = currentDate.getMonth() + 1;
+      let day = currentDate.getDate();
+      let hours = currentDate.getHours();
+      let minutes = currentDate.getMinutes();
+      let formattedDate = `${day}/${month}/${year}, ${hours}:${minutes}`;
+
+      formData.append('status', 'New');
+      formData.append('data', formattedDate);
+      formData.append('usluga', this.selectedUslugi[0].id);
+      formData.append('employee', this.selectedEmployees[0].id);
+      formData.append('client', this.clientID);
+      formData.append('project', this.ProjectID);
+      formData.append('branch',this.activeFilial.id);
+      formData.append('time', formattedDate) /// 2024-06-15T10:30:00.000Z
+      axios.post('http://127.0.0.1:8000/api/create_applications/', formData)
+        .then(response => {
+          console.log('application created:', response.data);
+        })
+        .catch(error => {
+          console.error('Error creating application:', error);
+        });
+    },
+    async get_widgetid(){
+      try {
+        let name = this.widgetname 
+        const response = await axios.get(`http://127.0.0.1:8000/api/get_widgetid/?widgetname=${name}`);
+        this.ProjectID = response.data.project
+      } catch (error) {
+        console.error('Error fetching get_widgetid:', error);
+      }
+    },
     create_client() {
       const formData = new FormData();
       formData.append('firstname', this.clientFisrtName);
@@ -918,10 +955,10 @@ export default {
       let hours = currentDate.getHours();
       let minutes = currentDate.getMinutes();
 
-      let formattedDate = `${day}/${month}/${year}, ${hours}:${minutes}:${seconds}`;
+      let formattedDate = `${day}/${month}/${year}, ${hours}:${minutes}`;
 
       formData.append('date', formattedDate);
-      formData.append('project', this.project_id);
+      formData.append('project', this.ProjectID);
       axios.post('http://127.0.0.1:8000/api/create_client/', formData)
         .then(response => {
           this.clientID = response.data.client_id
