@@ -16,6 +16,7 @@
               </div>
             </div>
           </div>
+          
           <Kebab :buttons="buttons" :HasDelete="true" :HasDeviders="true" @Deleting="toggleModal" @edit="this.$router.push({ path: `/dashboard/service/${usluga.id}/edit`, params: { serviceToEditId: usluga.id }})"/>
         </div>
         <div class="line"></div>
