@@ -105,7 +105,39 @@
         console.error('Error fetching applications:', error);
       }
     },
-
+    async getusluga(i) {
+        try {
+            const id = i;
+            const response = await axios.get(`http://127.0.0.1:8000/api/get_uslugabyid/?variable=${id}`);
+            console.log(response)
+            return response.data;
+        } catch (error) {
+            console.error('Ошибка при получении данных о Услуге:', error);
+            throw error; // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
+        }
+    },
+    async getemployee(i) {
+        try {
+            const id = i;
+            const response = await axios.get(`http://127.0.0.1:8000/api/get_employeebyid/?variable=${id}`);
+            console.log(response)
+            return response.data;
+        } catch (error) {
+            console.error('Ошибка при получении данных о Сотруднике:', error);
+            throw error; // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
+        }
+    },
+    async getfilial(i) {
+        try {
+            const id = i;
+            const response = await axios.get(`http://127.0.0.1:8000/api/get_filialbyid/?variable=${id}`);
+            console.log(response)
+            return response.data;
+        } catch (error) {
+            console.error('Ошибка при получении данных о Филиале:', error);
+            throw error; // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
+        }
+    },
 
       
     },

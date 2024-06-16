@@ -909,3 +909,27 @@ def get_busytime(request):
         serializer = ApplicationTimeSerializer(applications, many=True)
         times = [entry['time'] for entry in serializer.data]
         return Response(times)
+
+@api_view(['GET'])
+def get_employee_by_id(request):
+    if request.method == 'GET':
+        id = request.GET.get('variable')
+        employee = Employee.objects.get(id=id)
+        serializer = EmployeeSerializer(employee)
+        return Response(serializer.data)
+
+@api_view(['GET'])
+def get_usluga_by_id(request):
+    if request.method == 'GET':
+        id = request.GET.get('variable')
+        usluga = Usluga.objects.get(id=id)
+        serializer = UslugaSerializer(usluga)
+        return Response(serializer.data)
+
+@api_view(['GET'])
+def get_filial_by_id(request):
+    if request.method == 'GET':
+        id = request.GET.get('variable')
+        branch = Branch.objects.get(id=id)
+        serializer = BranchSerializer(branch)
+        return Response(serializer.data)
