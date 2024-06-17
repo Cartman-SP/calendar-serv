@@ -933,3 +933,11 @@ def get_filial_by_id(request):
         branch = Branch.objects.get(id=id)
         serializer = BranchSerializer(branch)
         return Response(serializer.data)
+    
+@api_view(['GET'])
+def get_client_by_id(request):
+    if request.method == 'GET':
+        id = request.GET.get('variable')
+        client = Client.objects.get(id=id)
+        serializer = ClientSerializer(client)
+        return Response(serializer.data)
