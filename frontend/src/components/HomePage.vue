@@ -339,6 +339,7 @@ p{
   line-height: 14px;
   text-align: left;
   color: #7D838C;
+  transition: all 0.3s ease;
 }
 .nav{
   display: grid;
