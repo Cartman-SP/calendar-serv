@@ -941,3 +941,11 @@ def get_client_by_id(request):
         client = Client.objects.get(id=id)
         serializer = ClientSerializer(client)
         return Response(serializer.data)
+    
+@csrf_exempt
+def delete_widget(request):
+    if request.method == 'POST':
+        request_id = request.POST.get('id')
+        widget = Widget.objects.get(id=request_id)
+        widget.delete()
+        return JsonResponse({'message': 'Виджет успешно удален'})

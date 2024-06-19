@@ -42,19 +42,13 @@
             console.error('Error creating service:', error);
           });
       },
-      create_application() {
+      delete_widget() {
+        let id = 1
         const formData = new FormData();
-        formData.append('status', this.status);
-        formData.append('data', this.data);
-        formData.append('usluga', this.usluga_id);
-        formData.append('employee', this.employee_id);
-        formData.append('client', this.client_id);
-        formData.append('project', this.project_id);
-        formData.append('branch',this.branch_id);
-        formData.append('time', this.time) /// 2024-06-15T10:30:00.000Z
-        axios.post('http://127.0.0.1:8000/api/create_applications/', formData)
+        formData.append('id', id);
+        axios.post('http://127.0.0.1:8000/api/delete_widget/', formData)
           .then(response => {
-            console.log('application created:', response.data);
+            console.log('application deleted:', response.data);
           })
           .catch(error => {
             console.error('Error creating application:', error);
