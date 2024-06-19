@@ -301,7 +301,7 @@
                   <path d="M1.3999 6.96667L4.8999 3.5V6.3H13.2999V7.7H4.8999V10.5L1.3999 6.96667Z" fill="var(--color-text)"/>
                 </svg>
             </button>
-            <button :disabled="!selectedEmployees.length > 0" @click="activeUslugi ? showCalendar() : showFavor(); activeUslugi ? step = 3 : step = 2; " :class="{'card_next_btn-disabled' : !selectedEmployees.length > 0, 'card_next_btn-active' : selectedEmployees.length > 0}">{{size === 'desktop' ? 'Продолжить' : 'Далее'}}</button>
+            <button :disabled="!selectedEmployees.length > 0" @click="activeUslugi ? generate14DayDictionary(this.selectedEmployees[0].daystime) : pass; activeUslugi ? showCalendar() : showFavor(); activeUslugi ? step = 3 : step = 2; " :class="{'card_next_btn-disabled' : !selectedEmployees.length > 0, 'card_next_btn-active' : selectedEmployees.length > 0}">{{size === 'desktop' ? 'Продолжить' : 'Далее'}}</button>
           </div>
         </div> 
       </div>
@@ -317,12 +317,12 @@
           </svg>
         </div>
         <div 
-          v-for="d in selectedDays"
+          v-for="d in calendarSchedule"
           :key="d" 
           :style="{ background: selectedDay === d ? 'var(--color-global)' : 'var(--color-gray)'}"
-          class="calendar_numbers" @click="selectedDay = d">
-          <p :style="{color: selectedDay === d ? '#FFFFFF' : 'var(--color-text)'}" class="calendar_numbers_head">{{ d }}</p>
-          <p :style="{color: selectedDay === d ? '#FFFFFF' : 'var(--color-text)'}" class="calendar_numbers_sub">дек</p>
+          class="calendar_numbers" @click="selectedDay = d, dayChanged()">
+          <p :style="{color: selectedDay === d ? '#FFFFFF' : 'var(--color-text)'}" class="calendar_numbers_head">{{ d.day + ' ' +  d.day_of_week }}</p>
+          <p :style="{color: selectedDay === d ? '#FFFFFF' : 'var(--color-text)'}" class="calendar_numbers_sub">{{ d.month }}</p>
         </div>
       </div>
 
@@ -364,9 +364,12 @@
             <p class="calendar_rate_text">1 отзывов</p>
           </div>
         </div>
-        <div class="calendar_time_container" v-if="selectedDay.time">
-          <div class="calendar_time" v-for="t in selectedDay.time" :key="t">
-            <div class="selectwidget">
+        <div class="calendar_time_container" v-if="intervals">
+          <div class="calendar_time" v-for="t in intervals" :key="t.id">
+            <p class="selectwidget" @click="selectedTime = t">
+              {{ t }}
+            </p>
+            <!-- <div class="selectwidget">
               <SelectWidget
               :options="selectedDay.time"
               class="select" @input="option => selectedTime = option"
@@ -374,7 +377,7 @@
               :Theme="theme" :MC="MainColor" :WC="WidgetColor" :BC="BakcgroundColor" :TC="TextColor"
               /> 
               <div class="selectwidget_dot"></div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -382,7 +385,7 @@
       <div class="calendar_bottom">
         <div class="card_next">
           <div class="card_next_container">
-            <p class="card_next_text">Выбор даты и времени</p>
+            <p class="card_next_text">Выбор даты и времени {{ selectedTime }}</p>
             <div class="divider_step_container">
               <div class="calendar_divider_step_one"></div>
               <div class="calendar_divider_step_two"></div>
@@ -616,11 +619,11 @@
 
 <script>
 
-import SelectWidget from '../components/SelectWidget.vue';
+// import SelectWidget from '../components/SelectWidget.vue';
 import axios from 'axios'
 export default {
   props: ['username', 'widgetname'],
-  components: { SelectWidget} ,
+  // components: { SelectWidget} ,
   data() {
     return {
       size: '',
@@ -653,7 +656,7 @@ export default {
       selectedUslugi: [],
       selectedEmployees: [],
 
-      selectedDay: [],
+      selectedDay: {},
       selectedTime: '',
 
       theme: false,//по дефолту false - это светлая; true - темная
@@ -666,6 +669,14 @@ export default {
       clientID: Number,
       ProjectID: Number,
 
+      calendarSchedule: [],
+      intervals: [],
+
+      timeRange: '',
+      interval: '',
+      breakTime: '',
+
+      busyInterval: '',
     };
   },
   created() {
@@ -711,34 +722,116 @@ export default {
     this.get_widgetid();
   },
   methods: {
-  generate14DayDictionary(schedule) {
-    const daysOfWeek = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
-    const daysOfWeekShort = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
-    const months = ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"];
-
-    const dictionary = [];
-    const today = new Date();
-
-    for (let i = 0; i < 14; i++) {
-        const currentDate = new Date(today);
-        currentDate.setDate(today.getDate() + i);
-
-        const day = currentDate.getDate();
-        const month = months[currentDate.getMonth()];
-        const dayOfWeek = currentDate.getDay();
-        const dayOfWeekShort = daysOfWeekShort[dayOfWeek];
-
-        if (schedule[dayOfWeekShort] && schedule[dayOfWeekShort].work_time) {
-            dictionary.push({
-                "число": day,
-                "месяц": month,
-                "день недели": daysOfWeek[dayOfWeek]
-            });
+    async get_busytime(){
+      try {
+        let employee_id = this.selectedEmployees[0].id
+        const response = await axios.get(`http://127.0.0.1:8000/api/get_busytime/?employee_id=${employee_id}&project=${this.date}`);
+        this.busyInterval = this.getusluga(response.data.usluga).time
+        this.busyTime = response.data.time
+      } catch (error) {
+        console.error('Error fetching busytime:', error);
+      }
+    },
+    async getusluga(i) {
+        try {
+            const id = i;
+            const response = await axios.get(`http://127.0.0.1:8000/api/get_uslugabyid/?variable=${id}`);
+            console.log(response)
+            return response.data;
+        } catch (error) {
+            console.error('Ошибка при получении данных о Услуге:', error);
+            throw error; // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
         }
-    }
+    },
+    dayChanged(){
+      this.timeRange = this.selectedDay.workTime
+      this.breakTime = this.selectedDay.chillTime
+      this.interval = this.selectedUslugi[0].time
+      this.get_busytime()
+      this.generateIntervals()
+    },
+    generateIntervals() {
+      const parseTimeRange = (timeRange) => {
+        const [start, end] = timeRange.split(' — ').map(time => {
+          const [hours, minutes] = time.split(':').map(Number);
+          return hours * 60 + minutes;
+        });
+        return { start, end };
+      };
 
-    return dictionary;
-  },
+      const parseInterval = (interval) => {
+        const hourMatch = interval.match(/(\d+)\s*час/);
+        const minuteMatch = interval.match(/(\d+)\s*минут/);
+
+        const hours = hourMatch ? parseInt(hourMatch[1], 10) : 0;
+        const minutes = minuteMatch ? parseInt(minuteMatch[1], 10) : 0;
+
+        return hours * 60 + minutes;
+      };
+
+      const formatTime = (minutes) => {
+        const hours = Math.floor(minutes / 60);
+        const mins = minutes % 60;
+        return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
+      };
+
+      const { start, end } = parseTimeRange(this.timeRange);
+      const intervalMinutes = parseInterval(this.interval);
+      const breakRange = this.breakTime ? parseTimeRange(this.breakTime) : null;
+
+      let current = start;
+      const result = [];
+
+      while (current < end) {
+        let next = current + intervalMinutes;
+        if (next > end) next = end;
+
+        if (breakRange && current < breakRange.end && next > breakRange.start) {
+          if (current < breakRange.start) {
+            result.push(`${formatTime(current)} — ${formatTime(breakRange.start)}`);
+          }
+          current = breakRange.end;
+        } else {
+          result.push(`${formatTime(current)} — ${formatTime(next)}`);
+          current = next;
+        }
+      }
+
+      this.intervals = result;
+      console.log(this.intervals)
+    },
+    generate14DayDictionary(scheduleStr) {
+
+      const schedule = JSON.parse(scheduleStr);
+      const daysOfWeek = ["вс", "пн", "вт", "ср", "чт", "пт", "сб"];
+      const daysOfWeekShort = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
+      const months = ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"];
+
+      const dictionary = [];
+      const today = new Date();
+
+      for (let i = 0; i < 14; i++) {
+          const currentDate = new Date(today);
+          currentDate.setDate(today.getDate() + i);
+
+          const day = currentDate.getDate();
+          const month = months[currentDate.getMonth()];
+          const dayOfWeek = currentDate.getDay();
+          const dayOfWeekShort = daysOfWeekShort[dayOfWeek];
+
+          if (schedule[dayOfWeekShort] && schedule[dayOfWeekShort].work_time !== "") {
+              dictionary.push({
+                  "workTime": schedule[dayOfWeekShort].work_time,
+                  "chillTime": schedule[dayOfWeekShort].chill_time,
+                  "day": day,
+                  "month": month,
+                  "day_of_week": daysOfWeek[dayOfWeek]
+              });
+        }
+      }
+      this.calendarSchedule = dictionary;
+      console.log(dictionary)
+    },
     async filialsAddToArray(){
       while (this.Filials.length > 0){
         this.Filials.pop(); 
@@ -854,12 +947,10 @@ export default {
               this.uslugi.pop(); 
             }
             this.uslugi = await this.getuslugi_by_specialist(0, filialData.id);
-
             while (this.employees.length > 0){
               this.employees.pop(); 
             }
             this.employees = await this.getspecialist_by_usluga(0, filialData.id);
-            console.log(this.activeFilial)
         } catch (error) {
             console.error('Ошибка при активации Филиала:', error);
         }
@@ -1600,7 +1691,7 @@ p{
   flex-direction: column;
   gap: 30px;
   padding: 30px 40px;
-  height: 315px;
+  height: fit-content;
   background: var(--color-main);
   border-radius: 25px;
 }
@@ -1652,7 +1743,7 @@ p{
   border-radius: 10px;
   padding: 10px;
   width: 100%;
-  height: 110px;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -1696,8 +1787,10 @@ p{
   cursor: pointer;
 }
 .calendar_time_container{
-  display: flex;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-column-gap: 5px;
+  grid-row-gap: 5px; 
 }
 .calendar_time{
   display: flex;
@@ -2654,7 +2747,7 @@ input{
     gap: 10px;
     padding: 10px 10px 15px 10px;
     border-radius: 0 0 25px 25px;
-    height: 560px;
+    height: fit-content;
     background: var(--color-main);
   }
   .calendar_numbers_container{
@@ -2755,9 +2848,10 @@ input{
     cursor: pointer;
   }
   .calendar_time_container{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-column-gap: 5px;
+    grid-row-gap: 5px; 
   }
   .calendar_time{
     display: flex;
