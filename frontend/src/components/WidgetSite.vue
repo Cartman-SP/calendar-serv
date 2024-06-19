@@ -675,6 +675,8 @@ export default {
       timeRange: '',
       interval: '',
       breakTime: '',
+
+      busyInterval: '',
     };
   },
   created() {
@@ -720,10 +722,32 @@ export default {
     this.get_widgetid();
   },
   methods: {
+    async get_busytime(){
+      try {
+        let employee_id = this.selectedEmployees[0].id
+        const response = await axios.get(`http://127.0.0.1:8000/api/get_busytime/?employee_id=${employee_id}&project=${this.date}`);
+        this.busyInterval = this.getusluga(response.data.usluga).time
+        this.busyTime = response.data.time
+      } catch (error) {
+        console.error('Error fetching busytime:', error);
+      }
+    },
+    async getusluga(i) {
+        try {
+            const id = i;
+            const response = await axios.get(`http://127.0.0.1:8000/api/get_uslugabyid/?variable=${id}`);
+            console.log(response)
+            return response.data;
+        } catch (error) {
+            console.error('Ошибка при получении данных о Услуге:', error);
+            throw error; // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
+        }
+    },
     dayChanged(){
       this.timeRange = this.selectedDay.workTime
       this.breakTime = this.selectedDay.chillTime
       this.interval = this.selectedUslugi[0].time
+      this.get_busytime()
       this.generateIntervals()
     },
     generateIntervals() {
