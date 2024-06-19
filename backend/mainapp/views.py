@@ -51,6 +51,8 @@ from rest_framework.response import Response
 from django.http import JsonResponse
 import json
 from django.utils import timezone
+from django.utils import timezone
+from datetime import datetime
 
 @csrf_exempt
 @require_POST
@@ -900,15 +902,30 @@ def get_widgetid(request):
         return Response(serializer.data)
 
 
+
+
 @api_view(['GET'])
 def get_busytime(request):
     if request.method == 'GET':
         employee_id = request.GET.get('employee_id')
+        date_str = request.GET.get('date')  # предположим, что date приходит в формате 'YYYY-MM-DD'
+
+        # Преобразуем date_str в объект datetime, игнорируя время
+        date_filter = datetime.strptime(date_str, '%Y-%m-%d').date()
+
+        # Получаем текущее время
         current_datetime = timezone.now()
-        applications = Application.objects.filter(employee=employee_id, time__gt=current_datetime)
+
+        # Фильтруем записи, где employee_id совпадает и дата в time совпадает с date_filter
+        applications = Application.objects.filter(
+            employee=employee_id, 
+            time__date=date_filter
+        )
+
         serializer = ApplicationTimeSerializer(applications, many=True)
         times = [entry['time'] for entry in serializer.data]
         return Response(times)
+
 
 @api_view(['GET'])
 def get_employee_by_id(request):
