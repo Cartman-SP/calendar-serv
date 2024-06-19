@@ -538,7 +538,7 @@
           }else{
             formData.append('daystime', this.schedule, this.startDay)
           }
-          
+          console.log(formData.daystime)
 
 
           console.log(this.days)

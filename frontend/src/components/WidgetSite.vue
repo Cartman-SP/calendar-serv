@@ -711,6 +711,34 @@ export default {
     this.get_widgetid();
   },
   methods: {
+  generate14DayDictionary(schedule) {
+    const daysOfWeek = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
+    const daysOfWeekShort = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
+    const months = ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"];
+
+    const dictionary = [];
+    const today = new Date();
+
+    for (let i = 0; i < 14; i++) {
+        const currentDate = new Date(today);
+        currentDate.setDate(today.getDate() + i);
+
+        const day = currentDate.getDate();
+        const month = months[currentDate.getMonth()];
+        const dayOfWeek = currentDate.getDay();
+        const dayOfWeekShort = daysOfWeekShort[dayOfWeek];
+
+        if (schedule[dayOfWeekShort] && schedule[dayOfWeekShort].work_time) {
+            dictionary.push({
+                "число": day,
+                "месяц": month,
+                "день недели": daysOfWeek[dayOfWeek]
+            });
+        }
+    }
+
+    return dictionary;
+  },
     async filialsAddToArray(){
       while (this.Filials.length > 0){
         this.Filials.pop(); 
