@@ -28,28 +28,28 @@
       </div>
       <p class="date_text">{{ requestData.data }}</p>
       <div class="container">
-        <p class="client_text">NaN {{ requestData.client }}</p>
+        <p class="client_text">{{ client.firstname + ' ' + client.secondname }}</p>
         <div class="client_container">
-          <p class="client_text">client Phone NaN</p>
+          <p class="client_text">{{ client.phone }}</p>
           <img src="../../static/img/copy.svg" alt="">
         </div>
         <div class="client_container">
-          <p class="client_text">#{{ requestData.client }}</p>
+          <p class="client_text">#{{ client.id }}</p>
           <img src="../../static/img/copy.svg" alt="">
         </div>
       </div>
       <div class="container">
         <div class="client_wrapper">
           <p class="client_subtext">Сотрудник</p>
-          <p class="client_text">NaN {{ requestData.employee }}</p>
+          <p class="client_text">{{ sotrudnik.firstname + ' ' + sotrudnik.secondname }}</p>
         </div>
         <div class="client_wrapper">
           <p class="client_subtext">Название услуги</p>
-          <p class="client_text">NaN {{ requestData.usluga }}</p>
+          <p class="client_text">{{ usluga.name }}</p>
         </div>
         <div class="client_wrapper">
           <p class="client_subtext">Стоимость</p>
-          <p class="client_text">NaN ₸</p>
+          <p class="client_text">{{ usluga.cost }}</p>
         </div>
       </div>
       <div class="keys">
@@ -96,6 +96,10 @@ export default {
         showModal: false,
         alertColor: '',
         alertMessage: '',
+
+        client: {},
+        sotrudnik: {},
+        usluga: {},
       }
   },
   methods:{
@@ -105,6 +109,36 @@ export default {
     },
     toggleStatusDropdown(){
       this.statusDrop = !this.statusDrop;
+    },
+    async getusluga(i) {
+        try {
+            const id = i;
+            const response = await axios.get(`http://127.0.0.1:8000/api/get_uslugabyid/?variable=${id}`);
+            this.usluga = response.data;
+        } catch (error) {
+            console.error('Ошибка при получении данных о Услуге:', error);
+            throw error; // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
+        }
+    },
+    async getemployee(i) {
+        try {
+            const id = i;
+            const response = await axios.get(`http://127.0.0.1:8000/api/get_employeebyid/?variable=${id}`);
+            this.sotrudnik = response.data;
+        } catch (error) {
+            console.error('Ошибка при получении данных о Сотруднике:', error);
+            throw error; // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
+        }
+    },
+    async getclient(i) {
+        try {
+            const id = i;
+            const response = await axios.get(`http://127.0.0.1:8000/api/get_clientbyid/?variable=${id}`);
+            this.client = response.data;
+        } catch (error) {
+            console.error('Ошибка при получении данных о Клиенте:', error);
+            throw error; // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
+        }
     },
     async set_status(id, status) {
       if (this.requestData.status === status) {
@@ -116,7 +150,7 @@ export default {
         }, 3000);
       }else{
         const formData = new FormData();
-        formData.append('id', id);
+        formData.append('id', id);  
         formData.append('status', status)
         axios.post('http://127.0.0.1:8000/api/set_status/', formData)
           .then(response => {
@@ -125,7 +159,14 @@ export default {
             this.statusDrop = false;
           })
           .catch(error => {
-            console.error('Error creating service:', error);
+            console.error('Error set_status:', error);
+            this.statusDrop = false;
+            this.alertMessage = 'Произошла ошибка при смене статуса заявки #' + id;
+              this.alertColor = '#F97F7F';
+              setTimeout(() => {
+                this.alertMessage = '';
+                this.alertColor = '#F97F7F';
+              }, 3000);
           });
       }
       
@@ -153,6 +194,11 @@ export default {
         'canceled': this.requestData.status === 'Canceled'
       };
     }
+  },
+  mounted(){
+    this.getclient(this.requestData.client);
+    this.getemployee(this.requestData.employee);
+    this.getusluga(this.requestData.usluga)
   }
 }
 </script>

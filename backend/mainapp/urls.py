@@ -50,4 +50,5 @@ urlpatterns = [
     path('get_busytime/',get_busytime),
     path('get_employeebyid/',get_employee_by_id),
     path('get_uslugabyid/',get_usluga_by_id),
+    path('get_clientbyid/',get_client_by_id),
 ]

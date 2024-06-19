@@ -138,6 +138,17 @@
             throw error; // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
         }
     },
+    async getclient(i) {
+        try {
+            const id = i;
+            const response = await axios.get(`http://127.0.0.1:8000/api/get_clientbyid/?variable=${id}`);
+            console.log(response)
+            return response.data;
+        } catch (error) {
+            console.error('Ошибка при получении данных о Клиенте:', error);
+            throw error; // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
+        }
+    },
 
       
     },
