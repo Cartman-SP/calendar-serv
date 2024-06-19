@@ -366,7 +366,7 @@
         </div>
         <div class="calendar_time_container" v-if="intervals">
           <div class="calendar_time" v-for="t in intervals" :key="t.id">
-            <p class="selectwidget" @click="selectedTime = t" :style="{'background-color': checkTimeOverlap(t) ? 'red' : ''}">
+            <p class="selectwidget" @click="selectedTime = t" :style="{'background-color': checkTimeOverlap(t) ? 'red' : 'green'}">
               {{ t }}
             </p>
             <!-- <div class="selectwidget">
@@ -779,31 +779,30 @@ export default {
     formatDateFromDictionary(dict) {
       function getMonthNumber(monthName) {
         const months = {
-          "Янв": 1,
-          "Фев": 2,
-          "Мар": 3,
-          "Апр": 4,
-          "Май": 5,
-          "Июн": 6,
-          "Июл": 7,
-          "Авг": 8,
-          "Сен": 9,
-          "Окт": 10,
-          "Ноя": 11,
-          "Дек": 12,
+          "Янв": '01',
+          "Фев": '02',
+          "Мар": '03',
+          "Апр": '04',
+          "Май": '05',
+          "Июн": '06',
+          "Июл": '07',
+          "Авг": '08',
+          "Сен": '09',
+          "Окт": '10',
+          "Ноя": '11',
+          "Дек": '12',
         };
         return months[monthName];
       }
 
-      const day = dict.day;
-      const month = getMonthNumber(dict.month);
-      const year = new Date().getFullYear();
+      const day = "" + (dict.day+1);
+      const month = "" + getMonthNumber(dict.month);
+      const year = "" + new Date().getFullYear();
 
-      // Создание объекта Date
-      const date = new Date(year, month, day+1);
+      const date = day + '.' + month + '.' + year;
 
       // Форматирование даты в строку
-      return date.toISOString().split('T')[0];
+      return date;
     },
     async get_busytime(){
       try {
@@ -811,7 +810,7 @@ export default {
         let date = this.formatDateFromDictionary(this.selectedDay)
         const response = await axios.get(`http://127.0.0.1:8000/api/get_busytime/?employee_id=${employee_id}&date=${date}`);
         console.log(response.data)
-        return response.data.time
+        return response.data
       } catch (error) {
         console.error('Error fetching busytime:', error);
       }
