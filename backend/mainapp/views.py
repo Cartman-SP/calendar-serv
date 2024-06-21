@@ -909,17 +909,12 @@ def get_busytime(request):
     if request.method == 'GET':
         employee_id = request.GET.get('employee_id')
         date_str = request.GET.get('date')  # предположим, что date приходит в формате 'YYYY-MM-DD'
-
-        # Преобразуем date_str в объект datetime, игнорируя время
-        date_filter = datetime.strptime(date_str, '%Y-%m-%d').date()
-
-        # Получаем текущее время
-        current_datetime = timezone.now()
-
+        print(employee_id, date_str)
+        
         # Фильтруем записи, где employee_id совпадает и дата в time совпадает с date_filter
         applications = Application.objects.filter(
             employee=employee_id, 
-            time__date=date_filter
+            data=date_str
         )
         print(applications)
         serializer = ApplicationTimeSerializer(applications, many=True)
