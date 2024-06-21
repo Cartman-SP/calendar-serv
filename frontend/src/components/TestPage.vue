@@ -144,14 +144,22 @@
         }
     },
 
+    async get_time(){
+        try {
+          let employee_id = 1
+          let usluga_id = 1
+          const response = await axios.get(`http://127.0.0.1:8000/api/get_time/?employee_id=${employee_id}&usluga_id=${usluga_id}&dayofWeek=Ср`);
+          console.log(response.data)
+        } catch (error) {
+          console.error('Error fetching applications:', error);
+        }
+      },
+
       
     },
     mounted() {
-      this.create_application()
-      this.get_request(1,1)
-      this.delete_request()
-        console.log('Component mounted')
-      this.get_applications();
+      this.get_time()
+
     }
   };
   </script>

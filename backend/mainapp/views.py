@@ -52,7 +52,7 @@ from django.http import JsonResponse
 import json
 from django.utils import timezone
 from django.utils import timezone
-from datetime import datetime
+from datetime import datetime, timedelta
 
 @csrf_exempt
 @require_POST
@@ -921,7 +921,7 @@ def get_busytime(request):
             employee=employee_id, 
             time__date=date_filter
         )
-
+        print(applications)
         serializer = ApplicationTimeSerializer(applications, many=True)
         times = [entry['time'] for entry in serializer.data]
         return Response(times)
@@ -966,3 +966,61 @@ def delete_widget(request):
         widget = Widget.objects.get(id=request_id)
         widget.delete()
         return JsonResponse({'message': 'Виджет успешно удален'})
+    
+def parse_interval(interval_str):
+    parts = interval_str.split()
+    hours = 0
+    minutes = 0
+    for i, part in enumerate(parts):
+        if 'час' in part:
+            hours = int(parts[i - 1])
+        elif 'минут' in part:
+            minutes = int(parts[i - 1])
+    return timedelta(hours=hours, minutes=minutes)
+
+def split_time(work_time, interval_str, break_time_str):
+    interval = parse_interval(interval_str)
+    break_start_str, break_end_str = break_time_str.split(' — ')
+    break_start = datetime.strptime(break_start_str, '%H:%M')
+    break_end = datetime.strptime(break_end_str, '%H:%M')
+
+    start_time_str, end_time_str = work_time.split(' — ')
+    start_time = datetime.strptime(start_time_str, '%H:%M')
+    end_time = datetime.strptime(end_time_str, '%H:%M')
+    
+    result = {}
+    current_time = start_time
+    
+    while current_time < end_time:
+        next_time = current_time + interval
+        if next_time > end_time:
+            next_time = end_time
+        if current_time < break_start or current_time >= break_end:
+            result[current_time.strftime('%H:%M')] = True
+        current_time = next_time
+    
+    return result
+
+def check_time_in_interval(time, start_time_str, interval_str):
+    start_time = datetime.strptime(start_time_str, '%H:%M').time()
+    end_time = (datetime.strptime(start_time_str, '%H:%M') + parse_interval(interval_str)).time()
+    
+    return start_time <= time.time() <= end_time
+@api_view(['GET'])
+def get_time(request):
+    if request.method == 'GET':
+        employee_id = request.GET.get('employee_id')
+        dayofWeek = request.GET.get('dayofWeek')
+        employee = Employee.objects.get(id=employee_id)
+        usluga_id = request.GET.get('usluga_id')
+        usluga = Usluga.objects.get(id = usluga_id)
+        applications = Application.objects.filter(employee=employee)
+
+        time = split_time(json.loads(employee.daystime)[dayofWeek]['work_time'], usluga.time,json.loads(employee.daystime)[dayofWeek]['chill_time'])
+        for i in time.keys():
+            for j in applications:
+                if(check_time_in_interval(j.time,i,usluga.time)):
+                    time[i] = False
+                    break
+        print(time)
+        return Response(status=200, data=time)
