@@ -146,9 +146,10 @@
 
     async get_time(){
         try {
+          let dayofWeek = 'Ср'
           let employee_id = 1
           let usluga_id = 1
-          const response = await axios.get(`http://127.0.0.1:8000/api/get_time/?employee_id=${employee_id}&usluga_id=${usluga_id}&dayofWeek=Ср`);
+          const response = await axios.get(`http://127.0.0.1:8000/api/get_time/?employee_id=${employee_id}&usluga_id=${usluga_id}&dayofWeek=${dayofWeek}`);
           console.log(response.data)
         } catch (error) {
           console.error('Error fetching applications:', error);
