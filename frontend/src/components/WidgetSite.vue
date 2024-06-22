@@ -387,8 +387,6 @@
           <div class="card_next_container">
             <p class="card_next_text">Выбор даты и времени {{ selectedTime }}</p>
             
-            <button @click="console.log(selectedDay)">log</button>
-            
             <div class="divider_step_container">
               <div class="calendar_divider_step_one"></div>
               <div class="calendar_divider_step_two"></div>
@@ -729,7 +727,6 @@ export default {
       let flag = false
   
       const time2Array = await this.get_busytime()
-      console.log('kekeke', time2Array)
       for (let index = 0; index < time2Array.length; index++) {
         let time2 = time2Array[index].time
         let interval = this.getusluga(time2.usluga).time
@@ -794,8 +791,13 @@ export default {
         };
         return months[monthName];
       }
-
-      const day = "" + (dict.day+1);
+      let  day = ''
+      if (dict.day<10) {
+        day = "0" + (dict.day);
+      }else{
+        day = "" + (dict.day);
+      }
+      
       const month = "" + getMonthNumber(dict.month);
       const year = "" + new Date().getFullYear();
 
@@ -808,8 +810,9 @@ export default {
       try {
         let employee_id = this.selectedEmployees[0].id
         let date = this.formatDateFromDictionary(this.selectedDay)
+        console.log(date)
         const response = await axios.get(`http://127.0.0.1:8000/api/get_busytime/?employee_id=${employee_id}&date=${date}`);
-        console.log(response.data)
+        // console.log('-----------------------', response.data)
         return response.data
       } catch (error) {
         console.error('Error fetching busytime:', error);
