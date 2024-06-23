@@ -155,8 +155,6 @@
           console.error('Error fetching applications:', error);
         }
       },
-
-      
     },
     mounted() {
       this.get_time()

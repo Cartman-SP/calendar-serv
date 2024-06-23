@@ -365,9 +365,9 @@
           </div>
         </div>
         <div class="calendar_time_container" v-if="intervals">
-          <div class="calendar_time" v-for="t in intervals" :key="t.id">
-            <p class="selectwidget" @click="selectedTime = t" :style="{'background-color': checkTimeOverlap(t) ? 'red' : 'green'}">
-              {{ t }}
+          <div class="calendar_time" v-for="[time, available] in Object.entries(intervals)" :key="time" :style="{'background-color': available ? 'green' : 'salmon'}">
+            <p class="selectwidget" @click="selectedTime = time">
+              {{ time }}
             </p>
             <!-- <div class="selectwidget">
               <SelectWidget
@@ -723,101 +723,120 @@ export default {
     this.get_widgetid();
   },
   methods: {
-    async checkTimeOverlap(time1) {
-      let flag = false
+    // async checkTimeOverlap(time1) {
+    //   let flag = false
   
-      const time2Array = await this.get_busytime()
-      for (let index = 0; index < time2Array.length; index++) {
-        let time2 = time2Array[index].time
-        let interval = this.getusluga(time2.usluga).time
+    //   const time2Array = await this.get_busytime()
+    //   for (let index = 0; index < time2Array.length; index++) {
+    //     let time2 = time2Array[index].time
+    //     let interval = this.getusluga(time2.usluga).time
 
-        console.log(time2, interval)
+    //     console.log(time2, interval)
 
-        const [startTime1, endTime1] = time1.split(' — ').map(time => {
-          const [hours, minutes] = time.split(':').map(Number);
-          const today = new Date();
-          today.setHours(hours, minutes, 0, 0);
-          return today;
-        });
+    //     const [startTime1, endTime1] = time1.split(' — ').map(time => {
+    //       const [hours, minutes] = time.split(':').map(Number);
+    //       const today = new Date();
+    //       today.setHours(hours, minutes, 0, 0);
+    //       return today;
+    //     });
 
-        // Парсинг time2
-        const startTime2 = new Date(time2);
+    //     // Парсинг time2
+    //     const startTime2 = new Date(time2);
 
-        // Парсинг interval
-        const intervalParts = interval.split(' ');
-        let intervalDuration = 0;
-        for (let i = 0; i < intervalParts.length; i += 2) {
-          const value = parseInt(intervalParts[i], 10);
-          const unit = intervalParts[i + 1];
-          switch (unit) {
-            case 'минут':
-            case 'минута':
-            case 'минуты':
-              intervalDuration += value * 60 * 1000;
-              break;
-            case 'час':
-            case 'часа':
-            case 'часов':
-              intervalDuration += value * 60 * 60 * 1000;
-              break;
-          }
-        }
+    //     // Парсинг interval
+    //     const intervalParts = interval.split(' ');
+    //     let intervalDuration = 0;
+    //     for (let i = 0; i < intervalParts.length; i += 2) {
+    //       const value = parseInt(intervalParts[i], 10);
+    //       const unit = intervalParts[i + 1];
+    //       switch (unit) {
+    //         case 'минут':
+    //         case 'минута':
+    //         case 'минуты':
+    //           intervalDuration += value * 60 * 1000;
+    //           break;
+    //         case 'час':
+    //         case 'часа':
+    //         case 'часов':
+    //           intervalDuration += value * 60 * 60 * 1000;
+    //           break;
+    //       }
+    //     }
 
-        const endTime2 = new Date(startTime2.getTime() + intervalDuration);
+    //     const endTime2 = new Date(startTime2.getTime() + intervalDuration);
 
         
-        if (!(startTime1 < endTime2 && endTime1 > startTime2)) {
-          flag = true
-          break
-        }
-      }
-      return (flag);
-    },
-    formatDateFromDictionary(dict) {
-      function getMonthNumber(monthName) {
-        const months = {
-          "Янв": '01',
-          "Фев": '02',
-          "Мар": '03',
-          "Апр": '04',
-          "Май": '05',
-          "Июн": '06',
-          "Июл": '07',
-          "Авг": '08',
-          "Сен": '09',
-          "Окт": '10',
-          "Ноя": '11',
-          "Дек": '12',
-        };
-        return months[monthName];
-      }
-      let  day = ''
-      if (dict.day<10) {
-        day = "0" + (dict.day);
-      }else{
-        day = "" + (dict.day);
-      }
+    //     if (!(startTime1 < endTime2 && endTime1 > startTime2)) {
+    //       flag = true
+    //       break
+    //     }
+    //   }
+    //   return (flag);
+    // },
+    // formatDateFromDictionary(dict) {
+    //   function getMonthNumber(monthName) {
+    //     const months = {
+    //       "Янв": '01',
+    //       "Фев": '02',
+    //       "Мар": '03',
+    //       "Апр": '04',
+    //       "Май": '05',
+    //       "Июн": '06',
+    //       "Июл": '07',
+    //       "Авг": '08',
+    //       "Сен": '09',
+    //       "Окт": '10',
+    //       "Ноя": '11',
+    //       "Дек": '12',
+    //     };
+    //     return months[monthName];
+    //   }
+    //   let  day = ''
+    //   if (dict.day<10) {
+    //     day = "0" + (dict.day);
+    //   }else{
+    //     day = "" + (dict.day);
+    //   }
       
-      const month = "" + getMonthNumber(dict.month);
-      const year = "" + new Date().getFullYear();
+    //   const month = "" + getMonthNumber(dict.month);
+    //   const year = "" + new Date().getFullYear();
 
-      const date = day + '.' + month + '.' + year;
+    //   const date = year + '-' + month + '-' + day;
 
-      // Форматирование даты в строку
-      return date;
-    },
-    async get_busytime(){
+    //   // Форматирование даты в строку
+    //   return date;
+    // },
+
+
+    async get_time(){
       try {
+        
+        let dayofWeek = this.selectedDay.day_of_week
         let employee_id = this.selectedEmployees[0].id
-        let date = this.formatDateFromDictionary(this.selectedDay)
-        console.log(date)
-        const response = await axios.get(`http://127.0.0.1:8000/api/get_busytime/?employee_id=${employee_id}&date=${date}`);
-        // console.log('-----------------------', response.data)
-        return response.data
+        let usluga_id = this.selectedUslugi[0].id
+
+        console.log(dayofWeek, employee_id, usluga_id)
+        const response = await axios.get(`http://127.0.0.1:8000/api/get_time/?employee_id=${employee_id}&usluga_id=${usluga_id}&dayofWeek=${dayofWeek}`);
+
+        this.intervals = response.data
       } catch (error) {
-        console.error('Error fetching busytime:', error);
+        console.error('Error fetching applications:', error);
       }
     },
+
+
+    // async get_busytime(){
+    //   try {
+    //     let employee_id = this.selectedEmployees[0].id
+    //     let date = this.formatDateFromDictionary(this.selectedDay)
+    //     console.log(date)
+    //     const response = await axios.get(`http://127.0.0.1:8000/api/get_busytime/?employee_id=${employee_id}&date=${date}`);
+    //     console.log('-----------------------', response.data)
+    //     return response.data
+    //   } catch (error) {
+    //     console.error('Error fetching busytime:', error);
+    //   }
+    // },
     async getusluga(i) {
         try {
             const id = i;
@@ -833,7 +852,7 @@ export default {
       this.timeRange = this.selectedDay.workTime
       this.breakTime = this.selectedDay.chillTime
       this.interval = this.selectedUslugi[0].time
-      this.get_busytime()
+      this.get_time()
       this.generateIntervals()
     },
     generateIntervals() {
@@ -889,7 +908,8 @@ export default {
     generate14DayDictionary(scheduleStr) {
 
       const schedule = JSON.parse(scheduleStr);
-      const daysOfWeek = ["вс", "пн", "вт", "ср", "чт", "пт", "сб"];
+      const daysOfWeek = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
+      // const daysOfWeek = ["вс", "пн", "вт", "ср", "чт", "пт", "сб"];
       const daysOfWeekShort = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
       const months = ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"];
 
