@@ -155,6 +155,153 @@
           console.error('Error fetching applications:', error);
         }
       },
+    async getEmployeeStats(employeeId, period) 
+    {
+      try
+      {
+        const response = await axios.get(`http://127.0.0.1:8000/api/employee-stats/?employee_id=${employeeId}&period=${period}`);
+        console.log(response.data);
+        return response.data;
+      } 
+      catch (error)
+      {
+        console.error('Ошибка при получении статистики сотрудника:', error);
+        throw error; // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
+      }
+    },
+    async getWidgetLoads(period) 
+    {
+      try 
+      {
+        const response = await axios.get(`http://127.0.0.1:8000/api/widget-loads/?period=${period}`);
+        console.log(response.data);
+        return response.data;
+      }      
+      catch (error) 
+      {
+        console.error('Ошибка при получении количества загрузки виджетов:', error);
+        throw error; // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
+      }
+    },
+    async getApplicationCounts(period)
+    {
+      try
+      {
+        const response = await axios.get(`http://127.0.0.1:8000/api/application-counts/?period=${period}`);
+        console.log(response.data);
+        return response.data;
+      } 
+      catch (error) 
+      {
+        console.error('Error fetching application counts:', error);
+        throw error;  // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
+      }
+    },
+    async getEarnings(period)
+    {
+      try
+      {
+        const response = await axios.get(`http://127.0.0.1:8000/api/earnings/?period=${period}`);
+        console.log(response.data);
+        return response.data;
+      } 
+      catch (error)
+      {
+        console.error('Error fetching earnings:', error);
+        throw error;  // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
+      } 
+    },
+    async getNewApplicationCount() 
+    {
+      try
+      {
+        const response = await axios.get('http://127.0.0.1:8000/api/new-application-count/');
+        console.log(response.data);
+        return response.data;
+      } 
+      catch (error)
+      {
+        console.error('Error fetching new application count:', error);
+        throw error;
+      }
+    },
+    async editUsluga(uslugaId, updatedData) 
+    {
+      try 
+      {
+        const response = await axios.patch(`http://127.0.0.1:8000/api/usluga/${uslugaId}/edit/`, updatedData);
+        console.log(response.data);
+        return response.data;
+      }
+      catch (error) 
+      {
+        console.error('Error editing usluga:', error);
+        throw error;
+      }
+    },
+
+    async editEmployee(employeeId, updatedData) 
+    {
+      try 
+      {
+        const response = await axios.patch(`http://127.0.0.1:8000/api/employee/${employeeId}/edit/`, updatedData);
+        console.log(response.data);
+        return response.data;
+      }
+      catch (error) 
+      {
+        console.error('Error editing employee:', error);
+        throw error;
+      }
+    },
+
+    async  editBranch(branchId, updatedData) 
+    {
+      try 
+      {
+        const response = await axios.patch(`http://127.0.0.1:8000/api/branch/${branchId}/edit/`, updatedData);
+        console.log(response.data);
+        return response.data;
+      }
+      catch (error) 
+      {
+        console.error('Error editing branch:', error);
+        throw error;
+      }
+    },
+
+    async editWidget(widgetId, updatedData) 
+    {
+      try 
+      {
+        const response = await axios.patch(`http://127.0.0.1:8000/api/widget/${widgetId}/edit/`, updatedData);
+        console.log(response.data);
+        return response.data;
+      }
+      catch (error) 
+      {
+        console.error('Error editing widget:', error);
+        throw error;
+      }
+    },
+    async  createApplicationFromWidget(applicationData) 
+    {
+      try 
+      {
+        const response = await axios.post('http://127.0.0.1:8000/api/create_application_from_widget/', {
+            application: applicationData
+        });
+        console.log(response.data);
+        return response.data;
+      }
+      catch (error) 
+      {
+        console.error('Error creating application from widget:', error);
+        throw error;
+      }
+    }
+
+
     },
     mounted() {
       this.get_time()

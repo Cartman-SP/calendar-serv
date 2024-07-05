@@ -122,6 +122,7 @@ class Widget(models.Model):
     telegramtoken = models.CharField(max_length=5000)
     buttonname = models.CharField(max_length=25)
     hellomessage = models.CharField(max_length=250)
+    created_at = models.DateTimeField(auto_now_add=True) #НОВОЕ ПОЛЕ ДЛЯ ОТСЛЕЖИВАНИЯ СОЗДАНИЯ И ОБНОВЛЕНИЯ ВИДЖЕТА 
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['user', 'name'], name='unique_user_widget_name')

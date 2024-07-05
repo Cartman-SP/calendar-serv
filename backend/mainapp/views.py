@@ -53,6 +53,49 @@ import json
 from django.utils import timezone
 from django.utils import timezone
 from datetime import datetime, timedelta
+from django.utils import timezone
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .models import Widget
+from datetime import timedelta
+from django.shortcuts import get_object_or_404
+from django.utils import timezone
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from datetime import timedelta
+from .models import Employee, Application, Usluga
+from django.utils import timezone
+from datetime import timedelta
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .models import Application
+from django.utils import timezone
+from datetime import timedelta
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .models import Application
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .models import Application
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from django.shortcuts import get_object_or_404
+from .models import Usluga, Employee, Branch, Widget
+from .serializers import UslugaSerializer, EmployeeSerializer, BranchSerializer, WidgetSerializer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Client, Widget, Application
+from .serializers import ClientSerializer, ApplicationSerializer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Client, Widget, Application
+from .serializers import ClientSerializer, ApplicationSerializer
+from django.shortcuts import get_object_or_404
+from django.utils import timezone
+
 
 @csrf_exempt
 @require_POST
@@ -962,7 +1005,7 @@ def delete_widget(request):
         widget.delete()
         return JsonResponse({'message': 'Виджет успешно удален'})
     
-def parse_interval(interval_str):
+def parse_interval(interval_str): 
     parts = interval_str.split()
     hours = 0
     minutes = 0
@@ -1002,7 +1045,7 @@ def check_time_in_interval(time, start_time_str, interval_str):
     
     return start_time <= time.time() <= end_time
 @api_view(['GET'])
-def get_time(request):
+def get_time(request):  
     if request.method == 'GET':
         employee_id = request.GET.get('employee_id')
         dayofWeek = request.GET.get('dayofWeek')
@@ -1019,3 +1062,163 @@ def get_time(request):
                     break
         print(time)
         return Response(status=200, data=time)
+@api_view(['GET'])
+def get_employee_stats(request):
+    if request.method == 'GET':
+        employee_id = request.GET.get('employee_id')
+        period = request.GET.get('period')  # day, week, month, quarter, year
+        
+        employee = get_object_or_404(Employee, id=employee_id)
+        
+        # Текущая дата и время
+        now = timezone.now()
+        
+        if period == 'day':
+            start_date = now - timedelta(days=1)
+        elif period == 'week':
+            start_date = now - timedelta(weeks=1)
+        elif period == 'month':
+            start_date = now - timedelta(days=30) 
+        elif period == 'quarter':
+            start_date = now - timedelta(days=90)  
+        elif period == 'year':
+            start_date = now - timedelta(days=365)
+        else:
+            return Response({'error': 'Invalid period specified'}, status=400)
+        
+        completed_statuses = ['done'] #??????????????????????????????????????????????????????? 
+        applications = Application.objects.filter(
+            employee=employee, 
+            time__gte=start_date, 
+            time__lte=now, 
+            status__in=completed_statuses
+        )
+        applications_count = applications.count()
+        
+        total_income = 0
+        for application in applications:
+            usluga = application.usluga
+            total_income += float(usluga.cost)
+            stats = {
+            'employee': {
+                'id': employee.id,
+                'firstname': employee.firstname,
+                'secondname': employee.secondname,
+                'rank': employee.rank,
+            },
+            'applications_count': applications_count,
+            'total_income': total_income
+        }
+        
+        return Response(stats, status=200)
+@api_view(['GET'])
+def get_widget_loads(request):
+    if request.method == 'GET':
+        period = request.GET.get('period')  # today, yesterday, 7_days, 30_days
+        
+        now = timezone.now()
+        
+        if period == 'today':
+            start_date = now.replace(hour=0, minute=0, second=0, microsecond=0)
+        elif period == 'yesterday':
+            start_date = (now - timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+            end_date = start_date + timedelta(days=1)
+        elif period == '7_days':
+            start_date = now - timedelta(days=7)
+        elif period == '30_days':
+            start_date = now - timedelta(days=30)
+        else:
+            return Response({'error': 'Invalid period specified'}, status=400)
+        
+        if period == 'yesterday':
+            widgets = Widget.objects.filter(created_at__gte=start_date, created_at__lt=end_date)
+        else:
+            widgets = Widget.objects.filter(created_at__gte=start_date, created_at__lte=now)
+        
+        widgets_count = widgets.count()
+        
+        return Response({'widgets_count': widgets_count}, status=200)        
+@api_view(['GET'])
+def get_application_counts(request):
+    if request.method == 'GET':
+        period = request.GET.get('period')  # today, yesterday, 7_days, 30_days
+
+        now = timezone.now()
+
+        if period == 'today':
+            start_date = now.replace(hour=0, minute=0, second=0, microsecond=0)
+        elif period == 'yesterday':
+            start_date = (now - timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+            end_date = start_date + timedelta(days=1)
+        elif period == '7_days':
+            start_date = now - timedelta(days=7)
+        elif period == '30_days':
+            start_date = now - timedelta(days=30)
+        else:
+            return Response({'error': 'Invalid period specified'}, status=400)
+
+        if period == 'yesterday':
+            applications = Application.objects.filter(time__gte=start_date, time__lt=end_date)
+        else:
+            applications = Application.objects.filter(time__gte=start_date, time__lte=now)
+
+        applications_count = applications.count()
+
+        return Response({'applications_count': applications_count}, status=200)
+
+@api_view(['GET'])
+def get_new_application_count(request):
+    if request.method == 'GET':
+        new_status = 'new' 
+        new_applications_count = Application.objects.filter(status=new_status).count()
+        
+        return Response({'new_applications_count': new_applications_count}, status=200)
+
+@api_view(['PATCH'])
+def edit_usluga(request, usluga_id):
+    usluga = get_object_or_404(Usluga, id=usluga_id)
+    serializer = UslugaSerializer(usluga, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PATCH'])
+def edit_employee(request, employee_id):
+    employee = get_object_or_404(Employee, id=employee_id)
+    serializer = EmployeeSerializer(employee, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PATCH'])
+def edit_branch(request, branch_id):
+    branch = get_object_or_404(Branch, id=branch_id)
+    serializer = BranchSerializer(branch, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PATCH'])
+def edit_widget(request, widget_id):
+    widget = get_object_or_404(Widget, id=widget_id)
+    serializer = WidgetSerializer(widget, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def create_application_from_widget(request):
+    application_data = request.data.get('application')
+    
+    # Создание заявки
+    application_serializer = ApplicationSerializer(data=application_data)
+    if application_serializer.is_valid():
+        application = application_serializer.save()
+        return Response(application_serializer.data, status=status.HTTP_201_CREATED)
+    else:
+        return Response(application_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
