@@ -170,31 +170,46 @@ export default {
     }
   },
   watch:{
-    // periodWidget(){
-    //   this.amountWidget = this.getApplicationCounts;
-    // },
+    periodWidget(){
+      this.getWidgetLoads();
+    },
     periodZayavki(){
-      this.amountZayavki = this.getApplicationCounts;
+      this.getApplicationCounts();
     },
     periodIncome(){
-      this.amountIncome = this.getEarnings;
+      this.getEarnings();
     },
   },
   methods: {
+    async getWidgetLoads()
+    
+    {
+      const period = this.periodWidget;
+      try 
+      {
+        const response = await axios.get(`http://127.0.0.1:8000/api/widget-loads/?period=${period}`);
+        this.amountWidget = response.data.widgets_count;
+      }      
+      catch (error) 
+      {
+        console.error('Ошибка при получении количества загрузки виджетов:', error);
+        throw error; // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
+      }
+    },
     async getEarnings()
     {
       const period = this.periodIncome;
-      try
+      console.log(period)
+      try 
       {
         const response = await axios.get(`http://127.0.0.1:8000/api/earnings/?period=${period}`);
-        console.log(response.data);
-        return response.data;
-      } 
-      catch (error)
+        this.amountIncome = response.data.total_earnings;
+      }
+      catch (error) 
       {
         console.error('Error fetching earnings:', error);
-        throw error;  // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
-      } 
+        throw error;
+      }
     },
     async getApplicationCounts()
     {
@@ -202,8 +217,7 @@ export default {
       try
       {
         const response = await axios.get(`http://127.0.0.1:8000/api/application-counts/?period=${period}`);
-        console.log(response.data);
-        return response.data;
+        this.amountZayavki = response.data.applications_count;
       } 
       catch (error) 
       {

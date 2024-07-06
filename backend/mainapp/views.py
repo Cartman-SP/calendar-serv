@@ -1099,14 +1099,14 @@ def get_employee_stats(request):
         for application in applications:
             usluga = application.usluga
             total_income += float(usluga.cost)
-            stats = {
-            'employee': {
-                'id': employee.id,
-                'firstname': employee.firstname,
-                'secondname': employee.secondname,
-            },
-            'applications_count': applications_count,
-            'total_income': total_income
+        stats = {
+        'employee': {
+            'id': employee.id,
+            'firstname': employee.firstname,
+            'secondname': employee.secondname,
+        },
+        'applications_count': applications_count,
+        'total_income': total_income
         }
         
         return Response(stats, status=200)
