@@ -419,22 +419,20 @@ export default {
       formData.append('user', this.$store.state.registrationData.user_id);
       formData.append('serviceCover', this.serviceCover);
       formData.append('project', this.$store.state.activeProjectId)
-      axios.post('http://127.0.0.1:8000/api/uslugi/', formData)
+      axios.patch(`http://127.0.0.1:8000/api/usluga/${this.$route.params.serviceToEditId}/edit/`, formData)
         .then(response => {
           console.log('Service created:', response.data);
           this.alertMessage = 'Настройки успешно сохранены'
           this.alertColor = '#0BB6A1'
-          if(response.data){
-          this.first = response.data
-          }else{
           setTimeout(() => {
             this.$router.push('/dashboard/service');
-          }, 2000)}
+          }, 2000)
         })
         .catch(error => {
           console.error('Error creating service:', error);
         });
     },
+
     cancel() {
       this.$router.go(-1);
     },
