@@ -28,6 +28,8 @@ class Project(models.Model):
     profile = models.ForeignKey(Profile, on_delete = models.CASCADE)
 
 
+
+
 class Usluga(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
@@ -128,10 +130,15 @@ class Widget(models.Model):
             models.UniqueConstraint(fields=['user', 'name'], name='unique_user_widget_name')
         ]
 
+
+
 class WidgetImage(models.Model):
     widget = models.ForeignKey(Widget, related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='widget_images')
 
+class WidgetLoad(models.Model):
+    widget = models.ForeignKey(Widget, on_delete=models.CASCADE)
+    load_time = models.DateTimeField(auto_now_add=True)
 
 class Client(models.Model):
     firstname = models.CharField(max_length=128)

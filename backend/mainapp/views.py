@@ -95,7 +95,11 @@ from .models import Client, Widget, Application
 from .serializers import ClientSerializer, ApplicationSerializer
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
-
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.utils import timezone
+from datetime import timedelta
+from .models import WidgetLoad
 
 @csrf_exempt
 @require_POST
@@ -1114,9 +1118,9 @@ def get_employee_stats(request):
 def get_widget_loads(request):
     if request.method == 'GET':
         period = request.GET.get('period')  # today, yesterday, 7_days, 30_days
-        
+
         now = timezone.now()
-        
+
         if period == 'today':
             start_date = now.replace(hour=0, minute=0, second=0, microsecond=0)
         elif period == 'yesterday':
@@ -1128,15 +1132,15 @@ def get_widget_loads(request):
             start_date = now - timedelta(days=30)
         else:
             return Response({'error': 'Invalid period specified'}, status=400)
-        
+
         if period == 'yesterday':
-            widgets = Widget.objects.filter(created_at__gte=start_date, created_at__lt=end_date)
+            widget_loads = WidgetLoad.objects.filter(load_time__gte=start_date, load_time__lt=end_date)
         else:
-            widgets = Widget.objects.filter(created_at__gte=start_date, created_at__lte=now)
-        
-        widgets_count = widgets.count()
-        
-        return Response({'widgets_count': widgets_count}, status=200)        
+            widget_loads = WidgetLoad.objects.filter(load_time__gte=start_date, load_time__lte=now)
+
+        widget_load_count = widget_loads.count()
+
+        return Response({'widget_load_count': widget_load_count}, status=200)
 @api_view(['GET'])
 def get_application_counts(request):
     if request.method == 'GET':
