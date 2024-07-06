@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login
+from django.utils.dateparse import parse_datetime
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
@@ -1263,3 +1264,16 @@ def create_application_from_widget(request):
     else:
         return Response(application_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['POST'])
+def widget_load(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        widget_id = data.get('widget_id')
+        load_time = data.get('load_time')
+
+        widget = Widget.objects.get(id=widget_id)
+        load_time = parse_datetime(load_time)
+
+        widget_load = WidgetLoad.objects.create(widget=widget, load_time=load_time)
+        return JsonResponse({'status': 'success'})
+    return JsonResponse({'status': 'error'}, status=400)

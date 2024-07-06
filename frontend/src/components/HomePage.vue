@@ -20,6 +20,7 @@
           </div>
           
           <div class="bottom_container">
+            <Tip :Tip="'По сравнению со вчера в это же время'"/>
             <p class="bottom_procent" :style="{ color: percentWidget >= 0 ? '#535C69' : '#F97F7F' }">{{ percentWidget }}%</p>
             <div class="bottom_circle">
               <img src="../../static/img/arrow_static.svg" alt="">
@@ -43,6 +44,7 @@
             <p class="number-sub">{{ conditionalText(periodZayavki) }}</p>
           </div>
           <div class="bottom_container">
+            <Tip :Tip="'По сравнению со вчера в это же время'"/>
             <p class="bottom_procent" :style="{ color: percentZayavki >= 0 ? '#535C69' : '#F97F7F' }">{{ percentZayavki }}%</p>
             <div class="bottom_circle_1">
               <img src="../../static/img/arrow_static.svg" alt="">
@@ -66,6 +68,7 @@
             <p class="number-sub">{{ conditionalText(periodIncome) }}</p>
           </div>
           <div class="bottom_container">
+            <Tip :Tip="'По сравнению со вчера в это же время'"/>
             <p class="bottom_procent" :style="{ color: percentIncome >= 0 ? '#535C69' : '#F97F7F' }">{{ percentIncome }}%</p>
             <div class="bottom_circle_2">
               <img src="../../static/img/arrow_static.svg" alt="">
@@ -152,8 +155,9 @@
 <script>
 import axios from 'axios';
 import KebabStats from '../components/DropdownKebabStats.vue';
+import Tip from '../components/TipComponent.vue';
 export default {
-  components: {KebabStats},
+  components: {KebabStats, Tip},
   data() {
     return {
       activeIndex: 'day',
