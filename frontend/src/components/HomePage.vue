@@ -196,12 +196,12 @@ export default {
         const responseIncomeToday = await axios.get(`http://127.0.0.1:8000/api/earnings/?period=today`);
         const responseIncomeYesterday = await axios.get(`http://127.0.0.1:8000/api/earnings/?period=yesterday`);
 
-        if (responseWidgetYesterday.data.widgets_count != 0) {
-          this.percentWidget = 100 - ((responseWidgetToday.data.widgets_count*100)/responseWidgetYesterday.data.widgets_count)
-        } else if(responseWidgetToday.data.widgets_count == 0 && responseWidgetYesterday.data.widgets_count == 0){
+        if (responseWidgetYesterday.data.widget_load_count != 0) {
+          this.percentWidget = 100 - ((responseWidgetToday.data.widget_load_count*100)/responseWidgetYesterday.data.widget_load_count)
+        } else if(responseWidgetToday.data.widget_load_count == 0 && responseWidgetYesterday.data.widget_load_count == 0){
           this.percentWidget = 0
         } else{
-          this.percentWidget = responseWidgetToday.data.widgets_count*100
+          this.percentWidget = responseWidgetToday.data.widget_load_count*100
         }
 
         if (responseZayavkiYesterday.data.applications_count != 0) {
@@ -240,12 +240,12 @@ export default {
       try 
       {
         const response = await axios.get(`http://127.0.0.1:8000/api/widget-loads/?period=${period}`);
-        this.amountWidget = response.data.widgets_count;
+        this.amountWidget = response.data.widget_load_count;
       }      
       catch (error) 
       {
         console.error('Ошибка при получении количества загрузки виджетов:', error);
-        throw error; // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
+        throw error;
       }
     },
     async getEarnings(period)
