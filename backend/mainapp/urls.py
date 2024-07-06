@@ -53,10 +53,10 @@ urlpatterns = [
     path('get_clientbyid/',get_client_by_id),
     path('delete_widget/',delete_widget),
     path('get_time/',get_time),
+    
     path('get_employee_stats/' ,get_employee_stats, name='employee-stats'), #НОВЫЕ ПУТИ
     path('api/widget-loads/',get_widget_loads, name='widget-loads'), #НОВЫЕ ПУТИ
     path('api/application-counts/', get_application_counts, name='application-counts'), #НОВЫЕ ПУТИ
-    path('api/earnings/', get_earnings, name='get_earnings'), #НОВЫЕ ПУТИ
     path('api/new-application-count/', get_new_application_count, name='new-application-count'), #НОВЫЕ ПУТИ
     path('api/usluga/<int:usluga_id>/edit/', edit_usluga, name='edit_usluga'), #НОВЫЕ ПУТИ
     path('api/employee/<int:employee_id>/edit/', edit_employee, name='edit_employee'), #НОВЫЕ ПУТИ
