@@ -20,7 +20,7 @@
           </div>
           
           <div class="bottom_container">
-            <p class="bottom_procent">0%</p>
+            <p class="bottom_procent">{{ percentWidget }}%</p>
             <div class="bottom_circle">
               <img src="../../static/img/arrow_static.svg" alt="">
             </div>
@@ -43,7 +43,7 @@
             <p class="number-sub">{{ conditionalText(periodZayavki) }}</p>
           </div>
           <div class="bottom_container">
-            <p class="bottom_procent">0%</p>
+            <p class="bottom_procent">{{ percentZayavki }}%</p>
             <div class="bottom_circle_1">
               <img src="../../static/img/arrow_static.svg" alt="">
             </div>
@@ -66,7 +66,7 @@
             <p class="number-sub">{{ conditionalText(periodIncome) }}</p>
           </div>
           <div class="bottom_container">
-            <p class="bottom_procent">0%</p>
+            <p class="bottom_procent">{{ percentIncome }}%</p>
             <div class="bottom_circle_2">
               <img src="../../static/img/arrow_static.svg" alt="">
             </div>
@@ -167,24 +167,43 @@ export default {
       amountWidget: 0,
       amountZayavki: 0,
       amountIncome: 0,
+
+      percentWidget: 0,
+      percentZayavki: 0,
+      percentIncome: 0,
     }
   },
   watch:{
     periodWidget(){
-      this.getWidgetLoads();
+      this.getWidgetLoads(this.periodWidget);
     },
     periodZayavki(){
-      this.getApplicationCounts();
+      this.getApplicationCounts(this.periodZayavki);
     },
     periodIncome(){
-      this.getEarnings();
+      this.getEarnings(this.periodIncome);
     },
   },
   methods: {
-    async getWidgetLoads()
-    
+    async percentageStats(){
+      try {
+        const responseWidgetToday = await axios.get(`http://127.0.0.1:8000/api/widget-loads/?period=today`);
+        const responseWidgetYesterday = await axios.get(`http://127.0.0.1:8000/api/widget-loads/?period=yesterday`);
+
+        const responseZayavkiToday = await axios.get(`http://127.0.0.1:8000/api/application-counts/?period=today`);
+        const responseZayavkiYesterday = await axios.get(`http://127.0.0.1:8000/api/application-counts/?period=yesterday`);
+
+        const responseIncomeToday = await axios.get(`http://127.0.0.1:8000/api/earnings/?period=today`);
+        const responseIncomeYesterday = await axios.get(`http://127.0.0.1:8000/api/earnings/?period=yesterday`);
+
+        this.percentWidget = 
+      } catch (error) {
+        console.error('Ошибка при обработке статистики процентов:', error);
+      }
+    },
+
+    async getWidgetLoads(period)
     {
-      const period = this.periodWidget;
       try 
       {
         const response = await axios.get(`http://127.0.0.1:8000/api/widget-loads/?period=${period}`);
@@ -196,10 +215,8 @@ export default {
         throw error; // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
       }
     },
-    async getEarnings()
+    async getEarnings(period)
     {
-      const period = this.periodIncome;
-      console.log(period)
       try 
       {
         const response = await axios.get(`http://127.0.0.1:8000/api/earnings/?period=${period}`);
@@ -211,9 +228,8 @@ export default {
         throw error;
       }
     },
-    async getApplicationCounts()
+    async getApplicationCounts(period)
     {
-      const period = this.periodZayavki;
       try
       {
         const response = await axios.get(`http://127.0.0.1:8000/api/application-counts/?period=${period}`);
