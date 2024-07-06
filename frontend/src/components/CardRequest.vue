@@ -86,6 +86,7 @@
 <script>
 import MessageAlert from "../components/MessageAlert.vue";
 import axios from 'axios';
+import { mapMutations } from 'vuex';
 export default {
   props: ['requestData'],
   components: { MessageAlert },
@@ -103,6 +104,10 @@ export default {
       }
   },
   methods:{
+    ...mapMutations(['setUpdateSidebar']),
+      rerenderSidebar() {
+        this.setUpdateSidebar();
+      },
     toggleModal() {
       this.showModal = !this.showModal
       this.target = this.requestData.id;
@@ -156,6 +161,7 @@ export default {
           .then(response => {
             console.error(response);
             this.$emit('changed', { id, status });
+            this.rerenderSidebar();
             this.statusDrop = false;
           })
           .catch(error => {

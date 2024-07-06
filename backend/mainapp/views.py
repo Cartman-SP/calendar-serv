@@ -141,7 +141,7 @@ def update_profile(request):
     company_name = request.POST.get('company', '')
     timezoner = request.POST.get('timezone', '')
     currency = request.POST.get('currency', '')
-    print(request.POST)
+    #print(request.POST)
     user_id = request.POST.get('id', '')
 
     avatar = request.FILES.get('avatar', None)
@@ -164,7 +164,7 @@ def update_profile(request):
         project.currency = currency
         project.colour = "#F3F5F6"
         project.save()
-        print('ZhopaZhopaZhopa', project.id)
+        #print('ZhopaZhopaZhopa', project.id)
         return JsonResponse({'message': 'Профиль успешно обновлен', 'project': project.id}, status=200)
     except ObjectDoesNotExist:
         return JsonResponse({'error': 'Пользователь не найден'}, status=400)
@@ -177,7 +177,7 @@ def update_profile(request):
 def get_profile(request):
     try:
         user_id = json.loads(request.body)['user_id']
-        print(user_id)
+        #print(user_id)
         # Получаем пользователя и его профиль по ID
         user = User.objects.get(id=user_id)
         profile = Profile.objects.get(user=user)
@@ -239,7 +239,7 @@ def check_profile(request, user_id):
         # Проверка наличия профиля
         try:
             profile = Profile.objects.get(user=user)
-            print(123)
+            #print(123)
             return JsonResponse({'result': 1}, status=200)
         except Profile.DoesNotExist:
             # Если профиль не существует, возвращаем 0
@@ -261,12 +261,12 @@ def uslugas(request):
         if request.method == 'GET':
             user_id = request.GET.get('variable')
             project = request.GET.get('project')
-            print(project, '---------')
+            #print(project, '---------')
             uslugi = Usluga.objects.filter(user=User.objects.get(id=user_id), project=Project.objects.get(id=project))
             serializer = UslugaSerializer(uslugi, many=True)
             return JsonResponse(serializer.data, safe=False)  # Установите safe=False здесь
         elif request.method == 'POST':
-            print(request.POST)
+            #print(request.POST)
             user = User.objects.get(id=request.POST['user'])
             profile = Profile.objects.get(user=user)
             serializer = UslugaSerializer(data=request.POST)
@@ -289,7 +289,7 @@ def uslugas(request):
 def path_reset(request):
     data = json.loads(request.body.decode('utf-8'))
     email = data['email']
-    print(111111111111111111111111111111111111111)
+    #print(111111111111111111111111111111111111111)
     user = User.objects.get(email=email)
     code = random.randint(1000,10000)
     a = Reset_passwrod(user = user,token=code)
@@ -309,11 +309,11 @@ def change_pass(request):
     email = data['email']
     code = data['code']
     new_pass = data['password']
-    print(email,code)
+    #print(email,code)
     user = User.objects.get(email=email)
 
     codes = Reset_passwrod.objects.filter(user=user).last()
-    print(code)
+    #print(code)
     if codes.token == code:
         user.set_password(new_pass)
         user.save()
@@ -333,7 +333,7 @@ def change_pass_two(request):
     old_pass = data['old_pass']
     new_pass = data['new_pass']
     user_id = data['user_id']
-    print(old_pass,new_pass,user_id)
+    #print(old_pass,new_pass,user_id)
     try:
         user = User.objects.get(id=user_id)
     except User.DoesNotExist:
@@ -352,7 +352,7 @@ def change_pass_two(request):
 def usluga_delete(request):
     if request.method == 'POST':
         usluga_id = request.POST.get('id')  # Получаем идентификатор услуги из тела запроса
-        print(usluga_id)
+        #print(usluga_id)
         try:
             usluga = Usluga.objects.get(id=usluga_id)  # Получаем объект услуги по идентификатору
             usluga.delete()  # Удаляем услугу
@@ -418,7 +418,7 @@ def get_employees_by_user(request):
         project = request.GET.get('project') # Получаем user_id из запроса
         employees = Employee.objects.filter(user_id=user_id,project = project)  # Получаем объекты Employee по user_id
         serializer = EmployeeSerializer(employees, many=True)
-        print(serializer.data)
+        #print(serializer.data)
         return Response(serializer.data)
     
 def get_usluga_name(request):
@@ -497,7 +497,7 @@ def create_branch(request):
         
         # Обработка изображений
         images = request.FILES.getlist('images[]')
-        print(images)
+        #print(images)
         for img in images:
             Image.objects.create(branch=branch, image=img)
         profile = Profile.objects.get(user=User.objects.get(id = data.get('user_id')))
@@ -515,7 +515,7 @@ def get_Branch(request):
     if request.method == 'GET':
         user_id = request.GET.get('variable')
         project = request.GET.get('project')
-        print(request.GET)
+        #print(request.GET)
         branches = Branch.objects.filter(user=user_id,project=project)
         serializer = BranchSerializer(branches, many=True)
         return Response(serializer.data)
@@ -524,7 +524,7 @@ def get_Branch(request):
 def get_image(request):
     if request.method == 'GET':
         branch_id = request.GET.get('id')
-        print(branch_id)
+        #print(branch_id)
         images = Image.objects.filter(branch=branch_id)
         
         # Retrieve the first object
@@ -677,7 +677,7 @@ def create_widget(request):
             serializer.save()
             return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
         else:
-            print(serializer.errors)  # Печать ошибок сериализатора в консоль
+            #print(serializer.errors)  # Печать ошибок сериализатора в консоль
             return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 def get_uslugi_fromfilials(request):
@@ -732,7 +732,7 @@ def get_filial_by_id(request):
 def getuslugi_by_specialist(request):
     filial_id = int(request.GET.get('filial'))
     employee_id = int(request.GET.get('employee'))
-    print(filial_id)
+    #print(filial_id)
     if employee_id:
         employee = Employee.objects.get(id=employee_id)
         services_ids = employee.serviceid.split(',')
@@ -781,7 +781,7 @@ def get_widget(request):
     if request.method == 'GET':
         user_id = request.GET.get('variable')
         project = request.GET.get('project')
-        print(request.GET)
+        #print(request.GET)
         branches = Widget.objects.filter(user=user_id,project=project)
         serializer = WidgetSerializer(branches, many=True)
         return Response(serializer.data)
@@ -803,7 +803,7 @@ def get_branch_bylink(request):
 def create_client(request):
     if request.method == 'POST':
         serializer = ClientSerializer(data=request.POST)
-        print(serializer)
+        #print(serializer)
         if serializer.is_valid():
             client = serializer.save()
             return JsonResponse({'client_id': client.id}, status=200, safe=False)  
@@ -821,7 +821,7 @@ def create_applications(request):
                 serializer.save()
                 return JsonResponse(True, status=201, safe=False)  
             else:
-                print("Serializer errors: ", serializer.errors)  # Добавлен вывод ошибок сериализатора
+                #print("Serializer errors: ", serializer.errors)  # Добавлен вывод ошибок сериализатора
                 return JsonResponse({'error': 'invalid data', 'details': serializer.errors}, status=500, safe=False) 
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500, safe=False) 
@@ -952,14 +952,14 @@ def get_busytime(request):
     if request.method == 'GET':
         employee_id = request.GET.get('employee_id')
         date_str = request.GET.get('date')  # предположим, что date приходит в формате 'YYYY-MM-DD'
-        print(employee_id, date_str)
+        #print(employee_id, date_str)
         
         # Фильтруем записи, где employee_id совпадает и дата в time совпадает с date_filter
         applications = Application.objects.filter(
             employee=employee_id, 
             data=date_str
         )
-        print(applications)
+        #print(applications)
         serializer = ApplicationTimeSerializer(applications, many=True)
         times = [entry['time'] for entry in serializer.data]
         return Response(times)
@@ -1060,7 +1060,7 @@ def get_time(request):
                 if(check_time_in_interval(j.time,i,usluga.time)):
                     time[i] = False
                     break
-        print(time)
+        #print(time)
         return Response(status=200, data=time)
 @api_view(['GET'])
 def get_employee_stats(request):
@@ -1086,7 +1086,7 @@ def get_employee_stats(request):
         else:
             return Response({'error': 'Invalid period specified'}, status=400)
         
-        completed_statuses = ['done'] #??????????????????????????????????????????????????????? 
+        completed_statuses = ['Done'] #??????????????????????????????????????????????????????? 
         applications = Application.objects.filter(
             employee=employee, 
             time__gte=start_date, 
@@ -1099,12 +1099,12 @@ def get_employee_stats(request):
         for application in applications:
             usluga = application.usluga
             total_income += float(usluga.cost)
-            stats = {
+
+        stats = {
             'employee': {
                 'id': employee.id,
                 'firstname': employee.firstname,
                 'secondname': employee.secondname,
-                'rank': employee.rank,
             },
             'applications_count': applications_count,
             'total_income': total_income
@@ -1169,9 +1169,10 @@ def get_application_counts(request):
 @api_view(['GET'])
 def get_new_application_count(request):
     if request.method == 'GET':
-        new_status = 'new' 
+        new_status = 'New' 
         new_applications_count = Application.objects.filter(status=new_status).count()
-        
+        print('----------------')
+        print(new_applications_count)
         return Response({'new_applications_count': new_applications_count}, status=200)
 
 @api_view(['PATCH'])

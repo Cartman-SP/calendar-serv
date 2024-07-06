@@ -155,20 +155,7 @@
           console.error('Error fetching applications:', error);
         }
       },
-    async getEmployeeStats(employeeId, period) 
-    {
-      try
-      {
-        const response = await axios.get(`http://127.0.0.1:8000/api/employee-stats/?employee_id=${employeeId}&period=${period}`);
-        console.log(response.data);
-        return response.data;
-      } 
-      catch (error)
-      {
-        console.error('Ошибка при получении статистики сотрудника:', error);
-        throw error; // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
-      }
-    },
+    
     async getWidgetLoads(period) 
     {
       try 
@@ -183,20 +170,7 @@
         throw error; // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
       }
     },
-    async getApplicationCounts(period)
-    {
-      try
-      {
-        const response = await axios.get(`http://127.0.0.1:8000/api/application-counts/?period=${period}`);
-        console.log(response.data);
-        return response.data;
-      } 
-      catch (error) 
-      {
-        console.error('Error fetching application counts:', error);
-        throw error;  // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
-      }
-    },
+    
     async getEarnings(period)
     {
       try
@@ -211,20 +185,7 @@
         throw error;  // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
       } 
     },
-    async getNewApplicationCount() 
-    {
-      try
-      {
-        const response = await axios.get('http://127.0.0.1:8000/api/new-application-count/');
-        console.log(response.data);
-        return response.data;
-      } 
-      catch (error)
-      {
-        console.error('Error fetching new application count:', error);
-        throw error;
-      }
-    },
+    
     async editUsluga(uslugaId, updatedData) 
     {
       try 

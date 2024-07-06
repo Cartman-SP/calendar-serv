@@ -186,7 +186,7 @@ export default {
       position: '',
       avatar: "",
       company:"",
-      zayavki: 'NaN', // сделать кол-во заявок
+      zayavki: '0', // сделать кол-во заявок
 
       uslugi: [],
       employees: [],
@@ -207,9 +207,23 @@ export default {
         this.getfilials();
         this.get_uslugi();
         this.get_employee();
+        this.getNewApplicationCount();
       },
     },
   methods: {
+    async getNewApplicationCount() 
+    {
+      try
+      {
+        const response = await axios.get('http://127.0.0.1:8000/api/new-application-count/');
+        this.zayavki = response.data.new_applications_count
+      } 
+      catch (error)
+      {
+        console.error('Error fetching new application count:', error);
+        throw error;
+      }
+    },
     opacityAnimation(){
         this.isModalVisible = false;
         setTimeout(() => {
@@ -287,6 +301,7 @@ export default {
     this.get_employee();
     this.getfilials();
     this.opacityAnimation();
+    this.getNewApplicationCount();
   }
 };
 </script>
