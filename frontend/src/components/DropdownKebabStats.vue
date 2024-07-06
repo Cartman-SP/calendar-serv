@@ -48,7 +48,7 @@ export default {
                 default:
                     break;
             }
-            this.$emit('Changed', formattedOption);
+            this.$emit('changed', formattedOption);
         },
 
         toggleDropdown() {

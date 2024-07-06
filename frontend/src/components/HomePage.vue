@@ -11,11 +11,11 @@
             </div>
             <p class="circle_text">Количество загрузок виджета</p>
           </div>
-          <KebabStats @Changed="option => periodWidget = option"/>
+          <KebabStats @changed="option => periodWidget = option"/>
         </div>
         <div class="graph_bottom">
           <div style="display: flex; align-items: center; gap: 10px;">
-            <p class="number">0</p>
+            <p class="number">{{ amountWidget }}</p>
             <p class="number-sub">{{ conditionalText(periodWidget) }}</p>
           </div>
           
@@ -35,11 +35,11 @@
             </div>
             <p class="circle_text">Количество заявок</p>
           </div>
-          <KebabStats @Changed="option => periodZayavki = option"/>
+          <KebabStats @changed="option => periodZayavki = option"/>
         </div>
         <div class="graph_bottom">
           <div style="display: flex; align-items: center; gap: 10px;">
-            <p class="number">0</p>
+            <p class="number">{{ amountZayavki }}</p>
             <p class="number-sub">{{ conditionalText(periodZayavki) }}</p>
           </div>
           <div class="bottom_container">
@@ -58,11 +58,11 @@
             </div>
             <p class="circle_text">Заработано</p>
           </div>
-          <KebabStats @Changed="option => periodIncome = option"/>
+          <KebabStats @changed="option => periodIncome = option"/>
         </div>
         <div class="graph_bottom">
           <div style="display: flex; align-items: center; gap: 10px;">
-            <p class="number">0</p>
+            <p class="number">{{ amountIncome }}</p>
             <p class="number-sub">{{ conditionalText(periodIncome) }}</p>
           </div>
           <div class="bottom_container">
@@ -163,9 +163,39 @@ export default {
       periodWidget: 'today',
       periodZayavki: 'today',
       periodIncome: 'today',
+
+      amountWidget: 0,
+      amountZayavki: 0,
+      amountIncome: 0,
     }
   },
+  watch:{
+    // periodWidget(){
+    //   this.amountWidget = this.getApplicationCounts;
+    // },
+    periodZayavki(){
+      this.amountZayavki = this.getApplicationCounts;
+    },
+    periodIncome(){
+      this.amountIncome = this.getEarnings;
+    },
+  },
   methods: {
+    async getEarnings()
+    {
+      const period = this.periodIncome;
+      try
+      {
+        const response = await axios.get(`http://127.0.0.1:8000/api/earnings/?period=${period}`);
+        console.log(response.data);
+        return response.data;
+      } 
+      catch (error)
+      {
+        console.error('Error fetching earnings:', error);
+        throw error;  // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
+      } 
+    },
     async getApplicationCounts()
     {
       const period = this.periodZayavki;
@@ -198,21 +228,20 @@ export default {
     get_employee(){
       const user_id =  this.$store.state.registrationData.user_id;
 
-    axios.get(`http://127.0.0.1:8000/api/get_employees/?user_id=${user_id}&project=${this.$store.state.activeProjectId}`)
-      .then(response => {
-        this.employees = response.data;
-        this.employees.reverse();
-      })
-      .catch(error => {
-        console.error('Error fetching employees:', error);
-      });
+      axios.get(`http://127.0.0.1:8000/api/get_employees/?user_id=${user_id}&project=${this.$store.state.activeProjectId}`)
+        .then(response => {
+          this.employees = response.data;
+          this.employees.reverse();
+        })
+        .catch(error => {
+          console.error('Error fetching employees:', error);
+        });
     },
     async getEmployeeStats(employeeId, period) 
     {
       try
       {
         const response = await axios.get(`http://127.0.0.1:8000/api/get_employee_stats/?employee_id=${employeeId}&period=${period}`);
-        console.log(response.data);
         this.employees_stats.push(response.data);
       } 
       catch (error)

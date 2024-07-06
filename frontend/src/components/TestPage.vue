@@ -171,20 +171,7 @@
       }
     },
     
-    async getEarnings(period)
-    {
-      try
-      {
-        const response = await axios.get(`http://127.0.0.1:8000/api/earnings/?period=${period}`);
-        console.log(response.data);
-        return response.data;
-      } 
-      catch (error)
-      {
-        console.error('Error fetching earnings:', error);
-        throw error;  // throw error, чтобы предоставить возможность обработки ошибки вверх по стеку вызовов
-      } 
-    },
+    
     
     async editUsluga(uslugaId, updatedData) 
     {
