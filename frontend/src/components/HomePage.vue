@@ -20,7 +20,7 @@
           </div>
           
           <div class="bottom_container">
-            <p class="bottom_procent">{{ percentWidget }}%</p>
+            <p class="bottom_procent" :style="{ color: percentWidget >= 0 ? '#535C69' : '#F97F7F' }">{{ percentWidget }}%</p>
             <div class="bottom_circle">
               <img src="../../static/img/arrow_static.svg" alt="">
             </div>
@@ -43,7 +43,7 @@
             <p class="number-sub">{{ conditionalText(periodZayavki) }}</p>
           </div>
           <div class="bottom_container">
-            <p class="bottom_procent">{{ percentZayavki }}%</p>
+            <p class="bottom_procent" :style="{ color: percentZayavki >= 0 ? '#535C69' : '#F97F7F' }">{{ percentZayavki }}%</p>
             <div class="bottom_circle_1">
               <img src="../../static/img/arrow_static.svg" alt="">
             </div>
@@ -66,7 +66,7 @@
             <p class="number-sub">{{ conditionalText(periodIncome) }}</p>
           </div>
           <div class="bottom_container">
-            <p class="bottom_procent">{{ percentIncome }}%</p>
+            <p class="bottom_procent" :style="{ color: percentIncome >= 0 ? '#535C69' : '#F97F7F' }">{{ percentIncome }}%</p>
             <div class="bottom_circle_2">
               <img src="../../static/img/arrow_static.svg" alt="">
             </div>
@@ -196,7 +196,40 @@ export default {
         const responseIncomeToday = await axios.get(`http://127.0.0.1:8000/api/earnings/?period=today`);
         const responseIncomeYesterday = await axios.get(`http://127.0.0.1:8000/api/earnings/?period=yesterday`);
 
-        this.percentWidget = 
+        if (responseWidgetYesterday.data.widgets_count != 0) {
+          this.percentWidget = 100 - ((responseWidgetToday.data.widgets_count*100)/responseWidgetYesterday.data.widgets_count)
+        } else if(responseWidgetToday.data.widgets_count == 0 && responseWidgetYesterday.data.widgets_count == 0){
+          this.percentWidget = 0
+        } else{
+          this.percentWidget = responseWidgetToday.data.widgets_count*100
+        }
+
+        if (responseZayavkiYesterday.data.applications_count != 0) {
+          this.percentZayavki = 100 - ((responseZayavkiToday.data.applications_count*100)/responseZayavkiYesterday.data.applications_count)
+        } else if(responseZayavkiYesterday.data.applications_count == 0 && responseZayavkiToday.data.applications_count == 0){
+          this.percentZayavki = 0
+        } else{
+          this.percentZayavki = responseWidgetToday.data.applications_count*100
+        }
+
+        if (responseIncomeYesterday.data.total_earnings != 0) {
+          this.percentIncome = 100 - ((responseIncomeToday.data.total_earnings*100)/responseIncomeYesterday.data.total_earnings)
+        } else if(responseIncomeToday.data.total_earnings == 0 && responseIncomeYesterday.data.total_earnings == 0){
+          this.percentIncome = 0
+        } else{
+          this.percentIncome = responseWidgetToday.data.total_earnings*100
+        }
+
+        if (this.percentWidget >= 0) {
+          this.percentWidget = '+' + this.percentWidget
+        }
+        if (this.percentZayavki >= 0) {
+          this.percentZayavki = '+' + this.percentZayavki
+        }
+        if (this.percentIncome >= 0) {
+          this.percentIncome = '+' + this.percentIncome
+        }
+        
       } catch (error) {
         console.error('Ошибка при обработке статистики процентов:', error);
       }
@@ -305,6 +338,11 @@ export default {
   mounted(){
     this.get_employee();
     this.computedStats();
+    this.percentageStats();
+
+    this.getWidgetLoads(this.periodWidget);
+    this.getApplicationCounts(this.periodZayavki);
+    this.getEarnings(this.periodIncome);
   },
 }
 </script>
