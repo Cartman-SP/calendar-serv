@@ -53,7 +53,7 @@
                 <p class="text-header">Удаление услуги</p>
                 <p class="modal-subtext">Вы действительно хотите удалить услугу<br><span>Стрижка?</span></p>
                 <div class="btn_container">
-                  <button class="delete" @click="deleteService">Удалить</button>
+                  <button class="delete" @click="delete_widget(widgetData.id)">Удалить</button>
                   <button class="exit" @click="toggleModal">Отмена</button>
                 </div>
               </div>
@@ -85,6 +85,18 @@ export default {
   },
 
   methods: {
+    delete_widget(id) {
+      const formData = new FormData();
+      formData.append('id', id);
+      axios.post('http://127.0.0.1:8000/api/delete_widget/', formData)
+        .then(response => {
+          console.log('application deleted:', response.data);
+        })
+        .catch(error => {
+          console.error('Error creating application:', error);
+        });
+    },
+
     async handleClickLink(widgetId) {
       const loadTime = new Date().toISOString().replace('T', ' ').split('.')[0];
       try {

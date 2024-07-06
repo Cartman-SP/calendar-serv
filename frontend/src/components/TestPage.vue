@@ -42,18 +42,7 @@
             console.error('Error creating service:', error);
           });
       },
-      delete_widget() {
-        let id = 1
-        const formData = new FormData();
-        formData.append('id', id);
-        axios.post('http://127.0.0.1:8000/api/delete_widget/', formData)
-          .then(response => {
-            console.log('application deleted:', response.data);
-          })
-          .catch(error => {
-            console.error('Error creating application:', error);
-          });
-      },
+      
       async get_applications(){
         try {
           let project_id = this.project_id 
