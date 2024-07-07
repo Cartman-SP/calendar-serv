@@ -8,7 +8,7 @@
           </svg>
           Создать запись
         </button>
-        <CalendarDisplay v-model="date" inline showWeek>
+        <CalendarDisplay v-model="date" inline showWeek class="no-title">
           <template #header>
             <div class="date-picker">
               <div class="monthes">
@@ -165,6 +165,17 @@ export default{
 </script>
 
 <style scoped>
+.no-title ::v-deep .p-datepicker-title {
+  display: none;
+}
+.no-title ::v-deep .p-link {
+  display: none;
+}
+.no-title ::v-deep .p-datepicker-header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .calendar{
   display: flex;
   justify-content: start;
