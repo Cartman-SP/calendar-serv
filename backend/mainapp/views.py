@@ -1312,3 +1312,75 @@ def set_color_application(request, application_id):
             return JsonResponse({'error': 'Application not found'}, status=404)
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
+    
+def parse_interval(interval_str):
+    parts = interval_str.split()
+    hours = 0
+    minutes = 0
+    for i, part in enumerate(parts):
+        if 'час' in part:
+            hours = int(parts[i - 1])
+        elif 'минут' in part:
+            minutes = int(parts[i - 1])
+    return timedelta(hours=hours, minutes=minutes)
+
+def split_time(work_time, interval_str, break_time_str):
+    interval = parse_interval(interval_str)
+    break_start_str, break_end_str = break_time_str.split(' — ')
+    break_start = datetime.strptime(break_start_str, '%H:%M')
+    break_end = datetime.strptime(break_end_str, '%H:%M')
+
+    start_time_str, end_time_str = work_time.split(' — ')
+    start_time = datetime.strptime(start_time_str, '%H:%M')
+    end_time = datetime.strptime(end_time_str, '%H:%M')
+    
+    result = {}
+    current_time = start_time
+    
+    while current_time < end_time:
+        next_time = current_time + interval
+        if next_time > end_time:
+            next_time = end_time
+        if current_time < break_start or current_time >= break_end:
+            result[current_time.strftime('%H:%M')] = True
+        current_time = next_time
+    
+    return result
+
+def check_time_in_interval(time, start_time_str, interval_str):
+    start_time = datetime.strptime(start_time_str, '%H:%M').time()
+    end_time = (datetime.strptime(start_time_str, '%H:%M') + parse_interval(interval_str)).time()
+    
+    return start_time <= time.time() <= end_time
+
+@api_view(['GET'])
+def get_time(request):
+    if request.method == 'GET':
+        employee_id = request.GET.get('employee_id')
+        dayofWeek = request.GET.get('dayofWeek')
+        date_str = request.GET.get('date')
+        
+        # Получаем дату из запроса
+        date = datetime.strptime(date_str, '%Y-%m-%d').date()
+        
+        employee = get_object_or_404(Employee, id=employee_id)
+        usluga_id = request.GET.get('usluga_id')
+        usluga = get_object_or_404(Usluga, id=usluga_id)
+        
+        # Фильтруем заявки по сотруднику и дате
+        applications = Application.objects.filter(employee=employee, time__date=date)
+        print(applications)
+        daystime = json.loads(employee.daystime)
+        work_time = daystime[dayofWeek]['work_time']
+        chill_time = daystime[dayofWeek]['chill_time']
+        
+        time = split_time(work_time, usluga.time, chill_time)
+        
+        for i in time.keys():
+            for j in applications:
+                if check_time_in_interval(j.time, i, usluga.time):
+                    time[i] = False
+                    break
+        
+        print(time)
+        return Response(status=200, data=time)
