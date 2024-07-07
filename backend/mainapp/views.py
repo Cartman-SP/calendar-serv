@@ -101,6 +101,11 @@ from rest_framework.response import Response
 from django.utils import timezone
 from datetime import timedelta
 from .models import WidgetLoad
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_protect
+from django.contrib.auth.decorators import login_required
+from .models import Application
+
 
 @csrf_exempt
 @require_POST
@@ -1277,3 +1282,20 @@ def widget_load(request):
         widget_load = WidgetLoad.objects.create(widget=widget, load_time=load_time)
         return JsonResponse({'status': 'success'})
     return JsonResponse({'status': 'error'}, status=400)
+
+@csrf_protect
+def set_color_application(request, application_id):
+    if request.method == 'POST':
+        hex_color = request.POST.get('color')
+        if not hex_color:
+            return JsonResponse({'error': 'No color provided'}, status=400)
+
+        try:
+            application = Application.objects.get(id=application_id)
+            application.color = hex_color
+            application.save()
+            return JsonResponse({'success': 'Color updated successfully'})
+        except Application.DoesNotExist:
+            return JsonResponse({'error': 'Application not found'}, status=404)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=405)

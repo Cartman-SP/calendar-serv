@@ -237,7 +237,23 @@
         console.error('Error fetching earnings:', error);
         throw error;
       }
-    }
+    },
+    async setColorApplication(applicationId, hexColor) 
+    {
+      try 
+      {
+        const response = await axios.post(`http://127.0.0.1:8000/api/set_color_application/${applicationId}/`, {
+          color: hexColor
+        });
+        console.log(response.data);
+        return response.data;
+      }
+      catch (error) 
+      {
+        console.error('Error setting application color:', error);
+    throw error;
+      }
+    },
 
 
     },
