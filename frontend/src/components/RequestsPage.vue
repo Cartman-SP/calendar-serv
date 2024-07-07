@@ -26,10 +26,10 @@
 
       <div class="nav_center">
         <div class="nav_btn_container">
-          <button :class="{'request_btn' : timeRange === 'week', 'request_btn_unactive' : timeRange === 'month'}" @click="timeRange = 'week'">Неделя</button>
-          <button :class="{'request_btn' : timeRange === 'month', 'request_btn_unactive' : timeRange === 'week'}" @click="timeRange = 'month'">Месяц</button>
+          <button :class="{'request_btn' : timeRange === 'all', 'request_btn_unactive' : !(timeRange === 'all')}" @click="timeRange = 'all'">Все</button>
+          <button :class="{'request_btn' : timeRange === 'week', 'request_btn_unactive' : !(timeRange === 'week')}" @click="timeRange = 'week'">Неделя</button>
+          <button :class="{'request_btn' : timeRange === 'month', 'request_btn_unactive' : !(timeRange === 'month')}" @click="timeRange = 'month'">Месяц</button>
         </div>
-        <input type="date" style="width:160px">
       </div>
 
       <div class="search" v-show="false">
@@ -67,7 +67,7 @@
       </div>
 
       <div style="display: flex; align-items: center; gap: 20px;">
-        <div class="subnav_page">
+        <div class="subnav_page" v-show="false">
           <img src="../../static/img/arrow-left.svg" alt="<">
           <div class="pages">
             <div class="number">
@@ -103,14 +103,16 @@
           </div>
           <p class="primary_nav_text">Статус</p>
         </div>
-        <p class="primary_nav_text">Дата</p>
+        <p class="primary_nav_text" style="cursor: pointer;" @click="toggleSort" >Дата <img  :style="{ rotate: sorttype ? '0deg' : '180deg' }" src="../../static/img/sorting-arrows.svg" alt="sort"></p>
         <p class="primary_nav_text">Клиент</p>
         <p class="primary_nav_text">Заказ</p>
         <p class="primary_nav_text">Действия</p>
       </div>
       <div class="divider"></div>
       <div v-if="applications.length>0" class="allAps">
-        <CardRequest @deleted="this.get_request(this.selectedBranch.id, this.selectedEmployee.id)" @changed="handleStatusChange" v-for="a in filteredApplications" :key="a.id" :requestData="a"/>
+        <div v-for="a in filteredApplications" :key="a.id" >
+          <CardRequest @deleted="this.get_request(this.selectedBranch.id, this.selectedEmployee.id)" @changed="handleStatusChange" v-if="isInInterval(a.time)"  :requestData="a"/>
+        </div>
       </div>
       <div v-else style="margin: 50px 0;">
         <p class="primary_new">Выберите филиал и сотрудника,<br>чтобы посмотреть список заявок</p>
@@ -135,7 +137,7 @@ export default {
     return {
       Mark: false,
       activeTab: 'all',
-      timeRange: 'week',
+      timeRange: 'all',
 
       allRequests: 0,
       newRequests: 0,
@@ -152,6 +154,8 @@ export default {
       applications: [],
       filials: [],
       employees: [],
+
+      sorttype: 1
     };
   },
   watch: {
@@ -163,6 +167,21 @@ export default {
     },
   },
   methods: {
+    toggleSort() {
+      this.sorttype = this.sorttype === 0 ? 1 : 0;
+      this.sortApplications();
+    },
+    sortApplications() {
+      if (this.applications.length>0) {
+        this.applications = this.applications.slice().sort((a, b) => {
+          if (this.sorttype === 0) {
+            return new Date(a.time) - new Date(b.time);
+          } else {
+            return new Date(b.time) - new Date(a.time);
+          }
+        });
+      }
+    },
     handleStatusChange({ id, status }){
       switch (status) {
         case 'New':
@@ -195,6 +214,7 @@ export default {
         this.acceptedRequests = this.applications.filter(request => request.status === 'Adopted').length;
         this.finishedRequests = this.applications.filter(request => request.status === 'Done').length;
         this.canceledRequests = this.applications.filter(request => request.status === 'Canceled').length;
+        this.sortApplications();
       } catch (error) {
         console.error('Ошибка при получении данных о заявках:', error);
       }
@@ -203,7 +223,6 @@ export default {
       try {
         const response = await axios.get(`http://127.0.0.1:8000/api/get_branch/?variable=${this.$store.state.registrationData.user_id}&project=${this.$store.state.activeProjectId}`);
         this.filials = response.data;
-        console.log(this.filials);
       } catch (error) {
         console.error('Ошибка при получении данных о филиалах:', error);
       }
@@ -219,6 +238,28 @@ export default {
         console.error('Ошибка при получении данных о сотрудниках:', error);
       }
     },
+    isInInterval(date) {
+      const now = new Date();
+      const inputDate = new Date(date);
+
+      if (this.timeRange === 'all') {
+        return true;
+      } 
+      
+      if (this.timeRange === 'week') {
+        const oneWeekAgo = new Date(now);
+        oneWeekAgo.setDate(now.getDate() - 7);
+        return inputDate >= oneWeekAgo && inputDate <= now;
+      } 
+      
+      if (this.timeRange === 'month') {
+        const oneMonthAgo = new Date(now);
+        oneMonthAgo.setMonth(now.getMonth() - 1);
+        return inputDate >= oneMonthAgo && inputDate <= now;
+      }
+      
+      return false;
+    }
   },
   computed: {
     filteredApplications() {
@@ -234,7 +275,7 @@ export default {
         return this.applications.filter(app => app.status === 'Canceled');
       }
       return 1;
-    }
+    },
   },
   mounted() {
     this.getfilials();
@@ -483,6 +524,9 @@ p {
   line-height: 16.52px;
   text-align: left;
   color: #7D838C;
+  display: flex;
+  gap: 5px;
+  align-items: center;
 }
 .primary_nav{
   display: grid;

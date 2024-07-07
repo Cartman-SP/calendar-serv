@@ -23,7 +23,7 @@
             <Tip :Tip="'По сравнению со вчера в это же время'"/>
             <p class="bottom_procent" :style="{ color: percentWidget >= 0 ? '#535C69' : '#F97F7F' }">{{ percentWidget }}%</p>
             <div class="bottom_circle">
-              <img src="../../static/img/arrow_static.svg" alt="">
+              <img src="../../static/img/arrow_static.svg" :style="{ rotate: percentWidget >= 0 ? '0' : '90deg' }" alt="">
             </div>
           </div>
         </div>
@@ -200,44 +200,36 @@ export default {
         const responseIncomeToday = await axios.get(`http://127.0.0.1:8000/api/earnings/?period=today`);
         const responseIncomeYesterday = await axios.get(`http://127.0.0.1:8000/api/earnings/?period=yesterday`);
 
-        if (responseWidgetYesterday.data.widget_load_count != 0) {
-          this.percentWidget = 100 - ((responseWidgetToday.data.widget_load_count*100)/responseWidgetYesterday.data.widget_load_count)
-        } else if(responseWidgetToday.data.widget_load_count == 0 && responseWidgetYesterday.data.widget_load_count == 0){
-          this.percentWidget = 0
-        } else{
-          this.percentWidget = responseWidgetToday.data.widget_load_count*100
+        this.percentWidget = this.calculateGrowthPercentage(responseWidgetYesterday.data.widget_load_count, responseWidgetToday.data.widget_load_count);
+        this.percentZayavki = this.calculateGrowthPercentage(responseZayavkiYesterday.data.applications_count, responseZayavkiToday.data.applications_count);
+        this.percentIncome = this.calculateGrowthPercentage(responseIncomeYesterday.data.total_earnings, responseIncomeToday.data.total_earnings);
+
+        if (this.percentWidget > 0) {
+          this.percentWidget = '+' + this.percentWidget;
+        }
+        if (this.percentZayavki > 0) {
+          this.percentZayavki = '+' + this.percentZayavki;
+        }
+        if (this.percentIncome > 0) {
+          this.percentIncome = '+' + this.percentIncome;
         }
 
-        if (responseZayavkiYesterday.data.applications_count != 0) {
-          this.percentZayavki = 100 - ((responseZayavkiToday.data.applications_count*100)/responseZayavkiYesterday.data.applications_count)
-        } else if(responseZayavkiYesterday.data.applications_count == 0 && responseZayavkiToday.data.applications_count == 0){
-          this.percentZayavki = 0
-        } else{
-          this.percentZayavki = responseWidgetToday.data.applications_count*100
-        }
-
-        if (responseIncomeYesterday.data.total_earnings != 0) {
-          this.percentIncome = 100 - ((responseIncomeToday.data.total_earnings*100)/responseIncomeYesterday.data.total_earnings)
-        } else if(responseIncomeToday.data.total_earnings == 0 && responseIncomeYesterday.data.total_earnings == 0){
-          this.percentIncome = 0
-        } else{
-          this.percentIncome = responseWidgetToday.data.total_earnings*100
-        }
-
-        if (this.percentWidget >= 0) {
-          this.percentWidget = '+' + this.percentWidget
-        }
-        if (this.percentZayavki >= 0) {
-          this.percentZayavki = '+' + this.percentZayavki
-        }
-        if (this.percentIncome >= 0) {
-          this.percentIncome = '+' + this.percentIncome
-        }
-        
       } catch (error) {
         console.error('Ошибка при обработке статистики процентов:', error);
       }
     },
+
+    calculateGrowthPercentage(yesterday, today) {
+      if (yesterday === 0) {
+        return today * 100;
+      } else if (today === 0) {
+        return -((yesterday - today) / yesterday) * 100;
+      } else {
+        const growthPercentage = ((today - yesterday) / yesterday) * 100;
+        return growthPercentage.toFixed(2);
+      }
+    },
+
 
     async getWidgetLoads(period)
     {

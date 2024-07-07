@@ -26,7 +26,7 @@
           </div>
         </div>
       </div>
-      <p class="date_text">{{ requestData.data }}</p>
+      <p class="date_text">{{ calcDate(requestData.time) }}</p>
       <div class="container">
         <p class="client_text">{{ client.firstname + ' ' + client.secondname }}</p>
         <div class="client_container">
@@ -101,6 +101,7 @@ export default {
         client: {},
         sotrudnik: {},
         usluga: {},
+        target: 'NaN'
       }
   },
   methods:{
@@ -190,6 +191,27 @@ export default {
           console.error('Error deleting request:', error);
         });
     },
+    calcDate(dateString) {
+      try {
+        const date = new Date(dateString);
+
+        if (isNaN(date)) {
+          throw new Error('Invalid date');
+        }
+
+        const day = date.getUTCDate().toString().padStart(2, '0');
+        const month = (date.getUTCMonth() + 1).toString().padStart(2, '0');
+        const year = date.getUTCFullYear();
+
+        const hours = date.getUTCHours().toString().padStart(2, '0');
+        const minutes = date.getUTCMinutes().toString().padStart(2, '0');
+
+        return `${day}.${month}.${year}, ${hours}:${minutes}`;
+      } catch (error) {
+        console.error('Error parsing date:', error);
+        return 'Invalid date';
+      }
+    }
   },
   computed: {
     statusClass() {
@@ -199,7 +221,7 @@ export default {
         'adopted': this.requestData.status === 'Adopted',
         'canceled': this.requestData.status === 'Canceled'
       };
-    }
+    },
   },
   mounted(){
     this.getclient(this.requestData.client);
