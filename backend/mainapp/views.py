@@ -1264,7 +1264,8 @@ def edit_widget(request, widget_id):
 @api_view(['POST'])
 def create_application_from_widget(request):
     application_data = request.data.get('application')
-    
+    print(application_data)
+
     # Создание заявки
     application_serializer = ApplicationSerializer(data=application_data)
     if application_serializer.is_valid():
