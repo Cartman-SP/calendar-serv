@@ -8,20 +8,21 @@
           </svg>
           Создать запись
         </button>
-        <CalendarDisplay v-model="date" inline showWeek class="no-title">
-          <template #header>
+        <CalendarDisplay @date-select="value => currentDatePicked" v-model="date" inline showWeek class="no-title">
+          <!-- <template #header>
             <div class="date-picker">
               <div class="monthes">
                 <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.45518 1.57605L9.30371 2.42458L5.60297 6.12531L9.30371 9.82605L8.45518 10.6746L3.90592 6.12531L8.45518 1.57605Z" fill="#AFB6C1"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M8.45518 1.57605L9.30371 2.42458L5.60297 6.12531L9.30371 9.82605L8.45518 10.6746L3.90592 6.12531L8.45518 1.57605Z" fill="#AFB6C1"/>
                 </svg>
                 <p class="month">Апрель 2024</p>
                 <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M1.54482 9.42395L0.696289 8.57542L4.39703 4.87469L0.696289 1.17395L1.54482 0.325422L6.09408 4.87469L1.54482 9.42395Z" fill="#AFB6C1"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M1.54482 9.42395L0.696289 8.57542L4.39703 4.87469L0.696289 1.17395L1.54482 0.325422L6.09408 4.87469L1.54482 9.42395Z" fill="#AFB6C1"/>
                 </svg>
               </div>
             </div>
-          </template>
+          </template> -->
+
         </CalendarDisplay>
 
 
@@ -125,6 +126,7 @@ export default{
   components: {SelectPage, CalendarEvent},
   data(){
     return{
+      currentDatePicked: null,
       events:[
         {
             id: '1',
@@ -166,15 +168,20 @@ export default{
 
 <style scoped>
 .no-title ::v-deep .p-datepicker-title {
-  display: none;
-}
-.no-title ::v-deep .p-link {
-  display: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
 }
 .no-title ::v-deep .p-datepicker-header{
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+}
+
+.no-title ::v-deep .p-datepicker-header button{
+  background: transparent;
+  color: #535C69;
 }
 .calendar{
   display: flex;
