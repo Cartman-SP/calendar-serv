@@ -85,7 +85,7 @@
           <img src="../../static/img/arrow-right.svg" alt=">">
         </div>
 
-        <div class="xls" id="excel_download" >
+        <div class="xls" id="excel_download"  @click="exportData">
           <img src="../../static/img/download.svg" alt="downloadArrow">
           <p class="xls_text">XLS</p>
         </div>
@@ -130,6 +130,7 @@ import axios from 'axios';
 import SelectPage from '../components/SelectPage.vue';
 import CardRequest from '../components/CardRequest.vue';
 import MessageAlert from "../components/MessageAlert.vue";
+import * as XLSX from 'xlsx';
 
 export default {
   components: { SelectPage, CardRequest, MessageAlert },
@@ -167,6 +168,49 @@ export default {
     },
   },
   methods: {
+    formatTime(dateStr) {
+      const date = new Date(dateStr);
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const year = date.getFullYear();
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      return `${day}.${month}.${year}, ${hours}:${minutes}`;
+    },
+    exportToExcel(data, filename = 'export.xlsx') {
+      // Преобразование данных и исключение ненужных полей
+      const formattedData = data.map(item => ({
+        ...item,
+        time: this.formatTime(item.time)
+      }));
+      // Преобразование данных в рабочий лист
+      const worksheet = XLSX.utils.json_to_sheet(formattedData);
+      
+      // Стиль для шапки таблицы
+      const range = XLSX.utils.decode_range(worksheet['!ref']);
+      for (let C = range.s.c; C <= range.e.c; ++C) {
+        const address = XLSX.utils.encode_cell({ r: range.s.r, c: C });
+        if (!worksheet[address]) continue;
+        worksheet[address].s = {
+          fill: {
+            fgColor: { rgb: (C % 2 === 0) ? '000000' : 'FFFFFF' }
+          },
+          font: {
+            color: { rgb: (C % 2 === 0) ? 'FFFFFF' : '000000' },
+            bold: true
+          }
+        };
+      }
+      
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+      XLSX.writeFile(workbook, filename);
+    },
+    exportData() {
+      const data = this.applications.map(({ ...rest }) => rest);
+      this.exportToExcel(data, 'Заявки.xlsx');
+    },
+
     toggleSort() {
       this.sorttype = this.sorttype === 0 ? 1 : 0;
       this.sortApplications();
