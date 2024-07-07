@@ -221,7 +221,7 @@
                   
                 </div>
             </div>
-            <div class="rate">
+            <div class="rate" @click="this.$router.push('/dashboard/tariff')">
                 <img src="../../static/img/wallet.svg" alt="231">
                 <div class="text">
                     <p>Тариф</p>
@@ -590,6 +590,7 @@ img{
     height: 50px;
     padding: 20px;
     border-radius: 25px;
+    cursor: pointer;
 }
 
 .text{

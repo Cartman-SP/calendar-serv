@@ -28,6 +28,7 @@ import ClientsPage from '../components/ClientsPage.vue';
 import ServiceEdit from '../components/ServiceEdit.vue';
 import EmployeesEdit from '../components/EmployeesEdit.vue';
 import BranchEdit from '../components/BranchEdit.vue';
+import TariffPage from '../components/TariffPage.vue';
 ///import NotFoundPage from '../components/NotFoundPage.vue';
 import CalendarPage from '../components/CalendarPage.vue';
 import ClientsEditPage from '../components/ClientsEditPage.vue';
@@ -234,6 +235,12 @@ const routes = [
         name: 'createe',
         component: ClientsCreatePage,
         meta: { requiresAuth: true, title: 'Sked.Online - Создание клиента' }
+      },
+      {
+        path: '/dashboard/tariff',
+        name: 'tariff',
+        component: TariffPage,
+        meta: { requiresAuth: true, title: 'Sked.Online - Тарифы' }
       },
       {
         path: '/dashboard/clients/:clientId/info',
