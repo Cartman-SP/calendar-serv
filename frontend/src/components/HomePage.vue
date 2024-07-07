@@ -231,11 +231,11 @@ export default {
     },
 
 
-    async getWidgetLoads(period)
+    async getWidgetLoads(period, projectId)
     {
       try 
       {
-        const response = await axios.get(`http://127.0.0.1:8000/api/widget-loads/?period=${period}`);
+        const response = await axios.get(`http://127.0.0.1:8000/api/widget-loads/?period=${period}/?project=${projectId}`);
         this.amountWidget = response.data.widget_load_count;
       }      
       catch (error) 
@@ -257,11 +257,11 @@ export default {
         throw error;
       }
     },
-    async getApplicationCounts(period)
+    async getApplicationCounts(period, projectId)
     {
       try
       {
-        const response = await axios.get(`http://127.0.0.1:8000/api/application-counts/?period=${period}`);
+        const response = await axios.get(`http://127.0.0.1:8000/api/application-counts/?period=${period}/?project=${projectId}`);
         this.amountZayavki = response.data.applications_count;
       } 
       catch (error) 

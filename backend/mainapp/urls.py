@@ -55,9 +55,9 @@ urlpatterns = [
     path('get_time/',get_time),
     
     path('get_employee_stats/' ,get_employee_stats, name='employee-stats'), #НОВЫЕ ПУТИ
-    path('widget-loads/',get_widget_loads, name='widget-loads'), #НОВЫЕ ПУТИ
-    path('application-counts/', get_application_counts, name='application-counts'), #НОВЫЕ ПУТИ
-    path('earnings/', get_earnings, name='get_earnings'),
+    path('widget/<int:project_id>/widget-loads/',get_widget_loads, name='widget-loads'), #НОВЫЕ ПУТИ
+    path('application/<int:project_id>/application-counts/', get_application_counts, name='application-counts'), #НОВЫЕ ПУТИ
+    path('earnings/', get_earnings, name='get_earnings'), #???????????????????????????????????????
     path('new-application-count/', get_new_application_count, name='new-application-count'), #НОВЫЕ ПУТИ
     path('usluga/<int:usluga_id>/edit/', edit_usluga, name='edit_usluga'), #НОВЫЕ ПУТИ
     path('employee/<int:employee_id>/edit/', edit_employee, name='edit_employee'), #НОВЫЕ ПУТИ
@@ -65,5 +65,5 @@ urlpatterns = [
     path('widget/<int:widget_id>/edit/', edit_widget, name='edit_widget'), #НОВЫЕ ПУТИ
     path('create_application_from_widget/', create_application_from_widget, name='create_application_from_widget'), #НОВЫЕ ПУТИ
     path('widget_load/', widget_load, name='widget_load'), #НОВЫЕ ПУТИ
-    path('set_color/<int:application_id>/', views.set_color_application, name='set_color_application'), #НОВЫЕ ПУТИ
+    path('set_color/<int:application_id>/', set_color_application, name='set_color_application'), #НОВЫЕ ПУТИ
 ]
