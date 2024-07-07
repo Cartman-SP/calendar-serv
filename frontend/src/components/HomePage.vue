@@ -191,14 +191,14 @@ export default {
   methods: {
     async percentageStats(){
       try {
-        const responseWidgetToday = await axios.get(`http://127.0.0.1:8000/api/widget-loads/?period=today`);
-        const responseWidgetYesterday = await axios.get(`http://127.0.0.1:8000/api/widget-loads/?period=yesterday`);
+        const responseWidgetToday = await axios.get(`http://127.0.0.1:8000/api/widget-loads/?period=today&project=${this.$store.state.activeProjectId}`);
+        const responseWidgetYesterday = await axios.get(`http://127.0.0.1:8000/api/widget-loads/?period=yesterday&project=${this.$store.state.activeProjectId}`);
 
-        const responseZayavkiToday = await axios.get(`http://127.0.0.1:8000/api/application-counts/?period=today`);
-        const responseZayavkiYesterday = await axios.get(`http://127.0.0.1:8000/api/application-counts/?period=yesterday`);
+        const responseZayavkiToday = await axios.get(`http://127.0.0.1:8000/api/application-counts/?period=today&project=${this.$store.state.activeProjectId}`);
+        const responseZayavkiYesterday = await axios.get(`http://127.0.0.1:8000/api/application-counts/?period=yesterday&project=${this.$store.state.activeProjectId}`);
 
-        const responseIncomeToday = await axios.get(`http://127.0.0.1:8000/api/earnings/?period=today`);
-        const responseIncomeYesterday = await axios.get(`http://127.0.0.1:8000/api/earnings/?period=yesterday`);
+        const responseIncomeToday = await axios.get(`http://127.0.0.1:8000/api/earnings/?period=today&project=${this.$store.state.activeProjectId}`);
+        const responseIncomeYesterday = await axios.get(`http://127.0.0.1:8000/api/earnings/?period=yesterday&project=${this.$store.state.activeProjectId}`);
 
         this.percentWidget = this.calculateGrowthPercentage(responseWidgetYesterday.data.widget_load_count, responseWidgetToday.data.widget_load_count);
         this.percentZayavki = this.calculateGrowthPercentage(responseZayavkiYesterday.data.applications_count, responseZayavkiToday.data.applications_count);
@@ -231,11 +231,11 @@ export default {
     },
 
 
-    async getWidgetLoads(period, projectId)
+    async getWidgetLoads(period)
     {
       try 
       {
-        const response = await axios.get(`http://127.0.0.1:8000/api/widget-loads/?period=${period}/?project=${projectId}`);
+        const response = await axios.get(`http://127.0.0.1:8000/api/widget-loads/?period=${period}&project=${this.$store.state.activeProjectId}`);
         this.amountWidget = response.data.widget_load_count;
       }      
       catch (error) 
@@ -248,7 +248,7 @@ export default {
     {
       try 
       {
-        const response = await axios.get(`http://127.0.0.1:8000/api/earnings/?period=${period}`);
+        const response = await axios.get(`http://127.0.0.1:8000/api/earnings/?period=${period}&project=${this.$store.state.activeProjectId}`);
         this.amountIncome = response.data.total_earnings;
       }
       catch (error) 
@@ -257,11 +257,11 @@ export default {
         throw error;
       }
     },
-    async getApplicationCounts(period, projectId)
+    async getApplicationCounts(period)
     {
       try
       {
-        const response = await axios.get(`http://127.0.0.1:8000/api/application-counts/?period=${period}/?project=${projectId}`);
+        const response = await axios.get(`http://127.0.0.1:8000/api/application-counts/?period=${period}&project=${this.$store.state.activeProjectId}`);
         this.amountZayavki = response.data.applications_count;
       } 
       catch (error) 

@@ -27,7 +27,7 @@
             <label for="serviceCost">Стоимость</label>
             <div class="cost-input-block">
               <input type="number" appearance-none id="serviceCost" placeholder="Введите стоимость" v-model="serviceCost" :class="{ 'input-error': serviceCostError }">
-              <span>{{ costsign }}</span>
+              <span>{{ ProjectCurrency }}</span>
             </div>
           </div>
   
@@ -229,7 +229,7 @@
           </div>
           <div v-if="serviceCost" style="display: flex; align-items: center;">
             <p class="header">{{serviceCost}}</p>
-            <p class="cost-sign">{{ costsign }}</p>
+            <p class="cost-sign">{{ ProjectCurrency }}</p>
           </div>
           <div v-else class="third">
             <div class="circle"></div>
@@ -410,12 +410,12 @@ export default {
 
       const formData = new FormData();
       formData.append('name', this.serviceName);
-      formData.append('cost', this.serviceCost);
+      formData.append('cost', this.serviceCost + ' ' + this.ProjectCurrency);
       formData.append('time', this.serviceDuration);
       formData.append('type', this.selectedRecordType);
       formData.append('place_ammount', this.groupCapacity);
       formData.append('rent_ammount', this.maxGroupCapacity);
-      formData.append('pay_type', this.selectedPaymentType);
+      formData.append('pay_type', this.selectedPaymentFormat);
       formData.append('user', this.$store.state.registrationData.user_id);
       formData.append('serviceCover', this.serviceCover);
       formData.append('project', this.$store.state.activeProjectId)
@@ -470,6 +470,11 @@ export default {
   },
   mounted(){
     this.getObjectById();
+  },
+  computed:{
+    ProjectCurrency(){
+      return this.$store.state.activeProjectCurrency;
+    }
   }
 };
 

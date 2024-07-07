@@ -55,8 +55,8 @@ urlpatterns = [
     path('get_time/',get_time),
     
     path('get_employee_stats/' ,get_employee_stats, name='employee-stats'), #НОВЫЕ ПУТИ
-    path('widget/<int:project_id>/widget-loads/',get_widget_loads, name='widget-loads'), #НОВЫЕ ПУТИ
-    path('application/<int:project_id>/application-counts/', get_application_counts, name='application-counts'), #НОВЫЕ ПУТИ
+    path('widget-loads/',get_widget_loads, name='widget-loads'), #НОВЫЕ ПУТИ
+    path('application-counts/', get_application_counts, name='application-counts'), #НОВЫЕ ПУТИ
     path('earnings/', get_earnings, name='get_earnings'), #???????????????????????????????????????
     path('new-application-count/', get_new_application_count, name='new-application-count'), #НОВЫЕ ПУТИ
     path('usluga/<int:usluga_id>/edit/', edit_usluga, name='edit_usluga'), #НОВЫЕ ПУТИ

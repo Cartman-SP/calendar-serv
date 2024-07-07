@@ -174,7 +174,7 @@ def update_profile(request):
         project.currency = currency
         project.colour = "#F3F5F6"
         project.save()
-        print('ZhopaZhopaZhopa', project.id)
+
         return JsonResponse({'message': 'Профиль успешно обновлен', 'project': project.id}, status=200)
     except ObjectDoesNotExist:
         return JsonResponse({'error': 'Пользователь не найден'}, status=400)
@@ -425,7 +425,7 @@ def create_employee(request):
 def get_employees_by_user(request):
     if request.method == 'GET':
         user_id = request.GET.get('user_id') 
-        project = request.GET.get('project') # Получаем user_id из запроса
+        project = request.GET.get('project')
         employees = Employee.objects.filter(user_id=user_id,project = project)  # Получаем объекты Employee по user_id
         serializer = EmployeeSerializer(employees, many=True)
         print(serializer.data)
@@ -1124,6 +1124,7 @@ def get_employee_stats(request):
 def get_widget_loads(request):
     if request.method == 'GET':
         period = request.GET.get('period')  # today, yesterday, 7_days, 30_days
+        project = request.GET.get('project')
 
         now = timezone.now()
 
@@ -1140,9 +1141,9 @@ def get_widget_loads(request):
             return Response({'error': 'Invalid period specified'}, status=400)
 
         if period == 'yesterday':
-            widget_loads = WidgetLoad.objects.filter(load_time__gte=start_date, load_time__lt=end_date)
+            widget_loads = WidgetLoad.objects.filter(load_time__gte=start_date, load_time__lt=end_date, project=project)
         else:
-            widget_loads = WidgetLoad.objects.filter(load_time__gte=start_date, load_time__lte=now)
+            widget_loads = WidgetLoad.objects.filter(load_time__gte=start_date, load_time__lte=now, project=project)
 
         widget_load_count = widget_loads.count()
 
@@ -1151,7 +1152,8 @@ def get_widget_loads(request):
 def get_application_counts(request):
     if request.method == 'GET':
         period = request.GET.get('period')  # today, yesterday, 7_days, 30_days
-
+        project = request.GET.get('project')
+        
         now = timezone.now()
 
         if period == 'today':
@@ -1172,7 +1174,7 @@ def get_application_counts(request):
             end_date = now
 
     # Фильтруем заявки по определенному периоду
-        applications = Application.objects.filter(time__gte=start_date, time__lte=end_date)
+        applications = Application.objects.filter(time__gte=start_date, time__lte=end_date, project=project)
     
     # Получаем количество отфильтрованных заявок
         applications_count = applications.count()
@@ -1183,6 +1185,7 @@ def get_application_counts(request):
 def get_earnings(request):
     if request.method == 'GET':
         period = request.GET.get('period')  # today, yesterday, 7_days, 30_days
+        project = request.GET.get('project')
 
         now = timezone.now()
 
@@ -1204,7 +1207,7 @@ def get_earnings(request):
             end_date = now
 
     # Фильтруем заявки по определенному периоду
-        applications = Application.objects.filter(time__gte=start_date, time__lte=end_date)
+        applications = Application.objects.filter(time__gte=start_date, time__lte=end_date, project=project)
 
         total_earnings = 0
         for application in applications:

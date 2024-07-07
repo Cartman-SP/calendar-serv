@@ -139,6 +139,7 @@ class WidgetImage(models.Model):
 class WidgetLoad(models.Model):
     widget = models.ForeignKey(Widget, on_delete=models.CASCADE)
     load_time = models.DateTimeField(auto_now_add=True)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
 
 class Client(models.Model):
     firstname = models.CharField(max_length=128)
