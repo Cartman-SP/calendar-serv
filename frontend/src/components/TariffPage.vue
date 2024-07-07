@@ -102,6 +102,7 @@ p{
   display: flex;
   flex-direction: column;
   gap: 5px;
+  border-radius: 5px;
 }
 .remain_header{
   font-family: TT Norms Medium;
