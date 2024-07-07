@@ -27,10 +27,10 @@
           </div>
           <div class="bottom">
             <div class="text-container">
-              <p class="text-header">{{ usluga.pay_type }}</p>
+              <p class="text-header">{{ computedPayType(usluga.pay_type) }}</p>
               <p class="text-subheader">Формат оплаты</p>
             </div>
-            <p class="bottom-text">{{ usluga.cost }} Р</p> <!-- Отображаем стоимость услуги -->
+            <p class="bottom-text">{{ usluga.cost }}</p> <!-- Отображаем стоимость услуги -->
           </div>
         </div>
       </div>
@@ -91,8 +91,21 @@ export default {
         .catch(error => {
             console.error('Error deleting service:', error);
         });
-},
-  }
+    },
+    computedPayType(type){
+      switch (type) {
+        case 'sessionPayment':
+          return 'Оплата за сеанс'
+        case 'spotPayment':
+          return 'Оплата за место'
+        case 'freePayment':
+          return 'Без стоимости'
+        case 'equipmentPayment':
+          return 'Оплата за время и ед.'
+        default:
+      }
+    }
+  },
 };
 </script>
 

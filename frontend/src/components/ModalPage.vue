@@ -61,7 +61,7 @@
             <div class="dropdown-item">
               <p class="normal-text">Валюта</p>
               <SelectPage
-              :options="['RUB — Российский рубль', 'BYN — Белорусский рубль', 'USD — Доллар США', 'EUR — Евро', 'KZT — Казахстанский тенге', 'UAH — Украинская гривна', 'AZN — Азербайджанский манат', 'AMD — Армянский драм', 'GEL — Грузинский лари', 'KGS — Киргизский сом', 'TJS — Таджикский сомони', 'UZS — Узбекский сум', 'ARS — Аргентинское песо', 'BRL — Бразильский реал', 'AED — Дирхам ОАЭ', 'INR — Индийская рупи', 'MDL — Молдавский лей', 'NGN — Нигерийская найра', 'ILS — Новый израильский шекель', 'THB — Тайский бат', 'TRY — Турецкая лира ', 'ZAR — Южноафриканский рэнд']"
+              :options="['RUB — Российский рубль', 'BYN — Белорусский рубль', 'USD — Доллар США', 'EUR — Евро', 'KZT — Казахстанский тенге', 'UAH — Украинская гривна', 'CNY — Китайский юань']"
               :placeholderdata="'Выберите основную валюту'"
               @input="option => selectedCurrency = option"
               :class="{ 'select-error': selectedCurrencyError }"
@@ -202,12 +202,39 @@ export default {
           console.log(this.$store.state.registrationData.user_id)
           axios.post('http://127.0.0.1:8000/api/profile/', formData)
             .then(response => {
-              console.log('Profile created:', response.data);
+
               let projectId = response.data.project
-              console.log(response)
-              console.log('response',projectId)
+              let projectCurrency;
+
+              switch (this.selectedCurrency) {
+                case 'RUB — Российский рубль':
+                  projectCurrency = '₽'
+                  break;
+                case 'BYN — Белорусский рубль':
+                  projectCurrency = 'Br'
+                  break;
+                case 'USD — Доллар США':
+                  projectCurrency = '$'
+                  break;
+                case 'EUR — Евро':
+                  projectCurrency = '€'
+                  break;
+                case 'KZT — Казахстанский тенге':
+                  projectCurrency = '₸'
+                  break;
+                case 'UAH — Украинская гривна':
+                  projectCurrency = '₴'
+                  break;
+                case 'CNY — Китайский юань':
+                  projectCurrency = '¥'
+                  break;
+                default:
+                  break;
+              }
+               
               this.$store.commit('setActiveProject', projectId);
-              console.log('vuex',this.$store.state.activeProjectId)
+              this.$store.commit('setActiveProjectCurrency', projectCurrency);
+
               this.alertMessage = null;
               setTimeout(() => {
                 this.alertMessage = '365 дней бесплатного тариф начислены в ваш аккаунт';

@@ -13,7 +13,7 @@
         <div class="top-group">
           <div class="cards-group">
             <router-link :to="!employees.length > 0 || !uslugi.length > 0 || !filials.length > 0 ? '/dashboard/locked' : '/dashboard/home'" class="main_text" :class="{ active: $route.path === '/dashboard/home' }">
-              <div class="main_menu">
+              <div class="main_menu" v-if="!employees.length == 0 && !uslugi.length == 0 && !filials.length == 0">
                 <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M8.00024 0.174316L15.727 6.23527L14.6734 7.43939L8.00024 2.30035L1.32704 7.43939L0.273438 6.23527L8.00024 0.174316Z" fill="#6266EA"/>
                 <path d="M8.00024 0.174316L14.4574 5.23934V13.9003H9.60024V9.90035H6.40024V13.9003H1.60024V5.19452L8.00024 0.174316Z" fill="#6266EA"/>
@@ -134,7 +134,7 @@
                         <p class="dropdown-header">Настройка профиля</p>
                       </div>
                     </router-link>
-                    <router-link to="/" style="text-decoration:none" class="dropdown-link">
+                    <router-link to="/dashboard/tariff" style="text-decoration:none" class="dropdown-link">
                       <div class="dropdown-item">
                         <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path fill-rule="evenodd" clip-rule="evenodd" d="M17 4.00006H2.5L15 6.10352e-05L17 4.00006Z" fill="#AFB6C1"/>
@@ -186,7 +186,7 @@ export default {
       position: '',
       avatar: "",
       company:"",
-      zayavki: '0', // сделать кол-во заявок
+      zayavki: 'NaN',
 
       uslugi: [],
       employees: [],

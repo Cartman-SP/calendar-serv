@@ -12,6 +12,7 @@ export default createStore({
       phone: null,
     },
     activeProjectId: null,
+    activeProjectCurrency: null,
     isActive: false,
 
     updateSidebar: false,
@@ -36,6 +37,11 @@ export default createStore({
       state.activeProjectId = projectId;
       state.isActive = true;
     },
+
+    setActiveProjectCurrency(state, currency){
+      state.activeProjectCurrency = currency;
+    },
+
     deactivateProject(state) {
       state.activeProjectId = null;
       state.isActive = false;
