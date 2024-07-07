@@ -1248,6 +1248,7 @@ def edit_branch(request, branch_id):
     serializer = BranchSerializer(branch, data=request.data, partial=True)
     if serializer.is_valid():
         serializer.save()
+        
         return Response(serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -1278,12 +1279,21 @@ def widget_load(request):
         data = json.loads(request.body)
         widget_id = data.get('widget_id')
         load_time = data.get('load_time')
+        project = data.get('project')
 
-        widget = Widget.objects.get(id=widget_id)
+        try:
+            widget = Widget.objects.get(id=widget_id)
+        except Widget.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Widget not found'}, status=404)
+
         load_time = parse_datetime(load_time)
 
-        widget_load = WidgetLoad.objects.create(widget=widget, load_time=load_time)
+        if not load_time:
+            return JsonResponse({'status': 'error', 'message': 'Invalid load_time format'}, status=400)
+
+        WidgetLoad.objects.create(widget=widget, load_time=load_time, project_id=project)
         return JsonResponse({'status': 'success'})
+    
     return JsonResponse({'status': 'error'}, status=400)
 
 @csrf_protect

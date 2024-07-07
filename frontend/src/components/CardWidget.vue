@@ -103,6 +103,7 @@ export default {
         await axios.post('http://127.0.0.1:8000/api/widget_load/', {
           widget_id: widgetId,
           load_time: loadTime,
+          project: this.$store.state.activeProjectId,
         });
       } catch (error) {
         console.error('Error loading widget:', error);
