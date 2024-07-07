@@ -265,6 +265,7 @@
                 <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M13.1279 11.4195L14.6225 16.1422C14.8173 16.7577 14.0785 17.2519 13.5486 16.8606L9.7241 14.0367C9.33946 13.7277 8.66054 13.7277 8.27591 14.0367L4.45137 16.8606C3.92148 17.2519 3.18269 16.7577 3.37747 16.1422L4.87213 11.4195C4.99604 11.0014 4.75434 10.3846 4.37907 10.1434L0.276429 7.15708C-0.253536 6.77131 0.0294735 5.95727 0.693556 5.95727H5.582C6.04508 5.95727 6.52774 5.55867 6.65496 5.12944L8.41615 0.440352C8.64216 -0.1614 9.53202 -0.141467 9.7288 0.469756L11.2426 5.1728C11.3698 5.60204 11.8371 5.95727 12.3001 5.95727H17.3064C17.9705 5.95727 18.2535 6.77131 17.7236 7.15708L13.6209 10.1434C13.2457 10.3846 13.004 11.0014 13.1279 11.4195ZM13.0512 9.32131L16.2989 6.95727H12.3001C11.398 6.95727 10.5455 6.3166 10.2878 5.47017L9.04518 1.60965L7.60128 5.45397C7.46294 5.88503 7.17789 6.24179 6.86355 6.48962C6.53959 6.74502 6.09137 6.95727 5.582 6.95727H1.70114L4.94884 9.32131C5.34504 9.58694 5.6032 9.98792 5.74502 10.3532C5.88916 10.7246 5.97464 11.2187 5.83091 11.7036L5.8283 11.7124L4.63541 15.4817L7.66859 13.2421C8.07252 12.926 8.5664 12.8049 9 12.8049C9.43362 12.8049 9.9275 12.926 10.3314 13.2421L13.3646 15.4817L12.1717 11.7124L12.1691 11.7036C12.0254 11.2187 12.1108 10.7246 12.255 10.3532C12.3968 9.9879 12.655 9.58693 13.0512 9.32131Z" fill="#AFB6C1"/>
                 </svg>
+
               </div>
               <p class="employees_rate_text">{{ e.reviews || 'NaN' }} отзывов</p>
             </div>
@@ -547,7 +548,7 @@
                   <path d="M1.3999 6.96667L4.8999 3.5V6.3H13.2999V7.7H4.8999V10.5L1.3999 6.96667Z" fill="var(--color-text)"/>
                 </svg>
             </button>
-            <button :class="{'card_next_btn-disabled' : !clientFisrtName || !clientSecondName || !Mark || value.length < 6, 'card_next_btn-active' : clientFisrtName && clientSecondName && Mark && value.length > 6}" @click="create_client(), showNotes(), create_application()">Записаться</button>
+            <button :class="{'card_next_btn-disabled' : !clientFisrtName || !clientSecondName || !Mark || value.length < 6, 'card_next_btn-active' : clientFisrtName && clientSecondName && Mark && value.length > 6}" @click="create_client(), showNotes(), createApplicationFromWidget()">Записаться</button>
           </div>
         </div> 
       </div>
@@ -807,17 +808,59 @@ export default {
     //   return date;
     // },
 
+    async createApplicationFromWidget()
+    
+    {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const timeForDB =  `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+      
+      const applicationData = {
+        status: 'New',
+        data: timeForDB,
+        employee_id: this.selectedEmployees[0].id,
+        project_id: this.ProjectID,
+        usluga_id: this.selectedUslugi[0].id,
+        client_id: 2,
+        branch_id: this.activeFilial.id,
+        time: timeForDB,
+        color: '#FFFFFF',
+      }
+      console.log(applicationData)
+      try 
+      {
+        const response = await axios.post('http://127.0.0.1:8000/api/create_application_from_widget/', {
+            application: applicationData
+        });
+        console.log(response.data);
+        return response.data;
+      }
+      catch (error) 
+      {
+        console.error('Error creating application from widget:', error);
+        throw error;
+      }
+    },
 
     async get_time(){
       try {
-        
-        let dayofWeek = this.selectedDay.day_of_week
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const timeForDB =  `${year}-${month}-${day}`;
+
+        let date = timeForDB
         let employee_id = this.selectedEmployees[0].id
+        let dayofWeek = this.selectedDay.day_of_week
         let usluga_id = this.selectedUslugi[0].id
-
-        console.log(dayofWeek, employee_id, usluga_id)
-        const response = await axios.get(`http://127.0.0.1:8000/api/get_time/?employee_id=${employee_id}&usluga_id=${usluga_id}&dayofWeek=${dayofWeek}`);
-
+        const response = await axios.get(`http://127.0.0.1:8000/api/get_time/?employee_id=${employee_id}&usluga_id=${usluga_id}&date=${date}&dayofWeek=${dayofWeek}`);
+        console.log(response.data)
         this.intervals = response.data
       } catch (error) {
         console.error('Error fetching applications:', error);
@@ -853,58 +896,57 @@ export default {
       this.breakTime = this.selectedDay.chillTime
       this.interval = this.selectedUslugi[0].time
       this.get_time()
-      this.generateIntervals()
     },
-    generateIntervals() {
-      const parseTimeRange = (timeRange) => {
-        const [start, end] = timeRange.split(' — ').map(time => {
-          const [hours, minutes] = time.split(':').map(Number);
-          return hours * 60 + minutes;
-        });
-        return { start, end };
-      };
+    // generateIntervals() {
+    //   const parseTimeRange = (timeRange) => {
+    //     const [start, end] = timeRange.split(' — ').map(time => {
+    //       const [hours, minutes] = time.split(':').map(Number);
+    //       return hours * 60 + minutes;
+    //     });
+    //     return { start, end };
+    //   };
 
-      const parseInterval = (interval) => {
-        const hourMatch = interval.match(/(\d+)\s*час/);
-        const minuteMatch = interval.match(/(\d+)\s*минут/);
+    //   const parseInterval = (interval) => {
+    //     const hourMatch = interval.match(/(\d+)\s*час/);
+    //     const minuteMatch = interval.match(/(\d+)\s*минут/);
 
-        const hours = hourMatch ? parseInt(hourMatch[1], 10) : 0;
-        const minutes = minuteMatch ? parseInt(minuteMatch[1], 10) : 0;
+    //     const hours = hourMatch ? parseInt(hourMatch[1], 10) : 0;
+    //     const minutes = minuteMatch ? parseInt(minuteMatch[1], 10) : 0;
 
-        return hours * 60 + minutes;
-      };
+    //     return hours * 60 + minutes;
+    //   };
 
-      const formatTime = (minutes) => {
-        const hours = Math.floor(minutes / 60);
-        const mins = minutes % 60;
-        return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
-      };
+    //   const formatTime = (minutes) => {
+    //     const hours = Math.floor(minutes / 60);
+    //     const mins = minutes % 60;
+    //     return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
+    //   };
 
-      const { start, end } = parseTimeRange(this.timeRange);
-      const intervalMinutes = parseInterval(this.interval);
-      const breakRange = this.breakTime ? parseTimeRange(this.breakTime) : null;
+    //   const { start, end } = parseTimeRange(this.timeRange);
+    //   const intervalMinutes = parseInterval(this.interval);
+    //   const breakRange = this.breakTime ? parseTimeRange(this.breakTime) : null;
 
-      let current = start;
-      const result = [];
+    //   let current = start;
+    //   const result = [];
 
-      while (current < end) {
-        let next = current + intervalMinutes;
-        if (next > end) next = end;
+    //   while (current < end) {
+    //     let next = current + intervalMinutes;
+    //     if (next > end) next = end;
 
-        if (breakRange && current < breakRange.end && next > breakRange.start) {
-          if (current < breakRange.start) {
-            result.push(`${formatTime(current)} — ${formatTime(breakRange.start)}`);
-          }
-          current = breakRange.end;
-        } else {
-          result.push(`${formatTime(current)} — ${formatTime(next)}`);
-          current = next;
-        }
-      }
+    //     if (breakRange && current < breakRange.end && next > breakRange.start) {
+    //       if (current < breakRange.start) {
+    //         result.push(`${formatTime(current)} — ${formatTime(breakRange.start)}`);
+    //       }
+    //       current = breakRange.end;
+    //     } else {
+    //       result.push(`${formatTime(current)} — ${formatTime(next)}`);
+    //       current = next;
+    //     }
+    //   }
 
-      this.intervals = result;
-      console.log(this.intervals)
-    },
+    //   this.intervals = result;
+    //   console.log(this.intervals)
+    // },
     generate14DayDictionary(scheduleStr) {
 
       const schedule = JSON.parse(scheduleStr);
@@ -1131,32 +1173,32 @@ export default {
         this.currentPage = 'notes';
       }
     },
-    create_application() {
-      const formData = new FormData();
-      let currentDate = new Date();
-      let year = currentDate.getFullYear();
-      let month = currentDate.getMonth() + 1;
-      let day = currentDate.getDate();
-      let hours = currentDate.getHours();
-      let minutes = currentDate.getMinutes();
-      let formattedDate = `${day}/${month}/${year}, ${hours}:${minutes}`;
+    // create_application() {
+    //   const formData = new FormData();
+    //   let currentDate = new Date();
+    //   let year = currentDate.getFullYear();
+    //   let month = currentDate.getMonth() + 1;
+    //   let day = currentDate.getDate();
+    //   let hours = currentDate.getHours();
+    //   let minutes = currentDate.getMinutes();
+    //   let formattedDate = `${day}/${month}/${year}, ${hours}:${minutes}`;
 
-      formData.append('status', 'New');
-      formData.append('data', formattedDate);
-      formData.append('usluga', this.selectedUslugi[0].id);
-      formData.append('employee', this.selectedEmployees[0].id);
-      formData.append('client', this.clientID);
-      formData.append('project', this.ProjectID);
-      formData.append('branch',this.activeFilial.id);
-      formData.append('time', formattedDate) /// 2024-06-15T10:30:00.000Z
-      axios.post('http://127.0.0.1:8000/api/create_applications/', formData)
-        .then(response => {
-          console.log('application created:', response.data);
-        })
-        .catch(error => {
-          console.error('Error creating application:', error);
-        });
-    },
+    //   formData.append('status', 'New');
+    //   formData.append('data', formattedDate);
+    //   formData.append('usluga', this.selectedUslugi[0].id);
+    //   formData.append('employee', this.selectedEmployees[0].id);
+    //   formData.append('client', this.clientID);
+    //   formData.append('project', this.ProjectID);
+    //   formData.append('branch',this.activeFilial.id);
+    //   formData.append('time', formattedDate) /// 2024-06-15T10:30:00.000Z
+    //   axios.post('http://127.0.0.1:8000/api/create_applications/', formData)
+    //     .then(response => {
+    //       console.log('application created:', response.data);
+    //     })
+    //     .catch(error => {
+    //       console.error('Error creating application:', error);
+    //     });
+    // },
     async get_widgetid(){
       try {
         let name = this.widgetname 
@@ -2349,6 +2391,7 @@ input{
       border-radius: 50%;
       padding: 0;
     }
+
 
     .delete-btn:hover{
       cursor: pointer;
