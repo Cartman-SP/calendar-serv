@@ -97,6 +97,7 @@ p{
   gap: 8px;
   background: #F4FBFA;
   padding: 15px;
+  border-radius: 5px;
 }
 .remain_head{
   display: flex;
