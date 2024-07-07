@@ -97,12 +97,12 @@ p{
   gap: 8px;
   background: #F4FBFA;
   padding: 15px;
+  border-radius: 5px;
 }
 .remain_head{
   display: flex;
   flex-direction: column;
   gap: 5px;
-  border-radius: 5px;
 }
 .remain_header{
   font-family: TT Norms Medium;
