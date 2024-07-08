@@ -548,7 +548,7 @@
                   <path d="M1.3999 6.96667L4.8999 3.5V6.3H13.2999V7.7H4.8999V10.5L1.3999 6.96667Z" fill="var(--color-text)"/>
                 </svg>
             </button>
-            <button :class="{'card_next_btn-disabled' : !clientFisrtName || !clientSecondName || !Mark || value.length < 6, 'card_next_btn-active' : clientFisrtName && clientSecondName && Mark && value.length > 6}" @click="create_client(), showNotes(), createApplicationFromWidget()">Записаться</button>
+            <button :class="{'card_next_btn-disabled' : !clientFisrtName || !clientSecondName || !Mark || value.length < 6, 'card_next_btn-active' : clientFisrtName && clientSecondName && Mark && value.length > 6}" @click="generateApplicationAndClient(), showNotes()">Записаться</button>
           </div>
         </div> 
       </div>
@@ -811,6 +811,8 @@ export default {
     async createApplicationFromWidget()
     
     {
+      const formData = new FormData();
+
       const now = new Date();
       const year = now.getFullYear();
       const month = String(now.getMonth() + 1).padStart(2, '0');
@@ -820,31 +822,24 @@ export default {
       const seconds = String(now.getSeconds()).padStart(2, '0');
       const timeForDB =  `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
       
-      const applicationData = {
-        status: 'New',
-        data: timeForDB,
-        employee_id: this.selectedEmployees[0].id,
-        project_id: this.ProjectID,
-        usluga_id: this.selectedUslugi[0].id,
-        client_id: 2,
-        branch_id: this.activeFilial.id,
-        time: timeForDB,
-        color: '#FFFFFF',
-      }
-      console.log(applicationData)
-      try 
-      {
-        const response = await axios.post('http://127.0.0.1:8000/api/create_application_from_widget/', {
-            application: applicationData
+      formData.append('status', 'New');
+      formData.append('data', timeForDB);
+      formData.append('employee_id', this.selectedEmployees[0].id);
+      formData.append('project_id', this.ProjectID);
+      formData.append('usluga_id',  this.selectedUslugi[0].id);
+      formData.append('client_id', this.clientID);
+      formData.append('branch_id', this.activeFilial.id);
+      formData.append('time', timeForDB)
+      formData.append('color', '#6266EA')
+      console.log(formData)
+
+      axios.post('http://127.0.0.1:8000/api/create_application_from_widget/', formData)
+        .then(response => {
+          console.log('application created:', response.data);
+        })
+        .catch(error => {
+          console.error('Error creating application:', error);
         });
-        console.log(response.data);
-        return response.data;
-      }
-      catch (error) 
-      {
-        console.error('Error creating application from widget:', error);
-        throw error;
-      }
     },
 
     async get_time(){
@@ -1173,32 +1168,7 @@ export default {
         this.currentPage = 'notes';
       }
     },
-    // create_application() {
-    //   const formData = new FormData();
-    //   let currentDate = new Date();
-    //   let year = currentDate.getFullYear();
-    //   let month = currentDate.getMonth() + 1;
-    //   let day = currentDate.getDate();
-    //   let hours = currentDate.getHours();
-    //   let minutes = currentDate.getMinutes();
-    //   let formattedDate = `${day}/${month}/${year}, ${hours}:${minutes}`;
 
-    //   formData.append('status', 'New');
-    //   formData.append('data', formattedDate);
-    //   formData.append('usluga', this.selectedUslugi[0].id);
-    //   formData.append('employee', this.selectedEmployees[0].id);
-    //   formData.append('client', this.clientID);
-    //   formData.append('project', this.ProjectID);
-    //   formData.append('branch',this.activeFilial.id);
-    //   formData.append('time', formattedDate) /// 2024-06-15T10:30:00.000Z
-    //   axios.post('http://127.0.0.1:8000/api/create_applications/', formData)
-    //     .then(response => {
-    //       console.log('application created:', response.data);
-    //     })
-    //     .catch(error => {
-    //       console.error('Error creating application:', error);
-    //     });
-    // },
     async get_widgetid(){
       try {
         let name = this.widgetname 
@@ -1208,30 +1178,36 @@ export default {
         console.error('Error fetching get_widgetid:', error);
       }
     },
-    create_client() {
+    async generateApplicationAndClient(){
+      this.create_client();
+      setTimeout(() => {
+        this.createApplicationFromWidget();
+      }, 1000);
+    },
+    async create_client() {
       const formData = new FormData();
       formData.append('firstname', this.clientFisrtName);
       formData.append('secondname', this.clientSecondName);
       formData.append('mail', 'NaN');
       formData.append('phone', this.value);
 
-      let currentDate = new Date();
-      let year = currentDate.getFullYear();
-      let month = currentDate.getMonth() + 1;
-      let day = currentDate.getDate();
-      let hours = currentDate.getHours();
-      let minutes = currentDate.getMinutes();
+      let now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
 
       let formattedDate = `${day}/${month}/${year}, ${hours}:${minutes}`;
 
       formData.append('date', formattedDate);
       formData.append('project', this.ProjectID);
-      axios.post('http://127.0.0.1:8000/api/create_client/', formData)
+      await axios.post('http://127.0.0.1:8000/api/create_client/', formData)
         .then(response => {
           this.clientID = response.data.client_id
         })
         .catch(error => {
-          console.error('Error creating service:', error);
+          console.error('Error creating client:', error);
         });
     },
     startImageSlider() {

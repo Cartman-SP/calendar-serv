@@ -932,7 +932,7 @@ def delete_request(request):
         request_id = request.POST.get('id')
         application = Application.objects.get(id=request_id)
         application.delete()
-        return JsonResponse({'message': 'Клиент успешно удален'})
+        return JsonResponse({'message': 'Заявка успешно удалена'})
     
 @csrf_exempt
 def set_status(request):
@@ -941,7 +941,7 @@ def set_status(request):
         application = Application.objects.get(id=request_id)
         application.status = request.POST.get('status')
         application.save()
-        return JsonResponse({'message': 'Клиент успешно удален'})
+        return JsonResponse({'message': 'Статус успешно задан'})
     
 
 
@@ -1054,6 +1054,7 @@ def check_time_in_interval(time, start_time_str, interval_str):
     end_time = (datetime.strptime(start_time_str, '%H:%M') + parse_interval(interval_str)).time()
     
     return start_time <= time.time() <= end_time
+
 @api_view(['GET'])
 def get_time(request):  
     if request.method == 'GET':
@@ -1070,8 +1071,8 @@ def get_time(request):
                 if(check_time_in_interval(j.time,i,usluga.time)):
                     time[i] = False
                     break
-        print(time)
         return Response(status=200, data=time)
+
 @api_view(['GET'])
 def get_employee_stats(request):
     if request.method == 'GET':
@@ -1261,18 +1262,49 @@ def edit_widget(request, widget_id):
         return Response(serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['POST'])
+@csrf_exempt
+@require_POST
 def create_application_from_widget(request):
-    application_data = request.data.get('application')
-    print(application_data)
+    status = request.POST.get('status')
+    data = request.POST.get('data')
+    employee_id = request.POST.get('employee_id')
+    project_id = request.POST.get('project_id')
+    usluga_id = request.POST.get('usluga_id')
+    client_id = request.POST.get('client_id')
+    branch_id = request.POST.get('branch_id')
+    time = request.POST.get('time')
+    color = request.POST.get('color')
 
-    # Создание заявки
-    application_serializer = ApplicationSerializer(data=application_data)
-    if application_serializer.is_valid():
-        application = application_serializer.save()
-        return Response(application_serializer.data, status=status.HTTP_201_CREATED)
-    else:
-        return Response(application_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # Преобразование строки даты в объект datetime
+    try:
+        time = datetime.strptime(time, '%Y-%m-%d %H:%M:%S')
+    except ValueError as e:
+        return JsonResponse({'error': str(e)}, status=400)
+
+    # Получение связанных объектов из базы данных
+    try:
+        employee = Employee.objects.get(id=employee_id)
+        project = Project.objects.get(id=project_id)
+        usluga = Usluga.objects.get(id=usluga_id)
+        client = Client.objects.get(id=client_id)
+        branch = Branch.objects.get(id=branch_id)
+    except (Employee.DoesNotExist, Project.DoesNotExist, Usluga.DoesNotExist, Client.DoesNotExist, Branch.DoesNotExist) as e:
+        return JsonResponse({'error': str(e)}, status=400)
+
+    # Создание объекта Application
+    application = Application.objects.create(
+        status=status,
+        data=data,
+        employee=employee,
+        project=project,
+        usluga=usluga,
+        client=client,
+        branch=branch,
+        time=time,
+        color=color
+    )
+
+    return JsonResponse({'message': 'Application created', 'application_id': application.id})
 
 @api_view(['POST'])
 def widget_load(request):

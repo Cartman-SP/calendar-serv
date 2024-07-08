@@ -4,7 +4,8 @@
       <div class="card-container">
         <div class="card-header">
           <div class="main">
-            <img :src="get_img()" alt="Service Cover" class="img_head">
+            <img v-if="employeeData.avatar" :src="get_img()" alt="employee avatar" class="img_head">
+            <img v-else src="../../static/img/avatarPhoto.png" alt="" class="img_head">
             <div class="head">
               <div class="text-container">
                 <p class="text-header">{{ employeeData.firstname }}</p> <!-- Отображаем название услуги -->
@@ -26,7 +27,11 @@
           </div>
           <div class="cards">
             <div class="text-container">
-              <p class="text-header">{{ employeeData.daystime }}</p>
+              <div class="text-header" v-for="(times, day) in JSON.parse(employeeData.daystime)" :key="day">
+                <p v-if="times.work_time">
+                  {{ day }}: {{ times.work_time }}<br><br>
+                </p>
+              </div>
               <p class="text-subheader">Рабочие часы</p>
             </div>
           </div>
@@ -218,7 +223,6 @@ export default {
     letter-spacing: 0em;
     color: #AFB6C1;
     margin: 0;
-    margin-bottom: 10px;
     text-align: left;
   }
   .line{
@@ -245,6 +249,9 @@ export default {
   }
   .card-container{
     padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
   .card-header{
     display: flex;
@@ -252,7 +259,15 @@ export default {
   .main{
     display: flex;
     gap: 20px;
+    align-items: center;
     width: 100%;
+  }
+
+  .head{
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    gap: 10px;
   }
   
   .img_head{
@@ -313,6 +328,7 @@ export default {
     grid-template-rows: 1fr;
     grid-column-gap: 30px;
     margin-bottom: 20px;
+    height: 100%;
   }
   .service{
     display: flex;

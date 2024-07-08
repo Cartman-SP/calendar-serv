@@ -63,7 +63,7 @@ urlpatterns = [
     path('employee/<int:employee_id>/edit/', edit_employee, name='edit_employee'), #НОВЫЕ ПУТИ
     path('branch/<int:branch_id>/edit/', edit_branch, name='edit_branch'), #НОВЫЕ ПУТИ
     path('widget/<int:widget_id>/edit/', edit_widget, name='edit_widget'), #НОВЫЕ ПУТИ
-    path('create_application_from_widget/', create_application_from_widget, name='create_application_from_widget'), #НОВЫЕ ПУТИ
+    path('create_application_from_widget/', create_application_from_widget, name='create_application_from_widget'),
     path('widget_load/', widget_load, name='widget_load'), #НОВЫЕ ПУТИ
     path('set_color/<int:application_id>/', set_color_application, name='set_color_application'), #НОВЫЕ ПУТИ
 ]

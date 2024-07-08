@@ -47,7 +47,7 @@
     <div class="history">
       <div class="pages">
         <p class="history_text">История записей клиента</p>
-        <div class="subnav_page">
+        <div class="subnav_page"  v-show="false">
           <img src="../../static/img/arrow-left.svg" alt="<">
           <div class="list">
             <div class="number_page">
@@ -72,7 +72,7 @@
             <p class="clients_text">{{ a.employee }}</p>
             <p class="clients_text">{{ a.usluga }}</p>
             <p class="clients_text">{{ a.data }}</p>
-            <p class="clients_text">Adress Adress</p>
+            <p class="clients_text">{{ a.filial }}</p>
           </div>
           <div class="clients_divider"></div>
         </div>
@@ -115,11 +115,13 @@ export default {
         const updatedApplications = await Promise.all(applications.map(async application => {
           const employeeResponse = await this.getEmployee(application.employee);
           const uslugaResponse = await this.getUsluga(application.usluga);
+          const filialResponse = await this.getfilial(application.branch);
 
           return {
             ...application,
             employee: employeeResponse.data.firstname + ' ' + employeeResponse.data.secondname,
-            usluga: uslugaResponse.data.name
+            usluga: uslugaResponse.data.name,
+            filial: filialResponse.data.name
           };
         }));
 
@@ -135,6 +137,10 @@ export default {
     },
     async getUsluga(id) {
       const response = await axios.get(`http://127.0.0.1:8000/api/usluga/${id}/`);
+      return response;
+    },
+    async getfilial(id) {
+      const response = await axios.get(`http://127.0.0.1:8000/api/get_filialbyid/?variable=${id}`);
       return response;
     },
   },
