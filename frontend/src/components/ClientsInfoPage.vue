@@ -71,7 +71,7 @@
           <div class="clients_info">
             <p class="clients_text">{{ a.employee }}</p>
             <p class="clients_text">{{ a.usluga }}</p>
-            <p class="clients_text">{{ a.data }}</p>
+            <p class="clients_text">{{ formattedDate(a.data) }}</p>
             <p class="clients_text">{{ a.filial }}</p>
           </div>
           <div class="clients_divider"></div>
@@ -99,6 +99,15 @@ export default {
     }
   },
   methods:{
+    formattedDate(dateStr){
+      const date = new Date(dateStr);
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const year = date.getFullYear();
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      return `${day}.${month}.${year}, ${hours}:${minutes}`;
+    },
     getObjectById() {
       for (let obj of this.clients) {
         if (obj.id === parseInt(this.$route.params.clientId)) {
